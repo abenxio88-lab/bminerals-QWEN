@@ -1,0 +1,104 @@
+/* Scroll Reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s var(--ease-smooth), transform 0.7s var(--ease-smooth);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger Delays */
+.reveal[data-delay="1"] { transition-delay: 0.15s; }
+.reveal[data-delay="2"] { transition-delay: 0.25s; }
+.reveal[data-delay="3"] { transition-delay: 0.35s; }
+.reveal[data-delay="4"] { transition-delay: 0.45s; }
+
+/* Premium Entrance Animations */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.mineral-card {
+  animation: slideInUp 0.7s var(--ease-smooth) backwards;
+}
+
+.mineral-card[data-delay="1"] { animation-delay: 0.15s; }
+.mineral-card[data-delay="2"] { animation-delay: 0.25s; }
+.mineral-card[data-delay="3"] { animation-delay: 0.35s; }
+.mineral-card[data-delay="4"] { animation-delay: 0.45s; }
+
+/* Directional Card Animations */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.mineral-card--left {
+  animation: slideInLeft 0.8s var(--ease-smooth) backwards;
+}
+
+.mineral-card--right {
+  animation: slideInRight 0.8s var(--ease-smooth) backwards;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+  
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,533 @@
+/* ============================================
+   INVESTORS PAGE - Financial Dashboard Design
+   ============================================ */
+
+/* Hero */
+.investors-hero {
+  position: relative;
+  height: 45vh;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-top: var(--navbar-height);
+}
+
+.investors-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.investors-hero__bg img {
+  width: 100%;
+  height: 120%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.investors-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 31, 58, 0.9) 0%,
+    rgba(15, 31, 58, 0.7) 100%
+  );
+  z-index: 1;
+}
+
+.investors-hero__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  padding: 0 2rem;
+  color: white;
+}
+
+.investors-hero__overline {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange-400);
+  margin-bottom: 1rem;
+  padding: 0.4rem 1rem;
+  border: 1px solid var(--orange-400);
+}
+
+.investors-hero__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.investors-hero__text {
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Financial Dashboard */
+.financial-dashboard {
+  padding: 3.5rem var(--section-padding-x);
+  background: var(--bg-secondary);
+}
+
+.financial-dashboard__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.financial-dashboard__header {
+  text-align: center;
+  max-width: 750px;
+  margin: 0 auto 2.5rem;
+}
+
+.financial-dashboard__overline {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange-400);
+  margin-bottom: 0.75rem;
+  padding: 0.4rem 1rem;
+  background: rgba(230, 92, 26, 0.1);
+  border: 1px solid rgba(230, 92, 26, 0.3);
+}
+
+.financial-dashboard__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.financial-dashboard__subtitle {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* KPI Cards */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.kpi-card {
+  padding: 2rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  text-align: center;
+  transition: all 0.4s var(--ease-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.kpi-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--orange-400);
+  transform: scaleX(0);
+  transition: transform 0.4s var(--ease-smooth);
+}
+
+.kpi-card:hover::after {
+  transform: scaleX(1);
+}
+
+.kpi-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--orange-300);
+}
+
+.kpi-card__label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+}
+
+.kpi-card__value {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.35rem;
+}
+
+.kpi-card__trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: #059669;
+  background: rgba(5, 150, 105, 0.08);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-sm);
+}
+
+.kpi-card__trend--down {
+  color: #dc2626;
+  background: rgba(220, 38, 38, 0.08);
+}
+
+/* Revenue Breakdown */
+.revenue-breakdown {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.revenue-card {
+  padding: 2rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+}
+
+.revenue-card__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.revenue-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.revenue-item:last-child {
+  border-bottom: none;
+}
+
+.revenue-item__label {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.revenue-item__value {
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Reports Section */
+.reports-section {
+  padding: 3.5rem var(--section-padding-x);
+  background: var(--bg-primary);
+}
+
+.reports-section__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.reports-section__header {
+  text-align: center;
+  max-width: 750px;
+  margin: 0 auto 2.5rem;
+}
+
+.reports-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.report-item {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: 1.25rem;
+  align-items: center;
+  padding: 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: all 0.4s var(--ease-smooth);
+}
+
+.report-item:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--orange-300);
+}
+
+.report-item__icon {
+  width: 56px;
+  height: 56px;
+  background: rgba(230, 92, 26, 0.08);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--orange-500);
+}
+
+.report-item__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.report-item__meta {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.report-item__download {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--navy-900);
+  color: white;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+/* Compliance Section */
+.compliance-section {
+  padding: 3.5rem var(--section-padding-x);
+  background: var(--navy-900);
+  color: white;
+}
+
+.compliance-section__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.compliance-section__header {
+  max-width: 650px;
+  margin: 0 auto 2.5rem;
+}
+
+.compliance-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.compliance-card {
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  text-align: center;
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.compliance-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--orange-400);
+}
+
+.compliance-card__icon {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  color: var(--orange-400);
+}
+
+.compliance-card__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.compliance-card__text {
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+}
+
+/* CTA */
+.investors-cta {
+  position: relative;
+  padding: 3.5rem var(--section-padding-x);
+  background: var(--bg-primary);
+  overflow: hidden;
+}
+
+.investors-cta::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: -5%;
+  width: 110%;
+  height: 120%;
+  background: var(--navy-900);
+  transform: rotate(-3deg);
+  z-index: 0;
+}
+
+.investors-cta__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.investors-cta__content {
+  color: white;
+}
+
+.investors-cta__overline {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange-400);
+  margin-bottom: 0.75rem;
+}
+
+.investors-cta__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.investors-cta__text {
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 1.25rem;
+}
+
+.investors-cta__visual {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.investors-cta__visual img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .revenue-breakdown {
+    grid-template-columns: 1fr;
+  }
+  
+  .compliance-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .investors-cta__container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .investors-hero {
+    height: 40vh;
+    min-height: 280px;
+  }
+  
+  .investors-hero__title {
+    font-size: var(--text-xl);
+  }
+  
+  .financial-dashboard {
+    padding: 2.5rem var(--section-padding-x);
+  }
+  
+  .kpi-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .reports-section {
+    padding: 2.5rem var(--section-padding-x);
+  }
+  
+  .report-item {
+    grid-template-columns: 48px 1fr;
+  }
+  
+  .report-item__download {
+    grid-column: 2;
+    justify-self: start;
+  }
+  
+  .compliance-section {
+    padding: 2.5rem var(--section-padding-x);
+  }
+  
+  .compliance-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .investors-cta {
+    padding: 2.5rem var(--section-padding-x);
+  }
+  
+  .investors-cta::before {
+    transform: rotate(0deg);
+  }
+}

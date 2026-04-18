@@ -1,0 +1,189 @@
+/* ============================================
+   CTA SECTION - Brutalist Obsidian Edition
+   ============================================ */
+.cta-premium {
+  padding: 4rem var(--section-padding-x) !important;
+  background: #09090b !important; /* Deep Zinc-950 */
+  position: relative;
+  overflow: hidden;
+  border-top: 2px solid var(--orange-500);
+  display: block !important;
+  width: 100%;
+}
+
+/* 1. LAYER: AMBIENT GLOW */
+.cta-premium__glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 0% 0%, rgba(249, 115, 22, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 100% 100%, rgba(30, 58, 95, 0.1) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 2. LAYER: MINERAL MAPPING PATHS */
+.cta-premium__vein-path {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.vein-line {
+  fill: none;
+  stroke: #f97316; /* Copper orange */
+  stroke-width: 1.5;
+  stroke-dasharray: 10 10;
+  animation: tracePath 60s linear infinite;
+}
+
+.vein-line--2 {
+  stroke: #3b82f6; /* Tech Blue */
+  stroke-dasharray: 5 15;
+  animation-duration: 45s;
+  animation-direction: reverse;
+}
+
+@keyframes tracePath {
+  from { stroke-dashoffset: 1000; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* 3. LAYER: TOPOGRAPHIC OVERLAY */
+.cta-premium__map-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1000 1000' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.05' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.02;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  z-index: 1;
+}
+
+/* 4. CONTAINER & CONTENT */
+.cta-premium__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.cta-premium__content {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.02) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  padding: 3rem 2rem !important;
+  border-radius: 0 !important; /* NO FUCKIN RADIUS */
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-left: 3px solid var(--orange-500) !important;
+  box-shadow: 20px 20px 60px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-premium__header {
+  margin-bottom: 1.25rem;
+}
+
+.cta-premium__overline {
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--orange-500);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.cta-premium__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 4vw, 2.5rem) !important;
+  font-weight: 700;
+  color: #fff !important;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase !important;
+}
+
+.cta-premium__text {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.6) !important;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto 2.5rem;
+}
+
+/* 5. BUTTONS SUPREME (SHARP) */
+.cta-premium__buttons {
+  display: flex !important;
+  gap: 1rem !important;
+  justify-content: center !important;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.cta-premium__button {
+  padding: 0.875rem 2.5rem !important;
+  border-radius: 0 !important; /* NO FUCKIN RADIUS */
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 0.75rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  transition: all 0.3s var(--ease-smooth);
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-premium__button--primary {
+  background: var(--orange-500) !important;
+  color: #fff !important;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 1);
+}
+
+.cta-premium__button--primary:hover {
+  background: var(--orange-400) !important;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 1);
+}
+
+.cta-premium__button--secondary {
+  background: transparent !important;
+  color: #fff !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.cta-premium__button--secondary:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: #fff !important;
+}
+
+/* 6. RESPONSIVE REFINEMENT */
+@media (max-width: 768px) {
+  .cta-premium {
+    padding: 3rem 5% !important;
+  }
+  
+  .cta-premium__buttons {
+    flex-direction: column !important;
+    width: 100%;
+  }
+  
+  .cta-premium__button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}

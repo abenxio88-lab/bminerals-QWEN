@@ -1,0 +1,165 @@
+/* ============================================
+   SUSTAINABILITY SECTION - Pakistani Style
+   ============================================ */
+.sustainability {
+  padding: var(--section-padding-y) var(--section-padding-x);
+  background: var(--bg-card);
+}
+
+.sustainability__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.sustainability__layout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.sustainability__content {
+  max-width: 700px;
+}
+
+.sustainability__text {
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 3rem;
+}
+
+/* Sustainability Pillars */
+.sustainability__pillars {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.pillar-item {
+  padding: 1.5rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.pillar-item:hover {
+  background: var(--bg-card);
+  box-shadow: var(--shadow-md);
+}
+
+.pillar-icon {
+  margin-bottom: 1rem;
+}
+
+.pillar-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.pillar-text {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Sustainability Dashboard */
+.sustainability__visual {
+  position: sticky;
+  top: 100px;
+}
+
+.sustainability__dashboard {
+  background: var(--navy-900);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-lg);
+}
+
+.sustainability__dashboard-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: white;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.sustainability__metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.metric-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.metric-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.metric-value {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--orange-400);
+  margin-bottom: 0.5rem;
+}
+
+.metric-label {
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+}
+
+.sustainability__download {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-md);
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.sustainability__download:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .sustainability__layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .sustainability__visual {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .sustainability__pillars {
+    grid-template-columns: 1fr;
+  }
+
+  .sustainability__metrics {
+    grid-template-columns: 1fr;
+  }
+}

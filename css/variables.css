@@ -1,0 +1,118 @@
+:root {
+  /* Colors - Premium Earth-Tech Palette (Refined Copper & Obsidian Slate) */
+  /* Backgrounds */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F8FAFC;
+  --bg-card: #FFFFFF;
+  
+  /* Obsidian Slate (replacing navy) - Deep midnight for premium contrast */
+  --navy-950: #020617; /* Deepest Midnight */
+  --navy-900: #0F172A; /* Slate Base */
+  --navy-800: #1E293B; /* Industrial Slate */
+  --navy-700: #334155;
+  --navy-600: #475569;
+  --navy-500: #64748B;
+  --navy-400: #94A3B8;
+  --navy-300: #CBD5E1;
+  --navy-200: #E2E8F0;
+  --navy-100: #F1F5F9;
+  --navy-50: #F8FAFC;
+  --navy-glow: rgba(15, 23, 42, 0.25);
+  
+  /* Charcoal Gray Scale (Mineral Dust) */
+  --charcoal-900: #18181B;
+  --charcoal-800: #27272A;
+  --charcoal-700: #3F3F46;
+  --charcoal-600: #52525B;
+  --charcoal-500: #71717A;
+  --charcoal-400: #A1A1AA;
+  --charcoal-300: #D4D4D8;
+  --charcoal-200: #E4E4E7;
+  --charcoal-100: #F4F4F5;
+  --charcoal-50: #FAFAFA;
+  
+  /* Refined Copper (replacing vibrant orange) */
+  --orange-600: #9A3412; /* Deep Burnt Copper */
+  --orange-500: #C2410C; /* Refined Copper (Main CTA) */
+  --orange-400: #EA580C; /* Polished Copper (Hover) */
+  --orange-300: #F97316; /* Raw Copper (Accent) */
+  --orange-200: #FB923C; /* Pale Copper */
+  --orange-100: #FED7AA;
+  --orange-50: #FFF7ED;
+  --orange-glow: rgba(194, 65, 12, 0.25);
+  
+  /* Mineral Bronze / Gold Accent */
+  --gold-500: #B45309; /* Deep Bronze */
+  --gold-400: #D97706; /* Raw Gold */
+  --gold-300: #F59E0B; /* Amber Shine */
+  
+  /* Text Colors */
+  --text-primary: #0F172A;
+  --text-secondary: #334155;
+  --text-muted: #64748B;
+  
+  /* Borders */
+  --border: #E2E8F0;
+  --border-light: #F1F5F9;
+
+  /* Gradients - Premium Mineral Theme */
+  --gradient-navy: linear-gradient(135deg, #020617, #0F172A, #1E293B);
+  --gradient-navy-dark: linear-gradient(135deg, #020617, #0F172A);
+  --gradient-orange: linear-gradient(135deg, #9A3412, #C2410C, #EA580C);
+  --gradient-charcoal: linear-gradient(135deg, #18181B, #27272A, #3F3F46);
+  --gradient-hero-overlay: linear-gradient(180deg, rgba(2,6,23,0.85) 0%, rgba(15,23,42,0.4) 100%);
+  /* Typography - Premium Modern Stack */
+  --font-heading: 'Oswald', 'Arial Narrow', sans-serif;
+  --font-brand: 'Montserrat', 'Poppins', sans-serif;
+  --font-body: 'Poppins', system-ui, sans-serif;
+  --font-ui: 'Montserrat', sans-serif;
+  
+  /* Scale */
+  --text-4xl: clamp(2.75rem, 5.5vw, 4.5rem);
+  --text-3xl: clamp(2.25rem, 4.5vw, 3.25rem);
+  --text-2xl: clamp(1.75rem, 3.5vw, 2.5rem);
+  --text-xl: 1.375rem;
+  --text-lg: 1.125rem;
+  --text-base: 1rem;
+  --text-sm: 0.875rem;
+  --text-xs: 0.75rem;
+  
+  /* Spacing */
+  --section-padding-y: 6rem;
+  --section-padding-x: 5%;
+  --max-width: 1400px;
+  --navbar-height: 80px;
+  
+  /* Shadows */
+  --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 20px 40px rgba(30, 58, 95, 0.12);
+  --shadow-navbar: 0 4px 30px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 25px 60px rgba(30, 58, 95, 0.15);
+  --shadow-xl: 0 40px 80px rgba(0, 0, 0, 0.15);
+  
+  /* Border Radius */
+  --radius-lg: 0;
+  --radius-md: 0;
+  --radius-pill: 0;
+  
+  /* Transitions */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.investors {
+  background: var(--navy-950);
+  color: #fff;
+  padding: var(--section-padding-y) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.investors::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 70% 30%, rgba(194, 65, 12, 0.05), transparent 40%);
+  pointer-events: none;
+}

@@ -1,0 +1,478 @@
+/* ============================================
+   MINES & LOGISTICS SECTION - Industrial Mining Excellence
+   ============================================ */
+.mines-logistics-section {
+  padding: var(--section-padding-y) var(--section-padding-x);
+  background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.mines-logistics-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 30% 20%, rgba(230, 92, 26, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at 70% 80%, rgba(44, 94, 143, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.mines-logistics__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Section Header */
+.mines-logistics__header {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 5rem;
+}
+
+.mines-logistics__title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.mines-logistics__subtitle {
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+  line-height: 1.8;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Mining Operations Timeline */
+.mines-logistics__operations {
+  margin-bottom: 5rem;
+}
+
+.mines-logistics__operations-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 3rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.mines-logistics__timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.mines-logistics__timeline-item {
+  display: flex;
+  gap: 3rem;
+  padding-bottom: 3rem;
+  position: relative;
+}
+
+.mines-logistics__timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+/* Timeline Marker */
+.mines-logistics__timeline-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.mines-logistics__timeline-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 3px solid;
+  background: var(--bg-card);
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.mines-logistics__timeline-dot--active {
+  border-color: var(--orange-500);
+  box-shadow: 0 0 0 6px rgba(230, 92, 26, 0.15);
+}
+
+.mines-logistics__timeline-dot--processing {
+  border-color: var(--navy-500);
+  box-shadow: 0 0 0 6px rgba(44, 94, 143, 0.15);
+}
+
+.mines-logistics__timeline-dot--exploration {
+  border-color: var(--charcoal-600);
+  box-shadow: 0 0 0 6px rgba(74, 86, 96, 0.15);
+}
+
+.mines-logistics__timeline-item:hover .mines-logistics__timeline-dot {
+  transform: scale(1.2);
+}
+
+.mines-logistics__timeline-line {
+  width: 3px;
+  flex: 1;
+  background: linear-gradient(
+    to bottom,
+    var(--border) 0%,
+    var(--border-light) 100%
+  );
+  margin-top: 1rem;
+}
+
+/* Timeline Content */
+.mines-logistics__timeline-content {
+  flex: 1;
+  padding: 2rem 2.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.4s var(--ease-smooth);
+}
+
+.mines-logistics__timeline-item:hover .mines-logistics__timeline-content {
+  box-shadow: var(--shadow-lg);
+  border-color: var(--orange-300);
+}
+
+/* Site Badge */
+.mines-logistics__site-badge {
+  display: inline-block;
+  padding: 0.35rem 0.875rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.mines-logistics__site-badge--active {
+  background: rgba(230, 92, 26, 0.1);
+  color: var(--orange-600);
+  border: 1px solid rgba(230, 92, 26, 0.3);
+}
+
+.mines-logistics__site-badge--processing {
+  background: rgba(44, 94, 143, 0.1);
+  color: var(--navy-600);
+  border: 1px solid rgba(44, 94, 143, 0.3);
+}
+
+.mines-logistics__site-badge--exploration {
+  background: rgba(74, 86, 96, 0.1);
+  color: var(--charcoal-700);
+  border: 1px solid rgba(74, 86, 96, 0.3);
+}
+
+/* Site Name & Location */
+.mines-logistics__site-name {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.mines-logistics__site-location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.mines-logistics__site-location svg {
+  color: var(--orange-400);
+}
+
+/* Site Metrics */
+.mines-logistics__site-metrics {
+  display: flex;
+  gap: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.mines-logistics__metric {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.mines-logistics__metric-value {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--orange-500);
+  letter-spacing: 0.02em;
+}
+
+.mines-logistics__metric-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Logistics Network */
+.mines-logistics__logistics {
+  margin-bottom: 5rem;
+}
+
+.mines-logistics__logistics-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 3rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.mines-logistics__logistics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+}
+
+.mines-logistics__logistics-card {
+  padding: 2.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.4s var(--ease-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.mines-logistics__logistics-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-orange);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease-smooth);
+}
+
+.mines-logistics__logistics-card:hover::before {
+  transform: scaleX(1);
+}
+
+.mines-logistics__logistics-card:hover {
+  box-shadow: var(--shadow-lg);
+  border-color: var(--orange-300);
+}
+
+.mines-logistics__logistics-icon {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.mines-logistics__logistics-card-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.mines-logistics__logistics-card-text {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.mines-logistics__logistics-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.mines-logistics__logistics-stat-value {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--navy-600);
+  letter-spacing: 0.02em;
+}
+
+.mines-logistics__logistics-stat-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Export Capacity */
+.mines-logistics__export {
+  margin-bottom: 3rem;
+}
+
+.mines-logistics__export-card {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 4rem;
+  padding: 3.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  align-items: center;
+}
+
+.mines-logistics__export-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.mines-logistics__export-text {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+}
+
+.mines-logistics__export-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.mines-logistics__export-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1.25rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+}
+
+.mines-logistics__export-metric-value {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--orange-500);
+  letter-spacing: 0.02em;
+}
+
+.mines-logistics__export-metric-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.mines-logistics__export-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .mines-logistics__logistics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .mines-logistics__export-card {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .mines-logistics-section {
+    padding: 4rem var(--section-padding-x);
+  }
+
+  .mines-logistics__header {
+    margin-bottom: 3rem;
+  }
+
+  .mines-logistics__title {
+    font-size: var(--text-2xl);
+  }
+
+  .mines-logistics__timeline-item {
+    gap: 2rem;
+  }
+
+  .mines-logistics__timeline-content {
+    padding: 1.5rem;
+  }
+
+  .mines-logistics__site-metrics {
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .mines-logistics__logistics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mines-logistics__export-card {
+    padding: 2rem;
+  }
+
+  .mines-logistics__export-metrics {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .mines-logistics__operations-title,
+  .mines-logistics__logistics-title {
+    font-size: var(--text-xl);
+  }
+
+  .mines-logistics__site-name {
+    font-size: var(--text-lg);
+  }
+
+  .mines-logistics__export-title {
+    font-size: var(--text-xl);
+  }
+}

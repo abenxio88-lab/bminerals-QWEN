@@ -1,0 +1,98 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-radius: 0 !important;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: var(--orange-400) var(--bg-primary);
+  scrollbar-gutter: stable;
+}
+
+html::-webkit-scrollbar {
+  width: 10px;
+}
+
+html::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+html::-webkit-scrollbar-thumb {
+  background: var(--orange-500);
+  border-radius: 0;
+  border: 2px solid var(--bg-primary);
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: var(--orange-600);
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: rgba(15, 31, 58, 0.95);
+  color: white;
+  transform: translateY(-200%);
+  transition: transform 0.2s var(--ease-smooth);
+  z-index: 2000;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s var(--ease-smooth);
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Focus States */
+:focus-visible {
+  outline: 2px solid var(--orange-500);
+  outline-offset: 3px;
+}
+
+button:focus-visible, a:focus-visible {
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--orange-500);
+  color: white;
+}

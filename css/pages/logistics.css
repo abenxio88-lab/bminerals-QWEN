@@ -1,0 +1,400 @@
+/* ============================================
+   LOGISTICS PAGE - Transport Network Design
+   ============================================ */
+
+/* Hero */
+.logistics-hero {
+  position: relative;
+  height: 45vh;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-top: var(--navbar-height);
+}
+
+.logistics-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.logistics-hero__bg img {
+  width: 100%;
+  height: 120%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.logistics-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15,31,58,0.88) 0%, rgba(15,31,58,0.65) 100%);
+  z-index: 1;
+}
+
+.logistics-hero__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  padding: 0 2rem;
+  color: white;
+}
+
+.logistics-hero__overline {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange-400);
+  margin-bottom: 1rem;
+  padding: 0.4rem 1rem;
+  border: 1px solid var(--orange-400);
+}
+
+.logistics-hero__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.logistics-hero__text {
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
+  color: rgba(255,255,255,0.9);
+}
+
+/* Route Overview */
+.route-overview {
+  padding: 3.5rem var(--section-padding-x);
+  background: var(--bg-primary);
+}
+
+.route-overview__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.route-overview__header {
+  text-align: center;
+  max-width: 750px;
+  margin: 0 auto 2.5rem;
+}
+
+.route-overview__overline {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange-400);
+  margin-bottom: 0.75rem;
+  padding: 0.4rem 1rem;
+  background: rgba(230,92,26,0.1);
+  border: 1px solid rgba(230,92,26,0.3);
+}
+
+.route-overview__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.route-overview__subtitle {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* Route Cards */
+.route-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.route-card {
+  padding: 2rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  text-align: center;
+  transition: all 0.4s var(--ease-smooth);
+  position: relative;
+}
+
+.route-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--orange-300);
+}
+
+.route-card__icon {
+  margin-bottom: 1.25rem;
+  display: flex;
+  justify-content: center;
+  color: var(--orange-500);
+}
+
+.route-card__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.route-card__text {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+}
+
+.route-card__detail {
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.route-card__detail-value {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--orange-500);
+}
+
+.route-card__detail-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Network Map Section */
+.network-map {
+  padding: 3.5rem var(--section-padding-x);
+  background: var(--bg-secondary);
+}
+
+.network-map__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.network-map__header {
+  max-width: 750px;
+  margin: 0 auto 2.5rem;
+}
+
+.network-map__visual {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+}
+
+.network-map__svg {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+}
+
+/* Capacity Section */
+.capacity-section {
+  padding: 3.5rem var(--section-padding-x);
+  background: var(--bg-primary);
+}
+
+.capacity-section__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.capacity-section__header {
+  text-align: center;
+  max-width: 750px;
+  margin: 0 auto 2.5rem;
+}
+
+.capacity-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.capacity-item {
+  padding: 2rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  text-align: center;
+  transition: all 0.4s var(--ease-smooth);
+}
+
+.capacity-item:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--orange-300);
+}
+
+.capacity-item__icon {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  color: var(--navy-500);
+}
+
+.capacity-item__value {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--orange-500);
+  margin-bottom: 0.35rem;
+}
+
+.capacity-item__label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.capacity-item__text {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-top: 0.75rem;
+}
+
+/* CTA */
+.logistics-cta {
+  position: relative;
+  padding: 3.5rem var(--section-padding-x);
+  background: var(--bg-primary);
+  overflow: hidden;
+}
+
+.logistics-cta::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: -5%;
+  width: 110%;
+  height: 120%;
+  background: var(--navy-900);
+  transform: rotate(-3deg);
+  z-index: 0;
+}
+
+.logistics-cta__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.logistics-cta__content {
+  color: white;
+}
+
+.logistics-cta__overline {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange-400);
+  margin-bottom: 0.75rem;
+}
+
+.logistics-cta__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.logistics-cta__text {
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 1.25rem;
+}
+
+.logistics-cta__image {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.logistics-cta__image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .route-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .capacity-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .logistics-cta__container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .logistics-hero {
+    height: 40vh;
+    min-height: 280px;
+  }
+  .route-overview {
+    padding: 2.5rem var(--section-padding-x);
+  }
+  .route-grid {
+    grid-template-columns: 1fr;
+  }
+  .network-map {
+    padding: 2.5rem var(--section-padding-x);
+  }
+  .capacity-section {
+    padding: 2.5rem var(--section-padding-x);
+  }
+  .capacity-grid {
+    grid-template-columns: 1fr;
+  }
+  .logistics-cta {
+    padding: 2.5rem var(--section-padding-x);
+  }
+  .logistics-cta::before {
+    transform: rotate(0deg);
+  }
+}

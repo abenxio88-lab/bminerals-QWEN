@@ -1,0 +1,310 @@
+/* ============================================
+   MINERALS SECTION - Showcase Layout
+   ============================================ */
+.minerals {
+  padding: var(--section-padding-y) var(--section-padding-x);
+  background: var(--bg-primary);
+}
+
+.minerals__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.minerals__header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.minerals__subtitle {
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+  max-width: 700px;
+  margin: 1rem auto 0;
+  line-height: 1.7;
+}
+
+/* Showcase Layout */
+.minerals__showcase {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.minerals__dual-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+}
+
+/* Mineral Showcase Card */
+.mineral-showcase {
+  display: grid;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.3s var(--ease-smooth), border-color 0.3s var(--ease-smooth);
+}
+
+.mineral-showcase:hover {
+  border-color: var(--orange-300);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Wide Card (full width) */
+.mineral-showcase--wide {
+  grid-template-columns: 1fr 1fr;
+  min-height: 400px;
+}
+
+.mineral-showcase--wide.reveal.revealed {
+  animation: fadeIn 0.7s var(--ease-smooth) backwards;
+}
+
+/* Reversed Wide Card (image on right) */
+.mineral-showcase--reversed {
+  direction: rtl;
+}
+
+.mineral-showcase--reversed .mineral-showcase__content {
+  direction: ltr;
+}
+
+.mineral-showcase--reversed .mineral-showcase__image {
+  direction: ltr;
+}
+
+/* Tall Card (vertical, side-by-side) */
+.mineral-showcase--tall {
+  grid-template-columns: 1fr;
+  grid-template-rows: 240px 1fr;
+}
+
+.mineral-showcase--tall.reveal.revealed {
+  animation: slideInUp 0.7s var(--ease-smooth) backwards;
+}
+
+/* Image Section */
+.mineral-showcase__image {
+  position: relative;
+  overflow: hidden;
+  background: var(--navy-900);
+}
+
+.mineral-showcase__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.6s var(--ease-smooth);
+}
+
+.mineral-showcase:hover .mineral-showcase__image img {
+  transform: scale(1.05);
+}
+
+.mineral-showcase__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(15, 31, 58, 0.3) 50%,
+    rgba(15, 31, 58, 0.7) 100%
+  );
+  pointer-events: none;
+}
+
+/* Wide card: overlay fades left-to-right */
+.mineral-showcase--wide .mineral-showcase__overlay {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(15, 31, 58, 0.4) 60%,
+    rgba(15, 31, 58, 0.8) 100%
+  );
+}
+
+.mineral-showcase--reversed .mineral-showcase__overlay {
+  background: linear-gradient(
+    270deg,
+    transparent 0%,
+    rgba(15, 31, 58, 0.4) 60%,
+    rgba(15, 31, 58, 0.8) 100%
+  );
+}
+
+/* Content Section */
+.mineral-showcase__content {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.mineral-showcase__label {
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--orange-500);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+.mineral-showcase__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.mineral-showcase__description {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+
+/* Stats Row */
+.mineral-showcase__stats {
+  display: flex;
+  gap: 2rem;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.showcase-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.showcase-stat__value {
+  font-family: var(--font-heading);
+  font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+  font-weight: 600;
+  color: var(--navy-700);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.showcase-stat__label {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+/* CTA Button */
+.mineral-showcase__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.875rem 1.75rem;
+  background: var(--navy-700);
+  color: white;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: background 0.3s var(--ease-smooth), box-shadow 0.3s var(--ease-smooth);
+  align-self: flex-start;
+}
+
+.mineral-showcase__cta svg {
+  transition: transform 0.3s var(--ease-smooth);
+}
+
+.mineral-showcase__cta:hover {
+  background: var(--orange-500);
+  box-shadow: 0 4px 16px rgba(4, 120, 87, 0.3);
+}
+
+.mineral-showcase__cta:hover svg {
+  transform: translateY(2px);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .mineral-showcase--wide {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .mineral-showcase--wide .mineral-showcase__image {
+    height: 280px;
+  }
+
+  .mineral-showcase--reversed {
+    direction: ltr;
+  }
+
+  .minerals__dual-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .mineral-showcase--tall {
+    grid-template-rows: 220px 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .mineral-showcase__content {
+    padding: 2rem 1.5rem;
+    gap: 0.875rem;
+  }
+
+  .mineral-showcase__stats {
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .mineral-showcase__wide .mineral-showcase__image {
+    height: 240px;
+  }
+
+  .mineral-showcase--tall {
+    grid-template-rows: 200px 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .mineral-showcase__content {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .mineral-showcase__stats {
+    gap: 1rem;
+  }
+
+  .showcase-stat__value {
+    font-size: var(--text-base);
+  }
+
+  .mineral-showcase__wide .mineral-showcase__image {
+    height: 200px;
+  }
+
+  .mineral-showcase--tall {
+    grid-template-rows: 180px 1fr;
+  }
+
+  .mineral-showcase__cta {
+    width: 100%;
+    justify-content: center;
+  }
+}

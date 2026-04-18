@@ -1,0 +1,252 @@
+.minerals {
+  padding: var(--section-padding-y) var(--section-padding-x);
+  background: var(--bg-primary);
+}
+
+.minerals__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.minerals__header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.minerals__label {
+  display: inline-block;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--navy-700);
+  margin-bottom: 1rem;
+}
+
+.minerals__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.minerals__subtitle {
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* Minerals Header Update */
+.minerals__header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+/* Cards Grid */
+.minerals__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+/* Card */
+.mineral-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: all 0.5s var(--ease-smooth);
+  position: relative;
+}
+
+.mineral-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(44, 94, 143, 0.05), rgba(74, 123, 168, 0.02));
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-smooth);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.mineral-card:hover {
+  box-shadow: 0 20px 50px rgba(30, 58, 95, 0.2);
+  border-color: rgba(44, 94, 143, 0.3);
+}
+
+.mineral-card:hover::before {
+  opacity: 1;
+}
+
+.mineral-card__image {
+  position: relative;
+  height: 240px;
+  background: linear-gradient(135deg, var(--navy-500), var(--navy-600));
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mineral-card__image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(74, 123, 168, 0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-smooth);
+}
+
+.mineral-card:hover .mineral-card__image::after {
+  opacity: 1;
+}
+
+.mineral-card__image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  color: rgba(255, 255, 255, 0.8);
+  opacity: 1;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.4s var(--ease-smooth), opacity 0.4s var(--ease-smooth);
+}
+
+.mineral-card:hover .mineral-card__image-placeholder {
+  opacity: 1;
+}
+
+.mineral-card__badge {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  padding: 0.5rem 1.2rem;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--navy-700);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  z-index: 3;
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.mineral-card:hover .mineral-card__badge {
+  box-shadow: 0 6px 20px rgba(30, 58, 95, 0.25);
+}
+
+.mineral-card__content {
+  padding: 1.5rem;
+}
+
+.mineral-card__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--navy-900);
+  transition: color 0.3s var(--ease-smooth);
+}
+
+.mineral-card:hover .mineral-card__title {
+  color: var(--navy-700);
+}
+
+/* Specs Grid */
+.mineral-card__specs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+  margin-bottom: 1.5rem;
+  padding: 1.2rem;
+  background: linear-gradient(135deg, rgba(44, 94, 143, 0.05), rgba(74, 123, 168, 0.03));
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(44, 94, 143, 0.1);
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.mineral-card:hover .mineral-card__specs {
+  background: linear-gradient(135deg, rgba(44, 94, 143, 0.1), rgba(74, 123, 168, 0.06));
+  border-color: rgba(44, 94, 143, 0.2);
+}
+
+.mineral-card__spec {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.mineral-card__spec-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--navy-700);
+  opacity: 0.8;
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.mineral-card:hover .mineral-card__spec-label {
+  opacity: 1;
+}
+
+.mineral-card__spec-value {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--navy-900);
+  letter-spacing: -0.01em;
+}
+
+/* Card CTA */
+.mineral-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.875rem 1.5rem;
+  width: 100%;
+  justify-content: center;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: white;
+  letter-spacing: 0.06em;
+  background: var(--orange-500);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: all 0.3s var(--ease-smooth);
+  position: relative;
+}
+
+.mineral-card__cta svg {
+  transition: transform 0.3s var(--ease-smooth);
+}
+
+.mineral-card__cta:hover {
+  background: var(--orange-400);
+  box-shadow: 0 4px 16px rgba(44, 94, 143, 0.3);
+}
+
+.mineral-card__cta:hover svg {
+  opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .minerals__grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .minerals__title {
+    font-size: var(--text-2xl);
+  }
+}

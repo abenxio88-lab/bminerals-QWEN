@@ -1,0 +1,176 @@
+/**
+ * Testimonials Advanced - Infinite Marquee & Global Trust
+ * Part of the Earth-Tech Design System
+ */
+
+.testimonials {
+  background: var(--navy-950);
+  padding: 3rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonials__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.testimonials__header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.testimonials__header .section-label,
+.testimonials__header .section-title {
+  color: #FFFFFF !important;
+}
+
+.testimonials__marquee-container {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  margin-top: 2rem;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+@media (max-width: 768px) {
+  .testimonial-card {
+    width: 320px;
+    padding: 2rem;
+  }
+  .testimonials__marquee {
+    gap: 1.5rem;
+    animation-duration: 30s;
+  }
+}
+
+.testimonials__marquee {
+  display: flex;
+  gap: 2rem;
+  width: max-content;
+  animation: marquee-scroll 40s linear infinite;
+  padding: 1.5rem;
+}
+
+.testimonials__marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.testimonial-card {
+  width: 400px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 2rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.testimonial-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.testimonial-card::before {
+  display: none;
+}
+
+.testimonial-card__quote-mark {
+  display: none;
+}
+
+.testimonial-card__text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #CBD5E1;
+  font-weight: 300;
+  font-style: normal;
+  min-height: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.testimonial-card__author {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.testimonial-card__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--navy-800);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+}
+
+.testimonial-card__info {
+  display: flex;
+  flex-direction: column;
+}
+
+.testimonial-card__name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.01em;
+}
+
+.testimonial-card__title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  color: var(--navy-400);
+  margin-top: 0.15rem;
+}
+
+/* Location Badges */
+.testimonial-card__location {
+  position: relative;
+  font-size: 0.65rem;
+  font-weight: 400;
+  color: var(--navy-400);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: -0.5rem;
+}
+
+.testimonial-card__location svg {
+  width: 10px;
+  height: 10px;
+  fill: var(--navy-400);
+}

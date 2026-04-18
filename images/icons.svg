@@ -1,0 +1,263 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <!-- NAVBAR ICONS -->
+  <symbol id="icon-data-freshness" viewBox="0 0 14 14">
+    <circle cx="7" cy="7" r="6" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M7 3 V7 L9.5 8.5" stroke="currentColor" stroke-width="1.2" fill="none"/>
+  </symbol>
+
+  <symbol id="icon-home" viewBox="0 0 16 16">
+    <path d="M2 8L8 2L14 8" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <path d="M4 7V14H12V7" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="icon-chevron-down" viewBox="0 0 12 12">
+    <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- ABOUT US ICONS -->
+  <symbol id="icon-story" viewBox="0 0 20 20">
+    <circle cx="10" cy="6" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <path d="M2 18C2 14 5 12 10 12C15 12 18 14 18 18" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  </symbol>
+
+  <symbol id="icon-leadership" viewBox="0 0 20 20">
+    <rect x="3" y="3" width="14" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <path d="M7 10H13M10 7V13" stroke="currentColor" stroke-width="1.5"/>
+  </symbol>
+
+  <symbol id="icon-vision" viewBox="0 0 20 20">
+    <path d="M10 2L13 8L19 9L14 14L15 20L10 17L5 20L6 14L1 9L7 8Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  </symbol>
+
+  <symbol id="icon-achievements" viewBox="0 0 20 20">
+    <path d="M3 14L7 6L11 10L17 4" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M14 4H17V7" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  </symbol>
+
+  <!-- PRODUCTS ICONS -->
+  <symbol id="icon-iron-ore" viewBox="0 0 20 20">
+    <path d="M10 2L4 10L7 10L5 18L15 8L12 8L10 2Z" fill="currentColor"/>
+  </symbol>
+
+  <symbol id="icon-barite" viewBox="0 0 20 20">
+    <rect x="4" y="4" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="7" y="7" width="6" height="6" rx="1" fill="currentColor" opacity="0.4"/>
+  </symbol>
+
+  <symbol id="icon-chromite" viewBox="0 0 20 20">
+    <circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="10" r="3" fill="currentColor"/>
+  </symbol>
+
+  <symbol id="icon-copper" viewBox="0 0 20 20">
+    <path d="M5 15L10 5L15 15" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M7 11L13 11" stroke="currentColor" stroke-width="1.5"/>
+  </symbol>
+
+  <!-- PROJECTS ICONS -->
+  <symbol id="icon-mine" viewBox="0 0 20 20">
+    <path d="M3 16L10 4L17 16H3Z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10 10V13" stroke="currentColor" stroke-width="1.5"/>
+  </symbol>
+
+  <symbol id="icon-facility" viewBox="0 0 20 20">
+    <rect x="3" y="8" width="14" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 8V6H13V8" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  </symbol>
+
+  <symbol id="icon-exploration" viewBox="0 0 20 20">
+    <circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10 7V10L13 12" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  </symbol>
+
+  <!-- SUSTAINABILITY ICONS -->
+  <symbol id="icon-esg" viewBox="0 0 20 20">
+    <path d="M10 18C10 18 3 12 3 8C3 5 5 2 10 2C15 2 17 5 17 8C17 12 10 18 10 18Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  </symbol>
+
+  <symbol id="icon-water" viewBox="0 0 20 20">
+    <path d="M3 14Q10 4 17 14" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M10 14V18" stroke="currentColor" stroke-width="1.5"/>
+  </symbol>
+
+  <symbol id="icon-reclamation" viewBox="0 0 20 20">
+    <path d="M10 18L6 10C6 6 8 4 10 4C12 4 14 6 14 10L10 18Z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10 10V14" stroke="currentColor" stroke-width="1.5"/>
+  </symbol>
+
+  <symbol id="icon-community" viewBox="0 0 20 20">
+    <circle cx="7" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="13" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="14" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  </symbol>
+
+  <!-- INVESTORS ICONS -->
+  <symbol id="icon-financials" viewBox="0 0 20 20">
+    <path d="M3 16L8 10L12 13L17 4" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="17" cy="4" r="2" fill="currentColor"/>
+  </symbol>
+
+  <symbol id="icon-annual-report" viewBox="0 0 20 20">
+    <rect x="4" y="2" width="12" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 7H13M7 10H13M7 13H10" stroke="currentColor" stroke-width="1.5"/>
+  </symbol>
+
+  <symbol id="icon-stock" viewBox="0 0 20 20">
+    <rect x="3" y="4" width="14" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 10H17" stroke="currentColor" stroke-width="1.5"/>
+  </symbol>
+
+  <!-- LOGISTICS ICONS -->
+  <symbol id="icon-road-transport" viewBox="0 0 20 20">
+    <rect x="2" y="6" width="16" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="6" cy="16" r="2" fill="currentColor"/><circle cx="14" cy="16" r="2" fill="currentColor"/>
+  </symbol>
+
+  <symbol id="icon-rail" viewBox="0 0 20 20">
+    <rect x="2" y="10" width="16" height="4" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="6" cy="16" r="2" fill="currentColor"/><circle cx="14" cy="16" r="2" fill="currentColor"/>
+  </symbol>
+
+  <symbol id="icon-port" viewBox="0 0 20 20">
+    <path d="M3 14L10 6L17 14H3Z" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="8" y="14" width="4" height="3" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  </symbol>
+
+  <symbol id="icon-export" viewBox="0 0 20 20">
+    <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10 6V10L13 13" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  </symbol>
+
+  <!-- HERO SECTION ICONS -->
+  <symbol id="icon-arrow-left" viewBox="0 0 24 24">
+    <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <symbol id="icon-arrow-right" viewBox="0 0 24 24">
+    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <symbol id="icon-cta-arrow" viewBox="0 0 20 20">
+    <path d="M7 4L13 10L7 16" stroke="currentColor" stroke-width="2" fill="none"/>
+  </symbol>
+
+  <!-- SECTION ICONS -->
+  <symbol id="icon-star-mission" viewBox="0 0 32 32">
+    <path d="M16 4L20 12L28 14L22 20L24 28L16 24L8 28L10 20L4 14L12 12Z" fill="none" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="icon-vision-eye" viewBox="0 0 32 32">
+    <circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="2"/>
+    <circle cx="16" cy="16" r="6" fill="none" stroke="currentColor" stroke-width="2"/>
+    <circle cx="16" cy="16" r="2" fill="currentColor"/>
+  </symbol>
+
+  <symbol id="icon-safety-clock" viewBox="0 0 28 28">
+    <path d="M14 4V14L20 18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <circle cx="14" cy="14" r="12" fill="none" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="icon-nature-leaf" viewBox="0 0 28 28">
+    <path d="M4 14Q14 4 24 14Q14 24 4 14Z" fill="none" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="icon-people-community" viewBox="0 0 28 28">
+    <circle cx="10" cy="10" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
+    <circle cx="18" cy="10" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
+    <circle cx="14" cy="18" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="icon-integrity-check" viewBox="0 0 28 28">
+    <rect x="4" y="4" width="20" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+    <path d="M9 14L13 18L19 10" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- STORY TIMELINE ICONS -->
+  <symbol id="icon-star-foundation" viewBox="0 0 24 24">
+    <path d="M12 2L15 8L21 9L17 14L18 20L12 17L6 20L7 14L3 9L9 8Z" fill="none" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="icon-shield-check" viewBox="0 0 24 24">
+    <path d="M9 12L11 14L15 10M21 12C21 16.97 16.97 21 12 21C7.03 21 3 16.97 3 12C3 7.03 7.03 3 12 3C16.97 3 21 7.03 21 12Z" fill="none" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="icon-building" viewBox="0 0 24 24">
+    <path d="M3 21H21M5 21V11L12 4L19 11V21M9 21V16H15V21" fill="none" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="icon-bolt-production" viewBox="0 0 24 24">
+    <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="none" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="icon-global-earth" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10"/><path d="M2 12H22M12 2V22" fill="none" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="icon-users-growth" viewBox="0 0 24 24">
+    <path d="M17 21V19C17 16.79 15.21 15 13 15H5C2.79 15 1 16.79 1 19V21M23 21V19C22.99 17.35 21.79 15.96 20.2 15.69M16 3.19C17.64 3.57 18.91 4.92 19.09 6.59M12 11C9.79 11 8 9.21 8 7C8 4.79 9.79 3 12 3C14.21 3 16 4.79 16 7C16 9.21 14.21 11 12 11Z" fill="none" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="icon-pulse-modern" viewBox="0 0 24 24">
+    <path d="M22 12H18L15 21L9 3L6 12H2" fill="none" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="icon-time-capacity" viewBox="0 0 24 24">
+    <path d="M12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22Z"/><path d="M12 6V12L16 14" fill="none" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="icon-network-globe" viewBox="0 0 24 24">
+    <path d="M21 16V8C20.99 6.35 19.79 4.96 18.2 4.69L13 3.81C12.36 3.7 11.64 3.7 11 3.81L5.8 4.69C4.21 4.96 3.01 6.35 3 8V16C3.01 17.65 4.21 19.04 5.8 19.31L11 20.19C11.64 20.3 12.36 20.3 13 20.19L18.2 19.31C19.79 19.04 20.99 17.65 21 16Z" fill="none" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="icon-document" viewBox="0 0 24 24">
+    <path d="M14 2H6C4.89 2 4 2.89 4 4V20C4 21.11 4.89 22 6 22H18C19.11 22 20 21.11 20 20V8L14 2Z" fill="none" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="icon-sinter" viewBox="0 0 24 24">
+    <rect x="2" y="6" width="20" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 6V18" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="icon-chevron-right" viewBox="0 0 16 16">
+    <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/>
+  </symbol>
+
+  <symbol id="icon-truck" viewBox="0 0 24 24">
+    <rect x="2" y="6" width="20" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="18" cy="18" r="2" fill="currentColor"/>
+  </symbol>
+
+  <symbol id="icon-heart" viewBox="0 0 28 28">
+    <path d="M14 21C14 21 4 15 4 10C4 6 7 4 14 4C21 4 24 6 24 10C24 15 14 21 14 21Z" fill="none" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="icon-leaf-water" viewBox="0 0 28 28">
+    <path d="M4 14Q14 4 24 14Q14 24 4 14Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14 14V20" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="icon-growth-chart" viewBox="0 0 28 28">
+    <path d="M6 18L10 8L14 14L18 6L22 12" fill="none" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="icon-trend-up" viewBox="0 0 14 14">
+    <path d="M7 2V12M7 2L4 5M7 2L10 5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  </symbol>
+
+  <symbol id="icon-impact" viewBox="0 0 28 28">
+    <path d="M14 4L20 12L14 20L8 12Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 14H24" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="icon-ship" viewBox="0 0 48 48">
+    <path d="M6 30L18 14L30 24L42 10" fill="none" stroke="currentColor" stroke-width="2"/><rect x="14" y="30" width="20" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M18 38V42H30V38" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+
+  <!-- SOCIAL ICONS -->
+  <symbol id="icon-linkedin" viewBox="0 0 20 20">
+    <path d="M4 8 V16 M4 5 V6 M8 16 V11 C8 9 10 8 12 8 C14 8 14 10 14 11 V16 M8 5 C8 6 9 7 10 7 C11 7 12 6 12 5 C12 4 11 3 10 3 C9 3 8 4 8 5 Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  </symbol>
+
+  <symbol id="icon-twitter" viewBox="0 0 20 20">
+    <path d="M2 4 L8 11 L3 17 M18 4 L12 11 L17 17" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  </symbol>
+
+  <symbol id="icon-youtube" viewBox="0 0 20 20">
+    <rect x="3" y="6" width="14" height="8" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><polygon points="9,9 9,11 13,10" fill="currentColor"/>
+  </symbol>
+
+  <!-- CONTACT ICONS -->
+  <symbol id="icon-location" viewBox="0 0 18 18">
+    <path d="M9 1 C6 1 3 3 3 6 C3 12 9 17 9 17 C9 17 15 12 15 6 C15 3 12 1 9 1 Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  </symbol>
+
+  <symbol id="icon-email" viewBox="0 0 18 18">
+    <rect x="2" y="4" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M2 6 L9 11 L16 6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  </symbol>
+
+  <symbol id="icon-phone" viewBox="0 0 18 18">
+    <path d="M3 4 C3 3 4 2 5 2 H7 L9 6 L7 7 C8 9 10 11 12 10 L13 8 L17 10 C17 11 16 12 15 13 C12 16 8 16 5 13 C3 11 3 6 3 4 Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  </symbol>
+
+  <symbol id="icon-clock" viewBox="0 0 18 18">
+    <circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M9 5 V9 L12 11" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  </symbol>
+
+</svg>
