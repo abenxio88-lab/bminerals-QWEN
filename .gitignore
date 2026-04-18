@@ -1,6 +1,8 @@
 ```
 # Build artifacts
 output.css
+dist/
+build/
 
 # Dependencies
 node_modules/
@@ -18,14 +20,35 @@ node_modules/
 .vscode/
 .idea/
 
+# OS generated files
+.DS_Store
+Thumbs.db
+
 # Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-
-# Distribution / packaging
-dist/
-build/
-*.egg-info/
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.git/modules/
+.DS_Store
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.vscode/
 ```

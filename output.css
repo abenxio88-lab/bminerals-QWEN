@@ -1324,7 +1324,7 @@ button:focus-visible, a:focus-visible {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 0% 50%, rgba(230, 92, 26, 0.04) 0%, transparent 50%), radial-gradient(ellipse at 100% 0%, rgba(30, 58, 95, 0.03) 0%, transparent 50%);
+  background: radial-gradient(ellipse at 0% 50%, rgba(212, 175, 55, 0.04) 0%, transparent 50%), radial-gradient(ellipse at 100% 0%, rgba(30, 58, 95, 0.03) 0%, transparent 50%);
   pointer-events: none;
 }
 .stats-section__container {
@@ -1528,7 +1528,7 @@ button:focus-visible, a:focus-visible {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 20% 30%, rgba(230, 92, 26, 0.03) 0%, transparent 50%), radial-gradient(ellipse at 80% 70%, rgba(44, 94, 143, 0.03) 0%, transparent 50%);
+  background: radial-gradient(ellipse at 20% 30%, rgba(212, 175, 55, 0.03) 0%, transparent 50%), radial-gradient(ellipse at 80% 70%, rgba(44, 94, 143, 0.03) 0%, transparent 50%);
   pointer-events: none;
 }
 .about__container {
@@ -1552,8 +1552,8 @@ button:focus-visible, a:focus-visible {
   color: var(--primary-gold-400);
   margin-bottom: 1.5rem;
   padding: 0.5rem 1.25rem;
-  background: rgba(230, 92, 26, 0.1);
-  border: 1px solid rgba(230, 92, 26, 0.3);
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.3);
   border-radius: var(--radius-pill);
 }
 .about__title {
@@ -2280,7 +2280,7 @@ button:focus-visible, a:focus-visible {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 20% 30%, rgba(230, 92, 26, 0.04) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(230, 92, 26, 0.03) 0%, transparent 50%);
+  background: radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.04) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.03) 0%, transparent 50%);
   pointer-events: none;
 }
 .operations__container {
@@ -2348,7 +2348,7 @@ button:focus-visible, a:focus-visible {
   background: var(--gradient-var(--primary-gold));
   border-color: var(--navy-500);
   color: white;
-  box-shadow: 0 8px 24px rgba(230, 92, 26, 0.3);
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
 }
 .step-indicator__label {
   font-family: var(--font-ui);
@@ -2394,11 +2394,11 @@ button:focus-visible, a:focus-visible {
   opacity: 1;
   transform: translateY(0);
   border-color: var(--primary-gold-400);
-  background: linear-gradient(135deg, rgba(230, 92, 26, 0.03), rgba(52, 211, 153, 0.02));
-  box-shadow: 0 12px 40px rgba(230, 92, 26, 0.15);
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.03), rgba(52, 211, 153, 0.02));
+  box-shadow: 0 12px 40px rgba(212, 175, 55, 0.15);
 }
 .step-card--active:hover {
-  box-shadow: 0 20px 60px rgba(230, 92, 26, 0.25);
+  box-shadow: 0 20px 60px rgba(212, 175, 55, 0.25);
 }
 .step-card__visual {
   display: flex;
@@ -2419,8 +2419,8 @@ button:focus-visible, a:focus-visible {
 }
 .step-card--active .step-card__icon-ring {
   border-color: var(--primary-gold-400);
-  background: linear-gradient(135deg, rgba(230, 92, 26, 0.1), rgba(52, 211, 153, 0.05));
-  box-shadow: 0 0 40px rgba(230, 92, 26, 0.2);
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(52, 211, 153, 0.05));
+  box-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
 }
 .step-card:hover .step-card__icon-ring {
   border-color: var(--primary-gold-400);
@@ -2450,7 +2450,7 @@ button:focus-visible, a:focus-visible {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   padding: 0.35rem 0.75rem;
-  background: rgba(230, 92, 26, 0.1);
+  background: rgba(212, 175, 55, 0.1);
   border-radius: var(--radius-pill);
 }
 .step-card__title {
@@ -2497,7 +2497,7 @@ button:focus-visible, a:focus-visible {
 .step-feature:hover {
   background: var(--navy-50);
   border-color: var(--primary-gold-300);
-  box-shadow: 0 4px 12px rgba(230, 92, 26, 0.15);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
 }
 @media (max-width: 1024px) {
   .operations__step-indicators {
@@ -2688,7 +2688,7 @@ button:focus-visible, a:focus-visible {
 }
 .project-card__status--active {
   background: var(--primary-gold-500);
-  box-shadow: 0 0 0 4px rgba(230, 92, 26, 0.2);
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
 }
 .project-card__status--processing {
   background: var(--gold-500);
@@ -2696,7 +2696,7 @@ button:focus-visible, a:focus-visible {
 }
 .project-card__status--exploration {
   background: var(--navy-300);
-  box-shadow: 0 0 0 4px rgba(230, 92, 26, 0.2);
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
 }
 @keyframes pulse {
   0%, 100% {
@@ -2799,7 +2799,7 @@ button:focus-visible, a:focus-visible {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 30% 20%, rgba(230, 92, 26, 0.04) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(44, 94, 143, 0.03) 0%, transparent 50%);
+  background: radial-gradient(circle at 30% 20%, rgba(212, 175, 55, 0.04) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(44, 94, 143, 0.03) 0%, transparent 50%);
   pointer-events: none;
 }
 .our-mines__container {
@@ -2877,7 +2877,7 @@ button:focus-visible, a:focus-visible {
 }
 .our-mines__timeline-dot--active {
   border-color: var(--primary-gold-500);
-  box-shadow: 0 0 0 6px rgba(230, 92, 26, 0.15);
+  box-shadow: 0 0 0 6px rgba(212, 175, 55, 0.15);
 }
 .our-mines__timeline-dot--processing {
   border-color: var(--navy-500);
@@ -2920,9 +2920,9 @@ button:focus-visible, a:focus-visible {
   margin-bottom: 1rem;
 }
 .our-mines__site-badge--active {
-  background: rgba(230, 92, 26, 0.1);
+  background: rgba(212, 175, 55, 0.1);
   color: var(--primary-gold-600);
-  border: 1px solid rgba(230, 92, 26, 0.3);
+  border: 1px solid rgba(212, 175, 55, 0.3);
 }
 .our-mines__site-badge--processing {
   background: rgba(44, 94, 143, 0.1);
@@ -3020,7 +3020,7 @@ button:focus-visible, a:focus-visible {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 20% 30%, rgba(230, 92, 26, 0.03) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(44, 94, 143, 0.03) 0%, transparent 50%);
+  background: radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.03) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(44, 94, 143, 0.03) 0%, transparent 50%);
   pointer-events: none;
 }
 .logistics__container {
@@ -3427,7 +3427,7 @@ button:focus-visible, a:focus-visible {
 }
 .investor-metric__trend--up {
   color: var(--primary-gold-600);
-  background: rgba(230, 92, 26, 0.1);
+  background: rgba(212, 175, 55, 0.1);
 }
 .investor-metric__value {
   font-family: var(--font-heading);
