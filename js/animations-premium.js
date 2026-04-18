@@ -66,21 +66,26 @@ export function initPremiumAnimations() {
     });
   }
 
-  // 2. Liquid Scroll Reveal for Mineral Cards
-  const mineralCards = document.querySelectorAll('.mineral-card');
-  if (mineralCards.length > 0) {
-    gsap.from(mineralCards, {
-      scrollTrigger: {
-        trigger: ".products__grid",
-        start: "top 80%",
-        toggleActions: "play none none none"
-      },
-      y: 60,
-      opacity: 0,
-      duration: 1,
-      stagger: 0.2,
-      ease: "power3.out"
-    });
+  // If the cinematic hero module is present, avoid duplicating hero-specific animations
+  const hasCinematicHero = !!document.querySelector('.hero-cinematic');
+
+  // 2. Liquid Scroll Reveal for Mineral Cards (skip when cinematic hero handles them)
+  if (!hasCinematicHero) {
+    const mineralCards = document.querySelectorAll('.mineral-card');
+    if (mineralCards.length > 0) {
+      gsap.from(mineralCards, {
+        scrollTrigger: {
+          trigger: ".products__grid",
+          start: "top 80%",
+          toggleActions: "play none none none"
+        },
+        y: 60,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power3.out"
+      });
+    }
   }
 
   // 3. Staggered Reveals for Sustainability Pillars
@@ -125,42 +130,44 @@ export function initPremiumAnimations() {
     });
   }
 
-  // 6. Premium 3D Magnetic Hover for Hero Glass Card
-  const heroLeft = document.querySelector('.hero');
-  const glassCard = document.querySelector('.hero__stats-panel');
+  // 6. Premium 3D Magnetic Hover for Hero Glass Card (skip if cinematic hero controls hero)
+  if (!hasCinematicHero) {
+    const heroLeft = document.querySelector('.hero');
+    const glassCard = document.querySelector('.hero__stats-panel');
 
-  if (heroLeft && glassCard) {
-    heroLeft.addEventListener('mousemove', (e) => {
-      const { clientX, clientY } = e;
-      const { left, top, width, height } = glassCard.getBoundingClientRect();
-      
-      const centerX = left + width / 2;
-      const centerY = top + height / 2;
-      
-      const mouseX = clientX - centerX;
-      const mouseY = clientY - centerY;
-      
-      // Limit rotation to a subtle, premium 5 degrees
-      const rotateX = (mouseY / (height / 2)) * -5; 
-      const rotateY = (mouseX / (width / 2)) * 5;  
-      
-      gsap.to(glassCard, {
-        duration: 0.5,
-        rotateX: rotateX,
-        rotateY: rotateY,
-        transformPerspective: 1000,
-        ease: 'power2.out'
+    if (heroLeft && glassCard) {
+      heroLeft.addEventListener('mousemove', (e) => {
+        const { clientX, clientY } = e;
+        const { left, top, width, height } = glassCard.getBoundingClientRect();
+        
+        const centerX = left + width / 2;
+        const centerY = top + height / 2;
+        
+        const mouseX = clientX - centerX;
+        const mouseY = clientY - centerY;
+        
+        // Limit rotation to a subtle, premium 5 degrees
+        const rotateX = (mouseY / (height / 2)) * -5; 
+        const rotateY = (mouseX / (width / 2)) * 5;  
+        
+        gsap.to(glassCard, {
+          duration: 0.5,
+          rotateX: rotateX,
+          rotateY: rotateY,
+          transformPerspective: 1000,
+          ease: 'power2.out'
+        });
       });
-    });
 
-    heroLeft.addEventListener('mouseleave', () => {
-      gsap.to(glassCard, {
-        duration: 1,
-        rotateX: 0,
-        rotateY: 0,
-        ease: 'elastic.out(1, 0.3)'
+      heroLeft.addEventListener('mouseleave', () => {
+        gsap.to(glassCard, {
+          duration: 1,
+          rotateX: 0,
+          rotateY: 0,
+          ease: 'elastic.out(1, 0.3)'
+        });
       });
-    });
+    }
   }
 }
 

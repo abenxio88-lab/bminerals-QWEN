@@ -65,76 +65,85 @@
   }
 
   /**
-   * Mineral card hover interactions
+   * Initialize mineral card interactions
+   * Handles hover emphasis and subtle depth effects for elegant interaction
    */
   function initMineralCards(container) {
-    const cards = container.querySelectorAll('.mineral-card');
+    const mineralCards = container.querySelectorAll('.mineral-card');
     
-    cards.forEach(card => {
+    mineralCards.forEach(card => {
+      // On hover: dim non-focused cards for visual focus
       card.addEventListener('mouseenter', () => {
-        cards.forEach(c => {
-          if (c !== card) {
-            c.style.opacity = '0.3';
-            c.style.transform = 'scale(0.95) translateZ(-100px)';
+        mineralCards.forEach(sibling => {
+          if (sibling !== card) {
+            sibling.style.opacity = '0.3';
+            sibling.style.transform = 'scale(0.95) translateZ(-100px)';
           }
         });
       });
       
+      // On hover exit: restore all cards to full visibility
       card.addEventListener('mouseleave', () => {
-        cards.forEach(c => {
-          c.style.opacity = '';
-          c.style.transform = '';
+        mineralCards.forEach(sibling => {
+          sibling.style.opacity = '';
+          sibling.style.transform = '';
         });
       });
     });
   }
 
   /**
-   * Subtle mouse parallax effect
+   * Initialize subtle parallax effect with mouse movement
+   * Creates elegant depth layering for mineral card showcase
    */
   function initParallax(container) {
-    const visual = container.querySelector('.hero-visual');
-    const cards = container.querySelectorAll('.mineral-card');
+    const heroVisual = container.querySelector('.hero-visual');
+    const mineralCards = container.querySelectorAll('.mineral-card');
     
-    if (!visual || cards.length === 0) return;
+    if (!heroVisual || mineralCards.length === 0) return;
 
-    let mouseX = 0;
-    let mouseY = 0;
-    let currentX = 0;
-    let currentY = 0;
+    let targetMouseX = 0;
+    let targetMouseY = 0;
+    let currentInterpolX = 0;
+    let currentInterpolY = 0;
 
-    document.addEventListener('mousemove', (e) => {
-      const rect = visual.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
+    // Track mouse position relative to hero visual
+    document.addEventListener('mousemove', (event) => {
+      const viewportBounds = heroVisual.getBoundingClientRect();
+      const normalizedX = (event.clientX - viewportBounds.left) / viewportBounds.width - 0.5;
+      const normalizedY = (event.clientY - viewportBounds.top) / viewportBounds.height - 0.5;
       
-      mouseX = x * 30;
-      mouseY = y * 20;
+      targetMouseX = normalizedX * 30;
+      targetMouseY = normalizedY * 20;
     });
 
-    function animate() {
-      // Smooth interpolation
-      currentX += (mouseX - currentX) * 0.05;
-      currentY += (mouseY - currentY) * 0.05;
+    // Smooth animation loop with interpolation
+    function updateParallax() {
+      // Smooth interpolation for fluid motion
+      currentInterpolX += (targetMouseX - currentInterpolX) * 0.05;
+      currentInterpolY += (targetMouseY - currentInterpolY) * 0.05;
       
-      cards.forEach((card, index) => {
-        const depth = (index + 1) * 0.5;
-        const rotateY = currentX * depth;
-        const rotateX = -currentY * depth;
+      mineralCards.forEach((card, index) => {
+        const depthMultiplier = (index + 1) * 0.5;
+        const rotationY = currentInterpolX * depthMultiplier;
+        const rotationX = -currentInterpolY * depthMultiplier;
         
-        if (card.classList.contains('mineral-card--primary')) {
-          card.style.transform = `translate(-50%, -50%) translateZ(0) rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
-        } else if (card.classList.contains('mineral-card--secondary')) {
-          card.style.transform = `translateZ(-50px) rotateY(${-10 + rotateY * 1.5}deg) rotateX(${rotateX}deg)`;
-        } else if (card.classList.contains('mineral-card--tertiary')) {
-          card.style.transform = `translateZ(-80px) rotateY(${10 + rotateY * 2}deg) rotateX(${rotateX}deg)`;
+        // Apply mineral-specific parallax transformations
+        if (card.classList.contains('mineral-card--chromite')) {
+          card.style.transform = `translate(-50%, -50%) translateZ(0) rotateY(${rotationY}deg) rotateX(${rotationX}deg)`;
+        } else if (card.classList.contains('mineral-card--iron-ore')) {
+          card.style.transform = `translateZ(-50px) rotateY(${-10 + rotationY * 1.5}deg) rotateX(${rotationX}deg)`;
+        } else if (card.classList.contains('mineral-card--barite')) {
+          card.style.transform = `translateZ(-80px) rotateY(${10 + rotationY * 2}deg) rotateX(${rotationX}deg)`;
+        } else if (card.classList.contains('mineral-card--copper')) {
+          card.style.transform = `translateZ(-120px) rotateY(${-15 + rotationY * 2.5}deg) rotateX(${rotationX}deg)`;
         }
       });
       
-      requestAnimationFrame(animate);
+      requestAnimationFrame(updateParallax);
     }
     
-    animate();
+    updateParallax();
   }
 
   /**

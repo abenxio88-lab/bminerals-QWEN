@@ -4,7 +4,7 @@
 .hero {
   min-height: 100vh;
   padding: calc(var(--navbar-height) + 3rem) var(--section-padding-x) 4rem;
-  background: #ffffff;
+  background: #fbfbfc;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -32,10 +32,12 @@
   object-fit: cover;
   object-position: center;
   display: block;
-  transform: scale(1);
+  transform: none;
+  transition: none;
 }
 
 .hero__pattern-overlay {
+  display: none;
   position: absolute;
   inset: 0;
   background: transparent;
@@ -46,10 +48,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg,
-      rgba(255, 255, 255, 0.7) 0%,
-      rgba(255, 255, 255, 0.5) 40%,
-      rgba(255, 255, 255, 0.3) 100%);
+  background: transparent;
   pointer-events: none;
   z-index: 1;
 }
@@ -117,21 +116,21 @@
 
 .hero__headline {
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(1.6rem, 3.2vw, 2.2rem);
   font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: 0.02em;
+  line-height: 1.12;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
   color: var(--text-primary);
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   text-shadow: none;
 }
 
 .hero__subheadline {
-  font-size: clamp(0.875rem, 1.1vw, 1rem);
+  font-size: clamp(0.8rem, 1vw, 0.95rem);
   color: var(--text-secondary);
-  line-height: 1.8;
-  margin-bottom: 2rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
   max-width: 580px;
 }
 
