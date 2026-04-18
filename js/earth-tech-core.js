@@ -58,7 +58,7 @@ export function initEarthTechCore() {
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.6); // Slightly brighter
   scene.add(ambientLight);
 
-  const sunLight = new THREE.DirectionalLight(0xf97316, 1.8); // Brighter Copper/Orange glow
+  const sunLight = new THREE.DirectionalLight(0xf97316, 1.8); // Brighter Copper/Gold glow
   sunLight.position.set(50, 20, 10);
   scene.add(sunLight);
 

@@ -84,12 +84,12 @@
 }
 
 .step-indicator:hover .step-indicator__number {
-  border-color: var(--orange-400);
+  border-color: var(--primary-gold-400);
   color: var(--navy-600);
 }
 
 .step-indicator--active .step-indicator__number {
-  background: var(--gradient-orange);
+  background: var(--gradient-var(--primary-gold));
   border-color: var(--navy-500);
   color: white;
   box-shadow: 0 8px 24px rgba(230, 92, 26, 0.3);
@@ -144,7 +144,7 @@
   display: grid;
   opacity: 1;
   transform: translateY(0);
-  border-color: var(--orange-400);
+  border-color: var(--primary-gold-400);
   background: linear-gradient(135deg, rgba(230, 92, 26, 0.03), rgba(52, 211, 153, 0.02));
   box-shadow: 0 12px 40px rgba(230, 92, 26, 0.15);
 }
@@ -174,13 +174,13 @@
 }
 
 .step-card--active .step-card__icon-ring {
-  border-color: var(--orange-400);
+  border-color: var(--primary-gold-400);
   background: linear-gradient(135deg, rgba(230, 92, 26, 0.1), rgba(52, 211, 153, 0.05));
   box-shadow: 0 0 40px rgba(230, 92, 26, 0.2);
 }
 
 .step-card:hover .step-card__icon-ring {
-  border-color: var(--orange-400);
+  border-color: var(--primary-gold-400);
 }
 
 .step-card__icon {
@@ -267,7 +267,7 @@
 
 .step-feature:hover {
   background: var(--navy-50);
-  border-color: var(--orange-300);
+  border-color: var(--primary-gold-300);
   box-shadow: 0 4px 12px rgba(230, 92, 26, 0.15);
 }
 

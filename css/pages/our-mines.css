@@ -50,10 +50,10 @@
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--orange-400);
+  color: var(--primary-gold-400);
   margin-bottom: 1rem;
   padding: 0.4rem 1rem;
-  border: 1px solid var(--orange-400);
+  border: 1px solid var(--primary-gold-400);
 }
 
 .mines-hero__title {
@@ -98,7 +98,7 @@
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--orange-400);
+  color: var(--primary-gold-400);
   margin-bottom: 0.75rem;
   padding: 0.4rem 1rem;
   background: rgba(230,92,26,0.1);
@@ -170,7 +170,7 @@
   top: 1rem;
   left: 1rem;
   padding: 0.35rem 0.875rem;
-  background: var(--orange-500);
+  background: var(--primary-gold-500);
   color: white;
   font-family: var(--font-ui);
   font-size: var(--text-xs);
@@ -235,7 +235,7 @@
   font-family: var(--font-heading);
   font-size: var(--text-lg);
   font-weight: 600;
-  color: var(--orange-500);
+  color: var(--primary-gold-500);
 }
 
 .mine-profile__detail-label {
@@ -266,7 +266,7 @@
 }
 
 .mine-profile__cta:hover {
-  background: var(--orange-500);
+  background: var(--primary-gold-500);
 }
 
 /* Quick Stats Bar */
@@ -298,7 +298,7 @@
   font-family: var(--font-heading);
   font-size: var(--text-2xl);
   font-weight: 700;
-  color: var(--orange-500);
+  color: var(--primary-gold-500);
   margin-bottom: 0.35rem;
 }
 
@@ -352,7 +352,7 @@
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--orange-400);
+  color: var(--primary-gold-400);
   margin-bottom: 0.75rem;
 }
 

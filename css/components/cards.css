@@ -220,7 +220,7 @@
   font-weight: 700;
   color: white;
   letter-spacing: 0.06em;
-  background: var(--orange-500);
+  background: var(--primary-gold-500);
   border-radius: var(--radius-md);
   text-decoration: none;
   transition: all 0.3s var(--ease-smooth);
@@ -232,7 +232,7 @@
 }
 
 .mineral-card__cta:hover {
-  background: var(--orange-400);
+  background: var(--primary-gold-400);
   box-shadow: 0 4px 16px rgba(44, 94, 143, 0.3);
 }
 

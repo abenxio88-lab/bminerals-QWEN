@@ -80,7 +80,7 @@
 }
 
 .investor-metric__trend--up {
-  color: var(--orange-600);
+  color: var(--primary-gold-600);
   background: rgba(230, 92, 26, 0.1);
 }
 

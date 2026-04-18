@@ -49,7 +49,7 @@
 }
 
 .mineral-showcase:hover {
-  border-color: var(--orange-300);
+  border-color: var(--primary-gold-300);
   box-shadow: var(--shadow-lg);
 }
 
@@ -150,7 +150,7 @@
   font-family: var(--font-ui);
   font-size: 0.6875rem;
   font-weight: 700;
-  color: var(--orange-500);
+  color: var(--primary-gold-500);
   text-transform: uppercase;
   letter-spacing: 0.18em;
 }
@@ -229,7 +229,7 @@
 }
 
 .mineral-showcase__cta:hover {
-  background: var(--orange-500);
+  background: var(--primary-gold-500);
   box-shadow: 0 4px 16px rgba(4, 120, 87, 0.3);
 }
 

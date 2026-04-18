@@ -54,10 +54,10 @@
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--orange-400);
+  color: var(--primary-gold-400);
   margin-bottom: 1rem;
   padding: 0.4rem 1rem;
-  border: 1px solid var(--orange-400);
+  border: 1px solid var(--primary-gold-400);
 }
 
 .investors-hero__title {
@@ -102,7 +102,7 @@
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--orange-400);
+  color: var(--primary-gold-400);
   margin-bottom: 0.75rem;
   padding: 0.4rem 1rem;
   background: rgba(230, 92, 26, 0.1);
@@ -152,7 +152,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: var(--orange-400);
+  background: var(--primary-gold-400);
   transform: scaleX(0);
   transition: transform 0.4s var(--ease-smooth);
 }
@@ -163,7 +163,7 @@
 
 .kpi-card:hover {
   box-shadow: var(--shadow-md);
-  border-color: var(--orange-300);
+  border-color: var(--primary-gold-300);
 }
 
 .kpi-card__label {
@@ -289,7 +289,7 @@
 
 .report-item:hover {
   box-shadow: var(--shadow-md);
-  border-color: var(--orange-300);
+  border-color: var(--primary-gold-300);
 }
 
 .report-item__icon {
@@ -300,7 +300,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--orange-500);
+  color: var(--primary-gold-500);
 }
 
 .report-item__title {
@@ -367,14 +367,14 @@
 
 .compliance-card:hover {
   background: rgba(255, 255, 255, 0.1);
-  border-color: var(--orange-400);
+  border-color: var(--primary-gold-400);
 }
 
 .compliance-card__icon {
   margin-bottom: 1rem;
   display: flex;
   justify-content: center;
-  color: var(--orange-400);
+  color: var(--primary-gold-400);
 }
 
 .compliance-card__title {
@@ -433,7 +433,7 @@
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--orange-400);
+  color: var(--primary-gold-400);
   margin-bottom: 0.75rem;
 }
 
