@@ -8,8 +8,8 @@
   --glass-border: rgba(255, 255, 255, 0.08);
   --glass-blur: 12px;
   --premium-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-  --beam-color: rgba(249, 115, 22, 0.4);
-  /* Subtle Orange/Copper */
+  --beam-color: rgba(255, 215, 0, 0.4);
+  /* Subtle Gold/Gold */
   --navbar-height: 80px;
   /* Synchronized with the new supreme header */
 }
@@ -140,7 +140,7 @@
 }
 
 .gradient-text-mineral {
-  background: linear-gradient(135deg, #fce7f3 0%, #f97316 50%, #7c2d12 100%);
+  background: linear-gradient(135deg, #fce7f3 0%, #d4af37 50%, #7c2d12 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -187,15 +187,15 @@
 }
 
 .hero__cta--primary:hover {
-  background: #f97316 !important;
-  /* Brighter Copper */
+  background: #d4af37 !important;
+  /* Brighter Gold */
   border-color: rgba(255, 255, 255, 0.3) !important;
 }
 
 .hero__cta--secondary:hover {
   background: rgba(255, 255, 255, 0.15) !important;
-  border-color: #f97316 !important;
-  /* Industrial Copper Border */
+  border-color: #d4af37 !important;
+  /* Industrial Gold Border */
 }
 
 /* Remove GSAP Magnetic Wrap interaction */
@@ -393,7 +393,7 @@
   /* Mobile dropdown sub-menus */
   .navbar__mobile-menu .navbar__dropdown-menu--mobile {
     background: rgba(0, 0, 0, 0.02) !important;
-    border-left: 2px solid #f97316 !important;
+    border-left: 2px solid #d4af37 !important;
     border-radius: 0 8px 8px 0 !important;
     margin: 0.25rem 0 0.5rem !important;
     padding: 0.5rem 0 !important;
@@ -481,7 +481,7 @@ body.is-loading {
   font-size: 0.7rem;
   letter-spacing: 0.6em;
   text-transform: uppercase;
-  color: #f97316; /* Copper Logo Color */
+  color: #d4af37; /* Gold Logo Color */
   margin-top: 1rem;
   opacity: 0;
   animation: fadeIn 1s ease 1.2s forwards;

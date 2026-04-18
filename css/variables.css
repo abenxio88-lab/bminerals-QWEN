@@ -1,5 +1,5 @@
 :root {
-  /* Colors - Premium Earth-Tech Palette (Refined Copper & Obsidian Slate) */
+  /* Colors - Premium Earth-Tech Palette (Refined Gold & Obsidian Slate) */
   /* Backgrounds */
   --bg-primary: #FFFFFF;
   --bg-secondary: #F8FAFC;
@@ -31,20 +31,20 @@
   --charcoal-100: #F4F4F5;
   --charcoal-50: #FAFAFA;
   
-  /* Refined Copper (replacing vibrant orange) */
-  --orange-600: #9A3412; /* Deep Burnt Copper */
-  --orange-500: #C2410C; /* Refined Copper (Main CTA) */
-  --orange-400: #EA580C; /* Polished Copper (Hover) */
-  --orange-300: #F97316; /* Raw Copper (Accent) */
-  --orange-200: #FB923C; /* Pale Copper */
-  --orange-100: #FED7AA;
-  --orange-50: #FFF7ED;
-  --orange-glow: rgba(194, 65, 12, 0.25);
+  /* Premium Gold Palette (Replaced Gold/Gold) */
+  --primary-gold-600: #B8860B; /* Dark Goldenrod - Deep Luxury */
+  --primary-gold-500: #D4AF37; /* Metallic Gold (Main CTA) */
+  --primary-gold-400: #F1D46A; /* Shimmering Gold (Hover) */
+  --primary-gold-300: #FFD700; /* Pure Gold (Accent) */
+  --primary-gold-200: #FFE57C; /* Pale Gold */
+  --primary-gold-100: #FFF4CC;
+  --primary-gold-50: #FFFBE6;
+  --primary-gold-glow: rgba(212, 175, 55, 0.35);
   
-  /* Mineral Bronze / Gold Accent */
-  --gold-500: #B45309; /* Deep Bronze */
-  --gold-400: #D97706; /* Raw Gold */
-  --gold-300: #F59E0B; /* Amber Shine */
+  /* Mineral Bronze / Gold Accent (Enhanced) */
+  --gold-500: #B8860B; /* Dark Goldenrod */
+  --gold-400: #D4AF37; /* Metallic Gold */
+  --gold-300: #FFD700; /* Pure Gold */
   
   /* Text Colors */
   --text-primary: #0F172A;
@@ -58,7 +58,8 @@
   /* Gradients - Premium Mineral Theme */
   --gradient-navy: linear-gradient(135deg, #020617, #0F172A, #1E293B);
   --gradient-navy-dark: linear-gradient(135deg, #020617, #0F172A);
-  --gradient-orange: linear-gradient(135deg, #9A3412, #C2410C, #EA580C);
+  --gradient-primary-gold: linear-gradient(135deg, #B8860B, #D4AF37, #F1D46A);
+  --gradient-gold-rich: linear-gradient(135deg, #B8860B, #D4AF37, #FFD700);
   --gradient-charcoal: linear-gradient(135deg, #18181B, #27272A, #3F3F46);
   --gradient-hero-overlay: linear-gradient(180deg, rgba(2,6,23,0.85) 0%, rgba(15,23,42,0.4) 100%);
   /* Typography - Premium Modern Stack */
@@ -113,6 +114,6 @@
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: radial-gradient(circle at 70% 30%, rgba(194, 65, 12, 0.05), transparent 40%);
+  background: radial-gradient(circle at 70% 30%, rgba(212, 175, 55, 0.05), transparent 40%);
   pointer-events: none;
 }

@@ -78,7 +78,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: var(--gradient-orange);
+  background: var(--gradient-var(--primary-gold));
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.4s var(--ease-smooth);
@@ -90,7 +90,7 @@
 
 .logistics__card:hover {
   box-shadow: var(--shadow-lg);
-  border-color: var(--orange-300);
+  border-color: var(--primary-gold-300);
 }
 
 .logistics__card-icon {
@@ -195,7 +195,7 @@
   font-family: var(--font-heading);
   font-size: var(--text-xl);
   font-weight: 600;
-  color: var(--orange-500);
+  color: var(--primary-gold-500);
   letter-spacing: 0.02em;
 }
 

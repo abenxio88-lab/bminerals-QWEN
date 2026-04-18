@@ -54,10 +54,10 @@
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--orange-400);
+  color: var(--primary-gold-400);
   margin-bottom: 1rem;
   padding: 0.4rem 1rem;
-  border: 1px solid var(--orange-400);
+  border: 1px solid var(--primary-gold-400);
 }
 
 .sustainability-hero__title {
@@ -107,7 +107,7 @@
   font-family: var(--font-heading);
   font-size: var(--text-2xl);
   font-weight: 700;
-  color: var(--orange-400);
+  color: var(--primary-gold-400);
   margin-bottom: 0.35rem;
 }
 
@@ -143,7 +143,7 @@
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--orange-400);
+  color: var(--primary-gold-400);
   margin-bottom: 0.75rem;
   padding: 0.4rem 1rem;
   background: rgba(230, 92, 26, 0.1);
@@ -190,7 +190,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: var(--gradient-orange);
+  background: var(--gradient-var(--primary-gold));
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.4s var(--ease-smooth);
@@ -202,12 +202,12 @@
 
 .pillar-card:hover {
   box-shadow: var(--shadow-md);
-  border-color: var(--orange-300);
+  border-color: var(--primary-gold-300);
 }
 
 .pillar-card__icon {
   margin-bottom: 1.25rem;
-  color: var(--orange-500);
+  color: var(--primary-gold-500);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -243,7 +243,7 @@
   font-family: var(--font-heading);
   font-size: var(--text-xl);
   font-weight: 700;
-  color: var(--orange-500);
+  color: var(--primary-gold-500);
 }
 
 .pillar-card__metric-label {
@@ -286,7 +286,7 @@
 
 .impact-card:hover {
   box-shadow: var(--shadow-md);
-  border-color: var(--orange-300);
+  border-color: var(--primary-gold-300);
 }
 
 .impact-card__icon {
@@ -297,7 +297,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--orange-500);
+  color: var(--primary-gold-500);
 }
 
 .impact-card__title {
@@ -324,7 +324,7 @@
   font-family: var(--font-heading);
   font-size: var(--text-xl);
   font-weight: 700;
-  color: var(--orange-500);
+  color: var(--primary-gold-500);
 }
 
 .impact-card__stat-label {
@@ -361,14 +361,14 @@
 
 .esg-card:hover {
   box-shadow: var(--shadow-md);
-  border-color: var(--orange-300);
+  border-color: var(--primary-gold-300);
 }
 
 .esg-card__letter {
   font-family: var(--font-heading);
   font-size: var(--text-3xl);
   font-weight: 700;
-  color: var(--orange-400);
+  color: var(--primary-gold-400);
   margin-bottom: 0.75rem;
 }
 
@@ -412,7 +412,7 @@
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--orange-400);
+  color: var(--primary-gold-400);
   margin-bottom: 0.75rem;
 }
 
@@ -442,14 +442,14 @@
 
 .certification-item:hover {
   background: rgba(255, 255, 255, 0.1);
-  border-color: var(--orange-400);
+  border-color: var(--primary-gold-400);
 }
 
 .certification-item__icon {
   margin-bottom: 1rem;
   display: flex;
   justify-content: center;
-  color: var(--orange-400);
+  color: var(--primary-gold-400);
 }
 
 .certification-item__title {
@@ -508,7 +508,7 @@
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--orange-400);
+  color: var(--primary-gold-400);
   margin-bottom: 0.75rem;
 }
 

@@ -39,7 +39,7 @@
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--orange-400);
+  color: var(--primary-gold-400);
   margin-bottom: 1.5rem;
   padding: 0.5rem 1.25rem;
   background: rgba(230, 92, 26, 0.1);
@@ -58,8 +58,8 @@
   margin-bottom: 1.5rem;
 }
 
-.gradient-text-orange {
-  background: linear-gradient(135deg, var(--orange-400), var(--orange-300));
+.gradient-text-var(--primary-gold) {
+  background: linear-gradient(135deg, var(--primary-gold-400), var(--primary-gold-300));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -94,12 +94,12 @@
 
 .about__story-card:hover {
   box-shadow: var(--shadow-lg);
-  border-color: var(--orange-300);
+  border-color: var(--primary-gold-300);
 }
 
 .about__story-icon {
   margin-bottom: 2rem;
-  color: var(--orange-400);
+  color: var(--primary-gold-400);
 }
 
 .about__story-title {
@@ -136,7 +136,7 @@
   font-family: var(--font-heading);
   font-size: var(--text-2xl);
   font-weight: 600;
-  color: var(--orange-500);
+  color: var(--primary-gold-500);
   letter-spacing: 0.02em;
 }
 
@@ -169,7 +169,7 @@
 }
 
 .about__mv-card--mission:hover {
-  border-color: var(--orange-300);
+  border-color: var(--primary-gold-300);
 }
 
 .about__mv-card--vision:hover {
@@ -229,7 +229,7 @@
 
 .about__value-item:hover {
   box-shadow: var(--shadow-md);
-  border-color: var(--orange-300);
+  border-color: var(--primary-gold-300);
   transform: translateY(-4px);
 }
 
@@ -326,7 +326,7 @@
 .about__leader-role {
   font-size: var(--text-sm);
   font-weight: 600;
-  color: var(--orange-500);
+  color: var(--primary-gold-500);
   margin-bottom: 1rem;
 }
 

@@ -25,14 +25,14 @@
 
 /* Focus Visible States (Keyboard Navigation) */
 *:focus-visible {
-  outline: 3px solid var(--orange-500);
+  outline: 3px solid var(--primary-gold-500);
   outline-offset: 2px;
   border-radius: 2px;
 }
 
 button:focus-visible,
 a:focus-visible {
-  outline: 3px solid var(--orange-500);
+  outline: 3px solid var(--primary-gold-500);
   outline-offset: 2px;
 }
 
@@ -74,7 +74,7 @@ a:focus-visible {
 }
 
 .data-freshness__container svg {
-  color: var(--orange-400);
+  color: var(--primary-gold-400);
   flex-shrink: 0;
 }
 
@@ -84,7 +84,7 @@ a:focus-visible {
 }
 
 .data-freshness__container a {
-  color: var(--orange-300);
+  color: var(--primary-gold-300);
   text-decoration: underline;
   text-decoration-color: rgba(245, 136, 71, 0.3);
   text-underline-offset: 2px;
@@ -92,7 +92,7 @@ a:focus-visible {
 }
 
 .data-freshness__container a:hover {
-  text-decoration-color: var(--orange-300);
+  text-decoration-color: var(--primary-gold-300);
 }
 
 @media (max-width: 768px) {

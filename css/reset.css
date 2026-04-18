@@ -9,7 +9,7 @@ html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   scrollbar-width: thin;
-  scrollbar-color: var(--orange-400) var(--bg-primary);
+  scrollbar-color: var(--primary-gold-400) var(--bg-primary);
   scrollbar-gutter: stable;
 }
 
@@ -22,13 +22,13 @@ html::-webkit-scrollbar-track {
 }
 
 html::-webkit-scrollbar-thumb {
-  background: var(--orange-500);
+  background: var(--primary-gold-500);
   border-radius: 0;
   border: 2px solid var(--bg-primary);
 }
 
 html::-webkit-scrollbar-thumb:hover {
-  background: var(--orange-600);
+  background: var(--primary-gold-600);
 }
 
 body {
@@ -83,7 +83,7 @@ button {
 
 /* Focus States */
 :focus-visible {
-  outline: 2px solid var(--orange-500);
+  outline: 2px solid var(--primary-gold-500);
   outline-offset: 3px;
 }
 
@@ -93,6 +93,6 @@ button:focus-visible, a:focus-visible {
 
 /* Selection */
 ::selection {
-  background-color: var(--orange-500);
+  background-color: var(--primary-gold-500);
   color: white;
 }

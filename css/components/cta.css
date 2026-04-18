@@ -6,7 +6,7 @@
   background: #09090b !important; /* Deep Zinc-950 */
   position: relative;
   overflow: hidden;
-  border-top: 2px solid var(--orange-500);
+  border-top: 2px solid var(--primary-gold-500);
   display: block !important;
   width: 100%;
 }
@@ -20,7 +20,7 @@
   width: 100%;
   height: 100%;
   background: 
-    radial-gradient(circle at 0% 0%, rgba(249, 115, 22, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 0% 0%, rgba(255, 215, 0, 0.08) 0%, transparent 40%),
     radial-gradient(circle at 100% 100%, rgba(30, 58, 95, 0.1) 0%, transparent 40%);
   pointer-events: none;
   z-index: 1;
@@ -37,7 +37,7 @@
 
 .vein-line {
   fill: none;
-  stroke: #f97316; /* Copper orange */
+  stroke: #d4af37; /* Gold var(--primary-gold) */
   stroke-width: 1.5;
   stroke-dasharray: 10 10;
   animation: tracePath 60s linear infinite;
@@ -84,7 +84,7 @@
   padding: 3rem 2rem !important;
   border-radius: 0 !important; /* NO FUCKIN RADIUS */
   border: 1px solid rgba(255, 255, 255, 0.05) !important;
-  border-left: 3px solid var(--orange-500) !important;
+  border-left: 3px solid var(--primary-gold-500) !important;
   box-shadow: 20px 20px 60px rgba(0, 0, 0, 0.4);
   position: relative;
   overflow: hidden;
@@ -100,7 +100,7 @@
   font-weight: 800;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--orange-500);
+  color: var(--primary-gold-500);
   display: block;
   margin-bottom: 0.5rem;
 }
@@ -149,13 +149,13 @@
 }
 
 .cta-premium__button--primary {
-  background: var(--orange-500) !important;
+  background: var(--primary-gold-500) !important;
   color: #fff !important;
   box-shadow: 4px 4px 0 rgba(0, 0, 0, 1);
 }
 
 .cta-premium__button--primary:hover {
-  background: var(--orange-400) !important;
+  background: var(--primary-gold-400) !important;
   transform: translate(-2px, -2px);
   box-shadow: 6px 6px 0 rgba(0, 0, 0, 1);
 }

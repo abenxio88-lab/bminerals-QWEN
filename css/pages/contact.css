@@ -50,10 +50,10 @@
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--orange-400);
+  color: var(--primary-gold-400);
   margin-bottom: 1rem;
   padding: 0.4rem 1rem;
-  border: 1px solid var(--orange-400);
+  border: 1px solid var(--primary-gold-400);
 }
 
 .contact-hero__title {
@@ -135,7 +135,7 @@
 .contact-form__textarea:focus,
 .contact-form__select:focus {
   outline: none;
-  border-color: var(--orange-400);
+  border-color: var(--primary-gold-400);
 }
 
 .contact-form__textarea {
@@ -154,7 +154,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.875rem 2rem;
-  background: var(--orange-500);
+  background: var(--primary-gold-500);
   color: white;
   font-family: var(--font-ui);
   font-weight: 700;
@@ -168,7 +168,7 @@
 }
 
 .contact-form__submit:hover {
-  background: var(--orange-400);
+  background: var(--primary-gold-400);
 }
 
 /* Contact Info */
@@ -199,7 +199,7 @@
 
 .contact-card:hover {
   box-shadow: var(--shadow-sm);
-  border-color: var(--orange-300);
+  border-color: var(--primary-gold-300);
 }
 
 .contact-card__icon {
@@ -211,7 +211,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--orange-500);
+  color: var(--primary-gold-500);
 }
 
 .contact-card__heading {
@@ -234,7 +234,7 @@
 }
 
 .contact-card__text a {
-  color: var(--orange-500);
+  color: var(--primary-gold-500);
   text-decoration: none;
 }
 
@@ -286,7 +286,7 @@
   font-weight: 600;
   text-transform: uppercase;
   margin-bottom: 0.5rem;
-  color: var(--orange-400);
+  color: var(--primary-gold-400);
 }
 
 .emergency-banner__number {

@@ -79,7 +79,7 @@ export function initProjectMap() {
 
     marker.bindPopup(`
       <div class="map-popup">
-        <strong style="color: var(--orange-500); font-size: 1.1rem;">${project.name}</strong><br>
+        <strong style="color: var(--var(--primary-gold)-500); font-size: 1.1rem;">${project.name}</strong><br>
         <span style="color: #fff; font-size: 0.9rem;">${project.type}</span><br>
         <span style="color: rgba(255,255,255,0.7); font-size: 0.8rem;">Status: ${project.status}</span>
       </div>
@@ -97,7 +97,7 @@ export function initProjectMap() {
     .marker-dot {
       width: 12px;
       height: 12px;
-      background: var(--orange-500);
+      background: var(--var(--primary-gold)-500);
       border-radius: 50%;
       border: 2px solid #fff;
       box-shadow: 0 0 10px rgba(249, 115, 22, 0.5);
@@ -106,13 +106,13 @@ export function initProjectMap() {
       width: 16px;
       height: 16px;
       background: var(--navy-500);
-      border-color: var(--orange-500);
+      border-color: var(--var(--primary-gold)-500);
     }
     .marker-pulse {
       position: absolute;
       width: 30px;
       height: 30px;
-      background: var(--orange-500);
+      background: var(--var(--primary-gold)-500);
       border-radius: 50%;
       opacity: 0.4;
       animation: mapPulse 2s infinite ease-out;

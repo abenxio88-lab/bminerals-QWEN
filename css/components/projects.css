@@ -131,7 +131,7 @@
 }
 
 .project-card__status--active {
-  background: var(--orange-500);
+  background: var(--primary-gold-500);
   box-shadow: 0 0 0 4px rgba(230, 92, 26, 0.2);
 }
 
@@ -172,7 +172,7 @@
 }
 
 .project-card__location svg {
-  color: var(--orange-500);
+  color: var(--primary-gold-500);
 }
 
 .project-card__details {
@@ -213,7 +213,7 @@
 }
 
 .project-card__status-text--exploration {
-  color: var(--orange-400);
+  color: var(--primary-gold-400);
   font-weight: 700;
 }
 
