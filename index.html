@@ -42,6 +42,7 @@
   <!-- Core CSS (Critical) -->
   <link rel="stylesheet" href="output.css">
   <link rel="stylesheet" href="css/premium-polish.css">
+  <link rel="stylesheet" href="css/premium-hero.css">
 
   <!-- Component CSS (Non-Critical) -->
   <link rel="stylesheet" href="css/components/cta.css" media="print" onload="this.media='all'">
@@ -672,115 +673,111 @@
     <!-- ============================================ -->
     <!-- HERO SECTION WITH IMAGE SLIDER -->
     <!-- ============================================ -->
-    <section class="hero" id="hero" aria-label="Hero section">
-      <!-- Hero Image Slider -->
-      <div class="hero__slider">
-        <div class="hero__slide active">
-          <img src="images/hero/hero-1.webp" alt="Balochistan Minerals operations in the mountains of Balochistan"
-            class="hero__background-image" loading="eager">
-        </div>
-        <div class="hero__slide">
-          <img src="images/hero/hero-2.webp" alt="Mineral extraction and processing facility"
-            class="hero__background-image" loading="lazy">
-        </div>
-        <div class="hero__slide">
-          <img src="images/hero/hero-3.webp" alt="Chromite mining operations Muslim Bagh" class="hero__background-image"
-            loading="lazy">
-        </div>
-        <div class="hero__slide">
-          <img src="images/hero/hero-4.webp" alt="Barite processing plant Khuzdar" class="hero__background-image"
-            loading="lazy">
-        </div>
-        <div class="hero__slide">
-          <img src="images/hero/hero-5.webp" alt="Mining logistics and transport fleet" class="hero__background-image"
-            loading="lazy">
-        </div>
-        <div class="hero__slide">
-          <img src="images/hero/hero-6.webp" alt="Quality control laboratory testing" class="hero__background-image"
-            loading="lazy">
-        </div>
-        <div class="hero__slide">
-          <img src="images/hero/hero-7.webp" alt="Gwadar port export operations" class="hero__background-image"
-            loading="lazy">
-        </div>
-        <div class="hero__pattern-overlay"></div>
+    <!-- ============================================ -->
+    <!-- HERO SECTION - PREMIUM MILLION DOLLAR DESIGN -->
+    <!-- ============================================ -->
+    <section class="hero-premium" id="hero" aria-label="Hero section">
+      
+      <!-- Gradient Mesh Background -->
+      <div class="hero-gradient-mesh">
+        <div class="hero-gradient-orb hero-gradient-orb--1"></div>
+        <div class="hero-gradient-orb hero-gradient-orb--2"></div>
+        <div class="hero-gradient-orb hero-gradient-orb--3"></div>
       </div>
 
-      <!-- Slider Navigation Arrows -->
-      <button class="hero__slider-arrow hero__slider-arrow--prev" aria-label="Previous slide">
-        <svg width="24" height="24">
-          <use href="images/icons.svg#icon-arrow-left"></use>
-        </svg>
-      </button>
-      <button class="hero__slider-arrow hero__slider-arrow--next" aria-label="Next slide">
-        <svg width="24" height="24">
-          <use href="images/icons.svg#icon-arrow-right"></use>
-        </svg>
-      </button>
-
-      <!-- Slider Indicators -->
-      <div class="hero__slider-dots">
-        <button class="hero__slider-dot active" data-slide="0" aria-label="Go to slide 1"></button>
-        <button class="hero__slider-dot" data-slide="1" aria-label="Go to slide 2"></button>
-        <button class="hero__slider-dot" data-slide="2" aria-label="Go to slide 3"></button>
-        <button class="hero__slider-dot" data-slide="3" aria-label="Go to slide 4"></button>
-        <button class="hero__slider-dot" data-slide="4" aria-label="Go to slide 5"></button>
-        <button class="hero__slider-dot" data-slide="5" aria-label="Go to slide 6"></button>
-        <button class="hero__slider-dot" data-slide="6" aria-label="Go to slide 7"></button>
+      <!-- Floating Mineral Particles -->
+      <div class="hero-particle-container" aria-hidden="true">
+        <div class="hero-particle" style="width: 6px; height: 6px; left: 10%; animation-delay: 0s;"></div>
+        <div class="hero-particle hero-particle--copper" style="width: 8px; height: 8px; left: 25%; animation-delay: -3s;"></div>
+        <div class="hero-particle hero-particle--chromite" style="width: 5px; height: 5px; left: 40%; animation-delay: -6s;"></div>
+        <div class="hero-particle hero-particle--barite" style="width: 7px; height: 7px; left: 55%; animation-delay: -9s;"></div>
+        <div class="hero-particle" style="width: 6px; height: 6px; left: 70%; animation-delay: -12s;"></div>
+        <div class="hero-particle hero-particle--copper" style="width: 9px; height: 9px; left: 85%; animation-delay: -15s;"></div>
       </div>
 
-      <div class="hero__container">
-        <!-- Left: Content -->
-        <div class="hero__left">
-          <div class="hero__content reveal">
-            <span class="hero__overline">From the Heart of Balochistan</span>
-            <h1 class="hero__headline">Extracting Excellence.<br><span class="gradient-text">Powering Pakistan's
-                Future.</span></h1>
-            <p class="hero__subheadline">For over two decades, we've been unlocking Balochistan's mineral wealth—iron
-              ore, chromite, barite & more—with unwavering commitment to ethical practices, community uplift, and global
-              standards.</p>
-            <div class="hero__cta-group">
-              <div class="magnetic-wrap">
-                <a href="products.html" class="hero__cta hero__cta--secondary">
-                  <span>Explore Our Minerals</span>
-                  <svg class="hero__cta-arrow" width="20" height="20">
-                    <use href="images/icons.svg#icon-cta-arrow"></use>
+      <div class="hero-premium__container">
+        <!-- Left: Premium Content -->
+        <div class="hero-premium__left">
+          <span class="hero-premium__overline">From the Heart of Balochistan</span>
+          <h1 class="hero-premium__headline">Extracting Excellence.<br><span class="gradient-text">Powering Pakistan's Future.</span></h1>
+          <p class="hero-premium__subheadline">For over two decades, we've been unlocking Balochistan's mineral wealth—iron ore, chromite, barite & more—with unwavering commitment to ethical practices, community uplift, and global standards.</p>
+          <div class="hero-premium__cta-group">
+            <a href="products.html" class="hero-premium__cta hero-premium__cta--primary">
+              <span>Explore Our Minerals</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+            <a href="projects.html" class="hero-premium__cta hero-premium__cta--secondary">
+              <span>View Projects</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: 3D Mineral Showcase -->
+        <div class="hero-premium__right">
+          <div class="mineral-showcase">
+            <!-- Card 1: Chromite -->
+            <div class="mineral-card mineral-card--1">
+              <img src="images/hero/hero-3.webp" alt="Chromite ore" class="mineral-card__image" loading="eager">
+              <div class="mineral-card__content">
+                <div class="mineral-card__title">Chromite</div>
+                <div class="mineral-card__subtitle">Muslim Bagh • High Grade</div>
+              </div>
+            </div>
+            
+            <!-- Card 2: Iron Ore -->
+            <div class="mineral-card mineral-card--2">
+              <img src="images/hero/hero-1.webp" alt="Iron ore" class="mineral-card__image" loading="lazy">
+              <div class="mineral-card__content">
+                <div class="mineral-card__title">Iron Ore</div>
+                <div class="mineral-card__subtitle">Chagai • Fe 65%+</div>
+              </div>
+            </div>
+            
+            <!-- Card 3: Barite -->
+            <div class="mineral-card mineral-card--3">
+              <img src="images/hero/hero-4.webp" alt="Barite" class="mineral-card__image" loading="lazy">
+              <div class="mineral-card__content">
+                <div class="mineral-card__title">Barite</div>
+                <div class="mineral-card__subtitle">Khuzdar • API Grade</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating Stats Panel -->
+          <div class="hero-stats-panel">
+            <div class="hero-stats-panel__title">Operational Snapshot</div>
+            <div class="hero-stats-grid">
+              <div class="stat-item stat-item--full">
+                <div class="stat-item__number">50K<span class="stat-item__suffix">+</span></div>
+                <div class="stat-item__label">MT Annual Capacity</div>
+                <div class="stat-item__trend">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 15L12 9L6 15"/>
                   </svg>
-                </a>
+                  <span>Iron ore, barite, chromite</span>
+                </div>
               </div>
-              <div class="magnetic-wrap">
-                <a href="projects.html" class="hero__cta hero__cta--secondary">
-                  <span>View Projects</span>
-                </a>
+              <div class="stat-item">
+                <div class="stat-item__number">25<span class="stat-item__suffix">+</span></div>
+                <div class="stat-item__label">Years Excellence</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-item__number">60<span class="stat-item__suffix">+</span></div>
+                <div class="stat-item__label">Countries Served</div>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- Right: Stats Panel -->
-        <div class="hero__right reveal" data-delay="2">
-          <div class="hero__stats-panel glass-bento">
-            <div class="border-beam"></div>
-            <div class="hero__stats-panel-title">Operational Snapshot</div>
-            <div class="hero__stats-panel-grid">
-              <div class="panel-stat">
-                <div class="panel-stat__number" data-target="50000" data-suffix="+">0</div>
-                <div class="panel-stat__label">MT Annual Capacity</div>
-                <div class="panel-stat__context">Iron ore, barite, chromite</div>
-              </div>
-              <div class="panel-stat panel-stat--accent">
-                <div class="panel-stat__number" data-target="25" data-suffix="+">0</div>
-                <div class="panel-stat__label">Years of Excellence</div>
-                <div class="panel-stat__context">Since 2001</div>
-              </div>
-              <div class="panel-stat">
-                <div class="panel-stat__number" data-target="60" data-suffix="+">0</div>
-                <div class="panel-stat__label">Countries Served</div>
-                <div class="panel-stat__context">Middle East, Asia, Europe</div>
-              </div>
-            </div>
-          </div>
+      <!-- Scroll Indicator -->
+      <div class="hero-scroll-indicator">
+        <div class="scroll-mouse">
+          <div class="scroll-wheel"></div>
         </div>
+        <div class="scroll-text">Scroll</div>
       </div>
     </section>
 
@@ -2783,6 +2780,7 @@
   <script type="module" src="js/animations-premium.js"></script>
   <script type="module" src="js/earth-tech-core.js"></script>
   <script type="module" src="js/tactile-feedback.js"></script>
+  <script type="module" src="js/hero-premium.js"></script>
   <script type="module" src="js/main.js"></script>
 </body>
 
