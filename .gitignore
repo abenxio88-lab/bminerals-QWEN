@@ -1,4 +1,10 @@
 ```
+# Dependencies
+node_modules/
+
 # Build artifacts
 output.css
+
+# Package lock files
+package-lock.json
 ```
