@@ -146,8 +146,8 @@
   color: var(--primary-gold-400);
   margin-bottom: 0.75rem;
   padding: 0.4rem 1rem;
-  background: rgba(230, 92, 26, 0.1);
-  border: 1px solid rgba(230, 92, 26, 0.3);
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.3);
 }
 
 .pillars-section__title {
@@ -213,7 +213,7 @@
   justify-content: center;
   width: 48px;
   height: 48px;
-  background: rgba(230, 92, 26, 0.08);
+  background: rgba(212, 175, 55, 0.08);
   border-radius: var(--radius-sm);
 }
 
@@ -292,7 +292,7 @@
 .impact-card__icon {
   width: 56px;
   height: 56px;
-  background: rgba(230, 92, 26, 0.08);
+  background: rgba(212, 175, 55, 0.08);
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
