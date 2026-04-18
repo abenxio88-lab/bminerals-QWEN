@@ -64,6 +64,11 @@ export function initDropdownMenus() {
       const isMobile = window.innerWidth <= 1024;
 
       if (isMobile) {
+        // Allow link navigation if user clicked the text, not the arrow SVG
+        if (!e.target.closest('svg') && !e.target.classList.contains('navbar__dropdown-arrow')) {
+          return;
+        }
+
         e.preventDefault();
         e.stopPropagation();
 
@@ -78,7 +83,7 @@ export function initDropdownMenus() {
               t.classList.remove('open');
               t.setAttribute('aria-expanded', 'false');
               const menu = t.nextElementSibling;
-              if (menu && menu.classList.contains('navbar__dropdown-menu--mobile')) {
+              if (menu && menu.classList.contains('navbar__dropdown-menu')) {
                 menu.classList.remove('open');
               }
             }
@@ -133,7 +138,7 @@ export function initDropdownMenus() {
           trigger.classList.remove('open');
           trigger.setAttribute('aria-expanded', 'false');
           const menu = trigger.nextElementSibling;
-          if (menu && menu.classList.contains('navbar__dropdown-menu--mobile')) {
+          if (menu && menu.classList.contains('navbar__dropdown-menu')) {
             menu.classList.remove('open');
           }
         });

@@ -1,7 +1,7 @@
 export function initNavbar() {
   const navbar = document.querySelector('.navbar');
   const hamburger = document.querySelector('.navbar__hamburger');
-  const mobileMenu = document.querySelector('.navbar__mobile-menu');
+  const mobileMenu = document.querySelector('.navbar__nav');
 
   // Highlight active link
   highlightActiveLink();
@@ -31,9 +31,11 @@ export function initNavbar() {
   const menuLinks = mobileMenu?.querySelectorAll('.navbar__link:not(.navbar__dropdown-trigger), .navbar__dropdown-item');
   menuLinks?.forEach(link => {
     link.addEventListener('click', () => {
-      hamburger.classList.remove('active');
-      mobileMenu.classList.remove('open');
-      document.body.style.overflow = '';
+      if (window.innerWidth <= 1024) {
+        hamburger.classList.remove('active');
+        if (mobileMenu) mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      }
     });
   });
 }

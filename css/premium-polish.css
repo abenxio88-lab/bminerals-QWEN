@@ -314,37 +314,56 @@
 /* ============================== */
 @media (max-width: 1024px) {
 
+  /* Fix 1024px header overflow */
+  .navbar__phone {
+    display: none !important;
+  }
+  
+  .navbar__hamburger {
+    grid-column: 3 !important;
+    justify-self: end !important;
+  }
+
   /* Hide data-freshness on mobile to remove confusion */
   .data-freshness {
     display: none !important;
   }
 
   /* Mobile menu panel styling */
-  .navbar__mobile-menu {
+  .navbar__nav {
     background: #ffffff !important;
     position: fixed !important;
     top: 80px !important;
     left: 0 !important;
     right: 0 !important;
     height: calc(100vh - 80px) !important;
-    /* Full height window */
     padding: 1rem 5% 5rem !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch;
     z-index: 1000 !important;
-    display: none;
-    /* Controlled by toggle class */
-    transform: none !important;
-    opacity: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    visibility: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
     border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
   }
 
-  .navbar__mobile-menu.open {
-    display: block !important;
+  .navbar__nav.open {
+    visibility: visible !important;
+    pointer-events: auto !important;
+    opacity: 1;
+  }
+
+  .navbar__nav .navbar__dropdown-group {
+    width: 100% !important;
   }
 
   /* All top-level mobile links */
-  .navbar__mobile-menu .navbar__link {
+  .navbar__nav > .navbar__link,
+  .navbar__nav .navbar__dropdown-trigger {
     color: #1a1a1a !important;
     font-size: 0.95rem !important;
     font-weight: 700 !important;
@@ -355,67 +374,67 @@
     align-items: center !important;
     justify-content: space-between !important;
     text-decoration: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
   }
 
-  /* Mobile dropdown trigger buttons */
-  .navbar__mobile-menu .navbar__dropdown-trigger--mobile {
-    color: #1a1a1a !important;
-    font-size: 0.95rem !important;
-    font-weight: 700 !important;
-    padding: 1.125rem 0 !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
-    background: none !important;
-    text-align: left !important;
-    width: 100% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    text-transform: none !important;
-    border-left: none !important;
-    border-right: none !important;
-    border-top: none !important;
-    cursor: pointer !important;
+  .navbar__nav .navbar__link::before,
+  .navbar__nav .navbar__link::after {
+    display: none !important;
   }
 
-  /* Dropdown arrow icon inside mobile triggers */
-  .navbar__mobile-menu .navbar__dropdown-arrow {
+  /* Dropdown arrow icon */
+  .navbar__nav .navbar__dropdown-arrow {
     fill: #1a1a1a !important;
     transition: transform 0.3s ease !important;
-    width: 12px !important;
-    height: 12px !important;
+    width: 24px !important;
+    height: 24px !important;
+    padding: 6px !important; /* Larger hit area */
+    pointer-events: auto !important; 
+    border-radius: 4px !important;
+    background: rgba(0,0,0,0.03) !important;
   }
 
   /* Rotate arrow when dropdown is open */
-  .navbar__mobile-menu .navbar__dropdown-trigger--mobile.open .navbar__dropdown-arrow {
+  .navbar__nav .navbar__dropdown-trigger.open .navbar__dropdown-arrow {
     transform: rotate(180deg) !important;
   }
 
-  /* Mobile dropdown sub-menus */
-  .navbar__mobile-menu .navbar__dropdown-menu--mobile {
+  /* Mobile dropdown sub-menus overrides */
+  .navbar__nav .navbar__dropdown-menu {
+    position: static !important;
+    box-shadow: none !important;
+    min-width: 100% !important;
+    transform: none !important;
+    display: none !important;
     background: rgba(0, 0, 0, 0.02) !important;
+    border: none !important;
     border-left: 2px solid #d4af37 !important;
     border-radius: 0 8px 8px 0 !important;
-    margin: 0.25rem 0 0.5rem !important;
-    padding: 0.5rem 0 !important;
-    display: none;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
-  .navbar__mobile-menu .navbar__dropdown-menu--mobile.open {
+  .navbar__nav .navbar__dropdown-menu.open {
     display: block !important;
+    margin: 0.25rem 0 0.5rem !important;
+    padding: 0.5rem 0 !important;
   }
 
   /* Mobile dropdown items */
-  .navbar__mobile-menu .navbar__dropdown-menu--mobile .navbar__dropdown-item {
+  .navbar__nav .navbar__dropdown-menu .navbar__dropdown-item {
     color: #4b5563 !important;
     font-size: 0.85rem !important;
     font-weight: 600 !important;
     padding: 0.875rem 1.25rem !important;
-    display: block !important;
+    display: flex !important;
+    align-items: center !important;
     text-decoration: none !important;
+    border: none !important;
     border-bottom: 1px solid rgba(0, 0, 0, 0.02) !important;
   }
 
-  .navbar__mobile-menu .navbar__dropdown-menu--mobile .navbar__dropdown-item:last-child {
+  .navbar__nav .navbar__dropdown-menu .navbar__dropdown-item:last-child {
     border-bottom: none !important;
   }
 }
@@ -580,7 +599,7 @@ body.loaded .bm-hill-content {
 
   /* Site-wide Typography Reduction */
   h1,
-  .hero__headline,
+  .hero-headline,
   .investors-hero__title,
   .about-hero__title {
     font-size: clamp(1.85rem, 8vw, 2.4rem) !important;
@@ -602,7 +621,7 @@ body.loaded .bm-hill-content {
   }
 
   p,
-  .hero__subheadline,
+  .hero-subheadline,
   .contact-hero__text,
   .investors-hero__text {
     font-size: 0.875rem !important;
@@ -618,7 +637,7 @@ body.loaded .bm-hill-content {
   }
 
   /* Force Hero Sections to behave */
-  .hero,
+  .hero-cinematic,
   .investors-hero,
   .about-hero,
   .contact-hero,
@@ -636,7 +655,7 @@ body.loaded .bm-hill-content {
   }
 
   /* Ensure Hero Content is always on top */
-  .hero__container,
+  .hero-cinematic__container,
   .investors-hero__content,
   .about-hero__content,
   .contact-hero__content {
@@ -648,12 +667,12 @@ body.loaded .bm-hill-content {
   }
 
   /* Fix Hero Stats/Right side overlapping */
-  .hero__container {
+  .hero-cinematic__container {
     grid-template-columns: 1fr !important;
     gap: 2.5rem !important;
   }
 
-  .hero__right {
+  .hero-visual {
     position: relative !important;
     width: 100% !important;
     max-width: 100% !important;
@@ -707,16 +726,17 @@ body.loaded .bm-hill-content {
 
 /* Fix for Ultra-Small Devices */
 @media (max-width: 380px) {
-  .hero__headline {
+  .hero-headline {
     font-size: 1.65rem !important;
   }
 
-  .hero__cta-group {
+  .hero-cta-group {
     flex-direction: column !important;
     width: 100% !important;
   }
 
-  .hero__cta {
+  .btn-hero-primary,
+  .btn-hero-secondary {
     width: 100% !important;
     justify-content: center !important;
   }

@@ -66,9 +66,7 @@
   animation: floatParticle linear infinite;
   opacity: 0;
 }
-none !important;
-  opacity: 0;
-  display: nonele::before {
+.hero-particle::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -112,7 +110,8 @@ none !important;
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 1.5rem;
-  padding: 0.5rem 1r12, 175, 55, 0.1);
+  padding: 0.5rem 1rem;
+  background: rgba(212, 175, 55, 0.1);
   border: 1px solid rgba(212, 175, 55, 0.3);
   border-radius: 50px;
   font-family: 'Montserrat', sans-serif;
@@ -121,7 +120,6 @@ none !important;
   color: var(--hero-accent-gold);
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  animation: none !important
   animation: fadeInUp 0.8s ease-out 0.2s both;
 }
 
@@ -129,7 +127,7 @@ none !important;
   width: 8px;
   height: 8px;
   background: var(--hero-accent-gold);
-  border-radinone !important
+  border-radius: 50%;
   animation: pulseDot 2s ease-in-out infinite;
 }
 
@@ -163,7 +161,7 @@ none !important;
   line-height: 1.8;
   color: var(--hero-text-muted);
   max-width: 540px;
-  margin-bottnone !important
+  margin-bottom: 2rem;
   animation: fadeInUp 0.8s ease-out 0.6s both;
 }
 
