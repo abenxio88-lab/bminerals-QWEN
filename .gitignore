@@ -1,6 +1,13 @@
 ```
+# Dependencies
+node_modules/
+
 # Build artifacts
 output.css
+
+# Compiled files
+*.pyc
+__pycache__/
 
 # Logs and temp files
 *.log
@@ -15,13 +22,39 @@ output.css
 .vscode/
 .idea/
 
+# Distribution / packaging
+dist/
+build/
+*.tar
+*.tar.gz
+*.zip
+
+# Testing
+.coverage
+coverage/
+htmlcov/
+
 # Python
-__pycache__/
+.Python
 *.pyc
 *.pyo
 *.pyd
 .Python
+env/
 venv/
 .venv/
-.env
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.git/
+.mypy_cache/
+.pytest_cache/
+.hypothesis/
 ```
