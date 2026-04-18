@@ -17,14 +17,11 @@
     const heroSection = document.querySelector('.hero-cinematic');
     if (!heroSection) return;
 
-    // Initialize particles
-    initParticles(heroSection);
+    // Initialize particles (Disabled as per request)
+    // initParticles(heroSection);
     
-    // Initialize mineral card interactions
-    initMineralCards(heroSection);
-    
-    // Initialize parallax effect
-    initParallax(heroSection);
+    // Initialize Hero Carousel
+    initHeroCarousel(heroSection);
     
     // Animate stats counter
     animateStats();
@@ -65,85 +62,93 @@
   }
 
   /**
-   * Initialize mineral card interactions
-   * Handles hover emphasis and subtle depth effects for elegant interaction
+   * Hero Carousel Logic
    */
-  function initMineralCards(container) {
-    const mineralCards = container.querySelectorAll('.mineral-card');
+  function initHeroCarousel(container) {
+    const carouselArr = container.querySelectorAll('.mineral-card');
+    const indicators = container.querySelectorAll('.indicator');
+    const prevBtn = container.querySelector('.carousel-nav-btn.prev');
+    const nextBtn = container.querySelector('.carousel-nav-btn.next');
     
-    mineralCards.forEach(card => {
-      // On hover: dim non-focused cards for visual focus
-      card.addEventListener('mouseenter', () => {
-        mineralCards.forEach(sibling => {
-          if (sibling !== card) {
-            sibling.style.opacity = '0.3';
-            sibling.style.transform = 'scale(0.95) translateZ(-100px)';
-          }
-        });
-      });
-      
-      // On hover exit: restore all cards to full visibility
-      card.addEventListener('mouseleave', () => {
-        mineralCards.forEach(sibling => {
-          sibling.style.opacity = '';
-          sibling.style.transform = '';
-        });
-      });
-    });
-  }
+    if (!carouselArr.length) return;
 
-  /**
-   * Initialize subtle parallax effect with mouse movement
-   * Creates elegant depth layering for mineral card showcase
-   */
-  function initParallax(container) {
-    const heroVisual = container.querySelector('.hero-visual');
-    const mineralCards = container.querySelectorAll('.mineral-card');
-    
-    if (!heroVisual || mineralCards.length === 0) return;
+    let currentIndex = 0;
+    let isTransitioning = false;
 
-    let targetMouseX = 0;
-    let targetMouseY = 0;
-    let currentInterpolX = 0;
-    let currentInterpolY = 0;
-
-    // Track mouse position relative to hero visual
-    document.addEventListener('mousemove', (event) => {
-      const viewportBounds = heroVisual.getBoundingClientRect();
-      const normalizedX = (event.clientX - viewportBounds.left) / viewportBounds.width - 0.5;
-      const normalizedY = (event.clientY - viewportBounds.top) / viewportBounds.height - 0.5;
-      
-      targetMouseX = normalizedX * 30;
-      targetMouseY = normalizedY * 20;
-    });
-
-    // Smooth animation loop with interpolation
-    function updateParallax() {
-      // Smooth interpolation for fluid motion
-      currentInterpolX += (targetMouseX - currentInterpolX) * 0.05;
-      currentInterpolY += (targetMouseY - currentInterpolY) * 0.05;
-      
-      mineralCards.forEach((card, index) => {
-        const depthMultiplier = (index + 1) * 0.5;
-        const rotationY = currentInterpolX * depthMultiplier;
-        const rotationX = -currentInterpolY * depthMultiplier;
+    function updateCarousel() {
+      carouselArr.forEach((card, index) => {
+        // Remove all state classes
+        card.classList.remove('is-active', 'is-next', 'is-prev', 'is-hidden-right', 'is-hidden-left');
         
-        // Apply mineral-specific parallax transformations
-        if (card.classList.contains('mineral-card--chromite')) {
-          card.style.transform = `translate(-50%, -50%) translateZ(0) rotateY(${rotationY}deg) rotateX(${rotationX}deg)`;
-        } else if (card.classList.contains('mineral-card--iron-ore')) {
-          card.style.transform = `translateZ(-50px) rotateY(${-10 + rotationY * 1.5}deg) rotateX(${rotationX}deg)`;
-        } else if (card.classList.contains('mineral-card--barite')) {
-          card.style.transform = `translateZ(-80px) rotateY(${10 + rotationY * 2}deg) rotateX(${rotationX}deg)`;
-        } else if (card.classList.contains('mineral-card--copper')) {
-          card.style.transform = `translateZ(-120px) rotateY(${-15 + rotationY * 2.5}deg) rotateX(${rotationX}deg)`;
+        if (index === currentIndex) {
+          card.classList.add('is-active');
+        } else if (index === (currentIndex + 1) % carouselArr.length) {
+          card.classList.add('is-next');
+        } else if (index === (currentIndex - 1 + carouselArr.length) % carouselArr.length) {
+          card.classList.add('is-prev');
+        } else if (index > currentIndex) {
+          card.classList.add('is-hidden-right');
+        } else {
+          card.classList.add('is-hidden-left');
         }
       });
+
+      // Update indicators
+      indicators.forEach((indicator, index) => {
+        indicator.classList.toggle('is-active', index === currentIndex);
+      });
       
-      requestAnimationFrame(updateParallax);
+      // Feedback
+      if (window.tactileFeedback) window.tactileFeedback('soft');
     }
-    
-    updateParallax();
+
+    function nextSlide() {
+      if (isTransitioning) return;
+      isTransitioning = true;
+      currentIndex = (currentIndex + 1) % carouselArr.length;
+      updateCarousel();
+      setTimeout(() => isTransitioning = false, 800);
+    }
+
+    function prevSlide() {
+      if (isTransitioning) return;
+      isTransitioning = true;
+      currentIndex = (currentIndex - 1 + carouselArr.length) % carouselArr.length;
+      updateCarousel();
+      setTimeout(() => isTransitioning = false, 800);
+    }
+
+    // Event Listeners
+    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => {
+        if (currentIndex === index || isTransitioning) return;
+        currentIndex = index;
+        updateCarousel();
+      });
+    });
+
+    // Option: Click card to go next
+    carouselArr.forEach((card, index) => {
+      card.addEventListener('click', () => {
+        if (card.classList.contains('is-next')) {
+          nextSlide();
+        } else if (card.classList.contains('is-prev')) {
+          prevSlide();
+        }
+      });
+    });
+
+    // Initialize first state
+    updateCarousel();
+
+    // Auto-advance
+    let autoPlay = setInterval(nextSlide, 8000);
+
+    container.addEventListener('mouseenter', () => clearInterval(autoPlay));
+    container.addEventListener('mouseleave', () => autoPlay = setInterval(nextSlide, 8000));
   }
 
   /**

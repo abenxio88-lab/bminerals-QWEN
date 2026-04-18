@@ -124,7 +124,7 @@
 }
 
 .revealed .chart-point {
-  fill: #fff;
+  fill: var(--navy-900);
   stroke: currentColor;
   stroke-width: 2;
   opacity: 0;
