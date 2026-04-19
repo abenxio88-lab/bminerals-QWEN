@@ -1,3 +1,5 @@
+import { isMobile } from './utils.js';
+
 export function initDropdownMenus() {
   const dropdownGroups = document.querySelectorAll('.navbar__dropdown-group');
   const dropdownTriggers = document.querySelectorAll('.navbar__dropdown-trigger');
@@ -15,11 +17,8 @@ export function initDropdownMenus() {
     let showTimeout = null;
 
     function showDropdown() {
-      if (window.innerWidth <= 1024) return; // Skip on mobile
-      
+      if (isMobile()) return; // Skip on mobile
       clearTimeout(hideTimeout);
-      
-      // Delay showing to avoid flash when accidentally clipping other buttons
       showTimeout = setTimeout(() => {
         // Close all other dropdowns first
         dropdownGroups.forEach(otherGroup => {
@@ -27,20 +26,24 @@ export function initDropdownMenus() {
             const otherMenu = otherGroup.querySelector('.navbar__dropdown-menu');
             if (otherMenu) {
               otherMenu.classList.remove('dropdown-active');
+              const otherTrigger = otherGroup.querySelector('.navbar__dropdown-trigger');
+              if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
             }
           }
         });
         menu.classList.add('dropdown-active');
+        const trigger = group.querySelector('.navbar__dropdown-trigger');
+        if (trigger) trigger.setAttribute('aria-expanded', 'true');
       }, 150);
     }
 
     function hideDropdown() {
-      if (window.innerWidth <= 1024) return;
-      
+      if (isMobile()) return;
       clearTimeout(showTimeout); // Cancel showing if mouse leaves quickly
-      
       hideTimeout = setTimeout(() => {
         menu.classList.remove('dropdown-active');
+        const trigger = group.querySelector('.navbar__dropdown-trigger');
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
       }, 350); // Generous delay enables 'Hover Safe Tunnel' across gaps
     }
 
@@ -50,10 +53,15 @@ export function initDropdownMenus() {
 
     // Keep open while hovering the menu itself
     menu.addEventListener('mouseenter', () => {
-      if (window.innerWidth <= 1024) return;
+      if (isMobile()) return;
       clearTimeout(hideTimeout);
     });
     menu.addEventListener('mouseleave', hideDropdown);
+
+    // Keyboard: close on Escape when menu is focused
+    menu.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') hideDropdown();
+    });
   });
 
   // ============================================
@@ -61,9 +69,9 @@ export function initDropdownMenus() {
   // ============================================
   dropdownTriggers.forEach(trigger => {
     trigger.addEventListener('click', (e) => {
-      const isMobile = window.innerWidth <= 1024;
+      const mobile = isMobile();
 
-      if (isMobile) {
+      if (mobile) {
         // Allow link navigation if user clicked the text, not the arrow SVG
         if (!e.target.closest('svg') && !e.target.classList.contains('navbar__dropdown-arrow')) {
           return;
@@ -73,10 +81,9 @@ export function initDropdownMenus() {
         e.stopPropagation();
 
         const nextMenu = trigger.nextElementSibling;
-        
         if (nextMenu && nextMenu.classList.contains('navbar__dropdown-menu')) {
           const isOpen = trigger.classList.contains('open');
-          
+
           // Close all other dropdowns
           dropdownTriggers.forEach(t => {
             if (t !== trigger) {
@@ -88,7 +95,7 @@ export function initDropdownMenus() {
               }
             }
           });
-          
+
           // Toggle current dropdown
           if (isOpen) {
             trigger.classList.remove('open');
@@ -98,12 +105,36 @@ export function initDropdownMenus() {
             trigger.classList.add('open');
             nextMenu.classList.add('open');
             trigger.setAttribute('aria-expanded', 'true');
+            // focus first link for keyboard users
+            const firstItem = nextMenu.querySelector('.navbar__dropdown-item');
+            if (firstItem) firstItem.focus();
           }
         }
       } else {
-        // Desktop: Just update aria-expanded for accessibility
+        // Desktop: toggle aria-expanded and menu visibility for accessibility
         const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
-        trigger.setAttribute('aria-expanded', !isExpanded);
+        trigger.setAttribute('aria-expanded', String(!isExpanded));
+        const menu = trigger.nextElementSibling;
+        if (menu && menu.classList.contains('navbar__dropdown-menu')) {
+          if (isExpanded) {
+            menu.classList.remove('dropdown-active');
+          } else {
+            menu.classList.add('dropdown-active');
+          }
+        }
+      }
+    });
+
+    // Keyboard support for trigger (Enter / Space / Escape)
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        trigger.click();
+      }
+      if (e.key === 'Escape') {
+        trigger.setAttribute('aria-expanded', 'false');
+        const menu = trigger.nextElementSibling;
+        if (menu) menu.classList.remove('dropdown-active', 'open');
       }
     });
   });

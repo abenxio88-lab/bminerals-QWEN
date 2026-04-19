@@ -26,6 +26,7 @@
     content="Access financial reports, annual filings, and corporate governance documents. PKR 4.2B revenue.">
 
   <title>Investors | Financial Results & Reports - Balochistan Minerals</title>
+  <link rel="canonical" href="https://balochistanminerals.com/investors">
   <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
@@ -38,6 +39,7 @@
     rel="stylesheet">
   <link rel="stylesheet" href="output.css">
   <link rel="stylesheet" href="css/premium-polish.css">
+  <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/pages/investors.css">
 </head>
 
@@ -60,7 +62,7 @@
   <header class="navbar" role="banner">
     <div class="navbar__container">
       <a href="index.html" class="navbar__brand" aria-label="Balochistan Minerals Home">
-        <img src="images/new-logo.png" alt="Balochistan Minerals logo" class="navbar__logo-img">
+        <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals logo" class="navbar__logo-img">
       </a>
 
       <nav class="navbar__nav" role="navigation" aria-label="Main navigation">
@@ -609,7 +611,7 @@
   <main id="main-content">
     <!-- Hero -->
     <section class="investors-hero">
-      <div class="investors-hero__bg"><img src="images/hero/hero-6.webp" alt="Investor relations" loading="eager"></div>
+      <div class="investors-hero__bg"><img loading="eager" src="images/hero/hero-6.webp" alt="Investor relations"></div>
       <div class="investors-hero__overlay"></div>
       <div class="investors-hero__content">
         <span class="investors-hero__overline">Investor Relations</span>
@@ -823,7 +825,7 @@
           </a>
         </div>
         <div class="investors-cta__visual">
-          <img src="images/hero/hero-4.webp" alt="Contact investor relations" loading="lazy">
+          <img loading="lazy" src="images/hero/hero-4.webp" alt="Contact investor relations">
         </div>
       </div>
     </section>
@@ -836,7 +838,7 @@
         <div class="footer__brand-section">
           <div class="footer__brand">
             <div class="footer__logo">
-              <img src="images/new-logo.png" alt="Balochistan Minerals" class="footer__logo-img">
+              <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals" class="footer__logo-img">
             </div>
             <p class="footer__mission">Committed to ethical mining practices, community uplift, and sustainable growth.
               Delivering Pakistan's mineral wealth to the world with integrity, transparency, and excellence.</p>
@@ -911,10 +913,10 @@
   <!-- @SECTION: FOOTER END -->
 
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script type="module" src="js/animations-premium.js"></script>
-  <script type="module" src="js/main.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script type="module" src="js/animations-premium.js" defer></script>
+  <script type="module" src="js/main.js" defer></script>
 </body>
 
 </html>

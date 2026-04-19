@@ -15,12 +15,29 @@
   <meta property="og:url" content="https://balochistanminerals.com/products">
   <meta property="og:image" content="https://balochistanminerals.com/images/iron-ore-new.webp">
 
+  <!-- Preload critical product images -->
+  <link rel="preload" as="image" href="images/chromite-new.avif" imagesrcset="images/chromite-new.avif 1x">
+  <link rel="preload" as="image" href="images/iron-ore-new.avif" imagesrcset="images/iron-ore-new.avif 1x">
+
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Our Products | Premium Minerals from Balochistan">
   <meta name="twitter:description" content="Explore our range of premium-grade minerals: Iron Ore, Barite, Chromite & Copper.">
 
   <title>Our Products | Premium Minerals from Balochistan - Balochistan Minerals</title>
+  <link rel="canonical" href="https://balochistanminerals.com/products">
+  <style>
+    :root{--navbar-height:80px;--max-width:1400px}
+    .navbar{position:fixed;top:0;left:0;right:0;height:var(--navbar-height);background:rgba(248,248,245,0.95)!important;z-index:1000!important}
+    .navbar__container{width:100%;padding:0 3rem;display:grid!important;grid-template-columns:auto 1fr auto;gap:2rem;align-items:center;height:100%;position:relative;z-index:1}
+    .navbar__brand{display:flex!important;align-items:center!important;gap:0.5rem}
+    .navbar__logo-img{height:40px!important;width:auto!important;display:inline-block!important}
+    .hero{min-height:calc(100vh - var(--navbar-height));padding-top:calc(var(--navbar-height) + 2rem);display:flex;align-items:center}
+    .hero__container{max-width:var(--max-width);margin:0 auto;padding:0 1.5rem;text-align:center}
+    .hero__headline{font-family:var(--font-heading);font-size:clamp(1.6rem,3.2vw,2.2rem);font-weight:600;text-transform:uppercase}
+    .skip-link:focus{top:0}*:focus-visible{outline:3px solid var(--primary-gold-500);outline-offset:2px}
+  </style>
+  <link rel="preload" as="image" href="images/hero/products-hero.webp">
   <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
@@ -35,6 +52,7 @@
   <!-- CSS -->
   <link rel="stylesheet" href="output.css">
   <link rel="stylesheet" href="css/premium-polish.css">
+  <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/pages/products.css">
   
   <!-- Schema.org (Million Dollar SEO) -->
@@ -69,7 +87,7 @@
   <header class="navbar" role="banner">
     <div class="navbar__container">
       <a href="index.html" class="navbar__brand" aria-label="Balochistan Minerals Home">
-        <img src="images/new-logo.png" alt="Balochistan Minerals logo" class="navbar__logo-img">
+        <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals logo" class="navbar__logo-img" style="height:40px;width:auto;display:inline-block !important;max-width:none;opacity:1 !important;">
       </a>
 
       <nav class="navbar__nav" role="navigation" aria-label="Main navigation">
@@ -804,7 +822,11 @@
             </div>
           </div>
           <div class="zigzag__visual">
-            <img src="images/iron-ore-new.webp" alt="Iron ore hematite specimen" loading="lazy">
+            <picture>
+              <source type="image/avif" srcset="images/iron-ore-new.avif">
+              <source type="image/webp" srcset="images/iron-ore-new.webp">
+              <img src="images/iron-ore-new.webp" alt="Iron ore hematite specimen" loading="lazy">
+            </picture>
             <div class="zigzag__visual-overlay"></div>
           </div>
         </div>
@@ -944,7 +966,11 @@
         </div>
       </div>
       <div class="split-screen__right">
-        <img src="images/barite-card.jpg" alt="Barite mineral specimen" loading="lazy">
+        <picture>
+          <source type="image/avif" srcset="images/barite-card.avif">
+          <source type="image/webp" srcset="images/barite-card.jpg">
+          <img src="images/barite-card.jpg" alt="Barite mineral specimen" loading="lazy">
+        </picture>
         <div class="split-screen__right-overlay"></div>
       </div>
     </section>
@@ -1054,7 +1080,11 @@
           <!-- Large Featured: Chemical Composition -->
           <div class="asymmetrical-grid__item asymmetrical-grid__item--large reveal">
             <div class="item-image">
-              <img src="images/chromite-new.webp" alt="Chromite ore from Muslim Bagh" loading="lazy">
+              <picture>
+                <source type="image/avif" srcset="images/chromite-new.avif">
+                <source type="image/webp" srcset="images/chromite-new.webp">
+                <img src="images/chromite-new.webp" alt="Chromite ore from Muslim Bagh" loading="lazy">
+              </picture>
             </div>
             <div>
               <span class="item-overline">Chemical Composition</span>
@@ -1171,7 +1201,11 @@
         </div>
         <div class="diagonal-section__visual">
           <div class="diagonal-section__image">
-            <img src="images/copper-new.webp" alt="Chagai copper exploration site" loading="lazy">
+            <picture>
+              <source type="image/avif" srcset="images/copper-new.avif">
+              <source type="image/webp" srcset="images/copper-new.webp">
+              <img src="images/copper-new.webp" alt="Chagai copper exploration site" loading="lazy">
+            </picture>
           </div>
         </div>
       </div>
@@ -1301,7 +1335,7 @@
         <div class="footer__brand-section">
           <div class="footer__brand">
             <div class="footer__logo">
-              <img src="images/new-logo.png" alt="Balochistan Minerals" class="footer__logo-img">
+              <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals" class="footer__logo-img">
             </div>
             <p class="footer__mission">Committed to ethical mining practices, community uplift, and sustainable growth. Delivering Pakistan's mineral wealth to the world with integrity, transparency, and excellence.</p>
             <div class="footer__social-links">
@@ -1368,10 +1402,10 @@
   </footer>
 
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script type="module" src="js/animations-premium.js"></script>
-  <script type="module" src="js/main.js"></script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script type="module" src="js/animations-premium.js" defer></script>
+  <script type="module" src="js/main.js" defer></script>
 </body>
 </html>
 

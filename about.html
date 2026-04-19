@@ -24,6 +24,19 @@
   <meta name="twitter:description" content="Discover 15+ years of ethical mining excellence in Balochistan.">
 
   <title>About Us | Balochistan Minerals - Our Story & Leadership</title>
+  <link rel="canonical" href="https://balochistanminerals.com/about">
+  <style>
+    :root{--navbar-height:80px;--max-width:1400px}
+    .navbar{position:fixed;top:0;left:0;right:0;height:var(--navbar-height);background:rgba(248,248,245,0.95)!important;z-index:1000!important}
+    .navbar__container{width:100%;padding:0 3rem;display:grid!important;grid-template-columns:auto 1fr auto;gap:2rem;align-items:center;height:100%;position:relative;z-index:1}
+    .navbar__brand{display:flex!important;align-items:center!important;gap:0.5rem}
+    .navbar__logo-img{height:40px!important;width:auto!important;display:inline-block!important}
+    .hero{min-height:calc(100vh - var(--navbar-height));padding-top:calc(var(--navbar-height) + 2rem);display:flex;align-items:center}
+    .hero__container{max-width:var(--max-width);margin:0 auto;padding:0 1.5rem;text-align:center}
+    .hero__headline{font-family:var(--font-heading);font-size:clamp(1.6rem,3.2vw,2.2rem);font-weight:600;text-transform:uppercase}
+    .skip-link:focus{top:0}*:focus-visible{outline:3px solid var(--primary-gold-500);outline-offset:2px}
+  </style>
+  <link rel="preload" as="image" href="images/hero/about-hero.webp">
   <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
@@ -38,6 +51,7 @@
   <!-- CSS -->
   <link rel="stylesheet" href="output.css">
   <link rel="stylesheet" href="css/premium-polish.css">
+  <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/pages/about.css">
   <!-- Schema.org (Million Dollar SEO) -->
   <script type="application/ld+json">
@@ -72,7 +86,7 @@
   <header class="navbar" role="banner">
     <div class="navbar__container">
       <a href="index.html" class="navbar__brand" aria-label="Balochistan Minerals Home">
-        <img src="images/new-logo.png" alt="Balochistan Minerals logo" class="navbar__logo-img">
+        <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals logo" class="navbar__logo-img" style="height:40px;width:auto;display:inline-block !important;max-width:none;opacity:1 !important;">
       </a>
 
       <nav class="navbar__nav" role="navigation" aria-label="Main navigation">
@@ -625,7 +639,7 @@
     <!-- ============================================ -->
     <section class="parallax-hero" aria-label="About us hero section">
       <div class="parallax-hero__bg">
-        <img src="images/hero/hero-1.webp" alt="Balochistan Minerals operations in Balochistan mountains"
+        <img loading="eager" src="images/hero/hero-1.webp" alt="Balochistan Minerals operations in Balochistan mountains"
           loading="eager">
       </div>
       <div class="parallax-hero__overlay"></div>
@@ -696,7 +710,7 @@
             </div>
           </div>
           <div class="zigzag__visual">
-            <img src="images/hero/hero-2.webp" alt="Early mining operations in Muslim Bagh" loading="lazy">
+            <img loading="lazy" src="images/hero/hero-2.webp" alt="Early mining operations in Muslim Bagh">
             <div class="zigzag__visual-overlay"></div>
           </div>
         </div>
@@ -739,7 +753,7 @@
             </div>
           </div>
           <div class="zigzag__visual">
-            <img src="images/hero/hero-3.webp" alt="Barite processing plant in Khuzdar" loading="lazy">
+            <img loading="lazy" src="images/hero/hero-3.webp" alt="Barite processing plant in Khuzdar">
             <div class="zigzag__visual-overlay"></div>
           </div>
         </div>
@@ -782,7 +796,7 @@
             </div>
           </div>
           <div class="zigzag__visual">
-            <img src="images/hero/hero-4.webp" alt="Modern mining operations and technology" loading="lazy">
+            <img loading="lazy" src="images/hero/hero-4.webp" alt="Modern mining operations and technology">
             <div class="zigzag__visual-overlay"></div>
           </div>
         </div>
@@ -828,7 +842,7 @@
         </div>
       </div>
       <div class="split-screen__right">
-        <img src="images/hero/hero-5.webp" alt="Sustainable mining and community development" loading="lazy">
+        <img loading="lazy" src="images/hero/hero-5.webp" alt="Sustainable mining and community development">
         <div class="split-screen__right-overlay"></div>
       </div>
     </section>
@@ -966,7 +980,7 @@
           <!-- Featured Leader -->
           <div class="asymmetrical-grid__item asymmetrical-grid__item--large reveal">
             <div class="item-image">
-              <img src="images/hero/hero-6.webp" alt="Executive leadership team" loading="lazy">
+              <img loading="lazy" src="images/hero/hero-6.webp" alt="Executive leadership team">
             </div>
             <div>
               <span class="item-overline">CEO & Managing Director</span>
@@ -1061,7 +1075,7 @@
           </div>
           <div class="timeline__visual">
             <div class="timeline__image">
-              <img src="images/hero/hero-1.webp" alt="Company founding in 2008" loading="lazy">
+              <img loading="lazy" src="images/hero/hero-1.webp" alt="Company founding in 2008">
             </div>
           </div>
         </div>
@@ -1077,7 +1091,7 @@
           </div>
           <div class="timeline__visual">
             <div class="timeline__image">
-              <img src="images/hero/hero-2.webp" alt="ISO certification achievement" loading="lazy">
+              <img loading="lazy" src="images/hero/hero-2.webp" alt="ISO certification achievement">
             </div>
           </div>
         </div>
@@ -1093,7 +1107,7 @@
           </div>
           <div class="timeline__visual">
             <div class="timeline__image">
-              <img src="images/hero/hero-3.webp" alt="Khuzdar barite operations" loading="lazy">
+              <img loading="lazy" src="images/hero/hero-3.webp" alt="Khuzdar barite operations">
             </div>
           </div>
         </div>
@@ -1109,7 +1123,7 @@
           </div>
           <div class="timeline__visual">
             <div class="timeline__image">
-              <img src="images/hero/hero-4.webp" alt="Production capacity milestone" loading="lazy">
+              <img loading="lazy" src="images/hero/hero-4.webp" alt="Production capacity milestone">
             </div>
           </div>
         </div>
@@ -1125,7 +1139,7 @@
           </div>
           <div class="timeline__visual">
             <div class="timeline__image">
-              <img src="images/hero/hero-5.webp" alt="Sustainability initiatives" loading="lazy">
+              <img loading="lazy" src="images/hero/hero-5.webp" alt="Sustainability initiatives">
             </div>
           </div>
         </div>
@@ -1141,7 +1155,7 @@
           </div>
           <div class="timeline__visual">
             <div class="timeline__image">
-              <img src="images/hero/hero-7.webp" alt="Chagai exploration project" loading="lazy">
+              <img loading="lazy" src="images/hero/hero-7.webp" alt="Chagai exploration project">
             </div>
           </div>
         </div>
@@ -1157,7 +1171,7 @@
           </div>
           <div class="timeline__visual">
             <div class="timeline__image">
-              <img src="images/hero/hero-6.webp" alt="Current operations and achievements" loading="lazy">
+              <img loading="lazy" src="images/hero/hero-6.webp" alt="Current operations and achievements">
             </div>
           </div>
         </div>
@@ -1188,7 +1202,7 @@
         </div>
         <div class="diagonal-section__visual">
           <div class="diagonal-section__image">
-            <img src="images/hero/hero-7.webp" alt="Partner with Balochistan Minerals" loading="lazy">
+            <img loading="lazy" src="images/hero/hero-7.webp" alt="Partner with Balochistan Minerals">
           </div>
         </div>
       </div>
@@ -1205,7 +1219,7 @@
         <div class="footer__brand-section">
           <div class="footer__brand">
             <div class="footer__logo">
-              <img src="images/new-logo.png" alt="Balochistan Minerals" class="footer__logo-img">
+              <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals" class="footer__logo-img">
             </div>
             <p class="footer__mission">Committed to ethical mining practices, community uplift, and sustainable growth.
               Delivering Pakistan's mineral wealth to the world with integrity, transparency, and excellence.</p>
@@ -1279,10 +1293,10 @@
   </footer>
 
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script type="module" src="js/animations-premium.js"></script>
-  <script type="module" src="js/main.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script type="module" src="js/animations-premium.js" defer></script>
+  <script type="module" src="js/main.js" defer></script>
 </body>
 
 </html>

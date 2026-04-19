@@ -741,3 +741,10 @@ body.loaded .bm-hill-content {
     justify-content: center !important;
   }
 }
+
+/* 13. FOOTER CINEMATIC BACKGROUND */
+.footer {
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url('../images/hero/footer-bg-new.webp') center/cover no-repeat !important;
+}

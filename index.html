@@ -26,6 +26,33 @@
     content="Pakistan's premier mineral sourcing partner from Balochistan. Ethically mined, globally delivered.">
 
   <title>Balochistan Minerals | Extracting Excellence. Powering Pakistan's Future.</title>
+  <link rel="canonical" href="https://balochistanminerals.com/">
+  <!-- Inline critical CSS to improve FCP/LCP -->
+  <style>
+    :root {
+      --navbar-height: 80px;
+      --max-width: 1400px;
+    }
+
+    .navbar { position: fixed; top: 0; left: 0; right: 0; height: var(--navbar-height); background: rgba(248, 248, 245, 0.95) !important; z-index: 1000 !important; }
+    .navbar__container { width: 100%; padding: 0 3rem; display: grid !important; grid-template-columns: auto 1fr auto; gap: 2rem; align-items: center; height: 100%; position: relative; z-index: 1; }
+    .navbar__brand { display: flex !important; align-items: center !important; gap: 0.5rem; }
+    .navbar__logo-img { height: 40px !important; width: auto !important; display: inline-block !important; }
+
+    .hero { min-height: calc(100vh - var(--navbar-height)); padding-top: calc(var(--navbar-height) + 2rem); display:flex; align-items:center; }
+    .hero__container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; text-align: center; }
+    .hero__headline { font-family: var(--font-heading); font-size: clamp(1.6rem, 3.2vw, 2.2rem); font-weight: 600; text-transform: uppercase; }
+    .hero__subheadline { color: var(--text-secondary); margin-top: 0.5rem; }
+
+    .skip-link:focus { top: 0; }
+    *:focus-visible { outline: 3px solid var(--primary-gold-500); outline-offset: 2px; }
+  </style>
+
+  <!-- Preload hero image to improve LCP (prefer AVIF when available) -->
+  <link rel="preload" as="image" href="images/hero/hero-1.avif" imagesrcset="images/hero/hero-1.avif 1x, images/hero/hero-1.webp 1x">
+  <link rel="preload" as="image" href="images/chromite-new.avif" imagesrcset="images/chromite-new.avif 1x, images/chromite-new.webp 1x">
+  <link rel="preload" as="image" href="images/iron-ore-new.avif" imagesrcset="images/iron-ore-new.avif 1x, images/iron-ore-new.webp 1x">
+  <link rel="preload" as="image" href="images/copper-new.avif" imagesrcset="images/copper-new.avif 1x, images/copper-new.webp 1x">
   <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
@@ -43,6 +70,7 @@
   <link rel="stylesheet" href="output.css">
   <link rel="stylesheet" href="css/premium-polish.css">
   <link rel="stylesheet" href="css/hero-cinematic.css">
+  <link rel="stylesheet" href="css/animations.css">
 
   <!-- Component CSS (Non-Critical) -->
   <link rel="stylesheet" href="css/components/cta.css" media="print" onload="this.media='all'">
@@ -129,7 +157,7 @@
   <header class="navbar" role="banner">
     <div class="navbar__container">
       <a href="index.html" class="navbar__brand" aria-label="Balochistan Minerals Home">
-        <img src="images/new-logo.png" alt="Balochistan Minerals logo" class="navbar__logo-img">
+        <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals logo" class="navbar__logo-img" style="height:40px;width:auto;display:inline-block !important;max-width:none;opacity:1 !important;">
       </a>
 
       <nav class="navbar__nav" role="navigation" aria-label="Main navigation">
@@ -731,7 +759,11 @@
             <div class="mineral-carousel" id="heroCarousel">
               <!-- Featured: Chromite -->
               <div class="mineral-card is-active" data-index="0">
-                <img src="images/chromite-new.webp" alt="Chromite ore" class="mineral-card__image" loading="eager">
+                <picture>
+                  <source type="image/avif" srcset="images/chromite-new.avif">
+                  <source type="image/webp" srcset="images/chromite-new.webp">
+                  <img src="images/chromite-new.webp" alt="Chromite ore" class="mineral-card__image" loading="eager">
+                </picture>
                 <div class="mineral-card__content">
                   <h3 class="mineral-card__title">Chromite</h3>
                   <div class="mineral-card__stats">
@@ -743,7 +775,11 @@
 
               <!-- Iron Ore -->
               <div class="mineral-card" data-index="1">
-                <img src="images/iron-ore-new.webp" alt="Iron ore" class="mineral-card__image" loading="lazy">
+                <picture>
+                  <source type="image/avif" srcset="images/iron-ore-new.avif">
+                  <source type="image/webp" srcset="images/iron-ore-new.webp">
+                  <img src="images/iron-ore-new.webp" alt="Iron ore" class="mineral-card__image" loading="lazy">
+                </picture>
                 <div class="mineral-card__content">
                   <h3 class="mineral-card__title">Iron Ore</h3>
                   <div class="mineral-card__stats">
@@ -755,7 +791,11 @@
 
               <!-- Barite -->
               <div class="mineral-card" data-index="2">
-                <img src="images/barite-card.jpg" alt="Barite ore" class="mineral-card__image" loading="lazy">
+                <picture>
+                  <source type="image/avif" srcset="images/barite-card.avif">
+                  <source type="image/webp" srcset="images/barite-card.webp">
+                  <img src="images/barite-card.jpg" alt="Barite ore" class="mineral-card__image" loading="lazy">
+                </picture>
                 <div class="mineral-card__content">
                   <h3 class="mineral-card__title">Barite</h3>
                   <div class="mineral-card__stats">
@@ -767,7 +807,11 @@
 
               <!-- Copper -->
               <div class="mineral-card" data-index="3">
-                <img src="images/copper-new.webp" alt="Copper ore" class="mineral-card__image" loading="lazy">
+                <picture>
+                  <source type="image/avif" srcset="images/copper-new.avif">
+                  <source type="image/webp" srcset="images/copper-new.webp">
+                  <img src="images/copper-new.webp" alt="Copper ore" class="mineral-card__image" loading="lazy">
+                </picture>
                 <div class="mineral-card__content">
                   <h3 class="mineral-card__title">Copper</h3>
                   <div class="mineral-card__stats">
@@ -2747,7 +2791,7 @@
         <div class="footer__brand-section">
           <div class="footer__brand">
             <div class="footer__logo">
-              <img src="images/new-logo.png" alt="Balochistan Minerals" class="footer__logo-img">
+              <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals" class="footer__logo-img">
             </div>
             <p class="footer__mission">Committed to ethical mining practices, community uplift, and sustainable growth.
               Delivering Pakistan's mineral wealth to the world with integrity, transparency, and excellence.</p>
@@ -2821,13 +2865,13 @@
   </footer>
 
   <!-- JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script type="module" src="js/animations-premium.js"></script>
-  <script type="module" src="js/earth-tech-core.js"></script>
-  <script type="module" src="js/tactile-feedback.js"></script>
-  <script type="module" src="js/hero-cinematic.js"></script>
-  <script type="module" src="js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" async></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" async></script>
+  <script type="module" src="js/animations-premium.js" defer></script>
+  <script type="module" src="js/earth-tech-core.js" defer></script>
+  <script type="module" src="js/tactile-feedback.js" defer></script>
+  <script type="module" src="js/hero-cinematic.js" defer></script>
+  <script type="module" src="js/main.js" defer></script>
 </body>
 
 </html>

@@ -1,0 +1,22 @@
+/* critical.css - minimal above-the-fold styles to inline in <head>
+   Keep this very small: navbar layout, hero container, basic typography */
+
+:root {
+  --navbar-height: 80px;
+  --max-width: 1400px;
+}
+
+/* Navbar minimal */
+.navbar { position: fixed; top: 0; left: 0; right: 0; height: var(--navbar-height); z-index: 1000; }
+.navbar__container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; display: grid; grid-template-columns: auto 1fr auto; align-items: center; }
+.navbar__logo-img { height: 40px; }
+
+/* Hero minimal layout */
+.hero { min-height: calc(100vh - var(--navbar-height)); padding-top: calc(var(--navbar-height) + 2rem); display:flex; align-items:center; }
+.hero__container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; text-align: center; }
+.hero__headline { font-family: var(--font-heading); font-size: clamp(1.6rem, 3.2vw, 2.2rem); font-weight: 600; text-transform: uppercase; }
+.hero__subheadline { color: var(--text-secondary); margin-top: 0.5rem; }
+
+/* Accessibility visible focus for keyboard users */
+.skip-link:focus { top: 0; }
+*:focus-visible { outline: 3px solid var(--primary-gold-500); outline-offset: 2px; }

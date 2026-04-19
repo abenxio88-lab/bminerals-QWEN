@@ -15,12 +15,30 @@
   <meta property="og:url" content="https://balochistanminerals.com/our-mines">
   <meta property="og:image" content="https://balochistanminerals.com/images/hero/hero-7.webp">
 
+  <!-- Preload critical images -->
+  <link rel="preload" as="image" href="images/chromite-new.avif" imagesrcset="images/chromite-new.avif 1x">
+  <link rel="preload" as="image" href="images/barite-card.avif" imagesrcset="images/barite-card.avif 1x">
+  <link rel="preload" as="image" href="images/copper-new.avif" imagesrcset="images/copper-new.avif 1x">
+
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Our Mines | Muslim Bagh, Khuzdar & Chagai - Balochistan Minerals">
   <meta name="twitter:description" content="Explore our three strategic mining sites across Balochistan: Muslim Bagh, Khuzdar, and Chagai.">
 
   <title>Our Mines | Muslim Bagh, Khuzdar & Chagai - Balochistan Minerals</title>
+  <link rel="canonical" href="https://balochistanminerals.com/our-mines">
+  <style>
+    :root{--navbar-height:80px;--max-width:1400px}
+    .navbar{position:fixed;top:0;left:0;right:0;height:var(--navbar-height);background:rgba(248,248,245,0.95)!important;z-index:1000!important}
+    .navbar__container{width:100%;padding:0 3rem;display:grid!important;grid-template-columns:auto 1fr auto;gap:2rem;align-items:center;height:100%;position:relative;z-index:1}
+    .navbar__brand{display:flex!important;align-items:center!important;gap:0.5rem}
+    .navbar__logo-img{height:40px!important;width:auto!important;display:inline-block!important}
+    .hero{min-height:calc(100vh - var(--navbar-height));padding-top:calc(var(--navbar-height) + 2rem);display:flex;align-items:center}
+    .hero__container{max-width:var(--max-width);margin:0 auto;padding:0 1.5rem;text-align:center}
+    .hero__headline{font-family:var(--font-heading);font-size:clamp(1.6rem,3.2vw,2.2rem);font-weight:600;text-transform:uppercase}
+    .skip-link:focus{top:0}*:focus-visible{outline:3px solid var(--primary-gold-500);outline-offset:2px}
+  </style>
+  <link rel="preload" as="image" href="images/hero/mines-hero.webp">
   <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
@@ -31,6 +49,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="output.css">
   <link rel="stylesheet" href="css/premium-polish.css">
+  <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/pages/our-mines.css">
 </head>
 <body class="mines-page is-loading">
@@ -53,7 +72,7 @@
   <header class="navbar" role="banner">
     <div class="navbar__container">
       <a href="index.html" class="navbar__brand" aria-label="Balochistan Minerals Home">
-        <img src="images/new-logo.png" alt="Balochistan Minerals logo" class="navbar__logo-img">
+        <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals logo" class="navbar__logo-img" style="height:40px;width:auto;display:inline-block !important;max-width:none;opacity:1 !important;">
       </a>
 
       <nav class="navbar__nav" role="navigation" aria-label="Main navigation">
@@ -602,7 +621,7 @@
   <main id="main-content">
     <!-- Hero -->
     <section class="mines-hero">
-      <div class="mines-hero__bg"><img src="images/chromite-new.webp" alt="Chromite mining operations at Muslim Bagh, Balochistan" loading="eager"></div>
+      <div class="mines-hero__bg"><picture><source type="image/avif" srcset="images/chromite-new.avif"><source type="image/webp" srcset="images/chromite-new.webp"><img src="images/chromite-new.webp" alt="Chromite mining operations at Muslim Bagh, Balochistan" loading="eager"></picture></div>
       <div class="mines-hero__overlay"></div>
       <div class="mines-hero__content">
         <span class="mines-hero__overline">Our Mines</span>
@@ -643,7 +662,11 @@
         <!-- Muslim Bagh -->
         <div class="mine-profile reveal">
           <div class="mine-profile__image">
-            <img src="images/chromite-new.webp" alt="Muslim Bagh chromite mine" loading="lazy">
+            <picture>
+              <source type="image/avif" srcset="images/chromite-new.avif">
+              <source type="image/webp" srcset="images/chromite-new.webp">
+              <img src="images/chromite-new.webp" alt="Muslim Bagh chromite mine" loading="lazy">
+            </picture>
             <span class="mine-profile__status-badge">Active Mining</span>
           </div>
           <div class="mine-profile__info">
@@ -678,7 +701,11 @@
         <!-- Khuzdar -->
         <div class="mine-profile mine-profile--reverse reveal">
           <div class="mine-profile__image">
-            <img src="images/barite-card.jpg" alt="Khuzdar barite operations" loading="lazy">
+            <picture>
+              <source type="image/avif" srcset="images/barite-card.avif">
+              <source type="image/webp" srcset="images/barite-card.jpg">
+              <img src="images/barite-card.jpg" alt="Khuzdar barite operations" loading="lazy">
+            </picture>
             <span class="mine-profile__status-badge">Processing</span>
           </div>
           <div class="mine-profile__info">
@@ -713,7 +740,11 @@
         <!-- Chagai -->
         <div class="mine-profile reveal">
           <div class="mine-profile__image">
-            <img src="images/copper-new.webp" alt="Copper-gold exploration site in Chagai district, western Balochistan" loading="lazy">
+            <picture>
+              <source type="image/avif" srcset="images/copper-new.avif">
+              <source type="image/webp" srcset="images/copper-new.webp">
+              <img src="images/copper-new.webp" alt="Copper-gold exploration site in Chagai district, western Balochistan" loading="lazy">
+            </picture>
             <span class="mine-profile__status-badge mine-profile__status-badge--exploration">Exploration</span>
           </div>
           <div class="mine-profile__info">
@@ -773,7 +804,7 @@
         <div class="footer__brand-section">
           <div class="footer__brand">
             <div class="footer__logo">
-              <img src="images/new-logo.png" alt="Balochistan Minerals" class="footer__logo-img">
+              <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals" class="footer__logo-img">
             </div>
             <p class="footer__mission">Committed to ethical mining practices, community uplift, and sustainable growth. Delivering Pakistan's mineral wealth to the world with integrity, transparency, and excellence.</p>
             <div class="footer__social-links">
@@ -841,9 +872,9 @@
   <!-- @SECTION: FOOTER END -->
 
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script type="module" src="js/animations-premium.js"></script>
-  <script type="module" src="js/main.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script type="module" src="js/animations-premium.js" defer></script>
+  <script type="module" src="js/main.js" defer></script>
 </body>
 </html>

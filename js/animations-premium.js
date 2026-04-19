@@ -3,6 +3,8 @@
  * Powered by GSAP & ScrollTrigger with Lenis Smooth Scroll
  */
 
+import { Lenis } from '@studio-freight/lenis';
+
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 

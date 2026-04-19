@@ -7,20 +7,27 @@ import { initBorderBeam } from './border-beam.js';
 // ============================================
 // BM Hill Preloader Logic
 // ============================================
+// Ensure loader is removed even if errors occur
+function removeLoader() {
+  const loader = document.getElementById('bm-hill-loader');
+  if (loader) {
+    document.body.classList.remove('is-loading');
+    document.body.classList.add('loaded');
+  }
+}
+
 // We use DOMContentLoaded for a much faster initial reveal on mobile
 document.addEventListener('DOMContentLoaded', () => {
   // Snappier 800ms baseline for a professional institucional feel
   setTimeout(() => {
-    document.body.classList.remove('is-loading');
-    document.body.classList.add('loaded');
+    removeLoader();
   }, 800);
 });
 
 // Failsafe: Force open in case of heavy asset hanging
 setTimeout(() => {
   if (document.body.classList.contains('is-loading')) {
-    document.body.classList.remove('is-loading');
-    document.body.classList.add('loaded');
+    removeLoader();
   }
 }, 3000);
 
@@ -29,17 +36,20 @@ setTimeout(() => {
 // ============================================
 document.addEventListener('DOMContentLoaded', async () => {
   // 1. Initialize feature logic (now that elements exist in DOM)
-  initNavbar();
-  initScrollReveal();
-  initDropdownMenus();
-  initHeroSlider();
-  initCounterAnimation();
-  initSmoothScrolling();
-  initParallaxEffect();
-  initMineMarkers();
-  initNewsletterForm();
-  initBorderBeam();
-  initStepper();
+  // Wrap each in try-catch so errors don't prevent loader removal
+  try { initNavbar(); } catch (e) { console.error('initNavbar error:', e); }
+  try { initScrollReveal(); } catch (e) { console.error('initScrollReveal error:', e); }
+  try { initDropdownMenus(); } catch (e) { console.error('initDropdownMenus error:', e); }
+  try { initHeroSlider(); } catch (e) { console.error('initHeroSlider error:', e); }
+  try { initCounterAnimation(); } catch (e) { console.error('initCounterAnimation error:', e); }
+  try { initSmoothScrolling(); } catch (e) { console.error('initSmoothScrolling error:', e); }
+  try { initParallaxEffect(); } catch (e) { console.error('initParallaxEffect error:', e); }
+  try { initMineMarkers(); } catch (e) { console.error('initMineMarkers error:', e); }
+  try { initNewsletterForm(); } catch (e) { console.error('initNewsletterForm error:', e); }
+  try { initBorderBeam(); } catch (e) { console.error('initBorderBeam error:', e); }
+  try { initStepper(); } catch (e) { console.error('initStepper error:', e); }
+  // Ensure loader is removed after all inits complete
+  setTimeout(() => removeLoader(), 100);
 });
 
 // ============================================
