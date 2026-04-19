@@ -30,12 +30,10 @@
 .parallax-hero__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.85) 0%,
-    rgba(0, 0, 0, 0.7) 50%,
-    rgba(0, 0, 0, 0.85) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(0, 0, 0, 0.85) 0%,
+      rgba(0, 0, 0, 0.7) 50%,
+      rgba(0, 0, 0, 0.85) 100%);
   z-index: 1;
 }
 
@@ -156,7 +154,7 @@
   direction: rtl;
 }
 
-.zigzag__row--reverse > * {
+.zigzag__row--reverse>* {
   direction: ltr;
 }
 
@@ -189,12 +187,10 @@
 .zigzag__visual-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(15, 31, 58, 0.2) 50%,
-    rgba(15, 31, 58, 0.5) 100%
-  );
+  background: linear-gradient(180deg,
+      transparent 0%,
+      rgba(15, 31, 58, 0.2) 50%,
+      rgba(15, 31, 58, 0.5) 100%);
   pointer-events: none;
 }
 
@@ -325,11 +321,9 @@
 .split-screen__right-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(15, 31, 58, 0.4) 0%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(15, 31, 58, 0.4) 0%,
+      transparent 100%);
   pointer-events: none;
 }
 
@@ -549,18 +543,18 @@
 .timeline-section::before {
   content: '';
   position: absolute;
-  top: 160px; /* Offset to clear the header text */
+  top: 160px;
+  /* Offset to clear the header text */
   left: 50%;
   transform: translateX(-50%);
   width: 2px;
-  height: calc(100% - 160px); /* Adjust height to match new top */
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    var(--primary-gold-400) 15%,
-    var(--primary-gold-400) 85%,
-    transparent 100%
-  );
+  height: calc(100% - 160px);
+  /* Adjust height to match new top */
+  background: linear-gradient(to bottom,
+      transparent 0%,
+      var(--primary-gold-400) 15%,
+      var(--primary-gold-400) 85%,
+      transparent 100%);
 }
 
 .timeline__container {
@@ -738,49 +732,61 @@
   .zigzag__row {
     grid-template-columns: 1fr;
   }
+
   .zigzag__row--reverse {
     direction: ltr;
   }
+
   .split-screen {
     grid-template-columns: 1fr;
   }
+
   .bento-grid__layout {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .bento-card--large {
     grid-row: span 1;
   }
+
   .asymmetrical-grid__layout {
     grid-template-columns: 1fr 1fr;
   }
+
   .asymmetrical-grid__item--large {
     grid-column: span 2;
     grid-row: span 1;
   }
+
   .timeline-section::before {
     left: 2rem;
     top: 220px;
     height: calc(100% - 220px);
   }
+
   .timeline__item {
     grid-template-columns: 1fr;
     padding-left: 3.5rem;
   }
+
   .timeline__item::before {
     left: 2rem;
     transform: translateX(0);
   }
+
   .timeline__item:nth-child(odd) .timeline__content,
   .timeline__item:nth-child(even) .timeline__content {
     grid-column: 1;
     text-align: left;
     padding: 0;
   }
+
   .timeline__item:nth-child(odd) .timeline__visual,
   .timeline__item:nth-child(even) .timeline__visual {
     grid-column: 1;
     grid-row: auto;
   }
+
   .diagonal-section__container {
     grid-template-columns: 1fr;
   }
@@ -791,53 +797,68 @@
     height: 40vh;
     min-height: 280px;
   }
+
   .parallax-hero__title {
     font-size: var(--text-xl);
   }
+
   .zigzag-section {
     padding: 2.5rem var(--section-padding-x);
   }
+
   .zigzag__row {
     padding: 1.5rem;
     margin-bottom: 2rem;
   }
+
   .zigzag__visual {
     min-height: 220px;
   }
+
   .split-screen__left {
     padding: 2rem 1.5rem;
   }
+
   .bento-grid {
     padding: 2.5rem var(--section-padding-x);
   }
+
   .bento-grid__layout {
     grid-template-columns: 1fr;
   }
+
   .bento-card--medium,
   .bento-card--large,
   .bento-card--small {
     grid-column: span 1;
   }
+
   .asymmetrical-grid {
     padding: 2.5rem var(--section-padding-x);
   }
+
   .asymmetrical-grid__layout {
     grid-template-columns: 1fr;
   }
+
   .asymmetrical-grid__item--large {
     grid-column: span 1;
   }
+
   .timeline-section {
     padding: 2.5rem var(--section-padding-x);
   }
+
   .timeline-section::before {
     top: 190px;
     height: calc(100% - 190px);
     left: 2rem;
   }
+
   .diagonal-section {
     padding: 2.5rem var(--section-padding-x);
   }
+
   .diagonal-section::before {
     transform: rotate(0deg);
   }

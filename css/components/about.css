@@ -12,7 +12,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: 
+  background:
     radial-gradient(ellipse at 20% 30%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
     radial-gradient(ellipse at 80% 70%, rgba(44, 94, 143, 0.03) 0%, transparent 50%);
   pointer-events: none;

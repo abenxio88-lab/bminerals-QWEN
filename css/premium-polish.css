@@ -92,6 +92,15 @@
   transform: translateY(-5px);
 }
 
+/* 4. TYPOGRAPHY STANDARDIZATION (About Us Section) */
+.about__title,
+.about__story-title {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.02em !important;
+}
+
+
 /* 3. BORDER BEAM EFFECT */
 .border-beam {
   position: absolute;
@@ -326,7 +335,7 @@
   .navbar__phone {
     display: none !important;
   }
-  
+
   .navbar__hamburger {
     grid-column: 3 !important;
     justify-self: end !important;
@@ -370,7 +379,7 @@
   }
 
   /* All top-level mobile links */
-  .navbar__nav > .navbar__link,
+  .navbar__nav>.navbar__link,
   .navbar__nav .navbar__dropdown-trigger {
     color: #1a1a1a !important;
     font-size: 0.95rem !important;
@@ -397,10 +406,11 @@
     transition: transform 0.3s ease !important;
     width: 24px !important;
     height: 24px !important;
-    padding: 6px !important; /* Larger hit area */
-    pointer-events: auto !important; 
+    padding: 6px !important;
+    /* Larger hit area */
+    pointer-events: auto !important;
     border-radius: 4px !important;
-    background: rgba(0,0,0,0.03) !important;
+    background: rgba(0, 0, 0, 0.03) !important;
   }
 
   /* Rotate arrow when dropdown is open */
@@ -454,13 +464,17 @@ body.is-loading {
 
 #bm-hill-loader {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 99999;
   display: flex;
   align-items: center;
   justify-content: center;
   pointer-events: auto;
-  background: #ffffff; /* Premium Clean White */
+  background: #ffffff;
+  /* Premium Clean White */
   transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s ease;
 }
 
@@ -488,14 +502,17 @@ body.is-loading {
 }
 
 @keyframes drawHill {
-  to { stroke-dashoffset: 0; }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 .bm-hill-brand-text {
   font-family: 'Montserrat', sans-serif;
   font-size: 1.8rem;
   font-weight: 800;
-  color: #111827; /* Deep Charcoal */
+  color: #111827;
+  /* Deep Charcoal */
   margin: 0;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -508,18 +525,24 @@ body.is-loading {
   font-size: 0.7rem;
   letter-spacing: 0.6em;
   text-transform: uppercase;
-  color: #d4af37; /* Gold Logo Color */
+  color: #d4af37;
+  /* Gold Logo Color */
   margin-top: 1rem;
   opacity: 0;
   animation: fadeIn 1s ease 1.2s forwards;
 }
 
 @keyframes fadeUpBM {
-  to { opacity: 1; transform: translateY(0); }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeIn {
-  to { opacity: 0.6; }
+  to {
+    opacity: 0.6;
+  }
 }
 
 /* The Reveal Trigger */
@@ -604,7 +627,6 @@ body.loaded .bm-hill-content {
 /* 12. MOBILE AUTHORITY & RESPONSIVENESS        */
 /* ============================================ */
 @media (max-width: 768px) {
-
   /* Site-wide Typography Reduction */
   h1,
   .hero-headline,
@@ -752,7 +774,7 @@ body.loaded .bm-hill-content {
 
 /* 13. FOOTER CINEMATIC BACKGROUND */
 .footer {
-  background: 
-    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
     url('../images/hero/footer-bg-new.webp') center/cover no-repeat !important;
 }

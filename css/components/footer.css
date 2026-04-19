@@ -1,9 +1,13 @@
 .footer {
-  background: linear-gradient(to bottom, var(--navy-950), var(--navy-900));
-  color: rgba(255, 255, 255, 0.8);
-  padding: var(--section-padding-y) var(--section-padding-x) 2rem;
+  background: linear-gradient(to bottom, rgba(3, 7, 18, 0.88), rgba(3, 7, 18, 0.94)), url('../../images/hero/footer-bg.webp');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: rgba(255, 255, 255, 0.75);
+  padding: var(--section-padding-y) var(--section-padding-x) 2.5rem;
   position: relative;
   overflow: hidden;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .footer::before {
