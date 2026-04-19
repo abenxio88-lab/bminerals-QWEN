@@ -162,43 +162,70 @@
 .navbar__phone-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.35rem 0.8rem;
-  background: #ffffff;
-  border: 1px solid rgba(212,175,55,0.18);
-  border-radius: 999px;
+  gap: 0.65rem;
+  padding: 0.45rem 1.1rem;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border: 1.5px solid #e5e7eb;
+  border-radius: 12px;
   text-decoration: none;
-  color: #0b1220;
+  color: #1f2937;
   font-family: var(--font-ui);
   font-weight: 600;
-  font-size: 0. nine rem;
-  box-shadow: 0 2px 8px rgba(11,18,32,0.04);
-  transition: transform 0.22s var(--ease-smooth), box-shadow 0.22s var(--ease-smooth);
+  font-size: 0.9rem;
+  box-shadow: 0 4px 12px rgba(11,18,32,0.06), inset 0 1px 0 rgba(255,255,255,0.5);
+  transition: all 0.28s var(--ease-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.navbar__phone-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(212,175,55,0.05) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.28s var(--ease-smooth);
 }
 
 .navbar__phone-icon {
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 .navbar__phone-text {
   white-space: nowrap;
+  letter-spacing: 0.3px;
 }
 
 .navbar__phone-link:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(11,18,32,0.09);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(11,18,32,0.12), inset 0 1px 0 rgba(255,255,255,0.6);
+  border-color: #d4af37;
+  background: linear-gradient(135deg, #fafbfc 0%, #f0f2f5 100%);
+}
+
+.navbar__phone-link:hover::before {
+  opacity: 1;
 }
 
 .navbar__phone-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: rgba(212,175,55,0.15);
-  color: #0f1720;
-  font-size: 0.95rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%);
+  color: #000000;
+  font-size: 1rem;
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.8), inset 0 -1px 2px rgba(0,0,0,0.1);
+  transition: all 0.28s var(--ease-smooth);
+}
+
+.navbar__phone-link:hover .navbar__phone-icon {
+  background: linear-gradient(135deg, #e0e0e0 0%, #d0d0d0 100%);
+  color: #000000;
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.6), inset 0 -1px 2px rgba(0,0,0,0.15);
+  transform: scale(1.05);
 }
 
 .navbar__phone-text { font-variant: tabular-nums; }
@@ -351,7 +378,8 @@
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(212, 175, 55, 0.2);
-  border-radius: var(--radius-lg);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0; /* flush left border, rounded right */
+  border-left: 3px solid rgba(212, 175, 55, 0.4); /* prominent left border */
   padding: 0.75rem 0;
   min-width: 360px;
   z-index: 1001;
@@ -398,7 +426,7 @@
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  padding: 1rem 1.5rem;
+  padding: 1rem 1.5rem !important;
   color: var(--charcoal-700);
   font-size: var(--text-sm);
   text-transform: none;
@@ -406,14 +434,16 @@
   transition: all 0.25s var(--ease-smooth);
   position: relative;
   text-decoration: none;
-  border-left: 3px solid transparent;
+  border-left: 4px solid rgba(212, 175, 55, 0.4) !important; /* force visible */
+  border-radius: 0 !important; /* force flat */
+  overflow: visible !important; /* ensure border not clipped */
 }
 
 .navbar__dropdown-item:hover {
-  background: linear-gradient(90deg, rgba(212, 175, 55, 0.06), rgba(241, 212, 106, 0.02));
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.06), rgba(241, 212, 106, 0.02)) !important;
   color: var(--charcoal-900);
-  border-left-color: var(--primary-gold-400);
-  padding-left: 1.5rem;
+  border-left-color: var(--primary-gold-500) !important; /* bright gold on hover */
+  padding-left: 1rem !important; /* keep consistent padding */
 }
 
 .navbar__dropdown-item-icon {

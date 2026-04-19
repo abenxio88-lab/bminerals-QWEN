@@ -1,6 +1,10 @@
 import { highlightActiveLink, isMobile } from './utils.js';
 
 export function initNavbar() {
+  // Guard: Skip if already initialized
+  if (window.__navbarInitialized) return;
+  window.__navbarInitialized = true;
+
   const navbar = document.querySelector('.navbar');
   const hamburger = document.querySelector('.navbar__hamburger');
   const mobileMenu = document.querySelector('.navbar__nav');
@@ -10,17 +14,20 @@ export function initNavbar() {
   // Highlight active link
   highlightActiveLink();
 
-  // Scroll effect (lightweight)
-  let lastScroll = 0;
-  window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
-    if (currentScroll > 50) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
-    }
-    lastScroll = currentScroll;
-  }, { passive: true });
+  // Scroll effect (lightweight) - guard against duplicate listeners
+  if (!window.__navbarScrollHandler) {
+    let lastScroll = 0;
+    window.__navbarScrollHandler = () => {
+      const currentScroll = window.scrollY;
+      if (currentScroll > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+      lastScroll = currentScroll;
+    };
+    window.addEventListener('scroll', window.__navbarScrollHandler, { passive: true });
+  }
 
   // Mobile menu toggle (use body class instead of direct style manipulation)
   if (hamburger && mobileMenu) {

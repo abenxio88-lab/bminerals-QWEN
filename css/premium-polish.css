@@ -298,9 +298,17 @@
 }
 
 /* Force padding to remain static so no space is created for hidden characters */
+/* EXPLICIT BORDER ENFORCEMENT FOR DROPDOWN ITEMS */
+.navbar__dropdown-item {
+  border-left: 4px solid rgba(212, 175, 55, 0.4) !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+}
+
 .navbar__dropdown-item:hover {
   padding-left: 1.25rem !important;
   background: rgba(212, 175, 55, 0.05) !important;
+  border-left-color: #d4af37 !important;
 }
 
 .data-freshness__container {

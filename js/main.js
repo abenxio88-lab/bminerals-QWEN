@@ -3,6 +3,8 @@ import { initScrollReveal } from './scroll-reveal.js';
 import { initDropdownMenus } from './dropdown.js';
 import { initHeroSlider } from './hero-slider.js';
 import { initBorderBeam } from './border-beam.js';
+import { initTactileFeedback } from './tactile-feedback.js';
+import { initEarthTechCore } from './earth-tech-core.js';
 
 // ============================================
 // BM Hill Preloader Logic
@@ -47,6 +49,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   try { initMineMarkers(); } catch (e) { console.error('initMineMarkers error:', e); }
   try { initNewsletterForm(); } catch (e) { console.error('initNewsletterForm error:', e); }
   try { initBorderBeam(); } catch (e) { console.error('initBorderBeam error:', e); }
+  try { initTactileFeedback(); } catch (e) { console.error('initTactileFeedback error:', e); }
+  try { initEarthTechCore(); } catch (e) { console.error('initEarthTechCore error:', e); }
   try { initStepper(); } catch (e) { console.error('initStepper error:', e); }
   // Ensure loader is removed after all inits complete
   setTimeout(() => removeLoader(), 100);
@@ -56,6 +60,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Interactive Stepper for Operations
 // ============================================
 function initStepper() {
+  // Guard: Skip if already initialized
+  if (window.__stepperInitialized) return;
+  window.__stepperInitialized = true;
+
   const indicators = document.querySelectorAll('.step-indicator');
   const cards = document.querySelectorAll('.step-card');
 
@@ -92,6 +100,10 @@ function initStepper() {
 // Counter Animation for Stats
 // ============================================
 function initCounterAnimation() {
+  // Guard: Skip if already initialized
+  if (window.__counterAnimationInitialized) return;
+  window.__counterAnimationInitialized = true;
+
   const counters = document.querySelectorAll('[data-target]');
 
   const animateCounter = (element) => {
@@ -136,6 +148,10 @@ function initCounterAnimation() {
 // Smooth Scrolling for Anchor Links
 // ============================================
 function initSmoothScrolling() {
+  // Guard: Skip if already initialized
+  if (window.__smoothScrollingInitialized) return;
+  window.__smoothScrollingInitialized = true;
+
   const anchorLinks = document.querySelectorAll('a[href^="#"]');
 
   anchorLinks.forEach(link => {
@@ -162,6 +178,10 @@ function initSmoothScrolling() {
 // Parallax Effect for Hero Section
 // ============================================
 function initParallaxEffect() {
+  // Guard: Skip if already initialized
+  if (window.__parallaxEffectInitialized) return;
+  window.__parallaxEffectInitialized = true;
+
   const heroSection = document.querySelector('.hero');
   if (!heroSection) return;
 
@@ -193,6 +213,10 @@ function initParallaxEffect() {
 // Interactive Mine Markers on Map
 // ============================================
 function initMineMarkers() {
+  // Guard: Skip if already initialized
+  if (window.__mineMarkersInitialized) return;
+  window.__mineMarkersInitialized = true;
+
   const markers = document.querySelectorAll('.mine-marker');
 
   markers.forEach(marker => {
@@ -219,6 +243,10 @@ function initMineMarkers() {
 // Newsletter Form Handling
 // ============================================
 function initNewsletterForm() {
+  // Guard: Skip if already initialized
+  if (window.__newsletterFormInitialized) return;
+  window.__newsletterFormInitialized = true;
+
   const form = document.querySelector('.footer__newsletter');
   if (!form) return;
 

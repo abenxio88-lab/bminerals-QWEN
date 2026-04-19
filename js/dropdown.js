@@ -1,6 +1,10 @@
 import { isMobile } from './utils.js';
 
 export function initDropdownMenus() {
+  // Guard: Skip if already initialized
+  if (window.__dropdownMenusInitialized) return;
+  window.__dropdownMenusInitialized = true;
+
   const dropdownGroups = document.querySelectorAll('.navbar__dropdown-group');
   const dropdownTriggers = document.querySelectorAll('.navbar__dropdown-trigger');
 

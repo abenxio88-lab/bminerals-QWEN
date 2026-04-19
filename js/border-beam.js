@@ -1,9 +1,14 @@
 /**
  * Border Beam Animation
  * Animates the conic-gradient angle for a premium border effect.
+ * Guard: Only initializes once to prevent duplicate animation frames.
  */
 
 export function initBorderBeam() {
+  // Guard: Skip if already initialized
+  if (window.__borderBeamInitialized) return;
+  window.__borderBeamInitialized = true;
+
   const beams = document.querySelectorAll('.border-beam');
   if (beams.length === 0) return;
 

@@ -4,6 +4,10 @@
  * Supports manual navigation via arrows and dots
  */
 export function initHeroSlider() {
+  // Guard: Skip if already initialized
+  if (window.__heroSliderInitialized) return;
+  window.__heroSliderInitialized = true;
+
   const slides = document.querySelectorAll('.hero__slide');
   const dots = document.querySelectorAll('.hero__slider-dot');
   const prevArrow = document.querySelector('.hero__slider-arrow--prev');

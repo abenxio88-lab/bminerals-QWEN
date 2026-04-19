@@ -4,6 +4,10 @@
  */
 
 export function initEarthTechCore() {
+  // Guard: Skip if already initialized
+  if (window.__earthTechCoreInitialized) return;
+  window.__earthTechCoreInitialized = true;
+
   const container = document.getElementById('three-horizon-container');
   if (!container) return;
 
@@ -93,17 +97,13 @@ export function initEarthTechCore() {
 
   animate();
 
-  // Handle Resize
-  window.addEventListener('resize', () => {
-    camera.aspect = container.offsetWidth / container.offsetHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(container.offsetWidth, container.offsetHeight);
-  });
-}
-
-// Auto-init
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initEarthTechCore);
-} else {
-  initEarthTechCore();
+  // Handle Resize - guard against duplicate listeners
+  if (!window.__earthTechResizeHandler) {
+    window.__earthTechResizeHandler = () => {
+      camera.aspect = container.offsetWidth / container.offsetHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.offsetWidth, container.offsetHeight);
+    };
+    window.addEventListener('resize', window.__earthTechResizeHandler);
+  }
 }
