@@ -694,6 +694,27 @@
   
   .esg-card__metric { font-size: 2rem; }
   .tour-card { aspect-ratio: 16/9; }
+
+  /* Compact Ticker for Mobile - Slimmer Bar, Readable Text */
+  .commodity-ticker__item {
+    padding: 0.4rem 1rem !important;
+    gap: 0.5rem !important;
+    line-height: 1 !important;
+  }
+  .commodity-ticker__price {
+    font-size: 0.95rem !important;
+  }
+  .commodity-ticker__name {
+    font-size: 0.75rem !important;
+    letter-spacing: 0.02em !important;
+  }
+  .commodity-ticker__change {
+    font-size: 0.7rem !important;
+    padding: 0.1rem 0.3rem !important;
+  }
+  .commodity-ticker__source {
+    font-size: 0.6rem !important;
+  }
 }
 
 @media (max-width: 480px) {

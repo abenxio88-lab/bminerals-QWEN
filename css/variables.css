@@ -4,11 +4,14 @@
   --bg-primary: #FFFFFF;
   --bg-secondary: #F8FAFC;
   --bg-card: #FFFFFF;
-  
+
   /* Obsidian Slate (replacing navy) - Deep midnight for premium contrast */
-  --navy-950: #020617; /* Deepest Midnight */
-  --navy-900: #0F172A; /* Slate Base */
-  --navy-800: #1E293B; /* Industrial Slate */
+  --navy-950: #020617;
+  /* Deepest Midnight */
+  --navy-900: #0F172A;
+  /* Slate Base */
+  --navy-800: #1E293B;
+  /* Industrial Slate */
   --navy-700: #334155;
   --navy-600: #475569;
   --navy-500: #64748B;
@@ -18,7 +21,7 @@
   --navy-100: #F1F5F9;
   --navy-50: #F8FAFC;
   --navy-glow: rgba(15, 23, 42, 0.25);
-  
+
   /* Charcoal Gray Scale (Mineral Dust) */
   --charcoal-900: #18181B;
   --charcoal-800: #27272A;
@@ -30,27 +33,32 @@
   --charcoal-200: #E4E4E7;
   --charcoal-100: #F4F4F5;
   --charcoal-50: #FAFAFA;
-  
+
   /* Deep Industrial Yellow Palette (Grounded) */
-  --primary-gold-600: #A16207; /* Darkest Yellow */
-  --primary-gold-500: #EAB308; /* Deep Industrial Yellow (Main) */
-  --primary-gold-400: #FACC15; /* Bright Yellow (Hover) */
-  --primary-gold-300: #FDE047; /* Accent Yellow */
-  --primary-gold-200: #FEF08A; /* highlight */
+  --primary-gold-600: #A16207;
+  /* Darkest Yellow */
+  --primary-gold-500: #EAB308;
+  /* Deep Industrial Yellow (Main) */
+  --primary-gold-400: #FACC15;
+  /* Bright Yellow (Hover) */
+  --primary-gold-300: #FDE047;
+  /* Accent Yellow */
+  --primary-gold-200: #FEF08A;
+  /* highlight */
   --primary-gold-100: #FEF9C3;
   --primary-gold-50: #FFFBEB;
   --primary-gold-glow: rgba(234, 179, 8, 0.4);
-  
+
   /* Mineral Yellow Accent (Deep) */
-  --gold-500: #EAB308; 
-  --gold-400: #FACC15; 
-  --gold-300: #FDE047; 
-  
+  --gold-500: #EAB308;
+  --gold-400: #FACC15;
+  --gold-300: #FDE047;
+
   /* Text Colors */
   --text-primary: #0F172A;
   --text-secondary: #334155;
   --text-muted: #64748B;
-  
+
   /* Borders */
   --border: #E2E8F0;
   --border-light: #F1F5F9;
@@ -61,34 +69,40 @@
   --gradient-primary-gold: linear-gradient(135deg, #A16207, #EAB308, #FACC15);
   --gradient-gold-rich: linear-gradient(135deg, #854D0E, #A16207, #EAB308);
   --gradient-charcoal: linear-gradient(135deg, #18181B, #27272A, #3F3F46);
-  --gradient-hero-overlay: linear-gradient(180deg, rgba(2,6,23,0.85) 0%, rgba(15,23,42,0.4) 100%);
+  --gradient-hero-overlay: linear-gradient(180deg, rgba(2, 6, 23, 0.85) 0%, rgba(15, 23, 42, 0.4) 100%);
   /* Typography - Premium Modern Stack */
   --font-heading: 'Oswald', 'Arial Narrow', sans-serif;
   --font-brand: 'Montserrat', 'Poppins', sans-serif;
   --font-body: 'Poppins', system-ui, sans-serif;
   --font-ui: 'Montserrat', sans-serif;
-  
+
   /* Scale */
   /* ============================================ */
   /* TYPOGRAPHY CONTROLLER (Symmetry Engine)       */
   /* ============================================ */
-  
+
   /* Desktop Defaults (Capped at 40px) */
-  --display-size: 2.5rem;    /* 40px - Main Hero Titles */
-  --h1-size: 2.25rem;       /* 36px - Section Headings */
-  --h2-size: 1.75rem;       /* 28px - Sub-sections */
-  --h3-size: 1.25rem;       /* 20px - Card Titles */
-  --body-size: 1rem;        /* 16px - Standard Reading */
-  --body-small: 0.875rem;   /* 14px - UI/Meta text */
+  --display-size: 2.5rem;
+  /* 40px - Main Hero Titles */
+  --h1-size: 2.25rem;
+  /* 36px - Section Headings */
+  --h2-size: 1.75rem;
+  /* 28px - Sub-sections */
+  --h3-size: 1.25rem;
+  /* 20px - Card Titles */
+  --body-size: 1rem;
+  /* 16px - Standard Reading */
+  --body-small: 0.875rem;
+  /* 14px - UI/Meta text */
 
   /* Mobile Overrides (The "User Preferred" Layout) */
   @media (max-width: 768px) {
     :root {
-      --display-size: 1.75rem;  /* ~28px */
-      --h1-size: 1.5rem;       /* ~24px */
-      --h2-size: 1.25rem;      /* ~20px */
-      --h3-size: 1.125rem;     /* ~18px */
-      --body-size: 0.875rem;   /* 14px - Your preferred mobile size */
+      --display-size: 1.5rem;  /* 24px - Refined Hero Headline */
+      --h1-size: 1.3rem;       /* 20.8px (~21px) - Section Titles */
+      --h2-size: 1.15rem;      /* 18.4px - Subheaders */
+      --h3-size: 1rem;         /* 16px - Standard Card Bold Text */
+      --body-size: 0.875rem;   /* 14px - Standard Mobile Body */
       --body-small: 0.75rem;   /* 12px */
     }
   }
@@ -102,25 +116,25 @@
   --text-base: var(--body-size);
   --text-sm: var(--body-small);
   --text-xs: 0.75rem;
-  
+
   /* Spacing */
   --section-padding-y: 6rem;
   --section-padding-x: 5%;
   --max-width: 1400px;
   --navbar-height: 80px;
-  
+
   /* Shadows */
   --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.03);
   --shadow-md: 0 20px 40px rgba(30, 58, 95, 0.12);
   --shadow-navbar: 0 4px 30px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 25px 60px rgba(30, 58, 95, 0.15);
   --shadow-xl: 0 40px 80px rgba(0, 0, 0, 0.15);
-  
+
   /* Border Radius */
   --radius-lg: 0;
   --radius-md: 0;
   --radius-pill: 0;
-  
+
   /* Transitions */
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
@@ -138,7 +152,10 @@
 .investors::after {
   content: "";
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: radial-gradient(circle at 70% 30%, rgba(234, 179, 8, 0.08), transparent 40%);
   pointer-events: none;
 }

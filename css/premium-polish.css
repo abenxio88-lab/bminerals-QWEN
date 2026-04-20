@@ -152,7 +152,7 @@
   background-clip: text;
 }
 
-  background: linear-gradient(135deg, #fff 0%, var(--primary-gold-500) 50%, var(--primary-gold-600) 100%);
+background: linear-gradient(135deg, #fff 0%, var(--primary-gold-500) 50%, var(--primary-gold-600) 100%);
 
 /* 5. MINERAL SHIMMER BUTTON REFINEMENT */
 .hero__cta {
@@ -626,11 +626,18 @@ body.loaded .bm-hill-content {
 /* 12. MOBILE AUTHORITY & RESPONSIVENESS (Synced) */
 /* ============================================ */
 @media (max-width: 768px) {
+
   /* Site-wide Typography Synchronization 
      (Controlled by Symmetry Engine in variables.css) */
-  h1, .section-title, .hero-headline {
+   h1, .hero-headline, .logistics-hero__title, .investors-hero__title, .about-hero__title, .contact-hero__title, .products-hero__title, .projects-hero__title, .sustainability-hero__title {
+    font-size: var(--display-size) !important;
+    line-height: 1.1 !important;
+  }
+
+  .section-title, .route-overview__title, .about__title, .about__story-title, .projects__title, .products__title, .sustainability__title, .compliance__title, .section-header-light__title, .financial-dashboard__title, .reports-section__header h2, .pillars-section__title, .certifications-section__header h2, .impact-section__header h2 {
     font-size: var(--h1-size) !important;
     line-height: 1.2 !important;
+    text-transform: uppercase !important;
   }
 
   h2 {
@@ -641,17 +648,31 @@ body.loaded .bm-hill-content {
     font-size: var(--h3-size) !important;
   }
 
-  p, span:not(.section-label), div:not(.hero-headline) {
+  /* Headings with spans should maintain consistent sizing */
+  h1 span,
+  h2 span,
+  h3 span,
+  .section-title span,
+  .hero-headline span {
+    font-size: inherit !important;
+  }
+
+  p {
     font-size: var(--body-size) !important;
     line-height: 1.6 !important;
   }
 
   /* Fix Section Overlaps (The 'Tsection' issue) */
-  section {
+  section:not(.commodity-ticker) {
     position: relative !important;
     padding-top: 4rem !important;
     padding-bottom: 4rem !important;
     overflow: hidden !important;
+  }
+
+  .commodity-ticker {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
   }
 
   /* Force Hero Sections to behave */
@@ -745,7 +766,7 @@ body.loaded .bm-hill-content {
 /* Fix for Ultra-Small Devices */
 @media (max-width: 380px) {
   .hero-headline {
-    font-size: 1.65rem !important;
+    font-size: 1.35rem !important; /* Forces ~21-22px for narrow devices */
   }
 
   .hero-cta-group {
