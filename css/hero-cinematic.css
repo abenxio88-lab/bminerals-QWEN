@@ -42,7 +42,9 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('../images/hero/hero-2.webp');
+  background:
+    linear-gradient(120deg, rgba(5, 10, 18, 0.82), rgba(5, 10, 18, 0.64)),
+    url('../images/hero/hero-2.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -72,7 +74,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.55);
+  background:
+    linear-gradient(120deg, rgba(5, 10, 18, 0.82), rgba(5, 10, 18, 0.64));
   z-index: 2;
   opacity: 0;
   transition: opacity 1.5s ease-in-out;
@@ -103,11 +106,12 @@
 /* Subtle Grid Pattern */
 .hero-grid-overlay {
   background-image: 
-    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-  background-size: 80px 80px;
+    linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+  background-size: 120px 120px;
   mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
   -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+  opacity: 0.45;
 }
 
 /* Floating Mineral Particles (Disabled) */
@@ -159,32 +163,33 @@
 /* Left Content - Typography */
 .hero-content {
   position: relative;
+  max-width: 600px;
 }
 
 .hero-eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: 2rem; /* professional spacing to headline */
-  padding: 0.5rem 1rem;
-  background: rgba(234, 179, 8, 0.1);
-  border: 1px solid rgba(234, 179, 8, 0.3);
+  margin-bottom: 1.25rem;
+  padding: 0.5rem 0.95rem;
+  background: rgba(234, 179, 8, 0.08);
+  border: 1px solid rgba(234, 179, 8, 0.22);
   border-radius: 50px;
   font-family: 'Montserrat', sans-serif;
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 0.68rem;
+  font-weight: 600;
   color: var(--hero-accent-gold);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   animation: fadeInUp 0.8s ease-out 0.2s both;
 }
 
 .hero-eyebrow__dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   background: var(--hero-accent-gold);
   border-radius: 50%;
-  animation: pulseDot 2s ease-in-out infinite;
+  animation: pulseDot 3s ease-in-out infinite;
 }
 
 @keyframes pulseDot {
@@ -194,11 +199,13 @@
 
 .hero-headline {
   font-family: 'Oswald', sans-serif;
-  font-size: clamp(1.9rem, 3.6vw, 3.2rem);
-  font-weight: 700;
-  line-height: 1.35; /* increased from 1.1 to prevent descender clipping */
+  font-size: clamp(2rem, 3.2vw, 3.35rem);
+  font-weight: 600;
+  line-height: 1.14;
   color: var(--hero-text-light);
-  margin: 0 0 1.8rem 0 !important; /* professional spacing to subheadline */
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+  margin: 0 0 1rem 0 !important;
   animation: fadeInUp 0.8s ease-out 0.4s both;
 }
 
@@ -213,21 +220,21 @@
 
 .hero-subheadline {
   font-family: 'Poppins', sans-serif;
-  font-size: 1.125rem;
-  line-height: 1.8;
-  color: var(--hero-text-muted);
-  max-width: 540px;
-  margin: 0 0 2.5rem 0; /* professional spacing to buttons */
+  font-size: 0.98rem;
+  line-height: 1.72;
+  color: rgba(255, 255, 255, 0.78);
+  max-width: 560px;
+  margin: 0 0 1.5rem 0;
   animation: fadeInUp 0.8s ease-out 0.6s both;
 }
 
 /* CTA Buttons */
 .hero-cta-group {
   display: flex;
-  gap: 1.2rem; /* professional spacing between buttons */
+  gap: 0.9rem;
   flex-wrap: wrap;
   animation: none !important;
-  margin-top: 0.5rem; /* align with baseline */
+  margin-top: 0.15rem;
 }
 
 .btn-hero-primary,
@@ -305,10 +312,36 @@
   transform: translateX(4px) scale(1.1);
 }
 
+.hero-trust-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 1rem;
+  max-width: 560px;
+  animation: fadeInUp 0.8s ease-out 0.8s both;
+}
+
+.hero-trust-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0.55rem 0.78rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+}
+
 /* Right Content - Visual Showcase */
 .hero-visual {
   position: relative;
-  height: 600px;
+  height: 560px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -319,7 +352,7 @@
 .mineral-carousel-container {
   position: relative;
   width: 100%;
-  height: 480px;
+  height: 430px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -328,8 +361,8 @@
 
 .mineral-carousel {
   position: relative;
-  width: 320px;
-  height: 420px;
+  width: 300px;
+  height: 390px;
   transform-style: preserve-3d;
 }
 
@@ -344,7 +377,7 @@
   /* force transparent background so image fills edge-to-edge */
   background: transparent !important;
   border: none !important;
-  border-radius: 12px;
+  border-radius: 18px;
   overflow: hidden;
   transition: transform 0.45s cubic-bezier(0.2,0.8,0.2,1);
   cursor: pointer;
@@ -359,19 +392,19 @@
   transform: translateZ(0) scale(1);
   z-index: 10;
   pointer-events: auto;
-  box-shadow: 0 20px 60px rgba(234, 179, 8, 0.3);
+  box-shadow: 0 22px 56px rgba(0, 0, 0, 0.32);
 }
 
 .mineral-card.is-next {
-  opacity: 0.6;
-  transform: translateX(40px) translateZ(-100px) scale(0.9);
+  opacity: 0.38;
+  transform: translateX(34px) translateZ(-100px) scale(0.9);
   z-index: 5;
   pointer-events: auto;
 }
 
 .mineral-card.is-prev {
-  opacity: 0.6;
-  transform: translateX(-40px) translateZ(-100px) scale(0.9);
+  opacity: 0.38;
+  transform: translateX(-34px) translateZ(-100px) scale(0.9);
   z-index: 5;
   pointer-events: auto;
 }
@@ -390,7 +423,11 @@
 
 /* Gradient overlay for visual sophistication */
 .mineral-card::after {
-  display: none !important;
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10, 12, 18, 0.74), rgba(10, 12, 18, 0.08) 48%, transparent 72%);
+  z-index: 1;
 }
 
 .mineral-card__image {
@@ -416,10 +453,10 @@
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 1.5rem;
+  padding: 1.35rem;
   z-index: 2;
   color: #fff;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.42);
 }
 
 .mineral-card__title {
@@ -433,8 +470,8 @@
   display: flex;
   gap: 1rem;
   font-family: 'Poppins', sans-serif;
-  font-size: 0.8rem;
-  color: #ffffff; /* white for clarity on image */
+  font-size: 0.77rem;
+  color: rgba(255, 255, 255, 0.88);
 }
 
 /* CAROUSEL NAVIGATION */
@@ -496,14 +533,15 @@
 .hero-stats-panel {
   display: flex;
   gap: 2.25rem;
-  padding: 1rem 2rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem 1.6rem;
+  background: rgba(7, 12, 20, 0.48);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--hero-text-light);
-  border-radius: 14px;
-  backdrop-filter: blur(8px);
+  border-radius: 18px;
+  backdrop-filter: blur(12px);
   margin-top: 1rem;
   z-index: 30;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.2);
 }
 
 .stat-item {
@@ -533,7 +571,7 @@
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
@@ -637,6 +675,12 @@
   .hero-cta-group {
     justify-content: center;
   }
+
+  .hero-trust-strip {
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 @media (max-width: 768px) {
@@ -645,12 +689,12 @@
   }
 
   .mineral-carousel-container {
-    height: 380px;
+    height: 360px;
   }
 
   .mineral-carousel {
-    width: 240px;
-    height: 320px;
+    width: 220px;
+    height: 300px;
   }
 
   .mineral-card.is-next {
@@ -685,11 +729,21 @@
   }
 
   .hero-headline {
-    font-size: 2.2rem;
+    font-size: 2.15rem;
   }
 
   .hero-cta-group {
     flex-direction: column;
+  }
+
+  .hero-trust-strip {
+    gap: 0.6rem;
+  }
+
+  .hero-trust-pill {
+    justify-content: center;
+    width: 100%;
+    font-size: 0.68rem;
   }
 
   .hero-scroll-indicator {
