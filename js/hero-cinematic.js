@@ -25,6 +25,37 @@
     
     // Animate stats counter
     animateStats();
+
+    // Handle Background Video Transition (10s delay)
+    initHeroBackgroundTransition(heroSection);
+  }
+
+  /**
+   * Transition from static image to video after 10 seconds
+   */
+  function initHeroBackgroundTransition(container) {
+    const bgImage = container.querySelector('.hero-bg-image');
+    const bgVideo = container.querySelector('.hero-bg-video');
+    const bgOverlay = container.querySelector('.hero-bg-video-overlay');
+
+    if (!bgVideo) return;
+
+    // 10 second delay as requested
+    setTimeout(() => {
+      // Start video play
+      bgVideo.play().then(() => {
+        // Fade in video and overlay
+        bgVideo.classList.add('is-visible');
+        if (bgOverlay) bgOverlay.classList.add('is-visible');
+        
+        // Slightly delay image fade out for smoother blend
+        setTimeout(() => {
+          if (bgImage) bgImage.style.opacity = '0';
+        }, 500);
+      }).catch(err => {
+        console.warn('Hero video auto-play blocked or failed:', err);
+      });
+    }, 10000);
   }
 
   /**
