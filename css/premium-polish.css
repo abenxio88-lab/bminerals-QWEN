@@ -8,7 +8,7 @@
   --glass-border: rgba(255, 255, 255, 0.08);
   --glass-blur: 12px;
   --premium-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-  --beam-color: rgba(255, 215, 0, 0.4);
+  --beam-color: var(--primary-gold-glow);
   /* Subtle Gold/Gold */
   --navbar-height: 80px;
   /* Synchronized with the new supreme header */
@@ -152,12 +152,7 @@
   background-clip: text;
 }
 
-.gradient-text-mineral {
-  background: linear-gradient(135deg, #fce7f3 0%, #d4af37 50%, #7c2d12 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+  background: linear-gradient(135deg, #fff 0%, var(--primary-gold-500) 50%, var(--primary-gold-600) 100%);
 
 /* 5. MINERAL SHIMMER BUTTON REFINEMENT */
 .hero__cta {
@@ -200,15 +195,15 @@
 }
 
 .hero__cta--primary:hover {
-  background: #d4af37 !important;
-  /* Brighter Gold */
+  background: var(--primary-gold-400) !important;
+  /* Brighter Yellow */
   border-color: rgba(255, 255, 255, 0.3) !important;
 }
 
 .hero__cta--secondary:hover {
   background: rgba(255, 255, 255, 0.15) !important;
-  border-color: #d4af37 !important;
-  /* Industrial Gold Border */
+  border-color: var(--primary-gold-500) !important;
+  /* Industrial Yellow Border */
 }
 
 /* Remove GSAP Magnetic Wrap interaction */
@@ -313,15 +308,15 @@
 /* Force padding to remain static so no space is created for hidden characters */
 /* EXPLICIT BORDER ENFORCEMENT FOR DROPDOWN ITEMS */
 .navbar__dropdown-item {
-  border-left: 4px solid rgba(212, 175, 55, 0.4) !important;
+  border-left: 4px solid var(--primary-gold-glow) !important;
   border-radius: 0 !important;
   overflow: visible !important;
 }
 
 .navbar__dropdown-item:hover {
   padding-left: 1.25rem !important;
-  background: rgba(212, 175, 55, 0.05) !important;
-  border-left-color: #d4af37 !important;
+  background: rgba(234, 179, 8, 0.05) !important;
+  border-left-color: var(--primary-gold-500) !important;
 }
 
 .data-freshness__container {
@@ -431,7 +426,7 @@
     display: none !important;
     background: rgba(0, 0, 0, 0.02) !important;
     border: none !important;
-    border-left: 2px solid #d4af37 !important;
+    border-left: 2px solid var(--primary-gold-500) !important;
     border-radius: 0 8px 8px 0 !important;
     margin: 0 !important;
     padding: 0 !important;
@@ -529,8 +524,8 @@ body.is-loading {
   font-size: 0.7rem;
   letter-spacing: 0.6em;
   text-transform: uppercase;
-  color: #d4af37;
-  /* Gold Logo Color */
+  color: var(--primary-gold-500);
+  /* Yellow Logo Color */
   margin-top: 1rem;
   opacity: 0;
   animation: fadeIn 1s ease 1.2s forwards;
