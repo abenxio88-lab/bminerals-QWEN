@@ -18,8 +18,10 @@
   width: max-content;
 }
 
-.commodity-ticker__track:hover {
-  animation-play-state: paused;
+@media (hover: hover) and (pointer: fine) {
+  .commodity-ticker__track:hover {
+    animation-play-state: paused;
+  }
 }
 
 .commodity-ticker__item {
@@ -75,6 +77,16 @@
 @keyframes tickerScroll {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
+}
+
+/* Keep ticker functional on mobile even when global reduced-motion rules exist */
+@media (prefers-reduced-motion: reduce) {
+  .commodity-ticker__track {
+    animation-name: tickerScroll !important;
+    animation-duration: 40s !important;
+    animation-timing-function: linear !important;
+    animation-iteration-count: infinite !important;
+  }
 }
 
 
