@@ -34,6 +34,7 @@
   <link rel="stylesheet" href="css/premium-polish.css">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/pages/logistics.css">
+  <link rel="stylesheet" href="css/components/authority-tools.css" media="print" onload="this.media='all'">
 </head>
 <body class="is-loading">
   <div id="bm-hill-loader">
@@ -607,7 +608,7 @@
       <div class="logistics-hero__overlay"></div>
       <div class="logistics-hero__content">
         <span class="logistics-hero__overline">Logistics Network</span>
-        <h1 class="logistics-hero__title">From Mine to<br><span style="color: var(--var(--primary-gold)-400);">Global Markets</span></h1>
+        <h1 class="logistics-hero__title">From Mine to<br><span style="color: var(--primary-gold-500);">Global Markets</span></h1>
         <p class="logistics-hero__text">Our integrated logistics network connects Balochistan's mineral deposits to ports, railways, and global trade corridors—ensuring reliable, efficient, and cost-effective delivery to clients worldwide.</p>
       </div>
     </section>
@@ -617,7 +618,7 @@
       <div class="route-overview__container">
         <div class="route-overview__header">
           <span class="route-overview__overline">Transport Modes</span>
-          <h2 class="route-overview__title">Multi-Modal <span style="color: var(--var(--primary-gold)-400);">Logistics Network</span></h2>
+          <h2 class="route-overview__title">Multi-Modal <span style="color: var(--primary-gold-500);">Logistics Network</span></h2>
           <p class="route-overview__subtitle">Road, rail, and sea transport working together to deliver minerals from mine to market efficiently.</p>
         </div>
         <div class="route-grid">
@@ -652,12 +653,56 @@
       </div>
     </section>
 
+    <!-- B2B Freight Analytics Hub -->
+    <section class="capacity-section" style="padding-top: 0;">
+      <div class="capacity-section__container">
+        <div class="capacity-section__header">
+          <span class="route-overview__overline">Digital Utility</span>
+          <h2 class="route-overview__title">Freight <span style="color: var(--primary-gold-500);">Analytics Hub</span></h2>
+          <p class="route-overview__subtitle">Simulate your supply chain timelines from our strategic sites to major Balochistan export hubs.</p>
+        </div>
+        
+        <div class="freight-hub reveal">
+          <div class="freight-form">
+            <div class="freight-input-group">
+                <label>Origin Mine</label>
+                <select class="freight-select" id="origin-select">
+                    <option value="muslim-bagh">Muslim Bagh (Chromite)</option>
+                    <option value="khuzdar">Khuzdar (Barite)</option>
+                    <option value="chagai">Chagai (Copper Frontier)</option>
+                </select>
+            </div>
+            <div class="freight-input-group">
+                <label>Destination Hub</label>
+                <select class="freight-select" id="dest-select">
+                    <option value="karachi">Karachi Port (PQM)</option>
+                    <option value="gwadar">Gwadar Port (GPA)</option>
+                </select>
+            </div>
+            <div class="freight-input-group">
+                <label>Transport Mode</label>
+                <select class="freight-select">
+                    <option>Integrated (Road + Rail)</option>
+                    <option>Direct Heavy Haul (Road)</option>
+                </select>
+            </div>
+          </div>
+          
+          <div class="freight-result">
+            <div class="freight-metric" id="freight-days">12</div>
+            <div style="font-family:var(--font-ui); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted); margin-bottom:1.5rem;">Estimated Days to Vessel</div>
+            <p style="font-size:0.85rem; color:rgba(255,255,255,0.6); line-height:1.6; border-top:1px solid rgba(255,255,255,0.1); padding-top:1.5rem;">Standard lead time includes on-site loading, transit to railhead, and terminal handling at port. Actual times may vary by season and vessel schedule.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Network Map -->
     <section class="network-map">
       <div class="network-map__container">
         <div class="network-map__header">
           <span class="route-overview__overline">Route Map</span>
-          <h2 class="route-overview__title">Our Logistics <span style="color: var(--var(--primary-gold)-400);">Corridors</span></h2>
+          <h2 class="route-overview__title">Our Logistics <span style="color: var(--primary-gold-500);">Corridors</span></h2>
         </div>
         <div class="network-map__visual">
           <svg viewBox="0 0 800 350" class="network-map__svg">
@@ -676,19 +721,19 @@
             <!-- Mines -->
             <circle cx="300" cy="110" r="10" fill="var(--var(--primary-gold)-500)"/><text x="300" y="95" text-anchor="middle" font-family="var(--font-heading)" font-size="11" fill="var(--text-primary)">Muslim Bagh</text>
             <circle cx="480" cy="200" r="10" fill="var(--var(--primary-gold)-500)"/><text x="480" y="185" text-anchor="middle" font-family="var(--font-heading)" font-size="11" fill="var(--text-primary)">Khuzdar</text>
-            <circle cx="180" cy="160" r="10" fill="var(--var(--primary-gold)-400)"/><text x="180" y="145" text-anchor="middle" font-family="var(--font-heading)" font-size="11" fill="var(--text-primary)">Chagai</text>
+            <circle cx="180" cy="160" r="10" fill="var(--primary-gold-500)"/><text x="180" y="145" text-anchor="middle" font-family="var(--font-heading)" font-size="11" fill="var(--text-primary)">Chagai</text>
             <!-- Ports -->
             <circle cx="620" cy="280" r="8" fill="var(--navy-500)"/><text x="620" y="305" text-anchor="middle" font-family="var(--font-ui)" font-size="10" fill="var(--text-secondary)">Karachi Port</text>
             <circle cx="540" cy="300" r="8" fill="var(--navy-500)"/><text x="540" y="325" text-anchor="middle" font-family="var(--font-ui)" font-size="10" fill="var(--text-secondary)">Gwadar Port</text>
             <!-- Routes -->
-            <line x1="300" y1="110" x2="480" y2="200" stroke="var(--var(--primary-gold)-400)" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
+            <line x1="300" y1="110" x2="480" y2="200" stroke="var(--primary-gold-500)" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
             <line x1="480" y1="200" x2="620" y2="280" stroke="var(--navy-500)" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
             <line x1="480" y1="200" x2="540" y2="300" stroke="var(--navy-500)" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
             <line x1="300" y1="110" x2="620" y2="280" stroke="var(--text-muted)" stroke-width="1" stroke-dasharray="3,5" opacity="0.3"/>
             <!-- Legend -->
             <circle cx="60" cy="50" r="5" fill="var(--var(--primary-gold)-500)"/><text x="72" y="54" font-family="var(--font-ui)" font-size="9" fill="var(--text-secondary)">Active Mines</text>
             <circle cx="60" cy="70" r="5" fill="var(--navy-500)"/><text x="72" y="74" font-family="var(--font-ui)" font-size="9" fill="var(--text-secondary)">Export Ports</text>
-            <line x1="45" y1="90" x2="75" y2="90" stroke="var(--var(--primary-gold)-400)" stroke-width="2"/><text x="80" y="94" font-family="var(--font-ui)" font-size="9" fill="var(--text-secondary)">Transport Routes</text>
+            <line x1="45" y1="90" x2="75" y2="90" stroke="var(--primary-gold-500)" stroke-width="2"/><text x="80" y="94" font-family="var(--font-ui)" font-size="9" fill="var(--text-secondary)">Transport Routes</text>
           </svg>
         </div>
       </div>
@@ -699,7 +744,7 @@
       <div class="capacity-section__container">
         <div class="capacity-section__header">
           <span class="route-overview__overline">Capacity</span>
-          <h2 class="route-overview__title">Export <span style="color: var(--var(--primary-gold)-400);">Capability</span></h2>
+          <h2 class="route-overview__title">Export <span style="color: var(--primary-gold-500);">Capability</span></h2>
         </div>
         <div class="capacity-grid">
           <div class="capacity-item reveal">

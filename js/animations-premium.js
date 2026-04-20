@@ -132,44 +132,68 @@ export function initPremiumAnimations() {
     });
   }
 
-  // 6. Premium 3D Magnetic Hover for Hero Glass Card (skip if cinematic hero controls hero)
-  if (!hasCinematicHero) {
-    const heroLeft = document.querySelector('.hero');
-    const glassCard = document.querySelector('.hero__stats-panel');
-
-    if (heroLeft && glassCard) {
-      heroLeft.addEventListener('mousemove', (e) => {
-        const { clientX, clientY } = e;
-        const { left, top, width, height } = glassCard.getBoundingClientRect();
-        
-        const centerX = left + width / 2;
-        const centerY = top + height / 2;
-        
-        const mouseX = clientX - centerX;
-        const mouseY = clientY - centerY;
-        
-        // Limit rotation to a subtle, premium 5 degrees
-        const rotateX = (mouseY / (height / 2)) * -5; 
-        const rotateY = (mouseX / (width / 2)) * 5;  
-        
-        gsap.to(glassCard, {
-          duration: 0.5,
-          rotateX: rotateX,
-          rotateY: rotateY,
-          transformPerspective: 1000,
-          ease: 'power2.out'
-        });
-      });
-
-      heroLeft.addEventListener('mouseleave', () => {
-        gsap.to(glassCard, {
-          duration: 1,
-          rotateX: 0,
-          rotateY: 0,
-          ease: 'elastic.out(1, 0.3)'
-        });
-      });
     }
+  }
+
+  // 7. INTERACTIVE TIMELINE (ScrollTrigger)
+  const timelineItems = document.querySelectorAll('.timeline__item');
+  if (timelineItems.length > 0) {
+    timelineItems.forEach((item, i) => {
+        gsap.from(item, {
+            scrollTrigger: {
+                trigger: item,
+                start: "top 80%",
+            },
+            x: i % 2 === 0 ? -100 : 100,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power2.out"
+        });
+    });
+  }
+
+  // 8. B2B FREIGHT CALCULATOR MOCK LOGIC
+  const originSelect = document.getElementById('origin-select');
+  const destSelect = document.getElementById('dest-select');
+  const freightDays = document.getElementById('freight-days');
+
+  if (originSelect && destSelect && freightDays) {
+    const updateFreight = () => {
+        const o = originSelect.value;
+        const d = destSelect.value;
+        let days = 10;
+        
+        if (o === 'chagai') days += 5;
+        if (o === 'muslim-bagh' && d === 'gwadar') days += 4;
+        if (d === 'karachi') days -= 2;
+
+        gsap.to(freightDays, {
+            innerText: days,
+            duration: 1,
+            snap: { innerText: 1 },
+            ease: "power2.inOut"
+        });
+    };
+
+    originSelect.addEventListener('change', updateFreight);
+    destSelect.addEventListener('change', updateFreight);
+  }
+
+  // 9. 3D MINERAL PREVIEW MOUSE-TRACKING (MOCK)
+  const mineral3D = document.querySelector('.mineral-object');
+  const modal3D = document.getElementById('modal-3d');
+  
+  if (mineral3D && modal3D) {
+    modal3D.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 60;
+        const y = (e.clientY / window.innerHeight - 0.5) * -60;
+        gsap.to(mineral3D, {
+            duration: 0.5,
+            rotateY: x,
+            rotateX: y,
+            ease: "power2.out"
+        });
+    });
   }
 }
 

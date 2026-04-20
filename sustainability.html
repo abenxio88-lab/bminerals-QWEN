@@ -34,6 +34,7 @@
   <link rel="stylesheet" href="css/premium-polish.css">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/pages/sustainability.css">
+  <link rel="stylesheet" href="css/components/premium-light.css" media="print" onload="this.media='all'">
 </head>
 <body class="is-loading">
   <div id="bm-hill-loader">
@@ -609,7 +610,7 @@
       <div class="sustainability-hero__overlay"></div>
       <div class="sustainability-hero__content">
         <span class="sustainability-hero__overline">Sustainability & ESG</span>
-        <h1 class="sustainability-hero__title">Mining Responsibly.<br><span style="color: var(--var(--primary-gold)-400);">Building Sustainably.</span></h1>
+        <h1 class="sustainability-hero__title">Mining Responsibly.<br><span style="color: var(--primary-gold-500);">Building Sustainably.</span></h1>
         <p class="sustainability-hero__text">Every extraction decision balances economic value with environmental stewardship and community empowerment—because the minerals we extract today should leave a better Balochistan for tomorrow.</p>
       </div>
     </section>
@@ -643,52 +644,40 @@
       <div class="pillars-section__container">
         <div class="pillars-section__header">
           <span class="pillars-section__overline">Our Framework</span>
-          <h2 class="pillars-section__title">Four Pillars of <span style="color: var(--var(--primary-gold)-400);">Sustainable Mining</span></h2>
+          <h2 class="pillars-section__title">Four Pillars of <span style="color: var(--primary-gold-500);">Sustainable Mining</span></h2>
           <p class="pillars-section__subtitle">Our ESG framework aligns with international standards including GRI, SASB, and the UN Sustainable Development Goals—ensuring transparency, accountability, and measurable impact at every level.</p>
         </div>
-        <div class="pillars-grid">
-          <div class="pillar-card reveal">
-            <div class="pillar-card__icon">
-              <svg class="icon"><use href="images/icons.svg#icon-safety-clock"></use></svg>
-            </div>
-            <h3 class="pillar-card__title">Environmental</h3>
-            <p class="pillar-card__text">Zero-discharge water recycling, progressive land reclamation, dust suppression systems, and biodiversity conservation across all active sites.</p>
-            <div class="pillar-card__metric">
-              <div class="pillar-card__metric-value">95%</div>
-              <div class="pillar-card__metric-label">Water Recycled</div>
+        <div class="perf-grid">
+          <div class="premium-card-light reveal" data-delay="1">
+            <div class="premium-card-light__icon">E</div>
+            <h3 class="premium-card-light__title">Environmental</h3>
+            <p class="premium-card-light__text">Zero-discharge water recycling, progressive land reclamation, dust suppression systems, and biodiversity conservation across all active sites.</p>
+            <div style="margin-top: 1.5rem; border-top: 1px solid var(--border-light); padding-top: 1rem;">
+                <div style="display:flex; justify-content:space-between; font-family:var(--font-heading); font-size:1.5rem; color:var(--primary-gold-600);"><span>95%</span> <small style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase;">Water Recycled</small></div>
             </div>
           </div>
-          <div class="pillar-card reveal">
-            <div class="pillar-card__icon">
-              <svg class="icon"><use href="images/icons.svg#icon-people-community"></use></svg>
-            </div>
-            <h3 class="pillar-card__title">Social</h3>
-            <p class="pillar-card__text">Community healthcare, education scholarships, skills training programs, and 85% local hiring targets that create lasting economic opportunities.</p>
-            <div class="pillar-card__metric">
-              <div class="pillar-card__metric-value">500+</div>
-              <div class="pillar-card__metric-label">Families Supported</div>
+          <div class="premium-card-light reveal" data-delay="2">
+            <div class="premium-card-light__icon">S</div>
+            <h3 class="premium-card-light__title">Social</h3>
+            <p class="premium-card-light__text">Community healthcare, education scholarships, skills training programs, and 85% local hiring targets that create lasting economic opportunities.</p>
+            <div style="margin-top: 1.5rem; border-top: 1px solid var(--border-light); padding-top: 1rem;">
+                <div style="display:flex; justify-content:space-between; font-family:var(--font-heading); font-size:1.5rem; color:var(--primary-gold-600);"><span>500+</span> <small style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase;">Families Supported</small></div>
             </div>
           </div>
-          <div class="pillar-card reveal">
-            <div class="pillar-card__icon">
-              <svg class="icon"><use href="images/icons.svg#icon-integrity-check"></use></svg>
-            </div>
-            <h3 class="pillar-card__title">Governance</h3>
-            <p class="pillar-card__text">Full regulatory compliance, transparent reporting, independent audits, and a board-level sustainability committee overseeing all ESG initiatives.</p>
-            <div class="pillar-card__metric">
-              <div class="pillar-card__metric-value">100%</div>
-              <div class="pillar-card__metric-label">Audit Compliance</div>
+          <div class="premium-card-light reveal" data-delay="3">
+            <div class="premium-card-light__icon">G</div>
+            <h3 class="premium-card-light__title">Governance</h3>
+            <p class="premium-card-light__text">Full regulatory compliance, transparent reporting, independent audits, and board-level sustainability oversight across all provincial initiatives.</p>
+            <div style="margin-top: 1.5rem; border-top: 1px solid var(--border-light); padding-top: 1rem;">
+                <div style="display:flex; justify-content:space-between; font-family:var(--font-heading); font-size:1.5rem; color:var(--primary-gold-600);"><span>100%</span> <small style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase;">Audit Compliance</small></div>
             </div>
           </div>
-          <div class="pillar-card reveal">
-            <div class="pillar-card__icon">
-              <svg class="icon"><use href="images/icons.svg#icon-star-mission"></use></svg>
-            </div>
-            <h3 class="pillar-card__title">Safety</h3>
-            <p class="pillar-card__text">ISO 45001-certified safety management, continuous training, proactive hazard identification, and a zero-harm culture across every operation.</p>
-            <div class="pillar-card__metric">
-              <div class="pillar-card__metric-value">1,500+</div>
-              <div class="pillar-card__metric-label">Safe Days</div>
+          <div class="premium-card-light reveal" data-delay="4">
+            <div class="premium-card-light__icon">⚙</div>
+            <h3 class="premium-card-light__title">Safety</h3>
+            <p class="premium-card-light__text">ISO 45001-certified safety management, continuous training, and hazard identification ensuring every worker returns home safely.</p>
+            <div style="margin-top: 1.5rem; border-top: 1px solid var(--border-light); padding-top: 1rem;">
+                <div style="display:flex; justify-content:space-between; font-family:var(--font-heading); font-size:1.5rem; color:var(--primary-gold-600);"><span>1,500+</span> <small style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase;">Safe Days</small></div>
             </div>
           </div>
         </div>
@@ -700,7 +689,7 @@
       <div class="impact-section__container">
         <div class="impact-section__header">
           <span class="pillars-section__overline">Real Impact</span>
-          <h2 class="pillars-section__title">Transforming Communities, <span style="color: var(--var(--primary-gold)-400);">One Initiative at a Time</span></h2>
+          <h2 class="pillars-section__title">Transforming Communities, <span style="color: var(--primary-gold-500);">One Initiative at a Time</span></h2>
           <p class="pillars-section__subtitle">Beyond extraction, we invest in the people and places that make our operations possible.</p>
         </div>
 
@@ -767,7 +756,7 @@
       <div class="esg-section__container">
         <div class="pillars-section__header">
           <span class="pillars-section__overline">ESG Framework</span>
-          <h2 class="pillars-section__title">Environmental, Social, <span style="color: var(--var(--primary-gold)-400);">Governance</span></h2>
+          <h2 class="pillars-section__title">Environmental, Social, <span style="color: var(--primary-gold-500);">Governance</span></h2>
         </div>
         <div class="esg-grid">
           <div class="esg-card reveal">

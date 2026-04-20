@@ -54,6 +54,8 @@
   <link rel="stylesheet" href="css/premium-polish.css">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/pages/products.css">
+  <link rel="stylesheet" href="css/components/premium-light.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/components/authority-tools.css" media="print" onload="this.media='all'">
   
   <!-- Schema.org (Million Dollar SEO) -->
   <script type="application/ld+json">
@@ -663,7 +665,7 @@
           <!-- Overview Text -->
           <div class="reveal">
             <span class="zigzag__overline">What We Supply</span>
-            <h2 class="zigzag__title" style="margin-bottom: 1.5rem;">Four Commodities.<br><span style="color: var(--var(--primary-gold)-400);">Endless Applications.</span></h2>
+            <h2 class="zigzag__title" style="margin-bottom: 1.5rem;">Four Commodities.<br><span style="color: var(--primary-gold-500);">Endless Applications.</span></h2>
             <p style="font-size: var(--text-lg); color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem;">
               Balochistan sits atop some of the world's richest and most accessible mineral deposits. Our operations span four critical minerals—each essential to modern industry, from steelmaking and oil drilling to stainless steel production and electrical infrastructure.
             </p>
@@ -693,45 +695,44 @@
             </div>
           </div>
 
-          <!-- Comparison Table -->
           <div class="reveal">
-            <h3 style="font-family: var(--font-heading); font-size: var(--text-2xl); font-weight: 600; color: var(--text-primary); margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.02em;">
-              Product Comparison at a Glance
+            <h3 style="font-family: var(--font-heading); font-size: 2rem; font-weight: 600; color: var(--text-primary); margin-bottom: 2rem; text-transform: uppercase;">
+              Strategic Product Comparison
             </h3>
-            <div style="overflow-x: auto; background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-md);">
-              <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
+            <div class="tech-data-hub">
+              <table class="tech-table">
                 <thead>
-                  <tr style="background: var(--navy-900); color: white;">
-                    <th style="padding: 1.25rem 1.5rem; text-align: left; font-family: var(--font-heading); font-size: var(--text-sm); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Product</th>
-                    <th style="padding: 1.25rem 1.5rem; text-align: center; font-family: var(--font-heading); font-size: var(--text-sm); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Grade</th>
-                    <th style="padding: 1.25rem 1.5rem; text-align: center; font-family: var(--font-heading); font-size: var(--text-sm); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Capacity</th>
-                    <th style="padding: 1.25rem 1.5rem; text-align: center; font-family: var(--font-heading); font-size: var(--text-sm); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Primary Use</th>
+                  <tr>
+                    <th>Product Line</th>
+                    <th>Technical Grade</th>
+                    <th>Annual Capacity</th>
+                    <th>Strategic Application</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr style="border-bottom: 1px solid var(--border-light);">
-                    <td style="padding: 1.25rem 1.5rem; font-weight: 600; color: var(--text-primary);">Iron Ore</td>
-                    <td style="padding: 1.25rem 1.5rem; text-align: center; color: var(--text-secondary);">62-68% Fe</td>
-                    <td style="padding: 1.25rem 1.5rem; text-align: center; color: var(--text-secondary);">20,000 MT/yr</td>
-                    <td style="padding: 1.25rem 1.5rem; text-align: center; color: var(--text-secondary);">Steelmaking</td>
+                  <tr>
+                    <td><strong>Iron Ore (Hematite)</strong></td>
+                    <td>62-68% Fe</td>
+                    <td>20,000 MT/yr</td>
+                    <td class="tech-table__value--gold">Direct Reduction Steelmaking</td>
                   </tr>
-                  <tr style="border-bottom: 1px solid var(--border-light); background: var(--bg-secondary);">
-                    <td style="padding: 1.25rem 1.5rem; font-weight: 600; color: var(--text-primary);">Barite</td>
-                    <td style="padding: 1.25rem 1.5rem; text-align: center; color: var(--text-secondary);">95% Purity</td>
-                    <td style="padding: 1.25rem 1.5rem; text-align: center; color: var(--text-secondary);">15,000 MT/yr</td>
-                    <td style="padding: 1.25rem 1.5rem; text-align: center; color: var(--text-secondary);">Oil Drilling</td>
+                  <tr>
+                    <td><strong>Barite (API)</strong></td>
+                    <td>API Standard 95%+</td>
+                    <td>15,000 MT/yr</td>
+                    <td class="tech-table__value--gold">High-Pressure Oil Drilling</td>
                   </tr>
-                  <tr style="border-bottom: 1px solid var(--border-light);">
-                    <td style="padding: 1.25rem 1.5rem; font-weight: 600; color: var(--text-primary);">Chromite</td>
-                    <td style="padding: 1.25rem 1.5rem; text-align: center; color: var(--text-secondary);">46-48% Cr₂O₃</td>
-                    <td style="padding: 1.25rem 1.5rem; text-align: center; color: var(--text-secondary);">12,000 MT/yr</td>
-                    <td style="padding: 1.25rem 1.5rem; text-align: center; color: var(--text-secondary);">Stainless Steel</td>
+                  <tr>
+                    <td><strong>Chromite (Lumpy/Fines)</strong></td>
+                    <td>46-48% Cr₂O₃</td>
+                    <td>12,000 MT/yr</td>
+                    <td class="tech-table__value--gold">Ferrochrome & Stainless Steel</td>
                   </tr>
-                  <tr style="background: var(--bg-secondary);">
-                    <td style="padding: 1.25rem 1.5rem; font-weight: 600; color: var(--text-primary);">Copper</td>
-                    <td style="padding: 1.25rem 1.5rem; text-align: center; color: var(--text-secondary);">Exploration</td>
-                    <td style="padding: 1.25rem 1.5rem; text-align: center; color: var(--text-secondary);">Upcoming</td>
-                    <td style="padding: 1.25rem 1.5rem; text-align: center; color: var(--text-secondary);">Electrical</td>
+                  <tr>
+                    <td><strong>Copper (Ore)</strong></td>
+                    <td>Exploration Phase</td>
+                    <td>Projected FY27</td>
+                    <td class="tech-table__value--gold">Electrical Infrastructure</td>
                   </tr>
                 </tbody>
               </table>
@@ -768,7 +769,7 @@
             <p style="font-size: var(--text-sm); color: rgba(255,255,255,0.7); margin-bottom: 1.5rem; line-height: 1.6;">
               Contact our sales team for current pricing, availability, and delivery timelines.
             </p>
-            <a href="contact.html" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: var(--var(--primary-gold)-500); color: white; font-weight: 700; font-size: var(--text-sm); text-transform: uppercase; letter-spacing: 0.08em; border-radius: var(--radius-md); text-decoration: none; transition: background 0.3s var(--ease-smooth);">
+            <a href="contact.html" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: var(--primary-gold-500); color: white; font-weight: 700; font-size: var(--text-sm); text-transform: uppercase; letter-spacing: 0.08em; border-radius: var(--radius-md); text-decoration: none; transition: background 0.3s var(--ease-smooth);">
               <span>Contact Sales</span>
               <svg width="16" height="16"><use href="images/icons.svg#icon-chevron-right"></use></svg>
             </a>
@@ -825,9 +826,12 @@
             <picture>
               <source type="image/avif" srcset="images/iron-ore-new.avif">
               <source type="image/webp" srcset="images/iron-ore-new.webp">
-              <img src="images/iron-ore-new.webp" alt="Iron ore hematite specimen" loading="lazy">
+              <img src="images/iron-ore-new.webp" alt="Iron ore hematite specimen" loading="lazy" id="iron-ore-img">
             </picture>
             <div class="zigzag__visual-overlay"></div>
+            <button class="hero__cta hero__cta--secondary" style="position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); z-index:10; background:rgba(0,0,0,0.4); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.2); white-space:nowrap; padding:0.6rem 1.2rem; font-size:0.75rem;" onclick="document.getElementById('modal-3d').style.display='flex'">
+                <svg width="14" height="14" style="margin-right:0.5rem;"><path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="2"/></svg> View 3D Sample
+            </button>
           </div>
         </div>
 
@@ -1400,6 +1404,20 @@
       </div>
     </div>
   </footer>
+  <!-- 3D Preview Modal (Simulated) -->
+  <div id="modal-3d" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:9999; align-items:center; justify-content:center; padding:2rem; backdrop-filter:blur(20px);">
+    <div style="max-width:800px; width:100%; position:relative;">
+        <button style="position:absolute; top:-3rem; right:0; background:none; border:none; color:white; font-size:2rem; cursor:pointer;" onclick="document.getElementById('modal-3d').style.display='none'">&times;</button>
+        <div class="mineral-3d-frame">
+            <div class="mineral-object" style="background-image:url('images/iron-ore-new.webp');"></div>
+            <div style="position:absolute; bottom:2rem; left:2rem; color:rgba(255,255,255,0.5); font-family:var(--font-ui); font-size:10px; text-transform:uppercase; letter-spacing:0.1em;">
+                Use Mouse to Rotate (Simulated) <br>
+                High-Fidelity Scan: Muslim Bagh Site B
+            </div>
+        </div>
+    </div>
+  </div>
+
 
 
   <script async src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
