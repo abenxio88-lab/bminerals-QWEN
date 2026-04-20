@@ -127,7 +127,7 @@
 }
 
 .hero__subheadline {
-  font-size: clamp(0.8rem, 1vw, 0.95rem);
+  font-size: var(--body-small);
   color: var(--text-secondary);
   line-height: 1.6;
   margin-bottom: 1.5rem;
@@ -238,7 +238,7 @@
   }
 
   .hero__headline {
-    font-size: clamp(1.5rem, 5vw, 2rem);
+    font-size: var(--h1-size) !important;
   }
 
   .hero__cta-group {
@@ -262,7 +262,7 @@
   }
 
   .hero__headline {
-    font-size: clamp(1.25rem, 5vw, 1.75rem);
+    font-size: var(--h2-size) !important;
   }
 
   .hero__subheadline {

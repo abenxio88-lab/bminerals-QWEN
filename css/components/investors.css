@@ -86,7 +86,7 @@
 
 .investor-metric__value {
   font-family: var(--font-heading);
-  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-size: var(--h2-size);
   font-weight: 600;
   color: var(--text-primary);
   line-height: 1.1;

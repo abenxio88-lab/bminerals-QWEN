@@ -62,7 +62,7 @@
 
 .investors-hero__title {
   font-family: var(--font-heading);
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-size: var(--display-size);
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: 0.03em;
@@ -111,7 +111,7 @@
 
 .financial-dashboard__title {
   font-family: var(--font-heading);
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: var(--h1-size);
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: 0.02em;
@@ -439,7 +439,7 @@
 
 .investors-cta__title {
   font-family: var(--font-heading);
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: var(--h1-size);
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: 0.02em;
@@ -491,7 +491,11 @@
   }
   
   .investors-hero__title {
-    font-size: var(--text-xl);
+    font-size: var(--display-size);
+  }
+  
+  .financial-dashboard__title {
+    font-size: var(--h1-size);
   }
   
   .financial-dashboard {

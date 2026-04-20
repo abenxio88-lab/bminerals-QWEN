@@ -52,7 +52,7 @@
 
 .section-title {
   font-family: var(--font-heading);
-  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-size: var(--display-size);
   font-weight: 600;
   letter-spacing: 0.02em;
   text-transform: uppercase;
@@ -180,7 +180,7 @@
 
 .expertise-stat__number {
   font-family: var(--font-heading);
-  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-size: var(--h2-size);
   font-weight: 600;
   color: white;
   line-height: 1.1;

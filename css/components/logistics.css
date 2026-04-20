@@ -34,7 +34,7 @@
 
 .logistics__title {
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: var(--display-size);
   font-weight: 600;
   line-height: 1.1;
   letter-spacing: 0.02em;

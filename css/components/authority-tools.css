@@ -141,7 +141,7 @@
 
 .freight-metric {
     font-family: var(--font-heading);
-    font-size: 3rem;
+    font-size: var(--display-size);
     line-height: 1;
     color: var(--primary-gold-400);
     margin-bottom: 0.5rem;

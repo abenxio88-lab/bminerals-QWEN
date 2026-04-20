@@ -84,9 +84,20 @@
 
     .hero__headline {
       font-family: var(--font-heading);
-      font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+      font-size: clamp(1.6rem, 3.2vw, 2.2rem); /* Preserving Hero Size */
       font-weight: 600;
       text-transform: uppercase;
+    }
+
+    /* CAP everything else on the homepage to 40px */
+    h2:not(.hero__headline), 
+    .section-title,
+    .b2b-portal__title,
+    .mine-tours__title,
+    .mineral-encyclopedia__title,
+    .cta-premium__title {
+      font-size: var(--h1-size) !important;
+      max-width: 100%;
     }
 
     .hero__subheadline {
@@ -1268,11 +1279,7 @@
           <div class="about__leadership-grid">
             <div class="about__leader-card">
               <div class="about__leader-avatar">
-                <svg width="60" height="60" viewBox="0 0 60 60">
-                  <circle cx="30" cy="30" r="28" fill="var(--navy-100)" />
-                  <circle cx="30" cy="22" r="8" fill="var(--navy-400)" />
-                  <path d="M14 50C14 40 21 36 30 36C39 36 46 40 46 50" fill="var(--navy-400)" />
-                </svg>
+                <img src="images/aboutus/1.jpg" alt="CEO" loading="lazy">
               </div>
               <div class="about__leader-info">
                 <h4 class="about__leader-name">Executive Leadership</h4>
@@ -1284,11 +1291,7 @@
 
             <div class="about__leader-card">
               <div class="about__leader-avatar">
-                <svg width="60" height="60" viewBox="0 0 60 60">
-                  <circle cx="30" cy="30" r="28" fill="var(--primary-gold-100)" />
-                  <circle cx="30" cy="22" r="8" fill="var(--primary-gold-400)" />
-                  <path d="M14 50C14 40 21 36 30 36C39 36 46 40 46 50" fill="var(--primary-gold-400)" />
-                </svg>
+                <img src="images/aboutus/2.jpg" alt="Chief Mining Engineer" loading="lazy">
               </div>
               <div class="about__leader-info">
                 <h4 class="about__leader-name">Technical Operations</h4>
@@ -1300,11 +1303,7 @@
 
             <div class="about__leader-card">
               <div class="about__leader-avatar">
-                <svg width="60" height="60" viewBox="0 0 60 60">
-                  <circle cx="30" cy="30" r="28" fill="var(--navy-100)" />
-                  <circle cx="30" cy="22" r="8" fill="var(--navy-400)" />
-                  <path d="M14 50C14 40 21 36 30 36C39 36 46 40 46 50" fill="var(--navy-400)" />
-                </svg>
+                <img src="images/aboutus/3.jpg" alt="Sustainability Director" loading="lazy">
               </div>
               <div class="about__leader-info">
                 <h4 class="about__leader-name">Sustainability & ESG</h4>

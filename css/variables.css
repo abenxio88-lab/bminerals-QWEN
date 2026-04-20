@@ -69,13 +69,38 @@
   --font-ui: 'Montserrat', sans-serif;
   
   /* Scale */
-  --text-4xl: clamp(2.75rem, 5.5vw, 4.5rem);
-  --text-3xl: clamp(2.25rem, 4.5vw, 3.25rem);
-  --text-2xl: clamp(1.75rem, 3.5vw, 2.5rem);
-  --text-xl: 1.375rem;
+  /* ============================================ */
+  /* TYPOGRAPHY CONTROLLER (Symmetry Engine)       */
+  /* ============================================ */
+  
+  /* Desktop Defaults (Capped at 40px) */
+  --display-size: 2.5rem;    /* 40px - Main Hero Titles */
+  --h1-size: 2.25rem;       /* 36px - Section Headings */
+  --h2-size: 1.75rem;       /* 28px - Sub-sections */
+  --h3-size: 1.25rem;       /* 20px - Card Titles */
+  --body-size: 1rem;        /* 16px - Standard Reading */
+  --body-small: 0.875rem;   /* 14px - UI/Meta text */
+
+  /* Mobile Overrides (The "User Preferred" Layout) */
+  @media (max-width: 768px) {
+    :root {
+      --display-size: 1.75rem;  /* ~28px */
+      --h1-size: 1.5rem;       /* ~24px */
+      --h2-size: 1.25rem;      /* ~20px */
+      --h3-size: 1.125rem;     /* ~18px */
+      --body-size: 0.875rem;   /* 14px - Your preferred mobile size */
+      --body-small: 0.75rem;   /* 12px */
+    }
+  }
+
+  /* Legacy Variable Mapping (For Backward Compatibility) */
+  --text-4xl: var(--display-size);
+  --text-3xl: var(--h1-size);
+  --text-2xl: var(--h2-size);
+  --text-xl: var(--h3-size);
   --text-lg: 1.125rem;
-  --text-base: 1rem;
-  --text-sm: 0.875rem;
+  --text-base: var(--body-size);
+  --text-sm: var(--body-small);
   --text-xs: 0.75rem;
   
   /* Spacing */
