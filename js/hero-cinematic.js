@@ -131,6 +131,12 @@
       
       // Feedback
       if (window.tactileFeedback) window.tactileFeedback('soft');
+
+      // Dispatch event for other components (like 3D explorer if re-enabled)
+      const activeMineral = carouselArr[currentIndex].getAttribute('data-mineral');
+      window.dispatchEvent(new CustomEvent('mineralChanged', { 
+        detail: { mineral: activeMineral } 
+      }));
     }
 
     function nextSlide() {

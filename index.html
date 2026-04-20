@@ -34,25 +34,85 @@
       --max-width: 1400px;
     }
 
-    .navbar { position: fixed; top: 0; left: 0; right: 0; height: var(--navbar-height); background: rgba(248, 248, 245, 0.95) !important; z-index: 1000 !important; }
-    .navbar__container { width: 100%; padding: 0 3rem; display: grid !important; grid-template-columns: auto 1fr auto; gap: 2rem; align-items: center; height: 100%; position: relative; z-index: 1; }
-    .navbar__brand { display: flex !important; align-items: center !important; gap: 0.5rem; }
-    .navbar__logo-img { height: 40px !important; width: auto !important; display: inline-block !important; }
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--navbar-height);
+      background: rgba(248, 248, 245, 0.95) !important;
+      z-index: 1000 !important;
+    }
 
-    .hero { min-height: calc(100vh - var(--navbar-height)); padding-top: calc(var(--navbar-height) + 2rem); display:flex; align-items:center; }
-    .hero__container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; text-align: center; }
-    .hero__headline { font-family: var(--font-heading); font-size: clamp(1.6rem, 3.2vw, 2.2rem); font-weight: 600; text-transform: uppercase; }
-    .hero__subheadline { color: var(--text-secondary); margin-top: 0.5rem; }
+    .navbar__container {
+      width: 100%;
+      padding: 0 3rem;
+      display: grid !important;
+      grid-template-columns: auto 1fr auto;
+      gap: 2rem;
+      align-items: center;
+      height: 100%;
+      position: relative;
+      z-index: 1;
+    }
 
-    .skip-link:focus { top: 0; }
-    *:focus-visible { outline: 3px solid var(--primary-gold-500); outline-offset: 2px; }
+    .navbar__brand {
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.5rem;
+    }
+
+    .navbar__logo-img {
+      height: 40px !important;
+      width: auto !important;
+      display: inline-block !important;
+    }
+
+    .hero {
+      min-height: calc(100vh - var(--navbar-height));
+      padding-top: calc(var(--navbar-height) + 2rem);
+      display: flex;
+      align-items: center;
+    }
+
+    .hero__container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      text-align: center;
+    }
+
+    .hero__headline {
+      font-family: var(--font-heading);
+      font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .hero__subheadline {
+      color: var(--text-secondary);
+      margin-top: 0.5rem;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    *:focus-visible {
+      outline: 3px solid var(--primary-gold-500);
+      outline-offset: 2px;
+    }
   </style>
 
   <!-- Preload hero image to improve LCP (prefer AVIF when available) -->
-  <link rel="preload" as="image" href="images/hero/hero-1.avif" imagesrcset="images/hero/hero-1.avif 1x, images/hero/hero-1.webp 1x">
-  <link rel="preload" as="image" href="images/chromite-new.avif" imagesrcset="images/chromite-new.avif 1x, images/chromite-new.webp 1x">
-  <link rel="preload" as="image" href="images/iron-ore-new.avif" imagesrcset="images/iron-ore-new.avif 1x, images/iron-ore-new.webp 1x">
-  <link rel="preload" as="image" href="images/copper-new.avif" imagesrcset="images/copper-new.avif 1x, images/copper-new.webp 1x">
+  <link rel="preload" as="image" href="images/hero/hero-1.avif"
+    imagesrcset="images/hero/hero-1.avif 1x, images/hero/hero-1.webp 1x">
+  <link rel="preload" as="image" href="images/chromite-new.avif"
+    imagesrcset="images/chromite-new.avif 1x, images/chromite-new.webp 1x">
+  <link rel="preload" as="image" href="images/iron-ore-new.avif"
+    imagesrcset="images/iron-ore-new.avif 1x, images/iron-ore-new.webp 1x">
+  <link rel="preload" as="image" href="images/copper-new.avif"
+    imagesrcset="images/copper-new.avif 1x, images/copper-new.webp 1x">
   <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
@@ -76,6 +136,7 @@
   <link rel="stylesheet" href="css/components/cta.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="css/components/investor-metrics.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="css/components/testimonials-advanced.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/components/intelligence-hub.css" media="print" onload="this.media='all'">
 
   <!-- Schema.org (Million Dollar SEO) -->
   <script type="application/ld+json">
@@ -157,7 +218,8 @@
   <header class="navbar" role="banner">
     <div class="navbar__container">
       <a href="index.html" class="navbar__brand" aria-label="Balochistan Minerals Home">
-        <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals logo" class="navbar__logo-img" style="height:40px;width:auto;display:inline-block !important;max-width:none;opacity:1 !important;">
+        <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals logo" class="navbar__logo-img"
+          style="height:40px;width:auto;display:inline-block !important;max-width:none;opacity:1 !important;">
       </a>
 
       <nav class="navbar__nav" role="navigation" aria-label="Main navigation">
@@ -715,7 +777,7 @@
     <!-- HERO SECTION - CINEMATIC MINERAL SHOWCASE -->
     <!-- ============================================ -->
     <section class="hero-cinematic" id="hero" aria-label="Hero section">
-      
+
       <!-- Media Background -->
       <div class="hero-bg-media">
         <div class="hero-bg-image"></div>
@@ -724,36 +786,37 @@
         </video>
         <div class="hero-bg-video-overlay"></div>
       </div>
-      
+
       <!-- Background Layers -->
       <div class="hero-bg-layer hero-bg-gradient"></div>
       <div class="hero-bg-layer hero-grid-overlay"></div>
       <div class="hero-particles"></div>
 
       <div class="hero-cinematic__container">
-        
+
         <!-- Left: Content -->
         <div class="hero-content">
           <div class="hero-eyebrow">
             <span class="hero-eyebrow__dot"></span>
             <span>From the Heart of Balochistan</span>
           </div>
-          
+
           <h1 class="hero-headline">
             Extracting Excellence.<br>
             <span class="hero-headline__accent">Powering Pakistan's Future.</span>
           </h1>
-          
+
           <p class="hero-subheadline">
-            For over two decades, we've been unlocking Balochistan's mineral wealth—iron ore, chromite, barite & more—with unwavering commitment to ethical practices, community uplift, and global standards.
+            For over two decades, we've been unlocking Balochistan's mineral wealth—iron ore, chromite, barite &
+            more—with unwavering commitment to ethical practices, community uplift, and global standards.
           </p>
-          
+
           <div class="hero-cta-group">
             <a href="products.html" class="btn-hero-primary">
               Explore Minerals
               <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="5" y1="12" x2="19" y2="12"/>
-                <polyline points="12 5 19 12 12 19"/>
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
               </svg>
             </a>
             <a href="about.html" class="btn-hero-secondary">
@@ -767,7 +830,7 @@
           <div class="mineral-carousel-container">
             <div class="mineral-carousel" id="heroCarousel">
               <!-- Featured: Chromite -->
-              <div class="mineral-card is-active" data-index="0">
+              <div class="mineral-card is-active" data-index="0" data-mineral="chromite">
                 <picture>
                   <source type="image/avif" srcset="images/chromite-new.avif">
                   <source type="image/webp" srcset="images/chromite-new.webp">
@@ -783,7 +846,7 @@
               </div>
 
               <!-- Iron Ore -->
-              <div class="mineral-card" data-index="1">
+              <div class="mineral-card" data-index="1" data-mineral="iron">
                 <picture>
                   <source type="image/avif" srcset="images/iron-ore-new.avif">
                   <source type="image/webp" srcset="images/iron-ore-new.webp">
@@ -799,7 +862,7 @@
               </div>
 
               <!-- Barite -->
-              <div class="mineral-card" data-index="2">
+              <div class="mineral-card" data-index="2" data-mineral="barite">
                 <picture>
                   <source type="image/avif" srcset="images/barite-card.avif">
                   <source type="image/webp" srcset="images/barite-card.webp">
@@ -815,7 +878,7 @@
               </div>
 
               <!-- Copper -->
-              <div class="mineral-card" data-index="3">
+              <div class="mineral-card" data-index="3" data-mineral="copper">
                 <picture>
                   <source type="image/avif" srcset="images/copper-new.avif">
                   <source type="image/webp" srcset="images/copper-new.webp">
@@ -835,7 +898,7 @@
             <div class="carousel-navigation">
               <button class="carousel-nav-btn prev" aria-label="Previous mineral">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M15 18l-6-6 6-6"/>
+                  <path d="M15 18l-6-6 6-6" />
                 </svg>
               </button>
               <div class="carousel-indicators">
@@ -846,7 +909,7 @@
               </div>
               <button class="carousel-nav-btn next" aria-label="Next mineral">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M9 18l6-6-6-6"/>
+                  <path d="M9 18l6-6-6-6" />
                 </svg>
               </button>
             </div>
@@ -877,6 +940,88 @@
           <div class="scroll-wheel"></div>
         </div>
         <span class="scroll-text">Scroll</span>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- LIVE COMMODITY TICKER - Financial Authority -->
+    <!-- ============================================ -->
+    <section class="commodity-ticker" aria-label="Live commodity prices">
+      <div class="commodity-ticker__track" id="commodityTicker">
+        <!-- Set 1 -->
+        <div class="commodity-ticker__item">
+          <span class="commodity-ticker__name">Chromite</span>
+          <span class="commodity-ticker__price">$285/MT</span>
+          <span class="commodity-ticker__change commodity-ticker__change--up">▲ 2.4%</span>
+          <span class="commodity-ticker__source">LME</span>
+        </div>
+        <div class="commodity-ticker__item">
+          <span class="commodity-ticker__name">Iron Ore 62% Fe</span>
+          <span class="commodity-ticker__price">$108.50/MT</span>
+          <span class="commodity-ticker__change commodity-ticker__change--up">▲ 1.1%</span>
+          <span class="commodity-ticker__source">SGX</span>
+        </div>
+        <div class="commodity-ticker__item">
+          <span class="commodity-ticker__name">Barite API</span>
+          <span class="commodity-ticker__price">$165/MT</span>
+          <span class="commodity-ticker__change commodity-ticker__change--down">▼ 0.8%</span>
+          <span class="commodity-ticker__source">CRU</span>
+        </div>
+        <div class="commodity-ticker__item">
+          <span class="commodity-ticker__name">Copper</span>
+          <span class="commodity-ticker__price">$9,245/MT</span>
+          <span class="commodity-ticker__change commodity-ticker__change--up">▲ 0.6%</span>
+          <span class="commodity-ticker__source">LME</span>
+        </div>
+        <div class="commodity-ticker__item">
+          <span class="commodity-ticker__name">Gold</span>
+          <span class="commodity-ticker__price">$2,385/oz</span>
+          <span class="commodity-ticker__change commodity-ticker__change--up">▲ 0.3%</span>
+          <span class="commodity-ticker__source">LBMA</span>
+        </div>
+        <div class="commodity-ticker__item">
+          <span class="commodity-ticker__name">Ferrochrome HC</span>
+          <span class="commodity-ticker__price">$1.42/lb</span>
+          <span class="commodity-ticker__change commodity-ticker__change--down">▼ 1.2%</span>
+          <span class="commodity-ticker__source">PLATTS</span>
+        </div>
+        <!-- Set 2 -->
+        <div class="commodity-ticker__item">
+          <span class="commodity-ticker__name">Chromite</span>
+          <span class="commodity-ticker__price">$285/MT</span>
+          <span class="commodity-ticker__change commodity-ticker__change--up">▲ 2.4%</span>
+          <span class="commodity-ticker__source">LME</span>
+        </div>
+        <div class="commodity-ticker__item">
+          <span class="commodity-ticker__name">Iron Ore 62% Fe</span>
+          <span class="commodity-ticker__price">$108.50/MT</span>
+          <span class="commodity-ticker__change commodity-ticker__change--up">▲ 1.1%</span>
+          <span class="commodity-ticker__source">SGX</span>
+        </div>
+        <div class="commodity-ticker__item">
+          <span class="commodity-ticker__name">Barite API</span>
+          <span class="commodity-ticker__price">$165/MT</span>
+          <span class="commodity-ticker__change commodity-ticker__change--down">▼ 0.8%</span>
+          <span class="commodity-ticker__source">CRU</span>
+        </div>
+        <div class="commodity-ticker__item">
+          <span class="commodity-ticker__name">Copper</span>
+          <span class="commodity-ticker__price">$9,245/MT</span>
+          <span class="commodity-ticker__change commodity-ticker__change--up">▲ 0.6%</span>
+          <span class="commodity-ticker__source">LME</span>
+        </div>
+        <div class="commodity-ticker__item">
+          <span class="commodity-ticker__name">Gold</span>
+          <span class="commodity-ticker__price">$2,385/oz</span>
+          <span class="commodity-ticker__change commodity-ticker__change--up">▲ 0.3%</span>
+          <span class="commodity-ticker__source">LBMA</span>
+        </div>
+        <div class="commodity-ticker__item">
+          <span class="commodity-ticker__name">Ferrochrome HC</span>
+          <span class="commodity-ticker__price">$1.42/lb</span>
+          <span class="commodity-ticker__change commodity-ticker__change--down">▼ 1.2%</span>
+          <span class="commodity-ticker__source">PLATTS</span>
+        </div>
       </div>
     </section>
 
@@ -2079,7 +2224,8 @@
               <div class="logistics__card-icon">
                 <svg width="48" height="48" viewBox="0 0 48 48">
                   <path d="M6 28L24 8L42 28H6Z" fill="none" stroke="var(--primary-gold-400)" stroke-width="2" />
-                  <rect x="18" y="28" width="12" height="10" fill="none" stroke="var(--primary-gold-400)" stroke-width="2" />
+                  <rect x="18" y="28" width="12" height="10" fill="none" stroke="var(--primary-gold-400)"
+                    stroke-width="2" />
                   <path d="M24 38V42" stroke="var(--primary-gold-400)" stroke-width="2" />
                 </svg>
               </div>
@@ -2300,7 +2446,8 @@
                   <circle class="chart-point" cx="0" cy="60" r="2.5" stroke="var(--primary-gold-500)" />
                   <circle class="chart-point" cx="80" cy="50" r="2.5" stroke="var(--primary-gold-500)" />
                   <circle class="chart-point" cx="150" cy="22" r="2.5" stroke="var(--primary-gold-500)" />
-                  <circle class="chart-point" cx="200" cy="10" r="3.5" fill="var(--primary-gold-500)" stroke="var(--navy-900)" />
+                  <circle class="chart-point" cx="200" cy="10" r="3.5" fill="var(--primary-gold-500)"
+                    stroke="var(--navy-900)" />
                   <!-- Labels -->
                   <g class="chart-labels">
                     <text x="0" y="78">Q1</text>
@@ -2347,7 +2494,8 @@
                   <path class="chart-line" d="M0,50 C50,48 100,42 150,35 S180,25 200,20" fill="none"
                     stroke="var(--navy-400)" stroke-width="2.5" />
                   <circle class="chart-point" cx="100" cy="42" r="2.5" stroke="var(--navy-400)" />
-                  <circle class="chart-point" cx="200" cy="20" r="3.5" fill="var(--navy-400)" stroke="var(--navy-900)" />
+                  <circle class="chart-point" cx="200" cy="20" r="3.5" fill="var(--navy-400)"
+                    stroke="var(--navy-900)" />
                   <g class="chart-labels">
                     <text x="0" y="78">2023</text>
                     <text x="90" y="78">2024</text>
@@ -2387,7 +2535,8 @@
                     stroke="var(--primary-gold-600)" stroke-width="2.5" />
                   <circle class="chart-point" cx="75" cy="55" r="2.5" stroke="var(--primary-gold-600)" />
                   <circle class="chart-point" cx="150" cy="25" r="2.5" stroke="var(--primary-gold-600)" />
-                  <circle class="chart-point" cx="200" cy="5" r="3.5" fill="var(--primary-gold-600)" stroke="var(--navy-900)" />
+                  <circle class="chart-point" cx="200" cy="5" r="3.5" fill="var(--primary-gold-600)"
+                    stroke="var(--navy-900)" />
                   <g class="chart-labels">
                     <text x="0" y="78">MT</text>
                     <text x="200" y="78" text-anchor="end">CAPACITY</text>
@@ -2426,7 +2575,8 @@
                   <path class="chart-line" d="M0,55 C40,53 80,48 120,40 S180,25 200,15" fill="none"
                     stroke="var(--navy-300)" stroke-width="2.5" />
                   <circle class="chart-point" cx="80" cy="48" r="2.5" stroke="var(--navy-300)" />
-                  <circle class="chart-point" cx="200" cy="15" r="3.5" fill="var(--navy-300)" stroke="var(--navy-900)" />
+                  <circle class="chart-point" cx="200" cy="15" r="3.5" fill="var(--navy-300)"
+                    stroke="var(--navy-900)" />
                   <g class="chart-labels">
                     <text x="0" y="78">NATIONS</text>
                     <text x="200" y="78" text-anchor="end">60+</text>
@@ -2751,6 +2901,257 @@
     </section>
 
     <!-- ============================================ -->
+    <!-- ESG TRANSPARENCY DASHBOARD -->
+    <!-- ============================================ -->
+    <section class="esg-dashboard" id="esg-dashboard" aria-label="ESG transparency dashboard">
+      <div class="esg-dashboard__container">
+        <div class="esg-dashboard__header reveal">
+          <span class="esg-dashboard__overline">Live Impact Metrics</span>
+          <h2 class="esg-dashboard__title">Radical Transparency Dashboard</h2>
+          <p class="esg-dashboard__subtitle">Real-time Environmental, Social, and Governance metrics from our operations. Updated monthly from verified field data.</p>
+        </div>
+
+        <div class="esg-grid">
+          <div class="esg-card reveal" data-delay="1">
+            <div class="esg-card__icon">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 28C16 28 4 20 4 12C4 7 8 3 16 3C24 3 28 7 28 12C28 20 16 28 16 28Z"/><path d="M16 12V20M12 16H20"/></svg>
+            </div>
+            <div class="esg-card__metric">120+</div>
+            <div class="esg-card__label">Hectares Reclaimed</div>
+            <div class="esg-card__bar"><div class="esg-card__bar-fill esg-card__bar-fill--green" data-width="78%"></div></div>
+            <div class="esg-card__context">Active land restoration across Muslim Bagh &amp; Khuzdar sites. Target: 150 ha by 2027.</div>
+          </div>
+
+          <div class="esg-card reveal" data-delay="2">
+            <div class="esg-card__icon">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="12" r="4"/><circle cx="22" cy="12" r="4"/><path d="M4 26C4 22 7 20 10 20C12 20 14 20.5 16 22C18 20.5 20 20 22 20C25 20 28 22 28 26"/></svg>
+            </div>
+            <div class="esg-card__metric">85%</div>
+            <div class="esg-card__label">Local Employment</div>
+            <div class="esg-card__bar"><div class="esg-card__bar-fill" data-width="85%"></div></div>
+            <div class="esg-card__context">Workforce sourced from Balochistan communities. 500+ direct jobs created.</div>
+          </div>
+
+          <div class="esg-card reveal" data-delay="3">
+            <div class="esg-card__icon">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4V28M4 16H28"/><path d="M8 8L24 24M24 8L8 24"/><circle cx="16" cy="16" r="12"/></svg>
+            </div>
+            <div class="esg-card__metric">92%</div>
+            <div class="esg-card__label">Water Recycled</div>
+            <div class="esg-card__bar"><div class="esg-card__bar-fill esg-card__bar-fill--green" data-width="92%"></div></div>
+            <div class="esg-card__context">Closed-loop wash-plant systems. Zero-discharge compliant across all active sites.</div>
+          </div>
+
+          <div class="esg-card reveal" data-delay="4">
+            <div class="esg-card__icon">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="14" width="6" height="14" rx="1"/><rect x="13" y="8" width="6" height="20" rx="1"/><rect x="22" y="4" width="6" height="24" rx="1"/></svg>
+            </div>
+            <div class="esg-card__metric">0</div>
+            <div class="esg-card__label">Lost-Time Injuries (2025)</div>
+            <div class="esg-card__bar"><div class="esg-card__bar-fill esg-card__bar-fill--green" data-width="100%"></div></div>
+            <div class="esg-card__context">Zero LTI record for 14 consecutive months. DGMS safety audit: Grade A.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- B2B UTILITY PORTAL -->
+    <!-- ============================================ -->
+    <section class="b2b-portal" id="b2b-portal" aria-label="Business-to-business services">
+      <div class="b2b-portal__container">
+        <div class="b2b-portal__header reveal">
+          <span class="b2b-portal__overline">Global Buyer Tools</span>
+          <h2 class="b2b-portal__title">Your Direct Line to Balochistan's Minerals</h2>
+          <p class="b2b-portal__subtitle">Purpose-built tools for international buyers, commodity traders, and procurement teams. Streamline your mineral sourcing from mine to port.</p>
+        </div>
+
+        <div class="b2b-grid">
+          <div class="b2b-card reveal" data-delay="1">
+            <div class="b2b-card__icon">
+              <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="20" height="24" rx="2"/><path d="M9 9H19M9 13H19M9 17H15"/><path d="M13 21L15 23L19 19"/></svg>
+            </div>
+            <h3 class="b2b-card__title">Digital COA Library</h3>
+            <p class="b2b-card__text">Access Certificates of Analysis for every production batch. Download verified lab reports with full chemical composition, particle size distribution, and moisture content data.</p>
+            <ul class="b2b-card__features">
+              <li>Batch-specific Cr₂O₃, Fe, BaSO₄ analysis</li>
+              <li>SGS &amp; Bureau Veritas certified</li>
+              <li>Downloadable PDF &amp; Excel formats</li>
+              <li>Historical batch comparison tool</li>
+            </ul>
+            <a href="products.html" class="b2b-card__cta">Browse COA Library →</a>
+          </div>
+
+          <div class="b2b-card reveal" data-delay="2">
+            <div class="b2b-card__icon">
+              <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2"><circle cx="14" cy="12" r="10"/><path d="M4 12H24M14 2C10.5 5 9 8.5 9 12C9 15.5 10.5 19 14 22M14 2C17.5 5 19 8.5 19 12C19 15.5 17.5 19 14 22"/><path d="M8 22L12 26L20 18" stroke-width="2.5"/></svg>
+            </div>
+            <h3 class="b2b-card__title">Shipment Tracker</h3>
+            <p class="b2b-card__text">Real-time visibility into your mineral shipments from mine gate to destination port. Track fleet movements, container loading status, and estimated arrival times.</p>
+            <ul class="b2b-card__features">
+              <li>Mine-to-port GPS tracking</li>
+              <li>Container &amp; vessel identification</li>
+              <li>Karachi &amp; Gwadar port ETAs</li>
+              <li>Automated status notifications</li>
+            </ul>
+            <a href="logistics.html" class="b2b-card__cta">Track Shipments →</a>
+          </div>
+
+          <div class="b2b-card reveal" data-delay="3">
+            <div class="b2b-card__icon">
+              <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8L14 3L24 8V20L14 25L4 20V8Z"/><path d="M4 8L14 13L24 8M14 13V25"/></svg>
+            </div>
+            <h3 class="b2b-card__title">Sample Request Portal</h3>
+            <p class="b2b-card__text">Request physical mineral samples shipped to your lab for independent verification. Select from available grades and sizes across all four commodity lines.</p>
+            <ul class="b2b-card__features">
+              <li>Free sample kits (up to 5kg)</li>
+              <li>DHL/FedEx international shipping</li>
+              <li>Custom grade specifications</li>
+              <li>Dedicated account manager</li>
+            </ul>
+            <a href="contact.html" class="b2b-card__cta">Request Samples →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- VIRTUAL MINE TOURS -->
+    <!-- ============================================ -->
+    <section class="mine-tours" id="mine-tours" aria-label="Virtual mine tours">
+      <div class="mine-tours__container">
+        <div class="mine-tours__header reveal">
+          <span class="mine-tours__overline">Access All Areas</span>
+          <h2 class="mine-tours__title">Virtual Mine Tours</h2>
+          <p class="mine-tours__subtitle">Walk through our operations from anywhere in the world. High-definition drone cinematics and 360° ground-level tours of every active site.</p>
+        </div>
+
+        <div class="tours-grid">
+          <div class="tour-card reveal" data-delay="1">
+            <div class="tour-card__bg" style="background-image:url('images/chromite-new.webp')"></div>
+            <div class="tour-card__overlay"></div>
+            <div class="tour-card__play">
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="8,5 20,12 8,19"/></svg>
+            </div>
+            <div class="tour-card__content">
+              <span class="tour-card__badge">360° Tour</span>
+              <h3 class="tour-card__name">Muslim Bagh Chromite Mine</h3>
+              <p class="tour-card__desc">Open-pit operations &amp; processing plant walkthrough</p>
+            </div>
+          </div>
+
+          <div class="tour-card reveal" data-delay="2">
+            <div class="tour-card__bg" style="background-image:url('images/hero/hero-1.webp')"></div>
+            <div class="tour-card__overlay"></div>
+            <div class="tour-card__play">
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="8,5 20,12 8,19"/></svg>
+            </div>
+            <div class="tour-card__content">
+              <span class="tour-card__badge">Drone Cinematic</span>
+              <h3 class="tour-card__name">Khuzdar Barite Operations</h3>
+              <p class="tour-card__desc">FPV aerial tour of processing &amp; stockpile facilities</p>
+            </div>
+          </div>
+
+          <div class="tour-card reveal" data-delay="3">
+            <div class="tour-card__bg" style="background-image:url('images/copper-new.webp')"></div>
+            <div class="tour-card__overlay"></div>
+            <div class="tour-card__play">
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="8,5 20,12 8,19"/></svg>
+            </div>
+            <div class="tour-card__content">
+              <span class="tour-card__badge">Exploration Site</span>
+              <h3 class="tour-card__name">Chagai Copper-Gold Belt</h3>
+              <p class="tour-card__desc">Geological survey &amp; exploration camp overview</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- MINERAL ENCYCLOPEDIA TEASER -->
+    <!-- ============================================ -->
+    <section class="mineral-encyclopedia" id="mineral-index" aria-label="Balochistan Mineral Index">
+      <div class="mineral-encyclopedia__container">
+        <div class="mineral-encyclopedia__header reveal">
+          <span class="mineral-encyclopedia__overline">The Balochistan Mineral Index</span>
+          <h2 class="mineral-encyclopedia__title">The Definitive Guide to Pakistan's Mineral Wealth</h2>
+          <p class="mineral-encyclopedia__subtitle">An authoritative encyclopedia of every commercially significant mineral found in Balochistan province — geological origins, chemical properties, industrial applications, and market context.</p>
+        </div>
+
+        <div class="encyclopedia-grid">
+          <a href="products.html#chromite" class="encyclopedia-card reveal" data-delay="1">
+            <div class="encyclopedia-card__image">
+              <img src="images/chromite-new.webp" alt="Chromite ore specimen" loading="lazy">
+            </div>
+            <div class="encyclopedia-card__body">
+              <div class="encyclopedia-card__formula">FeCr₂O₄</div>
+              <h3 class="encyclopedia-card__name">Chromite</h3>
+              <p class="encyclopedia-card__excerpt">Primary source of chromium. Balochistan's Muslim Bagh ophiolite hosts some of Asia's highest-grade deposits with exceptional Cr:Fe ratios.</p>
+              <div class="encyclopedia-card__specs">
+                <span class="encyclopedia-card__spec"><strong>Grade:</strong> 46-48%</span>
+                <span class="encyclopedia-card__spec"><strong>Hardness:</strong> 5.5</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="products.html#iron-ore" class="encyclopedia-card reveal" data-delay="2">
+            <div class="encyclopedia-card__image">
+              <img src="images/iron-ore-new.webp" alt="Iron ore specimen" loading="lazy">
+            </div>
+            <div class="encyclopedia-card__body">
+              <div class="encyclopedia-card__formula">Fe₂O₃</div>
+              <h3 class="encyclopedia-card__name">Iron Ore (Hematite)</h3>
+              <p class="encyclopedia-card__excerpt">High-grade hematite from Chiniot and Dilband deposits. Fe content exceeds 65%, suitable for direct-reduction steelmaking.</p>
+              <div class="encyclopedia-card__specs">
+                <span class="encyclopedia-card__spec"><strong>Grade:</strong> 62-68% Fe</span>
+                <span class="encyclopedia-card__spec"><strong>Type:</strong> Hematite</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="products.html#barite" class="encyclopedia-card reveal" data-delay="3">
+            <div class="encyclopedia-card__image">
+              <img src="images/barite-card.webp" alt="Barite ore specimen" loading="lazy">
+            </div>
+            <div class="encyclopedia-card__body">
+              <div class="encyclopedia-card__formula">BaSO₄</div>
+              <h3 class="encyclopedia-card__name">Barite</h3>
+              <p class="encyclopedia-card__excerpt">API-standard drilling-grade barite from Khuzdar. Specific gravity 4.2+, used as weighting agent in oil &amp; gas exploration globally.</p>
+              <div class="encyclopedia-card__specs">
+                <span class="encyclopedia-card__spec"><strong>SG:</strong> 4.2+</span>
+                <span class="encyclopedia-card__spec"><strong>Purity:</strong> 95%+</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="products.html#copper" class="encyclopedia-card reveal" data-delay="4">
+            <div class="encyclopedia-card__image">
+              <img src="images/copper-new.webp" alt="Copper ore specimen" loading="lazy">
+            </div>
+            <div class="encyclopedia-card__body">
+              <div class="encyclopedia-card__formula">Cu</div>
+              <h3 class="encyclopedia-card__name">Copper</h3>
+              <p class="encyclopedia-card__excerpt">Porphyry copper-gold deposits in Chagai volcanic arc. Part of the same geological belt as Saindak and Reko Diq world-class deposits.</p>
+              <div class="encyclopedia-card__specs">
+                <span class="encyclopedia-card__spec"><strong>Grade:</strong> Cu 98%+</span>
+                <span class="encyclopedia-card__spec"><strong>Status:</strong> Exploration</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="encyclopedia-cta">
+          <a href="products.html" class="encyclopedia-cta__link">
+            Explore Full Mineral Index
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8H12M9 5L12 8L9 11"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
     <!-- CTA SECTION - Enhanced Pakistani Style -->
     <!-- ============================================ -->
     <section class="cta-premium" aria-label="Call to action">
@@ -2881,6 +3282,10 @@
   <script type="module" src="js/tactile-feedback.js" defer></script>
   <script type="module" src="js/hero-cinematic.js" defer></script>
   <script type="module" src="js/main.js" defer></script>
+  <script type="module">
+    import { initIntelligenceHub } from './js/intelligence-hub.js';
+    document.addEventListener('DOMContentLoaded', initIntelligenceHub);
+  </script>
 </body>
 
 </html>

@@ -1,0 +1,701 @@
+/* ==========================================================================
+   INTELLIGENCE HUB - Premium Institutional Components
+   LME Ticker | ESG Dashboard | COA Portal | Mine Tours | Mineral Index
+   ========================================================================== */
+
+/* ===== 1. LIVE COMMODITY TICKER ===== */
+.commodity-ticker {
+  background: var(--navy-950);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+  overflow: hidden;
+  position: relative;
+  z-index: 999;
+}
+
+.commodity-ticker__track {
+  display: flex;
+  animation: tickerScroll 40s linear infinite;
+  width: max-content;
+}
+
+.commodity-ticker__track:hover {
+  animation-play-state: paused;
+}
+
+.commodity-ticker__item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 2rem;
+  white-space: nowrap;
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.7);
+  border-right: 1px solid rgba(255,255,255,0.06);
+}
+
+.commodity-ticker__name {
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.commodity-ticker__price {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--primary-gold-400);
+  font-size: 0.9rem;
+}
+
+.commodity-ticker__change {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.4rem;
+  border-radius: 2px;
+}
+
+.commodity-ticker__change--up {
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.1);
+}
+
+.commodity-ticker__change--down {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.commodity-ticker__source {
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+@keyframes tickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+
+/* ===== 2. ESG TRANSPARENCY DASHBOARD ===== */
+.esg-dashboard {
+  background: var(--navy-950);
+  padding: var(--section-padding-y) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.esg-dashboard::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 20%, rgba(34, 197, 94, 0.04), transparent 60%),
+              radial-gradient(ellipse at 70% 80%, rgba(212, 175, 55, 0.03), transparent 60%);
+  pointer-events: none;
+}
+
+.esg-dashboard__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--section-padding-x);
+  position: relative;
+  z-index: 2;
+}
+
+.esg-dashboard__header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.esg-dashboard__overline {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #22c55e;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.esg-dashboard__overline::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  animation: pulseLive 2s ease-in-out infinite;
+}
+
+@keyframes pulseLive {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+  50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+}
+
+.esg-dashboard__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.esg-dashboard__subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: rgba(255,255,255,0.5);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.esg-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.esg-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.esg-card:hover {
+  border-color: rgba(212, 175, 55, 0.2);
+  transform: translateY(-4px);
+}
+
+.esg-card__icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  color: var(--primary-gold-400);
+}
+
+.esg-card__icon svg {
+  width: 32px;
+  height: 32px;
+}
+
+.esg-card__metric {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.esg-card__label {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+}
+
+.esg-card__bar {
+  height: 4px;
+  background: rgba(255,255,255,0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+.esg-card__bar-fill {
+  height: 100%;
+  background: var(--gradient-primary-gold);
+  transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 0;
+}
+
+.esg-card__bar-fill--green {
+  background: linear-gradient(90deg, #22c55e, #4ade80);
+}
+
+.esg-card__context {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.35);
+  margin-top: 0.75rem;
+  line-height: 1.5;
+}
+
+
+/* ===== 3. B2B PORTAL / COA LIBRARY ===== */
+.b2b-portal {
+  background: var(--bg-secondary);
+  padding: var(--section-padding-y) 0;
+}
+
+.b2b-portal__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--section-padding-x);
+}
+
+.b2b-portal__header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.b2b-portal__overline {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--primary-gold-500);
+  margin-bottom: 1rem;
+}
+
+.b2b-portal__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.b2b-portal__subtitle {
+  font-family: var(--font-body);
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.b2b-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.b2b-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 2.5rem 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  position: relative;
+}
+
+.b2b-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-gold-400);
+}
+
+.b2b-card__icon {
+  width: 56px;
+  height: 56px;
+  background: var(--primary-gold-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  color: var(--primary-gold-500);
+}
+
+.b2b-card__icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.b2b-card__title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.b2b-card__text {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.b2b-card__features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.b2b-card__features li {
+  font-size: 0.825rem;
+  color: var(--text-secondary);
+  padding: 0.4rem 0;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.b2b-card__features li::before {
+  content: '✓';
+  color: var(--primary-gold-500);
+  font-weight: 700;
+  font-size: 0.7rem;
+}
+
+.b2b-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary-gold-500);
+  text-decoration: none;
+  transition: gap 0.3s ease;
+}
+
+.b2b-card__cta:hover {
+  gap: 0.8rem;
+}
+
+
+/* ===== 4. VIRTUAL MINE TOURS ===== */
+.mine-tours {
+  background: var(--navy-950);
+  padding: var(--section-padding-y) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.mine-tours::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(212, 175, 55, 0.03), transparent 70%);
+  pointer-events: none;
+}
+
+.mine-tours__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--section-padding-x);
+  position: relative;
+  z-index: 2;
+}
+
+.mine-tours__header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.mine-tours__overline {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--primary-gold-400);
+  margin-bottom: 1rem;
+}
+
+.mine-tours__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.mine-tours__subtitle {
+  font-family: var(--font-body);
+  color: rgba(255,255,255,0.5);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.tours-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.tour-card {
+  position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.tour-card__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.6s ease;
+}
+
+.tour-card:hover .tour-card__bg {
+  transform: scale(1.08);
+}
+
+.tour-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%);
+  transition: background 0.3s ease;
+}
+
+.tour-card:hover .tour-card__overlay {
+  background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 60%);
+}
+
+.tour-card__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  background: rgba(212, 175, 55, 0.15);
+}
+
+.tour-card:hover .tour-card__play {
+  transform: translate(-50%, -50%) scale(1);
+  border-color: var(--primary-gold-400);
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+}
+
+.tour-card__play svg {
+  width: 24px;
+  height: 24px;
+  color: #fff;
+  margin-left: 3px;
+}
+
+.tour-card__content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  z-index: 2;
+}
+
+.tour-card__badge {
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary-gold-400);
+  background: rgba(212, 175, 55, 0.12);
+  padding: 0.25rem 0.6rem;
+  display: inline-block;
+  margin-bottom: 0.75rem;
+}
+
+.tour-card__name {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.25rem;
+}
+
+.tour-card__desc {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.5);
+}
+
+
+/* ===== 5. MINERAL ENCYCLOPEDIA TEASER ===== */
+.mineral-encyclopedia {
+  background: var(--bg-primary);
+  padding: var(--section-padding-y) 0;
+  border-top: 1px solid var(--border);
+}
+
+.mineral-encyclopedia__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--section-padding-x);
+}
+
+.mineral-encyclopedia__header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.mineral-encyclopedia__overline {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--primary-gold-500);
+  margin-bottom: 1rem;
+}
+
+.mineral-encyclopedia__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.mineral-encyclopedia__subtitle {
+  font-family: var(--font-body);
+  color: var(--text-muted);
+  max-width: 650px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.encyclopedia-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.encyclopedia-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  display: block;
+}
+
+.encyclopedia-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+
+.encyclopedia-card__image {
+  aspect-ratio: 3/2;
+  overflow: hidden;
+}
+
+.encyclopedia-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.encyclopedia-card:hover .encyclopedia-card__image img {
+  transform: scale(1.05);
+}
+
+.encyclopedia-card__body {
+  padding: 1.5rem;
+}
+
+.encyclopedia-card__formula {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary-gold-500);
+  margin-bottom: 0.5rem;
+}
+
+.encyclopedia-card__name {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.encyclopedia-card__excerpt {
+  font-family: var(--font-body);
+  font-size: 0.825rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.encyclopedia-card__specs {
+  display: flex;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.encyclopedia-card__spec {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.encyclopedia-card__spec strong {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.encyclopedia-cta {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.encyclopedia-cta__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary-gold-500);
+  text-decoration: none;
+  padding: 0.75rem 2rem;
+  border: 1px solid var(--primary-gold-500);
+  transition: all 0.3s ease;
+}
+
+.encyclopedia-cta__link:hover {
+  background: var(--primary-gold-500);
+  color: #fff;
+}
+
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .esg-grid { grid-template-columns: repeat(2, 1fr); }
+  .tours-grid { grid-template-columns: repeat(2, 1fr); }
+  .encyclopedia-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .esg-grid { grid-template-columns: 1fr; }
+  .b2b-grid { grid-template-columns: 1fr; }
+  .tours-grid { grid-template-columns: 1fr; }
+  .encyclopedia-grid { grid-template-columns: 1fr 1fr; }
+  
+  .esg-card__metric { font-size: 2rem; }
+  .tour-card { aspect-ratio: 16/9; }
+}
+
+@media (max-width: 480px) {
+  .encyclopedia-grid { grid-template-columns: 1fr; }
+}
