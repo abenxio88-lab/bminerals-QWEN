@@ -626,6 +626,18 @@ body.loaded .bm-hill-content {
 /* 12. MOBILE AUTHORITY & RESPONSIVENESS (Synced) */
 /* ============================================ */
 @media (max-width: 768px) {
+  :root {
+    --navbar-height: 64px;
+  }
+
+  .navbar {
+    height: 64px !important;
+  }
+
+  .navbar .navbar__logo-img {
+    height: 40px !important;
+  }
+
 
   /* Site-wide Typography Synchronization 
      (Controlled by Symmetry Engine in variables.css) */

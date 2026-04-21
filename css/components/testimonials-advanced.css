@@ -47,7 +47,8 @@
   }
   .testimonials__marquee {
     gap: 1.5rem;
-    animation-duration: 30s;
+    animation-name: marquee-scroll;
+    animation-duration: 25s; /* Slightly faster for mobile feel */
   }
 }
 
@@ -57,10 +58,20 @@
   width: max-content;
   animation: marquee-scroll 40s linear infinite;
   padding: 1.5rem;
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .testimonials__marquee:hover {
   animation-play-state: paused;
+}
+
+/* Touch-specific refinement to prevent stuck hover state on mobile */
+@media (hover: none) {
+  .testimonials__marquee:hover {
+    animation-play-state: running;
+  }
 }
 
 @keyframes marquee-scroll {

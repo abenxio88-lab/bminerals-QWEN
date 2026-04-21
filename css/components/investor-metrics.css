@@ -6,9 +6,9 @@
 .investor-metric {
   position: relative;
   padding: 1.5rem;
-  background: var(--glass-bg, rgba(255, 255, 255, 0.03));
-  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
-  border-radius: 16px;
+  background: transparent;
+  border: 1px solid rgba(71, 85, 105, 0.3); /* Subdued Slate Grey */
+  border-radius: 12px;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   display: flex;
@@ -17,10 +17,7 @@
 }
 
 .investor-metric:hover {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(212, 175, 55, 0.3); /* Subtle Gold Glow only */
-  transform: none; /* Removed lift */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+  border-color: rgba(148, 163, 184, 0.5);
 }
 
 .investor-metric__header {
@@ -49,7 +46,8 @@
 }
 
 .investor-metric__trend--up {
-  color: #10b981; /* Emerald-500 */
+  color: #10b981;
+  /* Emerald-500 */
   background: rgba(16, 185, 129, 0.1);
 }
 
@@ -101,7 +99,9 @@
 }
 
 @keyframes draw-chart {
-  to { stroke-dashoffset: 0; }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 .revealed .chart-area {
@@ -110,7 +110,9 @@
 }
 
 @keyframes fade-in {
-  to { opacity: 0.2; }
+  to {
+    opacity: 0.2;
+  }
 }
 
 .chart-grid {
@@ -134,7 +136,10 @@
 }
 
 @keyframes point-pop {
-  to { opacity: 1; transform: scale(1); }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .investor-metric:hover .chart-point {
@@ -162,15 +167,30 @@
 }
 
 @keyframes pulse-ring {
-  0% { transform: scale(0.8); opacity: 0.8; box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5); }
-  70% { transform: scale(1.5); opacity: 0; box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
-  100% { transform: scale(0.8); opacity: 0; box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5);
+  }
+
+  70% {
+    transform: scale(1.5);
+    opacity: 0;
+    box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
+  }
+
+  100% {
+    transform: scale(0.8);
+    opacity: 0;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
 }
 
 /* Scanning Line Effect on Hover */
 .investor-metric__scan {
   position: absolute;
-  top: 0; bottom: 0;
+  top: 0;
+  bottom: 0;
   width: 1px;
   background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.2), transparent);
   left: 0;
@@ -180,19 +200,26 @@
 }
 
 .investor-metric:hover .investor-metric__scan {
-  opacity: 0.1; /* Super Light */
-  animation: scan-move 6s linear infinite; /* Slower */
+  opacity: 0.1;
+  /* Super Light */
+  animation: scan-move 6s linear infinite;
+  /* Slower */
 }
 
 @keyframes scan-move {
-  0% { left: 0%; }
-  100% { left: 100%; }
+  0% {
+    left: 0%;
+  }
+
+  100% {
+    left: 100%;
+  }
 }
 
 /* AXIS LABELS */
 .chart-labels {
   font-size: 9px;
-  fill: var(--text-secondary, #cbd5e1); 
+  fill: var(--text-secondary, #cbd5e1);
   font-family: 'Montserrat', sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.12em;
