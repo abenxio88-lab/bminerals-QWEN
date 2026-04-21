@@ -485,8 +485,8 @@ body.is-loading {
 }
 
 .bm-hill-container {
-  width: 160px;
-  margin: 0 auto 1.5rem;
+  width: 120px;
+  margin: 0 auto 1.25rem;
 }
 
 .bm-hill-svg {
@@ -508,7 +508,7 @@ body.is-loading {
 
 .bm-hill-brand-text {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: 800;
   color: #111827;
   /* Deep Charcoal */
@@ -521,12 +521,12 @@ body.is-loading {
 }
 
 .bm-hill-tagline {
-  font-size: 0.7rem;
-  letter-spacing: 0.6em;
+  font-size: 0.65rem;
+  letter-spacing: 0.5em;
   text-transform: uppercase;
   color: var(--primary-gold-500);
   /* Yellow Logo Color */
-  margin-top: 1rem;
+  margin-top: 0.75rem;
   opacity: 0;
   animation: fadeIn 1s ease 1.2s forwards;
 }
