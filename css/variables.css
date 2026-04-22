@@ -1,75 +1,67 @@
 :root {
-  /* Colors - Premium Earth-Tech Palette (Refined Gold & Obsidian Slate) */
+  /* Colors - Authoritative Navy & Orange Palette */
   /* Backgrounds */
   --bg-primary: #FFFFFF;
-  --bg-secondary: #F8FAFC;
+  --bg-secondary: #F5F5F5;
   --bg-card: #FFFFFF;
 
-  /* Obsidian Slate (replacing navy) - Deep midnight for premium contrast */
-  --navy-950: #020617;
-  /* Deepest Midnight */
-  --navy-900: #0F172A;
-  /* Slate Base */
-  --navy-800: #1E293B;
-  /* Industrial Slate */
-  --navy-700: #334155;
-  --navy-600: #475569;
-  --navy-500: #64748B;
-  --navy-400: #94A3B8;
-  --navy-300: #CBD5E1;
-  --navy-200: #E2E8F0;
-  --navy-100: #F1F5F9;
-  --navy-50: #F8FAFC;
-  --navy-glow: rgba(15, 23, 42, 0.25);
+  /* Navy Dark Blue Scale - Deep & Professional */
+  --navy-950: #0A1628;
+  --navy-900: #0F1F3A;
+  --navy-800: #162A4A;
+  --navy-700: #1E3A5F;
+  --navy-600: #254875;
+  --navy-500: #2C5E8F;
+  --navy-400: #4A7BA8;
+  --navy-300: #6B96BF;
+  --navy-200: #95B8D4;
+  --navy-100: #C5D9E8;
+  --navy-50: #E8F1F8;
+  --navy-glow: rgba(10, 22, 40, 0.15);
 
   /* Charcoal Gray Scale (Mineral Dust) */
-  --charcoal-900: #18181B;
-  --charcoal-800: #27272A;
-  --charcoal-700: #3F3F46;
-  --charcoal-600: #52525B;
-  --charcoal-500: #71717A;
-  --charcoal-400: #A1A1AA;
-  --charcoal-300: #D4D4D8;
-  --charcoal-200: #E4E4E7;
-  --charcoal-100: #F4F4F5;
-  --charcoal-50: #FAFAFA;
+  --charcoal-900: #2F3A40;
+  --charcoal-800: #343F45;
+  --charcoal-700: #4A5660;
+  --charcoal-600: #62707A;
+  --charcoal-500: #7A8894;
+  --charcoal-400: #94A0AA;
+  --charcoal-300: #B0BAC2;
+  --charcoal-200: #CCD4DA;
+  --charcoal-100: #E5EAEE;
+  --charcoal-50: #F2F5F7;
 
-  /* Deep Industrial Yellow Palette (Grounded) */
-  --primary-gold-600: #A16207;
-  /* Darkest Yellow */
-  --primary-gold-500: #EAB308;
-  /* Deep Industrial Yellow (Main) */
-  --primary-gold-400: #FACC15;
-  /* Bright Yellow (Hover) */
-  --primary-gold-300: #FDE047;
-  /* Accent Yellow */
-  --primary-gold-200: #FEF08A;
-  /* highlight */
-  --primary-gold-100: #FEF9C3;
-  --primary-gold-50: #FFFBEB;
-  --primary-gold-glow: rgba(234, 179, 8, 0.4);
+  /* Vibrant Brand Orange */
+  --primary-gold-600: #D45A15;
+  --primary-gold-500: #E65C1A;
+  --primary-gold-400: #F26A21;
+  --primary-gold-300: #F58847;
+  --primary-gold-200: #F8A96E;
+  --primary-gold-100: #FCD4A8;
+  --primary-gold-50: #FFF0E5;
+  --primary-gold-glow: rgba(230, 92, 26, 0.4);
 
-  /* Mineral Yellow Accent (Deep) */
-  --gold-500: #EAB308;
-  --gold-400: #FACC15;
-  --gold-300: #FDE047;
+  /* Mineral Accents */
+  --gold-500: #D4AF37;
+  --gold-400: #E5C158;
+  --gold-300: #F0D78C;
 
   /* Text Colors */
-  --text-primary: #0F172A;
-  --text-secondary: #334155;
-  --text-muted: #64748B;
+  --text-primary: #2F3A40;
+  --text-secondary: #4A5660;
+  --text-muted: #62707A;
 
   /* Borders */
-  --border: #E2E8F0;
-  --border-light: #F1F5F9;
+  --border: #CCD4DA;
+  --border-light: #E5EAEE;
 
-  /* Gradients - Premium Mineral Theme */
-  --gradient-navy: linear-gradient(135deg, #020617, #0F172A, #1E293B);
-  --gradient-navy-dark: linear-gradient(135deg, #020617, #0F172A);
-  --gradient-primary-gold: linear-gradient(135deg, #A16207, #EAB308, #FACC15);
-  --gradient-gold-rich: linear-gradient(135deg, #854D0E, #A16207, #EAB308);
-  --gradient-charcoal: linear-gradient(135deg, #18181B, #27272A, #3F3F46);
-  --gradient-hero-overlay: linear-gradient(180deg, rgba(2, 6, 23, 0.85) 0%, rgba(15, 23, 42, 0.4) 100%);
+  /* Gradients - Navy & Orange Theme */
+  --gradient-navy: linear-gradient(135deg, #0A1628, #0F1F3A, #162A4A, #1E3A5F);
+  --gradient-navy-dark: linear-gradient(135deg, #0A1628, #0F1F3A);
+  --gradient-primary-gold: linear-gradient(135deg, #D45A15, #E65C1A, #F26A21);
+  --gradient-gold-rich: linear-gradient(135deg, #D45A15, #E65C1A);
+  --gradient-charcoal: linear-gradient(135deg, #2F3A40, #343F45, #4A5660);
+  --gradient-hero-overlay: linear-gradient(180deg, rgba(10, 22, 40, 0.85) 0%, rgba(15, 31, 58, 0.4) 100%);
   /* Typography - Premium Modern Stack */
   --font-heading: 'Oswald', 'Arial Narrow', sans-serif;
   --font-brand: 'Montserrat', 'Poppins', sans-serif;
