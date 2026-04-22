@@ -68,27 +68,6 @@
       display: inline-block !important;
     }
 
-    .hero {
-      min-height: calc(100vh - var(--navbar-height));
-      padding-top: calc(var(--navbar-height) + 2rem);
-      display: flex;
-      align-items: center;
-    }
-
-    .hero__container {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 1.5rem;
-      text-align: center;
-    }
-
-    .hero__headline {
-      font-family: var(--font-heading);
-      font-size: clamp(1.6rem, 3.2vw, 2.2rem); /* Preserving Hero Size */
-      font-weight: 600;
-      text-transform: uppercase;
-    }
-
     /* CAP everything else on the homepage to 40px */
     h2:not(.hero__headline), 
     .section-title,
@@ -98,11 +77,6 @@
     .cta-premium__title {
       font-size: var(--h1-size) !important;
       max-width: 100%;
-    }
-
-    .hero__subheadline {
-      color: var(--text-secondary);
-      margin-top: 0.5rem;
     }
 
     .skip-link:focus {

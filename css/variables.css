@@ -90,12 +90,18 @@
   /* Mobile Overrides (The "User Preferred" Layout) */
   @media (max-width: 768px) {
     :root {
-      --display-size: 1.5rem;  /* 24px - Refined Hero Headline */
-      --h1-size: 1.3rem;       /* 20.8px (~21px) - Section Titles */
-      --h2-size: 1.15rem;      /* 18.4px - Subheaders */
-      --h3-size: 1rem;         /* 16px - Standard Card Bold Text */
-      --body-size: 0.875rem;   /* 14px - Standard Mobile Body */
-      --body-small: 0.75rem;   /* 12px */
+      --display-size: 1.5rem;
+      /* 24px - Refined Hero Headline */
+      --h1-size: 1.3rem;
+      /* 20.8px (~21px) - Section Titles */
+      --h2-size: 1.15rem;
+      /* 18.4px - Subheaders */
+      --h3-size: 1rem;
+      /* 16px - Standard Card Bold Text */
+      --body-size: 0.875rem;
+      /* 14px - Standard Mobile Body */
+      --body-small: 0.75rem;
+      /* 12px */
     }
   }
 
