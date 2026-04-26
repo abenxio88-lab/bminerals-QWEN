@@ -587,6 +587,10 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+  :root {
+    --navbar-height: 64px;
+  }
+
   .navbar {
     height: 64px;
   }
@@ -628,6 +632,10 @@
 }
 
 @media (max-width: 480px) {
+  :root {
+    --navbar-height: 56px;
+  }
+
   .navbar {
     height: 56px;
   }

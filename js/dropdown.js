@@ -76,15 +76,27 @@ export function initDropdownMenus() {
       const mobile = isMobile();
 
       if (mobile) {
-        // Allow link navigation if user clicked the text, not the arrow SVG
-        if (!e.target.closest('svg') && !e.target.classList.contains('navbar__dropdown-arrow')) {
+        const isMobileTrigger = trigger.classList.contains('navbar__dropdown-trigger--mobile') || trigger.tagName === 'BUTTON';
+        const nextMenu = trigger.nextElementSibling;
+        const fallbackLink = nextMenu?.querySelector('.navbar__dropdown-item');
+        const triggerHref = trigger.getAttribute('href') || fallbackLink?.getAttribute('href');
+        const clickedArrow = Boolean(e.target.closest('.navbar__dropdown-arrow') || e.target.closest('svg'));
+
+        // Keep desktop nav links navigable on mobile widths.
+        if (!isMobileTrigger && !clickedArrow) {
+          return;
+        }
+
+        // Mobile menu buttons do not have hrefs in the HTML.
+        // Treat tap on the label as navigation and tap on the arrow as submenu toggle.
+        if (isMobileTrigger && !clickedArrow && triggerHref) {
+          window.location.href = triggerHref;
           return;
         }
 
         e.preventDefault();
         e.stopPropagation();
 
-        const nextMenu = trigger.nextElementSibling;
         if (nextMenu && nextMenu.classList.contains('navbar__dropdown-menu')) {
           const isOpen = trigger.classList.contains('open');
 
@@ -109,9 +121,6 @@ export function initDropdownMenus() {
             trigger.classList.add('open');
             nextMenu.classList.add('open');
             trigger.setAttribute('aria-expanded', 'true');
-            // focus first link for keyboard users
-            const firstItem = nextMenu.querySelector('.navbar__dropdown-item');
-            if (firstItem) firstItem.focus();
           }
         }
       } else {
