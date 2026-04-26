@@ -13,12 +13,12 @@ export function initHeroSlider() {
   
   let currentSlide = 0;
   let autoPlayInterval = null;
-  const SLIDE_INTERVAL = 10000; // 10 seconds
+  const SLIDE_INTERVAL = 6000; // Snappier 6 seconds
   
   function goToSlide(index) {
-    // Remove active state from current
-    slides[currentSlide].classList.remove('active');
-    if (dots[currentSlide]) dots[currentSlide].classList.remove('active');
+    // Failsafe: Remove active state from ALL slides/dots to prevent desync
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
     
     // Wrap around
     currentSlide = (index + slides.length) % slides.length;

@@ -76,7 +76,7 @@
 
 .testimonial-card__rating {
   font-size: 1.25rem;
-  color: var(--gold-500);
+  color: var(--primary-gold-500);
   margin-bottom: 1.5rem;
   letter-spacing: 0.1em;
 }

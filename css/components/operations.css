@@ -83,9 +83,9 @@
 }
 
 .step-indicator--active .step-indicator__number {
-  background: var(--gradient-var(--primary-gold));
-  border-color: var(--navy-500);
-  color: #d4af37;
+  background: var(--gradient-primary-gold);
+  border-color: var(--navy-700);
+  color: white;
   box-shadow: none;
 }
 
@@ -261,7 +261,7 @@
 
 .step-feature:hover {
   background: white;
-  border-color: var(--primary-gold-300);
+  border-color: var(--primary-gold-400);
   box-shadow: none;
 }
 

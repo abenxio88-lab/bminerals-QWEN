@@ -150,13 +150,13 @@
   position: absolute;
   top: -15px;
   right: 20px;
-  background: var(--gold-500);
+  background: var(--primary-gold-500);
   color: white;
   padding: 0.5rem 1rem;
   border-radius: var(--radius-pill);
   font-size: var(--text-sm);
   font-weight: 700;
-  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+  box-shadow: 0 4px 12px var(--primary-gold-glow);
 }
 
 .expertise__visual-stats {

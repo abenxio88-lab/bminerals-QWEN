@@ -136,7 +136,7 @@
 }
 
 .project-card__status--processing {
-  background: var(--gold-500);
+  background: var(--primary-gold-500);
   box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
 }
 
