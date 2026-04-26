@@ -154,58 +154,6 @@
 
 background: linear-gradient(135deg, #fff 0%, var(--primary-gold-500) 50%, var(--primary-gold-600) 100%);
 
-/* 5. MINERAL SHIMMER BUTTON REFINEMENT */
-.hero__cta {
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1) !important;
-}
-
-/* Diagonal Mineral Vein (Vein of Ore) */
-.hero__cta::after {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -150%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(115deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0) 30%,
-      rgba(255, 255, 255, 0.15) 50%,
-      rgba(255, 255, 255, 0) 70%,
-      transparent 100%);
-  transition: all 0.6s ease;
-  pointer-events: none;
-  transform: rotate(25deg);
-}
-
-.hero__cta:hover::after {
-  left: 50%;
-}
-
-.hero__cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3) !important;
-  filter: brightness(1.05);
-}
-
-.hero__cta--primary {
-  border: 1px solid transparent !important;
-}
-
-.hero__cta--primary:hover {
-  background: var(--primary-gold-400) !important;
-  /* Brighter Yellow */
-  border-color: rgba(255, 255, 255, 0.3) !important;
-}
-
-.hero__cta--secondary:hover {
-  background: rgba(255, 255, 255, 0.15) !important;
-  border-color: var(--primary-gold-500) !important;
-  /* Industrial Yellow Border */
-}
-
 /* Remove GSAP Magnetic Wrap interaction */
 .magnetic-wrap {
   display: inline-block;
