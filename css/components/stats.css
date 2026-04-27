@@ -223,6 +223,15 @@
     padding: 4rem var(--section-padding-x);
   }
 
+  .stats-section__editorial {
+    text-align: center;
+  }
+
+  .stats-section__divider {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .stats-section__headline {
     font-size: var(--h1-size) !important;
   }

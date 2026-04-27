@@ -371,12 +371,37 @@
 
   .about__story-card {
     padding: 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .about__story-stats {
+    width: 100%;
+    margin-top: 1rem;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0.5rem;
   }
 
-  .about__story-stats {
-    flex-direction: column;
-    gap: 1.5rem;
+  .about__story-stat {
+    align-items: center;
+    text-align: center;
   }
+
+  .about__story-stat-value {
+    font-size: 1.25rem;
+  }
+
+  .about__story-stat-label {
+    font-size: 0.65rem;
+  }
+
+  /* Reorder items: Workforce in the middle */
+  .about__story-stat:nth-child(1) { order: 1; }
+  .about__story-stat:nth-child(2) { order: 3; }
+  .about__story-stat:nth-child(3) { order: 2; }
 
   .about__values-grid {
     grid-template-columns: 1fr;
@@ -388,5 +413,9 @@
 
   .about__mv-card {
     padding: 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }

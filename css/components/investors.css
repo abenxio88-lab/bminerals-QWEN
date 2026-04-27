@@ -178,7 +178,17 @@
     grid-template-columns: 1fr;
   }
 
+  .investors__reports-title {
+    text-align: center;
+  }
+
   .investor-report {
-    flex-wrap: wrap;
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .investor-report__info {
+    align-items: center;
   }
 }

@@ -155,6 +155,21 @@
 }
 
 @media (max-width: 768px) {
+  .sustainability__content {
+    max-width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pillar-item {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .sustainability__pillars {
     grid-template-columns: 1fr;
   }

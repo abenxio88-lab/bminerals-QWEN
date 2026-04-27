@@ -324,7 +324,7 @@ background: linear-gradient(135deg, #fff 0%, var(--primary-gold-500) 50%, var(--
   }
 
   /* All top-level mobile links */
-  .navbar__mobile-menu > .navbar__link,
+  .navbar__mobile-menu>.navbar__link,
   .navbar__mobile-menu .navbar__dropdown-trigger {
     color: #1a1a1a !important;
     font-size: 0.95rem !important;
@@ -504,6 +504,25 @@ body.is-loading {
   }
 }
 
+/* Mobile adjustments for loader */
+@media (max-width: 768px) {
+  .bm-hill-container {
+    width: 80px;
+    margin-bottom: 1rem;
+  }
+  
+  .bm-hill-brand-text {
+    font-size: 1.1rem;
+    letter-spacing: 0.12em;
+  }
+  
+  .bm-hill-tagline {
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+  }
+}
+
+
 @keyframes fadeIn {
   to {
     opacity: 0.6;
@@ -607,12 +626,33 @@ body.loaded .bm-hill-content {
 
   /* Site-wide Typography Synchronization 
      (Controlled by Symmetry Engine in variables.css) */
-   h1, .hero-headline, .logistics-hero__title, .investors-hero__title, .about-hero__title, .contact-hero__title, .products-hero__title, .projects-hero__title, .sustainability-hero__title {
+  h1,
+  .hero-headline,
+  .logistics-hero__title,
+  .investors-hero__title,
+  .about-hero__title,
+  .contact-hero__title,
+  .products-hero__title,
+  .projects-hero__title,
+  .sustainability-hero__title {
     font-size: var(--display-size) !important;
     line-height: 1.1 !important;
   }
 
-  .section-title, .route-overview__title, .about__title, .about__story-title, .projects__title, .products__title, .sustainability__title, .compliance__title, .section-header-light__title, .financial-dashboard__title, .reports-section__header h2, .pillars-section__title, .certifications-section__header h2, .impact-section__header h2 {
+  .section-title,
+  .route-overview__title,
+  .about__title,
+  .about__story-title,
+  .projects__title,
+  .products__title,
+  .sustainability__title,
+  .compliance__title,
+  .section-header-light__title,
+  .financial-dashboard__title,
+  .reports-section__header h2,
+  .pillars-section__title,
+  .certifications-section__header h2,
+  .impact-section__header h2 {
     font-size: var(--h1-size) !important;
     line-height: 1.2 !important;
     text-transform: uppercase !important;
@@ -656,10 +696,12 @@ body.loaded .bm-hill-content {
   /* Force Hero Sections to behave */
   .hero-cinematic,
   .investors-hero,
-  .about-hero,
   .contact-hero,
-  .products-hero,
-  .projects-hero {
+  .parallax-hero,
+  .mines-hero,
+  .logistics-hero,
+  .sustainability-hero,
+  .blog-hero {
     height: auto !important;
     min-height: 450px !important;
     padding-top: calc(var(--navbar-height) + 2rem) !important;
@@ -674,8 +716,12 @@ body.loaded .bm-hill-content {
   /* Ensure Hero Content is always on top */
   .hero-cinematic__container,
   .investors-hero__content,
-  .about-hero__content,
-  .contact-hero__content {
+  .contact-hero__content,
+  .parallax-hero__content,
+  .mines-hero__content,
+  .logistics-hero__content,
+  .sustainability-hero__content,
+  .blog-hero__content {
     position: relative !important;
     z-index: 10 !important;
     width: 100% !important;
@@ -744,7 +790,8 @@ body.loaded .bm-hill-content {
 /* Fix for Ultra-Small Devices */
 @media (max-width: 380px) {
   .hero-headline {
-    font-size: 1.35rem !important; /* Forces ~21-22px for narrow devices */
+    font-size: 1.35rem !important;
+    /* Forces ~21-22px for narrow devices */
   }
 
   .hero-cta-group {
@@ -759,9 +806,79 @@ body.loaded .bm-hill-content {
   }
 }
 
-/* 13. FOOTER CINEMATIC BACKGROUND */
+/* 13. GLOBAL WHITE FOOTER REFINEMENT */
 .footer {
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-    url('../images/hero/footer-bg-new.webp') center/cover no-repeat !important;
+  background: rgba(248, 248, 245, 1) !important;
+  color: #1a1a1a !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+.footer::before {
+  display: none !important;
+}
+
+.footer__heading {
+  color: #111827 !important;
+}
+
+.footer__heading::after {
+  background: var(--navy-600) !important;
+}
+
+.footer__link {
+  color: #4b5563 !important;
+}
+
+.footer__link:hover {
+  color: var(--primary-gold-600) !important;
+}
+
+.footer__mission {
+  color: #6b7280 !important;
+}
+
+.footer__contact-item {
+  color: #4b5563 !important;
+}
+
+.footer__contact-item strong {
+  color: #111827 !important;
+}
+
+.footer__social-link {
+  background: rgba(0, 0, 0, 0.04) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+  color: #111827 !important;
+}
+
+.footer__social-link:hover {
+  background: var(--navy-600) !important;
+  color: #ffffff !important;
+}
+
+.footer__copyright, 
+.footer__compliance,
+.footer__bottom-link {
+  color: #9ca3af !important;
+}
+
+.footer__bottom-link:hover {
+  color: var(--primary-gold-600) !important;
+}
+
+.footer__emergency {
+  background: rgba(0, 0, 0, 0.02) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.footer__emergency strong {
+  color: var(--navy-700) !important;
+}
+
+.footer__emergency-number {
+  color: #111827 !important;
+}
+
+.footer__emergency p {
+  color: #6b7280 !important;
 }
