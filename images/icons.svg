@@ -231,26 +231,27 @@
   </symbol>
 
   <!-- SOCIAL ICONS -->
-  <symbol id="icon-facebook" viewBox="0 0 20 20">
-    <path d="M12 2H10C8.34315 2 7 3.34315 7 5V7H5V10H7V18H10V10H12L13 7H10V5C10 5 10 4 11 4H12V2Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  <symbol id="icon-facebook" viewBox="0 0 24 24">
+    <path d="M14.25 8.25V6.4C14.25 5.87 14.67 5.45 15.2 5.45H17V2.3H14.35C11.45 2.3 9.95 4.03 9.95 6.6V8.25H7V11.7H9.95V21.7H13.75V11.7H16.7L17.25 8.25H14.25Z" fill="currentColor"/>
   </symbol>
 
-  <symbol id="icon-instagram" viewBox="0 0 20 20">
-    <rect x="3" y="3" width="14" height="14" rx="5" stroke="currentColor" stroke-width="1.5" fill="none"/>
-    <circle cx="10" cy="10" r="3" stroke="currentColor" stroke-width="1.5" fill="none"/>
-    <circle cx="14" cy="6" r="1" fill="currentColor"/>
+  <symbol id="icon-instagram" viewBox="0 0 24 24">
+    <path d="M7.5 2.75H16.5C19.12 2.75 21.25 4.88 21.25 7.5V16.5C21.25 19.12 19.12 21.25 16.5 21.25H7.5C4.88 21.25 2.75 19.12 2.75 16.5V7.5C2.75 4.88 4.88 2.75 7.5 2.75ZM7.5 4.65C5.93 4.65 4.65 5.93 4.65 7.5V16.5C4.65 18.07 5.93 19.35 7.5 19.35H16.5C18.07 19.35 19.35 18.07 19.35 16.5V7.5C19.35 5.93 18.07 4.65 16.5 4.65H7.5Z" fill="currentColor"/>
+    <path d="M12 7.45C14.51 7.45 16.55 9.49 16.55 12C16.55 14.51 14.51 16.55 12 16.55C9.49 16.55 7.45 14.51 7.45 12C7.45 9.49 9.49 7.45 12 7.45ZM12 9.35C10.54 9.35 9.35 10.54 9.35 12C9.35 13.46 10.54 14.65 12 14.65C13.46 14.65 14.65 13.46 14.65 12C14.65 10.54 13.46 9.35 12 9.35Z" fill="currentColor"/>
+    <path d="M17.05 7.2C17.05 7.89 16.49 8.45 15.8 8.45C15.11 8.45 14.55 7.89 14.55 7.2C14.55 6.51 15.11 5.95 15.8 5.95C16.49 5.95 17.05 6.51 17.05 7.2Z" fill="currentColor"/>
   </symbol>
 
-  <symbol id="icon-linkedin" viewBox="0 0 20 20">
-    <path d="M4 8 V16 M4 5 V6 M8 16 V11 C8 9 10 8 12 8 C14 8 14 10 14 11 V16 M8 5 C8 6 9 7 10 7 C11 7 12 6 12 5 C12 4 11 3 10 3 C9 3 8 4 8 5 Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  <symbol id="icon-linkedin" viewBox="0 0 24 24">
+    <path d="M5.35 8.8H8.85V21H5.35V8.8ZM7.1 3C8.22 3 9.12 3.9 9.12 5.02C9.12 6.13 8.22 7.03 7.1 7.03C5.98 7.03 5.08 6.13 5.08 5.02C5.08 3.9 5.98 3 7.1 3Z" fill="currentColor"/>
+    <path d="M11.15 8.8H14.5V10.47C15.05 9.47 16.08 8.55 17.85 8.55C21.08 8.55 21.95 10.67 21.95 13.43V21H18.45V14.27C18.45 12.66 18.42 10.59 16.2 10.59C13.95 10.59 13.6 12.35 13.6 14.16V21H11.15V8.8Z" fill="currentColor"/>
   </symbol>
 
   <symbol id="icon-twitter" viewBox="0 0 20 20">
     <path d="M2 4 L8 11 L3 17 M18 4 L12 11 L17 17" stroke="currentColor" stroke-width="1.5" fill="none"/>
   </symbol>
 
-  <symbol id="icon-youtube" viewBox="0 0 20 20">
-    <rect x="3" y="6" width="14" height="8" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><polygon points="9,9 9,11 13,10" fill="currentColor"/>
+  <symbol id="icon-youtube" viewBox="0 0 24 24">
+    <path d="M22 12C22 12 22 8.75 21.58 7.2C21.35 6.35 20.68 5.68 19.83 5.45C18.28 5.03 12 5.03 12 5.03C12 5.03 5.72 5.03 4.17 5.45C3.32 5.68 2.65 6.35 2.42 7.2C2 8.75 2 12 2 12C2 12 2 15.25 2.42 16.8C2.65 17.65 3.32 18.32 4.17 18.55C5.72 18.97 12 18.97 12 18.97C12 18.97 18.28 18.97 19.83 18.55C20.68 18.32 21.35 17.65 21.58 16.8C22 15.25 22 12 22 12ZM10 15.05V8.95L15.25 12L10 15.05Z" fill="currentColor"/>
   </symbol>
 
   <!-- CONTACT ICONS -->
