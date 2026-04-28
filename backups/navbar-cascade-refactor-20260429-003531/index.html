@@ -32,6 +32,40 @@
       --max-width: 1400px;
     }
 
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--navbar-height);
+      background: rgba(248, 248, 245, 0.95) !important;
+      z-index: 1000 !important;
+    }
+
+    .navbar__container {
+      width: 100%;
+      padding: 0 3rem;
+      display: grid !important;
+      grid-template-columns: auto 1fr auto;
+      gap: 2rem;
+      align-items: center;
+      height: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .navbar__brand {
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.5rem;
+    }
+
+    .navbar__logo-img {
+      height: 40px !important;
+      width: auto !important;
+      display: inline-block !important;
+    }
+
     /* CAP everything else on the homepage to 40px */
     h2:not(.hero__headline),
     .section-title,
@@ -77,8 +111,13 @@
 
   <!-- Core CSS (Critical) -->
   <link rel="stylesheet" href="output.css">
+  <link rel="stylesheet" href="css/components/navbar.css">
+  <link rel="stylesheet" href="css/premium-polish.css">
+  <link rel="stylesheet" href="css/hero-cinematic.css">
+  <link rel="stylesheet" href="css/animations.css">
 
   <!-- Component CSS (Non-Critical) -->
+  <link rel="stylesheet" href="css/components/cta.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="css/components/investor-metrics.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="css/components/testimonials-advanced.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="css/components/intelligence-hub.css">
@@ -188,7 +227,8 @@
   <header class="navbar" role="banner">
     <div class="navbar__container">
       <a href="index.html" class="navbar__brand" aria-label="Balochistan Minerals Home">
-        <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals logo" class="navbar__logo-img">
+        <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals logo" class="navbar__logo-img"
+          style="height:40px;width:auto;display:inline-block !important;max-width:none;opacity:1 !important;">
       </a>
 
       <nav class="navbar__nav" role="navigation" aria-label="Main navigation">

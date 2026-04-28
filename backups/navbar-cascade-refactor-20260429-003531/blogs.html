@@ -1,28 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="description" content="Learn how Balochistan Minerals moves minerals from Balochistan mines to Karachi and Gwadar ports for reliable local and international supply.">
-  <meta name="keywords" content="mining logistics, Balochistan transport, rail freight, port access, mineral delivery, supply chain Pakistan">
+  <meta name="description" content="Read practical insights on Pakistan minerals, responsible mining, Balochistan operations, mineral logistics, quality assurance and export supply.">
+  <meta name="keywords" content="Balochistan Minerals, Mining Blog, ESG, Copper Mining, Chromite, Barite, Iron Ore, Industrial Growth">
+  <meta name="author" content="Balochistan Minerals">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Mineral Logistics Pakistan | Mine to Port Export Delivery">
-  <meta property="og:description" content="Learn how Balochistan Minerals moves minerals from Balochistan mines to Karachi and Gwadar ports for reliable local and international supply.">
+  <meta property="og:title" content="Mining Insights Pakistan | Balochistan Minerals Blog">
+  <meta property="og:description" content="Read practical insights on Pakistan minerals, responsible mining, Balochistan operations, mineral logistics, quality assurance and export supply.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://balochistanminerals.com/logistics">
-  <meta property="og:image" content="https://balochistanminerals.com/images/hero/hero-5.webp">
+  <meta property="og:url" content="https://balochistanminerals.com/blogs">
+  <meta property="og:image" content="https://balochistanminerals.com/images/hero/hero-2.webp">
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Mineral Logistics Pakistan | Mine to Port Export Delivery">
-  <meta name="twitter:description" content="Learn how Balochistan Minerals moves minerals from Balochistan mines to Karachi and Gwadar ports for reliable local and international supply.">
-
-  <title>Mineral Logistics Pakistan | Mine to Port Export Delivery</title>
-  <link rel="canonical" href="https://balochistanminerals.com/logistics">
+  <title>Mining Insights Pakistan | Balochistan Minerals Blog</title>
+  <link rel="canonical" href="https://balochistanminerals.com/blogs">
   <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
@@ -32,18 +29,273 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="output.css">
-  <link rel="stylesheet" href="css/components/authority-tools.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/components/navbar.css">
+  <link rel="stylesheet" href="css/components/footer.css">
+  <link rel="stylesheet" href="css/premium-polish.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <style>
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+    }
+
+    /* Professional Blog Specific Styles */
+    .blog-hero {
+      height: 45vh;
+      min-height: 320px;
+      margin-top: var(--navbar-height);
+      padding: 0;
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0.62)),
+        url('images/hero/hero-3.webp') center/cover no-repeat;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .blog-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(10, 22, 40, 0.18) 0%, rgba(248, 250, 252, 0.08) 100%),
+        radial-gradient(circle at 18% 22%, rgba(242, 106, 33, 0.16), transparent 24%);
+      pointer-events: none;
+    }
+
+    .blog-hero__content {
+      position: relative;
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      text-align: center;
+    }
+
+    .blog-hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 0.35rem 0.85rem;
+      border: 1px solid rgba(242, 106, 33, 0.32);
+      border-radius: var(--radius-md);
+      background: rgba(242, 106, 33, 0.14);
+      color: #fed7aa;
+      font: 800 0.72rem/1 var(--font-ui);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .blog-hero__title {
+      margin: 1rem 0;
+      color: white;
+      font-family: var(--font-heading);
+      font-size: var(--display-size);
+      line-height: 1.1;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      text-wrap: balance;
+    }
+
+    .blog-hero__text {
+      max-width: 720px;
+      margin: 0 auto;
+      color: rgba(255,255,255,0.82);
+      font-size: var(--text-sm);
+      line-height: 1.7;
+    }
+
+    .blog-section {
+      background:
+        linear-gradient(180deg, var(--bg-primary) 0%, var(--charcoal-50) 100%);
+      padding: var(--section-padding-y) 0;
+    }
+
+    .blog-section > .container {
+      width: 100%;
+      max-width: none;
+      padding-inline: clamp(0.75rem, 1.4vw, 1.5rem);
+      margin-inline: auto;
+    }
+
+    .blog-section__header {
+      max-width: 780px;
+      margin: 0 auto 2.5rem;
+      text-align: center;
+    }
+
+    .blog-section__overline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 30px;
+      margin-bottom: 0.8rem;
+      padding: 0.32rem 0.82rem;
+      border: 1px solid rgba(242, 106, 33, 0.2);
+      border-radius: var(--radius-sm);
+      background: rgba(242, 106, 33, 0.08);
+      color: var(--primary-gold-700);
+      font: 800 0.7rem/1 var(--font-ui);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .blog-section__header h2 {
+      margin: 0;
+      font-family: var(--font-heading);
+      font-size: var(--h1-size);
+      color: var(--navy-900);
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .blog-section__header p {
+      max-width: 640px;
+      margin: 0.7rem auto 0;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-size: var(--text-sm);
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      justify-content: stretch;
+      gap: 1rem;
+    }
+
+    .blog-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 14px 38px rgba(15, 23, 42, 0.06);
+      transition: all 0.4s var(--ease-smooth);
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+    }
+
+    .blog-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 22px 54px rgba(15, 23, 42, 0.12);
+      border-color: var(--primary-gold-200);
+    }
+
+    .blog-card__image {
+      height: 190px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .blog-card__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease-smooth);
+    }
+
+    .blog-card:hover .blog-card__image img {
+      transform: scale(1.1);
+    }
+
+    .blog-card__category {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: var(--primary-gold-500);
+      color: white;
+      padding: 4px 12px;
+      border-radius: var(--radius-md);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .blog-card__content {
+      padding: 1.35rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .blog-card__date {
+      font-size: 0.85rem;
+      color: var(--charcoal-500);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .blog-card__title {
+      font-family: var(--font-heading);
+      font-size: var(--h3-size);
+      color: var(--navy-900);
+      margin-bottom: 1rem;
+      line-height: 1.3;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .blog-card__excerpt {
+      font-size: 0.95rem;
+      color: var(--charcoal-700);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .blog-card__footer {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .blog-card__link {
+      color: var(--primary-gold-500);
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: gap 0.3s var(--ease-smooth);
+      text-decoration: none;
+      font-family: var(--font-ui);
+    }
+
+    .blog-card__link:hover {
+      gap: 0.8rem;
+    }
+
+    @media (max-width: 768px) {
+      .blog-hero { height: auto; min-height: 300px; }
+      .blog-section__header { margin-bottom: 2rem; }
+      .blog-section > .container { padding-inline: 0.75rem; }
+      .blog-grid { grid-template-columns: minmax(0, 1fr); }
+      .blog-card__content { padding: 1.25rem; }
+    }
+  </style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Mine-to-port mineral logistics",
-    "url": "https://balochistanminerals.com/logistics",
-    "provider": { "@id": "https://balochistanminerals.com/#organization" },
-    "areaServed": ["Balochistan", "Karachi Port", "Gwadar Port", "Pakistan"]
+    "@type": "Blog",
+    "name": "Balochistan Minerals Insights",
+    "url": "https://balochistanminerals.com/blogs",
+    "description": "Insights on Pakistan minerals, responsible mining, logistics and sourcing from Balochistan.",
+    "publisher": { "@id": "https://balochistanminerals.com/#organization" }
   }
   </script>
 </head>
+
 <body class="is-loading">
   <div id="bm-hill-loader">
     <div class="bm-hill-content">
@@ -57,13 +309,12 @@
       <div class="bm-hill-tagline">Excellence in Extraction</div>
     </div>
   </div>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-
   <!-- @SECTION: HEADER -->
   <header class="navbar" role="banner">
     <div class="navbar__container">
       <a href="index.html" class="navbar__brand" aria-label="Balochistan Minerals Home">
-        <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals logo" class="navbar__logo-img">
+        <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals logo" class="navbar__logo-img"
+          style="height:40px;width:auto;display:inline-block !important;max-width:none;opacity:1 !important;">
       </a>
 
       <nav class="navbar__nav" role="navigation" aria-label="Main navigation">
@@ -797,199 +1048,227 @@
   <!-- @SECTION: HEADER END -->
 
   <main id="main-content">
-    <!-- Hero -->
-    <section class="logistics-hero">
-      <div class="logistics-hero__bg"><img src="images/hero/hero-5.webp" alt="Balochistan Minerals logistics and transport network across Balochistan" loading="eager"></div>
-      <div class="logistics-hero__overlay"></div>
-      <div class="logistics-hero__content">
-        <span class="logistics-hero__overline">Logistics Network</span>
-        <h1 class="logistics-hero__title">From Mine to<br><span style="color: var(--primary-gold-500);">Global Markets</span></h1>
-        <p class="logistics-hero__text">Our integrated logistics network connects Balochistan's mineral deposits to ports, railways, and global trade corridors—ensuring reliable, efficient, and cost-effective delivery to clients worldwide.</p>
-      </div>
-    </section>
-
-    <!-- Routes -->
-    <section class="route-overview">
-      <div class="route-overview__container">
-        <div class="route-overview__header">
-          <span class="route-overview__overline">Transport Modes</span>
-          <h2 class="route-overview__title">Multi-Modal <span style="color: var(--primary-gold-500);">Logistics Network</span></h2>
-          <p class="route-overview__subtitle">Road, rail, and sea transport working together to deliver minerals from mine to market efficiently.</p>
-        </div>
-        <div class="route-grid">
-          <div class="route-card reveal">
-            <div class="route-card__icon"><svg width="48" height="48" class="icon"><use href="images/icons.svg#icon-truck"></use></svg></div>
-            <h3 class="route-card__title">Road Transport</h3>
-            <p class="route-card__text">Our owned and contracted fleet of 40+ trucks hauls minerals from mine sites to railheads and ports. Specialized heavy haulers for bulk mineral transport on dedicated corridors.</p>
-            <div class="route-card__detail">
-              <div class="route-card__detail-value">40+</div>
-              <div class="route-card__detail-label">Fleet Vehicles</div>
-            </div>
-          </div>
-          <div class="route-card reveal">
-            <div class="route-card__icon"><svg width="48" height="48" class="icon"><use href="images/icons.svg#icon-rail"></use></svg></div>
-            <h3 class="route-card__title">Rail Network</h3>
-            <p class="route-card__text">Strategic rail connections via Pakistan Railways link our operations to both Karachi and Gwadar ports. Bulk mineral trains with dedicated wagons for high-volume shipments.</p>
-            <div class="route-card__detail">
-              <div class="route-card__detail-value">850+</div>
-              <div class="route-card__detail-label">KM Rail Coverage</div>
-            </div>
-          </div>
-          <div class="route-card reveal">
-            <div class="route-card__icon"><svg width="48" height="48" class="icon"><use href="images/icons.svg#icon-ship"></use></svg></div>
-            <h3 class="route-card__title">Port Access</h3>
-            <p class="route-card__text">Dual-port strategy via Karachi (established) and Gwadar (emerging) provides flexible export routing, competitive freight rates, and redundancy for supply chain resilience.</p>
-            <div class="route-card__detail">
-              <div class="route-card__detail-value">2</div>
-              <div class="route-card__detail-label">Export Ports</div>
-            </div>
-          </div>
+    <!-- Hero Section -->
+    <section class="blog-hero">
+      <div class="container">
+        <div class="blog-hero__content">
+          <span class="blog-hero__eyebrow">Pakistan Mineral Intelligence</span>
+          <h1 class="blog-hero__title">Blogs & Insights</h1>
+          <p class="blog-hero__text">
+            Long-form field notes on responsible mining, mineral sourcing, logistics, quality assurance and export supply from Balochistan.
+          </p>
         </div>
       </div>
     </section>
 
-    <!-- B2B Freight Analytics Hub -->
-    <section class="capacity-section logistics-analytics" style="padding-top: 0;">
-      <div class="capacity-section__container">
-        <div class="capacity-section__header logistics-analytics__header">
-          <span class="route-overview__overline">Digital Utility</span>
-          <h2 class="route-overview__title">Freight <span style="color: var(--primary-gold-500);">Analytics Hub</span></h2>
-          <p class="route-overview__subtitle">Simulate your supply chain timelines from our strategic sites to major Balochistan export hubs.</p>
+    <!-- Blogs Grid -->
+    <section class="blog-section">
+      <div class="container">
+        <div class="blog-section__header">
+          <span class="blog-section__overline">Field Notes & Buyer Briefings</span>
+          <h2>Mineral Sourcing Insights</h2>
+          <p>Practical analysis for buyers evaluating Pakistan-origin minerals, mine-to-port logistics, documentation, and responsible supply.</p>
         </div>
-        
-        <div class="freight-hub reveal">
-          <div class="freight-form">
-            <div class="freight-input-group">
-                <label>Origin Mine</label>
-                <select class="freight-select" id="origin-select">
-                    <option value="muslim-bagh">Muslim Bagh (Chromite)</option>
-                    <option value="khuzdar">Khuzdar (Barite)</option>
-                    <option value="chagai">Chagai (Copper Frontier)</option>
-                </select>
-            </div>
-            <div class="freight-input-group">
-                <label>Destination Hub</label>
-                <select class="freight-select" id="dest-select">
-                    <option value="karachi">Karachi Port (PQM)</option>
-                    <option value="gwadar">Gwadar Port (GPA)</option>
-                </select>
-            </div>
-            <div class="freight-input-group">
-                <label>Transport Mode</label>
-                <select class="freight-select">
-                    <option>Integrated (Road + Rail)</option>
-                    <option>Direct Heavy Haul (Road)</option>
-                </select>
-            </div>
-          </div>
+        <div class="blog-grid">
           
-          <div class="freight-result">
-            <div class="freight-metric" id="freight-days">12</div>
-            <div style="font-family:var(--font-ui); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted); margin-bottom:1.5rem;">Estimated Days to Vessel</div>
-            <p style="font-size:0.85rem; color:rgba(255,255,255,0.6); line-height:1.6; border-top:1px solid rgba(255,255,255,0.1); padding-top:1.5rem;">Standard lead time includes on-site loading, transit to railhead, and terminal handling at port. Actual times may vary by season and vessel schedule.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+          <!-- Blog 1 -->
+          <article class="blog-card">
+            <div class="blog-card__image">
+              <span class="blog-card__category">ESG Impact</span>
+              <img loading="lazy" src="images/hero/hero-5.webp" alt="Sustainable Mining">
+            </div>
+            <div class="blog-card__content">
+              <div class="blog-card__date">
+                <svg width="14" height="14"><use href="images/icons.svg#icon-calendar"></use></svg>
+                January 15, 2026
+              </div>
+              <h2 class="blog-card__title">The Future of Sustainable Mining in Balochistan</h2>
+              <p class="blog-card__excerpt">How Balochistan Minerals is leading the way in integrating ESG principles into every stage of the mining lifecycle, ensuring a greener future for Pakistan.</p>
+              <div class="blog-card__footer">
+                <a href="blog/sustainable-mining-balochistan.html" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+              </div>
+            </div>
+          </article>
 
-    <!-- Network Map -->
-    <section class="network-map">
-      <div class="network-map__container">
-        <div class="network-map__header">
-          <span class="route-overview__overline">Route Map</span>
-          <h2 class="route-overview__title">Our Logistics <span style="color: var(--primary-gold-500);">Corridors</span></h2>
-        </div>
-        <div class="network-map__visual">
-          <svg viewBox="0 0 800 350" class="network-map__svg">
-            <rect width="800" height="350" fill="var(--bg-secondary)" rx="8"/>
-            <!-- Grid -->
-            <line x1="100" y1="0" x2="100" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="200" y1="0" x2="200" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="300" y1="0" x2="300" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="400" y1="0" x2="400" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="500" y1="0" x2="500" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="600" y1="0" x2="600" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="700" y1="0" x2="700" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <!-- Province -->
-            <path d="M 150 60 L 250 40 L 400 50 L 550 70 L 680 120 L 700 200 L 660 260 L 550 300 L 400 310 L 250 290 L 150 240 L 120 150 Z" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1.5"/>
-            <text x="400" y="180" text-anchor="middle" font-family="var(--font-heading)" font-size="14" fill="var(--text-muted)" text-transform="uppercase" letter-spacing="0.1em">BALOCHISTAN</text>
-            <!-- Mines -->
-            <circle cx="300" cy="110" r="10" fill="var(--primary-gold-500)"/><text x="300" y="95" text-anchor="middle" font-family="var(--font-heading)" font-size="11" fill="var(--text-primary)">Muslim Bagh</text>
-            <circle cx="480" cy="200" r="10" fill="var(--primary-gold-500)"/><text x="480" y="185" text-anchor="middle" font-family="var(--font-heading)" font-size="11" fill="var(--text-primary)">Khuzdar</text>
-            <circle cx="180" cy="160" r="10" fill="var(--primary-gold-500)"/><text x="180" y="145" text-anchor="middle" font-family="var(--font-heading)" font-size="11" fill="var(--text-primary)">Chagai</text>
-            <!-- Ports -->
-            <circle cx="620" cy="280" r="8" fill="var(--navy-500)"/><text x="620" y="305" text-anchor="middle" font-family="var(--font-ui)" font-size="10" fill="var(--text-secondary)">Karachi Port</text>
-            <circle cx="540" cy="300" r="8" fill="var(--navy-500)"/><text x="540" y="325" text-anchor="middle" font-family="var(--font-ui)" font-size="10" fill="var(--text-secondary)">Gwadar Port</text>
-            <!-- Routes -->
-            <line x1="300" y1="110" x2="480" y2="200" stroke="var(--primary-gold-500)" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
-            <line x1="480" y1="200" x2="620" y2="280" stroke="var(--navy-500)" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
-            <line x1="480" y1="200" x2="540" y2="300" stroke="var(--navy-500)" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
-            <line x1="300" y1="110" x2="620" y2="280" stroke="var(--text-muted)" stroke-width="1" stroke-dasharray="3,5" opacity="0.3"/>
-            <!-- Legend -->
-            <circle cx="60" cy="50" r="5" fill="var(--primary-gold-500)"/><text x="72" y="54" font-family="var(--font-ui)" font-size="9" fill="var(--text-secondary)">Active Mines</text>
-            <circle cx="60" cy="70" r="5" fill="var(--navy-500)"/><text x="72" y="74" font-family="var(--font-ui)" font-size="9" fill="var(--text-secondary)">Export Ports</text>
-            <line x1="45" y1="90" x2="75" y2="90" stroke="var(--primary-gold-500)" stroke-width="2"/><text x="80" y="94" font-family="var(--font-ui)" font-size="9" fill="var(--text-secondary)">Transport Routes</text>
-          </svg>
-        </div>
-      </div>
-    </section>
+          <!-- Blog 2 -->
+          <article class="blog-card">
+            <div class="blog-card__image">
+              <span class="blog-card__category">Operations</span>
+              <img loading="lazy" src="images/copper-new.webp" alt="Copper Extraction">
+            </div>
+            <div class="blog-card__content">
+              <div class="blog-card__date">
+                <svg width="14" height="14"><use href="images/icons.svg#icon-calendar"></use></svg>
+                January 10, 2026
+              </div>
+              <h2 class="blog-card__title">Copper: Powering the Electric Revolution</h2>
+              <p class="blog-card__excerpt">Exploring the vital role of copper in global electrification and how our Chagai projects are poised to meet the rising international demand.</p>
+              <div class="blog-card__footer">
+                <a href="blog/copper-electric-revolution.html" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+              </div>
+            </div>
+          </article>
 
-    <!-- Capacity -->
-    <section class="capacity-section">
-      <div class="capacity-section__container">
-        <div class="capacity-section__header">
-          <span class="route-overview__overline">Capacity</span>
-          <h2 class="route-overview__title">Export <span style="color: var(--primary-gold-500);">Capability</span></h2>
-        </div>
-        <div class="capacity-grid">
-          <div class="capacity-item reveal">
-            <div class="capacity-item__icon"><svg width="36" height="36" class="icon"><use href="images/icons.svg#icon-truck"></use></svg></div>
-            <div class="capacity-item__value">40+</div>
-            <div class="capacity-item__label">Fleet Vehicles</div>
-            <p class="capacity-item__text">Owned and contracted heavy haul trucks for mine-to-port transport</p>
-          </div>
-          <div class="capacity-item reveal">
-            <div class="capacity-item__icon"><svg width="36" height="36" class="icon"><use href="images/icons.svg#icon-rail"></use></svg></div>
-            <div class="capacity-item__value">850 KM</div>
-            <div class="capacity-item__label">Rail Coverage</div>
-            <p class="capacity-item__text">Pakistan Railways connection to Karachi and Gwadar ports</p>
-          </div>
-          <div class="capacity-item reveal">
-            <div class="capacity-item__icon"><svg width="36" height="36" class="icon"><use href="images/icons.svg#icon-growth-chart"></use></svg></div>
-            <div class="capacity-item__value">50K+</div>
-            <div class="capacity-item__label">MT Annual Export</div>
-            <p class="capacity-item__text">Combined export capacity across all minerals and routes</p>
-          </div>
-          <div class="capacity-item reveal">
-            <div class="capacity-item__icon"><svg width="36" height="36" class="icon"><use href="images/icons.svg#icon-clock"></use></svg></div>
-            <div class="capacity-item__value">7-14</div>
-            <div class="capacity-item__label">Days to Port</div>
-            <p class="capacity-item__text">Average delivery time from mine to vessel loading</p>
-          </div>
-        </div>
-      </div>
-    </section>
+          <!-- Blog 3 -->
+          <article class="blog-card">
+            <div class="blog-card__image">
+              <span class="blog-card__category">Community</span>
+              <img loading="lazy" src="images/aboutus/2.jpg" alt="Local Workforce">
+            </div>
+            <div class="blog-card__content">
+              <div class="blog-card__date">
+                <svg width="14" height="14"><use href="images/icons.svg#icon-calendar"></use></svg>
+                January 5, 2026
+              </div>
+              <h2 class="blog-card__title">Empowering Local Communities through Mining</h2>
+              <p class="blog-card__excerpt">A look at our community development initiatives and how we achieve an 85% local employment rate across our major mining projects.</p>
+              <div class="blog-card__footer">
+                <a href="blog/empowering-local-communities-mining.html" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+              </div>
+            </div>
+          </article>
 
-    <!-- CTA -->
-    <section class="logistics-cta">
-      <div class="logistics-cta__container">
-        <div class="logistics-cta__content">
-          <span class="logistics-cta__overline">Request Shipping Quote</span>
-          <h2 class="logistics-cta__title">Need Minerals<br>Delivered?</h2>
-          <p class="logistics-cta__text">Contact our logistics team for shipping schedules, freight rates, and delivery timelines tailored to your requirements.</p>
-          <a href="contact.html" class="hero__cta hero__cta--primary" style="display:inline-flex;align-items:center;gap:0.625rem;padding:0.875rem 1.75rem;background:var(--primary-gold-500);color:white;font-family:var(--font-ui);font-weight:700;font-size:var(--text-sm);letter-spacing:0.1em;text-transform:uppercase;border-radius:var(--radius-md);text-decoration:none;">
-            <span>Get Shipping Quote</span>
-            <svg width="20" height="20" viewBox="0 0 20 20"><path d="M7 4L13 10L7 16" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-          </a>
-        </div>
-        <div class="logistics-cta__visual">
-          <img src="images/hero/hero-7.webp" alt="Mineral export operations at Gwadar Port, Balochistan" loading="lazy">
+          <!-- Blog 4 -->
+          <article class="blog-card reveal" data-reveal="up">
+            <div class="blog-card__image">
+              <span class="blog-card__category">Technology</span>
+              <img loading="lazy" src="images/hero/hero-4.webp" alt="Advanced Machinery">
+            </div>
+            <div class="blog-card__content">
+              <div class="blog-card__date">
+                <svg width="14" height="14"><use href="images/icons.svg#icon-calendar"></use></svg>
+                December 28, 2025
+              </div>
+              <h2 class="blog-card__title">AI and Automation in Deep-Pit Mining</h2>
+              <p class="blog-card__excerpt">Integrating cutting-edge automation technologies to improve safety and operational efficiency in our high-altitude chromite operations.</p>
+              <div class="blog-card__footer">
+                <a href="blog/ai-automation-deep-pit-mining.html" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Blog 5 -->
+          <article class="blog-card reveal" data-reveal="up" data-delay="1">
+            <div class="blog-card__image">
+              <span class="blog-card__category">Economy</span>
+              <img loading="lazy" src="images/hero/hero-6.webp" alt="Global Trade">
+            </div>
+            <div class="blog-card__content">
+              <div class="blog-card__date">
+                <svg width="14" height="14"><use href="images/icons.svg#icon-calendar"></use></svg>
+                December 20, 2025
+              </div>
+              <h2 class="blog-card__title">Pakistan's Role in the Global Mineral Supply Chain</h2>
+              <p class="blog-card__excerpt">Analyzing how our strategic logistics and port access are putting Pakistan on the map as a reliable mining partner for global industries.</p>
+              <div class="blog-card__footer">
+                <a href="blog/pakistan-global-mineral-supply-chain.html" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Blog 6 -->
+          <article class="blog-card reveal" data-reveal="up" data-delay="2">
+            <div class="blog-card__image">
+              <span class="blog-card__category">Safety</span>
+              <img loading="lazy" src="images/hero/hero-7.webp" alt="Safety First">
+            </div>
+            <div class="blog-card__content">
+              <div class="blog-card__date">
+                <svg width="14" height="14"><use href="images/icons.svg#icon-calendar"></use></svg>
+                December 12, 2025
+              </div>
+              <h2 class="blog-card__title">Vision Zero: Our Road to Zero Workplace Accidents</h2>
+              <p class="blog-card__excerpt">Deep-diving into our comprehensive safety protocols and training programs that keep our workforce safe in challenging terrains.</p>
+              <div class="blog-card__footer">
+                <a href="blog/vision-zero-workplace-accidents.html" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Blog 7 -->
+          <article class="blog-card reveal" data-reveal="up">
+            <div class="blog-card__image">
+              <span class="blog-card__category">Environment</span>
+              <img loading="lazy" src="images/hero/hero-5.webp" alt="Land Reclamation">
+            </div>
+            <div class="blog-card__content">
+              <div class="blog-card__date">
+                <svg width="14" height="14"><use href="images/icons.svg#icon-calendar"></use></svg>
+                December 1, 2025
+              </div>
+              <h2 class="blog-card__title">Land Reclamation: Life After Mining</h2>
+              <p class="blog-card__excerpt">Highlighting our successful restoration of over 120 hectares of former mining sites into productive ecological zones.</p>
+              <div class="blog-card__footer">
+                <a href="blog/land-reclamation-life-after-mining.html" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Blog 8 -->
+          <article class="blog-card reveal" data-reveal="up" data-delay="1">
+            <div class="blog-card__image">
+              <span class="blog-card__category">Logistics</span>
+              <img loading="lazy" src="images/hero/hero-2.webp" alt="Logistics Network">
+            </div>
+            <div class="blog-card__content">
+              <div class="blog-card__date">
+                <svg width="14" height="14"><use href="images/icons.svg#icon-calendar"></use></svg>
+                November 25, 2025
+              </div>
+              <h2 class="blog-card__title">Streamlining Exports through Gwadar Port</h2>
+              <p class="blog-card__excerpt">How the development of the Gwadar Port is enhancing our ability to reach international markets with record efficiency.</p>
+              <div class="blog-card__footer">
+                <a href="blog/streamlining-exports-gwadar-port.html" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Blog 9 -->
+          <article class="blog-card reveal" data-reveal="up" data-delay="2">
+            <div class="blog-card__image">
+              <span class="blog-card__category">Resources</span>
+              <img loading="lazy" src="images/barite-card.jpg" alt="Barite Mineral">
+            </div>
+            <div class="blog-card__content">
+              <div class="blog-card__date">
+                <svg width="14" height="14"><use href="images/icons.svg#icon-calendar"></use></svg>
+                November 15, 2025
+              </div>
+              <h2 class="blog-card__title">The Crucial Role of Barite in Modern Drilling</h2>
+              <p class="blog-card__excerpt">Understanding why barite is indispensable for the global energy sector and how Khuzdar is becoming a central hub for its production.</p>
+              <div class="blog-card__footer">
+                <a href="blog/barite-modern-drilling.html" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Blog 10 -->
+          <article class="blog-card reveal" data-reveal="up">
+            <div class="blog-card__image">
+              <span class="blog-card__category">Innovation</span>
+              <img loading="lazy" src="images/hero/hero-4.webp" alt="Mining Innovation">
+            </div>
+            <div class="blog-card__content">
+              <div class="blog-card__date">
+                <svg width="14" height="14"><use href="images/icons.svg#icon-calendar"></use></svg>
+                November 2, 2025
+              </div>
+              <h2 class="blog-card__title">Next-Gen Minerals: Chromite and High-Grade Alloys</h2>
+              <p class="blog-card__excerpt">How Balochistan's high-grade chromite ores are driving advancements in stainless steel and superalloy manufacturing worldwide.</p>
+              <div class="blog-card__footer">
+                <a href="blog/chromite-high-grade-alloys.html" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+              </div>
+            </div>
+          </article>
+
         </div>
       </div>
     </section>
   </main>
 
-  <!-- @SECTION: FOOTER -->
+  <!-- ============================================ -->
+  <!-- FOOTER - Comprehensive Enhanced Version -->
+  <!-- ============================================ -->
   <footer class="footer" id="contact" role="contentinfo">
     <div class="footer__container">
       <div class="footer__top">
@@ -998,7 +1277,8 @@
             <div class="footer__logo">
               <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals" class="footer__logo-img">
             </div>
-            <p class="footer__mission">Committed to ethical mining practices, community uplift, and sustainable growth. Delivering Pakistan's mineral wealth to the world with integrity, transparency, and excellence.</p>
+            <p class="footer__mission">Committed to ethical mining practices, community uplift, and sustainable growth.
+              Delivering Pakistan's mineral wealth to the world with integrity, transparency, and excellence.</p>
             <div class="footer__social-links">
               <a href="contact.html" class="footer__social-link" aria-label="Contact Balochistan Minerals">
                 <svg width="20" height="20" aria-hidden="true" focusable="false">
@@ -1072,12 +1352,12 @@
       </div>
     </div>
   </footer>
-  <!-- @SECTION: FOOTER END -->
 
-
+  <!-- JavaScript -->
   <script defer src="vendor/gsap/gsap.min.js"></script>
   <script defer src="vendor/gsap/ScrollTrigger.min.js"></script>
   <script type="module" src="js/animations-premium.js" defer></script>
   <script type="module" src="js/main.js" defer></script>
 </body>
+
 </html>

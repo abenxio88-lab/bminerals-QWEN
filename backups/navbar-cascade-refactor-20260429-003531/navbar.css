@@ -50,10 +50,12 @@
 .navbar__logo-img {
   height: 55px !important;
   width: auto !important;
-  max-width: none !important;
-  display: inline-block !important;
-  opacity: 1 !important;
   object-fit: contain !important;
+  image-rendering: crisp-edges !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  backface-visibility: hidden !important;
+  transform: translateZ(0);
   transform-origin: center;
   transition: opacity 0.3s var(--ease-smooth), transform 0.3s var(--ease-smooth);
 }
@@ -291,10 +293,11 @@
 /* Mobile Menu */
 .navbar__mobile-menu {
   display: flex;
-  position: absolute;
-  top: 100%;
+  position: fixed;
+  top: var(--navbar-height);
   left: 0;
   right: 0;
+  bottom: 0;
   height: calc(100vh - var(--navbar-height));
   background: rgba(248, 248, 245, 0.99);
   backdrop-filter: blur(20px);

@@ -6,45 +6,75 @@
   <meta name="theme-color" content="#ffffff">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="description" content="Learn how Balochistan Minerals moves minerals from Balochistan mines to Karachi and Gwadar ports for reliable local and international supply.">
-  <meta name="keywords" content="mining logistics, Balochistan transport, rail freight, port access, mineral delivery, supply chain Pakistan">
+  <meta name="description" content="Explore Balochistan Minerals mining projects across Muslim Bagh, Khuzdar, Chagai and Dilband for chromite, barite, copper and iron ore.">
+  <meta name="keywords" content="Muslim Bagh mine, Khuzdar barite, Chagai copper, Balochistan mining projects, chromite mine, mining operations Pakistan">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Mineral Logistics Pakistan | Mine to Port Export Delivery">
-  <meta property="og:description" content="Learn how Balochistan Minerals moves minerals from Balochistan mines to Karachi and Gwadar ports for reliable local and international supply.">
+  <meta property="og:title" content="Mining Projects in Balochistan | Muslim Bagh, Khuzdar, Chagai">
+  <meta property="og:description" content="Explore Balochistan Minerals mining projects across Muslim Bagh, Khuzdar, Chagai and Dilband for chromite, barite, copper and iron ore.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://balochistanminerals.com/logistics">
-  <meta property="og:image" content="https://balochistanminerals.com/images/hero/hero-5.webp">
+  <meta property="og:url" content="https://balochistanminerals.com/projects">
+  <meta property="og:image" content="https://balochistanminerals.com/images/chromite-new.webp">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Mineral Logistics Pakistan | Mine to Port Export Delivery">
-  <meta name="twitter:description" content="Learn how Balochistan Minerals moves minerals from Balochistan mines to Karachi and Gwadar ports for reliable local and international supply.">
+  <meta name="twitter:title" content="Mining Projects in Balochistan | Muslim Bagh, Khuzdar, Chagai">
+  <meta name="twitter:description" content="Explore Balochistan Minerals mining projects across Muslim Bagh, Khuzdar, Chagai and Dilband for chromite, barite, copper and iron ore.">
 
-  <title>Mineral Logistics Pakistan | Mine to Port Export Delivery</title>
-  <link rel="canonical" href="https://balochistanminerals.com/logistics">
+  <title>Mining Projects in Balochistan | Muslim Bagh, Khuzdar, Chagai</title>
+  <link rel="canonical" href="https://balochistanminerals.com/projects">
   <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
   <link rel="manifest" href="images/favicon/site.webmanifest">
   <link rel="shortcut icon" href="images/favicon/favicon.ico">
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="output.css">
-  <link rel="stylesheet" href="css/components/authority-tools.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/components/navbar.css">
+  <link rel="stylesheet" href="css/premium-polish.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/pages/projects.css">
+  
+  <!-- Leaflet CSS (Million Dollar Map) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+  <!-- Schema.org (Million Dollar SEO) -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Mine-to-port mineral logistics",
-    "url": "https://balochistanminerals.com/logistics",
-    "provider": { "@id": "https://balochistanminerals.com/#organization" },
-    "areaServed": ["Balochistan", "Karachi Port", "Gwadar Port", "Pakistan"]
-  }
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Mining Projects",
+      "mainEntity": {
+        "@id": "https://balochistanminerals.com/#organization"
+      }
+    }
   </script>
+  <style>
+    #premium-map {
+      height: 500px;
+      width: 100%;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      z-index: 10;
+    }
+    .map-popup .leaflet-popup-content-wrapper {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border-radius: var(--radius-md);
+      font-family: var(--font-ui);
+    }
+    .map-popup .leaflet-popup-tip {
+      background: var(--bg-card);
+    }
+  </style>
 </head>
-<body class="is-loading">
+
+<body class="projects-page is-loading">
   <div id="bm-hill-loader">
     <div class="bm-hill-content">
       <div class="bm-hill-container">
@@ -57,8 +87,12 @@
       <div class="bm-hill-tagline">Excellence in Extraction</div>
     </div>
   </div>
+  <div class="noise-overlay"></div>
+  <!-- Skip to Content -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
+  <!-- Navigation -->
+  <!-- Shared Header Placeholder -->
   <!-- @SECTION: HEADER -->
   <header class="navbar" role="banner">
     <div class="navbar__container">
@@ -797,193 +831,432 @@
   <!-- @SECTION: HEADER END -->
 
   <main id="main-content">
-    <!-- Hero -->
-    <section class="logistics-hero">
-      <div class="logistics-hero__bg"><img src="images/hero/hero-5.webp" alt="Balochistan Minerals logistics and transport network across Balochistan" loading="eager"></div>
-      <div class="logistics-hero__overlay"></div>
-      <div class="logistics-hero__content">
-        <span class="logistics-hero__overline">Logistics Network</span>
-        <h1 class="logistics-hero__title">From Mine to<br><span style="color: var(--primary-gold-500);">Global Markets</span></h1>
-        <p class="logistics-hero__text">Our integrated logistics network connects Balochistan's mineral deposits to ports, railways, and global trade corridors—ensuring reliable, efficient, and cost-effective delivery to clients worldwide.</p>
+    <!-- ============================================ -->
+    <!-- PARALLAX HERO SECTION -->
+    <!-- ============================================ -->
+    <section class="parallax-hero" aria-label="Projects hero section">
+      <div class="parallax-hero__bg">
+        <img src="images/hero/hero-3.webp" alt="Mining operations across Balochistan" loading="eager">
+      </div>
+      <div class="parallax-hero__overlay"></div>
+      <div class="parallax-hero__content">
+        <span class="parallax-hero__overline">Our Projects</span>
+        <h1 class="parallax-hero__title">
+          Three Strategic Sites.<br>
+          <span style="color: var(--primary-gold-500);">One Vision.</span>
+        </h1>
+        <p class="parallax-hero__text">
+          Across the mineral-rich landscapes of Balochistan, our three operating sites—Muslim Bagh, Khuzdar, and Chagai—represent a integrated network of chromite mining, barite processing, and copper-gold exploration. Each project is a pillar of our growth strategy, delivering critical minerals to global markets while empowering local communities.
+        </p>
       </div>
     </section>
 
-    <!-- Routes -->
-    <section class="route-overview">
-      <div class="route-overview__container">
-        <div class="route-overview__header">
-          <span class="route-overview__overline">Transport Modes</span>
-          <h2 class="route-overview__title">Multi-Modal <span style="color: var(--primary-gold-500);">Logistics Network</span></h2>
-          <p class="route-overview__subtitle">Road, rail, and sea transport working together to deliver minerals from mine to market efficiently.</p>
+    <!-- ============================================ -->
+    <!-- PROJECT MAP OVERVIEW -->
+    <!-- ============================================ -->
+    <section class="zigzag-section" aria-label="Project overview">
+      <div class="zigzag__container">
+        <div class="zigzag__header">
+          <span class="zigzag__overline">Project Network</span>
+          <h2 class="zigzag__title">Operating Across <span style="color: var(--primary-gold-500);">Balochistan's Mineral Belt</span></h2>
+          <p class="zigzag__subtitle">
+            Our three projects span over 800 kilometers of Balochistan province, each strategically located to access unique mineral deposits while maintaining efficient logistics corridors to Karachi and Gwadar ports for global export.
+          </p>
         </div>
-        <div class="route-grid">
-          <div class="route-card reveal">
-            <div class="route-card__icon"><svg width="48" height="48" class="icon"><use href="images/icons.svg#icon-truck"></use></svg></div>
-            <h3 class="route-card__title">Road Transport</h3>
-            <p class="route-card__text">Our owned and contracted fleet of 40+ trucks hauls minerals from mine sites to railheads and ports. Specialized heavy haulers for bulk mineral transport on dedicated corridors.</p>
-            <div class="route-card__detail">
-              <div class="route-card__detail-value">40+</div>
-              <div class="route-card__detail-label">Fleet Vehicles</div>
-            </div>
-          </div>
-          <div class="route-card reveal">
-            <div class="route-card__icon"><svg width="48" height="48" class="icon"><use href="images/icons.svg#icon-rail"></use></svg></div>
-            <h3 class="route-card__title">Rail Network</h3>
-            <p class="route-card__text">Strategic rail connections via Pakistan Railways link our operations to both Karachi and Gwadar ports. Bulk mineral trains with dedicated wagons for high-volume shipments.</p>
-            <div class="route-card__detail">
-              <div class="route-card__detail-value">850+</div>
-              <div class="route-card__detail-label">KM Rail Coverage</div>
-            </div>
-          </div>
-          <div class="route-card reveal">
-            <div class="route-card__icon"><svg width="48" height="48" class="icon"><use href="images/icons.svg#icon-ship"></use></svg></div>
-            <h3 class="route-card__title">Port Access</h3>
-            <p class="route-card__text">Dual-port strategy via Karachi (established) and Gwadar (emerging) provides flexible export routing, competitive freight rates, and redundancy for supply chain resilience.</p>
-            <div class="route-card__detail">
-              <div class="route-card__detail-value">2</div>
-              <div class="route-card__detail-label">Export Ports</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- B2B Freight Analytics Hub -->
-    <section class="capacity-section logistics-analytics" style="padding-top: 0;">
-      <div class="capacity-section__container">
-        <div class="capacity-section__header logistics-analytics__header">
-          <span class="route-overview__overline">Digital Utility</span>
-          <h2 class="route-overview__title">Freight <span style="color: var(--primary-gold-500);">Analytics Hub</span></h2>
-          <p class="route-overview__subtitle">Simulate your supply chain timelines from our strategic sites to major Balochistan export hubs.</p>
-        </div>
-        
-        <div class="freight-hub reveal">
-          <div class="freight-form">
-            <div class="freight-input-group">
-                <label>Origin Mine</label>
-                <select class="freight-select" id="origin-select">
-                    <option value="muslim-bagh">Muslim Bagh (Chromite)</option>
-                    <option value="khuzdar">Khuzdar (Barite)</option>
-                    <option value="chagai">Chagai (Copper Frontier)</option>
-                </select>
-            </div>
-            <div class="freight-input-group">
-                <label>Destination Hub</label>
-                <select class="freight-select" id="dest-select">
-                    <option value="karachi">Karachi Port (PQM)</option>
-                    <option value="gwadar">Gwadar Port (GPA)</option>
-                </select>
-            </div>
-            <div class="freight-input-group">
-                <label>Transport Mode</label>
-                <select class="freight-select">
-                    <option>Integrated (Road + Rail)</option>
-                    <option>Direct Heavy Haul (Road)</option>
-                </select>
-            </div>
+        <!-- Professional Interactive Map -->
+        <div id="premium-map" class="reveal" data-reveal="up"></div>
+
+        <!-- Quick Stats -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;" class="reveal">
+          <div style="padding: 2rem; background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-md); text-align: center;">
+            <div style="font-family: var(--font-heading); font-size: var(--text-3xl); font-weight: 700; color: var(--primary-gold-500); margin-bottom: 0.5rem;">3</div>
+            <div style="font-size: var(--text-sm); font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Active Projects</div>
           </div>
-          
-          <div class="freight-result">
-            <div class="freight-metric" id="freight-days">12</div>
-            <div style="font-family:var(--font-ui); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted); margin-bottom:1.5rem;">Estimated Days to Vessel</div>
-            <p style="font-size:0.85rem; color:rgba(255,255,255,0.6); line-height:1.6; border-top:1px solid rgba(255,255,255,0.1); padding-top:1.5rem;">Standard lead time includes on-site loading, transit to railhead, and terminal handling at port. Actual times may vary by season and vessel schedule.</p>
+          <div style="padding: 2rem; background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-md); text-align: center;">
+            <div style="font-family: var(--font-heading); font-size: var(--text-3xl); font-weight: 700; color: var(--navy-600); margin-bottom: 0.5rem;">800+</div>
+            <div style="font-size: var(--text-sm); font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">KM Coverage</div>
+          </div>
+          <div style="padding: 2rem; background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-md); text-align: center;">
+            <div style="font-family: var(--font-heading); font-size: var(--text-3xl); font-weight: 700; color: var(--primary-gold-500); margin-bottom: 0.5rem;">500+</div>
+            <div style="font-size: var(--text-sm); font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Workforce</div>
+          </div>
+          <div style="padding: 2rem; background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-md); text-align: center;">
+            <div style="font-family: var(--font-heading); font-size: var(--text-3xl); font-weight: 700; color: var(--navy-600); margin-bottom: 0.5rem;">47K+</div>
+            <div style="font-size: var(--text-sm); font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">MT Annual Output</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Network Map -->
-    <section class="network-map">
-      <div class="network-map__container">
-        <div class="network-map__header">
-          <span class="route-overview__overline">Route Map</span>
-          <h2 class="route-overview__title">Our Logistics <span style="color: var(--primary-gold-500);">Corridors</span></h2>
+    <!-- ============================================ -->
+    <!-- MUSLIM BAGH - SPLIT SCREEN -->
+    <!-- ============================================ -->
+    <section class="split-screen" id="muslim-bagh" aria-label="Muslim Bagh chromite mine">
+      <div class="split-screen__left">
+        <span class="split-screen__overline">Muslim Bagh</span>
+        <h2 class="split-screen__title">
+          Chromite Mining in the <span style="color: var(--primary-gold-500);">Heart of Ophiolite Country</span>
+        </h2>
+        <p class="split-screen__text">
+          Our flagship operation, the Muslim Bagh chromite mine, sits atop one of Pakistan's most significant ophiolite-hosted chromite deposits. Located in the Qila Saifullah district of northern Balochistan, this site has been the backbone of our operations since 2008—producing metallurgical-grade chromite ore for ferrochrome smelters and stainless steel manufacturers worldwide.
+        </p>
+        <p class="split-screen__text">
+          The mine exploits a well-defined chromite-bearing ultramafic sequence within the Muslim Bagh ophiolite complex—a fragment of ancient oceanic crust thrust onto the continental margin during the collision of the Indian and Eurasian plates. This unique geological setting has created high-grade chromite lenses with exceptional chromium-to-iron ratios.
+        </p>
+        <div class="split-screen__stats">
+          <div>
+            <div class="split-screen__stat-value">2008</div>
+            <div class="split-screen__stat-label">Year Established</div>
+          </div>
+          <div>
+            <div class="split-screen__stat-value">12K</div>
+            <div class="split-screen__stat-label">MT Annual Capacity</div>
+          </div>
+          <div>
+            <div class="split-screen__stat-value">46-48%</div>
+            <div class="split-screen__stat-label">Cr₂O₃ Grade</div>
+          </div>
+          <div>
+            <div class="split-screen__stat-value">180+</div>
+            <div class="split-screen__stat-label">Workforce</div>
+          </div>
         </div>
-        <div class="network-map__visual">
-          <svg viewBox="0 0 800 350" class="network-map__svg">
-            <rect width="800" height="350" fill="var(--bg-secondary)" rx="8"/>
-            <!-- Grid -->
-            <line x1="100" y1="0" x2="100" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="200" y1="0" x2="200" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="300" y1="0" x2="300" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="400" y1="0" x2="400" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="500" y1="0" x2="500" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="600" y1="0" x2="600" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="700" y1="0" x2="700" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <!-- Province -->
-            <path d="M 150 60 L 250 40 L 400 50 L 550 70 L 680 120 L 700 200 L 660 260 L 550 300 L 400 310 L 250 290 L 150 240 L 120 150 Z" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1.5"/>
-            <text x="400" y="180" text-anchor="middle" font-family="var(--font-heading)" font-size="14" fill="var(--text-muted)" text-transform="uppercase" letter-spacing="0.1em">BALOCHISTAN</text>
-            <!-- Mines -->
-            <circle cx="300" cy="110" r="10" fill="var(--primary-gold-500)"/><text x="300" y="95" text-anchor="middle" font-family="var(--font-heading)" font-size="11" fill="var(--text-primary)">Muslim Bagh</text>
-            <circle cx="480" cy="200" r="10" fill="var(--primary-gold-500)"/><text x="480" y="185" text-anchor="middle" font-family="var(--font-heading)" font-size="11" fill="var(--text-primary)">Khuzdar</text>
-            <circle cx="180" cy="160" r="10" fill="var(--primary-gold-500)"/><text x="180" y="145" text-anchor="middle" font-family="var(--font-heading)" font-size="11" fill="var(--text-primary)">Chagai</text>
-            <!-- Ports -->
-            <circle cx="620" cy="280" r="8" fill="var(--navy-500)"/><text x="620" y="305" text-anchor="middle" font-family="var(--font-ui)" font-size="10" fill="var(--text-secondary)">Karachi Port</text>
-            <circle cx="540" cy="300" r="8" fill="var(--navy-500)"/><text x="540" y="325" text-anchor="middle" font-family="var(--font-ui)" font-size="10" fill="var(--text-secondary)">Gwadar Port</text>
-            <!-- Routes -->
-            <line x1="300" y1="110" x2="480" y2="200" stroke="var(--primary-gold-500)" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
-            <line x1="480" y1="200" x2="620" y2="280" stroke="var(--navy-500)" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
-            <line x1="480" y1="200" x2="540" y2="300" stroke="var(--navy-500)" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
-            <line x1="300" y1="110" x2="620" y2="280" stroke="var(--text-muted)" stroke-width="1" stroke-dasharray="3,5" opacity="0.3"/>
-            <!-- Legend -->
-            <circle cx="60" cy="50" r="5" fill="var(--primary-gold-500)"/><text x="72" y="54" font-family="var(--font-ui)" font-size="9" fill="var(--text-secondary)">Active Mines</text>
-            <circle cx="60" cy="70" r="5" fill="var(--navy-500)"/><text x="72" y="74" font-family="var(--font-ui)" font-size="9" fill="var(--text-secondary)">Export Ports</text>
-            <line x1="45" y1="90" x2="75" y2="90" stroke="var(--primary-gold-500)" stroke-width="2"/><text x="80" y="94" font-family="var(--font-ui)" font-size="9" fill="var(--text-secondary)">Transport Routes</text>
-          </svg>
+      </div>
+      <div class="split-screen__right">
+        <img src="images/chromite-new.webp" alt="Muslim Bagh chromite mining operations" loading="lazy">
+        <div class="split-screen__right-overlay"></div>
+      </div>
+    </section>
+
+    <!-- Muslim Bagh Detailed Zigzag -->
+    <section class="zigzag-section" style="background: var(--bg-secondary);">
+      <div class="zigzag__container">
+        <!-- Mining Method -->
+        <div class="zigzag__row reveal">
+          <div class="zigzag__content">
+            <h3 class="zigzag__item-title">Mining Method & Operations</h3>
+            <p class="zigzag__item-text">
+              The Muslim Bagh mine utilizes a combination of open-pit and shallow underground mining methods, adapted to the geometry and dip of the chromite-bearing lenses. Overburden removal is conducted systematically, with waste material stockpiled for future land reclamation.
+            </p>
+            <p class="zigzag__item-text">
+              Ore extraction follows the strike and dip of the mineralized zones, using selective mining techniques to maximize chromite recovery while minimizing dilution from barren host rock. Run-of-mine material is transported to our on-site processing facility for crushing, screening, and gravity separation.
+            </p>
+            <div class="zigzag__features">
+              <div class="zigzag__feature">
+                <svg class="zigzag__feature-icon"><use href="images/icons.svg#icon-building"></use></svg>
+                <p class="zigzag__feature-text">
+                  <strong>Mining Method:</strong> Open-pit with shallow underground extensions
+                </p>
+              </div>
+              <div class="zigzag__feature">
+                <svg class="zigzag__feature-icon"><use href="images/icons.svg#icon-bolt-production"></use></svg>
+                <p class="zigzag__feature-text">
+                  <strong>Processing:</strong> Crushing, screening, and gravity separation
+                </p>
+              </div>
+              <div class="zigzag__feature">
+                <svg class="zigzag__feature-icon"><use href="images/icons.svg#icon-shield-check"></use></svg>
+                <p class="zigzag__feature-text">
+                  <strong>Product Forms:</strong> Lump (10-100mm), chips (5-10mm), fines (0-5mm)
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="zigzag__visual">
+            <img src="images/hero/hero-1.webp" alt="Mining operations at Muslim Bagh" loading="lazy">
+            <div class="zigzag__visual-overlay"></div>
+          </div>
+        </div>
+
+        <!-- Infrastructure -->
+        <div class="zigzag__row zigzag__row--reverse reveal">
+          <div class="zigzag__content">
+            <h3 class="zigzag__item-title">Site Infrastructure</h3>
+            <p class="zigzag__item-text">
+              The Muslim Bagh site features comprehensive on-site infrastructure built to support continuous operations and worker welfare. Our facilities include a processing plant with jaw crushers, cone crushers, and shaking tables; a quality control laboratory; worker accommodation; a medical clinic; and a skills training center.
+            </p>
+            <p class="zigzag__item-text">
+              The processing plant operates at a capacity of 50 tons per hour, with redundant crushing circuits to ensure uptime. Stockpile areas are paved and drained to prevent contamination and water accumulation. The site is fully fenced with controlled access points for security.
+            </p>
+            <div class="zigzag__features">
+              <div class="zigzag__feature">
+                <svg class="zigzag__feature-icon"><use href="images/icons.svg#icon-sinter"></use></svg>
+                <p class="zigzag__feature-text">
+                  <strong>Processing Plant:</strong> 50 TPH capacity with redundant circuits
+                </p>
+              </div>
+              <div class="zigzag__feature">
+                <svg class="zigzag__feature-icon"><use href="images/icons.svg#icon-time-capacity"></use></svg>
+                <p class="zigzag__feature-text">
+                  <strong>Quality Lab:</strong> On-site XRF analysis and wet chemistry
+                </p>
+              </div>
+              <div class="zigzag__feature">
+                <svg class="zigzag__feature-icon"><use href="images/icons.svg#icon-users-growth"></use></svg>
+                <p class="zigzag__feature-text">
+                  <strong>Worker Facilities:</strong> Accommodation, clinic, training center
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="zigzag__visual">
+            <img src="images/hero/hero-4.webp" alt="Processing plant infrastructure" loading="lazy">
+            <div class="zigzag__visual-overlay"></div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Capacity -->
-    <section class="capacity-section">
-      <div class="capacity-section__container">
-        <div class="capacity-section__header">
-          <span class="route-overview__overline">Capacity</span>
-          <h2 class="route-overview__title">Export <span style="color: var(--primary-gold-500);">Capability</span></h2>
+    <!-- ============================================ -->
+    <!-- KHUZDAR - DIAGONAL SECTION + ZIGZAG -->
+    <!-- ============================================ -->
+    <section class="diagonal-section" id="khuzdar" aria-label="Khuzdar barite operations">
+      <div class="diagonal-section__container">
+        <div class="diagonal-section__content">
+          <span class="diagonal-section__overline">Khuzdar</span>
+          <h2 class="diagonal-section__title">
+            Barite Processing for<br>Global Oil Drilling
+          </h2>
+          <p class="diagonal-section__text">
+            The Khuzdar barite operation, established in 2014, represents our strategic expansion into the industrial minerals sector. Located in the Khuzdar district of central Balochistan, this site processes high-purity barite (barium sulfate) to API RP 13B-1 specifications—supplying the global oil and gas industry with the drilling mud additive essential for wellbore stability and blowout prevention.
+          </p>
+          <p class="diagonal-section__text">
+            Our Khuzdar facility features a multi-stage processing workflow: primary crushing, secondary grinding, gravity separation, and final screening to meet API mesh requirements. With an annual capacity of 15,000 metric tons and consistent 95%+ BaSO₄ purity, we are a trusted supplier to oilfield service companies across the Middle East.
+          </p>
         </div>
-        <div class="capacity-grid">
-          <div class="capacity-item reveal">
-            <div class="capacity-item__icon"><svg width="36" height="36" class="icon"><use href="images/icons.svg#icon-truck"></use></svg></div>
-            <div class="capacity-item__value">40+</div>
-            <div class="capacity-item__label">Fleet Vehicles</div>
-            <p class="capacity-item__text">Owned and contracted heavy haul trucks for mine-to-port transport</p>
-          </div>
-          <div class="capacity-item reveal">
-            <div class="capacity-item__icon"><svg width="36" height="36" class="icon"><use href="images/icons.svg#icon-rail"></use></svg></div>
-            <div class="capacity-item__value">850 KM</div>
-            <div class="capacity-item__label">Rail Coverage</div>
-            <p class="capacity-item__text">Pakistan Railways connection to Karachi and Gwadar ports</p>
-          </div>
-          <div class="capacity-item reveal">
-            <div class="capacity-item__icon"><svg width="36" height="36" class="icon"><use href="images/icons.svg#icon-growth-chart"></use></svg></div>
-            <div class="capacity-item__value">50K+</div>
-            <div class="capacity-item__label">MT Annual Export</div>
-            <p class="capacity-item__text">Combined export capacity across all minerals and routes</p>
-          </div>
-          <div class="capacity-item reveal">
-            <div class="capacity-item__icon"><svg width="36" height="36" class="icon"><use href="images/icons.svg#icon-clock"></use></svg></div>
-            <div class="capacity-item__value">7-14</div>
-            <div class="capacity-item__label">Days to Port</div>
-            <p class="capacity-item__text">Average delivery time from mine to vessel loading</p>
+        <div class="diagonal-section__visual">
+          <div class="diagonal-section__image">
+            <img src="images/barite-card.jpg" alt="Khuzdar barite processing operations" loading="lazy">
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="logistics-cta">
-      <div class="logistics-cta__container">
-        <div class="logistics-cta__content">
-          <span class="logistics-cta__overline">Request Shipping Quote</span>
-          <h2 class="logistics-cta__title">Need Minerals<br>Delivered?</h2>
-          <p class="logistics-cta__text">Contact our logistics team for shipping schedules, freight rates, and delivery timelines tailored to your requirements.</p>
-          <a href="contact.html" class="hero__cta hero__cta--primary" style="display:inline-flex;align-items:center;gap:0.625rem;padding:0.875rem 1.75rem;background:var(--primary-gold-500);color:white;font-family:var(--font-ui);font-weight:700;font-size:var(--text-sm);letter-spacing:0.1em;text-transform:uppercase;border-radius:var(--radius-md);text-decoration:none;">
-            <span>Get Shipping Quote</span>
+    <!-- Khuzdar Zigzag Details -->
+    <section class="zigzag-section" style="background: var(--bg-primary);">
+      <div class="zigzag__container">
+        <!-- Processing Technology -->
+        <div class="zigzag__row zigzag__row--reverse reveal">
+          <div class="zigzag__content">
+            <h3 class="zigzag__item-title">Processing Technology & Quality Control</h3>
+            <p class="zigzag__item-text">
+              Our barite processing plant in Khuzdar is designed for consistent, high-volume output with rigorous quality control at every stage. The workflow begins with primary jaw crushing to reduce run-of-mine material to manageable size, followed by secondary cone crushing and impact grinding to achieve the target particle size distribution specified by API standards.
+            </p>
+            <p class="zigzag__item-text">
+              Gravity separation using shaking tables and spirals removes silica and carbonate gangue minerals, increasing the BaSO₄ content to 95%+. Final screening through a 200-mesh (75-micron) sieve ensures that no more than 3% residue remains—meeting the API fineness requirement.
+            </p>
+            <div style="padding: 1.5rem; background: var(--bg-secondary); border-radius: var(--radius-md); margin-top: 1rem;">
+              <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                  <tr style="border-bottom: 2px solid var(--border-light);">
+                    <th style="padding: 0.75rem 1rem; text-align: left; font-size: var(--text-sm); font-weight: 600; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.05em;">Processing Stage</th>
+                    <th style="padding: 0.75rem 1rem; text-align: center; font-size: var(--text-sm); font-weight: 600; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.05em;">Output</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom: 1px solid var(--border-light);">
+                    <td style="padding: 0.75rem 1rem; font-size: var(--text-sm); color: var(--text-secondary);">Primary Crushing</td>
+                    <td style="padding: 0.75rem 1rem; font-size: var(--text-sm); font-weight: 600; color: var(--text-primary); text-align: center;">< 100mm</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid var(--border-light); background: var(--bg-card);">
+                    <td style="padding: 0.75rem 1rem; font-size: var(--text-sm); color: var(--text-secondary);">Secondary Grinding</td>
+                    <td style="padding: 0.75rem 1rem; font-size: var(--text-sm); font-weight: 600; color: var(--text-primary); text-align: center;">< 5mm</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid var(--border-light);">
+                    <td style="padding: 0.75rem 1rem; font-size: var(--text-sm); color: var(--text-secondary);">Gravity Separation</td>
+                    <td style="padding: 0.75rem 1rem; font-size: var(--text-sm); font-weight: 600; color: var(--text-primary); text-align: center;">SG 4.20+</td>
+                  </tr>
+                  <tr style="background: var(--bg-card);">
+                    <td style="padding: 0.75rem 1rem; font-size: var(--text-sm); color: var(--text-secondary);">Final Screening (200 mesh)</td>
+                    <td style="padding: 0.75rem 1rem; font-size: var(--text-sm); font-weight: 600; color: var(--text-primary); text-align: center;">< 3% residue</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="zigzag__visual">
+            <img src="images/hero/hero-3.webp" alt="Barite processing technology" loading="lazy">
+            <div class="zigzag__visual-overlay"></div>
+          </div>
+        </div>
+
+        <!-- Supply Chain -->
+        <div class="zigzag__row reveal">
+          <div class="zigzag__content">
+            <h3 class="zigzag__item-title">Supply Chain & Logistics</h3>
+            <p class="zigzag__item-text">
+              Khuzdar's strategic location—approximately 250 kilometers from both Karachi and Gwadar ports—gives us a significant logistics advantage. Our barite is transported via our owned and contracted fleet of 40+ trucks, ensuring reliable delivery schedules and competitive freight costs.
+            </p>
+            <p class="zigzag__item-text">
+              We offer flexible packaging options to meet customer requirements: 50kg polypropylene bags for small-volume buyers, 1-ton jumbo bags (FIBCs) for medium-scale operations, and bulk vessel loading for large oilfield service companies. All packaging is palletized, shrink-wrapped, and labeled for easy identification.
+            </p>
+            <div class="zigzag__features">
+              <div class="zigzag__feature">
+                <svg class="zigzag__feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/>
+                </svg>
+                <p class="zigzag__feature-text">
+                  <strong>Transport Fleet:</strong> 40+ owned and contracted trucks
+                </p>
+              </div>
+              <div class="zigzag__feature">
+                <svg class="zigzag__feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 16V8C20.99 6.35 19.79 4.96 18.2 4.69L13 3.81C12.36 3.7 11.64 3.7 11 3.81L5.8 4.69C4.21 4.96 3.01 6.35 3 8V16C3.01 17.65 4.21 19.04 5.8 19.31L11 20.19C11.64 20.3 12.36 20.3 13 20.19L18.2 19.31C19.79 19.04 20.99 17.65 21 16Z"/>
+                </svg>
+                <p class="zigzag__feature-text">
+                  <strong>Packaging:</strong> 50kg bags, 1-ton jumbo bags, bulk loading
+                </p>
+              </div>
+              <div class="zigzag__feature">
+                <svg class="zigzag__feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/><path d="M2 12H22M12 2V22"/>
+                </svg>
+                <p class="zigzag__feature-text">
+                  <strong>Delivery:</strong> 7-14 days to Karachi/Gwadar ports
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="zigzag__visual">
+            <img src="images/hero/hero-7.webp" alt="Barite supply chain and logistics" loading="lazy">
+            <div class="zigzag__visual-overlay"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- CHAGAI - ASYMMETRICAL GRID -->
+    <!-- ============================================ -->
+    <section class="asymmetrical-grid" id="chagai" aria-label="Chagai copper-gold exploration">
+      <div class="asymmetrical-grid__container">
+        <div class="asymmetrical-grid__header">
+          <span class="zigzag__overline">Chagai</span>
+          <h2 class="zigzag__title">Copper-Gold Exploration in the <span style="color: var(--primary-gold-500);">Tethyan Belt</span></h2>
+          <p class="zigzag__subtitle">
+            The Chagai district in western Balochistan lies within the Tethyan Metallogenic Belt—one of the world's most prolific copper-gold provinces. Our exploration concession in this highly prospective area represents a significant growth opportunity, with the potential to establish Balochistan Minerals as a dual-commodity copper-gold producer within the next 3-5 years.
+          </p>
+        </div>
+
+        <div class="asymmetrical-grid__layout">
+          <!-- Large Featured: Geological Context -->
+          <div class="asymmetrical-grid__item asymmetrical-grid__item--large reveal">
+            <div class="item-image">
+              <img src="images/copper-new.webp" alt="Chagai copper-gold exploration landscape" loading="lazy">
+            </div>
+            <div>
+              <span class="item-overline">Geological Context</span>
+              <h3 class="item-title">Tethyan Metallogenic Belt</h3>
+              <p class="item-text">
+                The Chagai volcanic arc is part of a Jurassic-aged magmatic belt formed by the subduction of the Neo-Tethyan oceanic crust beneath the Eurasian plate. This tectonic environment is ideal for the formation of porphyry copper-gold deposits—the same geological setting that produces world-class mines in Chile, Indonesia, and Papua New Guinea.
+              </p>
+              <p class="item-text">
+                Regional geological surveys have identified widespread copper-gold mineralization across the Chagai district, with surface exposures of chalcopyrite, bornite, and native gold confirmed in outcrop samples. Our systematic exploration program is working to delineate the extent and grade of these deposits.
+              </p>
+            </div>
+            <div class="item-stats">
+              <div>
+                <div class="item-stat-value">Jurassic</div>
+                <div class="item-stat-label">Magmatic Age</div>
+              </div>
+              <div>
+                <div class="item-stat-value">Porphyry</div>
+                <div class="item-stat-label">Deposit Style</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Exploration Methodology -->
+          <div class="asymmetrical-grid__item reveal">
+            <span class="item-overline">Exploration Methodology</span>
+            <h3 class="item-title">How We Explore</h3>
+            <p class="item-text">
+              Our exploration program follows international best practice: desktop study and target generation, followed by field mapping and geochemical sampling, then geophysical surveys (magnetics, IP/resistivity), and finally diamond drill testing of priority anomalies.
+            </p>
+            <p class="item-text">
+              All data is captured in a GIS database, interpreted by our geological team, and used to refine drill targets for subsequent phases.
+            </p>
+          </div>
+
+          <!-- Key Milestones -->
+          <div class="asymmetrical-grid__item reveal">
+            <span class="item-overline">Key Milestones</span>
+            <h3 class="item-title">Progress to Date</h3>
+            <p class="item-text" style="margin-bottom: 1rem;">
+              <strong style="color: var(--text-primary);">Phase 1 (2024):</strong> Desktop study, reconnaissance mapping, and stream sediment sampling identified three priority anomaly zones.
+            </p>
+            <p class="item-text" style="margin-bottom: 1rem;">
+              <strong style="color: var(--text-primary);">Phase 2 (2025):</strong> IP/resistivity geophysical survey confirmed conductive zones consistent with porphyry-style mineralization at depth.
+            </p>
+            <p class="item-text">
+              <strong style="color: var(--text-primary);">Phase 3 (2026):</strong> Initial diamond drilling program—5 holes for 2,000 meters—planned to test the shallowest and most prospective conductors.
+            </p>
+          </div>
+
+          <!-- Investment Potential -->
+          <div class="asymmetrical-grid__item reveal">
+            <span class="item-overline">Investment Potential</span>
+            <h3 class="item-title">Growth Opportunity</h3>
+            <p class="item-text">
+              The Chagai project represents a significant upside option for investors. Successful resource definition would position this project as a new revenue stream, diversifying our commodity base beyond chromite, barite, and iron ore.
+            </p>
+            <p class="item-text">
+              The associated gold content in Chagai-style porphyry systems adds additional economic leverage, potentially positioning this as a dual-commodity operation.
+            </p>
+          </div>
+
+          <!-- Timeline -->
+          <div class="asymmetrical-grid__item reveal">
+            <span class="item-overline">Projected Timeline</span>
+            <h3 class="item-title">Path to Production</h3>
+            <div style="padding: 1.5rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+              <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <div style="display: flex; justify-content: space-between; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-light);">
+                  <span style="font-size: var(--text-sm); color: var(--text-secondary);">Resource Definition</span>
+                  <span style="font-size: var(--text-sm); font-weight: 700; color: var(--primary-gold-500);">2026-2027</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-light);">
+                  <span style="font-size: var(--text-sm); color: var(--text-secondary);">Feasibility Study</span>
+                  <span style="font-size: var(--text-sm); font-weight: 700; color: var(--primary-gold-500);">2027-2028</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-light);">
+                  <span style="font-size: var(--text-sm); color: var(--text-secondary);">Pilot Production</span>
+                  <span style="font-size: var(--text-sm); font-weight: 700; color: var(--primary-gold-500);">2028-2029</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="font-size: var(--text-sm); color: var(--text-secondary);">Full Operations</span>
+                  <span style="font-size: var(--text-sm); font-weight: 700; color: var(--primary-gold-500);">2029+</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- CTA SECTION -->
+    <!-- ============================================ -->
+    <section class="diagonal-section" aria-label="Call to action">
+      <div class="diagonal-section__container">
+        <div class="diagonal-section__content">
+          <span class="diagonal-section__overline">Partner With Us</span>
+          <h2 class="diagonal-section__title">
+            Explore Collaboration<br>Opportunities
+          </h2>
+          <p class="diagonal-section__text">
+            Whether you're interested in our existing operations, exploring joint venture opportunities in Chagai, or seeking a reliable mineral supply partner—we'd love to discuss how we can work together.
+          </p>
+          <a href="contact.html" class="hero__cta hero__cta--primary" style="display: inline-flex; align-items: center; gap: 0.625rem; padding: 0.875rem 1.75rem; background: var(--primary-gold-500); color: white; font-family: var(--font-ui); font-weight: 700; font-size: var(--text-sm); letter-spacing: 0.1em; text-transform: uppercase; border-radius: var(--radius-md); text-decoration: none; transition: background 0.3s var(--ease-smooth), box-shadow 0.3s var(--ease-smooth);">
+            <span>Get In Touch</span>
             <svg width="20" height="20" viewBox="0 0 20 20"><path d="M7 4L13 10L7 16" stroke="currentColor" stroke-width="2" fill="none"/></svg>
           </a>
         </div>
-        <div class="logistics-cta__visual">
-          <img src="images/hero/hero-7.webp" alt="Mineral export operations at Gwadar Port, Balochistan" loading="lazy">
+        <div class="diagonal-section__visual">
+          <div class="diagonal-section__image">
+            <img src="images/hero/hero-5.webp" alt="Partner with Balochistan Minerals" loading="lazy">
+          </div>
         </div>
       </div>
     </section>
@@ -1075,9 +1348,14 @@
   <!-- @SECTION: FOOTER END -->
 
 
+  <!-- Leaflet JS (Million Dollar Map) -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  
+  <!-- Animation & Interaction scripts -->
   <script defer src="vendor/gsap/gsap.min.js"></script>
   <script defer src="vendor/gsap/ScrollTrigger.min.js"></script>
   <script type="module" src="js/animations-premium.js" defer></script>
+  <script type="module" src="js/project-map.js" defer></script>
   <script type="module" src="js/main.js" defer></script>
 </body>
 </html>

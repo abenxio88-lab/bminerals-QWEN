@@ -1,49 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Balochistan Minerals is a Pakistani mineral sourcing company supplying iron ore, barite, chromite and copper from Balochistan to buyers worldwide.">
+  <meta name="keywords"
+    content="Balochistan Minerals, about us, Balochistan mining, ethical mining, company history, leadership">
   <meta name="theme-color" content="#ffffff">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="description" content="Learn how Balochistan Minerals moves minerals from Balochistan mines to Karachi and Gwadar ports for reliable local and international supply.">
-  <meta name="keywords" content="mining logistics, Balochistan transport, rail freight, port access, mineral delivery, supply chain Pakistan">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Mineral Logistics Pakistan | Mine to Port Export Delivery">
-  <meta property="og:description" content="Learn how Balochistan Minerals moves minerals from Balochistan mines to Karachi and Gwadar ports for reliable local and international supply.">
+  <meta property="og:title" content="About Balochistan Minerals | Pakistani Mineral Sourcing Company">
+  <meta property="og:description" content="Balochistan Minerals is a Pakistani mineral sourcing company supplying iron ore, barite, chromite and copper from Balochistan to buyers worldwide.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://balochistanminerals.com/logistics">
-  <meta property="og:image" content="https://balochistanminerals.com/images/hero/hero-5.webp">
+  <meta property="og:url" content="https://balochistanminerals.com/about">
+  <meta property="og:image" content="https://balochistanminerals.com/images/hero/hero-3.webp">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Mineral Logistics Pakistan | Mine to Port Export Delivery">
-  <meta name="twitter:description" content="Learn how Balochistan Minerals moves minerals from Balochistan mines to Karachi and Gwadar ports for reliable local and international supply.">
+  <meta name="twitter:title" content="About Balochistan Minerals | Pakistani Mineral Sourcing Company">
+  <meta name="twitter:description" content="Balochistan Minerals is a Pakistani mineral sourcing company supplying iron ore, barite, chromite and copper from Balochistan to buyers worldwide.">
 
-  <title>Mineral Logistics Pakistan | Mine to Port Export Delivery</title>
-  <link rel="canonical" href="https://balochistanminerals.com/logistics">
+  <title>About Balochistan Minerals | Pakistani Mineral Sourcing Company</title>
+  <link rel="canonical" href="https://balochistanminerals.com/about">
+  <style>
+    :root{--navbar-height:80px;--max-width:1400px}
+    .navbar{position:fixed;top:0;left:0;right:0;height:var(--navbar-height);background:rgba(248,248,245,0.95)!important;z-index:1000!important}
+    .navbar__container{width:100%;padding:0 3rem;display:grid!important;grid-template-columns:auto 1fr auto;gap:2rem;align-items:center;height:100%;position:relative;z-index:1}
+    .navbar__brand{display:flex!important;align-items:center!important;gap:0.5rem}
+    .navbar__logo-img{height:40px!important;width:auto!important;display:inline-block!important}
+    .hero{min-height:calc(100vh - var(--navbar-height));padding-top:calc(var(--navbar-height) + 2rem);display:flex;align-items:center}
+    .hero__container{max-width:var(--max-width);margin:0 auto;padding:0 1.5rem;text-align:center}
+    .hero__headline{font-family:var(--font-heading);font-size:clamp(1.6rem,3.2vw,2.2rem);font-weight:600;text-transform:uppercase}
+    .skip-link:focus{top:0}*:focus-visible{outline:3px solid var(--primary-gold-500);outline-offset:2px}
+  </style>
+  <link rel="preload" as="image" href="images/hero/hero-1.webp">
   <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
   <link rel="manifest" href="images/favicon/site.webmanifest">
   <link rel="shortcut icon" href="images/favicon/favicon.ico">
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
   <link rel="stylesheet" href="output.css">
-  <link rel="stylesheet" href="css/components/authority-tools.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/components/navbar.css">
+  <link rel="stylesheet" href="css/premium-polish.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/pages/about.css">
+  <link rel="stylesheet" href="css/components/premium-light.css" media="print" onload="this.media='all'">
+  <!-- Schema.org (Million Dollar SEO) -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Mine-to-port mineral logistics",
-    "url": "https://balochistanminerals.com/logistics",
-    "provider": { "@id": "https://balochistanminerals.com/#organization" },
-    "areaServed": ["Balochistan", "Karachi Port", "Gwadar Port", "Pakistan"]
-  }
+    {
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      "mainEntity": {
+        "@id": "https://balochistanminerals.com/#organization"
+      }
+    }
   </script>
 </head>
+
 <body class="is-loading">
   <div id="bm-hill-loader">
     <div class="bm-hill-content">
@@ -57,13 +80,15 @@
       <div class="bm-hill-tagline">Excellence in Extraction</div>
     </div>
   </div>
+  <!-- Skip to Content -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
+  <!-- Navigation -->
   <!-- @SECTION: HEADER -->
   <header class="navbar" role="banner">
     <div class="navbar__container">
       <a href="index.html" class="navbar__brand" aria-label="Balochistan Minerals Home">
-        <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals logo" class="navbar__logo-img">
+        <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals logo" class="navbar__logo-img" style="height:40px;width:auto;display:inline-block !important;max-width:none;opacity:1 !important;">
       </a>
 
       <nav class="navbar__nav" role="navigation" aria-label="Main navigation">
@@ -796,200 +821,593 @@
   </header>
   <!-- @SECTION: HEADER END -->
 
+
   <main id="main-content">
-    <!-- Hero -->
-    <section class="logistics-hero">
-      <div class="logistics-hero__bg"><img src="images/hero/hero-5.webp" alt="Balochistan Minerals logistics and transport network across Balochistan" loading="eager"></div>
-      <div class="logistics-hero__overlay"></div>
-      <div class="logistics-hero__content">
-        <span class="logistics-hero__overline">Logistics Network</span>
-        <h1 class="logistics-hero__title">From Mine to<br><span style="color: var(--primary-gold-500);">Global Markets</span></h1>
-        <p class="logistics-hero__text">Our integrated logistics network connects Balochistan's mineral deposits to ports, railways, and global trade corridors—ensuring reliable, efficient, and cost-effective delivery to clients worldwide.</p>
+    <!-- ============================================ -->
+    <!-- PARALLAX HERO SECTION -->
+    <!-- ============================================ -->
+    <section class="parallax-hero" aria-label="About us hero section">
+      <div class="parallax-hero__bg">
+        <img loading="eager" src="images/hero/hero-1.webp" alt="Balochistan Minerals operations in Balochistan mountains"
+          loading="eager">
+      </div>
+      <div class="parallax-hero__overlay"></div>
+      <div class="parallax-hero__content">
+        <span class="parallax-hero__overline">About Balochistan Minerals</span>
+        <h1 class="parallax-hero__title">
+          Pioneering Ethical Mining<br>
+          <span style="color: var(--primary-gold-500);">Since 2008</span>
+        </h1>
+        <p class="parallax-hero__text">
+          For over 15 years, we've been transforming Balochistan's mineral wealth into sustainable prosperity—empowering
+          communities, advancing industry, and setting new standards for responsible extraction.
+        </p>
       </div>
     </section>
 
-    <!-- Routes -->
-    <section class="route-overview">
-      <div class="route-overview__container">
-        <div class="route-overview__header">
-          <span class="route-overview__overline">Transport Modes</span>
-          <h2 class="route-overview__title">Multi-Modal <span style="color: var(--primary-gold-500);">Logistics Network</span></h2>
-          <p class="route-overview__subtitle">Road, rail, and sea transport working together to deliver minerals from mine to market efficiently.</p>
+    <!-- ============================================ -->
+    <!-- OUR STORY - ZIGZAG LAYOUT -->
+    <!-- ============================================ -->
+    <section class="zigzag-section" id="story" aria-label="Our story">
+      <div class="zigzag__container">
+        <div class="zigzag__header">
+          <span class="zigzag__overline">Our Journey</span>
+          <h2 class="zigzag__title">From Humble Beginnings to <span style="color: var(--primary-gold-500);">Mining
+              Excellence</span></h2>
+          <p class="zigzag__subtitle">
+            What started as a single mining operation in Muslim Bagh has grown into a multi-mineral enterprise spanning
+            three strategic districts across Balochistan—each site carefully managed for maximum yield with minimal
+            environmental impact.
+          </p>
         </div>
-        <div class="route-grid">
-          <div class="route-card reveal">
-            <div class="route-card__icon"><svg width="48" height="48" class="icon"><use href="images/icons.svg#icon-truck"></use></svg></div>
-            <h3 class="route-card__title">Road Transport</h3>
-            <p class="route-card__text">Our owned and contracted fleet of 40+ trucks hauls minerals from mine sites to railheads and ports. Specialized heavy haulers for bulk mineral transport on dedicated corridors.</p>
-            <div class="route-card__detail">
-              <div class="route-card__detail-value">40+</div>
-              <div class="route-card__detail-label">Fleet Vehicles</div>
-            </div>
-          </div>
-          <div class="route-card reveal">
-            <div class="route-card__icon"><svg width="48" height="48" class="icon"><use href="images/icons.svg#icon-rail"></use></svg></div>
-            <h3 class="route-card__title">Rail Network</h3>
-            <p class="route-card__text">Strategic rail connections via Pakistan Railways link our operations to both Karachi and Gwadar ports. Bulk mineral trains with dedicated wagons for high-volume shipments.</p>
-            <div class="route-card__detail">
-              <div class="route-card__detail-value">850+</div>
-              <div class="route-card__detail-label">KM Rail Coverage</div>
-            </div>
-          </div>
-          <div class="route-card reveal">
-            <div class="route-card__icon"><svg width="48" height="48" class="icon"><use href="images/icons.svg#icon-ship"></use></svg></div>
-            <h3 class="route-card__title">Port Access</h3>
-            <p class="route-card__text">Dual-port strategy via Karachi (established) and Gwadar (emerging) provides flexible export routing, competitive freight rates, and redundancy for supply chain resilience.</p>
-            <div class="route-card__detail">
-              <div class="route-card__detail-value">2</div>
-              <div class="route-card__detail-label">Export Ports</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- B2B Freight Analytics Hub -->
-    <section class="capacity-section logistics-analytics" style="padding-top: 0;">
-      <div class="capacity-section__container">
-        <div class="capacity-section__header logistics-analytics__header">
-          <span class="route-overview__overline">Digital Utility</span>
-          <h2 class="route-overview__title">Freight <span style="color: var(--primary-gold-500);">Analytics Hub</span></h2>
-          <p class="route-overview__subtitle">Simulate your supply chain timelines from our strategic sites to major Balochistan export hubs.</p>
-        </div>
-        
-        <div class="freight-hub reveal">
-          <div class="freight-form">
-            <div class="freight-input-group">
-                <label>Origin Mine</label>
-                <select class="freight-select" id="origin-select">
-                    <option value="muslim-bagh">Muslim Bagh (Chromite)</option>
-                    <option value="khuzdar">Khuzdar (Barite)</option>
-                    <option value="chagai">Chagai (Copper Frontier)</option>
-                </select>
-            </div>
-            <div class="freight-input-group">
-                <label>Destination Hub</label>
-                <select class="freight-select" id="dest-select">
-                    <option value="karachi">Karachi Port (PQM)</option>
-                    <option value="gwadar">Gwadar Port (GPA)</option>
-                </select>
-            </div>
-            <div class="freight-input-group">
-                <label>Transport Mode</label>
-                <select class="freight-select">
-                    <option>Integrated (Road + Rail)</option>
-                    <option>Direct Heavy Haul (Road)</option>
-                </select>
+        <!-- Story Item 1 -->
+        <div class="zigzag__row reveal">
+          <div class="zigzag__content">
+            <h3 class="zigzag__item-title">The Foundation: 2008-2012</h3>
+            <p class="zigzag__item-text">
+              Founded in 2008, Balochistan Minerals began operations in Muslim Bagh, one of Pakistan's richest
+              chromite-bearing regions. Our founders recognized the enormous potential of Balochistan's mineral deposits
+              and established operations with a clear mandate: extract responsibly, empower locally, and deliver
+              globally.
+            </p>
+            <div class="zigzag__features">
+              <div class="zigzag__feature">
+                <svg class="zigzag__feature-icon icon">
+                  <use href="images/icons.svg#icon-star-foundation"></use>
+                </svg>
+                <p class="zigzag__feature-text">
+                  <strong>First Mine:</strong> Muslim Bagh chromite operations established with 50 workers
+                </p>
+              </div>
+              <div class="zigzag__feature">
+                <svg class="zigzag__feature-icon icon">
+                  <use href="images/icons.svg#icon-shield-check"></use>
+                </svg>
+                <p class="zigzag__feature-text">
+                  <strong>First Certification:</strong> ISO 9001 quality management achieved
+                </p>
+              </div>
+              <div class="zigzag__feature">
+                <svg class="zigzag__feature-icon icon">
+                  <use href="images/icons.svg#icon-building"></use>
+                </svg>
+                <p class="zigzag__feature-text">
+                  <strong>Infrastructure:</strong> Built processing plant and worker facilities
+                </p>
+              </div>
             </div>
           </div>
-          
-          <div class="freight-result">
-            <div class="freight-metric" id="freight-days">12</div>
-            <div style="font-family:var(--font-ui); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted); margin-bottom:1.5rem;">Estimated Days to Vessel</div>
-            <p style="font-size:0.85rem; color:rgba(255,255,255,0.6); line-height:1.6; border-top:1px solid rgba(255,255,255,0.1); padding-top:1.5rem;">Standard lead time includes on-site loading, transit to railhead, and terminal handling at port. Actual times may vary by season and vessel schedule.</p>
+          <div class="zigzag__visual">
+            <img loading="lazy" src="images/hero/hero-2.webp" alt="Early mining operations in Muslim Bagh">
+            <div class="zigzag__visual-overlay"></div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- Network Map -->
-    <section class="network-map">
-      <div class="network-map__container">
-        <div class="network-map__header">
-          <span class="route-overview__overline">Route Map</span>
-          <h2 class="route-overview__title">Our Logistics <span style="color: var(--primary-gold-500);">Corridors</span></h2>
+        <!-- Story Item 2 (Reverse) -->
+        <div class="zigzag__row zigzag__row--reverse reveal">
+          <div class="zigzag__content">
+            <h3 class="zigzag__item-title">Expansion Phase: 2013-2018</h3>
+            <p class="zigzag__item-text">
+              Building on our success, we expanded into Khuzdar district to tap into the region's vast barite
+              reserves—critical for oil drilling operations worldwide. This period saw our workforce triple, production
+              capacity increase fivefold, and the establishment of our first international export partnerships with
+              Middle Eastern and Asian markets.
+            </p>
+            <div class="zigzag__features">
+              <div class="zigzag__feature">
+                <svg class="zigzag__feature-icon icon">
+                  <use href="images/icons.svg#icon-bolt-production"></use>
+                </svg>
+                <p class="zigzag__feature-text">
+                  <strong>Production Milestone:</strong> Reached 10,000 MT annual capacity
+                </p>
+              </div>
+              <div class="zigzag__feature">
+                <svg class="zigzag__feature-icon icon">
+                  <use href="images/icons.svg#icon-global-earth"></use>
+                </svg>
+                <p class="zigzag__feature-text">
+                  <strong>Global Reach:</strong> First exports to UAE, Saudi Arabia, and China
+                </p>
+              </div>
+              <div class="zigzag__feature">
+                <svg class="zigzag__feature-icon icon">
+                  <use href="images/icons.svg#icon-users-growth"></use>
+                </svg>
+                <p class="zigzag__feature-text">
+                  <strong>Workforce Growth:</strong> Expanded to 250+ employees
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="zigzag__visual">
+            <img loading="lazy" src="images/hero/hero-3.webp" alt="Barite processing plant in Khuzdar">
+            <div class="zigzag__visual-overlay"></div>
+          </div>
         </div>
-        <div class="network-map__visual">
-          <svg viewBox="0 0 800 350" class="network-map__svg">
-            <rect width="800" height="350" fill="var(--bg-secondary)" rx="8"/>
-            <!-- Grid -->
-            <line x1="100" y1="0" x2="100" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="200" y1="0" x2="200" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="300" y1="0" x2="300" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="400" y1="0" x2="400" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="500" y1="0" x2="500" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="600" y1="0" x2="600" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="700" y1="0" x2="700" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <!-- Province -->
-            <path d="M 150 60 L 250 40 L 400 50 L 550 70 L 680 120 L 700 200 L 660 260 L 550 300 L 400 310 L 250 290 L 150 240 L 120 150 Z" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1.5"/>
-            <text x="400" y="180" text-anchor="middle" font-family="var(--font-heading)" font-size="14" fill="var(--text-muted)" text-transform="uppercase" letter-spacing="0.1em">BALOCHISTAN</text>
-            <!-- Mines -->
-            <circle cx="300" cy="110" r="10" fill="var(--primary-gold-500)"/><text x="300" y="95" text-anchor="middle" font-family="var(--font-heading)" font-size="11" fill="var(--text-primary)">Muslim Bagh</text>
-            <circle cx="480" cy="200" r="10" fill="var(--primary-gold-500)"/><text x="480" y="185" text-anchor="middle" font-family="var(--font-heading)" font-size="11" fill="var(--text-primary)">Khuzdar</text>
-            <circle cx="180" cy="160" r="10" fill="var(--primary-gold-500)"/><text x="180" y="145" text-anchor="middle" font-family="var(--font-heading)" font-size="11" fill="var(--text-primary)">Chagai</text>
-            <!-- Ports -->
-            <circle cx="620" cy="280" r="8" fill="var(--navy-500)"/><text x="620" y="305" text-anchor="middle" font-family="var(--font-ui)" font-size="10" fill="var(--text-secondary)">Karachi Port</text>
-            <circle cx="540" cy="300" r="8" fill="var(--navy-500)"/><text x="540" y="325" text-anchor="middle" font-family="var(--font-ui)" font-size="10" fill="var(--text-secondary)">Gwadar Port</text>
-            <!-- Routes -->
-            <line x1="300" y1="110" x2="480" y2="200" stroke="var(--primary-gold-500)" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
-            <line x1="480" y1="200" x2="620" y2="280" stroke="var(--navy-500)" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
-            <line x1="480" y1="200" x2="540" y2="300" stroke="var(--navy-500)" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
-            <line x1="300" y1="110" x2="620" y2="280" stroke="var(--text-muted)" stroke-width="1" stroke-dasharray="3,5" opacity="0.3"/>
-            <!-- Legend -->
-            <circle cx="60" cy="50" r="5" fill="var(--primary-gold-500)"/><text x="72" y="54" font-family="var(--font-ui)" font-size="9" fill="var(--text-secondary)">Active Mines</text>
-            <circle cx="60" cy="70" r="5" fill="var(--navy-500)"/><text x="72" y="74" font-family="var(--font-ui)" font-size="9" fill="var(--text-secondary)">Export Ports</text>
-            <line x1="45" y1="90" x2="75" y2="90" stroke="var(--primary-gold-500)" stroke-width="2"/><text x="80" y="94" font-family="var(--font-ui)" font-size="9" fill="var(--text-secondary)">Transport Routes</text>
-          </svg>
-        </div>
-      </div>
-    </section>
 
-    <!-- Capacity -->
-    <section class="capacity-section">
-      <div class="capacity-section__container">
-        <div class="capacity-section__header">
-          <span class="route-overview__overline">Capacity</span>
-          <h2 class="route-overview__title">Export <span style="color: var(--primary-gold-500);">Capability</span></h2>
-        </div>
-        <div class="capacity-grid">
-          <div class="capacity-item reveal">
-            <div class="capacity-item__icon"><svg width="36" height="36" class="icon"><use href="images/icons.svg#icon-truck"></use></svg></div>
-            <div class="capacity-item__value">40+</div>
-            <div class="capacity-item__label">Fleet Vehicles</div>
-            <p class="capacity-item__text">Owned and contracted heavy haul trucks for mine-to-port transport</p>
+        <!-- Story Item 3 -->
+        <div class="zigzag__row reveal">
+          <div class="zigzag__content">
+            <h3 class="zigzag__item-title">Modern Era: 2019-Present</h3>
+            <p class="zigzag__item-text">
+              Today, Balochistan Minerals operates as a fully integrated mining enterprise with operations across Muslim
+              Bagh, Khuzdar, and Chagai districts. We've embraced cutting-edge geological survey technology, implemented
+              zero-discharge water systems, and established ourselves as Pakistan's premier mineral sourcing
+              partner—with over 50,000 MT annual capacity and growing.
+            </p>
+            <div class="zigzag__features">
+              <div class="zigzag__feature">
+                <svg class="zigzag__feature-icon icon">
+                  <use href="images/icons.svg#icon-pulse-modern"></use>
+                </svg>
+                <p class="zigzag__feature-text">
+                  <strong>Safety Record:</strong> 1,500+ days without lost-time incident
+                </p>
+              </div>
+              <div class="zigzag__feature">
+                <svg class="zigzag__feature-icon icon">
+                  <use href="images/icons.svg#icon-time-capacity"></use>
+                </svg>
+                <p class="zigzag__feature-text">
+                  <strong>Capacity:</strong> 50,000+ MT annual production across all commodities
+                </p>
+              </div>
+              <div class="zigzag__feature">
+                <svg class="zigzag__feature-icon icon">
+                  <use href="images/icons.svg#icon-network-globe"></use>
+                </svg>
+                <p class="zigzag__feature-text">
+                  <strong>Global Network:</strong> Active clients across 15+ countries
+                </p>
+              </div>
+            </div>
           </div>
-          <div class="capacity-item reveal">
-            <div class="capacity-item__icon"><svg width="36" height="36" class="icon"><use href="images/icons.svg#icon-rail"></use></svg></div>
-            <div class="capacity-item__value">850 KM</div>
-            <div class="capacity-item__label">Rail Coverage</div>
-            <p class="capacity-item__text">Pakistan Railways connection to Karachi and Gwadar ports</p>
-          </div>
-          <div class="capacity-item reveal">
-            <div class="capacity-item__icon"><svg width="36" height="36" class="icon"><use href="images/icons.svg#icon-growth-chart"></use></svg></div>
-            <div class="capacity-item__value">50K+</div>
-            <div class="capacity-item__label">MT Annual Export</div>
-            <p class="capacity-item__text">Combined export capacity across all minerals and routes</p>
-          </div>
-          <div class="capacity-item reveal">
-            <div class="capacity-item__icon"><svg width="36" height="36" class="icon"><use href="images/icons.svg#icon-clock"></use></svg></div>
-            <div class="capacity-item__value">7-14</div>
-            <div class="capacity-item__label">Days to Port</div>
-            <p class="capacity-item__text">Average delivery time from mine to vessel loading</p>
+          <div class="zigzag__visual">
+            <img loading="lazy" src="images/hero/hero-4.webp" alt="Modern mining operations and technology">
+            <div class="zigzag__visual-overlay"></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="logistics-cta">
-      <div class="logistics-cta__container">
-        <div class="logistics-cta__content">
-          <span class="logistics-cta__overline">Request Shipping Quote</span>
-          <h2 class="logistics-cta__title">Need Minerals<br>Delivered?</h2>
-          <p class="logistics-cta__text">Contact our logistics team for shipping schedules, freight rates, and delivery timelines tailored to your requirements.</p>
-          <a href="contact.html" class="hero__cta hero__cta--primary" style="display:inline-flex;align-items:center;gap:0.625rem;padding:0.875rem 1.75rem;background:var(--primary-gold-500);color:white;font-family:var(--font-ui);font-weight:700;font-size:var(--text-sm);letter-spacing:0.1em;text-transform:uppercase;border-radius:var(--radius-md);text-decoration:none;">
-            <span>Get Shipping Quote</span>
-            <svg width="20" height="20" viewBox="0 0 20 20"><path d="M7 4L13 10L7 16" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+    <!-- ============================================ -->
+    <!-- VISION & MISSION - SPLIT-SCREEN -->
+    <!-- ============================================ -->
+    <section class="split-screen" id="vision" aria-label="Our vision and mission">
+      <div class="split-screen__left">
+        <span class="split-screen__overline">Vision & Mission</span>
+        <h2 class="split-screen__title">
+          Transforming Balochistan's Mineral Wealth Into <span style="color: var(--primary-gold-500);">Lasting
+            Prosperity</span>
+        </h2>
+        <p class="split-screen__text">
+          Our vision extends beyond extraction. We see ourselves as catalysts for regional development—transforming raw
+          mineral deposits into economic opportunities, employment, and infrastructure that will serve communities for
+          generations to come.
+        </p>
+        <p class="split-screen__text">
+          Every ton of ore we process represents not just industrial output, but jobs created, skills developed, and
+          wealth distributed within one of Pakistan's most underserved provinces.
+        </p>
+        <div class="split-screen__stats">
+          <div>
+            <div class="split-screen__stat-value">85%</div>
+            <div class="split-screen__stat-label">Local Employment</div>
+          </div>
+          <div>
+            <div class="split-screen__stat-value">120+</div>
+            <div class="split-screen__stat-label">Hectares Reclaimed</div>
+          </div>
+          <div>
+            <div class="split-screen__stat-value">PKR 4.2B</div>
+            <div class="split-screen__stat-label">Annual Revenue</div>
+          </div>
+          <div>
+            <div class="split-screen__stat-value">Zero</div>
+            <div class="split-screen__stat-label">Water Discharge</div>
+          </div>
+        </div>
+      </div>
+      <div class="split-screen__right">
+        <img loading="lazy" src="images/hero/hero-5.webp" alt="Sustainable mining and community development">
+        <div class="split-screen__right-overlay"></div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- CORE VALUES - BENTO GRID -->
+    <!-- ============================================ -->
+    <section class="bento-grid" id="values" aria-label="Our core values">
+      <div class="bento-grid__container">
+        <div class="bento-grid__header">
+          <span class="zigzag__overline">What Drives Us</span>
+          <h2 class="zigzag__title">Core Values That Define <span style="color: var(--primary-gold-500);">Our Identity</span>
+          </h2>
+          <p class="zigzag__subtitle">
+            Every decision we make, every mine we open, and every partnership we forge is guided by these fundamental
+            principles.
+          </p>
+        </div>
+
+        <div class="bento-grid__layout">
+          <!-- Safety First - Large -->
+          <div class="bento-card bento-card--large reveal">
+            <div>
+              <div class="bento-card__icon">
+                <svg width="48" height="48" class="icon">
+                  <use href="images/icons.svg#icon-shield-check"></use>
+                </svg>
+              </div>
+              <h3 class="bento-card__title">Safety First</h3>
+              <p class="bento-card__text">
+                Zero-harm is not just a target—it's our culture. Every worker returns home safely, every shift. Our ISO
+                45001-certified safety management systems, continuous training programs, and proactive hazard
+                identification ensure that safety isn't compromised for production. Ever.
+              </p>
+            </div>
+            <div class="bento-card__stat">
+              <div class="bento-card__stat-value">1,500+</div>
+              <div class="bento-card__stat-label">Days Without Lost-Time Incident</div>
+            </div>
+          </div>
+
+          <!-- Environmental Care -->
+          <div class="bento-card bento-card--medium reveal">
+            <div class="bento-card__icon">
+              <svg width="40" height="40" class="icon">
+                <use href="images/icons.svg#icon-nature-leaf"></use>
+              </svg>
+            </div>
+            <h3 class="bento-card__title">Environmental Stewardship</h3>
+            <p class="bento-card__text">
+              Progressive land reclamation, zero-discharge water recycling, and biodiversity conservation are built into
+              every mining plan. We don't just extract—we restore.
+            </p>
+            <div class="bento-card__stat">
+              <div class="bento-card__stat-value">120+</div>
+              <div class="bento-card__stat-label">Hectares Restored</div>
+            </div>
+          </div>
+
+          <!-- Community First -->
+          <div class="bento-card bento-card--medium reveal">
+            <div class="bento-card__icon">
+              <svg width="40" height="40" class="icon">
+                <use href="images/icons.svg#icon-community"></use>
+              </svg>
+            </div>
+            <h3 class="bento-card__title">Community First</h3>
+            <p class="bento-card__text">
+              85% of our workforce is hired locally. We invest in skills training, healthcare, and education—building
+              capacity, not just mines.
+            </p>
+            <div class="bento-card__stat">
+              <div class="bento-card__stat-value">500+</div>
+              <div class="bento-card__stat-label">Local Jobs Created</div>
+            </div>
+          </div>
+
+          <!-- Integrity -->
+          <div class="bento-card bento-card--small reveal">
+            <div class="bento-card__icon">
+              <svg width="36" height="36" class="icon">
+                <use href="images/icons.svg#icon-integrity-check"></use>
+              </svg>
+            </div>
+            <h3 class="bento-card__title">Integrity</h3>
+            <p class="bento-card__text">
+              Full regulatory compliance, transparent reporting, and ethical practices at every level.
+            </p>
+          </div>
+
+          <!-- Innovation -->
+          <div class="bento-card bento-card--small reveal">
+            <div class="bento-card__icon">
+              <svg width="36" height="36" class="icon">
+                <use href="images/icons.svg#icon-star-mission"></use>
+              </svg>
+            </div>
+            <h3 class="bento-card__title">Innovation</h3>
+            <p class="bento-card__text">
+              Cutting-edge geological surveys, modern processing tech, and continuous improvement.
+            </p>
+          </div>
+
+          <!-- Excellence -->
+          <div class="bento-card bento-card--small reveal">
+            <div class="bento-card__icon">
+              <svg width="36" height="36" class="icon">
+                <use href="images/icons.svg#icon-achievements"></use>
+              </svg>
+            </div>
+            <h3 class="bento-card__title">Excellence</h3>
+            <p class="bento-card__text">
+              JORC-classified reserves, API-standard processing, and global quality certifications.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- LEADERSHIP TEAM - ASYMMETRICAL GRID -->
+    <!-- ============================================ -->
+    <section class="asymmetrical-grid" id="leadership" aria-label="Our leadership team">
+      <div class="asymmetrical-grid__container">
+        <div class="asymmetrical-grid__header">
+          <span class="zigzag__overline">Leadership</span>
+          <h2 class="zigzag__title">Led by Industry <span style="color: var(--primary-gold-500);">Veterans</span></h2>
+          <p class="zigzag__subtitle">
+            Our leadership team brings decades of combined experience in geology, mining operations, international
+            trade, and sustainable development across South Asia and the Middle East.
+          </p>
+        </div>
+
+        <div class="asymmetrical-grid__layout">
+          <!-- Featured Leader -->
+          <div class="asymmetrical-grid__item asymmetrical-grid__item--large reveal">
+            <div class="item-image">
+              <img src="images/aboutus/1.jpg" alt="Executive Leadership">
+            </div>
+            <div>
+              <span class="item-overline">CEO & Managing Director</span>
+              <h3 class="item-title">Executive Leadership</h3>
+              <p class="item-text">
+                With over 25 years in mineral exploration, mining operations, and international commodity trading, our
+                CEO has built Balochistan Minerals from the ground up—transforming it from a single-site operation into
+                Pakistan's premier mineral sourcing enterprise.
+              </p>
+              <p class="item-text">
+                A geologist by training and a businessman by instinct, they've forged partnerships across the Middle
+                East, Asia, and Europe—always with an eye on sustainable growth and community impact.
+              </p>
+            </div>
+            <div class="item-stats">
+              <div>
+                <div class="item-stat-value">25+</div>
+                <div class="item-stat-label">Years Experience</div>
+              </div>
+              <div>
+                <div class="item-stat-value">15+</div>
+                <div class="item-stat-label">Countries Visited</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Technical Operations -->
+          <div class="asymmetrical-grid__item reveal">
+            <div class="about__leader-avatar">
+              <img src="images/aboutus/2.jpg" alt="Technical Lead">
+            </div>
+            <span class="item-overline">Chief Mining Engineer</span>
+            <h3 class="item-title">Technical Operations</h3>
+            <p class="item-text">
+              Expert in large-scale chromite and barite extraction with 20+ years of field experience. Oversees all
+              mining operations, safety protocols, and production optimization across our three active sites.
+            </p>
+          </div>
+
+          <!-- Sustainability -->
+          <div class="asymmetrical-grid__item reveal">
+            <div class="about__leader-avatar">
+              <img src="images/aboutus/3.jpg" alt="Sustainability Lead">
+            </div>
+            <span class="item-overline">Director of Environmental Affairs</span>
+            <h3 class="item-title">Sustainability & ESG</h3>
+            <p class="item-text">
+              Pioneering eco-mining practices and community development programs across Balochistan. Leads our land
+              reclamation, water conservation, and local empowerment initiatives.
+            </p>
+          </div>
+
+          <!-- Finance -->
+          <div class="asymmetrical-grid__item reveal">
+            <span class="item-overline">Chief Financial Officer</span>
+            <h3 class="item-title">Finance & Strategy</h3>
+            <p class="item-text">
+              Manages financial planning, investor relations, and strategic growth initiatives. Ensures SECP compliance
+              and transparent reporting across all operations.
+            </p>
+          </div>
+
+          <!-- Exploration -->
+          <div class="asymmetrical-grid__item reveal">
+            <span class="item-overline">Head of Geological Exploration</span>
+            <h3 class="item-title">Exploration & Discovery</h3>
+            <p class="item-text">
+              Leads our geological survey teams in Chagai and beyond, using advanced mapping technology to identify new
+              mineral deposits and expansion opportunities.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- ACHIEVEMENTS TIMELINE -->
+    <!-- ============================================ -->
+    <section class="timeline-section" id="achievements" aria-label="Our achievements timeline">
+      <div class="timeline__container">
+        <div class="timeline__header">
+          <span class="zigzag__overline">Milestones</span>
+          <h2 class="zigzag__title">15+ Years of <span style="color: var(--primary-gold-500);">Excellence</span></h2>
+          <p class="zigzag__subtitle">
+            From our founding to today, every milestone represents our commitment to ethical mining, community
+            empowerment, and operational excellence.
+          </p>
+        </div>
+
+        <div class="timeline__item reveal">
+          <div class="timeline__content">
+            <div class="timeline__year">2008</div>
+            <h3 class="timeline__title">Company Founded</h3>
+            <p class="timeline__text">
+              Balochistan Minerals established with first operations in Muslim Bagh, focusing on chromite extraction.
+              Initial workforce of 50 local workers.
+            </p>
+          </div>
+          <div class="timeline__visual">
+            <div class="timeline__image">
+              <img loading="lazy" src="images/hero/hero-1.webp" alt="Company founding in 2008">
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline__item reveal">
+          <div class="timeline__content">
+            <div class="timeline__year">2011</div>
+            <h3 class="timeline__title">ISO 9001 Certification</h3>
+            <p class="timeline__text">
+              Achieved international quality management certification, opening doors to global export markets and
+              international partnerships.
+            </p>
+          </div>
+          <div class="timeline__visual">
+            <div class="timeline__image">
+              <img loading="lazy" src="images/hero/hero-2.webp" alt="ISO certification achievement">
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline__item reveal">
+          <div class="timeline__content">
+            <div class="timeline__year">2014</div>
+            <h3 class="timeline__title">Khuzdar Expansion</h3>
+            <p class="timeline__text">
+              Opened barite operations in Khuzdar district, tripling production capacity and establishing first export
+              partnerships with Middle Eastern oil companies.
+            </p>
+          </div>
+          <div class="timeline__visual">
+            <div class="timeline__image">
+              <img loading="lazy" src="images/hero/hero-3.webp" alt="Khuzdar barite operations">
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline__item reveal">
+          <div class="timeline__content">
+            <div class="timeline__year">2017</div>
+            <h3 class="timeline__title">50,000 MT Capacity</h3>
+            <p class="timeline__text">
+              Reached major production milestone with 50,000+ metric tons annual capacity across all commodities—iron
+              ore, barite, chromite, and copper.
+            </p>
+          </div>
+          <div class="timeline__visual">
+            <div class="timeline__image">
+              <img loading="lazy" src="images/hero/hero-4.webp" alt="Production capacity milestone">
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline__item reveal">
+          <div class="timeline__content">
+            <div class="timeline__year">2020</div>
+            <h3 class="timeline__title">Sustainability Initiative</h3>
+            <p class="timeline__text">
+              Launched comprehensive ESG program: zero-discharge water systems, land reclamation projects, and 85% local
+              employment target achieved across all sites.
+            </p>
+          </div>
+          <div class="timeline__visual">
+            <div class="timeline__image">
+              <img loading="lazy" src="images/hero/hero-5.webp" alt="Sustainability initiatives">
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline__item reveal">
+          <div class="timeline__content">
+            <div class="timeline__year">2024</div>
+            <h3 class="timeline__title">Chagai Exploration</h3>
+            <p class="timeline__text">
+              Began copper-gold exploration in Chagai district, one of Pakistan's most mineral-rich regions. Initial
+              surveys show promising deposits with significant expansion potential.
+            </p>
+          </div>
+          <div class="timeline__visual">
+            <div class="timeline__image">
+              <img loading="lazy" src="images/hero/hero-7.webp" alt="Chagai exploration project">
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline__item reveal">
+          <div class="timeline__content">
+            <div class="timeline__year">2026</div>
+            <h3 class="timeline__title">Present Day</h3>
+            <p class="timeline__text">
+              Operating as Pakistan's premier mineral sourcing partner with 150+ global clients, 500+ workforce, and
+              operations across three strategic districts in Balochistan.
+            </p>
+          </div>
+          <div class="timeline__visual">
+            <div class="timeline__image">
+              <img loading="lazy" src="images/hero/hero-6.webp" alt="Current operations and achievements">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- CTA SECTION - DIAGONAL -->
+    <!-- ============================================ -->
+    <section class="diagonal-section" aria-label="Call to action">
+      <div class="diagonal-section__container">
+        <div class="diagonal-section__content">
+          <span class="diagonal-section__overline">Join Our Journey</span>
+          <h2 class="diagonal-section__title">
+            Partner With<br>Balochistan's Finest
+          </h2>
+          <p class="diagonal-section__text">
+            Whether you're a buyer seeking premium minerals, an investor exploring opportunities, or a community leader
+            interested in collaboration—we'd love to hear from you.
+          </p>
+          <a href="contact.html" class="hero__cta hero__cta--primary"
+            style="display: inline-flex; align-items: center; gap: 0.625rem; padding: 0.875rem 1.75rem; background: var(--primary-gold-500); color: white; font-family: var(--font-ui); font-weight: 700; font-size: var(--text-sm); letter-spacing: 0.1em; text-transform: uppercase; border-radius: var(--radius-md); text-decoration: none; transition: background 0.3s var(--ease-smooth), box-shadow 0.3s var(--ease-smooth);">
+            <span>Get In Touch</span>
+            <svg width="20" height="20" class="icon">
+              <use href="images/icons.svg#icon-cta-arrow"></use>
+            </svg>
           </a>
         </div>
-        <div class="logistics-cta__visual">
-          <img src="images/hero/hero-7.webp" alt="Mineral export operations at Gwadar Port, Balochistan" loading="lazy">
+        <div class="diagonal-section__visual">
+          <div class="diagonal-section__image">
+            <img loading="lazy" src="images/hero/hero-7.webp" alt="Partner with Balochistan Minerals">
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- @SECTION: FOOTER -->
+
+  <!-- ============================================ -->
+  <!-- FOOTER - Comprehensive Enhanced Version -->
+  <!-- ============================================ -->
   <footer class="footer" id="contact" role="contentinfo">
     <div class="footer__container">
       <div class="footer__top">
@@ -998,7 +1416,8 @@
             <div class="footer__logo">
               <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals" class="footer__logo-img">
             </div>
-            <p class="footer__mission">Committed to ethical mining practices, community uplift, and sustainable growth. Delivering Pakistan's mineral wealth to the world with integrity, transparency, and excellence.</p>
+            <p class="footer__mission">Committed to ethical mining practices, community uplift, and sustainable growth.
+              Delivering Pakistan's mineral wealth to the world with integrity, transparency, and excellence.</p>
             <div class="footer__social-links">
               <a href="contact.html" class="footer__social-link" aria-label="Contact Balochistan Minerals">
                 <svg width="20" height="20" aria-hidden="true" focusable="false">
@@ -1072,7 +1491,6 @@
       </div>
     </div>
   </footer>
-  <!-- @SECTION: FOOTER END -->
 
 
   <script defer src="vendor/gsap/gsap.min.js"></script>
@@ -1080,4 +1498,5 @@
   <script type="module" src="js/animations-premium.js" defer></script>
   <script type="module" src="js/main.js" defer></script>
 </body>
+
 </html>

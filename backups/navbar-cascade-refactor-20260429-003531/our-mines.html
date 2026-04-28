@@ -6,23 +6,40 @@
   <meta name="theme-color" content="#ffffff">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="description" content="Learn how Balochistan Minerals moves minerals from Balochistan mines to Karachi and Gwadar ports for reliable local and international supply.">
-  <meta name="keywords" content="mining logistics, Balochistan transport, rail freight, port access, mineral delivery, supply chain Pakistan">
+  <meta name="description" content="View Balochistan Minerals mine sites in Muslim Bagh, Khuzdar and Chagai, including active chromite, barite and copper exploration operations.">
+  <meta name="keywords" content="Muslim Bagh chromite, Khuzdar barite, Chagai copper, mining operations Balochistan, mineral extraction sites Pakistan">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Mineral Logistics Pakistan | Mine to Port Export Delivery">
-  <meta property="og:description" content="Learn how Balochistan Minerals moves minerals from Balochistan mines to Karachi and Gwadar ports for reliable local and international supply.">
+  <meta property="og:title" content="Our Mines in Balochistan | Chromite, Barite & Copper Sites">
+  <meta property="og:description" content="View Balochistan Minerals mine sites in Muslim Bagh, Khuzdar and Chagai, including active chromite, barite and copper exploration operations.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://balochistanminerals.com/logistics">
-  <meta property="og:image" content="https://balochistanminerals.com/images/hero/hero-5.webp">
+  <meta property="og:url" content="https://balochistanminerals.com/our-mines">
+  <meta property="og:image" content="https://balochistanminerals.com/images/hero/hero-7.webp">
+
+  <!-- Preload critical images -->
+  <link rel="preload" as="image" href="images/chromite-new.avif" imagesrcset="images/chromite-new.avif 1x">
+  <link rel="preload" as="image" href="images/barite-card.avif" imagesrcset="images/barite-card.avif 1x">
+  <link rel="preload" as="image" href="images/copper-new.avif" imagesrcset="images/copper-new.avif 1x">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Mineral Logistics Pakistan | Mine to Port Export Delivery">
-  <meta name="twitter:description" content="Learn how Balochistan Minerals moves minerals from Balochistan mines to Karachi and Gwadar ports for reliable local and international supply.">
+  <meta name="twitter:title" content="Our Mines in Balochistan | Chromite, Barite & Copper Sites">
+  <meta name="twitter:description" content="View Balochistan Minerals mine sites in Muslim Bagh, Khuzdar and Chagai, including active chromite, barite and copper exploration operations.">
 
-  <title>Mineral Logistics Pakistan | Mine to Port Export Delivery</title>
-  <link rel="canonical" href="https://balochistanminerals.com/logistics">
+  <title>Our Mines in Balochistan | Chromite, Barite & Copper Sites</title>
+  <link rel="canonical" href="https://balochistanminerals.com/our-mines">
+  <style>
+    :root{--navbar-height:80px;--max-width:1400px}
+    .navbar{position:fixed;top:0;left:0;right:0;height:var(--navbar-height);background:rgba(248,248,245,0.95)!important;z-index:1000!important}
+    .navbar__container{width:100%;padding:0 3rem;display:grid!important;grid-template-columns:auto 1fr auto;gap:2rem;align-items:center;height:100%;position:relative;z-index:1}
+    .navbar__brand{display:flex!important;align-items:center!important;gap:0.5rem}
+    .navbar__logo-img{height:40px!important;width:auto!important;display:inline-block!important}
+    .hero{min-height:calc(100vh - var(--navbar-height));padding-top:calc(var(--navbar-height) + 2rem);display:flex;align-items:center}
+    .hero__container{max-width:var(--max-width);margin:0 auto;padding:0 1.5rem;text-align:center}
+    .hero__headline{font-family:var(--font-heading);font-size:clamp(1.6rem,3.2vw,2.2rem);font-weight:600;text-transform:uppercase}
+    .skip-link:focus{top:0}*:focus-visible{outline:3px solid var(--primary-gold-500);outline-offset:2px}
+  </style>
+  <link rel="preload" as="image" href="images/chromite-new.webp">
   <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
@@ -32,19 +49,23 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="output.css">
+  <link rel="stylesheet" href="css/components/navbar.css">
+  <link rel="stylesheet" href="css/premium-polish.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/pages/our-mines.css">
+  <link rel="stylesheet" href="css/components/premium-light.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="css/components/authority-tools.css" media="print" onload="this.media='all'">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Mine-to-port mineral logistics",
-    "url": "https://balochistanminerals.com/logistics",
-    "provider": { "@id": "https://balochistanminerals.com/#organization" },
-    "areaServed": ["Balochistan", "Karachi Port", "Gwadar Port", "Pakistan"]
+    "@type": "CollectionPage",
+    "name": "Balochistan Minerals Mine Sites",
+    "url": "https://balochistanminerals.com/our-mines",
+    "about": ["Muslim Bagh chromite", "Khuzdar barite", "Chagai copper exploration"]
   }
   </script>
 </head>
-<body class="is-loading">
+<body class="mines-page is-loading">
   <div id="bm-hill-loader">
     <div class="bm-hill-content">
       <div class="bm-hill-container">
@@ -57,13 +78,14 @@
       <div class="bm-hill-tagline">Excellence in Extraction</div>
     </div>
   </div>
+  <div class="noise-overlay"></div>
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- @SECTION: HEADER -->
   <header class="navbar" role="banner">
     <div class="navbar__container">
       <a href="index.html" class="navbar__brand" aria-label="Balochistan Minerals Home">
-        <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals logo" class="navbar__logo-img">
+        <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals logo" class="navbar__logo-img" style="height:40px;width:auto;display:inline-block !important;max-width:none;opacity:1 !important;">
       </a>
 
       <nav class="navbar__nav" role="navigation" aria-label="Main navigation">
@@ -798,192 +820,234 @@
 
   <main id="main-content">
     <!-- Hero -->
-    <section class="logistics-hero">
-      <div class="logistics-hero__bg"><img src="images/hero/hero-5.webp" alt="Balochistan Minerals logistics and transport network across Balochistan" loading="eager"></div>
-      <div class="logistics-hero__overlay"></div>
-      <div class="logistics-hero__content">
-        <span class="logistics-hero__overline">Logistics Network</span>
-        <h1 class="logistics-hero__title">From Mine to<br><span style="color: var(--primary-gold-500);">Global Markets</span></h1>
-        <p class="logistics-hero__text">Our integrated logistics network connects Balochistan's mineral deposits to ports, railways, and global trade corridors—ensuring reliable, efficient, and cost-effective delivery to clients worldwide.</p>
+    <section class="mines-hero">
+      <div class="mines-hero__bg"><picture><source type="image/avif" srcset="images/chromite-new.avif"><source type="image/webp" srcset="images/chromite-new.webp"><img src="images/chromite-new.webp" alt="Chromite mining operations at Muslim Bagh, Balochistan" loading="eager"></picture></div>
+      <div class="mines-hero__overlay"></div>
+      <div class="mines-hero__content">
+        <span class="mines-hero__overline">Our Mines</span>
+        <h1 class="mines-hero__title">Three Strategic Sites.<br><span style="color: var(--primary-gold-500);">One Operation.</span></h1>
+        <p class="mines-hero__text">Each mine in our network is strategically positioned to access unique mineral deposits across Balochistan—from the chromite-rich ophiolites of Muslim Bagh to the barite reserves of Khuzdar and the copper-gold frontier of Chagai.</p>
       </div>
     </section>
 
-    <!-- Routes -->
-    <section class="route-overview">
-      <div class="route-overview__container">
-        <div class="route-overview__header">
-          <span class="route-overview__overline">Transport Modes</span>
-          <h2 class="route-overview__title">Multi-Modal <span style="color: var(--primary-gold-500);">Logistics Network</span></h2>
-          <p class="route-overview__subtitle">Road, rail, and sea transport working together to deliver minerals from mine to market efficiently.</p>
-        </div>
-        <div class="route-grid">
-          <div class="route-card reveal">
-            <div class="route-card__icon"><svg width="48" height="48" class="icon"><use href="images/icons.svg#icon-truck"></use></svg></div>
-            <h3 class="route-card__title">Road Transport</h3>
-            <p class="route-card__text">Our owned and contracted fleet of 40+ trucks hauls minerals from mine sites to railheads and ports. Specialized heavy haulers for bulk mineral transport on dedicated corridors.</p>
-            <div class="route-card__detail">
-              <div class="route-card__detail-value">40+</div>
-              <div class="route-card__detail-label">Fleet Vehicles</div>
-            </div>
+    <!-- Quick Stats -->
+    <section class="mines-stats">
+      <div class="mines-stats__container">
+        <div class="mines-stats__grid">
+          <div class="mines-stat">
+            <div class="mines-stat__value">3</div>
+            <div class="mines-stat__label">Active Mining Sites</div>
           </div>
-          <div class="route-card reveal">
-            <div class="route-card__icon"><svg width="48" height="48" class="icon"><use href="images/icons.svg#icon-rail"></use></svg></div>
-            <h3 class="route-card__title">Rail Network</h3>
-            <p class="route-card__text">Strategic rail connections via Pakistan Railways link our operations to both Karachi and Gwadar ports. Bulk mineral trains with dedicated wagons for high-volume shipments.</p>
-            <div class="route-card__detail">
-              <div class="route-card__detail-value">850+</div>
-              <div class="route-card__detail-label">KM Rail Coverage</div>
-            </div>
+          <div class="mines-stat">
+            <div class="mines-stat__value">47K+</div>
+            <div class="mines-stat__label">MT Annual Output</div>
           </div>
-          <div class="route-card reveal">
-            <div class="route-card__icon"><svg width="48" height="48" class="icon"><use href="images/icons.svg#icon-ship"></use></svg></div>
-            <h3 class="route-card__title">Port Access</h3>
-            <p class="route-card__text">Dual-port strategy via Karachi (established) and Gwadar (emerging) provides flexible export routing, competitive freight rates, and redundancy for supply chain resilience.</p>
-            <div class="route-card__detail">
-              <div class="route-card__detail-value">2</div>
-              <div class="route-card__detail-label">Export Ports</div>
-            </div>
+          <div class="mines-stat">
+            <div class="mines-stat__value">500+</div>
+            <div class="mines-stat__label">Workforce</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- B2B Freight Analytics Hub -->
-    <section class="capacity-section logistics-analytics" style="padding-top: 0;">
-      <div class="capacity-section__container">
-        <div class="capacity-section__header logistics-analytics__header">
-          <span class="route-overview__overline">Digital Utility</span>
-          <h2 class="route-overview__title">Freight <span style="color: var(--primary-gold-500);">Analytics Hub</span></h2>
-          <p class="route-overview__subtitle">Simulate your supply chain timelines from our strategic sites to major Balochistan export hubs.</p>
+    <!-- Geological Authority Map -->
+    <section class="mines-overview" style="padding-bottom: 0;">
+      <div class="mines-overview__container">
+        <div class="mines-overview__header">
+          <span class="mines-overview__overline">Regional Authority</span>
+          <h2 class="mines-overview__title">Provincial <span style="color: var(--primary-gold-500);">Geological Belts</span></h2>
+          <p class="mines-overview__subtitle">Our operations are strategically located within Balochistan's world-class mineral corridors—the Tethyan Copper-Gold Belt and the Ophiolite Chromite Belt.</p>
         </div>
         
-        <div class="freight-hub reveal">
-          <div class="freight-form">
-            <div class="freight-input-group">
-                <label>Origin Mine</label>
-                <select class="freight-select" id="origin-select">
-                    <option value="muslim-bagh">Muslim Bagh (Chromite)</option>
-                    <option value="khuzdar">Khuzdar (Barite)</option>
-                    <option value="chagai">Chagai (Copper Frontier)</option>
-                </select>
-            </div>
-            <div class="freight-input-group">
-                <label>Destination Hub</label>
-                <select class="freight-select" id="dest-select">
-                    <option value="karachi">Karachi Port (PQM)</option>
-                    <option value="gwadar">Gwadar Port (GPA)</option>
-                </select>
-            </div>
-            <div class="freight-input-group">
-                <label>Transport Mode</label>
-                <select class="freight-select">
-                    <option>Integrated (Road + Rail)</option>
-                    <option>Direct Heavy Haul (Road)</option>
-                </select>
-            </div>
-          </div>
-          
-          <div class="freight-result">
-            <div class="freight-metric" id="freight-days">12</div>
-            <div style="font-family:var(--font-ui); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted); margin-bottom:1.5rem;">Estimated Days to Vessel</div>
-            <p style="font-size:0.85rem; color:rgba(255,255,255,0.6); line-height:1.6; border-top:1px solid rgba(255,255,255,0.1); padding-top:1.5rem;">Standard lead time includes on-site loading, transit to railhead, and terminal handling at port. Actual times may vary by season and vessel schedule.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Network Map -->
-    <section class="network-map">
-      <div class="network-map__container">
-        <div class="network-map__header">
-          <span class="route-overview__overline">Route Map</span>
-          <h2 class="route-overview__title">Our Logistics <span style="color: var(--primary-gold-500);">Corridors</span></h2>
-        </div>
-        <div class="network-map__visual">
-          <svg viewBox="0 0 800 350" class="network-map__svg">
-            <rect width="800" height="350" fill="var(--bg-secondary)" rx="8"/>
-            <!-- Grid -->
-            <line x1="100" y1="0" x2="100" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="200" y1="0" x2="200" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="300" y1="0" x2="300" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="400" y1="0" x2="400" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="500" y1="0" x2="500" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="600" y1="0" x2="600" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="700" y1="0" x2="700" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <!-- Province -->
-            <path d="M 150 60 L 250 40 L 400 50 L 550 70 L 680 120 L 700 200 L 660 260 L 550 300 L 400 310 L 250 290 L 150 240 L 120 150 Z" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1.5"/>
-            <text x="400" y="180" text-anchor="middle" font-family="var(--font-heading)" font-size="14" fill="var(--text-muted)" text-transform="uppercase" letter-spacing="0.1em">BALOCHISTAN</text>
-            <!-- Mines -->
-            <circle cx="300" cy="110" r="10" fill="var(--primary-gold-500)"/><text x="300" y="95" text-anchor="middle" font-family="var(--font-heading)" font-size="11" fill="var(--text-primary)">Muslim Bagh</text>
-            <circle cx="480" cy="200" r="10" fill="var(--primary-gold-500)"/><text x="480" y="185" text-anchor="middle" font-family="var(--font-heading)" font-size="11" fill="var(--text-primary)">Khuzdar</text>
-            <circle cx="180" cy="160" r="10" fill="var(--primary-gold-500)"/><text x="180" y="145" text-anchor="middle" font-family="var(--font-heading)" font-size="11" fill="var(--text-primary)">Chagai</text>
-            <!-- Ports -->
-            <circle cx="620" cy="280" r="8" fill="var(--navy-500)"/><text x="620" y="305" text-anchor="middle" font-family="var(--font-ui)" font-size="10" fill="var(--text-secondary)">Karachi Port</text>
-            <circle cx="540" cy="300" r="8" fill="var(--navy-500)"/><text x="540" y="325" text-anchor="middle" font-family="var(--font-ui)" font-size="10" fill="var(--text-secondary)">Gwadar Port</text>
-            <!-- Routes -->
-            <line x1="300" y1="110" x2="480" y2="200" stroke="var(--primary-gold-500)" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
-            <line x1="480" y1="200" x2="620" y2="280" stroke="var(--navy-500)" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
-            <line x1="480" y1="200" x2="540" y2="300" stroke="var(--navy-500)" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
-            <line x1="300" y1="110" x2="620" y2="280" stroke="var(--text-muted)" stroke-width="1" stroke-dasharray="3,5" opacity="0.3"/>
-            <!-- Legend -->
-            <circle cx="60" cy="50" r="5" fill="var(--primary-gold-500)"/><text x="72" y="54" font-family="var(--font-ui)" font-size="9" fill="var(--text-secondary)">Active Mines</text>
-            <circle cx="60" cy="70" r="5" fill="var(--navy-500)"/><text x="72" y="74" font-family="var(--font-ui)" font-size="9" fill="var(--text-secondary)">Export Ports</text>
-            <line x1="45" y1="90" x2="75" y2="90" stroke="var(--primary-gold-500)" stroke-width="2"/><text x="80" y="94" font-family="var(--font-ui)" font-size="9" fill="var(--text-secondary)">Transport Routes</text>
+        <div class="geo-map-container reveal">
+          <svg viewBox="0 0 800 400" class="geo-map-svg">
+            <!-- Stylized Balochistan Outline -->
+            <path d="M150 50 L650 50 L750 200 L650 350 L150 350 L50 200 Z" fill="none" stroke="var(--border-light)" stroke-width="1"/>
+            
+            <!-- Tethyan Belt (Copper-Gold) -->
+            <path d="M100 100 Q 300 150, 200 350" class="geo-belt geo-belt--tethyan" id="belt-tethyan"/>
+            
+            <!-- Ophiolite Belt (Chromite) -->
+            <path d="M400 50 Q 500 200, 600 350" class="geo-belt geo-belt--ophiolite" id="belt-ophiolite"/>
+            
+            <!-- Mine Marks -->
+            <g class="map-mark" transform="translate(450, 100)">
+                <circle r="4" fill="var(--primary-gold-500)"/>
+                <text y="15" text-anchor="middle" font-family="var(--font-ui)" font-size="10" fill="var(--text-secondary)">Muslim Bagh (Chromite)</text>
+            </g>
+            <g class="map-mark" transform="translate(520, 220)">
+                <circle r="4" fill="var(--primary-gold-500)"/>
+                <text y="15" text-anchor="middle" font-family="var(--font-ui)" font-size="10" fill="var(--text-secondary)">Khuzdar (Barite)</text>
+            </g>
+            <g class="map-mark" transform="translate(250, 180)">
+                <circle r="4" fill="var(--primary-gold-500)"/>
+                <text y="15" text-anchor="middle" font-family="var(--font-ui)" font-size="10" fill="var(--text-secondary)">Chagai (Copper)</text>
+            </g>
           </svg>
+          
+          <div class="geo-legend">
+            <div style="display:flex; align-items:center; gap:0.5rem; font-family:var(--font-ui); font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted);">
+                <span style="width:12px; height:4px; background:var(--primary-gold-500); border-radius:2px;"></span> Tethyan Metallogenic Belt
+            </div>
+            <div style="display:flex; align-items:center; gap:0.5rem; font-family:var(--font-ui); font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted);">
+                <span style="width:12px; height:4px; background:var(--navy-500); border-radius:2px;"></span> Ophiolite Chromite Belt
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Capacity -->
-    <section class="capacity-section">
-      <div class="capacity-section__container">
-        <div class="capacity-section__header">
-          <span class="route-overview__overline">Capacity</span>
-          <h2 class="route-overview__title">Export <span style="color: var(--primary-gold-500);">Capability</span></h2>
+    <!-- Mine Profiles -->
+    <section class="mines-overview">
+      <div class="mines-overview__container">
+        <div class="mines-overview__header">
+          <span class="mines-overview__overline">Mine Profiles</span>
+          <h2 class="mines-overview__title">Detailed Mine <span style="color: var(--primary-gold-500);">Operations</span></h2>
+          <p class="mines-overview__subtitle">Explore each mine's geology, production capacity, workforce, and environmental commitments.</p>
         </div>
-        <div class="capacity-grid">
-          <div class="capacity-item reveal">
-            <div class="capacity-item__icon"><svg width="36" height="36" class="icon"><use href="images/icons.svg#icon-truck"></use></svg></div>
-            <div class="capacity-item__value">40+</div>
-            <div class="capacity-item__label">Fleet Vehicles</div>
-            <p class="capacity-item__text">Owned and contracted heavy haul trucks for mine-to-port transport</p>
+
+        <!-- Muslim Bagh -->
+        <div class="mine-profile reveal">
+          <div class="mine-profile__image">
+            <picture>
+              <source type="image/avif" srcset="images/chromite-new.avif">
+              <source type="image/webp" srcset="images/chromite-new.webp">
+              <img src="images/chromite-new.webp" alt="Muslim Bagh chromite mine" loading="lazy">
+            </picture>
+            <div style="position:absolute; top:1.5rem; left:1.5rem; display:flex; flex-direction:column; gap:0.5rem;">
+                <span class="mine-profile__status-badge">Active Mining</span>
+                <div class="ops-pulse"><span class="ops-pulse__dot"></span> Live Operations</div>
+            </div>
           </div>
-          <div class="capacity-item reveal">
-            <div class="capacity-item__icon"><svg width="36" height="36" class="icon"><use href="images/icons.svg#icon-rail"></use></svg></div>
-            <div class="capacity-item__value">850 KM</div>
-            <div class="capacity-item__label">Rail Coverage</div>
-            <p class="capacity-item__text">Pakistan Railways connection to Karachi and Gwadar ports</p>
+          <div class="mine-profile__info">
+            <h2 class="mine-profile__name">Muslim Bagh Chromite Mine</h2>
+            <div class="mine-profile__location">
+              <svg width="16" height="16" class="icon"><use href="images/icons.svg#icon-location"></use></svg>
+              Qila Saifullah District, Balochistan
+            </div>
+            <p class="mine-profile__text">Our flagship operation, established in 2008, sits atop one of Pakistan's most significant ophiolite-hosted chromite deposits. Using open-pit and shallow underground methods, we produce metallurgical-grade chromite ore (46-48% Cr₂O₃) for ferrochrome smelters and stainless steel manufacturers worldwide.</p>
+            <div class="mine-profile__details">
+              <div class="mine-profile__detail">
+                <div class="mine-profile__detail-value">12K</div>
+                <div class="mine-profile__detail-label">MT/Year</div>
+              </div>
+              <div class="mine-profile__detail">
+                <div class="mine-profile__detail-value">46-48%</div>
+                <div class="mine-profile__detail-label">Cr₂O₃ Grade</div>
+              </div>
+              <div class="mine-profile__detail">
+                <div class="mine-profile__detail-value">180+</div>
+                <div class="mine-profile__detail-label">Workforce</div>
+              </div>
+              <div class="mine-profile__detail">
+                <div class="mine-profile__detail-value">2008</div>
+                <div class="mine-profile__detail-label">Established</div>
+              </div>
+            </div>
+            <a href="projects.html#muslim-bagh" class="mine-profile__cta">View Full Profile <svg width="16" height="16" class="icon"><use href="images/icons.svg#icon-chevron-right"></use></svg></a>
           </div>
-          <div class="capacity-item reveal">
-            <div class="capacity-item__icon"><svg width="36" height="36" class="icon"><use href="images/icons.svg#icon-growth-chart"></use></svg></div>
-            <div class="capacity-item__value">50K+</div>
-            <div class="capacity-item__label">MT Annual Export</div>
-            <p class="capacity-item__text">Combined export capacity across all minerals and routes</p>
+        </div>
+
+        <!-- Khuzdar -->
+        <div class="mine-profile mine-profile--reverse reveal">
+          <div class="mine-profile__image">
+            <picture>
+              <source type="image/avif" srcset="images/barite-card.avif">
+              <source type="image/webp" srcset="images/barite-card.jpg">
+              <img src="images/barite-card.jpg" alt="Khuzdar barite operations" loading="lazy">
+            </picture>
+            <div style="position:absolute; top:1.5rem; left:1.5rem; display:flex; flex-direction:column; gap:0.5rem;">
+                <span class="mine-profile__status-badge">Processing</span>
+                <div class="ops-pulse"><span class="ops-pulse__dot"></span> Shift Active</div>
+            </div>
           </div>
-          <div class="capacity-item reveal">
-            <div class="capacity-item__icon"><svg width="36" height="36" class="icon"><use href="images/icons.svg#icon-clock"></use></svg></div>
-            <div class="capacity-item__value">7-14</div>
-            <div class="capacity-item__label">Days to Port</div>
-            <p class="capacity-item__text">Average delivery time from mine to vessel loading</p>
+          <div class="mine-profile__info">
+            <h2 class="mine-profile__name">Khuzdar Barite Processing Facility</h2>
+            <div class="mine-profile__location">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 1C6 1 4 3 4 6C4 10 8 14 8 14C8 14 12 10 12 6C12 3 10 1 8 1Z"/></svg>
+              Khuzdar District, Central Balochistan
+            </div>
+            <p class="mine-profile__text">Established in 2014, this multi-stage processing facility produces API-standard barite (95%+ BaSO₄ purity, SG 4.20+) for the global oil and gas industry. Our 250-km proximity to both Karachi and Gwadar ports provides significant logistics advantages for export operations.</p>
+            <div class="mine-profile__details">
+              <div class="mine-profile__detail">
+                <div class="mine-profile__detail-value">15K</div>
+                <div class="mine-profile__detail-label">MT/Year</div>
+              </div>
+              <div class="mine-profile__detail">
+                <div class="mine-profile__detail-value">95%+</div>
+                <div class="mine-profile__detail-label">BaSO₄ Purity</div>
+              </div>
+              <div class="mine-profile__detail">
+                <div class="mine-profile__detail-value">200+</div>
+                <div class="mine-profile__detail-label">Workforce</div>
+              </div>
+              <div class="mine-profile__detail">
+                <div class="mine-profile__detail-value">2014</div>
+                <div class="mine-profile__detail-label">Established</div>
+              </div>
+            </div>
+            <a href="projects.html#khuzdar" class="mine-profile__cta">View Full Profile <svg width="16" height="16" viewBox="0 0 16 16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+          </div>
+        </div>
+
+        <!-- Chagai -->
+        <div class="mine-profile reveal">
+          <div class="mine-profile__image">
+            <picture>
+              <source type="image/avif" srcset="images/copper-new.avif">
+              <source type="image/webp" srcset="images/copper-new.webp">
+              <img src="images/copper-new.webp" alt="Copper-gold exploration site in Chagai district, western Balochistan" loading="lazy">
+            </picture>
+            <div style="position:absolute; top:1.5rem; left:1.5rem; display:flex; flex-direction:column; gap:0.5rem;">
+                <span class="mine-profile__status-badge mine-profile__status-badge--exploration">Exploration</span>
+                <div class="ops-pulse"><span class="ops-pulse__dot"></span> Survey Ongoing</div>
+            </div>
+          </div>
+          <div class="mine-profile__info">
+            <h2 class="mine-profile__name">Chagai Copper-Gold Exploration</h2>
+            <div class="mine-profile__location">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 1C6 1 4 3 4 6C4 10 8 14 8 14C8 14 12 10 12 6C12 3 10 1 8 1Z"/></svg>
+              Chagai District, Western Balochistan
+            </div>
+            <p class="mine-profile__text">Located within the Tethyan Metallogenic Belt—the same geological province hosting world-class Reko Diq—our Chagai concession covers highly prospective ground with confirmed porphyry-style copper-gold mineralization. Systematic drilling is ongoing to delineate resource extent and grade.</p>
+            <div class="mine-profile__details">
+              <div class="mine-profile__detail">
+                <div class="mine-profile__detail-value">TBD</div>
+                <div class="mine-profile__detail-label">MT/Year</div>
+              </div>
+              <div class="mine-profile__detail">
+                <div class="mine-profile__detail-value">Porphyry</div>
+                <div class="mine-profile__detail-label">Deposit Type</div>
+              </div>
+              <div class="mine-profile__detail">
+                <div class="mine-profile__detail-value">50+</div>
+                <div class="mine-profile__detail-label">Exploration Team</div>
+              </div>
+              <div class="mine-profile__detail">
+                <div class="mine-profile__detail-value">2024</div>
+                <div class="mine-profile__detail-label">Started</div>
+              </div>
+            </div>
+            <a href="projects.html#chagai" class="mine-profile__cta">View Exploration Data <svg width="16" height="16" viewBox="0 0 16 16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
           </div>
         </div>
       </div>
     </section>
 
     <!-- CTA -->
-    <section class="logistics-cta">
-      <div class="logistics-cta__container">
-        <div class="logistics-cta__content">
-          <span class="logistics-cta__overline">Request Shipping Quote</span>
-          <h2 class="logistics-cta__title">Need Minerals<br>Delivered?</h2>
-          <p class="logistics-cta__text">Contact our logistics team for shipping schedules, freight rates, and delivery timelines tailored to your requirements.</p>
+    <section class="mines-cta">
+      <div class="mines-cta__container">
+        <div class="mines-cta__content">
+          <span class="mines-cta__overline">Partner With Us</span>
+          <h2 class="mines-cta__title">Explore Our Full<br>Mining Portfolio</h2>
+          <p class="mines-cta__text">Whether you're a buyer, investor, or partner—our integrated mining network offers opportunities across chromite, barite, iron ore, and emerging copper-gold operations.</p>
           <a href="contact.html" class="hero__cta hero__cta--primary" style="display:inline-flex;align-items:center;gap:0.625rem;padding:0.875rem 1.75rem;background:var(--primary-gold-500);color:white;font-family:var(--font-ui);font-weight:700;font-size:var(--text-sm);letter-spacing:0.1em;text-transform:uppercase;border-radius:var(--radius-md);text-decoration:none;">
-            <span>Get Shipping Quote</span>
+            <span>Get In Touch</span>
             <svg width="20" height="20" viewBox="0 0 20 20"><path d="M7 4L13 10L7 16" stroke="currentColor" stroke-width="2" fill="none"/></svg>
           </a>
         </div>
-        <div class="logistics-cta__visual">
-          <img src="images/hero/hero-7.webp" alt="Mineral export operations at Gwadar Port, Balochistan" loading="lazy">
+        <div class="mines-cta__visual">
+          <img src="images/hero/hero-7.webp" alt="Contact Balochistan Minerals" loading="lazy">
         </div>
       </div>
     </section>

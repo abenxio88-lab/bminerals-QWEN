@@ -179,6 +179,36 @@
   align-items: center !important;
 }
 
+/* 8. GLOBAL NAV BAR CLEANUP (Removing ALL Shards/Diamonds) */
+/* This forces every possible character or shape out of the dropdown items */
+.navbar__dropdown-item:before,
+.navbar__dropdown-item::before,
+.navbar__dropdown-item:after,
+.navbar__dropdown-item::after,
+.navbar__dropdown-menu:before,
+.navbar__dropdown-menu::before {
+  content: none !important;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Force padding to remain static so no space is created for hidden characters */
+/* EXPLICIT BORDER ENFORCEMENT FOR DROPDOWN ITEMS */
+.navbar__dropdown-item {
+  border-left: 4px solid rgba(212, 90, 21, 0.28) !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+}
+
+.navbar__dropdown-item:hover {
+  padding-left: 1.25rem !important;
+  background: rgba(212, 90, 21, 0.05) !important;
+  border-left-color: var(--primary-gold-600) !important;
+}
+
 .data-freshness__container {
   opacity: 0.9 !important;
   font-size: 0.65rem !important;
@@ -385,6 +415,14 @@ body.loaded .bm-hill-content {
 @media (max-width: 768px) {
   :root {
     --navbar-height: 64px;
+  }
+
+  .navbar {
+    height: 64px !important;
+  }
+
+  .navbar .navbar__logo-img {
+    height: 40px !important;
   }
 
   .data-freshness {
