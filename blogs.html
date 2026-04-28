@@ -5,19 +5,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
+  <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="description" content="Insights, updates, and expert perspectives on the mining industry in Balochistan, Pakistan.">
+  <meta name="description" content="Read practical insights on Pakistan minerals, responsible mining, Balochistan operations, mineral logistics, quality assurance and export supply.">
   <meta name="keywords" content="Balochistan Minerals, Mining Blog, ESG, Copper Mining, Chromite, Barite, Iron Ore, Industrial Growth">
   <meta name="author" content="Balochistan Minerals">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Blogs & Insights | Balochistan Minerals">
-  <meta property="og:description" content="Stay updated with the latest trends and insights in the mineral sector of Pakistan.">
+  <meta property="og:title" content="Mining Insights Pakistan | Balochistan Minerals Blog">
+  <meta property="og:description" content="Read practical insights on Pakistan minerals, responsible mining, Balochistan operations, mineral logistics, quality assurance and export supply.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://balochistanminerals.com/blogs">
   <meta property="og:image" content="https://balochistanminerals.com/images/hero/hero-2.webp">
 
-  <title>Blogs & Insights | Balochistan Minerals</title>
+  <title>Mining Insights Pakistan | Balochistan Minerals Blog</title>
   <link rel="canonical" href="https://balochistanminerals.com/blogs">
   <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
@@ -28,53 +29,162 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="output.css">
+  <link rel="stylesheet" href="css/components/navbar.css">
+  <link rel="stylesheet" href="css/components/footer.css">
   <link rel="stylesheet" href="css/premium-polish.css">
   <link rel="stylesheet" href="css/animations.css">
   <style>
-    /* Sleek Blog Specific Styles */
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+    }
+
+    /* Professional Blog Specific Styles */
     .blog-hero {
-      padding: 180px 0 100px;
-      background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-900) 100%);
-      text-align: center;
+      height: 45vh;
+      min-height: 320px;
+      margin-top: var(--navbar-height);
+      padding: 0;
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0.62)),
+        url('images/hero/hero-3.webp') center/cover no-repeat;
       position: relative;
       overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .blog-hero::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: url('https://images.unsplash.com/photo-1574689049868-e94ed5301745?q=80&w=2070') center/cover no-repeat;
-      opacity: 0.1;
-      filter: grayscale(1);
+      background:
+        linear-gradient(180deg, rgba(10, 22, 40, 0.18) 0%, rgba(248, 250, 252, 0.08) 100%),
+        radial-gradient(circle at 18% 22%, rgba(242, 106, 33, 0.16), transparent 24%);
+      pointer-events: none;
+    }
+
+    .blog-hero__content {
+      position: relative;
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      text-align: center;
+    }
+
+    .blog-hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 0.35rem 0.85rem;
+      border: 1px solid rgba(242, 106, 33, 0.32);
+      border-radius: var(--radius-md);
+      background: rgba(242, 106, 33, 0.14);
+      color: #fed7aa;
+      font: 800 0.72rem/1 var(--font-ui);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .blog-hero__title {
+      margin: 1rem 0;
+      color: white;
+      font-family: var(--font-heading);
+      font-size: var(--display-size);
+      line-height: 1.1;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      text-wrap: balance;
+    }
+
+    .blog-hero__text {
+      max-width: 720px;
+      margin: 0 auto;
+      color: rgba(255,255,255,0.82);
+      font-size: var(--text-sm);
+      line-height: 1.7;
+    }
+
+    .blog-section {
+      background:
+        linear-gradient(180deg, var(--bg-primary) 0%, var(--charcoal-50) 100%);
+      padding: var(--section-padding-y) 0;
+    }
+
+    .blog-section > .container {
+      width: 100%;
+      max-width: none;
+      padding-inline: clamp(0.75rem, 1.4vw, 1.5rem);
+      margin-inline: auto;
+    }
+
+    .blog-section__header {
+      max-width: 780px;
+      margin: 0 auto 2.5rem;
+      text-align: center;
+    }
+
+    .blog-section__overline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 30px;
+      margin-bottom: 0.8rem;
+      padding: 0.32rem 0.82rem;
+      border: 1px solid rgba(242, 106, 33, 0.2);
+      border-radius: var(--radius-sm);
+      background: rgba(242, 106, 33, 0.08);
+      color: var(--primary-gold-700);
+      font: 800 0.7rem/1 var(--font-ui);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .blog-section__header h2 {
+      margin: 0;
+      font-family: var(--font-heading);
+      font-size: var(--h1-size);
+      color: var(--navy-900);
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .blog-section__header p {
+      max-width: 640px;
+      margin: 0.7rem auto 0;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-size: var(--text-sm);
     }
 
     .blog-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 2.5rem;
-      padding: 80px 0;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      justify-content: stretch;
+      gap: 1rem;
     }
 
     .blog-card {
-      background: white;
-      border-radius: var(--radius-lg);
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      box-shadow: 0 14px 38px rgba(15, 23, 42, 0.06);
       transition: all 0.4s var(--ease-smooth);
       display: flex;
       flex-direction: column;
-      border: 1px solid rgba(0,0,0,0.03);
+      border: 1px solid rgba(15, 23, 42, 0.08);
     }
 
     .blog-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      transform: translateY(-6px);
+      box-shadow: 0 22px 54px rgba(15, 23, 42, 0.12);
       border-color: var(--primary-gold-200);
     }
 
     .blog-card__image {
-      height: 220px;
+      height: 190px;
       overflow: hidden;
       position: relative;
     }
@@ -97,7 +207,7 @@
       background: var(--primary-gold-500);
       color: white;
       padding: 4px 12px;
-      border-radius: 20px;
+      border-radius: var(--radius-md);
       font-size: 0.75rem;
       font-weight: 600;
       text-transform: uppercase;
@@ -105,7 +215,7 @@
     }
 
     .blog-card__content {
-      padding: 2rem;
+      padding: 1.35rem;
       flex-grow: 1;
       display: flex;
       flex-direction: column;
@@ -121,11 +231,13 @@
     }
 
     .blog-card__title {
-      font-family: var(--font-header);
-      font-size: 1.5rem;
+      font-family: var(--font-heading);
+      font-size: var(--h3-size);
       color: var(--navy-900);
       margin-bottom: 1rem;
       line-height: 1.3;
+      letter-spacing: 0;
+      text-transform: uppercase;
     }
 
     .blog-card__excerpt {
@@ -156,6 +268,8 @@
       align-items: center;
       gap: 0.5rem;
       transition: gap 0.3s var(--ease-smooth);
+      text-decoration: none;
+      font-family: var(--font-ui);
     }
 
     .blog-card__link:hover {
@@ -163,10 +277,23 @@
     }
 
     @media (max-width: 768px) {
-      .blog-hero { padding: 140px 0 60px; }
-      .blog-grid { padding: 40px 0; }
+      .blog-hero { height: auto; min-height: 300px; }
+      .blog-section__header { margin-bottom: 2rem; }
+      .blog-section > .container { padding-inline: 0.75rem; }
+      .blog-grid { grid-template-columns: minmax(0, 1fr); }
+      .blog-card__content { padding: 1.25rem; }
     }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Balochistan Minerals Insights",
+    "url": "https://balochistanminerals.com/blogs",
+    "description": "Insights on Pakistan minerals, responsible mining, logistics and sourcing from Balochistan.",
+    "publisher": { "@id": "https://balochistanminerals.com/#organization" }
+  }
+  </script>
 </head>
 
 <body class="is-loading">
@@ -186,7 +313,8 @@
   <header class="navbar" role="banner">
     <div class="navbar__container">
       <a href="index.html" class="navbar__brand" aria-label="Balochistan Minerals Home">
-        <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals logo" class="navbar__logo-img">
+        <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals logo" class="navbar__logo-img"
+          style="height:40px;width:auto;display:inline-block !important;max-width:none;opacity:1 !important;">
       </a>
 
       <nav class="navbar__nav" role="navigation" aria-label="Main navigation">
@@ -923,23 +1051,31 @@
     <!-- Hero Section -->
     <section class="blog-hero">
       <div class="container">
-        <h1 style="color: white; font-size: 3.5rem; margin-bottom: 1.5rem;">Blogs & Insights</h1>
-        <p style="color: rgba(255,255,255,0.8); max-width: 700px; margin: 0 auto; font-size: 1.1rem;">
-          Exploring the future of mining in Pakistan, from sustainable ESG practices to the latest technological breakthroughs in mineral extraction.
-        </p>
+        <div class="blog-hero__content">
+          <span class="blog-hero__eyebrow">Pakistan Mineral Intelligence</span>
+          <h1 class="blog-hero__title">Blogs & Insights</h1>
+          <p class="blog-hero__text">
+            Long-form field notes on responsible mining, mineral sourcing, logistics, quality assurance and export supply from Balochistan.
+          </p>
+        </div>
       </div>
     </section>
 
     <!-- Blogs Grid -->
-    <section class="section">
+    <section class="blog-section">
       <div class="container">
+        <div class="blog-section__header">
+          <span class="blog-section__overline">Field Notes & Buyer Briefings</span>
+          <h2>Mineral Sourcing Insights</h2>
+          <p>Practical analysis for buyers evaluating Pakistan-origin minerals, mine-to-port logistics, documentation, and responsible supply.</p>
+        </div>
         <div class="blog-grid">
           
           <!-- Blog 1 -->
           <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">ESG Impact</span>
-              <img loading="lazy" src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=2013" alt="Sustainable Mining">
+              <img loading="lazy" src="images/hero/hero-5.webp" alt="Sustainable Mining">
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -949,7 +1085,7 @@
               <h2 class="blog-card__title">The Future of Sustainable Mining in Balochistan</h2>
               <p class="blog-card__excerpt">How Balochistan Minerals is leading the way in integrating ESG principles into every stage of the mining lifecycle, ensuring a greener future for Pakistan.</p>
               <div class="blog-card__footer">
-                <a href="#" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="blog/sustainable-mining-balochistan.html" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
               </div>
             </div>
           </article>
@@ -958,7 +1094,7 @@
           <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Operations</span>
-              <img loading="lazy" src="https://images.unsplash.com/photo-1578319439584-104c94d37305?q=80&w=2070" alt="Copper Extraction">
+              <img loading="lazy" src="images/copper-new.webp" alt="Copper Extraction">
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -968,7 +1104,7 @@
               <h2 class="blog-card__title">Copper: Powering the Electric Revolution</h2>
               <p class="blog-card__excerpt">Exploring the vital role of copper in global electrification and how our Chagai projects are poised to meet the rising international demand.</p>
               <div class="blog-card__footer">
-                <a href="#" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="blog/copper-electric-revolution.html" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
               </div>
             </div>
           </article>
@@ -977,7 +1113,7 @@
           <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Community</span>
-              <img loading="lazy" src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2084" alt="Local Workforce">
+              <img loading="lazy" src="images/aboutus/2.jpg" alt="Local Workforce">
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -987,7 +1123,7 @@
               <h2 class="blog-card__title">Empowering Local Communities through Mining</h2>
               <p class="blog-card__excerpt">A look at our community development initiatives and how we achieve an 85% local employment rate across our major mining projects.</p>
               <div class="blog-card__footer">
-                <a href="#" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="blog/empowering-local-communities-mining.html" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
               </div>
             </div>
           </article>
@@ -996,7 +1132,7 @@
           <article class="blog-card reveal" data-reveal="up">
             <div class="blog-card__image">
               <span class="blog-card__category">Technology</span>
-              <img loading="lazy" src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070" alt="Advanced Machinery">
+              <img loading="lazy" src="images/hero/hero-4.webp" alt="Advanced Machinery">
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -1006,7 +1142,7 @@
               <h2 class="blog-card__title">AI and Automation in Deep-Pit Mining</h2>
               <p class="blog-card__excerpt">Integrating cutting-edge automation technologies to improve safety and operational efficiency in our high-altitude chromite operations.</p>
               <div class="blog-card__footer">
-                <a href="#" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="blog/ai-automation-deep-pit-mining.html" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
               </div>
             </div>
           </article>
@@ -1015,7 +1151,7 @@
           <article class="blog-card reveal" data-reveal="up" data-delay="1">
             <div class="blog-card__image">
               <span class="blog-card__category">Economy</span>
-              <img loading="lazy" src="https://images.unsplash.com/photo-1611974717483-9b257aa34326?q=80&w=2070" alt="Global Trade">
+              <img loading="lazy" src="images/hero/hero-6.webp" alt="Global Trade">
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -1025,7 +1161,7 @@
               <h2 class="blog-card__title">Pakistan's Role in the Global Mineral Supply Chain</h2>
               <p class="blog-card__excerpt">Analyzing how our strategic logistics and port access are putting Pakistan on the map as a reliable mining partner for global industries.</p>
               <div class="blog-card__footer">
-                <a href="#" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="blog/pakistan-global-mineral-supply-chain.html" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
               </div>
             </div>
           </article>
@@ -1034,7 +1170,7 @@
           <article class="blog-card reveal" data-reveal="up" data-delay="2">
             <div class="blog-card__image">
               <span class="blog-card__category">Safety</span>
-              <img loading="lazy" src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2070" alt="Safety First">
+              <img loading="lazy" src="images/hero/hero-7.webp" alt="Safety First">
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -1044,7 +1180,7 @@
               <h2 class="blog-card__title">Vision Zero: Our Road to Zero Workplace Accidents</h2>
               <p class="blog-card__excerpt">Deep-diving into our comprehensive safety protocols and training programs that keep our workforce safe in challenging terrains.</p>
               <div class="blog-card__footer">
-                <a href="#" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="blog/vision-zero-workplace-accidents.html" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
               </div>
             </div>
           </article>
@@ -1053,7 +1189,7 @@
           <article class="blog-card reveal" data-reveal="up">
             <div class="blog-card__image">
               <span class="blog-card__category">Environment</span>
-              <img loading="lazy" src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070" alt="Land Reclamation">
+              <img loading="lazy" src="images/hero/hero-5.webp" alt="Land Reclamation">
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -1063,7 +1199,7 @@
               <h2 class="blog-card__title">Land Reclamation: Life After Mining</h2>
               <p class="blog-card__excerpt">Highlighting our successful restoration of over 120 hectares of former mining sites into productive ecological zones.</p>
               <div class="blog-card__footer">
-                <a href="#" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="blog/land-reclamation-life-after-mining.html" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
               </div>
             </div>
           </article>
@@ -1072,7 +1208,7 @@
           <article class="blog-card reveal" data-reveal="up" data-delay="1">
             <div class="blog-card__image">
               <span class="blog-card__category">Logistics</span>
-              <img loading="lazy" src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070" alt="Logistics Network">
+              <img loading="lazy" src="images/hero/hero-2.webp" alt="Logistics Network">
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -1082,7 +1218,7 @@
               <h2 class="blog-card__title">Streamlining Exports through Gwadar Port</h2>
               <p class="blog-card__excerpt">How the development of the Gwadar Port is enhancing our ability to reach international markets with record efficiency.</p>
               <div class="blog-card__footer">
-                <a href="#" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="blog/streamlining-exports-gwadar-port.html" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
               </div>
             </div>
           </article>
@@ -1091,7 +1227,7 @@
           <article class="blog-card reveal" data-reveal="up" data-delay="2">
             <div class="blog-card__image">
               <span class="blog-card__category">Resources</span>
-              <img loading="lazy" src="https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?q=80&w=2034" alt="Barite Mineral">
+              <img loading="lazy" src="images/barite-card.jpg" alt="Barite Mineral">
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -1101,7 +1237,7 @@
               <h2 class="blog-card__title">The Crucial Role of Barite in Modern Drilling</h2>
               <p class="blog-card__excerpt">Understanding why barite is indispensable for the global energy sector and how Khuzdar is becoming a central hub for its production.</p>
               <div class="blog-card__footer">
-                <a href="#" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="blog/barite-modern-drilling.html" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
               </div>
             </div>
           </article>
@@ -1110,7 +1246,7 @@
           <article class="blog-card reveal" data-reveal="up">
             <div class="blog-card__image">
               <span class="blog-card__category">Innovation</span>
-              <img loading="lazy" src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=2070" alt="Mining Innovation">
+              <img loading="lazy" src="images/hero/hero-4.webp" alt="Mining Innovation">
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -1120,7 +1256,7 @@
               <h2 class="blog-card__title">Next-Gen Minerals: Chromite and High-Grade Alloys</h2>
               <p class="blog-card__excerpt">How Balochistan's high-grade chromite ores are driving advancements in stainless steel and superalloy manufacturing worldwide.</p>
               <div class="blog-card__footer">
-                <a href="#" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="blog/chromite-high-grade-alloys.html" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
               </div>
             </div>
           </article>
@@ -1144,22 +1280,22 @@
             <p class="footer__mission">Committed to ethical mining practices, community uplift, and sustainable growth.
               Delivering Pakistan's mineral wealth to the world with integrity, transparency, and excellence.</p>
             <div class="footer__social-links">
-              <a href="#" class="footer__social-link" aria-label="Facebook">
+              <a href="contact.html" class="footer__social-link" aria-label="Contact Balochistan Minerals">
                 <svg width="20" height="20" aria-hidden="true" focusable="false">
                   <use href="images/icons.svg#icon-facebook"></use>
                 </svg>
               </a>
-              <a href="#" class="footer__social-link" aria-label="YouTube">
+              <a href="blogs.html" class="footer__social-link" aria-label="Balochistan Minerals insights">
                 <svg width="20" height="20" aria-hidden="true" focusable="false">
                   <use href="images/icons.svg#icon-youtube"></use>
                 </svg>
               </a>
-              <a href="#" class="footer__social-link" aria-label="Instagram">
+              <a href="projects.html" class="footer__social-link" aria-label="Balochistan Minerals projects">
                 <svg width="20" height="20" aria-hidden="true" focusable="false">
                   <use href="images/icons.svg#icon-instagram"></use>
                 </svg>
               </a>
-              <a href="#" class="footer__social-link" aria-label="LinkedIn">
+              <a href="about.html" class="footer__social-link" aria-label="About Balochistan Minerals">
                 <svg width="20" height="20" aria-hidden="true" focusable="false">
                   <use href="images/icons.svg#icon-linkedin"></use>
                 </svg>
@@ -1174,9 +1310,9 @@
             <nav class="footer__links" aria-label="Company links">
               <a href="about.html" class="footer__link">About Us</a>
               <a href="about.html" class="footer__link">Leadership Team</a>
-              <a href="#" class="footer__link">Licenses & Certifications</a>
-              <a href="#" class="footer__link">Careers</a>
-              <a href="#" class="footer__link">News & Media</a>
+              <a href="compliance.html#licenses" class="footer__link">Licenses & Certifications</a>
+              <a href="contact.html" class="footer__link">Careers</a>
+              <a href="blogs.html" class="footer__link">News & Media</a>
             </nav>
           </div>
 
@@ -1187,7 +1323,7 @@
               <a href="projects.html" class="footer__link">Mining Projects</a>
               <a href="our-mines.html" class="footer__link">Processing Facilities</a>
               <a href="sustainability.html" class="footer__link">Sustainability</a>
-              <a href="#" class="footer__link">Health & Safety</a>
+              <a href="sustainability.html" class="footer__link">Health & Safety</a>
             </nav>
           </div>
 
@@ -1195,10 +1331,10 @@
             <h4 class="footer__heading">Stakeholders</h4>
             <nav class="footer__links" aria-label="Stakeholder links">
               <a href="investors.html" class="footer__link">Investor Relations</a>
-              <a href="#" class="footer__link">Supplier Portal</a>
-              <a href="#" class="footer__link">Community Updates</a>
-              <a href="#" class="footer__link">Grievance Redressal</a>
-              <a href="#" class="footer__link">Tender Notices</a>
+              <a href="contact.html" class="footer__link">Supplier Portal</a>
+              <a href="sustainability.html" class="footer__link">Community Updates</a>
+              <a href="ethics.html#grievance" class="footer__link">Grievance Redressal</a>
+              <a href="contact.html" class="footer__link">Tender Notices</a>
             </nav>
           </div>
         </div>
@@ -1209,17 +1345,17 @@
           &copy; 2026 Balochistan Minerals (Pvt) Ltd. All rights reserved. Registered under SECP.
         </div>
         <nav class="footer__legal" aria-label="Legal links">
-          <a href="#" class="footer__legal-link">Privacy Policy</a>
-          <a href="#" class="footer__legal-link">Terms of Service</a>
-          <a href="#" class="footer__legal-link">Ethics Policy</a>
+          <a href="privacy.html" class="footer__legal-link">Privacy Policy</a>
+          <a href="terms.html" class="footer__legal-link">Terms of Service</a>
+          <a href="ethics.html" class="footer__legal-link">Ethics Policy</a>
         </nav>
       </div>
     </div>
   </footer>
 
   <!-- JavaScript -->
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script defer src="vendor/gsap/gsap.min.js"></script>
+  <script defer src="vendor/gsap/ScrollTrigger.min.js"></script>
   <script type="module" src="js/animations-premium.js" defer></script>
   <script type="module" src="js/main.js" defer></script>
 </body>

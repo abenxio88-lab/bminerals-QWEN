@@ -188,7 +188,7 @@
   text-shadow: 0 8px 28px rgba(0, 0, 0, 0.28);
 }
 
-.hero__content>.hero__subheadline {
+.hero__content>.hero__subheadline:not(.hero__subheadline--refined) {
   display: none;
 }
 

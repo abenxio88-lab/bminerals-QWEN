@@ -388,6 +388,76 @@
   .capacity-section {
     padding: 2.5rem var(--section-padding-x);
   }
+  .logistics-analytics {
+    padding: 2rem 0.95rem !important;
+  }
+  .logistics-analytics .capacity-section__container {
+    max-width: 100%;
+  }
+  .logistics-analytics__header {
+    padding: 1.15rem;
+    margin-bottom: 1.15rem;
+    background: #fff;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    border-radius: var(--radius-md);
+    box-shadow: 0 14px 34px rgba(15, 23, 42, 0.05);
+  }
+  .logistics-analytics__header .route-overview__overline {
+    margin-bottom: 0.7rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+  }
+  .logistics-analytics__header .route-overview__title {
+    font-size: clamp(1.45rem, 8vw, 1.95rem) !important;
+    line-height: 1.1;
+    margin-bottom: 0.65rem;
+    letter-spacing: 0;
+    text-wrap: balance;
+  }
+  .logistics-analytics__header .route-overview__subtitle {
+    font-size: 0.88rem;
+    line-height: 1.62;
+  }
+  .logistics-analytics .freight-hub {
+    margin: 0;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    border-radius: var(--radius-md);
+  }
+  .logistics-analytics .freight-hub.reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .logistics-analytics .freight-form {
+    gap: 0.85rem;
+  }
+  .logistics-analytics .freight-input-group label {
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.35rem;
+  }
+  .logistics-analytics .freight-select {
+    min-height: 44px;
+    padding: 0.7rem 0.75rem;
+    font-size: 0.85rem;
+  }
+  .logistics-analytics .freight-result {
+    padding: 1.15rem;
+    border-radius: var(--radius-sm);
+    text-align: center;
+  }
+  .logistics-analytics .freight-metric {
+    font-size: clamp(2.6rem, 18vw, 4rem);
+    margin-bottom: 0.35rem;
+  }
+  .logistics-analytics .freight-result p {
+    font-size: 0.78rem !important;
+    line-height: 1.55 !important;
+    margin-bottom: 0;
+    padding-top: 1rem !important;
+  }
   .capacity-grid {
     grid-template-columns: 1fr;
   }
@@ -396,5 +466,18 @@
   }
   .logistics-cta::before {
     transform: rotate(0deg);
+  }
+}
+
+@media (max-width: 480px) {
+  .logistics-analytics {
+    padding-inline: 0.75rem !important;
+  }
+  .logistics-analytics__header,
+  .logistics-analytics .freight-hub {
+    padding: 0.9rem;
+  }
+  .logistics-analytics__header .route-overview__title {
+    font-size: clamp(1.28rem, 9vw, 1.65rem) !important;
   }
 }
