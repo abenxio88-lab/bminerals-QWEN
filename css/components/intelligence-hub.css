@@ -1,9 +1,9 @@
 /* ==========================================================================
    INTELLIGENCE HUB - Premium Institutional Components
-   LME Ticker | ESG Dashboard | COA Portal | Mine Tours | Mineral Index
+   Market Ticker | ESG Dashboard | COA Portal | Mine Tours | Mineral Index
    ========================================================================== */
 
-/* ===== 1. LIVE COMMODITY TICKER ===== */
+/* ===== 1. INDICATIVE COMMODITY TICKER ===== */
 .commodity-ticker {
   background: var(--navy-950);
   border-bottom: 1px solid rgba(230, 92, 26, 0.15);
@@ -449,6 +449,11 @@
   border: 1px solid rgba(255,255,255,0.06);
 }
 
+.tour-card:focus-visible {
+  outline: 2px solid var(--primary-gold-400);
+  outline-offset: 4px;
+}
+
 .tour-card__bg {
   position: absolute;
   inset: 0;
@@ -536,6 +541,169 @@
   font-family: var(--font-body);
   font-size: 0.8rem;
   color: rgba(255,255,255,0.5);
+}
+
+.tour-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 4000;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.tour-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.tour-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(2, 8, 23, 0.78);
+  backdrop-filter: blur(10px);
+}
+
+.tour-modal__dialog {
+  position: relative;
+  width: min(920px, 100%);
+  max-height: min(760px, calc(100vh - 3rem));
+  overflow: auto;
+  background: var(--navy-950);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 30px 90px rgba(0,0,0,0.45);
+}
+
+.tour-modal__media {
+  position: relative;
+  min-height: 320px;
+  background-size: cover;
+  background-position: center;
+}
+
+.tour-modal__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(2,8,23,0.92), rgba(2,8,23,0.12));
+}
+
+.tour-modal__play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.42);
+  background: rgba(230, 92, 26, 0.2);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 1.6rem;
+}
+
+.tour-modal__body {
+  padding: 2rem;
+  color: #fff;
+}
+
+.tour-modal__eyebrow {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--primary-gold-400);
+  margin-bottom: 0.75rem;
+}
+
+.tour-modal__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  margin-bottom: 1rem;
+}
+
+.tour-modal__meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.tour-modal__meta-item {
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 1rem;
+  background: rgba(255,255,255,0.03);
+}
+
+.tour-modal__meta-label {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 0.35rem;
+}
+
+.tour-modal__meta-value {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.86);
+  line-height: 1.5;
+}
+
+.tour-modal__note {
+  color: rgba(255,255,255,0.62);
+  line-height: 1.7;
+}
+
+.tour-modal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.tour-modal__link,
+.tour-modal__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.04);
+  color: #fff;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.tour-modal__link {
+  border-color: var(--primary-gold-400);
+  background: var(--primary-gold-500);
+}
+
+.tour-modal__x {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  z-index: 3;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(2, 8, 23, 0.62);
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.5rem;
+  line-height: 1;
 }
 
 
@@ -703,6 +871,9 @@
   .b2b-grid { grid-template-columns: 1fr; }
   .tours-grid { grid-template-columns: 1fr; }
   .encyclopedia-grid { grid-template-columns: 1fr 1fr; }
+  .tour-modal__meta { grid-template-columns: 1fr; }
+  .tour-modal__media { min-height: 240px; }
+  .tour-modal__body { padding: 1.5rem; }
   
   .esg-card__metric { font-size: 2rem; }
   .tour-card { aspect-ratio: 16/9; }
