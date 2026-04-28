@@ -425,6 +425,9 @@ body.loaded .bm-hill-content {
     height: 40px !important;
   }
 
+  .data-freshness {
+    display: none !important;
+  }
 
   /* Site-wide Typography Synchronization 
      (Controlled by Symmetry Engine in variables.css) */

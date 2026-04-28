@@ -60,6 +60,7 @@ a:focus-visible {
   border-bottom: 1px solid rgba(44, 94, 143, 0.2);
   padding: 0.625rem var(--section-padding-x);
   z-index: 998;
+  display: block;
 }
 
 .data-freshness__container {
@@ -97,7 +98,7 @@ a:focus-visible {
 
 @media (max-width: 768px) {
   .data-freshness {
-    padding: 0.5rem var(--section-padding-x);
+    display: none;
   }
 
   .data-freshness__container {
