@@ -206,7 +206,7 @@
   flex-shrink: 0;
   width: 40px;
   height: 40px;
-  background: rgba(212, 175, 55, 0.08);
+  background: rgba(230, 92, 26, 0.08);
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;

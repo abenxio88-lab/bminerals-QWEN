@@ -9,7 +9,7 @@
   --glass-blur: 12px;
   --premium-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
   --beam-color: var(--primary-gold-glow);
-  /* Subtle Gold/Gold */
+  /* Subtle Orange accent */
   --navbar-height: 80px;
   /* Synchronized with the new supreme header */
 }
@@ -152,73 +152,15 @@
   background-clip: text;
 }
 
-background: linear-gradient(135deg, #fff 0%, var(--primary-gold-500) 50%, var(--primary-gold-600) 100%);
-
 /* Remove GSAP Magnetic Wrap interaction */
 .magnetic-wrap {
   display: inline-block;
   transform: none !important;
 }
 
-/* 6. SUPREME NAV REFINEMENT */
-.navbar {
-  height: 80px !important;
-  background: rgba(248, 248, 245, 0.98) !important;
-  /* Supreme Deep Off-White */
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05) !important;
-}
-
-.navbar .navbar__logo-img {
-  height: 52px !important;
-}
-
-.navbar .navbar__link {
-  color: #1a1a1a !important;
-  /* Deep Industrial Charcoal */
-  font-weight: 700 !important;
-  font-size: 0.7rem !important;
-}
-
-.navbar .navbar__dropdown-trigger {
-  color: #1a1a1a !important;
-}
-
-.navbar .navbar__dropdown-arrow {
-  fill: #1a1a1a !important;
-}
-
-/* FIX: Hamburger icon bars must be dark on off-white navbar */
-@media (max-width: 1024px) {
-  .navbar__hamburger {
-    display: flex !important;
-    flex-direction: column !important;
-    width: 48px !important;
-    /* Larger touch target */
-    height: 48px !important;
-    padding: 10px !important;
-    gap: 7px !important;
-    /* Better rhythm */
-    border-radius: 50% !important;
-    justify-content: center !important;
-    align-items: center !important;
-  }
-
-  .navbar__hamburger span {
-    background: #1a1a1a !important;
-    height: 3px !important;
-    /* Slightly thicker for better visibility */
-    width: 24px !important;
-    /* Fixed width for the bars */
-  }
-
-  .navbar__hamburger:hover {
-    background: rgba(0, 0, 0, 0.06) !important;
-    transform: scale(1.05) !important;
-  }
-}
+/* NOTE: Navbar styles consolidated in css/components/navbar.css for maintainability.
+   Mobile smooth animations implemented via visibility/opacity/transform pattern.
+   Do not override here; use components/navbar.css as authoritative source. */
 
 /* 7. DATA FRESHNESS BAR REFINEMENT */
 .data-freshness {
@@ -256,15 +198,15 @@ background: linear-gradient(135deg, #fff 0%, var(--primary-gold-500) 50%, var(--
 /* Force padding to remain static so no space is created for hidden characters */
 /* EXPLICIT BORDER ENFORCEMENT FOR DROPDOWN ITEMS */
 .navbar__dropdown-item {
-  border-left: 4px solid var(--primary-gold-glow) !important;
+  border-left: 4px solid rgba(212, 90, 21, 0.28) !important;
   border-radius: 0 !important;
   overflow: visible !important;
 }
 
 .navbar__dropdown-item:hover {
   padding-left: 1.25rem !important;
-  background: rgba(234, 179, 8, 0.05) !important;
-  border-left-color: var(--primary-gold-500) !important;
+  background: rgba(212, 90, 21, 0.05) !important;
+  border-left-color: var(--primary-gold-600) !important;
 }
 
 .data-freshness__container {
@@ -273,148 +215,8 @@ background: linear-gradient(135deg, #fff 0%, var(--primary-gold-500) 50%, var(--
 }
 
 
-/* ============================== */
-/* MOBILE NAV FIXES               */
-/* ============================== */
-@media (max-width: 1024px) {
-
-  /* Fix 1024px header overflow */
-  .navbar__phone {
-    display: none !important;
-  }
-
-  .navbar__hamburger {
-    grid-column: 3 !important;
-    justify-self: end !important;
-  }
-
-  /* Hide data-freshness on mobile to remove confusion */
-  .data-freshness {
-    display: none !important;
-  }
-
-  /* Mobile menu panel styling */
-  .navbar__mobile-menu {
-    background: #ffffff !important;
-    position: fixed !important;
-    top: var(--navbar-height) !important;
-    left: 0 !important;
-    right: 0 !important;
-    height: calc(100vh - var(--navbar-height)) !important;
-    padding: 1rem 5% 5rem !important;
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch;
-    z-index: 1000 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    visibility: hidden;
-    pointer-events: none;
-    opacity: 0;
-    transform: none !important;
-    transition: opacity 0.2s ease, visibility 0.2s ease;
-    border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
-    overscroll-behavior: contain;
-  }
-
-  .navbar__mobile-menu.open {
-    visibility: visible !important;
-    pointer-events: auto !important;
-    opacity: 1;
-  }
-
-  /* All top-level mobile links */
-  .navbar__mobile-menu>.navbar__link,
-  .navbar__mobile-menu .navbar__dropdown-trigger {
-    color: #1a1a1a !important;
-    font-size: 0.95rem !important;
-    font-weight: 700 !important;
-    padding: 1.125rem 0 !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
-    display: flex !important;
-    width: 100% !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    text-decoration: none !important;
-    border-radius: 0 !important;
-    background: transparent !important;
-    opacity: 1 !important;
-    transform: none !important;
-    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease !important;
-  }
-
-  .navbar__mobile-menu.open .navbar__link:nth-child(1),
-  .navbar__mobile-menu.open .navbar__link:nth-child(2),
-  .navbar__mobile-menu.open .navbar__link:nth-child(3),
-  .navbar__mobile-menu.open .navbar__link:nth-child(4) {
-    transition-delay: 0s !important;
-  }
-
-  .navbar__mobile-menu .navbar__link::before,
-  .navbar__mobile-menu .navbar__link::after {
-    display: none !important;
-  }
-
-  .navbar__mobile-menu .navbar__link:hover {
-    transform: none !important;
-  }
-
-  /* Dropdown arrow icon */
-  .navbar__mobile-menu .navbar__dropdown-arrow {
-    fill: #1a1a1a !important;
-    transition: transform 0.3s ease !important;
-    width: 24px !important;
-    height: 24px !important;
-    padding: 6px !important;
-    /* Larger hit area */
-    pointer-events: auto !important;
-    border-radius: 4px !important;
-    background: rgba(0, 0, 0, 0.03) !important;
-  }
-
-  /* Rotate arrow when dropdown is open */
-  .navbar__mobile-menu .navbar__dropdown-trigger.open .navbar__dropdown-arrow {
-    transform: rotate(180deg) !important;
-  }
-
-  /* Mobile dropdown sub-menus overrides */
-  .navbar__mobile-menu .navbar__dropdown-menu {
-    position: static !important;
-    box-shadow: none !important;
-    min-width: 100% !important;
-    transform: none !important;
-    display: none !important;
-    background: rgba(0, 0, 0, 0.02) !important;
-    border: none !important;
-    border-left: 2px solid var(--primary-gold-500) !important;
-    border-radius: 0 8px 8px 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-  .navbar__mobile-menu .navbar__dropdown-menu.open {
-    display: block !important;
-    margin: 0.25rem 0 0.5rem !important;
-    padding: 0.5rem 0 !important;
-  }
-
-  /* Mobile dropdown items */
-  .navbar__mobile-menu .navbar__dropdown-menu .navbar__dropdown-item {
-    color: #4b5563 !important;
-    font-size: 0.85rem !important;
-    font-weight: 600 !important;
-    padding: 0.875rem 1.25rem !important;
-    display: flex !important;
-    align-items: center !important;
-    text-decoration: none !important;
-    border: none !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.02) !important;
-  }
-
-  .navbar__mobile-menu .navbar__dropdown-menu .navbar__dropdown-item:last-child {
-    border-bottom: none !important;
-  }
-}
+/* NOTE: Mobile navbar fixes consolidated in css/components/navbar.css.
+   Refer to components/navbar.css for @media (max-width: 1024px) navbar rules. */
 
 @media (max-width: 480px) {
   :root {

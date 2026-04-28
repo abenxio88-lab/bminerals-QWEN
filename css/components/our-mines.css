@@ -13,7 +13,7 @@
   position: absolute;
   inset: 0;
   background: 
-    radial-gradient(circle at 30% 20%, rgba(212, 175, 55, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at 30% 20%, rgba(230, 92, 26, 0.04) 0%, transparent 50%),
     radial-gradient(circle at 70% 80%, rgba(44, 94, 143, 0.03) 0%, transparent 50%);
   pointer-events: none;
 }
@@ -107,7 +107,7 @@
 
 .our-mines__timeline-dot--active {
   border-color: var(--primary-gold-500);
-  box-shadow: 0 0 0 6px rgba(212, 175, 55, 0.15);
+  box-shadow: 0 0 0 6px rgba(230, 92, 26, 0.15);
 }
 
 .our-mines__timeline-dot--processing {
@@ -164,9 +164,9 @@
 }
 
 .our-mines__site-badge--active {
-  background: rgba(212, 175, 55, 0.12);
+  background: rgba(230, 92, 26, 0.12);
   color: var(--primary-gold-600);
-  border: 1px solid rgba(212, 175, 55, 0.35);
+  border: 1px solid rgba(230, 92, 26, 0.35);
 }
 
 .our-mines__site-badge--processing {

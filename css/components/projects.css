@@ -132,17 +132,17 @@
 
 .project-card__status--active {
   background: var(--primary-gold-500);
-  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
+  box-shadow: 0 0 0 4px rgba(230, 92, 26, 0.2);
 }
 
 .project-card__status--processing {
   background: var(--primary-gold-500);
-  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
+  box-shadow: 0 0 0 4px rgba(230, 92, 26, 0.2);
 }
 
 .project-card__status--exploration {
   background: var(--navy-300);
-  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
+  box-shadow: 0 0 0 4px rgba(230, 92, 26, 0.2);
 }
 
 @keyframes pulse {

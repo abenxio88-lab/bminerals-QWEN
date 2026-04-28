@@ -78,19 +78,10 @@ export function initDropdownMenus() {
       if (mobile) {
         const isMobileTrigger = trigger.classList.contains('navbar__dropdown-trigger--mobile') || trigger.tagName === 'BUTTON';
         const nextMenu = trigger.nextElementSibling;
-        const fallbackLink = nextMenu?.querySelector('.navbar__dropdown-item');
-        const triggerHref = trigger.getAttribute('href') || fallbackLink?.getAttribute('href');
         const clickedArrow = Boolean(e.target.closest('.navbar__dropdown-arrow') || e.target.closest('svg'));
 
         // Keep desktop nav links navigable on mobile widths.
         if (!isMobileTrigger && !clickedArrow) {
-          return;
-        }
-
-        // Mobile menu buttons do not have hrefs in the HTML.
-        // Treat tap on the label as navigation and tap on the arrow as submenu toggle.
-        if (isMobileTrigger && !clickedArrow && triggerHref) {
-          window.location.href = triggerHref;
           return;
         }
 
@@ -154,9 +145,7 @@ export function initDropdownMenus() {
 
   // Close dropdowns when clicking outside (desktop only)
   document.addEventListener('click', (e) => {
-    const isMobile = window.innerWidth <= 1024;
-    
-    if (!isMobile) {
+    if (!isMobile()) {
       dropdownGroups.forEach(group => {
         if (!group.contains(e.target)) {
           const menu = group.querySelector('.navbar__dropdown-menu');
@@ -175,9 +164,7 @@ export function initDropdownMenus() {
   const dropdownItems = document.querySelectorAll('.navbar__dropdown-item');
   dropdownItems.forEach(item => {
     item.addEventListener('click', () => {
-      const isMobile = window.innerWidth <= 1024;
-      
-      if (isMobile) {
+      if (isMobile()) {
         dropdownTriggers.forEach(trigger => {
           trigger.classList.remove('open');
           trigger.setAttribute('aria-expanded', 'false');

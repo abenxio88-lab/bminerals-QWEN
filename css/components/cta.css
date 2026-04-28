@@ -38,8 +38,8 @@
 
 .vein-line {
   fill: none;
-  stroke: #d4af37;
-  /* Gold var(--primary-gold) */
+  stroke: #E65C1A;
+  /* Orange accent */
   stroke-width: 1.5;
   stroke-dasharray: 10 10;
   animation: tracePath 60s linear infinite;
