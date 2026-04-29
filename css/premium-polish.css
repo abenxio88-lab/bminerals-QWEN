@@ -9,9 +9,6 @@
   --glass-blur: 12px;
   --premium-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
   --beam-color: var(--primary-gold-glow);
-  /* Subtle Orange accent */
-  --navbar-height: 80px;
-  /* Synchronized with the new supreme header */
 }
 
 /* 1. DIGITAL NOISE OVERLAY */
@@ -98,10 +95,10 @@
 .section-title,
 .zigzag__title,
 .asymmetrical-grid .zigzag__title {
-  font-size: var(--h1-size) !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.02em !important;
-  font-family: var(--font-heading) !important;
+  font-size: var(--h1-size);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-family: var(--font-heading);
 }
 
 
@@ -162,37 +159,8 @@
    Mobile smooth animations implemented via visibility/opacity/transform pattern.
    Do not override here; use components/navbar.css as authoritative source. */
 
-/* 7. DATA FRESHNESS BAR REFINEMENT */
-.data-freshness {
-  position: fixed !important;
-  top: 80px !important;
-  /* Exactly below refined navbar */
-  left: 0 !important;
-  right: 0 !important;
-  z-index: 997 !important;
-  background: #27272a !important;
-  /* Zinc-800 - Sophisticated Slate */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-  padding: 0.5rem 5% !important;
-  height: 32px !important;
-  display: flex !important;
-  align-items: center !important;
-}
-
-.data-freshness__container {
-  opacity: 0.9 !important;
-  font-size: 0.65rem !important;
-}
-
-
 /* NOTE: Mobile navbar fixes consolidated in css/components/navbar.css.
    Refer to components/navbar.css for @media (max-width: 1024px) navbar rules. */
-
-@media (max-width: 480px) {
-  :root {
-    --navbar-height: 56px;
-  }
-}
 
 /* 9. MINIMALIST WHITE PRELOADER */
 body.is-loading {
@@ -313,87 +281,17 @@ body.loaded .bm-hill-content {
   transform: translateY(-20px) scale(0.98);
 }
 
-/* 10. GRID BLOWOUT FIX (Stats Section Overlap) */
-/* Forces the grid columns to strictly respect their boundaries and not let heavy text stretch them over the gap */
-.stats-section__layout {
-  display: flex !important;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 6rem;
-}
-
-.stats-section__editorial {
-  flex: 0 0 42%;
-  max-width: 42%;
-}
-
-.stats-section__metrics {
-  flex: 0 0 50%;
-  max-width: 50%;
-}
-
-@media (max-width: 1024px) {
-  .stats-section__layout {
-    flex-direction: column !important;
-    gap: 4rem;
-  }
-
-  .stats-section__editorial,
-  .stats-section__metrics {
-    flex: 1 1 100%;
-    max-width: 100%;
-  }
-}
-
-/* 11. TIMELINE & BENTO CONFLICT FIX */
-/* Fixes clipping issue where glass-bento 'overflow: hidden' cuts off the metric timeline dots. */
-/* Moves the cards right to expose the timeline vertical line underneath, and extends the dots left. */
-.metric-strip__item.glass-bento {
-  overflow: visible !important;
-  margin-left: 2.5rem;
-  margin-bottom: 1.25rem;
-  padding: 1.75rem 2rem;
-  border-bottom: 1px solid var(--glass-border) !important;
-}
-
-.metric-strip__item.glass-bento:last-child {
-  margin-bottom: 0;
-}
-
-.metric-strip__item.glass-bento::before {
-  left: -46px !important;
-  /* -2.5rem (40px) - 6px */
-  top: 2rem !important;
-}
-
-@media (max-width: 768px) {
-  .metric-strip__item.glass-bento {
-    margin-left: 2rem;
-    padding: 1.5rem;
-  }
-
-  .metric-strip__item.glass-bento::before {
-    left: -37px !important;
-    /* -2rem (32px) - 5px */
-    top: 1.5rem !important;
-  }
-}
-
 /* ============================================ */
 /* 12. MOBILE AUTHORITY & RESPONSIVENESS (Synced) */
 /* ============================================ */
 @media (max-width: 768px) {
   :root {
-    --navbar-height: 64px;
-  }
-
-  .data-freshness {
-    display: none !important;
+    --mobile-content-heading-size: clamp(1.65rem, 8vw, 2.2rem);
+    --mobile-content-heading-line: 1.08;
   }
 
   /* Site-wide Typography Synchronization 
      (Controlled by Symmetry Engine in variables.css) */
-  h1,
   .hero-headline,
   .logistics-hero__title,
   .investors-hero__title,
@@ -419,233 +317,36 @@ body.loaded .bm-hill-content {
   .reports-section__header h2,
   .pillars-section__title,
   .certifications-section__header h2,
-  .impact-section__header h2 {
-    font-size: var(--h1-size) !important;
-    line-height: 1.2 !important;
+  .impact-section__header h2,
+  .zigzag__title,
+  .product-overview-title,
+  .product-comparison__title {
+    font-size: var(--mobile-content-heading-size) !important;
+    line-height: var(--mobile-content-heading-line) !important;
     text-transform: uppercase !important;
   }
 
-  h2 {
-    font-size: var(--h2-size) !important;
-  }
-
-  h3 {
-    font-size: var(--h3-size) !important;
+  /* Catch non-hero semantic headings that do not use shared section classes yet */
+  main h1:not([class*="hero"]):not(.hero-headline),
+  main h2:not([class*="hero"]) {
+    font-size: var(--mobile-content-heading-size) !important;
+    line-height: var(--mobile-content-heading-line) !important;
   }
 
   /* Headings with spans should maintain consistent sizing */
   h1 span,
-  h2 span,
-  h3 span,
   .section-title span,
   .hero-headline span {
     font-size: inherit !important;
   }
 
-  p {
-    font-size: var(--body-size) !important;
-    line-height: 1.6 !important;
+  /* Avoid global section overrides here: they tend to cause hard-to-debug layout regressions.
+     If a specific page needs extra padding/overflow fixes, scope it in that page's CSS. */
+
+}
+
+@media (max-width: 480px) {
+  :root {
+    --mobile-content-heading-size: clamp(1.45rem, 9vw, 1.85rem);
   }
-
-  /* Fix Section Overlaps (The 'Tsection' issue) */
-  section:not(.commodity-ticker) {
-    position: relative !important;
-    padding-top: 4rem !important;
-    padding-bottom: 4rem !important;
-    overflow: hidden !important;
-  }
-
-  .commodity-ticker {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-  }
-
-  /* Force Hero Sections to behave */
-  .hero-cinematic,
-  .investors-hero,
-  .contact-hero,
-  .parallax-hero,
-  .mines-hero,
-  .logistics-hero,
-  .sustainability-hero,
-  .blog-hero {
-    height: auto !important;
-    min-height: 450px !important;
-    padding-top: calc(var(--navbar-height) + 2rem) !important;
-    padding-bottom: 3rem !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
-    text-align: center !important;
-  }
-
-  /* Ensure Hero Content is always on top */
-  .hero-cinematic__container,
-  .investors-hero__content,
-  .contact-hero__content,
-  .parallax-hero__content,
-  .mines-hero__content,
-  .logistics-hero__content,
-  .sustainability-hero__content,
-  .blog-hero__content {
-    position: relative !important;
-    z-index: 10 !important;
-    width: 100% !important;
-    padding: 0 1.5rem !important;
-    margin: 0 !important;
-  }
-
-  /* Fix Hero Stats/Right side overlapping */
-  .hero-cinematic__container {
-    grid-template-columns: 1fr !important;
-    gap: 2.5rem !important;
-  }
-
-  .hero-visual {
-    position: relative !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin-top: 1rem !important;
-  }
-
-  /* Contact Form Premium Mobile Fix */
-  .contact-form {
-    padding: 1.75rem 1.25rem !important;
-    margin-top: 1.5rem !important;
-    border-radius: 12px !important;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05) !important;
-  }
-
-  .contact-form__row {
-    grid-template-columns: 1fr !important;
-    gap: 0 !important;
-  }
-
-  .contact-form__group {
-    margin-bottom: 1rem !important;
-  }
-
-  .contact-form__input,
-  .contact-form__textarea,
-  .contact-form__select {
-    font-size: 1rem !important;
-    /* Prevents iOS auto-zoom */
-    padding: 0.85rem !important;
-  }
-
-  /* Stats Section Padding Fix */
-  .stats-section,
-  .financial-dashboard,
-  .compliance-section {
-    padding-left: 1.25rem !important;
-    padding-right: 1.25rem !important;
-  }
-
-  /* Hide background elements that cause horizontal scroll or overlap issues */
-  #three-horizon-container {
-    opacity: 0.1 !important;
-    height: 30% !important;
-  }
-
-  .hero__slider-arrow {
-    display: none !important;
-    /* Clean up UI on small screens */
-  }
-}
-
-/* Fix for Ultra-Small Devices */
-@media (max-width: 380px) {
-  .hero-headline {
-    font-size: 1.35rem !important;
-    /* Forces ~21-22px for narrow devices */
-  }
-
-  .hero-cta-group {
-    flex-direction: column !important;
-    width: 100% !important;
-  }
-
-  .btn-hero-primary,
-  .btn-hero-secondary {
-    width: 100% !important;
-    justify-content: center !important;
-  }
-}
-
-/* 13. GLOBAL WHITE FOOTER REFINEMENT */
-.footer {
-  background: rgba(248, 248, 245, 1) !important;
-  color: #1a1a1a !important;
-  border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
-}
-
-.footer::before {
-  display: none !important;
-}
-
-.footer__heading {
-  color: #111827 !important;
-}
-
-.footer__heading::after {
-  background: var(--navy-600) !important;
-}
-
-.footer__link {
-  color: #4b5563 !important;
-}
-
-.footer__link:hover {
-  color: var(--primary-gold-600) !important;
-}
-
-.footer__mission {
-  color: #6b7280 !important;
-}
-
-.footer__contact-item {
-  color: #4b5563 !important;
-}
-
-.footer__contact-item strong {
-  color: #111827 !important;
-}
-
-.footer__social-link {
-  background: rgba(0, 0, 0, 0.04) !important;
-  border-color: rgba(0, 0, 0, 0.1) !important;
-  color: #111827 !important;
-}
-
-.footer__social-link:hover {
-  background: var(--navy-600) !important;
-  color: #ffffff !important;
-}
-
-.footer__copyright, 
-.footer__compliance,
-.footer__bottom-link {
-  color: #9ca3af !important;
-}
-
-.footer__bottom-link:hover {
-  color: var(--primary-gold-600) !important;
-}
-
-.footer__emergency {
-  background: rgba(0, 0, 0, 0.02) !important;
-  border-color: rgba(0, 0, 0, 0.1) !important;
-}
-
-.footer__emergency strong {
-  color: var(--navy-700) !important;
-}
-
-.footer__emergency-number {
-  color: #111827 !important;
-}
-
-.footer__emergency p {
-  color: #6b7280 !important;
 }

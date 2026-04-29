@@ -1,6 +1,4 @@
-```
 # Build artifacts
-output.css
 dist/
 build/
 
@@ -42,13 +40,7 @@ pip-delete-this-directory.txt
 nosetests.xml
 coverage.xml
 *.cover
-*.log
-.git/modules/
-.DS_Store
-*.swp
-*.swo
-*~
-.project
-.pydevproject
-.vscode/
-```
+
+# Repo-local generated artifacts (do not commit)
+backups/
+graphify-out/

@@ -565,12 +565,28 @@
 
 @media (max-width: 768px) {
   .sustainability-hero {
-    height: 40vh;
-    min-height: 280px;
+    height: auto !important;
+    min-height: 450px !important;
+    padding-top: calc(var(--navbar-height) + 2rem) !important;
+    padding-bottom: 3rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .sustainability-hero__content {
+    position: relative !important;
+    z-index: 10 !important;
+    width: 100% !important;
+    padding: 0 1.5rem !important;
+    margin: 0 !important;
   }
   
   .sustainability-hero__title {
-    font-size: var(--text-xl);
+    font-size: var(--display-size) !important;
+    line-height: 1.1 !important;
   }
   
   .sustainability-stats {

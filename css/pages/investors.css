@@ -70,6 +70,10 @@
   margin-bottom: 1rem;
 }
 
+.investors-hero__title-accent {
+  color: var(--primary-gold-400);
+}
+
 .investors-hero__text {
   font-size: var(--text-sm);
   line-height: 1.7;
@@ -266,6 +270,10 @@
   margin: 0 auto 2.5rem;
 }
 
+.section-header-light__accent {
+  color: var(--primary-gold-500);
+}
+
 .reports-list {
   display: flex;
   flex-direction: column;
@@ -348,6 +356,18 @@
 .compliance-section__header {
   max-width: 650px;
   margin: 0 auto 2.5rem;
+}
+
+.compliance-section__overline {
+  color: var(--primary-gold-400);
+  background: rgba(230, 92, 26, 0.15);
+  padding: 0.4rem 1rem;
+  display: inline-block;
+  margin-bottom: 0.75rem;
+}
+
+.financial-dashboard__title--inverse {
+  color: #ffffff;
 }
 
 .compliance-grid {
@@ -452,6 +472,22 @@
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.85);
   margin-bottom: 1.25rem;
+}
+
+.investors-cta__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.875rem 1.75rem;
+  background: var(--primary-gold-500);
+  color: white;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: var(--radius-md);
+  text-decoration: none;
 }
 
 .investors-cta__visual {
@@ -582,6 +618,26 @@
   align-items: center;
   justify-content: center;
   font-size: 2rem;
+  background: var(--q3-icon-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.q3-metric-icon--gold {
+  --q3-icon-gradient: linear-gradient(135deg, var(--primary-gold-500), var(--primary-gold-400));
+}
+
+.q3-metric-icon--navy {
+  --q3-icon-gradient: linear-gradient(135deg, var(--navy-500), var(--navy-400));
+}
+
+.q3-metric-icon--emerald {
+  --q3-icon-gradient: linear-gradient(135deg, #059669, #10B981);
+}
+
+.q3-metric-icon--violet {
+  --q3-icon-gradient: linear-gradient(135deg, #8B5CF6, #A78BFA);
 }
 
 .q3-metric-card__content {
@@ -602,6 +658,68 @@
   color: var(--text-secondary);
   font-weight: 500;
   letter-spacing: 0.03em;
+}
+
+.tech-data-hub__title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.perf-grid--split {
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 4rem;
+}
+
+.investor-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.investor-breakdown__row {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+}
+
+.investor-breakdown__bar {
+  width: 100%;
+  height: 4px;
+  background: var(--border-light);
+}
+
+.investor-breakdown__fill {
+  height: 100%;
+  background: var(--primary-gold-500);
+}
+
+.investor-breakdown__fill--navy {
+  background: var(--navy-900);
+}
+
+.investor-breakdown__fill--25 {
+  width: 25%;
+}
+
+.investor-breakdown__fill--28 {
+  width: 28%;
+}
+
+.investor-breakdown__fill--30 {
+  width: 30%;
+}
+
+.investor-breakdown__fill--38 {
+  width: 38%;
+}
+
+.investor-breakdown__fill--42 {
+  width: 42%;
 }
 
 /* Responsive */
@@ -625,12 +743,28 @@
 
 @media (max-width: 768px) {
   .investors-hero {
-    height: 40vh;
-    min-height: 280px;
+    height: auto !important;
+    min-height: 450px !important;
+    padding-top: calc(var(--navbar-height) + 2rem) !important;
+    padding-bottom: 3rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .investors-hero__content {
+    position: relative !important;
+    z-index: 10 !important;
+    width: 100% !important;
+    padding: 0 1.5rem !important;
+    margin: 0 !important;
   }
   
   .investors-hero__title {
-    font-size: var(--display-size);
+    font-size: var(--display-size) !important;
+    line-height: 1.1 !important;
   }
   
   .financial-dashboard__title {
@@ -639,6 +773,10 @@
   
   .financial-dashboard {
     padding: 2.5rem var(--section-padding-x);
+  }
+
+  .perf-grid--split {
+    grid-template-columns: 1fr;
   }
   
   .kpi-grid {
