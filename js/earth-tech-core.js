@@ -78,8 +78,12 @@ export function initEarthTechCore() {
   });
 
   // 6. Animation Loop
+  let running = false;
+  let frameId = null;
+
   const animate = () => {
-    requestAnimationFrame(animate);
+    if (!running) return;
+    frameId = requestAnimationFrame(animate);
 
     // Smooth camera drift
     targetX += (mouseX - targetX) * 0.05;
@@ -95,7 +99,24 @@ export function initEarthTechCore() {
     renderer.render(scene, camera);
   };
 
-  animate();
+  const start = () => {
+    if (running) return;
+    running = true;
+    frameId = requestAnimationFrame(animate);
+  };
+
+  const stop = () => {
+    running = false;
+    if (frameId) cancelAnimationFrame(frameId);
+    frameId = null;
+  };
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stop();
+    else start();
+  });
+
+  start();
 
   // Handle Resize - guard against duplicate listeners
   if (!window.__earthTechResizeHandler) {

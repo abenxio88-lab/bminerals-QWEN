@@ -13,17 +13,35 @@ export function initBorderBeam() {
   if (beams.length === 0) return;
 
   let angle = 0;
+  let running = false;
+  let frameId = null;
+
   function animate() {
+    if (!running) return;
     angle = (angle + 1) % 360;
     beams.forEach(beam => {
       beam.style.setProperty('--current-angle', `${angle}deg`);
     });
-    requestAnimationFrame(animate);
+    frameId = requestAnimationFrame(animate);
   }
 
-  // Optimize: Only animate when cards are visible or hovered
-  // For simplicity, we'll run it globally but we could use IntersectionObserver
-  animate();
-}
+  function start() {
+    if (running) return;
+    running = true;
+    frameId = requestAnimationFrame(animate);
+  }
 
+  function stop() {
+    running = false;
+    if (frameId) cancelAnimationFrame(frameId);
+    frameId = null;
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stop();
+    else start();
+  });
+
+  start();
+}
 

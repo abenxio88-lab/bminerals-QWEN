@@ -14,7 +14,7 @@
   border-radius: 0 0 var(--radius-md) var(--radius-md);
   font-weight: 600;
   font-size: var(--text-sm);
-  z-index: 10000;
+  z-index: var(--z-critical-overlay);
   text-decoration: none;
   transition: top 0.2s var(--ease-smooth);
 }
@@ -59,7 +59,7 @@ a:focus-visible {
   background: var(--navy-950);
   border-bottom: 1px solid rgba(44, 94, 143, 0.2);
   padding: 0.625rem var(--section-padding-x);
-  z-index: 998;
+  z-index: var(--z-data-freshness);
   display: block;
 }
 

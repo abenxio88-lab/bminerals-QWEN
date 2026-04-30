@@ -2,13 +2,13 @@
    CTA SECTION - Brutalist Obsidian Edition
    ============================================ */
 .cta-premium {
-  padding: 4rem var(--section-padding-x) !important;
-  background: #09090b !important;
+  padding: 4rem var(--section-padding-x);
+  background: #09090b;
   /* Deep Zinc-950 */
   position: relative;
   overflow: hidden;
   border-top: 2px solid var(--primary-gold-500);
-  display: block !important;
+  display: block;
   width: 100%;
 }
 
@@ -86,14 +86,13 @@
   text-align: center;
   max-width: 800px;
   margin: 0 auto;
-  background: rgba(255, 255, 255, 0.02) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  padding: 3rem 2rem !important;
-  border-radius: 0 !important;
-  /* NO FUCKIN RADIUS */
-  border: 1px solid rgba(255, 255, 255, 0.05) !important;
-  border-left: 3px solid var(--primary-gold-500) !important;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 3rem 2rem;
+  border-radius: 0;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-left: 3px solid var(--primary-gold-500);
   box-shadow: 20px 20px 60px rgba(0, 0, 0, 0.4);
   position: relative;
   overflow: hidden;
@@ -116,17 +115,17 @@
 
 .cta-premium__title {
   font-family: var(--font-heading);
-  font-size: var(--display-size) !important;
+  font-size: var(--display-size);
   font-weight: 700;
-  color: #fff !important;
+  color: #fff;
   line-height: 1.1;
   letter-spacing: 0.02em;
-  text-transform: uppercase !important;
+  text-transform: uppercase;
 }
 
 .cta-premium__text {
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.6) !important;
+  color: rgba(255, 255, 255, 0.6);
   line-height: 1.6;
   max-width: 600px;
   margin: 0 auto 2.5rem;
@@ -134,24 +133,23 @@
 
 /* 5. BUTTONS SUPREME (SHARP) */
 .cta-premium__buttons {
-  display: flex !important;
-  gap: 1rem !important;
-  justify-content: center !important;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 }
 
 .cta-premium__button {
-  padding: 0.875rem 2.5rem !important;
-  border-radius: 0 !important;
-  /* NO FUCKIN RADIUS */
+  padding: 0.875rem 2.5rem;
+  border-radius: 0;
   font-family: var(--font-ui);
   font-weight: 700;
-  font-size: 0.75rem !important;
+  font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.2em;
   transition: all 0.3s var(--ease-smooth);
-  display: inline-flex !important;
+  display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   position: relative;
@@ -159,41 +157,41 @@
 }
 
 .cta-premium__button--primary {
-  background: var(--primary-gold-500) !important;
-  color: #fff !important;
+  background: var(--primary-gold-500);
+  color: #fff;
   box-shadow: 4px 4px 0 rgba(0, 0, 0, 1);
 }
 
 .cta-premium__button--primary:hover {
-  background: var(--primary-gold-400) !important;
+  background: var(--primary-gold-400);
   transform: translate(-2px, -2px);
   box-shadow: 6px 6px 0 rgba(0, 0, 0, 1);
 }
 
 .cta-premium__button--secondary {
-  background: transparent !important;
-  color: #fff !important;
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .cta-premium__button--secondary:hover {
-  background: rgba(255, 255, 255, 0.05) !important;
-  border-color: #fff !important;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: #fff;
 }
 
 /* 6. RESPONSIVE REFINEMENT */
 @media (max-width: 768px) {
   .cta-premium {
-    padding: 3rem 5% !important;
+    padding: 3rem 5%;
   }
 
   .cta-premium__buttons {
-    flex-direction: column !important;
+    flex-direction: column;
     width: 100%;
   }
 
   .cta-premium__button {
-    width: 100% !important;
-    justify-content: center !important;
+    width: 100%;
+    justify-content: center;
   }
 }

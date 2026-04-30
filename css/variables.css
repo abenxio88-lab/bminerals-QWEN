@@ -87,24 +87,6 @@
   --body-small: 0.875rem;
   /* 14px - UI/Meta text */
 
-  /* Mobile Overrides (The "User Preferred" Layout) */
-  @media (max-width: 768px) {
-    :root {
-      --display-size: 1.5rem;
-      /* 24px - Refined Hero Headline */
-      --h1-size: 1.3rem;
-      /* 20.8px (~21px) - Section Titles */
-      --h2-size: 1.15rem;
-      /* 18.4px - Subheaders */
-      --h3-size: 1rem;
-      /* 16px - Standard Card Bold Text */
-      --body-size: 0.875rem;
-      /* 14px - Standard Mobile Body */
-      --body-small: 0.75rem;
-      /* 12px */
-    }
-  }
-
   /* Legacy Variable Mapping (For Backward Compatibility) */
   --text-4xl: var(--display-size);
   --text-3xl: var(--h1-size);
@@ -137,23 +119,32 @@
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-in-out: cubic-bezier(0.4, 0.0, 0.2, 1);
+
+  /* Layering */
+  --z-data-freshness: 998;
+  --z-sticky-widget: 999;
+  --z-navbar: 1000;
+  --z-dropdown: 1001;
+  --z-skip-link: 2000;
+  --z-modal: 4000;
+  --z-loader: 9999;
+  --z-critical-overlay: 10000;
 }
 
-.investors {
-  background: var(--navy-950);
-  color: #fff;
-  padding: var(--section-padding-y) 0;
-  position: relative;
-  overflow: hidden;
-}
-
-.investors::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at 70% 30%, rgba(234, 179, 8, 0.08), transparent 40%);
-  pointer-events: none;
+/* Mobile Overrides (The "User Preferred" Layout) */
+@media (max-width: 768px) {
+  :root {
+    --display-size: 1.5rem;
+    /* 24px - Refined Hero Headline */
+    --h1-size: 1.3rem;
+    /* 20.8px (~21px) - Section Titles */
+    --h2-size: 1.15rem;
+    /* 18.4px - Subheaders */
+    --h3-size: 1rem;
+    /* 16px - Standard Card Bold Text */
+    --body-size: 0.875rem;
+    /* 14px - Standard Mobile Body */
+    --body-small: 0.75rem;
+    /* 12px */
+  }
 }

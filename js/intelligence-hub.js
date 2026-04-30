@@ -87,39 +87,89 @@ function createTourModal() {
   modal.setAttribute('role', 'dialog');
   modal.setAttribute('aria-modal', 'true');
   modal.setAttribute('aria-hidden', 'true');
-  modal.innerHTML = `
-    <div class="tour-modal__backdrop" data-tour-close></div>
-    <div class="tour-modal__dialog" role="document">
-      <button class="tour-modal__x" type="button" data-tour-close aria-label="Close tour preview">&times;</button>
-      <div class="tour-modal__media">
-        <div class="tour-modal__play" aria-hidden="true">></div>
-      </div>
-      <div class="tour-modal__body">
-        <div class="tour-modal__eyebrow"></div>
-        <h3 class="tour-modal__title"></h3>
-        <p class="tour-modal__note" data-tour-modal-description></p>
-        <div class="tour-modal__meta">
-          <div class="tour-modal__meta-item">
-            <span class="tour-modal__meta-label">Location</span>
-            <span class="tour-modal__meta-value" data-tour-modal-location></span>
-          </div>
-          <div class="tour-modal__meta-item">
-            <span class="tour-modal__meta-label">Preview Covers</span>
-            <span class="tour-modal__meta-value" data-tour-modal-focus></span>
-          </div>
-          <div class="tour-modal__meta-item">
-            <span class="tour-modal__meta-label">Runtime</span>
-            <span class="tour-modal__meta-value" data-tour-modal-duration></span>
-          </div>
-        </div>
-        <p class="tour-modal__note">Full site walkthroughs are shared with qualified buyers during technical due diligence. This preview shows the tour scope without overstating live video availability.</p>
-        <div class="tour-modal__actions">
-          <a class="tour-modal__link" href="contact.html">Request full access</a>
-          <button class="tour-modal__close" type="button" data-tour-close>Close preview</button>
-        </div>
-      </div>
-    </div>
-  `;
+
+  const backdrop = document.createElement('div');
+  backdrop.className = 'tour-modal__backdrop';
+  backdrop.dataset.tourClose = '';
+
+  const dialog = document.createElement('div');
+  dialog.className = 'tour-modal__dialog';
+  dialog.setAttribute('role', 'document');
+
+  const closeX = document.createElement('button');
+  closeX.className = 'tour-modal__x';
+  closeX.type = 'button';
+  closeX.dataset.tourClose = '';
+  closeX.setAttribute('aria-label', 'Close tour preview');
+  closeX.textContent = 'x';
+
+  const media = document.createElement('div');
+  media.className = 'tour-modal__media';
+
+  const play = document.createElement('div');
+  play.className = 'tour-modal__play';
+  play.setAttribute('aria-hidden', 'true');
+  play.textContent = '>';
+  media.appendChild(play);
+
+  const body = document.createElement('div');
+  body.className = 'tour-modal__body';
+
+  const eyebrow = document.createElement('div');
+  eyebrow.className = 'tour-modal__eyebrow';
+
+  const title = document.createElement('h3');
+  title.className = 'tour-modal__title';
+
+  const description = document.createElement('p');
+  description.className = 'tour-modal__note';
+  description.dataset.tourModalDescription = '';
+
+  const meta = document.createElement('div');
+  meta.className = 'tour-modal__meta';
+
+  [
+    ['Location', 'tourModalLocation'],
+    ['Preview Covers', 'tourModalFocus'],
+    ['Runtime', 'tourModalDuration']
+  ].forEach(([label, dataKey]) => {
+    const item = document.createElement('div');
+    item.className = 'tour-modal__meta-item';
+
+    const labelEl = document.createElement('span');
+    labelEl.className = 'tour-modal__meta-label';
+    labelEl.textContent = label;
+
+    const value = document.createElement('span');
+    value.className = 'tour-modal__meta-value';
+    value.dataset[dataKey] = '';
+
+    item.append(labelEl, value);
+    meta.appendChild(item);
+  });
+
+  const note = document.createElement('p');
+  note.className = 'tour-modal__note';
+  note.textContent = 'Full site walkthroughs are shared with qualified buyers during technical due diligence. This preview shows the tour scope without overstating live video availability.';
+
+  const actions = document.createElement('div');
+  actions.className = 'tour-modal__actions';
+
+  const requestLink = document.createElement('a');
+  requestLink.className = 'tour-modal__link';
+  requestLink.href = 'contact.html';
+  requestLink.textContent = 'Request full access';
+
+  const closeButton = document.createElement('button');
+  closeButton.className = 'tour-modal__close';
+  closeButton.type = 'button';
+  closeButton.dataset.tourClose = '';
+  closeButton.textContent = 'Close preview';
+
+  actions.append(requestLink, closeButton);
+  body.append(eyebrow, title, description, meta, note, actions);
+  dialog.append(closeX, media, body);
+  modal.append(backdrop, dialog);
 
   modal.addEventListener('click', (event) => {
     if (event.target.matches('[data-tour-close]')) closeTourModal();
