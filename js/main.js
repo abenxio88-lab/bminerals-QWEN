@@ -6,6 +6,27 @@ import { initBorderBeam } from './border-beam.js';
 import { initTactileFeedback } from './tactile-feedback.js';
 import { initEarthTechCore } from './earth-tech-core.js';
 
+function isLocalDebug() {
+  return ['localhost', '127.0.0.1'].includes(window.location.hostname) || window.location.protocol === 'file:';
+}
+
+function reportInitError(featureName, error) {
+  window.__bmHillInitErrors = window.__bmHillInitErrors || [];
+  window.__bmHillInitErrors.push({ featureName, error });
+
+  if (isLocalDebug()) {
+    console.error(`${featureName} init error:`, error);
+  }
+}
+
+function runInit(featureName, initializer) {
+  try {
+    initializer();
+  } catch (error) {
+    reportInitError(featureName, error);
+  }
+}
+
 // ============================================
 // BM Hill Preloader Logic
 // ============================================
@@ -38,20 +59,20 @@ setTimeout(() => {
 // ============================================
 document.addEventListener('DOMContentLoaded', async () => {
   // 1. Initialize feature logic (now that elements exist in DOM)
-  // Wrap each in try-catch so errors don't prevent loader removal
-  try { initNavbar(); } catch (e) { console.error('initNavbar error:', e); }
-  try { initScrollReveal(); } catch (e) { console.error('initScrollReveal error:', e); }
-  try { initDropdownMenus(); } catch (e) { console.error('initDropdownMenus error:', e); }
-  try { initHeroSlider(); } catch (e) { console.error('initHeroSlider error:', e); }
-  try { initCounterAnimation(); } catch (e) { console.error('initCounterAnimation error:', e); }
-  try { initSmoothScrolling(); } catch (e) { console.error('initSmoothScrolling error:', e); }
-  try { initParallaxEffect(); } catch (e) { console.error('initParallaxEffect error:', e); }
-  try { initMineMarkers(); } catch (e) { console.error('initMineMarkers error:', e); }
-  try { initNewsletterForm(); } catch (e) { console.error('initNewsletterForm error:', e); }
-  try { initBorderBeam(); } catch (e) { console.error('initBorderBeam error:', e); }
-  try { initTactileFeedback(); } catch (e) { console.error('initTactileFeedback error:', e); }
-  try { initEarthTechCore(); } catch (e) { console.error('initEarthTechCore error:', e); }
-  try { initStepper(); } catch (e) { console.error('initStepper error:', e); }
+  // One failing module should never block the rest of the page boot sequence.
+  runInit('initNavbar', initNavbar);
+  runInit('initScrollReveal', initScrollReveal);
+  runInit('initDropdownMenus', initDropdownMenus);
+  runInit('initHeroSlider', initHeroSlider);
+  runInit('initCounterAnimation', initCounterAnimation);
+  runInit('initSmoothScrolling', initSmoothScrolling);
+  runInit('initParallaxEffect', initParallaxEffect);
+  runInit('initMineMarkers', initMineMarkers);
+  runInit('initNewsletterForm', initNewsletterForm);
+  runInit('initBorderBeam', initBorderBeam);
+  runInit('initTactileFeedback', initTactileFeedback);
+  runInit('initEarthTechCore', initEarthTechCore);
+  runInit('initStepper', initStepper);
   // Ensure loader is removed after all inits complete
   setTimeout(() => removeLoader(), 100);
 });
@@ -105,9 +126,10 @@ function initCounterAnimation() {
   window.__counterAnimationInitialized = true;
 
   const counters = document.querySelectorAll('[data-target]');
+  if (!counters.length || typeof IntersectionObserver === 'undefined') return;
 
   const animateCounter = (element) => {
-    const target = parseInt(element.getAttribute('data-target'));
+    const target = parseInt(element.getAttribute('data-target'), 10);
     const suffix = element.getAttribute('data-suffix') || '';
     const duration = 2000;
     const increment = target / (duration / 16);
@@ -221,10 +243,6 @@ function initMineMarkers() {
 
   markers.forEach(marker => {
     marker.addEventListener('click', () => {
-      const siteName = marker.getAttribute('data-site');
-      // You can expand this to show a popup or navigate to project details
-      console.log('Clicked mine site:', siteName);
-
       // Add a subtle animation on click
       marker.style.transform = 'scale(1.3)';
       setTimeout(() => {
@@ -256,12 +274,10 @@ function initNewsletterForm() {
     const email = emailInput.value;
 
     if (email && validateEmail(email)) {
-      // You would typically send this to your backend
-      console.log('Newsletter signup:', email);
 
       // Show success feedback
       emailInput.value = '';
-      emailInput.placeholder = '✓ Subscribed!';
+      emailInput.placeholder = 'Subscribed';
       setTimeout(() => {
         emailInput.placeholder = 'Your email';
       }, 3000);
@@ -289,3 +305,4 @@ export {
   initMineMarkers,
   initNewsletterForm
 };
+

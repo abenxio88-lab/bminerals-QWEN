@@ -52,8 +52,8 @@
         setTimeout(() => {
           if (bgImage) bgImage.style.opacity = '0';
         }, 500);
-      }).catch(err => {
-        console.warn('Hero video auto-play blocked or failed:', err);
+      }).catch(() => {
+        container.classList.add('hero-cinematic--video-fallback');
       });
     }, 10000);
   }
@@ -193,6 +193,7 @@
    */
   function animateStats() {
     const statValues = document.querySelectorAll('.stat-value');
+    if (!statValues.length || typeof IntersectionObserver === 'undefined') return;
     
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {

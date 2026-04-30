@@ -808,23 +808,23 @@
 
 @media (max-width: 768px) {
   .parallax-hero {
-    height: auto !important;
-    min-height: 450px !important;
-    padding-top: calc(var(--navbar-height) + 2rem) !important;
-    padding-bottom: 3rem !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
-    text-align: center !important;
+    height: auto;
+    min-height: 450px;
+    padding-top: calc(var(--navbar-height) + 2rem);
+    padding-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
 
   .parallax-hero__content {
-    position: relative !important;
-    z-index: 10 !important;
-    width: 100% !important;
-    padding: 0 1.5rem !important;
-    margin: 0 !important;
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    padding: 0 1.5rem;
+    margin: 0;
   }
 
   .parallax-hero__title {
