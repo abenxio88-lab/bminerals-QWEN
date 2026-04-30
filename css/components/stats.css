@@ -11,9 +11,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse at 0% 50%, rgba(230, 92, 26, 0.04) 0%, transparent 50%),
-    radial-gradient(ellipse at 100% 0%, rgba(30, 58, 95, 0.03) 0%, transparent 50%);
+  background: none;
   pointer-events: none;
 }
 

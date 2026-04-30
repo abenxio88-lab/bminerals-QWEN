@@ -1,7 +1,7 @@
 /* Expertise/About Section */
 .expertise {
   padding: var(--section-padding-y) var(--section-padding-x);
-  background: linear-gradient(180deg, var(--bg-secondary) 0%, #FFFFFF 50%, var(--bg-secondary) 100%);
+  background: var(--bg-primary);
   position: relative;
   overflow: hidden;
 }
@@ -13,7 +13,7 @@
   left: -30%;
   width: 60%;
   height: 100%;
-  background: radial-gradient(circle at 50% 50%, rgba(44, 94, 143, 0.03), transparent 70%);
+  background: none;
   pointer-events: none;
 }
 

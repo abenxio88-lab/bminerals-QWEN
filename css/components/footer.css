@@ -1,24 +1,17 @@
 .footer {
-  background: rgba(248, 248, 245, 0.98);
+  background: #FFFCFB;
   color: var(--text-secondary);
   padding: var(--section-padding-y) var(--section-padding-x) 2.5rem;
   position: relative;
   overflow: hidden;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: none;
 }
 
 .footer::before {
   content: '';
   position: absolute;
   inset: 0;
-  background:
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 100px,
-      rgba(44, 94, 143, 0.02) 100px,
-      rgba(44, 94, 143, 0.02) 101px
-    );
+  background: none;
   pointer-events: none;
 }
 
@@ -135,17 +128,19 @@
   transition: all 0.3s var(--ease-smooth);
   text-decoration: none;
   display: inline-block;
+  position: relative;
 }
 
 .footer__link::before {
   content: '';
   position: absolute;
   left: 0;
-  bottom: -2px;
+  bottom: 0;
   width: 0;
-  height: 1px;
+  height: 2px;
   background: var(--primary-gold-400);
   transition: width 0.3s var(--ease-smooth);
+  display: none;
 }
 
 .footer__link:hover {

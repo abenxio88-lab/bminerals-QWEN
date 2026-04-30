@@ -828,8 +828,8 @@
   }
 
   .parallax-hero__title {
-    font-size: var(--display-size) !important;
-    line-height: 1.1 !important;
+    font-size: var(--display-size);
+    line-height: 1.1;
   }
 
   .zigzag-section {

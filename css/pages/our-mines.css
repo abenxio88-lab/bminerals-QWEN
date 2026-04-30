@@ -420,8 +420,8 @@
     margin: 0 !important;
   }
   .mines-hero__title {
-    font-size: var(--display-size) !important;
-    line-height: 1.1 !important;
+    font-size: var(--display-size);
+    line-height: 1.1;
   }
   .mines-overview {
     padding: 2.5rem var(--section-padding-x);

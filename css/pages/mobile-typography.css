@@ -34,14 +34,14 @@
   .mineral-encyclopedia__title,
   .cta-premium__title,
   .map-section__title {
-    font-size: var(--mobile-content-heading-size) !important;
-    line-height: var(--mobile-content-heading-line) !important;
+    font-size: var(--mobile-content-heading-size);
+    line-height: var(--mobile-content-heading-line);
   }
 
   main h1:not([class*="hero"]):not(.hero-headline):not(.bm-hill-brand-text),
   main h2:not([class*="hero"]):not(.bm-hill-brand-text) {
-    font-size: var(--mobile-content-heading-size) !important;
-    line-height: var(--mobile-content-heading-line) !important;
+    font-size: var(--mobile-content-heading-size);
+    line-height: var(--mobile-content-heading-line);
   }
 }
 

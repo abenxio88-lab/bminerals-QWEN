@@ -321,9 +321,9 @@ body.loaded .bm-hill-content {
   .zigzag__title,
   .product-overview-title,
   .product-comparison__title {
-    font-size: var(--mobile-content-heading-size) !important;
-    line-height: var(--mobile-content-heading-line) !important;
-    text-transform: uppercase !important;
+    font-size: var(--mobile-content-heading-size);
+    line-height: var(--mobile-content-heading-line);
+    text-transform: uppercase;
   }
 
   /* Catch non-hero semantic headings that do not use shared section classes yet */
