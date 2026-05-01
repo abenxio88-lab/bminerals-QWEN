@@ -125,7 +125,7 @@ body.homepage .projects__map-container.projects-footprint::before {
 .projects-footprint__kicker {
   display: inline-block;
   margin-bottom: 0.45rem;
-  color: #c89a62;
+  color: #e65c1a;
   font-family: var(--font-ui);
   font-size: 0.68rem;
   font-weight: 800;
@@ -156,7 +156,7 @@ body.homepage .projects__map-container.projects-footprint::before {
   padding: 0.48rem 0.62rem;
   background: rgba(255, 255, 255, 0.055);
   border: 1px solid rgba(159, 178, 195, 0.16);
-  color: rgba(245, 240, 232, 0.74);
+  color: #e65c1a;
   font-family: var(--font-ui);
   font-size: 0.64rem;
   font-weight: 800;
@@ -193,24 +193,19 @@ body.homepage .projects__map-container.projects-footprint::before {
 }
 
 .projects-footprint__belt {
-  fill: rgba(159, 178, 195, 0.07);
-  stroke: rgba(159, 178, 195, 0.18);
-  stroke-width: 1.25;
+  display: none;
 }
 
 .projects-footprint__belt--chromite {
-  fill: rgba(200, 154, 98, 0.12);
-  stroke: rgba(200, 154, 98, 0.32);
+  display: none;
 }
 
 .projects-footprint__belt--barite {
-  fill: rgba(112, 148, 174, 0.1);
-  stroke: rgba(112, 148, 174, 0.3);
+  display: none;
 }
 
 .projects-footprint__belt--copper {
-  fill: rgba(177, 104, 72, 0.1);
-  stroke: rgba(177, 104, 72, 0.28);
+  display: none;
 }
 
 .projects-footprint__route {
@@ -289,8 +284,8 @@ body.homepage .projects__map-container.projects-footprint::before {
 }
 
 .projects-footprint__dot {
-  fill: #c89a62;
-  filter: drop-shadow(0 0 10px rgba(200, 154, 98, 0.48));
+  fill: #e65c1a;
+  filter: drop-shadow(0 0 10px rgba(230, 92, 26, 0.5));
 }
 
 .projects-footprint__pulse {
@@ -298,7 +293,7 @@ body.homepage .projects__map-container.projects-footprint::before {
 }
 
 .projects-footprint__pin--barite .projects-footprint__dot {
-  fill: #7094ae;
+  fill: #e65c1a;
 }
 
 .projects-footprint__pin--barite .projects-footprint__pulse {
@@ -307,7 +302,7 @@ body.homepage .projects__map-container.projects-footprint::before {
 }
 
 .projects-footprint__pin--copper .projects-footprint__dot {
-  fill: #b16848;
+  fill: #e65c1a;
 }
 
 .projects-footprint__pin--copper .projects-footprint__pulse {
@@ -316,7 +311,7 @@ body.homepage .projects__map-container.projects-footprint::before {
 }
 
 .projects-footprint__port path {
-  fill: #c89a62;
+  fill: #e65c1a;
   stroke: #101923;
   stroke-width: 4;
 }

@@ -32,14 +32,6 @@ export function initProjectMap() {
     lineCap: 'round'
   };
 
-  const beltStyle = {
-    color: '#8ea4b7',
-    fillColor: '#8ea4b7',
-    weight: 1,
-    fillOpacity: 0.06,
-    opacity: 0.24
-  };
-
   const projects = [
     {
       name: "Muslim Bagh",
@@ -74,14 +66,6 @@ export function initProjectMap() {
     { name: 'Karachi Port', coords: [24.86, 67.01] },
     { name: 'Gwadar Port', coords: [25.12, 62.32] }
   ];
-
-  const beltPolygons = [
-    [[30.35, 67.15], [31.1, 67.85], [30.95, 68.35], [30.25, 67.8]],
-    [[27.25, 65.95], [28.28, 66.35], [28.05, 67.05], [27.08, 66.72]],
-    [[28.45, 60.7], [29.7, 61.05], [29.85, 62.35], [28.72, 62.05]]
-  ];
-
-  beltPolygons.forEach(points => L.polygon(points, beltStyle).addTo(map));
 
   projects.forEach(project => {
     L.circle(project.coords, {

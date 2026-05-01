@@ -333,10 +333,10 @@
   position: relative;
   width: 13px;
   height: 13px;
-  background: #c89a62;
+  background: #e65c1a;
   border: 3px solid #101923;
   border-radius: 50%;
-  box-shadow: 0 0 0 2px rgba(200, 154, 98, 0.34), 0 14px 26px rgba(5, 10, 16, 0.34);
+  box-shadow: 0 0 0 2px rgba(230, 92, 26, 0.34), 0 14px 26px rgba(5, 10, 16, 0.34);
   z-index: 2;
 }
 
@@ -345,8 +345,8 @@
 }
 
 .footprint-map-marker--barite .footprint-map-marker__dot {
-  background: #7094ae;
-  box-shadow: 0 0 0 2px rgba(112, 148, 174, 0.34), 0 14px 26px rgba(5, 10, 16, 0.34);
+  background: #e65c1a;
+  box-shadow: 0 0 0 2px rgba(230, 92, 26, 0.34), 0 14px 26px rgba(5, 10, 16, 0.34);
 }
 
 .footprint-map-marker--barite .footprint-map-marker__pulse {
@@ -354,8 +354,8 @@
 }
 
 .footprint-map-marker--copper .footprint-map-marker__dot {
-  background: #b16848;
-  box-shadow: 0 0 0 2px rgba(177, 104, 72, 0.32), 0 14px 26px rgba(5, 10, 16, 0.34);
+  background: #e65c1a;
+  box-shadow: 0 0 0 2px rgba(230, 92, 26, 0.34), 0 14px 26px rgba(5, 10, 16, 0.34);
 }
 
 .footprint-map-marker--copper .footprint-map-marker__pulse {
@@ -365,9 +365,9 @@
 .footprint-port-marker__dot {
   width: 12px;
   height: 12px;
-  background: #c89a62;
+  background: #e65c1a;
   border: 2px solid #101923;
-  box-shadow: 0 0 0 2px rgba(200, 154, 98, 0.32);
+  box-shadow: 0 0 0 2px rgba(230, 92, 26, 0.32);
   transform: rotate(45deg);
 }
 
