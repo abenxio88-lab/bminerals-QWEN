@@ -6,10 +6,12 @@
 export function initEarthTechCore() {
   // Guard: Skip if already initialized
   if (window.__earthTechCoreInitialized) return;
-  window.__earthTechCoreInitialized = true;
 
   const container = document.getElementById('three-horizon-container');
   if (!container) return;
+  if (typeof THREE === 'undefined') return;
+
+  window.__earthTechCoreInitialized = true;
 
   // 1. Setup Scene
   const scene = new THREE.Scene();

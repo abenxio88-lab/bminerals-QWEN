@@ -39,3 +39,6 @@
 @import "css/pages/projects.css";
 @import "css/pages/sustainability.css";
 @import "css/pages/mobile-typography.css";
+
+/* Homepage refinement layer (scoped to body.homepage only) */
+@import "css/components/homepage-refinement.css";

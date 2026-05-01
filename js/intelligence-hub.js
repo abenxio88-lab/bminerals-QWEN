@@ -4,26 +4,34 @@
  */
 
 export function initIntelligenceHub() {
+  if (window.__intelligenceHubInitialized) return;
+  window.__intelligenceHubInitialized = true;
+
   // 1. ESG ProgressBar Animation on Reveal
   const esgSection = document.querySelector('.esg-dashboard');
   if (esgSection) {
     const bars = esgSection.querySelectorAll('.esg-card__bar-fill');
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // The CSS transition handles the smooth fill
-          // We just need to ensure the width is set
-          bars.forEach(bar => {
-            const width = bar.getAttribute('data-width');
-            if (width) bar.style.width = width;
-          });
-          observer.unobserve(entry.target);
-        }
+    const fillBars = () => {
+      bars.forEach(bar => {
+        const width = bar.getAttribute('data-width');
+        if (width) bar.style.width = width;
       });
-    }, { threshold: 0.2 });
+    };
 
-    observer.observe(esgSection);
+    if (typeof IntersectionObserver === 'undefined') {
+      fillBars();
+    } else {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            fillBars();
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      observer.observe(esgSection);
+    }
   }
 
   // 2. Virtual Mine Tours - Preview Modal
@@ -67,18 +75,25 @@ function openTourModal(card) {
     document.body.appendChild(tourModal);
   }
 
-  tourModal.querySelector('.tour-modal__media').style.backgroundImage = `url("${image}")`;
-  tourModal.querySelector('.tour-modal__eyebrow').textContent = badge;
-  tourModal.querySelector('.tour-modal__title').textContent = name;
-  tourModal.querySelector('[data-tour-modal-description]').textContent = description;
-  tourModal.querySelector('[data-tour-modal-location]').textContent = location;
-  tourModal.querySelector('[data-tour-modal-focus]').textContent = focus;
-  tourModal.querySelector('[data-tour-modal-duration]').textContent = duration;
+  setModalText('.tour-modal__eyebrow', badge);
+  setModalText('.tour-modal__title', name);
+  setModalText('[data-tour-modal-description]', description);
+  setModalText('[data-tour-modal-location]', location);
+  setModalText('[data-tour-modal-focus]', focus);
+  setModalText('[data-tour-modal-duration]', duration);
+
+  const media = tourModal.querySelector('.tour-modal__media');
+  if (media) media.style.backgroundImage = image ? `url("${image}")` : '';
 
   tourModal.classList.add('is-open');
   tourModal.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
-  tourModal.querySelector('.tour-modal__close').focus();
+  tourModal.querySelector('.tour-modal__close')?.focus();
+}
+
+function setModalText(selector, value) {
+  const element = tourModal?.querySelector(selector);
+  if (element) element.textContent = value;
 }
 
 function createTourModal() {

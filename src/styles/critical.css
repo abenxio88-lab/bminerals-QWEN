@@ -2,7 +2,7 @@
    Keep this very small: navbar layout, hero container, basic typography */
 
 :root {
-  --navbar-height: 80px;
+  --navbar-height: 72px;
   --max-width: 1400px;
 }
 

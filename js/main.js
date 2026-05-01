@@ -83,12 +83,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 function initStepper() {
   // Guard: Skip if already initialized
   if (window.__stepperInitialized) return;
-  window.__stepperInitialized = true;
 
   const indicators = document.querySelectorAll('.step-indicator');
   const cards = document.querySelectorAll('.step-card');
 
   if (!indicators.length || !cards.length) return;
+
+  window.__stepperInitialized = true;
 
   indicators.forEach(indicator => {
     indicator.addEventListener('click', () => {
@@ -123,10 +124,11 @@ function initStepper() {
 function initCounterAnimation() {
   // Guard: Skip if already initialized
   if (window.__counterAnimationInitialized) return;
-  window.__counterAnimationInitialized = true;
 
   const counters = document.querySelectorAll('[data-target]');
-  if (!counters.length || typeof IntersectionObserver === 'undefined') return;
+  if (!counters.length) return;
+
+  window.__counterAnimationInitialized = true;
 
   const animateCounter = (element) => {
     const target = parseInt(element.getAttribute('data-target'), 10);
@@ -147,6 +149,11 @@ function initCounterAnimation() {
 
     updateCounter();
   };
+
+  if (typeof IntersectionObserver === 'undefined') {
+    counters.forEach(animateCounter);
+    return;
+  }
 
   // Intersection Observer for counters
   const observerOptions = {
@@ -180,9 +187,15 @@ function initSmoothScrolling() {
     link.addEventListener('click', (e) => {
       const href = link.getAttribute('href');
       if (href && href !== '#') {
-        e.preventDefault();
-        const target = document.querySelector(href);
+        let target = null;
+        try {
+          target = document.querySelector(href);
+        } catch (error) {
+          return;
+        }
+
         if (target) {
+          e.preventDefault();
           const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 80;
           const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
 
@@ -206,6 +219,8 @@ function initParallaxEffect() {
 
   const heroSection = document.querySelector('.hero');
   if (!heroSection) return;
+  const parallaxLayer = heroSection.querySelector('.hero__mountain-bg');
+  if (!parallaxLayer) return;
 
   let ticking = false;
 
@@ -214,11 +229,8 @@ function initParallaxEffect() {
     const heroHeight = heroSection.offsetHeight;
 
     if (scrolled < heroHeight) {
-      const parallaxLayer = heroSection.querySelector('.hero__mountain-bg');
       const parallaxValue = scrolled * 0.5;
-      if (parallaxLayer) {
-        parallaxLayer.style.transform = `translateY(${parallaxValue}px)`;
-      }
+      parallaxLayer.style.transform = `translateY(${parallaxValue}px)`;
     }
     ticking = false;
   };

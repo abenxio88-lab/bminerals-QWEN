@@ -48,7 +48,7 @@
 .navbar__brand { grid-column: 1; }
 
 .navbar__logo-img {
-  height: 55px !important;
+  height: 48px !important;
   width: auto !important;
   max-width: none !important;
   display: inline-block !important;
@@ -72,7 +72,7 @@
 .navbar__nav {
   display: flex;
   align-items: center;
-  gap: 1.6rem; /* increased spacing between items */
+  gap: 1.45rem;
   flex-wrap: nowrap;
   justify-content: center;
   grid-column: 2;
@@ -86,7 +86,7 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   position: relative;
-  padding: 0.5rem 0.75rem;
+  padding: 0.42rem 0.7rem;
   transition: color 0.25s var(--ease-smooth);
   border-radius: 0;
   display: flex;

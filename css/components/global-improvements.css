@@ -56,9 +56,9 @@ a:focus-visible {
   top: var(--navbar-height);
   left: 0;
   right: 0;
-  background: var(--navy-950);
-  border-bottom: 1px solid rgba(44, 94, 143, 0.2);
-  padding: 0.625rem var(--section-padding-x);
+  background: #05070A;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.38rem var(--section-padding-x);
   z-index: var(--z-data-freshness);
   display: block;
 }
@@ -71,6 +71,7 @@ a:focus-visible {
   justify-content: center;
   gap: 0.625rem;
   font-size: var(--text-xs);
+  line-height: 1.35;
   color: rgba(255, 255, 255, 0.75);
 }
 

@@ -1,9 +1,16 @@
 export function initScrollReveal() {
   // Guard: Skip if already initialized
   if (window.__scrollRevealInitialized) return;
-  window.__scrollRevealInitialized = true;
 
   const reveals = document.querySelectorAll('.reveal');
+  if (!reveals.length) return;
+
+  window.__scrollRevealInitialized = true;
+
+  if (typeof IntersectionObserver === 'undefined') {
+    reveals.forEach(el => el.classList.add('revealed'));
+    return;
+  }
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {

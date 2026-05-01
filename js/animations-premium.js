@@ -56,10 +56,11 @@ export function initPremiumAnimations() {
   // 2. Liquid Scroll Reveal for Mineral Cards (skip when cinematic hero handles them)
   if (!hasCinematicHero) {
     const mineralCards = document.querySelectorAll('.mineral-card');
-    if (mineralCards.length > 0) {
+    const mineralGrid = document.querySelector('.products__grid, .minerals__grid');
+    if (mineralCards.length > 0 && mineralGrid) {
       gsap.from(mineralCards, {
         scrollTrigger: {
-          trigger: ".products__grid",
+          trigger: mineralGrid,
           start: "top 80%",
           toggleActions: "play none none none"
         },
