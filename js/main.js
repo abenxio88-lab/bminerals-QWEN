@@ -123,7 +123,7 @@ function initStepper() {
 // ============================================
 function initCounterAnimation() {
   // Guard: Skip if already initialized
-  if (window.__counterAnimationInitialized) return;
+  if (window.__counterAnimationInitialized || window.__sceneHomeCounterManaged) return;
 
   const counters = document.querySelectorAll('[data-target]');
   if (!counters.length) return;
@@ -178,8 +178,41 @@ function initCounterAnimation() {
 // ============================================
 function initSmoothScrolling() {
   // Guard: Skip if already initialized
-  if (window.__smoothScrollingInitialized) return;
+  if (window.__smoothScrollingInitialized || window.__lenisEnabled) return;
   window.__smoothScrollingInitialized = true;
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasLenis = typeof window.Lenis === 'function';
+  const hasGsapScrollTrigger = Boolean(window.gsap && window.ScrollTrigger);
+  let lenis = null;
+
+  if (hasLenis && !prefersReducedMotion) {
+    lenis = new window.Lenis({
+      lerp: 0.08,
+      duration: 1.12,
+      wheelMultiplier: 0.9,
+      smoothWheel: true,
+      smoothTouch: false
+    });
+
+    window.__bmLenis = lenis;
+    window.__lenisEnabled = true;
+
+    if (hasGsapScrollTrigger) {
+      window.gsap.registerPlugin(window.ScrollTrigger);
+      lenis.on('scroll', () => window.ScrollTrigger.update());
+      window.gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+      });
+      window.gsap.ticker.lagSmoothing(0);
+    } else {
+      const raf = (time) => {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      };
+      requestAnimationFrame(raf);
+    }
+  }
 
   const anchorLinks = document.querySelectorAll('a[href^="#"]');
 
@@ -197,8 +230,15 @@ function initSmoothScrolling() {
         if (target) {
           e.preventDefault();
           const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 80;
-          const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+          if (lenis) {
+            lenis.scrollTo(target, {
+              offset: -navbarHeight,
+              duration: 1.1
+            });
+            return;
+          }
 
+          const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
           window.scrollTo({
             top: targetPosition,
             behavior: 'smooth'

@@ -7,6 +7,9 @@
  * Initialize all premium animations
  */
 export function initPremiumAnimations() {
+  if (window.__sceneHomeEnhanced) {
+    return;
+  }
   const gsap = window.gsap;
   const ScrollTrigger = window.ScrollTrigger;
 

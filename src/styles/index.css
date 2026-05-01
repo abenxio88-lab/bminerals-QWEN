@@ -4,6 +4,7 @@
 @import "css/variables.css";
 @import "css/reset.css";
 @import "css/animations.css";
+@import "css/components/smooth-scroll.css";
 
 /* Layout / core */
 @import "css/components/global-improvements.css";

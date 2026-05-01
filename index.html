@@ -32,14 +32,12 @@
       --max-width: 1400px;
     }
 
-    /* CAP everything else on the homepage to 40px */
-    h2:not(.hero__headline),
+    /* Keep long homepage section titles fluid without flattening the full heading hierarchy */
     .section-title,
     .b2b-portal__title,
     .mine-tours__title,
     .mineral-encyclopedia__title,
     .cta-premium__title {
-      font-size: var(--h1-size) !important;
       max-width: 100%;
     }
 
@@ -77,6 +75,7 @@
 
   <!-- Core CSS (Critical) -->
   <link rel="stylesheet" href="output.css">
+  <link rel="stylesheet" href="css/components/home-cinematic-motion.css">
 
   <!-- Component CSS (Non-Critical) -->
   <link rel="stylesheet" href="css/components/investor-metrics.css" media="print" onload="this.media='all'">
@@ -1320,7 +1319,7 @@
             <!-- Mission Card -->
             <div class="about__mv-card about__mv-card--mission">
               <div class="about__mv-card-icon">
-                <svg width="32" height="32" class="icon" style="color: var(--primary-gold-400);">
+                <svg width="32" height="32" class="icon icon--accent">
                   <use href="images/icons.svg#icon-star-mission"></use>
                 </svg>
               </div>
@@ -1336,7 +1335,7 @@
             <!-- Vision Card -->
             <div class="about__mv-card about__mv-card--vision">
               <div class="about__mv-card-icon">
-                <svg width="32" height="32" class="icon" style="color: var(--navy-400);">
+                <svg width="32" height="32" class="icon icon--navy">
                   <use href="images/icons.svg#icon-vision-eye"></use>
                 </svg>
               </div>
@@ -1358,7 +1357,7 @@
           <div class="about__values-grid">
             <div class="about__value-item">
               <div class="about__value-icon">
-                <svg width="28" height="28" class="icon" style="color: var(--primary-gold-400);">
+                <svg width="28" height="28" class="icon icon--accent">
                   <use href="images/icons.svg#icon-safety-clock"></use>
                 </svg>
               </div>
@@ -1369,7 +1368,7 @@
 
             <div class="about__value-item">
               <div class="about__value-icon">
-                <svg width="28" height="28" class="icon" style="color: var(--navy-400);">
+                <svg width="28" height="28" class="icon icon--navy">
                   <use href="images/icons.svg#icon-nature-leaf"></use>
                 </svg>
               </div>
@@ -1380,7 +1379,7 @@
 
             <div class="about__value-item">
               <div class="about__value-icon">
-                <svg width="28" height="28" class="icon" style="color: var(--primary-gold-400);">
+                <svg width="28" height="28" class="icon icon--accent">
                   <use href="images/icons.svg#icon-people-community"></use>
                 </svg>
               </div>
@@ -1391,7 +1390,7 @@
 
             <div class="about__value-item">
               <div class="about__value-icon">
-                <svg width="28" height="28" class="icon" style="color: var(--navy-400);">
+                <svg width="28" height="28" class="icon icon--navy">
                   <use href="images/icons.svg#icon-integrity-check"></use>
                 </svg>
               </div>
@@ -2421,13 +2420,13 @@
     <!-- ============================================ -->
     <!-- CINEMATIC MEDIA HUB - Drone Cinematics -->
     <!-- ============================================ -->
-    <section class="drone-cinematics" style="background: #0a0a0a; color: white;">
+    <section class="drone-cinematics drone-cinematics--dark">
       <div class="operations__container">
         <header class="operations__header reveal">
-          <span class="section-label" style="color: var(--primary-gold-400);">Media Hub</span>
-          <h2 class="section-title" style="color: white;">Cinematic <span
-              style="color: var(--primary-gold-400);">Operations</span></h2>
-          <p class="section-subtitle" style="color: rgba(255,255,255,0.6);">High-fidelity documentation of our mining
+          <span class="section-label drone-cinematics__label">Media Hub</span>
+          <h2 class="section-title drone-cinematics__title">Cinematic <span
+              class="text-accent">Operations</span></h2>
+          <p class="section-subtitle drone-cinematics__subtitle">High-fidelity documentation of our mining
             sites and logistics network via FPV drone cinematics.</p>
         </header>
 
@@ -2437,28 +2436,25 @@
             <div class="drone-play-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M8 5v14l11-7z" />
               </svg></div>
-            <div
-              style="position:absolute; bottom:1.5rem; left:1.5rem; font-family:var(--font-ui); font-size:10px; text-transform:uppercase; letter-spacing:0.1em;">
+            <div class="drone-item__caption drone-item__caption--large">
               Chagai District Exploration Hub</div>
           </div>
           <div class="drone-item drone-item--md">
             <img src="images/hero/hero-4.webp" alt="Drone view of Muslim Bagh chromite mine">
-            <div class="drone-play-btn" style="width:40px; height:40px;"><svg width="16" height="16" viewBox="0 0 24 24"
+            <div class="drone-play-btn drone-play-btn--compact"><svg width="16" height="16" viewBox="0 0 24 24"
                 fill="currentColor">
                 <path d="M8 5v14l11-7z" />
               </svg></div>
-            <div
-              style="position:absolute; bottom:1rem; left:1rem; font-family:var(--font-ui); font-size:8px; text-transform:uppercase; letter-spacing:0.1em;">
+            <div class="drone-item__caption">
               Muslim Bagh Peak Operations</div>
           </div>
           <div class="drone-item drone-item--md">
             <img src="images/hero/hero-5.webp" alt="Aerial view of Karachi Port shipment">
-            <div class="drone-play-btn" style="width:40px; height:40px;"><svg width="16" height="16" viewBox="0 0 24 24"
+            <div class="drone-play-btn drone-play-btn--compact"><svg width="16" height="16" viewBox="0 0 24 24"
                 fill="currentColor">
                 <path d="M8 5v14l11-7z" />
               </svg></div>
-            <div
-              style="position:absolute; bottom:1rem; left:1rem; font-family:var(--font-ui); font-size:8px; text-transform:uppercase; letter-spacing:0.1em;">
+            <div class="drone-item__caption">
               Karachi Port Export Terminal</div>
           </div>
         </div>
@@ -2636,7 +2632,7 @@
                     <text x="200" y="78" text-anchor="end">FULL</text>
                   </g>
                 </svg>
-                <div class="investor-metric__pulse" style="right: -4px; top: 6px;"></div>
+                <div class="investor-metric__pulse investor-metric__pulse--revenue"></div>
               </div>
             </div>
 
@@ -2722,7 +2718,7 @@
                     <text x="200" y="78" text-anchor="end">CAPACITY</text>
                   </g>
                 </svg>
-                <div class="investor-metric__pulse" style="right: -4px; top: 1px;"></div>
+                <div class="investor-metric__pulse investor-metric__pulse--production"></div>
               </div>
             </div>
 
@@ -3256,7 +3252,7 @@
             data-tour-focus="Open-pit chromite extraction, crushing circuit, stockpile QA, dispatch yard"
             data-tour-duration="4 min preview"
             data-tour-image="images/chromite-new.webp">
-            <div class="tour-card__bg" style="background-image:url('images/chromite-new.webp')"></div>
+            <div class="tour-card__bg tour-card__bg--chromite"></div>
             <div class="tour-card__overlay"></div>
             <div class="tour-card__play">
               <svg viewBox="0 0 24 24" fill="currentColor">
@@ -3275,7 +3271,7 @@
             data-tour-focus="API barite processing, covered storage, bulk bagging, truck loading"
             data-tour-duration="3 min preview"
             data-tour-image="images/hero/hero-1.webp">
-            <div class="tour-card__bg" style="background-image:url('images/hero/hero-1.webp')"></div>
+            <div class="tour-card__bg tour-card__bg--barite"></div>
             <div class="tour-card__overlay"></div>
             <div class="tour-card__play">
               <svg viewBox="0 0 24 24" fill="currentColor">
@@ -3294,7 +3290,7 @@
             data-tour-focus="Exploration camp, geological mapping, sampling protocols, access roads"
             data-tour-duration="5 min preview"
             data-tour-image="images/copper-new.webp">
-            <div class="tour-card__bg" style="background-image:url('images/copper-new.webp')"></div>
+            <div class="tour-card__bg tour-card__bg--copper"></div>
             <div class="tour-card__overlay"></div>
             <div class="tour-card__play">
               <svg viewBox="0 0 24 24" fill="currentColor">
@@ -3401,31 +3397,53 @@
       </div>
     </section>
 
-    <section aria-label="Frequently asked questions about mineral sourcing in Pakistan" style="padding: 4.5rem 1.5rem; background: #f8fafc;">
-      <div style="max-width: 1100px; margin: 0 auto;">
-        <h2 style="font-family: var(--font-heading); font-size: clamp(2rem, 3.2vw, 3rem); line-height: 1.2; color: #0f172a; margin-bottom: 1.25rem;">Frequently Asked Questions About Mineral Sourcing from Balochistan</h2>
-        <p style="max-width: 860px; color: #334155; margin-bottom: 2rem;">Quick answers for procurement teams evaluating Pakistan mineral suppliers, documentation workflows and export readiness.</p>
+    <section class="homepage-faq" aria-label="Frequently asked questions about mineral sourcing in Pakistan">
+      <div class="homepage-faq__container">
+        <div class="homepage-faq__shell">
+          <div class="homepage-faq__header">
+            <span class="homepage-faq__eyebrow">Buyer Questions</span>
+            <h2 class="homepage-faq__title">Frequently Asked Questions About Mineral Sourcing from Balochistan</h2>
+            <p class="homepage-faq__intro">Quick answers for procurement teams evaluating Pakistan mineral suppliers, documentation workflows and export readiness.</p>
+          </div>
 
-        <h3 style="font-family: var(--font-ui); font-size: 1.25rem; color: #0f172a; margin-bottom: 0.6rem;">Which minerals do you supply?</h3>
-        <ul style="margin: 0 0 1.25rem 1.25rem; color: #334155;">
-          <li>Chromite from Muslim Bagh operations.</li>
-          <li>Barite from Khuzdar operations.</li>
-          <li>Iron ore and copper sourcing opportunities from Pakistan.</li>
-        </ul>
+          <div class="homepage-faq__grid">
+            <article class="homepage-faq__item">
+              <div class="homepage-faq__item-number">01</div>
+              <div class="homepage-faq__item-body">
+                <h3 class="homepage-faq__question">Which minerals do you supply?</h3>
+                <ul class="homepage-faq__list">
+                  <li>Chromite from Muslim Bagh operations.</li>
+                  <li>Barite from Khuzdar operations.</li>
+                  <li>Iron ore and copper sourcing opportunities from Pakistan.</li>
+                </ul>
+              </div>
+            </article>
 
-        <h3 style="font-family: var(--font-ui); font-size: 1.25rem; color: #0f172a; margin-bottom: 0.6rem;">What documentation support is available for buyers?</h3>
-        <ul style="margin: 0 0 1.25rem 1.25rem; color: #334155;">
-          <li>Quality and shipment-related documentation workflows.</li>
-          <li>Sample request handling for technical evaluation.</li>
-          <li>Commercial coordination through the contact and investor channels.</li>
-        </ul>
+            <article class="homepage-faq__item">
+              <div class="homepage-faq__item-number">02</div>
+              <div class="homepage-faq__item-body">
+                <h3 class="homepage-faq__question">What documentation support is available for buyers?</h3>
+                <ul class="homepage-faq__list">
+                  <li>Quality and shipment-related documentation workflows.</li>
+                  <li>Sample request handling for technical evaluation.</li>
+                  <li>Commercial coordination through the contact and investor channels.</li>
+                </ul>
+              </div>
+            </article>
 
-        <h3 style="font-family: var(--font-ui); font-size: 1.25rem; color: #0f172a; margin-bottom: 0.6rem;">How do we start a sourcing conversation?</h3>
-        <ul style="margin: 0 0 0 1.25rem; color: #334155;">
-          <li>Share target mineral, quality requirements and volume.</li>
-          <li>Request documentation and sampling steps.</li>
-          <li>Align on export route, scheduling and buyer milestones.</li>
-        </ul>
+            <article class="homepage-faq__item homepage-faq__item--last">
+              <div class="homepage-faq__item-number">03</div>
+              <div class="homepage-faq__item-body">
+                <h3 class="homepage-faq__question">How do we start a sourcing conversation?</h3>
+                <ul class="homepage-faq__list homepage-faq__list--last">
+                  <li>Share target mineral, quality requirements and volume.</li>
+                  <li>Request documentation and sampling steps.</li>
+                  <li>Align on export route, scheduling and buyer milestones.</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -3561,6 +3579,8 @@
   <!-- JavaScript -->
   <script defer src="vendor/gsap/gsap.min.js"></script>
   <script defer src="vendor/gsap/ScrollTrigger.min.js"></script>
+  <script defer src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script type="module" src="js/scene-home.js" defer></script>
   <script type="module" src="js/animations-premium.js" defer></script>
   <script type="module" src="js/earth-tech-core.js" defer></script>
   <script type="module" src="js/tactile-feedback.js" defer></script>

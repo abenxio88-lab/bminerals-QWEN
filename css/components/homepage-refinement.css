@@ -20,6 +20,17 @@ body.homepage {
   --home-section-y: clamp(4.8rem, 7vw, 6.5rem);
   --home-container: min(100% - (var(--home-section-x) * 2), var(--max-width));
   --home-motion: cubic-bezier(0.16, 1, 0.3, 1);
+  --home-support-copy-size: var(--body-size);
+  --home-support-copy-line: 1.72;
+  --home-section-title-size: var(--h1-size);
+  --home-section-title-line: 1.12;
+  --home-section-title-measure: min(100%, 26ch);
+  --home-subsection-title-size: var(--h2-size);
+  --home-subsection-title-line: 1.16;
+  --home-card-title-size: var(--h3-size);
+  --home-card-title-line: 1.24;
+  --home-header-block-gap: clamp(2.5rem, 4vw, 3.75rem);
+  --home-title-to-copy-gap: 0.85rem;
 }
 
 body.homepage .home-section {
@@ -44,6 +55,210 @@ body.homepage .home-section--light {
     linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(242, 245, 247, 0.96)),
     var(--home-light-bg);
   color: var(--text-primary);
+}
+
+body.homepage .icon--accent {
+  color: var(--primary-gold-400);
+}
+
+body.homepage .icon--navy {
+  color: var(--navy-400);
+}
+
+body.homepage .text-accent {
+  color: var(--primary-gold-400);
+}
+
+body.homepage :is(
+  .section-subtitle,
+  .about__subtitle,
+  .stats-section__narrative,
+  .stats-section__footnote,
+  .operations__header .section-subtitle,
+  .projects__subtitle,
+  .minerals__subtitle,
+  .our-mines__subtitle,
+  .logistics__subtitle,
+  .sustainability__text,
+  .investors__subtitle,
+  .documents__subtitle,
+  .esg-dashboard__subtitle,
+  .b2b-portal__subtitle,
+  .mine-tours__subtitle,
+  .mineral-encyclopedia__subtitle,
+  .homepage-faq__intro,
+  .cta-premium__text
+) {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--home-support-copy-size);
+  line-height: var(--home-support-copy-line);
+}
+
+body.homepage :is(
+  .section-label,
+  .esg-dashboard__overline,
+  .b2b-portal__overline,
+  .cta-premium__overline,
+  .homepage-faq__eyebrow
+) {
+  font-family: var(--font-ui);
+}
+
+@media (min-width: 769px) {
+  body.homepage .hero__headline {
+    font-size: var(--display-size);
+    line-height: 1.02;
+    letter-spacing: 0.01em;
+  }
+
+  body.homepage :is(
+    .section-title,
+    .stats-section__headline,
+    .about__title,
+    .our-mines__title,
+    .logistics__title,
+    .esg-dashboard__title,
+    .b2b-portal__title,
+    .mine-tours__title,
+    .mineral-encyclopedia__title,
+    .cta-premium__title,
+    .homepage-faq__title
+  ) {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: var(--home-section-title-size);
+    line-height: var(--home-section-title-line);
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  body.homepage :is(
+    .about__story-title,
+    .about__mv-card-title,
+    .about__values-title,
+    .about__leadership-title,
+    .our-mines__operations-title,
+    .logistics__export-title,
+    .step-card__title,
+    .homepage-faq__question
+  ) {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: var(--home-subsection-title-size);
+    line-height: var(--home-subsection-title-line);
+    letter-spacing: 0.015em;
+  }
+
+  body.homepage :is(
+    .mineral-showcase__title,
+    .project-card__title,
+    .logistics__card-title,
+    .document-card__title,
+    .b2b-card__title,
+    .tour-card__name,
+    .encyclopedia-card__name,
+    .our-mines__site-name
+  ) {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: var(--home-card-title-size);
+    line-height: var(--home-card-title-line);
+  }
+
+  body.homepage :is(
+    .minerals__header,
+    .operations__header,
+    .projects__header,
+    .documents__header,
+    .esg-dashboard__header,
+    .b2b-portal__header,
+    .mine-tours__header,
+    .mineral-encyclopedia__header
+  ) {
+    max-width: 920px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: var(--home-header-block-gap);
+    text-align: center;
+  }
+
+  body.homepage :is(
+    .minerals__subtitle,
+    .operations__header .section-subtitle,
+    .projects__subtitle,
+    .documents__subtitle,
+    .esg-dashboard__subtitle,
+    .b2b-portal__subtitle,
+    .mine-tours__subtitle,
+    .mineral-encyclopedia__subtitle
+  ) {
+    max-width: 58ch;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    text-align: center;
+  }
+
+  body.homepage :is(
+    .about__title,
+    .operations__header .section-title,
+    .projects__header .section-title,
+    .our-mines__title,
+    .logistics__title,
+    .homepage-faq__title,
+    .cta-premium__title
+  ) {
+    max-width: var(--home-section-title-measure);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: var(--home-title-to-copy-gap);
+    text-align: center;
+  }
+
+  body.homepage :is(
+    .esg-dashboard__title,
+    .b2b-portal__title,
+    .mine-tours__title,
+    .mineral-encyclopedia__title
+  ) {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: var(--home-title-to-copy-gap);
+    text-align: center;
+    text-wrap: pretty;
+  }
+
+  body.homepage .esg-dashboard__title {
+    max-width: min(100%, 24ch);
+  }
+
+  body.homepage .b2b-portal__title {
+    max-width: min(100%, 34ch);
+  }
+
+  body.homepage .mine-tours__title,
+  body.homepage .mineral-encyclopedia__title {
+    max-width: min(100%, 32ch);
+  }
+
+  body.homepage :is(
+    .esg-dashboard__subtitle,
+    .b2b-portal__subtitle,
+    .mine-tours__subtitle,
+    .mineral-encyclopedia__subtitle
+  ) {
+    max-width: 62ch;
+  }
+
+  body.homepage .stats-section__headline {
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 1rem;
+    text-align: left;
+  }
 }
 
 body.homepage .hero__container,
@@ -324,17 +539,39 @@ body.homepage .stats-section__layout {
 body.homepage .stats-section__editorial {
   position: sticky;
   top: calc(var(--navbar-height) + 2rem);
+  flex: 0 0 42%;
+  max-width: 42%;
   align-self: flex-start;
   padding: clamp(1.5rem, 3vw, 2.25rem);
+  text-align: left;
   border-left: 3px solid var(--home-accent);
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.58));
   box-shadow: 0 18px 48px rgba(15, 31, 58, 0.055);
 }
 
+body.homepage .stats-section__editorial > * {
+  margin-left: 0;
+  margin-right: 0;
+  text-align: left;
+}
+
+body.homepage .stats-section__editorial .section-label {
+  display: inline-block;
+  margin-left: 0;
+  margin-right: 0;
+  text-align: left;
+}
+
 body.homepage .stats-section__headline {
+  display: block;
+  width: 100%;
+  max-width: none;
   letter-spacing: 0;
   text-wrap: balance;
+  margin-left: 0;
+  margin-right: 0;
+  text-align: left;
 }
 
 body.homepage .stats-section__headline .gradient-text {
@@ -345,13 +582,14 @@ body.homepage .stats-section__headline .gradient-text {
 
 body.homepage .stats-section__narrative {
   max-width: 58ch;
-  line-height: 1.76;
   color: var(--charcoal-700);
 }
 
 body.homepage .stats-section__divider {
   width: 88px;
   height: 1px;
+  margin-left: 0;
+  margin-right: auto;
   background: linear-gradient(90deg, var(--home-accent), rgba(212, 90, 21, 0));
 }
 
@@ -369,13 +607,11 @@ body.homepage .metric-strip__item.glass-bento {
   border: 1px solid rgba(15, 31, 58, 0.12);
   box-shadow: 0 20px 48px rgba(15, 31, 58, 0.07);
   transition:
-    transform 0.48s var(--home-motion),
     box-shadow 0.48s var(--home-motion),
     border-color 0.48s var(--home-motion);
 }
 
 body.homepage .metric-strip__item.glass-bento:hover {
-  transform: translateY(-2px);
   border-color: rgba(212, 90, 21, 0.28);
   box-shadow: 0 26px 62px rgba(15, 31, 58, 0.1);
 }
@@ -392,6 +628,126 @@ body.homepage .metric-strip__label {
 
 body.homepage .metric-strip__context {
   max-width: 42ch;
+}
+
+body.homepage .homepage-faq {
+  padding: clamp(4.8rem, 6vw, 6.4rem) var(--home-section-x);
+  background:
+    linear-gradient(180deg, #F7F9FB 0%, #EEF3F7 100%);
+}
+
+body.homepage .homepage-faq__container {
+  width: min(100%, 1100px);
+  margin: 0 auto;
+}
+
+body.homepage .homepage-faq__shell {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.88fr) minmax(0, 1.12fr);
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: start;
+  padding: clamp(1.4rem, 2vw, 1.8rem);
+  border: 1px solid rgba(15, 31, 58, 0.12);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.82));
+  box-shadow: 0 22px 54px rgba(15, 31, 58, 0.08);
+}
+
+body.homepage .homepage-faq__header {
+  position: sticky;
+  top: calc(var(--navbar-height) + 2rem);
+  align-self: start;
+  padding-right: clamp(0.4rem, 1vw, 1rem);
+}
+
+body.homepage .homepage-faq__eyebrow {
+  display: inline-block;
+  margin-bottom: 1rem;
+  padding: 0 0 0.45rem;
+  border-bottom: 1px solid rgba(212, 90, 21, 0.52);
+  color: var(--home-accent);
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+body.homepage .homepage-faq__title {
+  font-family: var(--font-heading);
+  color: #0F172A;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+body.homepage .homepage-faq__intro {
+  max-width: 34rem;
+  margin-bottom: 0;
+  color: #334155;
+}
+
+body.homepage .homepage-faq__grid {
+  display: grid;
+  gap: 1rem;
+}
+
+body.homepage .homepage-faq__item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items: start;
+  padding: 1.35rem 1.35rem 1.45rem;
+  border-top: 1px solid rgba(15, 31, 58, 0.1);
+  background: rgba(255, 255, 255, 0.62);
+}
+
+body.homepage .homepage-faq__item:first-child {
+  border-top: 0;
+}
+
+body.homepage .homepage-faq__item-number {
+  min-width: 2.75rem;
+  color: rgba(15, 31, 58, 0.32);
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  line-height: 1;
+  letter-spacing: 0.08em;
+}
+
+body.homepage .homepage-faq__item-body {
+  min-width: 0;
+}
+
+body.homepage .homepage-faq__question {
+  font-family: var(--font-ui);
+  font-size: var(--h3-size);
+  color: #0F172A;
+  margin-bottom: 0.75rem;
+}
+
+body.homepage .homepage-faq__list {
+  list-style: disc;
+  margin: 0 0 0 1.1rem;
+  color: #334155;
+  line-height: 1.75;
+}
+
+body.homepage .homepage-faq__list--last {
+  margin-bottom: 0;
+}
+
+body.homepage .homepage-faq__list li + li {
+  margin-top: 0.35rem;
+}
+
+@media (min-width: 769px) {
+  body.homepage .homepage-faq__title {
+    max-width: 15ch;
+    margin-left: 0;
+    margin-right: 0;
+    text-align: left;
+  }
 }
 
 /* About opener: refined after the opening four-section system */
@@ -439,9 +795,7 @@ body.homepage .about__subtitle {
   margin-left: auto;
   margin-right: auto;
   color: var(--charcoal-700);
-  font-size: var(--body-size);
   font-weight: 400;
-  line-height: 1.72;
 }
 
 /* Restore the original sticky split feel in the expertise section. */
@@ -457,6 +811,19 @@ body.homepage .expertise__visual {
   position: sticky;
   top: calc(var(--navbar-height) + 2rem);
   align-self: flex-start;
+  padding-top: 1.5rem;
+}
+
+body.homepage .expertise__visual-card {
+  padding-top: 3rem;
+  overflow: visible;
+}
+
+body.homepage .expertise__visual-badge {
+  top: 0;
+  right: 1.2rem;
+  transform: translateY(-50%);
+  z-index: 2;
 }
 
 /* Operations opener and stepper */
@@ -500,9 +867,7 @@ body.homepage .operations__header .section-subtitle {
   margin-left: auto;
   margin-right: auto;
   color: var(--charcoal-700);
-  font-size: var(--body-size);
   font-weight: 400;
-  line-height: 1.72;
 }
 
 body.homepage .operations__step-indicators {
@@ -623,9 +988,7 @@ body.homepage .projects__header .section-title {
 body.homepage .projects__subtitle {
   max-width: 58ch;
   color: var(--charcoal-700);
-  font-size: var(--body-size);
   font-weight: 400;
-  line-height: 1.72;
 }
 
 body.homepage .projects__map-container {
@@ -730,6 +1093,67 @@ body.homepage .project-card__detail-label {
   letter-spacing: 0.1em;
 }
 
+/* Media hub cleanup: keep presentation in CSS, not inline attributes. */
+body.homepage .drone-cinematics--dark {
+  background: #0A0A0A;
+  color: #FFFFFF;
+}
+
+body.homepage .drone-cinematics__label {
+  color: var(--primary-gold-400);
+}
+
+body.homepage .drone-cinematics__title {
+  color: #FFFFFF;
+}
+
+body.homepage .drone-cinematics__subtitle {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+body.homepage .drone-play-btn--compact {
+  width: 40px;
+  height: 40px;
+}
+
+body.homepage .drone-item__caption {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  font-family: var(--font-ui);
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+body.homepage .drone-item__caption--large {
+  bottom: 1.5rem;
+  left: 1.5rem;
+  font-size: 0.625rem;
+}
+
+body.homepage .investor-metric__pulse--revenue {
+  top: 6px;
+  right: -4px;
+}
+
+body.homepage .investor-metric__pulse--production {
+  top: 1px;
+  right: -4px;
+}
+
+body.homepage .tour-card__bg--chromite {
+  background-image: url("images/chromite-new.webp");
+}
+
+body.homepage .tour-card__bg--barite {
+  background-image: url("images/hero/hero-1.webp");
+}
+
+body.homepage .tour-card__bg--copper {
+  background-image: url("images/copper-new.webp");
+}
+
 /* Final sourcing CTA */
 body.homepage .cta-premium {
   padding: clamp(3rem, 5vw, 4.6rem) var(--home-section-x);
@@ -799,7 +1223,7 @@ body.homepage .cta-premium__overline {
   margin-bottom: 0.72rem;
   padding: 0 0 0.36rem;
   border-bottom: 1px solid rgba(242, 106, 33, 0.38);
-  color: rgba(255, 219, 196, 0.84);
+  color: var(--home-accent-bright);
   letter-spacing: 0.2em;
 }
 
@@ -815,8 +1239,6 @@ body.homepage .cta-premium__text {
   max-width: 56ch;
   margin: 0;
   color: var(--home-authority-muted);
-  font-size: var(--body-size);
-  line-height: 1.72;
 }
 
 body.homepage .cta-premium__buttons {
@@ -983,15 +1405,192 @@ body.homepage main > section:not(.hero):not(.commodity-ticker):not(.trust-bar) {
   body.homepage {
     --home-section-x: 1.15rem;
     --home-section-y: 4rem;
+    --home-support-copy-size: 0.9rem;
+    --home-support-copy-line: 1.68;
+    --home-section-title-size: 1.48rem;
+    --home-section-title-line: 1.12;
+    --home-section-title-measure: min(100%, 22rem);
+    --home-subsection-title-size: 1.12rem;
+    --home-subsection-title-line: 1.18;
+    --home-card-title-size: 1rem;
+    --home-card-title-line: 1.24;
+    --home-header-block-gap: 2.1rem;
+    --home-title-to-copy-gap: 0.72rem;
   }
 
   body.homepage .hero {
-    min-height: auto;
+    min-height: 100svh;
     padding-top: calc(var(--navbar-height) + 2.4rem);
   }
 
   body.homepage .hero__headline {
+    font-size: 1.75rem;
+    line-height: 1.04;
+  }
+
+  body.homepage :is(
+    .section-title,
+    .stats-section__headline,
+    .about__title,
+    .our-mines__title,
+    .logistics__title,
+    .esg-dashboard__title,
+    .b2b-portal__title,
+    .mine-tours__title,
+    .mineral-encyclopedia__title,
+    .cta-premium__title,
+    .homepage-faq__title
+  ) {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: var(--home-section-title-size) !important;
+    line-height: var(--home-section-title-line) !important;
     letter-spacing: 0.01em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  body.homepage :is(
+    .about__story-title,
+    .about__mv-card-title,
+    .about__values-title,
+    .about__leadership-title,
+    .our-mines__operations-title,
+    .logistics__export-title,
+    .step-card__title,
+    .homepage-faq__question
+  ) {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: var(--home-subsection-title-size);
+    line-height: var(--home-subsection-title-line);
+  }
+
+  body.homepage :is(
+    .mineral-showcase__title,
+    .project-card__title,
+    .logistics__card-title,
+    .document-card__title,
+    .b2b-card__title,
+    .tour-card__name,
+    .encyclopedia-card__name,
+    .our-mines__site-name
+  ) {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: var(--home-card-title-size);
+    line-height: var(--home-card-title-line);
+  }
+
+  body.homepage :is(
+    .about__story-text,
+    .about__mv-card-text,
+    .about__value-text,
+    .about__leadership-subtitle,
+    .step-card__description,
+    .document-card__meta,
+    .b2b-card__text,
+    .tour-card__desc
+  ) {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 0.95rem;
+    line-height: 1.72;
+  }
+
+  body.homepage :is(
+    .minerals__header,
+    .operations__header,
+    .projects__header,
+    .documents__header,
+    .esg-dashboard__header,
+    .b2b-portal__header,
+    .mine-tours__header,
+    .mineral-encyclopedia__header
+  ) {
+    margin-bottom: var(--home-header-block-gap);
+  }
+
+  body.homepage :is(
+    .about__title,
+    .operations__header .section-title,
+    .projects__header .section-title,
+    .our-mines__title,
+    .logistics__title,
+    .homepage-faq__title,
+    .cta-premium__title
+  ) {
+    max-width: var(--home-section-title-measure);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: var(--home-title-to-copy-gap);
+    text-align: center;
+  }
+
+  body.homepage :is(
+    .esg-dashboard__title,
+    .b2b-portal__title,
+    .mine-tours__title,
+    .mineral-encyclopedia__title
+  ) {
+    max-width: min(100%, 24rem);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: var(--home-title-to-copy-gap);
+    text-align: center;
+    text-wrap: pretty;
+  }
+
+  body.homepage .esg-dashboard__title {
+    max-width: min(100%, 18rem);
+  }
+
+  body.homepage :is(
+    .esg-dashboard__subtitle,
+    .b2b-portal__subtitle,
+    .mine-tours__subtitle,
+    .mineral-encyclopedia__subtitle
+  ) {
+    max-width: 34ch;
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  body.homepage .hero__container {
+    justify-items: center;
+  }
+
+  body.homepage .hero__left,
+  body.homepage .hero__content {
+    align-items: center;
+    justify-self: center;
+    max-width: 42rem;
+    padding-left: 0;
+    text-align: center;
+    border-left: 0;
+  }
+
+  body.homepage .hero__overline {
+    margin-inline: auto;
+    border-bottom: 0;
+  }
+
+  body.homepage .hero__headline {
+    letter-spacing: 0.01em;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  body.homepage .hero__subheadline,
+  body.homepage .hero__subheadline--refined {
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  body.homepage .hero__proofline,
+  body.homepage .hero__cta-group {
+    justify-content: center;
   }
 
   body.homepage .hero__right {
@@ -999,8 +1598,11 @@ body.homepage main > section:not(.hero):not(.commodity-ticker):not(.trust-bar) {
   }
 
   body.homepage .hero__trust-strip {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: none;
+  }
+
+  body.homepage .hero__slider-dots {
+    display: none;
   }
 
   body.homepage .trust-bar__container {
@@ -1008,8 +1610,18 @@ body.homepage main > section:not(.hero):not(.commodity-ticker):not(.trust-bar) {
     gap: 1.2rem;
   }
 
+  body.homepage .trust-bar__title {
+    text-align: center;
+  }
+
   body.homepage .trust-bar__logos {
-    justify-content: flex-start;
+    justify-content: center;
+  }
+
+  body.homepage .expertise__visual-badge {
+    top: 0;
+    right: 1rem;
+    transform: translateY(-50%);
   }
 
   body.homepage .stats-section {
@@ -1032,11 +1644,39 @@ body.homepage main > section:not(.hero):not(.commodity-ticker):not(.trust-bar) {
   body.homepage .cta-premium__button {
     width: 100%;
   }
+
+  body.homepage .homepage-faq__shell {
+    grid-template-columns: 1fr;
+    gap: 1.35rem;
+    padding: 1.1rem;
+  }
+
+  body.homepage .homepage-faq__header {
+    position: static;
+    padding-right: 0;
+  }
+
+  body.homepage .homepage-faq__title,
+  body.homepage .homepage-faq__intro {
+    max-width: none;
+  }
+
+  body.homepage .homepage-faq__item {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+    padding: 1.15rem 0 1.2rem;
+    background: transparent;
+  }
+
+  body.homepage .homepage-faq__item-number {
+    min-width: 0;
+    font-size: 1.05rem;
+  }
 }
 
 @media (max-width: 520px) {
   body.homepage .hero__trust-strip {
-    grid-template-columns: 1fr;
+    display: none;
   }
 
   body.homepage .trust-bar__logo-placeholder {
