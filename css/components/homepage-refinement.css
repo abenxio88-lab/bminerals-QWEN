@@ -358,6 +358,10 @@ body.homepage .hero__stats-panel {
   box-shadow: 0 28px 72px rgba(4, 10, 19, 0.38);
 }
 
+body.homepage .hero__stats-panel-title {
+  color: var(--home-accent-bright);
+}
+
 body.homepage .hero__stats-panel::after {
   display: none;
 }
@@ -411,19 +415,19 @@ body.homepage .commodity-ticker::after {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 12vw;
+  width: clamp(36px, 7vw, 88px);
   pointer-events: none;
   z-index: 2;
 }
 
 body.homepage .commodity-ticker::before {
   left: 0;
-  background: linear-gradient(90deg, #05070A, transparent);
+  background: linear-gradient(90deg, rgba(5, 7, 10, 0.94), transparent);
 }
 
 body.homepage .commodity-ticker::after {
   right: 0;
-  background: linear-gradient(270deg, #05070A, transparent);
+  background: linear-gradient(270deg, rgba(5, 7, 10, 0.94), transparent);
 }
 
 body.homepage .commodity-ticker__track {
@@ -721,7 +725,7 @@ body.homepage .homepage-faq__item-body {
 
 body.homepage .homepage-faq__question {
   font-family: var(--font-ui);
-  font-size: var(--h3-size);
+  font-size: 1.08rem;
   color: #0F172A;
   margin-bottom: 0.75rem;
 }
@@ -1654,11 +1658,19 @@ body.homepage main > section:not(.hero):not(.commodity-ticker):not(.trust-bar) {
   body.homepage .homepage-faq__header {
     position: static;
     padding-right: 0;
+    text-align: left;
   }
 
   body.homepage .homepage-faq__title,
   body.homepage .homepage-faq__intro {
     max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+    text-align: left;
+  }
+
+  body.homepage .homepage-faq__question {
+    font-size: 1.02rem;
   }
 
   body.homepage .homepage-faq__item {
@@ -1683,4 +1695,116 @@ body.homepage main > section:not(.hero):not(.commodity-ticker):not(.trust-bar) {
     width: 100%;
     text-align: center;
   }
+}
+
+/* Final map treatment override: keep this after the homepage refinement layer. */
+body.homepage .projects__map-container.projects-footprint {
+  background: #101923;
+  border-color: rgba(159, 178, 195, 0.18);
+  box-shadow: 0 34px 90px rgba(5, 10, 16, 0.34);
+}
+
+body.homepage .projects__map-container.projects-footprint::before {
+  display: none;
+}
+
+body.homepage .projects-footprint::after {
+  background-image: radial-gradient(circle at 1px 1px, rgba(159, 178, 195, 0.12) 1px, transparent 0);
+  background-size: 34px 34px;
+}
+
+body.homepage .projects-footprint__map {
+  background: #101923;
+  border-color: rgba(159, 178, 195, 0.18);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 24px 54px rgba(5, 10, 16, 0.32);
+}
+
+body.homepage .projects-footprint__svg rect:first-of-type,
+body.homepage .projects-footprint__svg rect:nth-of-type(2) {
+  fill: #101923;
+}
+
+body.homepage .projects-footprint__province {
+  fill: #162230;
+  stroke: rgba(159, 178, 195, 0.24);
+}
+
+body.homepage .projects-footprint__route {
+  display: block;
+  fill: none;
+  stroke: #c89a62;
+  stroke-dasharray: 3 14;
+  stroke-linecap: round;
+  stroke-opacity: 0.5;
+  stroke-width: 2;
+}
+
+body.homepage .projects-footprint__route--secondary {
+  display: block;
+  stroke-opacity: 0.36;
+}
+
+body.homepage .projects-footprint__route-light {
+  display: block;
+  fill: none;
+  stroke: #f3c57f;
+  stroke-dasharray: 2 420;
+  stroke-linecap: round;
+  stroke-opacity: 0.95;
+  stroke-width: 4;
+  filter: drop-shadow(0 0 8px rgba(243, 197, 127, 0.72));
+  animation: footprintRouteTravel 5.2s linear infinite;
+}
+
+body.homepage .projects-footprint__route-light--delay {
+  animation-delay: -1.7s;
+}
+
+body.homepage .projects-footprint__route-light--slow {
+  animation-delay: -3.1s;
+  animation-duration: 6.4s;
+}
+
+body.homepage .projects-footprint__pin text,
+body.homepage .projects-footprint__port text,
+body.homepage .projects-footprint__title {
+  fill: #f5f0e8;
+  color: #f5f0e8;
+}
+
+body.homepage .projects-footprint__pin text,
+body.homepage .projects-footprint__port text {
+  font-weight: 500;
+}
+
+body.homepage .projects-footprint__caption,
+body.homepage .projects-footprint__site p {
+  fill: rgba(245, 240, 232, 0.66);
+  color: rgba(245, 240, 232, 0.68);
+  font-weight: 500;
+}
+
+body.homepage .projects-footprint__pulse {
+  display: none;
+}
+
+body.homepage .projects-footprint__halo {
+  display: block;
+  fill: #101923;
+  stroke: rgba(245, 240, 232, 0.46);
+  stroke-width: 2.5;
+}
+
+body.homepage .projects-footprint__site,
+body.homepage .projects-footprint__meta span {
+  background: rgba(255, 255, 255, 0.055);
+  border-color: rgba(159, 178, 195, 0.14);
+  color: rgba(245, 240, 232, 0.74);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 18px 42px rgba(5, 10, 16, 0.18);
+}
+
+body.homepage .projects-footprint__site strong {
+  color: #f5f0e8;
 }
