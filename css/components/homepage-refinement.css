@@ -107,7 +107,7 @@ body.homepage :is(
 
 @media (min-width: 769px) {
   body.homepage .hero__headline {
-    font-size: var(--display-size);
+    font-size: clamp(2.85rem, 5.2vw, 3.35rem);
     line-height: 1.02;
     letter-spacing: 0.01em;
   }
@@ -1440,7 +1440,7 @@ body.homepage main > section:not(.hero):not(.commodity-ticker):not(.trust-bar) {
   }
 
   body.homepage .hero__headline {
-    font-size: 1.75rem;
+    font-size: 1.95rem;
     line-height: 1.04;
   }
 

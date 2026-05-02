@@ -1,0 +1,356 @@
+/**
+ * Cookies Popup Premium Styling
+ * Super nice white background with professional design
+ */
+
+html.bm-cookies-modal-open,
+body.bm-cookies-modal-open {
+  overflow: hidden;
+}
+
+#bm-cookies-popup {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+#bm-cookies-popup.bm-cookies-show {
+  bottom: 0;
+  pointer-events: auto;
+}
+
+.bm-cookies-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.28);
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  transition: opacity 0.9s ease;
+  pointer-events: none;
+}
+
+#bm-cookies-popup.bm-cookies-show .bm-cookies-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.bm-cookies-container {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+  margin: 0;
+  pointer-events: auto;
+  opacity: 0;
+  transform: translate3d(0, calc(100% + 28px), 0);
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  transition:
+    transform 1.35s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.75s ease;
+  will-change: transform, opacity;
+}
+
+#bm-cookies-popup.bm-cookies-show .bm-cookies-container {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.bm-cookies-content {
+  background: white;
+  border-radius: 16px;
+  margin: 1.5rem;
+  box-shadow: 0 28px 80px rgba(15, 23, 42, 0.18);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: 85vh;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+}
+
+.bm-cookies-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.bm-cookies-header h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0f1f3a;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.bm-cookies-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.bm-cookies-close:hover {
+  background: rgba(0, 0, 0, 0.04);
+  color: #1f2937;
+}
+
+.bm-cookies-body {
+  padding: 1.5rem;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+}
+
+.bm-cookies-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0f1f3a;
+  margin: 0 0 0.75rem 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.bm-cookies-description {
+  font-size: 0.9rem;
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 0 0 1.5rem 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.bm-cookies-types {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.bm-cookie-type {
+  background: #f9fafb;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+.bm-cookie-type:hover {
+  background: #f3f4f6;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.bm-cookie-type-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.bm-cookie-type input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-top: 0.2rem;
+  cursor: pointer;
+  accent-color: #CC5500;
+}
+
+.bm-cookie-type input[type="checkbox"]:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.bm-cookie-type-header label {
+  cursor: pointer;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bm-cookie-type-header strong {
+  color: #1f2937;
+  font-size: 0.95rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.bm-cookie-type-badge {
+  display: inline-block;
+  background: rgba(204, 85, 0, 0.1);
+  color: #CC5500;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.bm-cookie-type-description {
+  font-size: 0.85rem;
+  color: #9ca3af;
+  margin: 0;
+  line-height: 1.5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.bm-cookies-legal {
+  font-size: 0.8rem;
+  color: #9ca3af;
+  margin: 0;
+  line-height: 1.5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.bm-cookies-legal a {
+  color: #CC5500;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.bm-cookies-legal a:hover {
+  color: #B8550D;
+  text-decoration: underline;
+}
+
+.bm-cookies-footer {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  background: #fafafa;
+  flex-wrap: wrap;
+}
+
+.bm-cookies-btn {
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  flex: 1;
+  min-width: 120px;
+}
+
+.bm-cookies-btn-primary {
+  background: linear-gradient(135deg, #D97536 0%, #CC5500 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(204, 85, 0, 0.3);
+}
+
+.bm-cookies-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(204, 85, 0, 0.4);
+  background: linear-gradient(135deg, #CC5500 0%, #B8550D 100%);
+}
+
+.bm-cookies-btn-primary:active {
+  transform: translateY(0);
+}
+
+.bm-cookies-btn-secondary {
+  background: white;
+  color: #1f2937;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.bm-cookies-btn-secondary:hover {
+  background: #f9fafb;
+  border-color: rgba(0, 0, 0, 0.16);
+  color: #0f1f3a;
+}
+
+/* Scrollbar styling for cookie types */
+.bm-cookies-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.bm-cookies-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.bm-cookies-body::-webkit-scrollbar-thumb {
+  background: rgba(204, 85, 0, 0.3);
+  border-radius: 3px;
+}
+
+.bm-cookies-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(204, 85, 0, 0.5);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 640px) {
+  #bm-cookies-popup {
+    justify-content: center;
+  }
+
+  .bm-cookies-container {
+    max-width: 100%;
+    transform: translate3d(0, calc(100% + 18px), 0);
+    transition:
+      transform 1.7s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.95s ease;
+  }
+
+  .bm-cookies-content {
+    height: 50vh;
+    height: 50svh;
+    margin: 0;
+    border-radius: 16px 16px 0 0;
+    max-height: 50vh;
+    max-height: 50svh;
+    box-shadow: 0 -18px 60px rgba(15, 23, 42, 0.18);
+  }
+
+  .bm-cookies-header h2 {
+    font-size: 1.1rem;
+  }
+
+  .bm-cookies-footer {
+    flex-direction: column;
+  }
+
+  .bm-cookies-btn {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .bm-cookies-body {
+    padding: 1.25rem;
+  }
+
+  .bm-cookies-header {
+    padding: 1.25rem;
+  }
+
+  .bm-cookies-footer {
+    padding: 1.25rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  #bm-cookies-popup {
+    display: none !important;
+  }
+}

@@ -72,14 +72,39 @@
   background: rgba(0, 0, 0, 0.03);
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 50%;
-  color: var(--navy-800);
   transition: all 0.3s var(--ease-smooth);
   text-decoration: none;
 }
 
+.footer__social-link svg {
+  width: 20px;
+  height: 20px;
+  color: #4f5b66;
+  fill: currentColor;
+  stroke: none;
+  transition: color 0.35s var(--ease-smooth);
+}
+
+.footer__social-link svg use {
+  fill: currentColor;
+  stroke: none;
+}
+
 .footer__social-link:hover {
-  background: var(--navy-600);
-  border-color: var(--navy-500);
+  background: transparent;
+  border-color: #CC5500;
+  color: #CC5500;
+}
+
+.footer__social-link:hover svg {
+  color: #CC5500;
+  fill: currentColor;
+}
+
+.footer__social-link:hover svg use {
+  fill: currentColor;
+  stroke: none;
+  color: #CC5500;
 }
 
 /* Footer Links Grid */
