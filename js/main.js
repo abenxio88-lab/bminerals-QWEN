@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   runInit('initParallaxEffect', initParallaxEffect);
   runInit('initMineMarkers', initMineMarkers);
   runInit('initNewsletterForm', initNewsletterForm);
+  runInit('initHomepageWhatsAppButton', initHomepageWhatsAppButton);
   runInit('initBorderBeam', initBorderBeam);
   runInit('initTactileFeedback', initTactileFeedback);
   runInit('initEarthTechCore', initEarthTechCore);
@@ -347,6 +348,50 @@ function validateEmail(email) {
   return re.test(email);
 }
 
+function initHomepageWhatsAppButton() {
+  if (window.__homepageWhatsAppInitialized) return;
+  window.__homepageWhatsAppInitialized = true;
+
+  if (!document.body.classList.contains('homepage')) return;
+
+  const button = document.getElementById('homepage-whatsapp');
+  const footer = document.querySelector('footer.footer');
+  const phoneLink = document.querySelector('.navbar__phone-link[href^="tel:"]');
+
+  if (!button || !footer || !phoneLink) return;
+
+  const rawPhone = phoneLink.getAttribute('href') || '';
+  const waNumber = rawPhone.replace(/^tel:/i, '').replace(/[^\d]/g, '');
+  if (!waNumber) return;
+
+  const message = 'Hello Balochistan Minerals, I would like to discuss mineral sourcing and export availability.';
+  button.href = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
+
+  if (typeof IntersectionObserver === 'undefined') {
+    const onScroll = () => {
+      const footerTop = footer.getBoundingClientRect().top;
+      const triggerPoint = window.innerHeight * 0.9;
+      button.classList.toggle('is-visible', footerTop <= triggerPoint);
+    };
+
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      button.classList.toggle('is-visible', entry.isIntersecting);
+    });
+  }, {
+    root: null,
+    threshold: 0.2
+  });
+
+  observer.observe(footer);
+}
+
 // ============================================
 // Export for potential use in other modules
 // ============================================
@@ -355,6 +400,7 @@ export {
   initSmoothScrolling,
   initParallaxEffect,
   initMineMarkers,
-  initNewsletterForm
+  initNewsletterForm,
+  initHomepageWhatsAppButton
 };
 
