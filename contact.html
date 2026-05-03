@@ -970,7 +970,42 @@
           <span class="contact-hero__overline" style="display:inline-block;font-family:var(--font-ui);font-size:0.6875rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--primary-gold-500);margin-bottom:0.75rem;padding:0.4rem 1rem;background:rgba(230,92,26,0.1);border:1px solid rgba(230,92,26,0.3);">Find Us</span>
           <h2 class="map-section__title">Our Office <span style="color:var(--primary-gold-500);">Locations</span></h2>
         </div>
-        <div class="map-section__visual">
+        <div class="map-section__visual contact-map-board">
+          <div class="contact-map-board__map">
+            <iframe
+              title="Google map showing Balochistan Minerals head office in Karachi"
+              src="https://www.google.com/maps?q=Plot%2042%2C%20Industrial%20Estate%2C%20Karachi%2C%20Sindh%2C%20Pakistan&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen>
+            </iframe>
+            <div class="contact-map-board__label">
+              <span>Google Maps</span>
+              <strong>Office direction panel</strong>
+            </div>
+          </div>
+
+          <div class="contact-map-board__panel" aria-label="Office map directions">
+            <article class="contact-map-card contact-map-card--primary">
+              <span class="contact-map-card__tag">Head Office</span>
+              <h3>Karachi</h3>
+              <p>Plot 42, Industrial Estate, Karachi, Sindh, Pakistan</p>
+              <a href="https://www.google.com/maps/dir/?api=1&destination=Plot%2042%2C%20Industrial%20Estate%2C%20Karachi%2C%20Sindh%2C%20Pakistan" target="_blank" rel="noopener noreferrer">
+                Get directions
+                <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3L10 8L5 13" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+              </a>
+            </article>
+
+            <article class="contact-map-card">
+              <span class="contact-map-card__tag">Regional Office</span>
+              <h3>Quetta</h3>
+              <p>Main Jinnah Road, Quetta, Balochistan, Pakistan</p>
+              <a href="https://www.google.com/maps/dir/?api=1&destination=Main%20Jinnah%20Road%2C%20Quetta%2C%20Balochistan%2C%20Pakistan" target="_blank" rel="noopener noreferrer">
+                Get directions
+                <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3L10 8L5 13" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+              </a>
+            </article>
+          </div>
           <svg viewBox="0 0 800 350" style="width:100%;height:auto;">
             <rect width="800" height="350" fill="var(--bg-secondary)" rx="8"/>
             <line x1="100" y1="0" x2="100" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
@@ -1002,9 +1037,18 @@
     <!-- Emergency Banner -->
     <section class="emergency-banner">
       <div class="emergency-banner__container">
-        <div class="emergency-banner__label">24/7 Emergency Hotline</div>
-        <div class="emergency-banner__number">+92 300 123 4567</div>
-        <p class="emergency-banner__text">For incidents, environmental alerts, community emergencies, and urgent operational matters</p>
+        <div class="emergency-banner__signal" aria-hidden="true">
+          <span></span>
+        </div>
+        <div class="emergency-banner__content">
+          <div class="emergency-banner__label">24/7 Emergency Hotline</div>
+          <div class="emergency-banner__number">+92 300 123 4567</div>
+          <p class="emergency-banner__text">For incidents, environmental alerts, community emergencies, and urgent operational matters</p>
+        </div>
+        <a class="emergency-banner__action" href="tel:+923001234567">
+          Call now
+          <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M6 3L12 9L6 15" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+        </a>
       </div>
     </section>
   </main>

@@ -324,19 +324,22 @@
 
 .footprint-map-marker,
 .footprint-port-marker {
-  display: grid;
-  place-items: center;
+  position: relative;
+  display: block;
   overflow: visible;
 }
 
 .footprint-map-marker__dot {
-  position: relative;
+  position: absolute;
+  left: 8px;
+  top: 50%;
   width: 13px;
   height: 13px;
   background: #e65c1a;
   border: 3px solid #101923;
   border-radius: 50%;
   box-shadow: 0 0 0 2px rgba(230, 92, 26, 0.34), 0 14px 26px rgba(5, 10, 16, 0.34);
+  transform: translateY(-50%);
   z-index: 2;
 }
 
@@ -363,19 +366,26 @@
 }
 
 .footprint-port-marker__dot {
+  position: absolute;
+  left: 8px;
+  top: 50%;
   width: 12px;
   height: 12px;
   background: #e65c1a;
   border: 2px solid #101923;
   box-shadow: 0 0 0 2px rgba(230, 92, 26, 0.32);
-  transform: rotate(45deg);
+  transform: translateY(-50%) rotate(45deg);
+  z-index: 2;
 }
 
 .footprint-map-marker__label {
   position: absolute;
-  left: 42px;
+  left: 32px;
   top: 50%;
   min-width: max-content;
+  padding: 0.24rem 0.42rem;
+  background: rgba(16, 25, 35, 0.78);
+  border: 1px solid rgba(159, 178, 195, 0.14);
   color: #f5f0e8;
   font-family: var(--font-ui);
   font-size: 0.58rem;
@@ -386,6 +396,7 @@
   text-transform: uppercase;
   transform: translateY(-50%);
   white-space: nowrap;
+  z-index: 3;
 }
 
 .footprint-route-line {
@@ -397,9 +408,9 @@
 .footprint-map-marker__label::before {
   content: '';
   position: absolute;
-  left: -16px;
+  left: -10px;
   top: 50%;
-  width: 10px;
+  width: 8px;
   height: 1px;
   background: #c89a62;
   transform: translateY(-50%);
@@ -414,7 +425,7 @@
 }
 
 .footprint-map-marker__label--port {
-  left: 24px;
+  left: 30px;
   color: rgba(245, 240, 232, 0.7);
   font-size: 0.58rem;
 }
