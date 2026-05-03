@@ -43,6 +43,9 @@
     "areaServed": ["Balochistan", "Karachi Port", "Gwadar Port", "Pakistan"]
   }
   </script>
+
+    <!-- Search Console CSS -->
+  <link rel="stylesheet" href="css/search-console.css">
 </head>
 <body class="is-loading">
   <div id="bm-hill-loader">
@@ -439,13 +442,16 @@
         <a href="contact.html" class="navbar__link">Contact</a>
       </nav>
 
+      <div class="navbar__search">
+        <button class="navbar__search-btn" aria-label="Open search" title="Search (Ctrl+K)"></button>
+      </div>
+
       <div class="navbar__phone">
         <a href="tel:+923348888104" class="navbar__phone-link">
           <span class="navbar__phone-icon">☎</span>
           <span class="navbar__phone-text">+92 334 8888104</span>
         </a>
       </div>
-
       <button class="navbar__hamburger" aria-label="Toggle menu" aria-expanded="false">
         <span></span>
         <span></span>
@@ -794,6 +800,24 @@
       <a href="contact.html" class="navbar__link">Contact</a>
     </div>
   </header>
+
+  <!-- Search Console Modal -->
+  <div class="search-console" role="dialog" aria-labelledby="search-title">
+    <div class="search-console__container">
+      <div class="search-console__header">
+        <span class="search-console__icon" aria-hidden="true"></span>
+        <input
+          type="text"
+          class="search-console__input"
+          placeholder="Search products, pages, articles..."
+          autocomplete="off"
+        >
+        <button class="search-console__close" aria-label="Close search">✕</button>
+      </div>
+      <div class="search-console__results"></div>
+    </div>
+  </div>
+
   <!-- @SECTION: HEADER END -->
 
   <main id="main-content">
@@ -896,40 +920,121 @@
     <section class="network-map">
       <div class="network-map__container">
         <div class="network-map__header">
-          <span class="route-overview__overline">Route Map</span>
+          <span class="route-overview__overline">Route Control</span>
           <h2 class="route-overview__title">Our Logistics <span style="color: var(--primary-gold-500);">Corridors</span></h2>
+          <p class="route-overview__subtitle">A live-style view of mine origins, inland transfer legs, and dual-port export options across Balochistan.</p>
         </div>
-        <div class="network-map__visual">
-          <svg viewBox="0 0 800 350" class="network-map__svg">
-            <rect width="800" height="350" fill="var(--bg-secondary)" rx="8"/>
-            <!-- Grid -->
-            <line x1="100" y1="0" x2="100" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="200" y1="0" x2="200" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="300" y1="0" x2="300" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="400" y1="0" x2="400" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="500" y1="0" x2="500" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="600" y1="0" x2="600" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="700" y1="0" x2="700" y2="350" stroke="var(--border-light)" stroke-width="0.5" opacity="0.3"/>
-            <!-- Province -->
-            <path d="M 150 60 L 250 40 L 400 50 L 550 70 L 680 120 L 700 200 L 660 260 L 550 300 L 400 310 L 250 290 L 150 240 L 120 150 Z" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1.5"/>
-            <text x="400" y="180" text-anchor="middle" font-family="var(--font-heading)" font-size="14" fill="var(--text-muted)" text-transform="uppercase" letter-spacing="0.1em">BALOCHISTAN</text>
-            <!-- Mines -->
-            <circle cx="300" cy="110" r="10" fill="var(--primary-gold-500)"/><text x="300" y="95" text-anchor="middle" font-family="var(--font-heading)" font-size="11" fill="var(--text-primary)">Muslim Bagh</text>
-            <circle cx="480" cy="200" r="10" fill="var(--primary-gold-500)"/><text x="480" y="185" text-anchor="middle" font-family="var(--font-heading)" font-size="11" fill="var(--text-primary)">Khuzdar</text>
-            <circle cx="180" cy="160" r="10" fill="var(--primary-gold-500)"/><text x="180" y="145" text-anchor="middle" font-family="var(--font-heading)" font-size="11" fill="var(--text-primary)">Chagai</text>
-            <!-- Ports -->
-            <circle cx="620" cy="280" r="8" fill="var(--navy-500)"/><text x="620" y="305" text-anchor="middle" font-family="var(--font-ui)" font-size="10" fill="var(--text-secondary)">Karachi Port</text>
-            <circle cx="540" cy="300" r="8" fill="var(--navy-500)"/><text x="540" y="325" text-anchor="middle" font-family="var(--font-ui)" font-size="10" fill="var(--text-secondary)">Gwadar Port</text>
-            <!-- Routes -->
-            <line x1="300" y1="110" x2="480" y2="200" stroke="var(--primary-gold-500)" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
-            <line x1="480" y1="200" x2="620" y2="280" stroke="var(--navy-500)" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
-            <line x1="480" y1="200" x2="540" y2="300" stroke="var(--navy-500)" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
-            <line x1="300" y1="110" x2="620" y2="280" stroke="var(--text-muted)" stroke-width="1" stroke-dasharray="3,5" opacity="0.3"/>
-            <!-- Legend -->
-            <circle cx="60" cy="50" r="5" fill="var(--primary-gold-500)"/><text x="72" y="54" font-family="var(--font-ui)" font-size="9" fill="var(--text-secondary)">Active Mines</text>
-            <circle cx="60" cy="70" r="5" fill="var(--navy-500)"/><text x="72" y="74" font-family="var(--font-ui)" font-size="9" fill="var(--text-secondary)">Export Ports</text>
-            <line x1="45" y1="90" x2="75" y2="90" stroke="var(--primary-gold-500)" stroke-width="2"/><text x="80" y="94" font-family="var(--font-ui)" font-size="9" fill="var(--text-secondary)">Transport Routes</text>
-          </svg>
+        <div class="network-map__visual reveal">
+          <div class="corridor-board">
+            <div class="corridor-board__map" aria-label="Balochistan mine to port logistics corridor map">
+              <div class="corridor-board__tag">Mine to vessel routing</div>
+              <svg viewBox="0 0 920 560" class="network-map__svg" role="img" aria-labelledby="corridor-map-title corridor-map-desc">
+                <title id="corridor-map-title">Balochistan logistics corridor schematic</title>
+                <desc id="corridor-map-desc">Schematic route board showing mineral origins, inland transfer, consolidation, and export terminals.</desc>
+                <defs>
+                  <filter id="corridorShadow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#0f1f3a" flood-opacity="0.12" />
+                  </filter>
+                </defs>
+
+                <rect class="corridor-frame" x="34" y="34" width="852" height="492" />
+                <text class="corridor-map-label" x="92" y="96">Origin terminals</text>
+                <text class="corridor-map-label" x="404" y="96">Inland consolidation</text>
+                <text class="corridor-map-label" x="686" y="96">Export gates</text>
+
+                <path class="corridor-lane corridor-lane--minor" d="M160 168H370" />
+                <path class="corridor-lane corridor-lane--minor" d="M160 276H370" />
+                <path class="corridor-lane corridor-lane--minor" d="M160 384H370" />
+                <path class="corridor-route corridor-route--primary" d="M160 168H370L494 276H670" />
+                <path class="corridor-route corridor-route--secondary" d="M160 276H494H670" />
+                <path class="corridor-route corridor-route--port" d="M160 384H370L494 276V424H636" />
+                <path class="corridor-route-light" d="M160 168H370L494 276H670" />
+                <path class="corridor-route-light corridor-route-light--delay" d="M160 276H494H670" />
+                <path class="corridor-route-light corridor-route-light--slow" d="M160 384H370L494 276V424H636" />
+
+                <g class="corridor-hub" transform="translate(494 276)">
+                  <rect class="corridor-hub__body" x="-58" y="-38" width="116" height="76" filter="url(#corridorShadow)" />
+                  <text class="corridor-hub__title" x="0" y="-6" text-anchor="middle">Quetta</text>
+                  <text class="corridor-hub__meta" x="0" y="14" text-anchor="middle">Transfer hub</text>
+                </g>
+
+                <g class="corridor-node corridor-node--mine" transform="translate(160 168)">
+                  <rect class="corridor-node__plate" x="-56" y="-28" width="112" height="56" />
+                  <circle class="corridor-node__dot" r="7" />
+                  <text class="corridor-node__label" x="-76" y="-42">Chagai</text>
+                  <text class="corridor-node__meta" x="-76" y="-24">Copper frontier</text>
+                </g>
+                <g class="corridor-node corridor-node--mine" transform="translate(160 276)">
+                  <rect class="corridor-node__plate" x="-56" y="-28" width="112" height="56" />
+                  <circle class="corridor-node__dot" r="7" />
+                  <text class="corridor-node__label" x="-76" y="-42">Muslim Bagh</text>
+                  <text class="corridor-node__meta" x="-76" y="-24">Chromite dispatch</text>
+                </g>
+                <g class="corridor-node corridor-node--mine" transform="translate(160 384)">
+                  <rect class="corridor-node__plate" x="-56" y="-28" width="112" height="56" />
+                  <circle class="corridor-node__dot" r="7" />
+                  <text class="corridor-node__label" x="-76" y="-42">Khuzdar</text>
+                  <text class="corridor-node__meta" x="-76" y="-24">Barite processing</text>
+                </g>
+
+                <g class="corridor-node corridor-node--port" transform="translate(670 276)">
+                  <rect class="corridor-node__plate corridor-node__plate--port" x="-62" y="-30" width="124" height="60" />
+                  <circle class="corridor-node__dot" r="7" />
+                  <text class="corridor-node__label" x="82" y="-8">Karachi</text>
+                  <text class="corridor-node__meta" x="82" y="10">Established port</text>
+                </g>
+                <g class="corridor-node corridor-node--port" transform="translate(636 424)">
+                  <rect class="corridor-node__plate corridor-node__plate--port" x="-62" y="-30" width="124" height="60" />
+                  <circle class="corridor-node__dot" r="7" />
+                  <text class="corridor-node__label" x="82" y="-8">Gwadar</text>
+                  <text class="corridor-node__meta" x="82" y="10">Emerging port</text>
+                </g>
+
+                <text class="corridor-map-label corridor-map-label--small" x="300" y="152">Road intake</text>
+                <text class="corridor-map-label corridor-map-label--small" x="302" y="262">Rail-ready bulk</text>
+                <text class="corridor-map-label corridor-map-label--small" x="312" y="408">Heavy haul</text>
+                <text class="corridor-map-label corridor-map-label--small" x="552" y="252">Terminal split</text>
+              </svg>
+            </div>
+
+            <aside class="corridor-board__panel" aria-label="Logistics corridor highlights">
+              <div class="corridor-panel__header">
+                <span>Corridor intelligence</span>
+                <strong>Dual-port routing matrix</strong>
+              </div>
+              <div class="corridor-panel__metrics">
+                <div>
+                  <span>Fast lane</span>
+                  <strong>7-14 days</strong>
+                </div>
+                <div>
+                  <span>Port options</span>
+                  <strong>2 hubs</strong>
+                </div>
+              </div>
+              <article class="corridor-step">
+                <span class="corridor-step__number">01</span>
+                <div>
+                  <strong>Mine dispatch</strong>
+                  <p>Bulk ore leaves Chagai, Muslim Bagh and Khuzdar through controlled loading windows.</p>
+                </div>
+              </article>
+              <article class="corridor-step">
+                <span class="corridor-step__number">02</span>
+                <div>
+                  <strong>Inland transfer</strong>
+                  <p>Road and rail legs are selected by mineral type, shipment urgency and vessel schedule.</p>
+                </div>
+              </article>
+              <article class="corridor-step">
+                <span class="corridor-step__number">03</span>
+                <div>
+                  <strong>Port handoff</strong>
+                  <p>Karachi provides established export handling while Gwadar adds strategic route flexibility.</p>
+                </div>
+              </article>
+            </aside>
+          </div>
         </div>
       </div>
     </section>

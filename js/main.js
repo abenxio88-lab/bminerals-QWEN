@@ -5,6 +5,7 @@ import { initHeroSlider } from './hero-slider.js';
 import { initBorderBeam } from './border-beam.js';
 import { initTactileFeedback } from './tactile-feedback.js';
 import { initEarthTechCore } from './earth-tech-core.js';
+import { initSearchConsole } from './search-console.js';
 
 function isLocalDebug() {
   return ['localhost', '127.0.0.1'].includes(window.location.hostname) || window.location.protocol === 'file:';
@@ -61,6 +62,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // 1. Initialize feature logic (now that elements exist in DOM)
   // One failing module should never block the rest of the page boot sequence.
   runInit('initNavbar', initNavbar);
+  runInit('initSearchConsole', initSearchConsole);
   runInit('initScrollReveal', initScrollReveal);
   runInit('initDropdownMenus', initDropdownMenus);
   runInit('initHeroSlider', initHeroSlider);

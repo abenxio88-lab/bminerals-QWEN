@@ -125,10 +125,10 @@
 
 /* Content Section */
 .mineral-showcase__content {
-  padding: 1.75rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.9rem;
   justify-content: center;
 }
 
@@ -152,16 +152,17 @@
 }
 
 .mineral-showcase__description {
-  font-size: 0.8125rem;
+  font-size: 1rem;
   color: var(--text-secondary);
-  line-height: 1.65;
+  line-height: 1.76;
+  max-width: 58ch;
 }
 
 /* Stats Row */
 .mineral-showcase__stats {
   display: flex;
   gap: 1.5rem;
-  padding: 1rem 0;
+  padding: 1.1rem 0;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
@@ -174,8 +175,8 @@
 
 .showcase-stat__value {
   font-family: var(--font-ui);
-  font-size: var(--body-size);
-  font-weight: 600;
+  font-size: 1.16rem;
+  font-weight: 700;
   color: var(--text-primary);
   line-height: 1;
   letter-spacing: 0.02em;
@@ -184,7 +185,7 @@
 
 .showcase-stat__label {
   font-family: var(--font-ui);
-  font-size: 0.625rem;
+  font-size: 0.74rem;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -193,34 +194,88 @@
 
 /* CTA Button */
 .mineral-showcase__cta {
+  position: relative;
+  isolation: isolate;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.625rem 1.25rem;
-  background: var(--text-primary);
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: 46px;
+  padding: 0.78rem 1.35rem;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), transparent 58%),
+    linear-gradient(135deg, var(--navy-700), var(--navy-500));
+  border: 1px solid rgba(197, 217, 232, 0.42);
+  box-shadow:
+    0 16px 32px rgba(44, 94, 143, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
   color: white;
   font-family: var(--font-ui);
-  font-weight: 600;
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
+  font-weight: 800;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   border-radius: var(--radius-sm);
   text-decoration: none;
-  transition: background 0.25s var(--ease-smooth), box-shadow 0.25s var(--ease-smooth);
+  transition:
+    transform 0.3s var(--ease-smooth),
+    border-color 0.3s var(--ease-smooth),
+    box-shadow 0.3s var(--ease-smooth),
+    background-color 0.3s var(--ease-smooth);
   align-self: flex-start;
 }
 
+.mineral-showcase__cta::before {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(197, 217, 232, 0.24), transparent 48%);
+  opacity: 0.86;
+}
+
+.mineral-showcase__cta::after {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0.58rem;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(197, 217, 232, 0.9), rgba(255, 255, 255, 0.42));
+  opacity: 0.72;
+  transition: transform 0.3s var(--ease-smooth), opacity 0.3s var(--ease-smooth);
+}
+
 .mineral-showcase__cta svg {
-  transition: transform 0.25s var(--ease-smooth);
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s var(--ease-smooth);
 }
 
 .mineral-showcase__cta:hover {
-  background: var(--text-secondary);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  border-color: rgba(197, 217, 232, 0.62);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 58%),
+    linear-gradient(135deg, var(--navy-600), var(--navy-400));
+  box-shadow:
+    0 20px 42px rgba(44, 94, 143, 0.24),
+    0 0 0 1px rgba(197, 217, 232, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.mineral-showcase__cta:hover::after {
+  opacity: 1;
+  transform: translateY(-1px);
 }
 
 .mineral-showcase__cta:hover svg {
-  transform: translateY(2px);
+  transform: translateX(3px);
+}
+
+.mineral-showcase__cta:active {
+  transform: translateY(0);
 }
 
 /* Responsive Design */
@@ -278,7 +333,7 @@
   }
 
   .showcase-stat__value {
-    font-size: 0.875rem;
+    font-size: 1.04rem;
   }
 
   .mineral-showcase__wide .mineral-showcase__image {
@@ -292,7 +347,8 @@
   .mineral-showcase__cta {
     width: 100%;
     justify-content: center;
-    padding: 0.5rem 1rem;
-    font-size: 0.6875rem;
+    min-height: 44px;
+    padding: 0.68rem 1rem;
+    font-size: 0.72rem;
   }
 }

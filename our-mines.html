@@ -56,6 +56,9 @@
     "about": ["Muslim Bagh chromite", "Khuzdar barite", "Chagai copper exploration"]
   }
   </script>
+
+    <!-- Search Console CSS -->
+  <link rel="stylesheet" href="css/search-console.css">
 </head>
 <body class="mines-page is-loading">
   <div id="bm-hill-loader">
@@ -453,13 +456,16 @@
         <a href="contact.html" class="navbar__link">Contact</a>
       </nav>
 
+      <div class="navbar__search">
+        <button class="navbar__search-btn" aria-label="Open search" title="Search (Ctrl+K)"></button>
+      </div>
+
       <div class="navbar__phone">
         <a href="tel:+923348888104" class="navbar__phone-link">
           <span class="navbar__phone-icon">☎</span>
           <span class="navbar__phone-text">+92 334 8888104</span>
         </a>
       </div>
-
       <button class="navbar__hamburger" aria-label="Toggle menu" aria-expanded="false">
         <span></span>
         <span></span>
@@ -808,6 +814,24 @@
       <a href="contact.html" class="navbar__link">Contact</a>
     </div>
   </header>
+
+  <!-- Search Console Modal -->
+  <div class="search-console" role="dialog" aria-labelledby="search-title">
+    <div class="search-console__container">
+      <div class="search-console__header">
+        <span class="search-console__icon" aria-hidden="true"></span>
+        <input
+          type="text"
+          class="search-console__input"
+          placeholder="Search products, pages, articles..."
+          autocomplete="off"
+        >
+        <button class="search-console__close" aria-label="Close search">✕</button>
+      </div>
+      <div class="search-console__results"></div>
+    </div>
+  </div>
+
   <!-- @SECTION: HEADER END -->
 
   <main id="main-content">
@@ -843,7 +867,7 @@
     </section>
 
     <!-- Geological Authority Map -->
-    <section class="mines-overview" style="padding-bottom: 0;">
+    <section class="mines-overview mines-overview--geo">
       <div class="mines-overview__container">
         <div class="mines-overview__header">
           <span class="mines-overview__overline">Regional Authority</span>
@@ -852,37 +876,103 @@
         </div>
         
         <div class="geo-map-container reveal">
-          <svg viewBox="0 0 800 400" class="geo-map-svg">
-            <!-- Stylized Balochistan Outline -->
-            <path d="M150 50 L650 50 L750 200 L650 350 L150 350 L50 200 Z" fill="none" stroke="var(--border-light)" stroke-width="1"/>
-            
-            <!-- Tethyan Belt (Copper-Gold) -->
-            <path d="M100 100 Q 300 150, 200 350" class="geo-belt geo-belt--tethyan" id="belt-tethyan"/>
-            
-            <!-- Ophiolite Belt (Chromite) -->
-            <path d="M400 50 Q 500 200, 600 350" class="geo-belt geo-belt--ophiolite" id="belt-ophiolite"/>
-            
-            <!-- Mine Marks -->
-            <g class="map-mark" transform="translate(450, 100)">
-                <circle r="4" fill="var(--primary-gold-500)"/>
-                <text y="15" text-anchor="middle" font-family="var(--font-ui)" font-size="10" fill="var(--text-secondary)">Muslim Bagh (Chromite)</text>
-            </g>
-            <g class="map-mark" transform="translate(520, 220)">
-                <circle r="4" fill="var(--primary-gold-500)"/>
-                <text y="15" text-anchor="middle" font-family="var(--font-ui)" font-size="10" fill="var(--text-secondary)">Khuzdar (Barite)</text>
-            </g>
-            <g class="map-mark" transform="translate(250, 180)">
-                <circle r="4" fill="var(--primary-gold-500)"/>
-                <text y="15" text-anchor="middle" font-family="var(--font-ui)" font-size="10" fill="var(--text-secondary)">Chagai (Copper)</text>
-            </g>
-          </svg>
-          
-          <div class="geo-legend">
-            <div style="display:flex; align-items:center; gap:0.5rem; font-family:var(--font-ui); font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted);">
-                <span style="width:12px; height:4px; background:var(--primary-gold-500); border-radius:2px;"></span> Tethyan Metallogenic Belt
+          <div class="geo-map-container__header">
+            <div>
+              <span class="geo-map-container__kicker">Balochistan mineral architecture</span>
+              <h3 class="geo-map-container__title">Copper-gold, chromite and barite corridors</h3>
             </div>
-            <div style="display:flex; align-items:center; gap:0.5rem; font-family:var(--font-ui); font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted);">
-                <span style="width:12px; height:4px; background:var(--navy-500); border-radius:2px;"></span> Ophiolite Chromite Belt
+            <div class="geo-map-container__meta">
+              <span>3 operating zones</span>
+              <span>2 principal belts</span>
+              <span>Export-linked</span>
+            </div>
+          </div>
+
+          <div class="geo-map-container__grid">
+            <div class="geo-map-container__map" aria-label="Stylized map of Balochistan geological belts">
+              <svg viewBox="0 0 960 560" class="geo-map-svg" role="img" aria-labelledby="geo-map-title geo-map-desc">
+                <title id="geo-map-title">Provincial geological belts map</title>
+                <desc id="geo-map-desc">Stylized map showing the Tethyan Copper-Gold Belt, Ophiolite Chromite Belt and key Balochistan mineral sites.</desc>
+                <defs>
+                  <filter id="geoMapShadow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0f1f3a" flood-opacity="0.14" />
+                  </filter>
+                  <linearGradient id="geoProvinceFill" x1="120" y1="40" x2="820" y2="520" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#ffffff" />
+                    <stop offset="0.54" stop-color="#f4f7f2" />
+                    <stop offset="1" stop-color="#e9efe8" />
+                  </linearGradient>
+                </defs>
+
+                <rect class="geo-map-frame" x="36" y="36" width="888" height="488" rx="0" />
+                <path class="geo-province" d="M180 82L630 72L800 188L850 322L728 476L270 492L114 352L92 198Z" filter="url(#geoMapShadow)" />
+                <path class="geo-contour" d="M176 166C262 126 372 118 486 140C612 164 702 224 780 314" />
+                <path class="geo-contour" d="M150 278C262 236 390 230 520 260C650 290 724 344 798 426" />
+                <path class="geo-contour geo-contour--soft" d="M250 430C338 380 450 354 568 374C640 386 688 416 738 454" />
+
+                <path class="geo-belt geo-belt--tethyan" d="M124 372C188 312 236 262 296 224C376 174 452 174 520 210C606 260 676 348 780 412" />
+                <path class="geo-belt-core geo-belt-core--tethyan" d="M124 372C188 312 236 262 296 224C376 174 452 174 520 210C606 260 676 348 780 412" />
+
+                <path class="geo-belt geo-belt--ophiolite" d="M448 88C486 118 518 138 545 156C590 204 624 294 660 366C686 418 708 452 730 480" />
+                <path class="geo-belt-core geo-belt-core--ophiolite" d="M448 88C486 118 518 138 545 156C590 204 624 294 660 366C686 418 708 452 730 480" />
+
+                <path class="geo-route" d="M296 224C405 278 514 314 642 360C714 386 770 424 820 464" />
+                <path class="geo-route-light" d="M296 224C405 278 514 314 642 360C714 386 770 424 820 464" />
+
+                <g class="geo-marker geo-marker--copper" transform="translate(296 224)">
+                  <path class="geo-marker__rule" d="M-92 0H0" />
+                  <circle class="geo-marker__halo" r="28" />
+                  <path class="geo-marker__belt-pin geo-marker__belt-pin--tethyan" d="M-18 11L18 -11" />
+                  <circle class="geo-marker__dot" r="8" />
+                  <text class="geo-marker__label" x="-98" y="-12">Chagai</text>
+                  <text class="geo-marker__caption" x="-98" y="6">Copper-gold frontier</text>
+                </g>
+
+                <g class="geo-marker geo-marker--chromite" transform="translate(545 156)">
+                  <path class="geo-marker__rule" d="M0 0H92" />
+                  <circle class="geo-marker__halo" r="28" />
+                  <path class="geo-marker__belt-pin geo-marker__belt-pin--ophiolite" d="M-17 -11L17 11" />
+                  <circle class="geo-marker__dot" r="8" />
+                  <text class="geo-marker__label" x="100" y="-12">Muslim Bagh</text>
+                  <text class="geo-marker__caption" x="100" y="6">Ophiolite chromite</text>
+                </g>
+
+                <g class="geo-marker geo-marker--barite" transform="translate(636 358)">
+                  <path class="geo-marker__rule" d="M0 0H84" />
+                  <circle class="geo-marker__halo" r="28" />
+                  <circle class="geo-marker__dot" r="8" />
+                  <text class="geo-marker__label" x="92" y="-12">Khuzdar</text>
+                  <text class="geo-marker__caption" x="92" y="6">Barite operations</text>
+                </g>
+
+                <text class="geo-map-label" x="124" y="120">West mineral arc</text>
+                <text class="geo-map-label" x="612" y="106">Northern ophiolite zone</text>
+                <text class="geo-map-label geo-map-label--small" x="690" y="508">Southbound logistics corridor</text>
+              </svg>
+            </div>
+
+            <div class="geo-legend">
+              <article class="geo-legend__item geo-legend__item--tethyan">
+                <span class="geo-legend__code">TG</span>
+                <div>
+                  <strong>Tethyan Copper-Gold Belt</strong>
+                  <p>Chagai hosts the copper-gold exploration frontier tied to the same regional mineral architecture as major western Balochistan deposits.</p>
+                </div>
+              </article>
+              <article class="geo-legend__item geo-legend__item--ophiolite">
+                <span class="geo-legend__code">OC</span>
+                <div>
+                  <strong>Ophiolite Chromite Belt</strong>
+                  <p>Muslim Bagh sits in the northern ophiolite zone, where chromite bodies support active extraction and grade control programs.</p>
+                </div>
+              </article>
+              <article class="geo-legend__item geo-legend__item--barite">
+                <span class="geo-legend__code">KB</span>
+                <div>
+                  <strong>Khuzdar Barite Zone</strong>
+                  <p>Khuzdar links industrial barite operations to the same provincial corridor used for processing and export logistics.</p>
+                </div>
+              </article>
             </div>
           </div>
         </div>
@@ -906,7 +996,7 @@
               <source type="image/webp" srcset="images/chromite-new.webp">
               <img src="images/chromite-new.webp" alt="Muslim Bagh chromite mine" loading="lazy">
             </picture>
-            <div style="position:absolute; top:1.5rem; left:1.5rem; display:flex; flex-direction:column; gap:0.5rem;">
+            <div class="mine-profile__badges">
                 <span class="mine-profile__status-badge">Active Mining</span>
                 <div class="ops-pulse"><span class="ops-pulse__dot"></span> Live Operations</div>
             </div>
@@ -948,7 +1038,7 @@
               <source type="image/webp" srcset="images/barite-card.jpg">
               <img src="images/barite-card.jpg" alt="Khuzdar barite operations" loading="lazy">
             </picture>
-            <div style="position:absolute; top:1.5rem; left:1.5rem; display:flex; flex-direction:column; gap:0.5rem;">
+            <div class="mine-profile__badges">
                 <span class="mine-profile__status-badge">Processing</span>
                 <div class="ops-pulse"><span class="ops-pulse__dot"></span> Shift Active</div>
             </div>
@@ -990,7 +1080,7 @@
               <source type="image/webp" srcset="images/copper-new.webp">
               <img src="images/copper-new.webp" alt="Copper-gold exploration site in Chagai district, western Balochistan" loading="lazy">
             </picture>
-            <div style="position:absolute; top:1.5rem; left:1.5rem; display:flex; flex-direction:column; gap:0.5rem;">
+            <div class="mine-profile__badges">
                 <span class="mine-profile__status-badge mine-profile__status-badge--exploration">Exploration</span>
                 <div class="ops-pulse"><span class="ops-pulse__dot"></span> Survey Ongoing</div>
             </div>

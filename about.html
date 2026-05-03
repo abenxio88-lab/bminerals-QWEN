@@ -57,6 +57,9 @@
       }
     }
   </script>
+
+    <!-- Search Console CSS -->
+  <link rel="stylesheet" href="css/search-console.css">
 </head>
 
 <body class="is-loading">
@@ -456,13 +459,18 @@
         <a href="contact.html" class="navbar__link">Contact</a>
       </nav>
 
+      <div class="navbar__search">
+        <button class="navbar__search-btn" aria-label="Open search" title="Search (Ctrl+K)">
+          
+        </button>
+      </div>
+
       <div class="navbar__phone">
         <a href="tel:+923348888104" class="navbar__phone-link">
           <span class="navbar__phone-icon">☎</span>
           <span class="navbar__phone-text">+92 334 8888104</span>
         </a>
       </div>
-
       <button class="navbar__hamburger" aria-label="Toggle menu" aria-expanded="false">
         <span></span>
         <span></span>
@@ -811,6 +819,24 @@
       <a href="contact.html" class="navbar__link">Contact</a>
     </div>
   </header>
+
+  <!-- Search Console Modal -->
+  <div class="search-console" role="dialog" aria-labelledby="search-title">
+    <div class="search-console__container">
+      <div class="search-console__header">
+        <span class="search-console__icon" aria-hidden="true"></span>
+        <input 
+          type="text" 
+          class="search-console__input" 
+          placeholder="Search products, pages, articles..." 
+          autocomplete="off"
+        >
+        <button class="search-console__close" aria-label="Close search">✕</button>
+      </div>
+      <div class="search-console__results"></div>
+    </div>
+  </div>
+
   <!-- @SECTION: HEADER END -->
 
 

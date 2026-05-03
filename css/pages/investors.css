@@ -843,3 +843,193 @@
     font-size: 1.75rem;
   }
 }
+
+/* ============================================
+   Homepage Heading Rhythm Applied to Investors
+   ============================================ */
+.investors-hero,
+.q3-results-premium,
+.reports-section,
+.compliance-section,
+.investors-cta {
+  --investors-support-copy-size: var(--body-size);
+  --investors-support-copy-line: 1.72;
+  --investors-section-title-size: var(--h1-size);
+  --investors-section-title-line: 1.12;
+  --investors-section-title-measure: min(100%, 26ch);
+  --investors-subsection-title-size: var(--h2-size);
+  --investors-subsection-title-line: 1.16;
+  --investors-card-title-size: var(--h3-size);
+  --investors-card-title-line: 1.24;
+  --investors-header-block-gap: clamp(2.5rem, 4vw, 3.75rem);
+  --investors-title-to-copy-gap: 0.85rem;
+}
+
+@media (min-width: 769px) {
+  .investors-hero__title {
+    max-width: 800px;
+    margin-inline: auto;
+    font-family: var(--font-heading);
+    font-size: var(--display-size);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .q3-results-premium__title,
+  .section-header-light__title,
+  .financial-dashboard__title,
+  .investors-cta__title {
+    max-width: var(--investors-section-title-measure);
+    margin-inline: auto;
+    margin-bottom: var(--investors-title-to-copy-gap);
+    font-family: var(--font-heading);
+    font-size: var(--investors-section-title-size);
+    font-weight: 600;
+    line-height: var(--investors-section-title-line);
+    letter-spacing: 0.01em;
+    text-align: center;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .investors-cta__title {
+    margin-inline: 0;
+    text-align: left;
+  }
+
+  .tech-data-hub__title {
+    font-family: var(--font-heading);
+    font-size: var(--investors-subsection-title-size);
+    font-weight: 600;
+    line-height: var(--investors-subsection-title-line);
+    letter-spacing: 0.015em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .premium-card-light__title,
+  .report-item__title,
+  .compliance-card__title {
+    font-family: var(--font-heading);
+    font-size: var(--investors-card-title-size);
+    font-weight: 600;
+    line-height: var(--investors-card-title-line);
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .q3-results-premium__header,
+  .reports-section__header,
+  .compliance-section__header {
+    max-width: 920px;
+    margin-inline: auto;
+    margin-bottom: var(--investors-header-block-gap);
+    text-align: center;
+  }
+
+  .investors-hero__text,
+  .q3-results-premium__description,
+  .financial-dashboard__subtitle,
+  .investors-cta__text {
+    font-family: var(--font-body);
+    font-size: var(--investors-support-copy-size);
+    font-weight: 400;
+    line-height: var(--investors-support-copy-line);
+  }
+
+  .q3-results-premium__description,
+  .financial-dashboard__subtitle {
+    max-width: 58ch;
+    margin-inline: auto;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .investors-hero,
+  .q3-results-premium,
+  .reports-section,
+  .compliance-section,
+  .investors-cta {
+    --investors-support-copy-size: 0.9rem;
+    --investors-support-copy-line: 1.68;
+    --investors-section-title-size: 1.48rem;
+    --investors-section-title-line: 1.12;
+    --investors-section-title-measure: min(100%, 22rem);
+    --investors-subsection-title-size: 1.12rem;
+    --investors-subsection-title-line: 1.18;
+    --investors-card-title-size: 1rem;
+    --investors-card-title-line: 1.24;
+    --investors-header-block-gap: 2.1rem;
+    --investors-title-to-copy-gap: 0.72rem;
+  }
+
+  .investors-hero__title {
+    max-width: var(--investors-section-title-measure);
+    margin-inline: auto;
+    font-family: var(--font-heading);
+    font-size: var(--display-size) !important;
+    font-weight: 700;
+    line-height: 1.1 !important;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .q3-results-premium__title,
+  .section-header-light__title,
+  .financial-dashboard__title,
+  .investors-cta__title {
+    max-width: var(--investors-section-title-measure);
+    margin-inline: auto;
+    margin-bottom: var(--investors-title-to-copy-gap);
+    font-family: var(--font-heading);
+    font-size: var(--investors-section-title-size) !important;
+    font-weight: 600;
+    line-height: var(--investors-section-title-line) !important;
+    letter-spacing: 0.01em;
+    text-align: center;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .tech-data-hub__title {
+    font-family: var(--font-heading);
+    font-size: var(--investors-subsection-title-size);
+    font-weight: 600;
+    line-height: var(--investors-subsection-title-line);
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .premium-card-light__title,
+  .report-item__title,
+  .compliance-card__title {
+    font-family: var(--font-heading);
+    font-size: var(--investors-card-title-size);
+    font-weight: 600;
+    line-height: var(--investors-card-title-line);
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .q3-results-premium__header,
+  .reports-section__header,
+  .compliance-section__header {
+    margin-bottom: var(--investors-header-block-gap);
+  }
+
+  .investors-hero__text,
+  .q3-results-premium__description,
+  .financial-dashboard__subtitle,
+  .investors-cta__text {
+    font-family: var(--font-body);
+    font-size: var(--investors-support-copy-size);
+    font-weight: 400;
+    line-height: var(--investors-support-copy-line);
+  }
+}
