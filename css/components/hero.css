@@ -168,14 +168,14 @@
 }
 
 .hero__cta--primary {
-  background: var(--text-primary);
+  background: var(--primary-gold-500);
   color: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px var(--primary-gold-glow);
 }
 
 .hero__cta--primary:hover {
-  background: var(--text-secondary);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  background: var(--primary-gold-400);
+  box-shadow: 0 6px 16px rgba(230, 92, 26, 0.45);
 }
 
 .hero__cta--secondary {
