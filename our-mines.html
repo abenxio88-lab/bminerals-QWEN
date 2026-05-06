@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="description" content="View Balochistan Minerals mine sites in Muslim Bagh, Khuzdar and Chagai, including active chromite, barite and copper exploration operations.">
-  <meta name="keywords" content="Muslim Bagh chromite, Khuzdar barite, Chagai copper, mining operations Balochistan, mineral extraction sites Pakistan">
+  <meta name="description"
+    content="View Balochistan Minerals mine sites in Muslim Bagh, Khuzdar and Chagai, including active chromite, barite and copper exploration operations.">
+  <meta name="keywords"
+    content="Muslim Bagh chromite, Khuzdar barite, Chagai copper, mining operations Balochistan, mineral extraction sites Pakistan">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Our Mines in Balochistan | Chromite, Barite & Copper Sites">
-  <meta property="og:description" content="View Balochistan Minerals mine sites in Muslim Bagh, Khuzdar and Chagai, including active chromite, barite and copper exploration operations.">
+  <meta property="og:description"
+    content="View Balochistan Minerals mine sites in Muslim Bagh, Khuzdar and Chagai, including active chromite, barite and copper exploration operations.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://balochistanminerals.com/our-mines">
   <meta property="og:image" content="https://balochistanminerals.com/images/hero/hero-7.webp">
@@ -24,16 +28,46 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Our Mines in Balochistan | Chromite, Barite & Copper Sites">
-  <meta name="twitter:description" content="View Balochistan Minerals mine sites in Muslim Bagh, Khuzdar and Chagai, including active chromite, barite and copper exploration operations.">
+  <meta name="twitter:description"
+    content="View Balochistan Minerals mine sites in Muslim Bagh, Khuzdar and Chagai, including active chromite, barite and copper exploration operations.">
 
   <title>Our Mines in Balochistan | Chromite, Barite & Copper Sites</title>
   <link rel="canonical" href="https://balochistanminerals.com/our-mines">
   <style>
-    :root{--navbar-height:80px;--max-width:1400px}
-    .hero{min-height:calc(100vh - var(--navbar-height));padding-top:calc(var(--navbar-height) + 2rem);display:flex;align-items:center}
-    .hero__container{max-width:var(--max-width);margin:0 auto;padding:0 1.5rem;text-align:center}
-    .hero__headline{font-family:var(--font-heading);font-size:clamp(1.6rem,3.2vw,2.2rem);font-weight:600;text-transform:uppercase}
-    .skip-link:focus{top:0}*:focus-visible{outline:3px solid var(--primary-gold-500);outline-offset:2px}
+    :root {
+      --navbar-height: 80px;
+      --max-width: 1400px
+    }
+
+    .hero {
+      min-height: calc(100vh - var(--navbar-height));
+      padding-top: calc(var(--navbar-height) + 2rem);
+      display: flex;
+      align-items: center
+    }
+
+    .hero__container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      text-align: center
+    }
+
+    .hero__headline {
+      font-family: var(--font-heading);
+      font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+      font-weight: 600;
+      text-transform: uppercase
+    }
+
+    .skip-link:focus {
+      top: 0
+    }
+
+    *:focus-visible {
+      outline: 3px solid var(--primary-gold-500);
+      outline-offset: 2px
+    }
   </style>
   <link rel="preload" as="image" href="images/chromite-new.webp">
   <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
@@ -43,8 +77,531 @@
   <link rel="shortcut icon" href="images/favicon/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="output.css">
+  <style>
+    .mine-network {
+      position: relative;
+      margin: 0 auto 2.5rem;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(10, 22, 40, 0.98), rgba(16, 25, 35, 0.96)),
+        #101923;
+      border: 1px solid rgba(159, 178, 195, 0.18);
+      box-shadow: 0 34px 90px rgba(5, 10, 16, 0.34);
+    }
+
+    .mine-network::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image: radial-gradient(circle at 1px 1px, rgba(159, 178, 195, 0.12) 1px, transparent 0);
+      background-size: 34px 34px;
+      opacity: 0.72;
+    }
+
+    .mine-network__inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+      gap: clamp(1rem, 2vw, 1.5rem);
+      padding: clamp(1rem, 2.5vw, 1.5rem);
+    }
+
+    .mine-network__globe-shell {
+      position: relative;
+      min-height: 560px;
+      overflow: hidden;
+      background: radial-gradient(circle at 52% 46%, rgba(230, 92, 26, 0.12), transparent 34%), #08111c;
+      border: 1px solid rgba(159, 178, 195, 0.18);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04), 0 24px 54px rgba(5, 10, 16, 0.32);
+    }
+
+    #mine-network-globe {
+      position: absolute;
+      inset: 0;
+    }
+
+    .mine-network__loading {
+      position: absolute;
+      left: 1rem;
+      bottom: 1rem;
+      z-index: 1;
+      padding: 0.55rem 0.7rem;
+      color: rgba(245, 240, 232, 0.68);
+      font-family: var(--font-ui);
+      font-size: 0.64rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(16, 25, 35, 0.78);
+      border: 1px solid rgba(159, 178, 195, 0.16);
+    }
+
+    .mine-network__caption {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      z-index: 1;
+      max-width: 220px;
+      padding: 0.65rem 0.75rem;
+      color: rgba(245, 240, 232, 0.72);
+      font-size: 0.72rem;
+      line-height: 1.45;
+      background: rgba(16, 25, 35, 0.78);
+      border: 1px solid rgba(159, 178, 195, 0.16);
+      backdrop-filter: blur(10px);
+    }
+
+    .mine-network__controls {
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      z-index: 2;
+      display: flex;
+      gap: 0.45rem;
+    }
+
+    .mine-network__control {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.2rem;
+      height: 2.2rem;
+      color: #f5f0e8;
+      font-family: var(--font-ui);
+      font-size: 1rem;
+      font-weight: 800;
+      background: rgba(16, 25, 35, 0.86);
+      border: 1px solid rgba(159, 178, 195, 0.22);
+      cursor: pointer;
+      transition: background 0.2s var(--ease-smooth), border-color 0.2s var(--ease-smooth);
+    }
+
+    .mine-network__control:hover,
+    .mine-network__control:focus-visible {
+      background: rgba(230, 92, 26, 0.88);
+      border-color: rgba(245, 240, 232, 0.32);
+    }
+
+    .mine-network.is-ready .mine-network__loading {
+      display: none;
+    }
+
+    .mine-network__panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+      color: #f5f0e8;
+    }
+
+    .mine-network__kicker {
+      display: inline-block;
+      margin-bottom: 0.55rem;
+      color: #e65c1a;
+      font-family: var(--font-ui);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .mine-network__title {
+      max-width: 560px;
+      margin-bottom: 0.8rem;
+      color: #f5f0e8;
+      font-family: var(--font-heading);
+      font-size: clamp(1.35rem, 2.5vw, 2rem);
+      font-weight: 700;
+      line-height: 1.08;
+      text-transform: uppercase;
+    }
+
+    .mine-network__text {
+      color: rgba(245, 240, 232, 0.68);
+      font-size: 0.92rem;
+      line-height: 1.72;
+    }
+
+    .mine-network__routes {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .mine-route {
+      position: relative;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.85rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.055);
+      border: 1px solid rgba(159, 178, 195, 0.14);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 18px 42px rgba(5, 10, 16, 0.18);
+    }
+
+    .mine-route::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-top: 2px solid rgba(230, 92, 26, 0.58);
+    }
+
+    .mine-route__code {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.2rem;
+      height: 2.2rem;
+      color: rgba(245, 240, 232, 0.58);
+      font-family: var(--font-heading);
+      font-size: 0.82rem;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(159, 178, 195, 0.14);
+    }
+
+    .mine-route strong {
+      display: block;
+      margin-bottom: 0.32rem;
+      color: #f5f0e8;
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .mine-route p {
+      color: rgba(245, 240, 232, 0.68);
+      font-size: 0.8rem;
+      line-height: 1.55;
+    }
+
+    .mine-network__metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.65rem;
+    }
+
+    .mine-network__metric {
+      padding: 0.8rem 0.7rem;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.055);
+      border: 1px solid rgba(159, 178, 195, 0.14);
+    }
+
+    .mine-network__metric strong {
+      display: block;
+      color: #e65c1a;
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+
+    .mine-network__metric span {
+      display: block;
+      margin-top: 0.35rem;
+      color: rgba(245, 240, 232, 0.6);
+      font-family: var(--font-ui);
+      font-size: 0.58rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 900px) {
+      .mine-network__inner {
+        grid-template-columns: 1fr;
+      }
+
+      .mine-network__panel,
+      .mine-network__title,
+      .mine-network__text {
+        text-align: center;
+      }
+
+      .mine-network__globe-shell {
+        min-height: 430px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .mine-network__metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .mine-route {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .mine-route__code {
+        margin-inline: auto;
+      }
+    }
+
+    .minerals-heaven {
+      position: relative;
+      margin: 0 auto 2.5rem;
+      overflow: hidden;
+      background: #070b10;
+      border: 1px solid rgba(159, 178, 195, 0.18);
+      box-shadow: 0 34px 90px rgba(5, 10, 16, 0.34);
+    }
+
+    .minerals-heaven::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(159, 178, 195, 0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(159, 178, 195, 0.055) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(180deg, #000, transparent 86%);
+    }
+
+    .minerals-heaven__inner {
+      position: relative;
+      z-index: 1;
+      padding: clamp(1rem, 2.5vw, 1.6rem);
+    }
+
+    .minerals-heaven__header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.45fr);
+      gap: 1.2rem;
+      align-items: end;
+      margin-bottom: 1rem;
+    }
+
+    .minerals-heaven__kicker {
+      display: inline-block;
+      margin-bottom: 0.5rem;
+      color: #e65c1a;
+      font-family: var(--font-ui);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .minerals-heaven__title {
+      color: #f5f0e8;
+      font-family: var(--font-heading);
+      font-size: clamp(1.35rem, 2.6vw, 2.15rem);
+      font-weight: 700;
+      line-height: 1.08;
+      text-transform: uppercase;
+    }
+
+    .minerals-heaven__text {
+      color: rgba(245, 240, 232, 0.68);
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+
+    .minerals-heaven__body {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(240px, 300px);
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    .minerals-heaven__map {
+      position: relative;
+      height: 610px;
+      min-height: 610px;
+      overflow: hidden;
+      background: #f7f7f2;
+      border: 1px solid rgba(159, 178, 195, 0.18);
+      box-shadow: inset 0 0 0 1px rgba(15, 31, 58, 0.06);
+    }
+
+    .minerals-heaven__svg {
+      width: 100%;
+      height: 100%;
+      min-height: 610px;
+    }
+
+    .mh-base-map {
+      opacity: 0.98;
+      filter: none;
+    }
+
+    .mh-base-inline {
+      color: #e8e8e4;
+    }
+
+    .mh-base-inline text,
+    .mh-base-inline tspan {
+      display: none;
+    }
+
+    .mh-base-fallback {
+      fill: #e8e8e4;
+      stroke: rgba(20, 25, 31, 0.34);
+      stroke-width: 3;
+      filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.48));
+    }
+
+    .mh-province {
+      fill: #e8e8e4;
+      stroke: rgba(20, 25, 31, 0.74);
+      stroke-width: 2.4;
+      filter: drop-shadow(0 16px 22px rgba(5, 10, 16, 0.18));
+    }
+
+    .mh-district {
+      fill: none;
+      stroke: rgba(20, 25, 31, 0.26);
+      stroke-width: 1.15;
+    }
+
+    .mh-district-name {
+      fill: #14191f;
+      font-family: var(--font-ui);
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      pointer-events: none;
+      text-anchor: middle;
+    }
+
+    .mh-district-name--small {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .mh-mineral {
+      cursor: pointer;
+      r: 6.5;
+      transition: r 0.2s var(--ease-smooth), stroke-width 0.2s var(--ease-smooth), filter 0.2s var(--ease-smooth);
+    }
+
+    .mh-mineral:hover,
+    .mh-mineral.is-active {
+      r: 10;
+      stroke: #ffffff;
+      stroke-width: 3;
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.65));
+    }
+
+    .minerals-heaven__panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      color: #f5f0e8;
+    }
+
+    .minerals-heaven__detail {
+      min-height: 180px;
+      padding: 1.25rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(159, 178, 195, 0.16);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 18px 42px rgba(5, 10, 16, 0.22);
+    }
+
+    .minerals-heaven__detail-label {
+      display: inline-flex;
+      gap: 0.45rem;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      color: rgba(245, 240, 232, 0.68);
+      font-family: var(--font-ui);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .minerals-heaven__swatch {
+      width: 0.75rem;
+      height: 0.75rem;
+      background: var(--swatch, #e65c1a);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .minerals-heaven__detail h3 {
+      margin-bottom: 0.45rem;
+      color: #f5f0e8;
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+
+    .minerals-heaven__detail p {
+      color: rgba(245, 240, 232, 0.68);
+      font-size: 0.84rem;
+      line-height: 1.65;
+    }
+
+    .minerals-heaven__legend {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.5rem;
+    }
+
+    .minerals-heaven__legend-item {
+      display: inline-flex;
+      gap: 0.45rem;
+      align-items: center;
+      padding: 0.48rem 0.55rem;
+      color: rgba(245, 240, 232, 0.76);
+      font-family: var(--font-ui);
+      font-size: 0.68rem;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(159, 178, 195, 0.12);
+    }
+
+    @media (max-width: 900px) {
+
+      .minerals-heaven__header,
+      .minerals-heaven__body {
+        grid-template-columns: 1fr;
+      }
+
+      .minerals-heaven__header,
+      .minerals-heaven__text {
+        text-align: center;
+      }
+
+      .minerals-heaven__map,
+      .minerals-heaven__svg {
+        height: 520px;
+        min-height: 520px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .minerals-heaven__legend {
+        grid-template-columns: 1fr;
+        max-height: 260px;
+        overflow: auto;
+      }
+
+      .minerals-heaven__map,
+      .minerals-heaven__svg {
+        height: 460px;
+        min-height: 460px;
+      }
+
+      .mh-district-name {
+        font-size: 13px;
+      }
+
+      .mh-district-name--small {
+        font-size: 9px;
+      }
+    }
+  </style>
   <link rel="stylesheet" href="css/components/premium-light.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="css/components/authority-tools.css" media="print" onload="this.media='all'">
   <script type="application/ld+json">
@@ -57,10 +614,11 @@
   }
   </script>
 
-    <!-- Search Console CSS -->
+  <!-- Search Console CSS -->
   <link rel="stylesheet" href="css/search-console.css">
   <style>
     @media (max-width: 768px) {
+
       .parallax-hero__title,
       .mines-hero__title,
       .blog-hero__title,
@@ -75,13 +633,15 @@
     }
   </style>
 </head>
+
 <body class="mines-page is-loading">
   <div id="bm-hill-loader">
     <div class="bm-hill-content">
       <div class="bm-hill-container">
         <svg viewBox="0 0 100 40" class="bm-hill-svg">
           <!-- Professional 5-top hill silhouette -->
-          <path d="M0 35 L15 15 L30 25 L50 5 L70 20 L85 10 L100 35" fill="none" stroke="#1a1a1a" stroke-width="1" class="hill-path" />
+          <path d="M0 35 L15 15 L30 25 L50 5 L70 20 L85 10 L100 35" fill="none" stroke="#1a1a1a" stroke-width="1"
+            class="hill-path" />
         </svg>
       </div>
       <h2 class="bm-hill-brand-text">Balochistan Minerals</h2>
@@ -835,12 +1395,8 @@
     <div class="search-console__container">
       <div class="search-console__header">
         <span class="search-console__icon" aria-hidden="true"></span>
-        <input
-          type="text"
-          class="search-console__input"
-          placeholder="Search products, pages, articles..."
-          autocomplete="off"
-        >
+        <input type="text" class="search-console__input" placeholder="Search products, pages, articles..."
+          autocomplete="off">
         <button class="search-console__close" aria-label="Close search">✕</button>
       </div>
       <div class="search-console__results"></div>
@@ -852,12 +1408,21 @@
   <main id="main-content">
     <!-- Hero -->
     <section class="mines-hero">
-      <div class="mines-hero__bg"><picture><source type="image/avif" srcset="images/chromite-new.avif"><source type="image/webp" srcset="images/chromite-new.webp"><img src="images/chromite-new.webp" alt="Chromite mining operations at Muslim Bagh, Balochistan" loading="eager"></picture></div>
+      <div class="mines-hero__bg">
+        <picture>
+          <source type="image/avif" srcset="images/chromite-new.avif">
+          <source type="image/webp" srcset="images/chromite-new.webp"><img src="images/chromite-new.webp"
+            alt="Chromite mining operations at Muslim Bagh, Balochistan" loading="eager">
+        </picture>
+      </div>
       <div class="mines-hero__overlay"></div>
       <div class="mines-hero__content">
         <span class="mines-hero__overline">Our Mines</span>
-        <h1 class="mines-hero__title">Three Strategic Sites.<br><span style="color: var(--primary-gold-500);">One Operation.</span></h1>
-        <p class="mines-hero__text">Each mine in our network is strategically positioned to access unique mineral deposits across Balochistan—from the chromite-rich ophiolites of Muslim Bagh to the barite reserves of Khuzdar and the copper-gold frontier of Chagai.</p>
+        <h1 class="mines-hero__title">Three Strategic Sites.<br><span style="color: var(--primary-gold-500);">One
+            Operation.</span></h1>
+        <p class="mines-hero__text">Each mine in our network is strategically positioned to access unique mineral
+          deposits across Balochistan—from the chromite-rich ophiolites of Muslim Bagh to the barite reserves of Khuzdar
+          and the copper-gold frontier of Chagai.</p>
       </div>
     </section>
 
@@ -886,10 +1451,12 @@
       <div class="mines-overview__container">
         <div class="mines-overview__header">
           <span class="mines-overview__overline">Regional Authority</span>
-          <h2 class="mines-overview__title">Provincial <span style="color: var(--primary-gold-500);">Geological Belts</span></h2>
-          <p class="mines-overview__subtitle">Our operations are strategically located within Balochistan's world-class mineral corridors—the Tethyan Copper-Gold Belt and the Ophiolite Chromite Belt.</p>
+          <h2 class="mines-overview__title">Provincial <span style="color: var(--primary-gold-500);">Geological
+              Belts</span></h2>
+          <p class="mines-overview__subtitle">Our operations are strategically located within Balochistan's world-class
+            mineral corridors—the Tethyan Copper-Gold Belt and the Ophiolite Chromite Belt.</p>
         </div>
-        
+
         <div class="geo-map-container reveal">
           <div class="geo-map-container__header">
             <div>
@@ -907,12 +1474,14 @@
             <div class="geo-map-container__map" aria-label="Stylized map of Balochistan geological belts">
               <svg viewBox="0 0 960 560" class="geo-map-svg" role="img" aria-labelledby="geo-map-title geo-map-desc">
                 <title id="geo-map-title">Provincial geological belts map</title>
-                <desc id="geo-map-desc">Stylized map showing the Tethyan Copper-Gold Belt, Ophiolite Chromite Belt and key Balochistan mineral sites.</desc>
+                <desc id="geo-map-desc">Stylized map showing the Tethyan Copper-Gold Belt, Ophiolite Chromite Belt and
+                  key Balochistan mineral sites.</desc>
                 <defs>
                   <filter id="geoMapShadow" x="-20%" y="-20%" width="140%" height="140%">
                     <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0f1f3a" flood-opacity="0.14" />
                   </filter>
-                  <linearGradient id="geoProvinceFill" x1="120" y1="40" x2="820" y2="520" gradientUnits="userSpaceOnUse">
+                  <linearGradient id="geoProvinceFill" x1="120" y1="40" x2="820" y2="520"
+                    gradientUnits="userSpaceOnUse">
                     <stop stop-color="#ffffff" />
                     <stop offset="0.54" stop-color="#f4f7f2" />
                     <stop offset="1" stop-color="#e9efe8" />
@@ -920,16 +1489,22 @@
                 </defs>
 
                 <rect class="geo-map-frame" x="36" y="36" width="888" height="488" rx="0" />
-                <path class="geo-province" d="M180 82L630 72L800 188L850 322L728 476L270 492L114 352L92 198Z" filter="url(#geoMapShadow)" />
+                <path class="geo-province" d="M180 82L630 72L800 188L850 322L728 476L270 492L114 352L92 198Z"
+                  filter="url(#geoMapShadow)" />
                 <path class="geo-contour" d="M176 166C262 126 372 118 486 140C612 164 702 224 780 314" />
                 <path class="geo-contour" d="M150 278C262 236 390 230 520 260C650 290 724 344 798 426" />
-                <path class="geo-contour geo-contour--soft" d="M250 430C338 380 450 354 568 374C640 386 688 416 738 454" />
+                <path class="geo-contour geo-contour--soft"
+                  d="M250 430C338 380 450 354 568 374C640 386 688 416 738 454" />
 
-                <path class="geo-belt geo-belt--tethyan" d="M124 372C188 312 236 262 296 224C376 174 452 174 520 210C606 260 676 348 780 412" />
-                <path class="geo-belt-core geo-belt-core--tethyan" d="M124 372C188 312 236 262 296 224C376 174 452 174 520 210C606 260 676 348 780 412" />
+                <path class="geo-belt geo-belt--tethyan"
+                  d="M124 372C188 312 236 262 296 224C376 174 452 174 520 210C606 260 676 348 780 412" />
+                <path class="geo-belt-core geo-belt-core--tethyan"
+                  d="M124 372C188 312 236 262 296 224C376 174 452 174 520 210C606 260 676 348 780 412" />
 
-                <path class="geo-belt geo-belt--ophiolite" d="M448 88C486 118 518 138 545 156C590 204 624 294 660 366C686 418 708 452 730 480" />
-                <path class="geo-belt-core geo-belt-core--ophiolite" d="M448 88C486 118 518 138 545 156C590 204 624 294 660 366C686 418 708 452 730 480" />
+                <path class="geo-belt geo-belt--ophiolite"
+                  d="M448 88C486 118 518 138 545 156C590 204 624 294 660 366C686 418 708 452 730 480" />
+                <path class="geo-belt-core geo-belt-core--ophiolite"
+                  d="M448 88C486 118 518 138 545 156C590 204 624 294 660 366C686 418 708 452 730 480" />
 
                 <path class="geo-route" d="M296 224C405 278 514 314 642 360C714 386 770 424 820 464" />
                 <path class="geo-route-light" d="M296 224C405 278 514 314 642 360C714 386 770 424 820 464" />
@@ -971,21 +1546,24 @@
                 <span class="geo-legend__code">TG</span>
                 <div>
                   <strong>Tethyan Copper-Gold Belt</strong>
-                  <p>Chagai hosts the copper-gold exploration frontier tied to the same regional mineral architecture as major western Balochistan deposits.</p>
+                  <p>Chagai hosts the copper-gold exploration frontier tied to the same regional mineral architecture as
+                    major western Balochistan deposits.</p>
                 </div>
               </article>
               <article class="geo-legend__item geo-legend__item--ophiolite">
                 <span class="geo-legend__code">OC</span>
                 <div>
                   <strong>Ophiolite Chromite Belt</strong>
-                  <p>Muslim Bagh sits in the northern ophiolite zone, where chromite bodies support active extraction and grade control programs.</p>
+                  <p>Muslim Bagh sits in the northern ophiolite zone, where chromite bodies support active extraction
+                    and grade control programs.</p>
                 </div>
               </article>
               <article class="geo-legend__item geo-legend__item--barite">
                 <span class="geo-legend__code">KB</span>
                 <div>
                   <strong>Khuzdar Barite Zone</strong>
-                  <p>Khuzdar links industrial barite operations to the same provincial corridor used for processing and export logistics.</p>
+                  <p>Khuzdar links industrial barite operations to the same provincial corridor used for processing and
+                    export logistics.</p>
                 </div>
               </article>
             </div>
@@ -999,8 +1577,425 @@
       <div class="mines-overview__container">
         <div class="mines-overview__header">
           <span class="mines-overview__overline">Mine Profiles</span>
-          <h2 class="mines-overview__title">Detailed Mine <span style="color: var(--primary-gold-500);">Operations</span></h2>
-          <p class="mines-overview__subtitle">Explore each mine's geology, production capacity, workforce, and environmental commitments.</p>
+          <h2 class="mines-overview__title">Detailed Mine <span
+              style="color: var(--primary-gold-500);">Operations</span></h2>
+          <p class="mines-overview__subtitle">Explore each mine's geology, production capacity, workforce, and
+            environmental commitments.</p>
+        </div>
+
+        <div class="mine-network reveal" aria-label="Mine to port WebGL route network">
+          <div class="mine-network__inner">
+            <div class="mine-network__globe-shell">
+              <div id="mine-network-globe" aria-hidden="true"></div>
+              <div class="mine-network__controls" aria-label="Globe zoom controls">
+                <button class="mine-network__control" type="button" data-globe-zoom="in" aria-label="Zoom in">+</button>
+                <button class="mine-network__control" type="button" data-globe-zoom="out"
+                  aria-label="Zoom out">-</button>
+              </div>
+              <div class="mine-network__caption">Numbered mine markers show district-level origins. Amber arcs show
+                inland and port routing.</div>
+              <div class="mine-network__loading">Mine to port network</div>
+            </div>
+
+            <aside class="mine-network__panel">
+              <div>
+                <span class="mine-network__kicker">Live mine footprint</span>
+                <h3 class="mine-network__title">Balochistan mines connected to export corridors</h3>
+                <p class="mine-network__text">District-level mine markers connect Muslim Bagh, Khuzdar and Chagai to
+                  practical inland routing, Karachi and Gwadar port access, and onward buyer regions.</p>
+              </div>
+
+              <div class="mine-network__routes">
+                <article class="mine-route">
+                  <span class="mine-route__code">01</span>
+                  <div>
+                    <strong>Muslim Bagh to Quetta</strong>
+                    <p>Chromite dispatch moves south through controlled road windows before consolidation and port
+                      routing.</p>
+                  </div>
+                </article>
+                <article class="mine-route">
+                  <span class="mine-route__code">02</span>
+                  <div>
+                    <strong>Khuzdar to export ports</strong>
+                    <p>Barite processing sits close to Karachi and Gwadar corridors, reducing inland handling time.</p>
+                  </div>
+                </article>
+                <article class="mine-route">
+                  <span class="mine-route__code">03</span>
+                  <div>
+                    <strong>Chagai to Gwadar gateway</strong>
+                    <p>Copper-gold exploration connects western Balochistan to long-range export optionality.</p>
+                  </div>
+                </article>
+              </div>
+
+              <div class="mine-network__metrics" aria-label="Mine network metrics">
+                <div class="mine-network__metric">
+                  <strong>3</strong>
+                  <span>Mine districts</span>
+                </div>
+                <div class="mine-network__metric">
+                  <strong>2</strong>
+                  <span>Export ports</span>
+                </div>
+                <div class="mine-network__metric">
+                  <strong>12+</strong>
+                  <span>Buyer countries</span>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+
+        <div class="minerals-heaven reveal" aria-label="Balochistan mineral distribution map">
+          <div class="minerals-heaven__inner">
+            <div class="minerals-heaven__header">
+              <div>
+                <span class="minerals-heaven__kicker">Minerals Heaven Balochistan</span>
+                <h3 class="minerals-heaven__title">District mineral distribution across the province</h3>
+              </div>
+              <p class="minerals-heaven__text">A detailed map-style view of Balochistan's mineral occurrences, using
+                colored markers for commodity families and district-level context for exploration, sourcing and
+                logistics planning.</p>
+            </div>
+
+            <div class="minerals-heaven__body">
+              <div class="minerals-heaven__map">
+                <svg class="minerals-heaven__svg" viewBox="0 0 1000 900" preserveAspectRatio="none" role="img"
+                  aria-labelledby="minerals-heaven-title minerals-heaven-desc">
+                  <title id="minerals-heaven-title">Minerals Heaven Balochistan map</title>
+                  <desc id="minerals-heaven-desc">Balochistan district map with colored markers for coal, marble,
+                    limestone, iron, chromite, barite, copper and other minerals.</desc>
+                  <defs>
+                    <style>
+                      .mh-province {
+                        fill: #f7f7f2;
+                        stroke: #333;
+                        stroke-width: 2;
+                      }
+
+                      .mh-district-boundary {
+                        fill: none;
+                        stroke: #bbb;
+                        stroke-width: 1.2;
+                      }
+
+                      .mh-district-fill {
+                        fill: #fafaf8;
+                        stroke: none;
+                      }
+                    </style>
+                  </defs>
+                  <rect x="0" y="0" width="1000" height="900" fill="#e8e8e0" />
+
+                  <!-- Base province outline -->
+                  <path class="mh-province"
+                    d="M60 240L195 295L330 285L480 230L630 140L800 90L920 140L935 280L820 370L800 520L700 620L640 800L500 850L360 760L210 810L70 710L30 570L80 410Z" />
+
+                  <!-- District boundaries with better accuracy -->
+                  <g class="mh-districts">
+                    <!-- Gwadar (far southwest) -->
+                    <polygon class="mh-district-boundary" points="60,240 85,350 40,500 60,240" />
+
+                    <!-- Kech -->
+                    <polygon class="mh-district-boundary"
+                      points="60,240 85,350 120,500 40,500 70,710 210,810 120,500 85,350 60,240" />
+
+                    <!-- Panjgur (southwest-south) -->
+                    <polygon class="mh-district-boundary"
+                      points="85,350 210,400 330,480 280,750 210,810 120,500 85,350" />
+
+                    <!-- Washuk (west-central) -->
+                    <polygon class="mh-district-boundary" points="195,295 330,285 330,480 210,400 195,295" />
+
+                    <!-- Chagai (far west) -->
+                    <polygon class="mh-district-boundary" points="60,240 195,295 210,400 85,350 60,240" />
+
+                    <!-- Kharan (central-west) -->
+                    <polygon class="mh-district-boundary" points="330,285 480,230 520,380 330,480 330,285" />
+
+                    <!-- Nushki (west to central-north) -->
+                    <polygon class="mh-district-boundary" points="330,285 480,230 520,280 480,340 330,380 330,285" />
+
+                    <!-- Mastung (central-north) -->
+                    <polygon class="mh-district-boundary" points="480,230 630,140 680,240 520,280 480,230" />
+
+                    <!-- Quetta (north-central) -->
+                    <polygon class="mh-district-boundary" points="630,140 800,90 820,160 680,240 630,140" />
+
+                    <!-- Pishin (north) -->
+                    <polygon class="mh-district-boundary" points="800,90 920,140 900,200 820,160 800,90" />
+
+                    <!-- Qilla Saifullah (north-northeast) -->
+                    <polygon class="mh-district-boundary" points="820,160 900,200 935,280 880,320 820,160" />
+
+                    <!-- Zhob (far north-east) -->
+                    <polygon class="mh-district-boundary" points="900,140 920,140 935,180 920,170 900,140" />
+
+                    <!-- Loralai (northeast) -->
+                    <polygon class="mh-district-boundary" points="880,320 935,280 950,360 920,380 880,320" />
+
+                    <!-- Ziarat (northeast) -->
+                    <polygon class="mh-district-boundary" points="820,160 880,320 850,350 820,280 820,160" />
+
+                    <!-- Duki (northeast) -->
+                    <polygon class="mh-district-boundary" points="850,350 880,320 920,380 880,400 850,350" />
+
+                    <!-- Harnai (east-central) -->
+                    <polygon class="mh-district-boundary" points="880,400 920,380 950,420 920,430 880,400" />
+
+                    <!-- Kachhi (east) -->
+                    <polygon class="mh-district-boundary" points="850,350 880,400 920,430 900,450 850,380 850,350" />
+
+                    <!-- Qalat (central) -->
+                    <polygon class="mh-district-boundary" points="520,380 680,240 820,280 820,370 720,410 520,380" />
+
+                    <!-- Khuzdar (central) -->
+                    <polygon class="mh-district-boundary" points="330,480 520,380 720,410 680,520 520,520 330,480" />
+
+                    <!-- Bolan (central-east) -->
+                    <polygon class="mh-district-boundary" points="720,410 820,370 900,450 880,480 720,440 720,410" />
+
+                    <!-- Sibi (east-central) -->
+                    <polygon class="mh-district-boundary" points="820,370 880,480 920,430 850,350 820,370" />
+
+                    <!-- Kohlu (east) -->
+                    <polygon class="mh-district-boundary" points="880,480 920,430 950,480 920,500 880,480" />
+
+                    <!-- Dera Bugti (far east) -->
+                    <polygon class="mh-district-boundary" points="920,500 950,480 950,600 935,620 920,500" />
+
+                    <!-- Jhal Magsi (southeast) -->
+                    <polygon class="mh-district-boundary" points="880,480 920,500 900,540 860,520 880,480" />
+
+                    <!-- Nasirabad (southeast) -->
+                    <polygon class="mh-district-boundary" points="900,540 920,500 935,620 910,600 900,540" />
+
+                    <!-- Jaffarabad (far southeast) -->
+                    <polygon class="mh-district-boundary" points="910,600 935,620 950,700 920,700 910,600" />
+
+                    <!-- Awaran (south-central) -->
+                    <polygon class="mh-district-boundary" points="330,480 520,520 600,700 280,750 330,480" />
+
+                    <!-- Lasbela (south) -->
+                    <polygon class="mh-district-boundary" points="520,520 680,520 700,620 640,800 500,850 520,520" />
+
+                    <!-- Barkhan (far east) -->
+                    <polygon class="mh-district-boundary" points="935,280 950,600 950,400 935,300 935,280" />
+
+                    <!-- Sohbatpur (far southeast) -->
+                    <polygon class="mh-district-boundary" points="950,600 950,700 920,700 935,620 950,600" />
+                  </g>
+                  <g class="mh-labels">
+                    <text class="mh-district-name" x="120" y="300">Chagai</text>
+                    <text class="mh-district-name" x="370" y="310">Nushki</text>
+                    <text class="mh-district-name" x="420" y="370">Kharan</text>
+                    <text class="mh-district-name" x="250" y="410">Washuk</text>
+                    <text class="mh-district-name" x="240" y="600">Panjgur</text>
+                    <text class="mh-district-name" x="150" y="710">Kech</text>
+                    <text class="mh-district-name mh-district-name--small" x="65" y="420">Gwadar</text>
+                    <text class="mh-district-name" x="420" y="680">Awaran</text>
+                    <text class="mh-district-name" x="550" y="480">Khuzdar</text>
+                    <text class="mh-district-name" x="620" y="700">Lasbela</text>
+                    <text class="mh-district-name" x="650" y="380">Qalat</text>
+                    <text class="mh-district-name mh-district-name--small" x="550" y="220">Mastung</text>
+                    <text class="mh-district-name mh-district-name--small" x="700" y="150">Quetta</text>
+                    <text class="mh-district-name mh-district-name--small" x="820" y="120">Pishin</text>
+                    <text class="mh-district-name mh-district-name--small" x="750" y="180">Killa Abdullah</text>
+                    <text class="mh-district-name mh-district-name--small" x="700" y="100">Chaman</text>
+                    <text class="mh-district-name mh-district-name--small" x="840" y="170">Qilla Saifullah</text>
+                    <text class="mh-district-name" x="900" y="130">Zhob</text>
+                    <text class="mh-district-name mh-district-name--small" x="930" y="150">Sherani</text>
+                    <text class="mh-district-name mh-district-name--small" x="880" y="200">Musakhel</text>
+                    <text class="mh-district-name mh-district-name--small" x="840" y="240">Loralai</text>
+                    <text class="mh-district-name mh-district-name--small" x="860" y="310">Duki</text>
+                    <text class="mh-district-name mh-district-name--small" x="820" y="280">Ziarat</text>
+                    <text class="mh-district-name mh-district-name--small" x="830" y="330">Harnai</text>
+                    <text class="mh-district-name" x="820" y="400">Sibi</text>
+                    <text class="mh-district-name mh-district-name--small" x="760" y="420">Bolan</text>
+                    <text class="mh-district-name mh-district-name--small" x="870" y="430">Kachhi</text>
+                    <text class="mh-district-name" x="900" y="420">Kohlu</text>
+                    <text class="mh-district-name" x="920" y="520">Dera Bugti</text>
+                    <text class="mh-district-name mh-district-name--small" x="920" y="280">Barkhan</text>
+                    <text class="mh-district-name mh-district-name--small" x="850" y="510">Jhal Magsi</text>
+                    <text class="mh-district-name mh-district-name--small" x="890" y="560">Nasirabad</text>
+                    <text class="mh-district-name mh-district-name--small" x="920" y="610">Jaffarabad</text>
+                    <text class="mh-district-name mh-district-name--small" x="940" y="680">Sohbatpur</text>
+                  </g>
+
+                  <!-- Chagai minerals -->
+                  <circle class="mh-mineral" cx="100" cy="280" r="6.5" fill="#ff1753" data-mineral="Chromite"
+                    data-district="Chagai"
+                    data-detail="Chromite occurrences appear in western and northern ophiolite settings." />
+                  <circle class="mh-mineral" cx="135" cy="310" r="6.5" fill="#ff7a22" data-mineral="Iron"
+                    data-district="Chagai" data-detail="Iron-bearing zones support bulk mineral sourcing." />
+                  <circle class="mh-mineral" cx="115" cy="330" r="6.5" fill="#7661b7" data-mineral="Barite"
+                    data-district="Chagai" data-detail="Barite indicators industrial mineral potential." />
+                  <circle class="mh-mineral" cx="85" cy="300" r="6.5" fill="#c47a2c" data-mineral="Manganese"
+                    data-district="Chagai" data-detail="Manganese occurrences support alloy materials." />
+                  <circle class="mh-mineral" cx="140" cy="270" r="6.5" fill="#ff6969" data-mineral="Marble Onyx"
+                    data-district="Chagai" data-detail="Decorative stone occurrences." />
+                  <circle class="mh-mineral" cx="105" cy="370" r="6.5" fill="#bcbec0" data-mineral="Shale"
+                    data-district="Chagai" data-detail="Shale for industrial raw materials." />
+
+                  <!-- Gwadar mineral -->
+                  <circle class="mh-mineral" cx="70" cy="400" r="6.5" fill="#2d78a4" data-mineral="Basalt"
+                    data-district="Gwadar" data-detail="Basalt for aggregate." />
+
+                  <!-- Washuk mineral -->
+                  <circle class="mh-mineral" cx="260" cy="380" r="6.5" fill="#4d79b8" data-mineral="Copper"
+                    data-district="Washuk" data-detail="Copper occurrences." />
+
+                  <!-- Nushki minerals -->
+                  <circle class="mh-mineral" cx="430" cy="260" r="6.5" fill="#178451" data-mineral="Granite"
+                    data-district="Nushki" data-detail="Granite for dimensional stone." />
+                  <circle class="mh-mineral" cx="410" cy="290" r="6.5" fill="#c78d2e" data-mineral="Sulphur"
+                    data-district="Nushki" data-detail="Sulphur in mineralized zones." />
+
+                  <!-- Kharan mineral -->
+                  <circle class="mh-mineral" cx="430" cy="350" r="6.5" fill="#53c58d" data-mineral="Fluorite"
+                    data-district="Kharan" data-detail="Fluorite for industrial uses." />
+
+                  <!-- Mastung minerals -->
+                  <circle class="mh-mineral" cx="600" cy="180" r="6.5" fill="#2caee8" data-mineral="Coal"
+                    data-district="Mastung" data-detail="Coal occurrences." />
+                  <circle class="mh-mineral" cx="620" cy="210" r="6.5" fill="#58c148" data-mineral="Marble"
+                    data-district="Mastung" data-detail="Marble for dimensional stone." />
+                  <circle class="mh-mineral" cx="660" cy="240" r="6.5" fill="#ffe82b" data-mineral="Limestone"
+                    data-district="Mastung" data-detail="Limestone for cement." />
+
+                  <!-- Pishin mineral -->
+                  <circle class="mh-mineral" cx="800" cy="120" r="6.5" fill="#2caee8" data-mineral="Coal"
+                    data-district="Pishin" data-detail="Coal zones." />
+
+                  <!-- Qilla Saifullah minerals -->
+                  <circle class="mh-mineral" cx="830" cy="140" r="6.5" fill="#7661b7" data-mineral="Barite"
+                    data-district="Qilla Saifullah" data-detail="Barite for drilling." />
+                  <circle class="mh-mineral" cx="870" cy="160" r="6.5" fill="#ff1753" data-mineral="Chromite"
+                    data-district="Qilla Saifullah" data-detail="Chromite in ophiolite belt." />
+
+                  <!-- Zhob mineral -->
+                  <circle class="mh-mineral" cx="900" cy="130" r="6.5" fill="#b55bb8" data-mineral="Mangesite"
+                    data-district="Zhob" data-detail="Mangesite for industry." />
+
+                  <!-- Loralai mineral -->
+                  <circle class="mh-mineral" cx="850" cy="250" r="6.5" fill="#58c148" data-mineral="Marble"
+                    data-district="Loralai" data-detail="Marble for stone." />
+
+                  <!-- Ziarat mineral -->
+                  <circle class="mh-mineral" cx="810" cy="300" r="6.5" fill="#f0b52e" data-mineral="Calcite"
+                    data-district="Ziarat" data-detail="Calcite for industry." />
+
+                  <!-- Qalat mineral -->
+                  <circle class="mh-mineral" cx="680" cy="350" r="6.5" fill="#53c58d" data-mineral="Fluorite"
+                    data-district="Qalat" data-detail="Fluorite for metallurgy." />
+
+                  <!-- Bolan mineral -->
+                  <circle class="mh-mineral" cx="750" cy="410" r="6.5" fill="#4d79b8" data-mineral="Copper"
+                    data-district="Bolan" data-detail="Copper mineralization." />
+
+                  <!-- Sibi mineral -->
+                  <circle class="mh-mineral" cx="820" cy="390" r="6.5" fill="#2d78a4" data-mineral="Basalt"
+                    data-district="Sibi" data-detail="Basalt for stones." />
+
+                  <!-- Khuzdar minerals -->
+                  <circle class="mh-mineral" cx="530" cy="430" r="6.5" fill="#ff1753" data-mineral="Chromite"
+                    data-district="Khuzdar" data-detail="Chromite mineral context." />
+                  <circle class="mh-mineral" cx="580" cy="410" r="6.5" fill="#58c148" data-mineral="Marble"
+                    data-district="Khuzdar" data-detail="Marble for stone." />
+                  <circle class="mh-mineral" cx="560" cy="490" r="6.5" fill="#7661b7" data-mineral="Barite"
+                    data-district="Khuzdar" data-detail="Barite for drilling mud." />
+                  <circle class="mh-mineral" cx="610" cy="460" r="6.5" fill="#b55bb8" data-mineral="Mangesite"
+                    data-district="Khuzdar" data-detail="Industrial minerals." />
+
+                  <!-- Awaran minerals -->
+                  <circle class="mh-mineral" cx="380" cy="580" r="6.5" fill="#ffe82b" data-mineral="Limestone"
+                    data-district="Awaran" data-detail="Limestone for construction." />
+                  <circle class="mh-mineral" cx="360" cy="650" r="6.5" fill="#a9b34c" data-mineral="Serpentine"
+                    data-district="Awaran" data-detail="Serpentine for stones." />
+
+                  <!-- Panjgur minerals -->
+                  <circle class="mh-mineral" cx="280" cy="540" r="6.5" fill="#2d78a4" data-mineral="Basalt"
+                    data-district="Panjgur" data-detail="Basalt for rocks." />
+                  <circle class="mh-mineral" cx="240" cy="620" r="6.5" fill="#f0b52e" data-mineral="Calcite"
+                    data-district="Panjgur" data-detail="Calcite mineral." />
+
+                  <!-- Lasbela minerals -->
+                  <circle class="mh-mineral" cx="600" cy="520" r="6.5" fill="#ffe82b" data-mineral="Limestone"
+                    data-district="Lasbela" data-detail="Limestone in south." />
+                  <circle class="mh-mineral" cx="630" cy="600" r="6.5" fill="#a9b34c" data-mineral="Serpentine"
+                    data-district="Lasbela" data-detail="Serpentine stones." />
+                  <circle class="mh-mineral" cx="670" cy="660" r="6.5" fill="#53c58d" data-mineral="Travertine"
+                    data-district="Lasbela" data-detail="Travertine stone." />
+                  <circle class="mh-mineral" cx="700" cy="710" r="6.5" fill="#c47a2c" data-mineral="Manganese"
+                    data-district="Lasbela" data-detail="Manganese alloy." />
+                  <circle class="mh-mineral" cx="630" cy="720" r="6.5" fill="#2caee8" data-mineral="Coal"
+                    data-district="Lasbela" data-detail="Coal in south." />
+
+                  <!-- Eastern minerals -->
+                  <circle class="mh-mineral" cx="890" cy="480" r="6.5" fill="#2d78a4" data-mineral="Basalt"
+                    data-district="Dera Bugti" data-detail="Basalt rocks." />
+                  <circle class="mh-mineral" cx="860" cy="500" r="6.5" fill="#f0b52e" data-mineral="Calcite"
+                    data-district="Nasirabad" data-detail="Calcite south." />
+                  <circle class="mh-mineral" cx="920" cy="280" r="6.5" fill="#bcbec0" data-mineral="Shale"
+                    data-district="Barkhan" data-detail="Shale east." />
+                </svg>
+              </div>
+
+              <aside class="minerals-heaven__panel">
+                <div class="minerals-heaven__detail" aria-live="polite">
+                  <span class="minerals-heaven__detail-label"><span class="minerals-heaven__swatch"></span><span
+                      data-mh-detail-label>Hover a marker</span></span>
+                  <h3 data-mh-detail-title>Mineral intelligence layer</h3>
+                  <p data-mh-detail-text>Move over any colored marker to see the mineral name, district context and
+                    practical sourcing note. The markers are district-level indicators, not exact mine-mouth
+                    coordinates.</p>
+                </div>
+
+                <div class="minerals-heaven__legend" aria-label="Mineral color legend">
+                  <span class="minerals-heaven__legend-item"><span class="minerals-heaven__swatch"
+                      style="--swatch:#2caee8"></span>Coal</span>
+                  <span class="minerals-heaven__legend-item"><span class="minerals-heaven__swatch"
+                      style="--swatch:#58c148"></span>Marble</span>
+                  <span class="minerals-heaven__legend-item"><span class="minerals-heaven__swatch"
+                      style="--swatch:#ffe82b"></span>Limestone</span>
+                  <span class="minerals-heaven__legend-item"><span class="minerals-heaven__swatch"
+                      style="--swatch:#ff7a22"></span>Iron</span>
+                  <span class="minerals-heaven__legend-item"><span class="minerals-heaven__swatch"
+                      style="--swatch:#ff1753"></span>Chromite</span>
+                  <span class="minerals-heaven__legend-item"><span class="minerals-heaven__swatch"
+                      style="--swatch:#bcbec0"></span>Shale</span>
+                  <span class="minerals-heaven__legend-item"><span class="minerals-heaven__swatch"
+                      style="--swatch:#a9b34c"></span>Serpentine</span>
+                  <span class="minerals-heaven__legend-item"><span class="minerals-heaven__swatch"
+                      style="--swatch:#b55bb8"></span>Mangesite</span>
+                  <span class="minerals-heaven__legend-item"><span class="minerals-heaven__swatch"
+                      style="--swatch:#7661b7"></span>Barite</span>
+                  <span class="minerals-heaven__legend-item"><span class="minerals-heaven__swatch"
+                      style="--swatch:#7c7ea9"></span>Pumice</span>
+                  <span class="minerals-heaven__legend-item"><span class="minerals-heaven__swatch"
+                      style="--swatch:#c47a2c"></span>Manganese</span>
+                  <span class="minerals-heaven__legend-item"><span class="minerals-heaven__swatch"
+                      style="--swatch:#ff6969"></span>Marble Onyx</span>
+                  <span class="minerals-heaven__legend-item"><span class="minerals-heaven__swatch"
+                      style="--swatch:#53c58d"></span>Travertine</span>
+                  <span class="minerals-heaven__legend-item"><span class="minerals-heaven__swatch"
+                      style="--swatch:#c78d2e"></span>Sulphur</span>
+                  <span class="minerals-heaven__legend-item"><span class="minerals-heaven__swatch"
+                      style="--swatch:#178451"></span>Granite</span>
+                  <span class="minerals-heaven__legend-item"><span class="minerals-heaven__swatch"
+                      style="--swatch:#53c58d"></span>Fluorite</span>
+                  <span class="minerals-heaven__legend-item"><span class="minerals-heaven__swatch"
+                      style="--swatch:#4d79b8"></span>Copper</span>
+                  <span class="minerals-heaven__legend-item"><span class="minerals-heaven__swatch"
+                      style="--swatch:#2d78a4"></span>Basalt</span>
+                  <span class="minerals-heaven__legend-item"><span class="minerals-heaven__swatch"
+                      style="--swatch:#f0b52e"></span>Calcite</span>
+                </div>
+              </aside>
+            </div>
+          </div>
         </div>
 
         <!-- Muslim Bagh -->
@@ -1012,17 +2007,22 @@
               <img src="images/chromite-new.webp" alt="Muslim Bagh chromite mine" loading="lazy">
             </picture>
             <div class="mine-profile__badges">
-                <span class="mine-profile__status-badge">Active Mining</span>
-                <div class="ops-pulse"><span class="ops-pulse__dot"></span> Live Operations</div>
+              <span class="mine-profile__status-badge">Active Mining</span>
+              <div class="ops-pulse"><span class="ops-pulse__dot"></span> Live Operations</div>
             </div>
           </div>
           <div class="mine-profile__info">
             <h2 class="mine-profile__name">Muslim Bagh Chromite Mine</h2>
             <div class="mine-profile__location">
-              <svg width="16" height="16" class="icon"><use href="images/icons.svg#icon-location"></use></svg>
+              <svg width="16" height="16" class="icon">
+                <use href="images/icons.svg#icon-location"></use>
+              </svg>
               Qila Saifullah District, Balochistan
             </div>
-            <p class="mine-profile__text">Our flagship operation, established in 2008, sits atop one of Pakistan's most significant ophiolite-hosted chromite deposits. Using open-pit and shallow underground methods, we produce metallurgical-grade chromite ore (46-48% Cr₂O₃) for ferrochrome smelters and stainless steel manufacturers worldwide.</p>
+            <p class="mine-profile__text">Our flagship operation, established in 2008, sits atop one of Pakistan's most
+              significant ophiolite-hosted chromite deposits. Using open-pit and shallow underground methods, we produce
+              metallurgical-grade chromite ore (46-48% Cr₂O₃) for ferrochrome smelters and stainless steel manufacturers
+              worldwide.</p>
             <div class="mine-profile__details">
               <div class="mine-profile__detail">
                 <div class="mine-profile__detail-value">12K</div>
@@ -1041,7 +2041,10 @@
                 <div class="mine-profile__detail-label">Established</div>
               </div>
             </div>
-            <a href="projects.html#muslim-bagh" class="mine-profile__cta">View Full Profile <svg width="16" height="16" class="icon"><use href="images/icons.svg#icon-chevron-right"></use></svg></a>
+            <a href="projects.html#muslim-bagh" class="mine-profile__cta">View Full Profile <svg width="16" height="16"
+                class="icon">
+                <use href="images/icons.svg#icon-chevron-right"></use>
+              </svg></a>
           </div>
         </div>
 
@@ -1054,17 +2057,22 @@
               <img src="images/barite-card.jpg" alt="Khuzdar barite operations" loading="lazy">
             </picture>
             <div class="mine-profile__badges">
-                <span class="mine-profile__status-badge">Processing</span>
-                <div class="ops-pulse"><span class="ops-pulse__dot"></span> Shift Active</div>
+              <span class="mine-profile__status-badge">Processing</span>
+              <div class="ops-pulse"><span class="ops-pulse__dot"></span> Shift Active</div>
             </div>
           </div>
           <div class="mine-profile__info">
             <h2 class="mine-profile__name">Khuzdar Barite Processing Facility</h2>
             <div class="mine-profile__location">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 1C6 1 4 3 4 6C4 10 8 14 8 14C8 14 12 10 12 6C12 3 10 1 8 1Z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M8 1C6 1 4 3 4 6C4 10 8 14 8 14C8 14 12 10 12 6C12 3 10 1 8 1Z" />
+              </svg>
               Khuzdar District, Central Balochistan
             </div>
-            <p class="mine-profile__text">Established in 2014, this multi-stage processing facility produces API-standard barite (95%+ BaSO₄ purity, SG 4.20+) for the global oil and gas industry. Our 250-km proximity to both Karachi and Gwadar ports provides significant logistics advantages for export operations.</p>
+            <p class="mine-profile__text">Established in 2014, this multi-stage processing facility produces
+              API-standard barite (95%+ BaSO₄ purity, SG 4.20+) for the global oil and gas industry. Our 250-km
+              proximity to both Karachi and Gwadar ports provides significant logistics advantages for export
+              operations.</p>
             <div class="mine-profile__details">
               <div class="mine-profile__detail">
                 <div class="mine-profile__detail-value">15K</div>
@@ -1083,7 +2091,10 @@
                 <div class="mine-profile__detail-label">Established</div>
               </div>
             </div>
-            <a href="projects.html#khuzdar" class="mine-profile__cta">View Full Profile <svg width="16" height="16" viewBox="0 0 16 16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+            <a href="projects.html#khuzdar" class="mine-profile__cta">View Full Profile <svg width="16" height="16"
+                viewBox="0 0 16 16">
+                <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none" />
+              </svg></a>
           </div>
         </div>
 
@@ -1093,20 +2104,26 @@
             <picture>
               <source type="image/avif" srcset="images/copper-new.avif">
               <source type="image/webp" srcset="images/copper-new.webp">
-              <img src="images/copper-new.webp" alt="Copper-gold exploration site in Chagai district, western Balochistan" loading="lazy">
+              <img src="images/copper-new.webp"
+                alt="Copper-gold exploration site in Chagai district, western Balochistan" loading="lazy">
             </picture>
             <div class="mine-profile__badges">
-                <span class="mine-profile__status-badge mine-profile__status-badge--exploration">Exploration</span>
-                <div class="ops-pulse"><span class="ops-pulse__dot"></span> Survey Ongoing</div>
+              <span class="mine-profile__status-badge mine-profile__status-badge--exploration">Exploration</span>
+              <div class="ops-pulse"><span class="ops-pulse__dot"></span> Survey Ongoing</div>
             </div>
           </div>
           <div class="mine-profile__info">
             <h2 class="mine-profile__name">Chagai Copper-Gold Exploration</h2>
             <div class="mine-profile__location">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 1C6 1 4 3 4 6C4 10 8 14 8 14C8 14 12 10 12 6C12 3 10 1 8 1Z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M8 1C6 1 4 3 4 6C4 10 8 14 8 14C8 14 12 10 12 6C12 3 10 1 8 1Z" />
+              </svg>
               Chagai District, Western Balochistan
             </div>
-            <p class="mine-profile__text">Located within the Tethyan Metallogenic Belt—the same geological province hosting world-class Reko Diq—our Chagai concession covers highly prospective ground with confirmed porphyry-style copper-gold mineralization. Systematic drilling is ongoing to delineate resource extent and grade.</p>
+            <p class="mine-profile__text">Located within the Tethyan Metallogenic Belt—the same geological province
+              hosting world-class Reko Diq—our Chagai concession covers highly prospective ground with confirmed
+              porphyry-style copper-gold mineralization. Systematic drilling is ongoing to delineate resource extent and
+              grade.</p>
             <div class="mine-profile__details">
               <div class="mine-profile__detail">
                 <div class="mine-profile__detail-value">TBD</div>
@@ -1125,7 +2142,10 @@
                 <div class="mine-profile__detail-label">Started</div>
               </div>
             </div>
-            <a href="projects.html#chagai" class="mine-profile__cta">View Exploration Data <svg width="16" height="16" viewBox="0 0 16 16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+            <a href="projects.html#chagai" class="mine-profile__cta">View Exploration Data <svg width="16" height="16"
+                viewBox="0 0 16 16">
+                <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none" />
+              </svg></a>
           </div>
         </div>
       </div>
@@ -1137,10 +2157,14 @@
         <div class="mines-cta__content">
           <span class="mines-cta__overline">Partner With Us</span>
           <h2 class="mines-cta__title">Explore Our Full<br>Mining Portfolio</h2>
-          <p class="mines-cta__text">Whether you're a buyer, investor, or partner—our integrated mining network offers opportunities across chromite, barite, iron ore, and emerging copper-gold operations.</p>
-          <a href="contact.html" class="hero__cta hero__cta--primary" style="display:inline-flex;align-items:center;gap:0.625rem;padding:0.875rem 1.75rem;background:var(--primary-gold-500);color:white;font-family:var(--font-ui);font-weight:700;font-size:var(--text-sm);letter-spacing:0.1em;text-transform:uppercase;border-radius:var(--radius-md);text-decoration:none;">
+          <p class="mines-cta__text">Whether you're a buyer, investor, or partner—our integrated mining network offers
+            opportunities across chromite, barite, iron ore, and emerging copper-gold operations.</p>
+          <a href="contact.html" class="hero__cta hero__cta--primary"
+            style="display:inline-flex;align-items:center;gap:0.625rem;padding:0.875rem 1.75rem;background:var(--primary-gold-500);color:white;font-family:var(--font-ui);font-weight:700;font-size:var(--text-sm);letter-spacing:0.1em;text-transform:uppercase;border-radius:var(--radius-md);text-decoration:none;">
             <span>Get In Touch</span>
-            <svg width="20" height="20" viewBox="0 0 20 20"><path d="M7 4L13 10L7 16" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+            <svg width="20" height="20" viewBox="0 0 20 20">
+              <path d="M7 4L13 10L7 16" stroke="currentColor" stroke-width="2" fill="none" />
+            </svg>
           </a>
         </div>
         <div class="mines-cta__visual">
@@ -1159,7 +2183,8 @@
             <div class="footer__logo">
               <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals" class="footer__logo-img">
             </div>
-            <p class="footer__mission">Committed to ethical mining practices, community uplift, and sustainable growth. Delivering Pakistan's mineral wealth to the world with integrity, transparency, and excellence.</p>
+            <p class="footer__mission">Committed to ethical mining practices, community uplift, and sustainable growth.
+              Delivering Pakistan's mineral wealth to the world with integrity, transparency, and excellence.</p>
             <div class="footer__social-links">
               <a href="contact.html" class="footer__social-link" aria-label="Contact Balochistan Minerals">
                 <svg width="20" height="20" aria-hidden="true" focusable="false">
@@ -1240,6 +2265,211 @@
   <script defer src="vendor/gsap/ScrollTrigger.min.js"></script>
   <script type="module" src="js/animations-premium.js" defer></script>
   <script defer src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script defer src="https://unpkg.com/globe.gl@2.43.0/dist/globe.gl.min.js"></script>
   <script type="module" src="js/main.js" defer></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      var heaven = document.querySelector('.minerals-heaven');
+      if (!heaven) return;
+
+      var title = heaven.querySelector('[data-mh-detail-title]');
+      var text = heaven.querySelector('[data-mh-detail-text]');
+      var label = heaven.querySelector('[data-mh-detail-label]');
+      var swatch = heaven.querySelector('.minerals-heaven__detail .minerals-heaven__swatch');
+      var markers = heaven.querySelectorAll('.mh-mineral');
+
+      markers.forEach(function (marker) {
+        marker.setAttribute('tabindex', '0');
+        marker.setAttribute('role', 'button');
+        marker.setAttribute('aria-label', marker.dataset.mineral + ' in ' + marker.dataset.district);
+
+        var activate = function () {
+          markers.forEach(function (item) { item.classList.remove('is-active'); });
+          marker.classList.add('is-active');
+          if (title) title.textContent = marker.dataset.mineral + ' / ' + marker.dataset.district;
+          if (text) text.textContent = marker.dataset.detail;
+          if (label) label.textContent = 'Mineral occurrence';
+          if (swatch) swatch.style.setProperty('--swatch', marker.getAttribute('fill'));
+        };
+
+        marker.addEventListener('mouseenter', activate);
+        marker.addEventListener('focus', activate);
+        marker.addEventListener('click', activate);
+      });
+    });
+
+    window.addEventListener('load', function () {
+      var globeTarget = document.getElementById('mine-network-globe');
+      var network = document.querySelector('.mine-network');
+
+      if (!globeTarget || typeof Globe !== 'function') {
+        return;
+      }
+
+      var places = {
+        muslimBagh: { name: 'Muslim Bagh Chromite', lat: 30.83, lng: 67.78, type: 'mine' },
+        khuzdar: { name: 'Khuzdar Barite', lat: 27.8, lng: 66.62, type: 'mine' },
+        chagai: { name: 'Chagai Copper-Gold', lat: 29.3, lng: 64.7, type: 'mine' },
+        quetta: { name: 'Quetta Transfer Hub', lat: 30.18, lng: 66.99, type: 'hub' },
+        karachi: { name: 'Karachi Port', lat: 24.86, lng: 67.01, type: 'port' },
+        gwadar: { name: 'Gwadar Port', lat: 25.12, lng: 62.32, type: 'port' },
+        dubai: { name: 'UAE Buyer Region', lat: 25.2, lng: 55.27, type: 'market' },
+        dammam: { name: 'Saudi Industrial Corridor', lat: 26.42, lng: 50.09, type: 'market' },
+        muscat: { name: 'Oman Import Gateway', lat: 23.59, lng: 58.41, type: 'market' },
+        istanbul: { name: 'Europe Trade Gateway', lat: 41.01, lng: 28.98, type: 'market' }
+      };
+
+      var points = Object.keys(places).map(function (key) {
+        return places[key];
+      });
+
+      var arcs = [
+        { start: places.muslimBagh, end: places.quetta, type: 'mine' },
+        { start: places.quetta, end: places.karachi, type: 'port' },
+        { start: places.khuzdar, end: places.karachi, type: 'port' },
+        { start: places.khuzdar, end: places.gwadar, type: 'port' },
+        { start: places.chagai, end: places.gwadar, type: 'port' },
+        { start: places.karachi, end: places.dubai, type: 'export' },
+        { start: places.gwadar, end: places.muscat, type: 'export' },
+        { start: places.karachi, end: places.dammam, type: 'export' },
+        { start: places.gwadar, end: places.istanbul, type: 'export' }
+      ];
+
+      var colorByType = {
+        mine: '#e65c1a',
+        hub: '#f3c57f',
+        port: '#ffffff',
+        market: '#95b8d4'
+      };
+
+      var globe = Globe()(globeTarget)
+        .backgroundColor('rgba(0,0,0,0)')
+        .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
+        .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
+        .pointsData(points)
+        .pointLat(function (d) { return d.lat; })
+        .pointLng(function (d) { return d.lng; })
+        .pointAltitude(function (d) { return d.type === 'mine' ? 0.065 : 0.035; })
+        .pointRadius(function (d) { return d.type === 'mine' ? 0.62 : 0.34; })
+        .pointColor(function (d) { return colorByType[d.type] || '#e65c1a'; })
+        .pointLabel(function (d) {
+          var descriptions = {
+            mine: 'Mine origin: district-level marker used for operational context.',
+            hub: 'Inland consolidation point for routing and dispatch planning.',
+            port: 'Export gateway used for vessel loading and international shipment.',
+            market: 'Buyer region served through port-linked export routes.'
+          };
+          return '<div style="padding:0.45rem 0.55rem;max-width:210px;color:#f5f0e8;background:#101923;border:1px solid rgba(230,92,26,0.35);font-family:Montserrat,sans-serif;font-size:11px;line-height:1.45;"><strong style="display:block;margin-bottom:0.25rem;color:#e65c1a;text-transform:uppercase;letter-spacing:0.08em;">' + d.name + '</strong><span style="color:rgba(245,240,232,0.72);">' + descriptions[d.type] + '</span></div>';
+        })
+        .arcsData(arcs)
+        .arcStartLat(function (d) { return d.start.lat; })
+        .arcStartLng(function (d) { return d.start.lng; })
+        .arcEndLat(function (d) { return d.end.lat; })
+        .arcEndLng(function (d) { return d.end.lng; })
+        .arcColor(function (d) {
+          return d.type === 'export' ? ['rgba(243,197,127,0.35)', '#f3c57f'] : ['rgba(230,92,26,0.35)', '#e65c1a'];
+        })
+        .arcAltitude(function (d) { return d.type === 'export' ? 0.34 : 0.14; })
+        .arcStroke(function (d) { return d.type === 'export' ? 0.72 : 0.5; })
+        .arcDashLength(0.34)
+        .arcDashGap(1.2)
+        .arcDashAnimateTime(2800)
+        .labelsData([places.muslimBagh, places.khuzdar, places.chagai, places.karachi, places.gwadar])
+        .labelLat(function (d) { return d.lat; })
+        .labelLng(function (d) { return d.lng; })
+        .labelText(function (d) {
+          if (d === places.muslimBagh) return '01 Muslim Bagh';
+          if (d === places.khuzdar) return '02 Khuzdar';
+          if (d === places.chagai) return '03 Chagai';
+          if (d === places.karachi) return 'Karachi Port';
+          return 'Gwadar Port';
+        })
+        .labelSize(function (d) { return d.type === 'port' ? 0.92 : 1.18; })
+        .labelDotRadius(function (d) { return d.type === 'port' ? 0.2 : 0.28; })
+        .labelColor(function () { return 'rgba(245,240,232,0.88)'; });
+
+      globe.pointOfView({ lat: 27.8, lng: 65.8, altitude: 1.18 }, 0);
+      globe.controls().autoRotate = false;
+      globe.controls().enableZoom = true;
+      globe.controls().minDistance = 180;
+      globe.controls().maxDistance = 520;
+
+      var currentAltitude = 1.18;
+      var setZoom = function (direction) {
+        currentAltitude = direction === 'in'
+          ? Math.max(0.72, currentAltitude - 0.18)
+          : Math.min(1.9, currentAltitude + 0.18);
+        globe.pointOfView({ lat: 27.8, lng: 65.8, altitude: currentAltitude }, 500);
+      };
+
+      document.querySelectorAll('[data-globe-zoom]').forEach(function (button) {
+        button.addEventListener('click', function () {
+          setZoom(button.getAttribute('data-globe-zoom'));
+        });
+      });
+
+      var resizeGlobe = function () {
+        var box = globeTarget.getBoundingClientRect();
+        globe.width(box.width);
+        globe.height(box.height);
+      };
+
+      resizeGlobe();
+      window.addEventListener('resize', resizeGlobe);
+
+      if (network) {
+        network.classList.add('is-ready');
+      }
+    });
+  </script>
 </body>
+
+</html> .labelLng(function (d) { return d.lng; })
+.labelText(function (d) {
+if (d === places.muslimBagh) return '01 Muslim Bagh';
+if (d === places.khuzdar) return '02 Khuzdar';
+if (d === places.chagai) return '03 Chagai';
+if (d === places.karachi) return 'Karachi Port';
+return 'Gwadar Port';
+})
+.labelSize(function (d) { return d.type === 'port' ? 0.92 : 1.18; })
+.labelDotRadius(function (d) { return d.type === 'port' ? 0.2 : 0.28; })
+.labelColor(function () { return 'rgba(245,240,232,0.88)'; });
+
+globe.pointOfView({ lat: 27.8, lng: 65.8, altitude: 1.18 }, 0);
+globe.controls().autoRotate = false;
+globe.controls().enableZoom = true;
+globe.controls().minDistance = 180;
+globe.controls().maxDistance = 520;
+
+var currentAltitude = 1.18;
+var setZoom = function (direction) {
+currentAltitude = direction === 'in'
+? Math.max(0.72, currentAltitude - 0.18)
+: Math.min(1.9, currentAltitude + 0.18);
+globe.pointOfView({ lat: 27.8, lng: 65.8, altitude: currentAltitude }, 500);
+};
+
+document.querySelectorAll('[data-globe-zoom]').forEach(function (button) {
+button.addEventListener('click', function () {
+setZoom(button.getAttribute('data-globe-zoom'));
+});
+});
+
+var resizeGlobe = function () {
+var box = globeTarget.getBoundingClientRect();
+globe.width(box.width);
+globe.height(box.height);
+};
+
+resizeGlobe();
+window.addEventListener('resize', resizeGlobe);
+
+if (network) {
+network.classList.add('is-ready');
+}
+});
+</script>
+</body>
+
 </html>
