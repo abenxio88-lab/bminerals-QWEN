@@ -227,7 +227,7 @@ body.is-loading {
 }
 
 .bm-hill-tagline {
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   letter-spacing: 0.5em;
   text-transform: uppercase;
   color: var(--primary-gold-500);
@@ -257,7 +257,7 @@ body.is-loading {
   }
   
   .bm-hill-tagline {
-    font-size: 0.55rem;
+    font-size: 0.6rem;
     letter-spacing: 0.3em;
   }
 }

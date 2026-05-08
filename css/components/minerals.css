@@ -312,6 +312,12 @@
   .mineral-showcase__stats {
     gap: 1.25rem;
     flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .showcase-stat {
+    align-items: center;
+    text-align: center;
   }
 
   .mineral-showcase__title {

@@ -878,6 +878,64 @@
   .esg-card__metric { font-size: 2rem; }
   .tour-card { aspect-ratio: 16/9; }
 
+  .tour-card__play {
+    top: 1rem;
+    right: 1rem;
+    left: auto;
+    transform: none !important;
+    width: 46px;
+    height: 46px;
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(242, 245, 247, 0.94));
+    color: var(--primary-gold-500);
+    box-shadow:
+      0 14px 30px rgba(0, 0, 0, 0.34),
+      0 0 0 5px rgba(5, 9, 14, 0.34),
+      inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    transition: border-color 0.25s var(--ease-smooth), box-shadow 0.25s var(--ease-smooth), background 0.25s var(--ease-smooth);
+  }
+
+  .tour-card__play svg {
+    width: 18px;
+    height: 18px;
+    color: var(--primary-gold-500);
+    filter: none;
+  }
+
+  .tour-card__play::after {
+    content: "Watch";
+    position: absolute;
+    right: calc(100% + 0.5rem);
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0.36rem 0.58rem;
+    background: rgba(5, 9, 14, 0.84);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #fff;
+    font-family: var(--font-ui);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+    pointer-events: none;
+  }
+
+  .tour-card:hover .tour-card__play,
+  .tour-card:focus-visible .tour-card__play {
+    transform: none !important;
+    border-color: rgba(242, 106, 33, 0.68);
+    background:
+      linear-gradient(180deg, #ffffff, #f6f2ef);
+    box-shadow:
+      0 16px 34px rgba(0, 0, 0, 0.36),
+      0 0 0 5px rgba(242, 106, 33, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  }
+
   /* Compact Ticker for Mobile - Slimmer Bar, Readable Text */
   .commodity-ticker__item {
     padding: 0.4rem 1rem !important;

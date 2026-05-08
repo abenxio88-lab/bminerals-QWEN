@@ -965,6 +965,94 @@ body.homepage .step-feature {
   background: #FFFFFF;
 }
 
+body.homepage .mineral-showcase__description {
+  text-align: justify;
+  text-align-last: left;
+}
+
+@media (min-width: 769px) {
+  body.homepage .stats-section__narrative,
+  body.homepage .expertise .section-subtitle,
+  body.homepage .about__story-text,
+  body.homepage .about__mv-card-text,
+  body.homepage .step-card__description,
+  body.homepage .b2b-card__text {
+    text-align: justify;
+    text-align-last: left;
+  }
+}
+
+@media (max-width: 768px) {
+  body.homepage .operations__step-indicators {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    flex-wrap: nowrap;
+    justify-content: stretch;
+    gap: 0.35rem;
+    padding: 0.55rem;
+    overflow: visible;
+  }
+
+  body.homepage .operations__step-indicators .step-indicator {
+    position: relative;
+    flex: initial;
+    min-width: auto;
+    min-height: 68px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.34rem;
+    padding: 0.5rem 0.28rem;
+    border: 1px solid rgba(15, 31, 58, 0.12);
+    background: linear-gradient(180deg, #FFFFFF, #F8FAFB);
+  }
+
+  body.homepage .operations__step-indicators .step-indicator--active {
+    border-color: rgba(10, 22, 40, 0.9);
+    background: var(--navy-950);
+  }
+
+  body.homepage .operations__step-indicators .step-indicator__number {
+    width: auto;
+    height: auto;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    font-size: 0.84rem;
+    line-height: 1;
+    color: var(--navy-900);
+  }
+
+  body.homepage .operations__step-indicators .step-indicator--active .step-indicator__number {
+    background: transparent;
+    color: #FFFFFF;
+  }
+
+  body.homepage .operations__step-indicators .step-indicator__label {
+    max-width: 100%;
+    overflow: hidden;
+    font-size: 0.5rem;
+    line-height: 1.05;
+    letter-spacing: 0.035em;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  body.homepage .operations__step-indicators .step-indicator--active .step-indicator__label {
+    color: var(--primary-gold-300);
+  }
+
+  body.homepage .operations__step-indicators .step-indicator__line {
+    display: none;
+  }
+
+  body.homepage .operations__step-cards .step-card__description {
+    text-align: justify;
+    text-align-last: left;
+  }
+}
+
 /* Projects map: professional operations board */
 body.homepage .projects {
   background: #FFFFFF;
