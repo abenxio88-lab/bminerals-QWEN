@@ -130,7 +130,7 @@ function init(){
 
   // Build SVG
   var svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
-  svg.setAttribute('viewBox','0 0 1100 750');
+  svg.setAttribute('viewBox','50 30 1020 680');
   svg.setAttribute('preserveAspectRatio','xMidYMid meet');
   svg.style.cssText = 'width:100%;height:100%;display:block;background:#111;';
 

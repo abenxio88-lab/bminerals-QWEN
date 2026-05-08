@@ -352,7 +352,8 @@
   }
 
   .mineral-map__canvas {
-    min-height: 480px;
+    height: 400px;
+    min-height: auto;
   }
 
   .mineral-map__districts {
@@ -365,11 +366,12 @@
 
 @media (max-width: 768px) {
   .mineral-map {
-    padding: 3rem 5%;
+    padding: 1.5rem 6% 1rem;
+    box-sizing: border-box;
   }
 
-  .mineral-map__canvas {
-    min-height: 400px;
+  .mineral-map__header {
+    margin-bottom: 1rem;
   }
 
   .mineral-map__legend {
@@ -395,7 +397,18 @@
 
 @media (max-width: 480px) {
   .mineral-map__canvas {
-    min-height: 300px;
+    height: 260px;
+    min-height: auto;
+    overflow: hidden;
+    padding: 0 10px;
+  }
+
+  .mineral-map__canvas svg {
+    preserveAspectRatio: xMidYMid slice;
+    width: calc(100% - 20px);
+    margin: 0 auto;
+    height: 130%;
+    margin-top: -5%;
   }
 
   .mineral-map__legend {
@@ -405,13 +418,21 @@
     max-width: 100%;
     margin-bottom: 0.75rem;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     gap: 0;
+  }
+
+  .mineral-map__legend-title {
+    text-align: center;
+    width: 100%;
   }
 
   .mineral-map__legend-list {
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 0.25rem 0.75rem;
   }
 
