@@ -144,6 +144,7 @@
   <link rel="stylesheet" href="css/components/testimonials-advanced.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="css/components/intelligence-hub.css">
   <link rel="stylesheet" href="css/components/authority-tools.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/components/mineral-map.css" media="print" onload="this.media='all'">
 
   <!-- Cookies Popup CSS -->
   <link rel="stylesheet" href="css/cookies-popup.css">
@@ -2310,6 +2311,193 @@
     </section>
 
     <!-- ============================================ -->
+    <!-- INTERACTIVE MINERAL MAP — Mapbox GL JS -->
+    <!-- ============================================ -->
+    <section class="mineral-map" id="mineral-map-section" aria-label="Interactive Balochistan mineral map">
+      <div class="mineral-map__container">
+        <header class="mineral-map__header reveal">
+          <span class="mineral-map__overline">Balochistan Mining Overview</span>
+          <h2 class="mineral-map__title">What's Being Mined Across <span style="color: var(--primary-gold-400);">Balochistan</span></h2>
+          <p class="mineral-map__subtitle">Explore the map below — hover over any marker to discover which minerals are being extracted across Balochistan's key districts, from active production sites to emerging exploration zones.</p>
+        </header>
+
+        <div class="mineral-map__wrapper reveal" data-delay="1">
+          <!-- Legend -->
+          <div class="mineral-map__legend">
+            <div class="mineral-map__legend-title">Mineral Types</div>
+            <div class="mineral-map__legend-list">
+              <div class="mineral-map__legend-item">
+                <span class="mineral-map__legend-dot" style="background:#C0392B; color:#C0392B;"></span>
+                <span class="mineral-map__legend-label">Chromite</span>
+              </div>
+              <div class="mineral-map__legend-item">
+                <span class="mineral-map__legend-dot" style="background:#FF6D00; color:#FF6D00;"></span>
+                <span class="mineral-map__legend-label">Copper</span>
+              </div>
+              <div class="mineral-map__legend-item">
+                <span class="mineral-map__legend-dot" style="background:#9B59B6; color:#9B59B6;"></span>
+                <span class="mineral-map__legend-label">Barite</span>
+              </div>
+              <div class="mineral-map__legend-item">
+                <span class="mineral-map__legend-dot" style="background:#E74C3C; color:#E74C3C;"></span>
+                <span class="mineral-map__legend-label">Iron</span>
+              </div>
+              <div class="mineral-map__legend-item">
+                <span class="mineral-map__legend-dot" style="background:#4A90D9; color:#4A90D9;"></span>
+                <span class="mineral-map__legend-label">Coal</span>
+              </div>
+              <div class="mineral-map__legend-item">
+                <span class="mineral-map__legend-dot" style="background:#27AE60; color:#27AE60;"></span>
+                <span class="mineral-map__legend-label">Marble</span>
+              </div>
+              <div class="mineral-map__legend-item">
+                <span class="mineral-map__legend-dot" style="background:#F1C40F; color:#F1C40F;"></span>
+                <span class="mineral-map__legend-label">Limestone</span>
+              </div>
+              <div class="mineral-map__legend-item">
+                <span class="mineral-map__legend-dot" style="background:#F39C12; color:#F39C12;"></span>
+                <span class="mineral-map__legend-label">Sulphur</span>
+              </div>
+              <div class="mineral-map__legend-item">
+                <span class="mineral-map__legend-dot" style="background:#00E676; color:#00E676;"></span>
+                <span class="mineral-map__legend-label">Granite</span>
+              </div>
+              <div class="mineral-map__legend-item">
+                <span class="mineral-map__legend-dot" style="background:#E91E63; color:#E91E63;"></span>
+                <span class="mineral-map__legend-label">Fluorite</span>
+              </div>
+              <div class="mineral-map__legend-item">
+                <span class="mineral-map__legend-dot" style="background:#8E44AD; color:#8E44AD;"></span>
+                <span class="mineral-map__legend-label">Manganese</span>
+              </div>
+              <div class="mineral-map__legend-item">
+                <span class="mineral-map__legend-dot" style="background:#D35400; color:#D35400;"></span>
+                <span class="mineral-map__legend-label">Travertine</span>
+              </div>
+              <div class="mineral-map__legend-item">
+                <span class="mineral-map__legend-dot" style="background:#2ECC71; color:#2ECC71;"></span>
+                <span class="mineral-map__legend-label">Marble Onyx</span>
+              </div>
+              <div class="mineral-map__legend-item">
+                <span class="mineral-map__legend-dot" style="background:#1ABC9C; color:#1ABC9C;"></span>
+                <span class="mineral-map__legend-label">Pumice</span>
+              </div>
+              <div class="mineral-map__legend-item">
+                <span class="mineral-map__legend-dot" style="background:#7F8C8D; color:#7F8C8D;"></span>
+                <span class="mineral-map__legend-label">Shale</span>
+              </div>
+              <div class="mineral-map__legend-item">
+                <span class="mineral-map__legend-dot" style="background:#6B8E23; color:#6B8E23;"></span>
+                <span class="mineral-map__legend-label">Serpentine</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Map Canvas -->
+          <div id="balochistan-mineral-map" class="mineral-map__canvas"></div>
+
+          <!-- Right Panel: District Resources -->
+          <aside class="mineral-map__districts">
+          <div class="mineral-map__districts-title">District Resources</div>
+          <div class="mineral-map__districts-list">
+            <div class="mineral-map__district-card">
+              <h4 class="mineral-map__district-name">Muslim Bagh</h4>
+              <div class="mineral-map__district-minerals">
+                <span style="background:#C0392B;">Chromite</span>
+                <span style="background:#6B8E23;">Serpentine</span>
+                <span style="background:#8E44AD;">Manganese</span>
+              </div>
+            </div>
+            <div class="mineral-map__district-card">
+              <h4 class="mineral-map__district-name">Khuzdar</h4>
+              <div class="mineral-map__district-minerals">
+                <span style="background:#9B59B6;">Barite</span>
+                <span style="background:#27AE60;">Marble</span>
+                <span style="background:#E91E63;">Fluorite</span>
+                <span style="background:#8E44AD;">Manganese</span>
+                <span style="background:#D35400;">Travertine</span>
+              </div>
+            </div>
+            <div class="mineral-map__district-card">
+              <h4 class="mineral-map__district-name">Chagai</h4>
+              <div class="mineral-map__district-minerals">
+                <span style="background:#FF6D00;">Copper</span>
+                <span style="background:#E74C3C;">Iron</span>
+                <span style="background:#F39C12;">Sulphur</span>
+                <span style="background:#1ABC9C;">Pumice</span>
+              </div>
+            </div>
+            <div class="mineral-map__district-card">
+              <h4 class="mineral-map__district-name">Lasbela</h4>
+              <div class="mineral-map__district-minerals">
+                <span style="background:#27AE60;">Marble</span>
+                <span style="background:#E74C3C;">Iron</span>
+                <span style="background:#F1C40F;">Limestone</span>
+                <span style="background:#00E676;">Granite</span>
+                <span style="background:#C0392B;">Chromite</span>
+                <span style="background:#FF6D00;">Copper</span>
+              </div>
+            </div>
+            <div class="mineral-map__district-card">
+              <h4 class="mineral-map__district-name">Zhob</h4>
+              <div class="mineral-map__district-minerals">
+                <span style="background:#C0392B;">Chromite</span>
+                <span style="background:#4A90D9;">Coal</span>
+              </div>
+            </div>
+            <div class="mineral-map__district-card">
+              <h4 class="mineral-map__district-name">Quetta</h4>
+              <div class="mineral-map__district-minerals">
+                <span style="background:#F1C40F;">Limestone</span>
+                <span style="background:#4A90D9;">Coal</span>
+              </div>
+            </div>
+            <div class="mineral-map__district-card">
+              <h4 class="mineral-map__district-name">Loralai</h4>
+              <div class="mineral-map__district-minerals">
+                <span style="background:#4A90D9;">Coal</span>
+                <span style="background:#C0392B;">Chromite</span>
+              </div>
+            </div>
+            <div class="mineral-map__district-card">
+              <h4 class="mineral-map__district-name">Barkhan</h4>
+              <div class="mineral-map__district-minerals">
+                <span style="background:#4A90D9;">Coal</span>
+                <span style="background:#7F8C8D;">Shale</span>
+              </div>
+            </div>
+            <div class="mineral-map__district-card">
+              <h4 class="mineral-map__district-name">Kharan</h4>
+              <div class="mineral-map__district-minerals">
+                <span style="background:#27AE60;">Marble</span>
+              </div>
+            </div>
+            <div class="mineral-map__district-card">
+              <h4 class="mineral-map__district-name">Washuk</h4>
+              <div class="mineral-map__district-minerals">
+                <span style="background:#00E676;">Granite</span>
+              </div>
+            </div>
+            <div class="mineral-map__district-card">
+              <h4 class="mineral-map__district-name">Nushki</h4>
+              <div class="mineral-map__district-minerals">
+                <span style="background:#2ECC71;">Marble Onyx</span>
+              </div>
+            </div>
+            <div class="mineral-map__district-card">
+              <h4 class="mineral-map__district-name">Harnai</h4>
+              <div class="mineral-map__district-minerals">
+                <span style="background:#4A90D9;">Coal</span>
+                <span style="background:#27AE60;">Marble</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
     <!-- OUR MINES SECTION - Mining Operations -->
     <!-- ============================================ -->
     <section class="our-mines-section" id="our-mines" aria-label="Our mining operations">
@@ -3734,6 +3922,7 @@
   <!-- JavaScript -->
   <script defer src="vendor/gsap/gsap.min.js"></script>
   <script defer src="vendor/gsap/ScrollTrigger.min.js"></script>
+  <script src="js/mineral-map.js" defer></script>
   <script defer src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
   <script type="module" src="js/scene-home.js" defer></script>
   <script type="module" src="js/animations-premium.js" defer></script>
