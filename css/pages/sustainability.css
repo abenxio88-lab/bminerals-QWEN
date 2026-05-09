@@ -6,7 +6,7 @@
 .sustainability-hero {
   position: relative;
   height: 45vh;
-  min-height: 400px;
+  min-height: 320px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,13 +48,12 @@
   font-family: var(--font-ui);
   font-size: 0.6875rem;
   font-weight: 700;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--primary-gold-500);
-  margin-bottom: 0.75rem;
-  background: transparent !important;
-  border: none !important;
-  padding: 0 !important;
+  color: var(--primary-gold-400);
+  margin-bottom: 1rem;
+  padding: 0.4rem 1rem;
+  border: 1px solid var(--primary-gold-400);
 }
 
 .sustainability-hero__title {
@@ -70,7 +69,7 @@
 .sustainability-hero__text {
   font-size: var(--text-base) !important;
   line-height: 1.7;
-  max-width: 65ch;
+  max-width: 600px;
   margin: 0 auto;
   color: rgba(255, 255, 255, 0.9);
   text-wrap: pretty;
@@ -78,9 +77,9 @@
 
 /* Registry Stats Section */
 .sustainability-stats {
-  background: var(--bg-primary);
-  padding: 4rem var(--section-padding-x);
-  border-bottom: 1px solid var(--border-light);
+  background: #0a0a0a;
+  padding: 4.5rem var(--section-padding-x);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   position: relative;
   z-index: 5;
 }
@@ -95,7 +94,7 @@
 .registry-stat {
   padding: 0 2rem;
   text-align: center;
-  border-right: 1px solid var(--border-light);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .registry-stat:last-child {
@@ -106,7 +105,7 @@
   font-family: var(--font-heading);
   font-size: 1.85rem;
   font-weight: 700;
-  color: var(--primary-gold-600);
+  color: var(--primary-gold-400);
   line-height: 1;
   margin-bottom: 0.75rem;
 }
@@ -114,7 +113,7 @@
 .registry-stat__label {
   font-size: 0.6875rem;
   font-weight: 700;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.6);
   text-transform: uppercase;
   letter-spacing: 0.15em;
 }
@@ -665,5 +664,366 @@
 
   .registry-stat:last-child {
     border-bottom: none;
+  }
+}
+
+/* Vision Blueprint - Strategic Architecture */
+.vision-blueprint {
+  padding: 10rem var(--section-padding-x);
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+  overflow: hidden;
+  position: relative;
+  background-color: #ffffff;
+}
+
+/* Enhancement: Topographic Watermark */
+.blueprint-watermark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='800' height='800' viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M100 100c50 0 50 50 100 50s50-50 100-50 50 50 100 50 50-50 100-50M100 200c50 0 50 50 100 50s50-50 100-50 50 50 100 50 50-50 100-50M100 300c50 0 50 50 100 50s50-50 100-50 50 50 100 50 50-50 100-50M100 400c50 0 50 50 100 50s50-50 100-50 50 50 100 50 50-50 100-50M100 500c50 0 50 50 100 50s50-50 100-50 50 50 100 50 50-50 100-50M100 600c50 0 50 50 100 50s50-50 100-50 50 50 100 50 50-50 100-50' fill='none' stroke='%23000' stroke-width='0.5' stroke-opacity='0.03'/%3E%3C/svg%3E");
+  background-size: 800px;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.vision-blueprint__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  position: relative;
+  z-index: 5;
+}
+
+/* Blueprint Header */
+.blueprint-header {
+  margin-bottom: 5rem;
+  position: relative;
+}
+
+.blueprint-header__meta {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.meta-unit {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--primary-gold-500);
+  letter-spacing: 0.1em;
+}
+
+.meta-label {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.25em;
+}
+
+.blueprint-header__title {
+  font-family: var(--font-heading);
+  font-size: 2.125rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--navy-950);
+  margin-bottom: 2rem;
+}
+
+.blueprint-header__line {
+  width: 100%;
+  height: 2px;
+  background: var(--navy-950);
+  position: relative;
+}
+
+.blueprint-header__line::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -4px;
+  width: 10px;
+  height: 10px;
+  background: var(--primary-gold-500);
+  border-radius: 50%;
+  box-shadow: 0 0 15px var(--primary-gold-400);
+  animation: pulseGold 2s infinite ease-in-out;
+}
+
+@keyframes pulseGold {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.3);
+    opacity: 0.7;
+  }
+}
+
+/* Blueprint Grid */
+.blueprint-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border-light);
+  border: 1px solid var(--border-light);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.02),
+    0 30px 60px rgba(0, 0, 0, 0.03);
+}
+
+.blueprint-cell {
+  background: #ffffff;
+  padding: 4rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.6s var(--ease-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.blueprint-cell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent, rgba(212, 175, 55, 0.02));
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-smooth);
+}
+
+.blueprint-cell:hover {
+  background: #ffffff;
+  transform: translateY(-5px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.05);
+  z-index: 10;
+}
+
+.blueprint-cell:hover::before {
+  opacity: 1;
+}
+
+.blueprint-cell--wide {
+  grid-column: span 3;
+}
+
+.blueprint-cell__header {
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 1.5rem;
+  position: relative;
+}
+
+.cell-id {
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  letter-spacing: 0.2em;
+  display: block;
+  margin-bottom: 0.75rem;
+  transition: color 0.3s ease;
+}
+
+.blueprint-cell:hover .cell-id {
+  color: var(--primary-gold-600);
+}
+
+.cell-title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--navy-950);
+  transition: transform 0.4s var(--ease-smooth);
+}
+
+.blueprint-cell:hover .cell-title {
+  transform: translateX(5px);
+}
+
+.blueprint-cell__content p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin-bottom: 2.5rem;
+  text-wrap: pretty;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  text-rendering: optimizeLegibility;
+}
+
+.blueprint-tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: auto;
+}
+
+.blueprint-tag-cloud span {
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.6rem 1.25rem;
+  background: #f4f4f4;
+  color: var(--navy-950);
+  letter-spacing: 0.1em;
+  transition: all 0.4s var(--ease-smooth);
+  border: 1px solid transparent;
+}
+
+.blueprint-tag-cloud span:hover {
+  background: var(--navy-950);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.blueprint-cell__content--split {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+
+.split-action {
+  border-left: 1px solid var(--border-light);
+  padding-left: 6rem;
+}
+
+.action-meta {
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--primary-gold-500);
+  display: block;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.3em;
+}
+
+.blueprint-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  padding: 1.75rem 3.5rem;
+  background: var(--navy-950);
+  color: #ffffff;
+  text-decoration: none;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  transition: all 0.5s var(--ease-smooth);
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.blueprint-button:hover {
+  background: #000;
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.button-icon {
+  font-size: 1.5rem;
+  transition: transform 0.5s var(--ease-smooth);
+}
+
+.blueprint-button:hover .button-icon {
+  transform: translateX(12px) rotate(-45deg);
+}
+
+/* Blueprint Footer */
+.blueprint-footer {
+  margin-top: 6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1px solid var(--border-light);
+  padding-top: 3rem;
+}
+
+.footer-meta {
+  display: flex;
+  gap: 5rem;
+}
+
+.footer-meta span {
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  letter-spacing: 0.25em;
+  opacity: 0.6;
+}
+
+.footer-marks {
+  display: flex;
+  gap: 2rem;
+  color: var(--primary-gold-500);
+  font-size: 1.75rem;
+  font-weight: 300;
+  opacity: 0.3;
+}
+
+@media (max-width: 1024px) {
+  .blueprint-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .blueprint-cell--wide {
+    grid-column: span 2;
+  }
+
+  .blueprint-cell__content--split {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+
+  .split-action {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid var(--border-light);
+    padding-top: 4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .vision-blueprint {
+    padding: 8rem 5%;
+  }
+
+  .blueprint-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .blueprint-cell--wide {
+    grid-column: span 1;
+  }
+
+  .blueprint-header__title {
+    font-size: 1.8rem;
+  }
+
+  .footer-meta {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .blueprint-cell {
+    padding: 3.5rem 2rem;
   }
 }
