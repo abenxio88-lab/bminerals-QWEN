@@ -73,11 +73,11 @@
   /* TYPOGRAPHY CONTROLLER (Symmetry Engine)       */
   /* ============================================ */
 
-  /* Desktop Defaults (Capped at 40px) */
-  --display-size: 2.5rem;
-  /* 40px - Main Hero Titles */
-  --h1-size: 2.25rem;
-  /* 36px - Section Headings */
+  /* Desktop Defaults (Capped at 34px) */
+  --display-size: 2.125rem;
+  /* 34px - Main Hero Titles */
+  --h1-size: 2.125rem;
+  /* 34px - Section Headings */
   --h2-size: 1.75rem;
   /* 28px - Sub-sections */
   --h3-size: 1.25rem;

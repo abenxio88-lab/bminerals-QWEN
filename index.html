@@ -111,6 +111,15 @@
         font-size: 2.06rem !important;
       }
     }
+
+    /* Fix massive stacked gap between contiguous sections with identical backgrounds */
+    body.homepage .our-mines-section {
+      padding-bottom: 0 !important;
+    }
+
+    body.homepage .logistics-section {
+      padding-top: 2rem !important;
+    }
   </style>
 
   <!-- Preload hero image to improve LCP (prefer AVIF when available) -->

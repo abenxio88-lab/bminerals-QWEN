@@ -624,7 +624,7 @@
 
 .tour-modal__title {
   font-family: var(--font-heading);
-  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-size: clamp(1.6rem, 3vw, 2.125rem);
   margin-bottom: 1rem;
 }
 

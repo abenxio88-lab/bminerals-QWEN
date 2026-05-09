@@ -133,7 +133,7 @@ body.homepage .projects__map-container.projects-footprint::before {
   max-width: 680px;
   color: #f5f0e8;
   font-family: var(--font-heading);
-  font-size: clamp(1.35rem, 2.6vw, 2.15rem);
+  font-size: clamp(1.35rem, 2.6vw, 2.125rem);
   font-weight: 700;
   letter-spacing: 0.02em;
   line-height: 1.08;

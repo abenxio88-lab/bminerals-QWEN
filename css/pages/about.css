@@ -67,11 +67,12 @@
 }
 
 .parallax-hero__text {
-  font-size: var(--text-sm);
+  font-size: var(--text-base) !important;
   line-height: 1.7;
   max-width: 600px;
   margin: 0 auto;
   color: rgba(255, 255, 255, 0.9);
+  text-wrap: pretty;
 }
 
 /* Zigzag Section */

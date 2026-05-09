@@ -88,15 +88,14 @@
 }
 
 .geo-map-container__title {
-    max-width: 720px;
+    max-width: 100%;
     color: var(--navy-950);
     font-family: var(--font-heading);
-    font-size: clamp(1.35rem, 2.6vw, 2.15rem);
+    font-size: clamp(1.35rem, 2.6vw, 2.125rem);
     font-weight: 700;
     line-height: 1.08;
     letter-spacing: 0.02em;
     text-transform: uppercase;
-    text-wrap: balance;
 }
 
 .geo-map-container__meta {

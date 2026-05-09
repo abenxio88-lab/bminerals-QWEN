@@ -30,11 +30,9 @@
 .investors-hero__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(15, 31, 58, 0.6) 0%,
-    rgba(15, 31, 58, 0.6) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(15, 31, 58, 0.6) 0%,
+      rgba(15, 31, 58, 0.6) 100%);
   z-index: 1;
 }
 
@@ -75,11 +73,12 @@
 }
 
 .investors-hero__text {
-  font-size: var(--text-sm);
+  font-size: var(--text-base) !important;
   line-height: 1.7;
   max-width: 600px;
   margin: 0 auto;
   color: rgba(255, 255, 255, 0.9);
+  text-wrap: pretty;
 }
 
 /* Financial Dashboard */
@@ -727,15 +726,15 @@
   .kpi-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .revenue-breakdown {
     grid-template-columns: 1fr;
   }
-  
+
   .compliance-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .investors-cta__container {
     grid-template-columns: 1fr;
   }
@@ -761,16 +760,16 @@
     padding: 0 1.5rem;
     margin: 0;
   }
-  
+
   .investors-hero__title {
     font-size: var(--display-size);
     line-height: 1.1;
   }
-  
+
   .financial-dashboard__title {
     font-size: var(--h1-size);
   }
-  
+
   .financial-dashboard {
     padding: 2.5rem var(--section-padding-x);
   }
@@ -778,36 +777,36 @@
   .perf-grid--split {
     grid-template-columns: 1fr;
   }
-  
+
   .kpi-grid {
     grid-template-columns: 1fr 1fr;
   }
-  
+
   .reports-section {
     padding: 2.5rem var(--section-padding-x);
   }
-  
+
   .report-item {
     grid-template-columns: 48px 1fr;
   }
-  
+
   .report-item__download {
     grid-column: 2;
     justify-self: start;
   }
-  
+
   .compliance-section {
     padding: 2.5rem var(--section-padding-x);
   }
-  
+
   .compliance-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .investors-cta {
     padding: 2.5rem var(--section-padding-x);
   }
-  
+
   .investors-cta::before {
     transform: rotate(0deg);
   }
@@ -950,6 +949,7 @@
 }
 
 @media (max-width: 768px) {
+
   .investors-hero,
   .q3-results-premium,
   .reports-section,

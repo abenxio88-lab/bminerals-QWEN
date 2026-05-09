@@ -30,7 +30,7 @@
 .logistics-hero__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(15,31,58,0.6) 0%, rgba(15,31,58,0.6) 100%);
+  background: linear-gradient(180deg, rgba(15, 31, 58, 0.6) 0%, rgba(15, 31, 58, 0.6) 100%);
   z-index: 1;
 }
 
@@ -67,11 +67,12 @@
 }
 
 .logistics-hero__text {
-  font-size: var(--text-sm);
+  font-size: var(--text-base) !important;
   line-height: 1.7;
   max-width: 600px;
   margin: 0 auto;
-  color: rgba(255,255,255,0.9);
+  color: rgba(255, 255, 255, 0.9);
+  text-wrap: pretty;
 }
 
 /* Route Overview */
@@ -101,8 +102,8 @@
   color: var(--primary-gold-400);
   margin-bottom: 0.75rem;
   padding: 0.4rem 1rem;
-  background: rgba(230,92,26,0.1);
-  border: 1px solid rgba(230,92,26,0.3);
+  background: rgba(230, 92, 26, 0.1);
+  border: 1px solid rgba(230, 92, 26, 0.3);
 }
 
 .route-overview__title {
@@ -460,7 +461,7 @@
   padding: 1rem;
 }
 
-.corridor-panel__metrics div + div {
+.corridor-panel__metrics div+div {
   border-left: 1px solid rgba(15, 31, 58, 0.1);
 }
 
@@ -509,6 +510,7 @@
   0% {
     stroke-dashoffset: 460;
   }
+
   100% {
     stroke-dashoffset: 0;
   }
@@ -640,7 +642,7 @@
 .logistics-cta__text {
   font-size: var(--text-sm);
   line-height: 1.7;
-  color: rgba(255,255,255,0.85);
+  color: rgba(255, 255, 255, 0.85);
   margin-bottom: 1.25rem;
 }
 
@@ -660,19 +662,24 @@
   .route-grid {
     grid-template-columns: 1fr 1fr;
   }
+
   .corridor-board {
     grid-template-columns: 1fr;
   }
+
   .corridor-board__panel {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
   .corridor-panel__header {
     grid-column: 1 / -1;
   }
+
   .capacity-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .logistics-cta__container {
     grid-template-columns: 1fr;
   }
@@ -690,6 +697,7 @@
     align-items: center;
     text-align: center;
   }
+
   .logistics-hero__content {
     position: relative;
     z-index: 10;
@@ -697,58 +705,75 @@
     padding: 0 1.5rem;
     margin: 0;
   }
+
   .logistics-hero__title {
     font-size: var(--display-size);
     line-height: 1.1;
   }
+
   .route-overview {
     padding: 2.5rem var(--section-padding-x);
   }
+
   .route-grid {
     grid-template-columns: 1fr;
   }
+
   .network-map {
     padding: 2.5rem var(--section-padding-x);
   }
+
   .network-map__header {
     margin-bottom: 1.25rem;
   }
+
   .corridor-board {
     padding: 0.8rem;
   }
+
   .corridor-board::before {
     display: none;
   }
+
   .corridor-board__map {
     min-height: 380px;
     overflow-x: auto;
   }
+
   .network-map__svg {
     width: 760px;
     min-height: 380px;
   }
+
   .corridor-board__panel {
     grid-template-columns: 1fr;
   }
+
   .corridor-panel__metrics {
     grid-template-columns: 1fr 1fr;
   }
+
   .corridor-node__label {
     font-size: 15px;
   }
+
   .corridor-node__meta,
   .corridor-map-label {
     font-size: 11px;
   }
+
   .capacity-section {
     padding: 2.5rem var(--section-padding-x);
   }
+
   .logistics-analytics {
     padding: 2rem 0.95rem !important;
   }
+
   .logistics-analytics .capacity-section__container {
     max-width: 100%;
   }
+
   .logistics-analytics__header {
     padding: 1.15rem;
     margin-bottom: 1.15rem;
@@ -757,11 +782,13 @@
     border-radius: var(--radius-md);
     box-shadow: 0 14px 34px rgba(15, 23, 42, 0.05);
   }
+
   .logistics-analytics__header .route-overview__overline {
     margin-bottom: 0.7rem;
     font-size: 0.62rem;
     letter-spacing: 0.14em;
   }
+
   .logistics-analytics__header .route-overview__title {
     font-size: clamp(1.45rem, 8vw, 1.95rem) !important;
     line-height: 1.1;
@@ -769,10 +796,12 @@
     letter-spacing: 0;
     text-wrap: balance;
   }
+
   .logistics-analytics__header .route-overview__subtitle {
     font-size: 0.88rem;
     line-height: 1.62;
   }
+
   .logistics-analytics .freight-hub {
     margin: 0;
     padding: 1rem;
@@ -781,44 +810,54 @@
     gap: 1rem;
     border-radius: var(--radius-md);
   }
+
   .logistics-analytics .freight-hub.reveal {
     opacity: 1 !important;
     transform: none !important;
   }
+
   .logistics-analytics .freight-form {
     gap: 0.85rem;
   }
+
   .logistics-analytics .freight-input-group label {
     font-size: 0.62rem;
     letter-spacing: 0.12em;
     margin-bottom: 0.35rem;
   }
+
   .logistics-analytics .freight-select {
     min-height: 44px;
     padding: 0.7rem 0.75rem;
     font-size: 0.85rem;
   }
+
   .logistics-analytics .freight-result {
     padding: 1.15rem;
     border-radius: var(--radius-sm);
     text-align: center;
   }
+
   .logistics-analytics .freight-metric {
     font-size: clamp(2.6rem, 18vw, 4rem);
     margin-bottom: 0.35rem;
   }
+
   .logistics-analytics .freight-result p {
     font-size: 0.78rem !important;
     line-height: 1.55 !important;
     margin-bottom: 0;
     padding-top: 1rem !important;
   }
+
   .capacity-grid {
     grid-template-columns: 1fr;
   }
+
   .logistics-cta {
     padding: 2.5rem var(--section-padding-x);
   }
+
   .logistics-cta::before {
     transform: rotate(0deg);
   }
@@ -828,20 +867,25 @@
   .logistics-analytics {
     padding-inline: 0.75rem !important;
   }
+
   .logistics-analytics__header,
   .logistics-analytics .freight-hub {
     padding: 0.9rem;
   }
+
   .logistics-analytics__header .route-overview__title {
     font-size: clamp(1.28rem, 9vw, 1.65rem) !important;
   }
+
   .corridor-panel__metrics {
     grid-template-columns: 1fr;
   }
-  .corridor-panel__metrics div + div {
+
+  .corridor-panel__metrics div+div {
     border-left: 0;
     border-top: 1px solid rgba(15, 31, 58, 0.1);
   }
+
   .corridor-step {
     grid-template-columns: 1fr;
   }

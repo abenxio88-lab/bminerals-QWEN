@@ -54,7 +54,7 @@
 
     .hero__headline {
       font-family: var(--font-heading);
-      font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+      font-size: clamp(1.6rem, 3.2vw, 2.125rem);
       font-weight: 600;
       text-transform: uppercase
     }
@@ -151,7 +151,6 @@
       justify-content: center;
       width: 100%;
     }
-    }
   </style>
   <link rel="preload" as="image" href="images/hero/hero-2.webp">
   <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
@@ -197,6 +196,11 @@
   <!-- Search Console CSS -->
   <link rel="stylesheet" href="css/search-console.css">
   <style>
+    /* Desktop Hero Title Override (34px) */
+    .parallax-hero__title {
+      font-size: 2.125rem !important;
+    }
+
     @media (max-width: 768px) {
 
       .parallax-hero__title,
@@ -219,6 +223,13 @@
         font-size: 1.12rem !important;
         line-height: 1.12 !important;
         letter-spacing: 0.01em !important;
+      }
+
+      .parallax-hero__text {
+        text-align: center !important;
+        text-align-last: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
       }
     }
   </style>

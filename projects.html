@@ -46,6 +46,7 @@
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
   <link rel="stylesheet" href="output.css?v=map-no-oval-20260501">
+  <link rel="stylesheet" href="css/pages/projects.css">
 
   <!-- Schema.org (Million Dollar SEO) -->
   <script type="application/ld+json">
@@ -66,21 +67,63 @@
     }
 
     @media (max-width: 768px) {
-
-      .projects-footprint__header,
-      .projects-footprint__meta,
-      .projects-footprint__panel,
-      .projects-footprint__site {
+      .footprint-map__header,
+      .footprint-map__summary,
+      .footprint-map__hud,
+      .footprint-site {
         text-align: center;
       }
 
-      .projects-footprint__meta {
-        justify-content: center;
+      .footprint-map__header {
+        flex-direction: column;
+        gap: 1.5rem;
       }
 
-      .projects-footprint__site span {
+      .footprint-map__hud {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        left: 0;
+        right: 0;
+      }
+
+      .footprint-map__summary {
         margin-left: auto;
         margin-right: auto;
+        max-width: 100%;
+      }
+
+      .footprint-site {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .footprint-site__code {
+        margin-bottom: 0.5rem;
+      }
+
+      /* Center section headers */
+      .split-screen__left,
+      .diagonal-section__content,
+      .asymmetrical-grid__header,
+      .zigzag__item-title,
+      .zigzag__overline,
+      .item-overline,
+      .item-title,
+      .asymmetrical-grid__item {
+        text-align: center !important;
+      }
+
+      .item-overline,
+      .item-title {
+        display: block !important;
+        width: 100% !important;
+      }
+
+      .split-screen__stats {
+        justify-content: center;
       }
     }
   </style>
@@ -88,6 +131,24 @@
   <!-- Search Console CSS -->
   <link rel="stylesheet" href="css/search-console.css">
   <style>
+    /* Desktop Hero Title Override (34px) */
+    .parallax-hero__title {
+      font-size: 2.125rem !important;
+    }
+
+    /* Institutional Paragraph Justification */
+    .split-screen__text,
+    .diagonal-section__text,
+    .zigzag__item-text,
+    .item-text {
+      text-align: justify;
+    }
+
+    /* Keep technical features left-aligned */
+    .zigzag__feature-text {
+      text-align: left;
+    }
+
     @media (max-width: 768px) {
 
       .parallax-hero__title,
@@ -100,6 +161,13 @@
       .policy-hero__copy h1,
       #policy-title {
         font-size: 1.86rem !important;
+      }
+
+      .parallax-hero__text {
+        text-align: center !important;
+        text-align-last: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
       }
     }
   </style>

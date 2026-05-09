@@ -35,7 +35,7 @@
 
 .mineral-map__title {
   font-family: var(--font-heading);
-  font-size: clamp(1.4rem, 2.8vw, 2rem);
+  font-size: clamp(1.4rem, 2.8vw, 2.125rem);
   font-weight: 700;
   color: #fff;
   line-height: 1.15;

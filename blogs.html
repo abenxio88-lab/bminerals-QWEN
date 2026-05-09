@@ -102,8 +102,9 @@
       max-width: 720px;
       margin: 0 auto;
       color: rgba(255,255,255,0.82);
-      font-size: var(--text-sm);
+      font-size: var(--text-base);
       line-height: 1.7;
+      text-wrap: pretty;
     }
 
     .blog-section {
@@ -332,6 +333,19 @@
     <!-- Search Console CSS -->
   <link rel="stylesheet" href="css/search-console.css">
   <style>
+    /* Desktop Hero Title Override (34px) */
+    .parallax-hero__title,
+    .mines-hero__title,
+    .blog-hero__title,
+    .contact-hero__title,
+    .investors-hero__title,
+    .logistics-hero__title,
+    .sustainability-hero__title,
+    .policy-hero__copy h1,
+    #policy-title {
+      font-size: 2.125rem !important;
+    }
+
     @media (max-width: 768px) {
       .parallax-hero__title,
       .mines-hero__title,

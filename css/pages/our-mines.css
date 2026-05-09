@@ -30,7 +30,7 @@
 .mines-hero__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(15,31,58,0.6) 0%, rgba(15,31,58,0.6) 100%);
+  background: linear-gradient(180deg, rgba(15, 31, 58, 0.6) 0%, rgba(15, 31, 58, 0.6) 100%);
   z-index: 1;
 }
 
@@ -67,11 +67,12 @@
 }
 
 .mines-hero__text {
-  font-size: var(--text-sm);
+  font-size: var(--text-base) !important;
   line-height: 1.7;
   max-width: 600px;
   margin: 0 auto;
-  color: rgba(255,255,255,0.9);
+  color: rgba(255, 255, 255, 0.9);
+  text-wrap: pretty;
 }
 
 /* Mine Cards Section */
@@ -101,8 +102,8 @@
   color: var(--primary-gold-400);
   margin-bottom: 0.75rem;
   padding: 0.4rem 1rem;
-  background: rgba(230,92,26,0.1);
-  border: 1px solid rgba(230,92,26,0.3);
+  background: rgba(230, 92, 26, 0.1);
+  border: 1px solid rgba(230, 92, 26, 0.3);
 }
 
 .mines-overview__title {
@@ -143,7 +144,7 @@
   direction: rtl;
 }
 
-.mine-profile--reverse > * {
+.mine-profile--reverse>* {
   direction: ltr;
 }
 
@@ -408,7 +409,7 @@
 .mines-cta__text {
   font-size: var(--text-sm);
   line-height: 1.7;
-  color: rgba(255,255,255,0.85);
+  color: rgba(255, 255, 255, 0.85);
   margin-bottom: 1.25rem;
 }
 
@@ -428,12 +429,15 @@
   .mine-profile {
     grid-template-columns: 1fr;
   }
+
   .mine-profile--reverse {
     direction: ltr;
   }
+
   .mine-profile__image {
     min-height: 240px;
   }
+
   .mines-cta__container {
     grid-template-columns: 1fr;
   }
@@ -451,6 +455,7 @@
     align-items: center;
     text-align: center;
   }
+
   .mines-hero__content {
     position: relative;
     z-index: 10;
@@ -458,42 +463,53 @@
     padding: 0 1.5rem;
     margin: 0;
   }
+
   .mines-hero__title {
     font-size: var(--display-size);
     line-height: 1.1;
   }
+
   .mines-overview {
     padding: 2.5rem var(--section-padding-x);
   }
+
   .mine-profile__info {
     padding: 2rem 1.5rem;
   }
+
   .mine-profile__badges {
     top: 0.9rem;
     left: 0.9rem;
     right: 0.9rem;
     gap: 0.5rem;
   }
+
   .mine-profile__badges .mine-profile__status-badge,
   .mine-profile__badges .ops-pulse {
     font-size: 0.65rem;
   }
+
   .mine-profile__badges .ops-pulse {
     padding: 0.4rem 0.7rem;
     max-width: 56%;
   }
+
   .mine-profile__details {
     grid-template-columns: 1fr;
   }
+
   .mines-stats {
     padding: 2rem var(--section-padding-x);
   }
+
   .mines-stats__grid {
     grid-template-columns: 1fr;
   }
+
   .mines-cta {
     padding: 2.5rem var(--section-padding-x);
   }
+
   .mines-cta::before {
     transform: rotate(0deg);
   }

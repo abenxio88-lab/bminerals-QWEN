@@ -81,6 +81,7 @@
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="output.css">
+  <link rel="stylesheet" href="css/pages/our-mines.css">
   <style>
     .mine-network {
       position: relative;
@@ -582,7 +583,7 @@
 
     @media (max-width: 520px) {
       .minerals-heaven__legend {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
         max-height: 260px;
         overflow: auto;
       }
@@ -604,6 +605,7 @@
   </style>
   <link rel="stylesheet" href="css/components/premium-light.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="css/components/authority-tools.css" media="print" onload="this.media='all'">
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -617,6 +619,19 @@
   <!-- Search Console CSS -->
   <link rel="stylesheet" href="css/search-console.css">
   <style>
+    /* Desktop Hero Title Override (34px) */
+    .parallax-hero__title,
+    .mines-hero__title,
+    .blog-hero__title,
+    .contact-hero__title,
+    .investors-hero__title,
+    .logistics-hero__title,
+    .sustainability-hero__title,
+    .policy-hero__copy h1,
+    #policy-title {
+      font-size: 2.125rem !important;
+    }
+
     @media (max-width: 768px) {
 
       .parallax-hero__title,
@@ -630,6 +645,54 @@
       #policy-title {
         font-size: 1.86rem !important;
       }
+
+      .geo-map-container__header,
+      .geo-map-container__title {
+        text-align: center !important;
+      }
+
+      .geo-map-container__meta {
+        justify-content: center !important;
+      }
+
+      .minerals-heaven__detail {
+        text-align: center !important;
+      }
+
+      .minerals-heaven__detail-label {
+        justify-content: center !important;
+      }
+
+      .mine-profile__info,
+      .mine-profile__name,
+      .mine-profile__location {
+        text-align: center !important;
+      }
+
+      .mine-profile__location {
+        justify-content: center !important;
+      }
+
+      .mine-profile__cta {
+        align-self: center !important;
+      }
+
+      .mines-cta__content {
+        text-align: center !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+      }
+
+      .mines-cta__title,
+      .mines-cta__text {
+        text-align: center !important;
+      }
+    }
+
+    .geo-legend__item p,
+    .mine-profile__text {
+      text-align: justify;
     }
   </style>
 </head>
@@ -2422,54 +2485,6 @@
       }
     });
   </script>
-</body>
-
-</html> .labelLng(function (d) { return d.lng; })
-.labelText(function (d) {
-if (d === places.muslimBagh) return '01 Muslim Bagh';
-if (d === places.khuzdar) return '02 Khuzdar';
-if (d === places.chagai) return '03 Chagai';
-if (d === places.karachi) return 'Karachi Port';
-return 'Gwadar Port';
-})
-.labelSize(function (d) { return d.type === 'port' ? 0.92 : 1.18; })
-.labelDotRadius(function (d) { return d.type === 'port' ? 0.2 : 0.28; })
-.labelColor(function () { return 'rgba(245,240,232,0.88)'; });
-
-globe.pointOfView({ lat: 27.8, lng: 65.8, altitude: 1.18 }, 0);
-globe.controls().autoRotate = false;
-globe.controls().enableZoom = true;
-globe.controls().minDistance = 180;
-globe.controls().maxDistance = 520;
-
-var currentAltitude = 1.18;
-var setZoom = function (direction) {
-currentAltitude = direction === 'in'
-? Math.max(0.72, currentAltitude - 0.18)
-: Math.min(1.9, currentAltitude + 0.18);
-globe.pointOfView({ lat: 27.8, lng: 65.8, altitude: currentAltitude }, 500);
-};
-
-document.querySelectorAll('[data-globe-zoom]').forEach(function (button) {
-button.addEventListener('click', function () {
-setZoom(button.getAttribute('data-globe-zoom'));
-});
-});
-
-var resizeGlobe = function () {
-var box = globeTarget.getBoundingClientRect();
-globe.width(box.width);
-globe.height(box.height);
-};
-
-resizeGlobe();
-window.addEventListener('resize', resizeGlobe);
-
-if (network) {
-network.classList.add('is-ready');
-}
-});
-</script>
 </body>
 
 </html>

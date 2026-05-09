@@ -39,7 +39,7 @@ body.homepage .home-section {
   overflow: visible;
 }
 
-body.homepage main > section:not(.hero):not(.commodity-ticker):not(.trust-bar) {
+body.homepage main>section:not(.hero):not(.commodity-ticker):not(.trust-bar) {
   padding-block: var(--home-section-y);
 }
 
@@ -69,8 +69,7 @@ body.homepage .text-accent {
   color: var(--primary-gold-400);
 }
 
-body.homepage :is(
-  .section-subtitle,
+body.homepage :is(.section-subtitle,
   .about__subtitle,
   .stats-section__narrative,
   .stats-section__footnote,
@@ -87,33 +86,29 @@ body.homepage :is(
   .mine-tours__subtitle,
   .mineral-encyclopedia__subtitle,
   .homepage-faq__intro,
-  .cta-premium__text
-) {
+  .cta-premium__text) {
   font-family: var(--font-body);
   font-weight: 400;
   font-size: var(--home-support-copy-size);
   line-height: var(--home-support-copy-line);
 }
 
-body.homepage :is(
-  .section-label,
+body.homepage :is(.section-label,
   .esg-dashboard__overline,
   .b2b-portal__overline,
   .cta-premium__overline,
-  .homepage-faq__eyebrow
-) {
+  .homepage-faq__eyebrow) {
   font-family: var(--font-ui);
 }
 
 @media (min-width: 769px) {
   body.homepage .hero__headline {
-    font-size: clamp(2.72rem, 4.95vw, 3.18rem);
+    font-size: clamp(1.75rem, 3.8vw, 2.125rem);
     line-height: 1.02;
     letter-spacing: 0.01em;
   }
 
-  body.homepage :is(
-    .section-title,
+  body.homepage :is(.section-title,
     .stats-section__headline,
     .about__title,
     .our-mines__title,
@@ -123,8 +118,7 @@ body.homepage :is(
     .mine-tours__title,
     .mineral-encyclopedia__title,
     .cta-premium__title,
-    .homepage-faq__title
-  ) {
+    .homepage-faq__title) {
     font-family: var(--font-heading);
     font-weight: 600;
     font-size: var(--home-section-title-size);
@@ -134,16 +128,14 @@ body.homepage :is(
     text-wrap: balance;
   }
 
-  body.homepage :is(
-    .about__story-title,
+  body.homepage :is(.about__story-title,
     .about__mv-card-title,
     .about__values-title,
     .about__leadership-title,
     .our-mines__operations-title,
     .logistics__export-title,
     .step-card__title,
-    .homepage-faq__question
-  ) {
+    .homepage-faq__question) {
     font-family: var(--font-heading);
     font-weight: 600;
     font-size: var(--home-subsection-title-size);
@@ -151,32 +143,28 @@ body.homepage :is(
     letter-spacing: 0.015em;
   }
 
-  body.homepage :is(
-    .mineral-showcase__title,
+  body.homepage :is(.mineral-showcase__title,
     .project-card__title,
     .logistics__card-title,
     .document-card__title,
     .b2b-card__title,
     .tour-card__name,
     .encyclopedia-card__name,
-    .our-mines__site-name
-  ) {
+    .our-mines__site-name) {
     font-family: var(--font-heading);
     font-weight: 600;
     font-size: var(--home-card-title-size);
     line-height: var(--home-card-title-line);
   }
 
-  body.homepage :is(
-    .minerals__header,
+  body.homepage :is(.minerals__header,
     .operations__header,
     .projects__header,
     .documents__header,
     .esg-dashboard__header,
     .b2b-portal__header,
     .mine-tours__header,
-    .mineral-encyclopedia__header
-  ) {
+    .mineral-encyclopedia__header) {
     max-width: 920px;
     margin-left: auto;
     margin-right: auto;
@@ -184,16 +172,14 @@ body.homepage :is(
     text-align: center;
   }
 
-  body.homepage :is(
-    .minerals__subtitle,
+  body.homepage :is(.minerals__subtitle,
     .operations__header .section-subtitle,
     .projects__subtitle,
     .documents__subtitle,
     .esg-dashboard__subtitle,
     .b2b-portal__subtitle,
     .mine-tours__subtitle,
-    .mineral-encyclopedia__subtitle
-  ) {
+    .mineral-encyclopedia__subtitle) {
     max-width: 58ch;
     margin-left: auto;
     margin-right: auto;
@@ -201,14 +187,12 @@ body.homepage :is(
     text-align: center;
   }
 
-  body.homepage :is(
-    .about__title,
+  body.homepage :is(.about__title,
     .operations__header .section-title,
     .projects__header .section-title,
     .our-mines__title,
     .logistics__title,
-    .cta-premium__title
-  ) {
+    .cta-premium__title) {
     max-width: var(--home-section-title-measure);
     margin-left: auto;
     margin-right: auto;
@@ -216,12 +200,10 @@ body.homepage :is(
     text-align: center;
   }
 
-  body.homepage :is(
-    .esg-dashboard__title,
+  body.homepage :is(.esg-dashboard__title,
     .b2b-portal__title,
     .mine-tours__title,
-    .mineral-encyclopedia__title
-  ) {
+    .mineral-encyclopedia__title) {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: var(--home-title-to-copy-gap);
@@ -242,12 +224,10 @@ body.homepage :is(
     max-width: min(100%, 32ch);
   }
 
-  body.homepage :is(
-    .esg-dashboard__subtitle,
+  body.homepage :is(.esg-dashboard__subtitle,
     .b2b-portal__subtitle,
     .mine-tours__subtitle,
-    .mineral-encyclopedia__subtitle
-  ) {
+    .mineral-encyclopedia__subtitle) {
     max-width: 62ch;
   }
 
@@ -553,7 +533,7 @@ body.homepage .stats-section__editorial {
   box-shadow: 0 18px 48px rgba(15, 31, 58, 0.055);
 }
 
-body.homepage .stats-section__editorial > * {
+body.homepage .stats-section__editorial>* {
   margin-left: 0;
   margin-right: 0;
   text-align: left;
@@ -745,7 +725,7 @@ body.homepage .homepage-faq__list--last {
   margin-bottom: 0;
 }
 
-body.homepage .homepage-faq__list li + li {
+body.homepage .homepage-faq__list li+li {
   margin-top: 0.35rem;
 }
 
@@ -971,6 +951,7 @@ body.homepage .mineral-showcase__description {
 }
 
 @media (min-width: 769px) {
+
   body.homepage .stats-section__narrative,
   body.homepage .expertise .section-subtitle,
   body.homepage .about__story-text,
@@ -1478,7 +1459,7 @@ body.homepage .cta-premium__button:active {
 }
 
 /* Homepage rhythm: keep major sections on one vertical spacing scale. */
-body.homepage main > section:not(.hero):not(.commodity-ticker):not(.trust-bar) {
+body.homepage main>section:not(.hero):not(.commodity-ticker):not(.trust-bar) {
   padding-block: var(--home-section-y);
 }
 
@@ -1592,8 +1573,7 @@ body.homepage .homepage-whatsapp:focus-visible {
     height: 27px;
   }
 
-  body.homepage :is(
-    .section-title,
+  body.homepage :is(.section-title,
     .stats-section__headline,
     .about__title,
     .our-mines__title,
@@ -1603,8 +1583,7 @@ body.homepage .homepage-whatsapp:focus-visible {
     .mine-tours__title,
     .mineral-encyclopedia__title,
     .cta-premium__title,
-    .homepage-faq__title
-  ) {
+    .homepage-faq__title) {
     font-family: var(--font-heading);
     font-weight: 600;
     font-size: var(--home-section-title-size) !important;
@@ -1614,75 +1593,65 @@ body.homepage .homepage-whatsapp:focus-visible {
     text-wrap: balance;
   }
 
-  body.homepage :is(
-    .about__story-title,
+  body.homepage :is(.about__story-title,
     .about__mv-card-title,
     .about__values-title,
     .about__leadership-title,
     .our-mines__operations-title,
     .logistics__export-title,
     .step-card__title,
-    .homepage-faq__question
-  ) {
+    .homepage-faq__question) {
     font-family: var(--font-heading);
     font-weight: 600;
     font-size: var(--home-subsection-title-size);
     line-height: var(--home-subsection-title-line);
   }
 
-  body.homepage :is(
-    .mineral-showcase__title,
+  body.homepage :is(.mineral-showcase__title,
     .project-card__title,
     .logistics__card-title,
     .document-card__title,
     .b2b-card__title,
     .tour-card__name,
     .encyclopedia-card__name,
-    .our-mines__site-name
-  ) {
+    .our-mines__site-name) {
     font-family: var(--font-heading);
     font-weight: 600;
     font-size: var(--home-card-title-size);
     line-height: var(--home-card-title-line);
   }
 
-  body.homepage :is(
-    .about__story-text,
+  body.homepage :is(.about__story-text,
     .about__mv-card-text,
     .about__value-text,
     .about__leadership-subtitle,
     .step-card__description,
     .document-card__meta,
     .b2b-card__text,
-    .tour-card__desc
-  ) {
+    .tour-card__desc) {
     font-family: var(--font-body);
     font-weight: 400;
     font-size: 0.95rem;
     line-height: 1.72;
   }
 
-  body.homepage :is(
-    .minerals__header,
+  body.homepage :is(.minerals__header,
     .operations__header,
     .projects__header,
     .documents__header,
     .esg-dashboard__header,
     .b2b-portal__header,
     .mine-tours__header,
-    .mineral-encyclopedia__header
-  ) {
+    .mineral-encyclopedia__header) {
     margin-bottom: var(--home-header-block-gap);
   }
 
-  body.homepage :is(
-    .about__title,
+  body.homepage :is(.about__title,
     .operations__header .section-title,
     .projects__header .section-title,
     .our-mines__title,
     .logistics__title,
-    .cta-premium__title
-  ) {
+    .cta-premium__title) {
     max-width: var(--home-section-title-measure);
     margin-left: auto;
     margin-right: auto;
@@ -1690,12 +1659,10 @@ body.homepage .homepage-whatsapp:focus-visible {
     text-align: center;
   }
 
-  body.homepage :is(
-    .esg-dashboard__title,
+  body.homepage :is(.esg-dashboard__title,
     .b2b-portal__title,
     .mine-tours__title,
-    .mineral-encyclopedia__title
-  ) {
+    .mineral-encyclopedia__title) {
     max-width: min(100%, 24rem);
     margin-left: auto;
     margin-right: auto;
@@ -1708,12 +1675,10 @@ body.homepage .homepage-whatsapp:focus-visible {
     max-width: min(100%, 18rem);
   }
 
-  body.homepage :is(
-    .esg-dashboard__subtitle,
+  body.homepage :is(.esg-dashboard__subtitle,
     .b2b-portal__subtitle,
     .mine-tours__subtitle,
-    .mineral-encyclopedia__subtitle
-  ) {
+    .mineral-encyclopedia__subtitle) {
     max-width: 34ch;
     margin-top: 0;
     margin-left: auto;

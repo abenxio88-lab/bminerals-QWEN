@@ -116,7 +116,7 @@
 
 .hero__headline {
   font-family: var(--font-heading);
-  font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+  font-size: clamp(1.6rem, 3.2vw, 2.125rem);
   font-weight: 600;
   line-height: 1.12;
   letter-spacing: 0.01em;
