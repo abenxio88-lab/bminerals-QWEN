@@ -229,6 +229,16 @@
       line-height: 1.72;
     }
 
+    @media (min-width: 769px) {
+      .mine-network__text {
+        text-align: justify;
+        text-justify: inter-word;
+        hyphens: auto;
+        -webkit-hyphens: auto;
+        word-break: break-word;
+      }
+    }
+
     .mine-network__routes {
       display: grid;
       gap: 0.75rem;
@@ -543,6 +553,17 @@
       line-height: 1.65;
     }
 
+    @media (min-width: 769px) {
+      .minerals-heaven__text,
+      .minerals-heaven__detail p {
+        text-align: justify;
+        text-justify: inter-word;
+        hyphens: auto;
+        -webkit-hyphens: auto;
+        word-break: break-word;
+      }
+    }
+
     .minerals-heaven__legend {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -693,6 +714,10 @@
     .geo-legend__item p,
     .mine-profile__text {
       text-align: justify;
+      text-justify: inter-word;
+      hyphens: auto;
+      -webkit-hyphens: auto;
+      word-break: break-word;
     }
   </style>
 </head>
