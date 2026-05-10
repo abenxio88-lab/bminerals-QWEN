@@ -261,6 +261,7 @@
   top: 1rem;
   left: 1rem;
   z-index: 2;
+  white-space: nowrap;
   padding: 0.44rem 0.62rem;
   background: rgba(255, 255, 255, 0.88);
   border: 1px solid rgba(15, 31, 58, 0.12);
@@ -738,6 +739,11 @@
   .corridor-board__map {
     min-height: 380px;
     overflow-x: auto;
+  }
+
+  .corridor-board__tag {
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .network-map__svg {
