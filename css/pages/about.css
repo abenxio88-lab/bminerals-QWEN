@@ -204,6 +204,11 @@
   font-size: var(--text-sm);
   color: var(--text-secondary);
   line-height: 1.7;
+  text-align: justify;
+  text-align-last: left;
+  text-justify: inter-word;
+  word-spacing: normal;
+  hyphens: auto;
 }
 
 .zigzag__features {
@@ -277,6 +282,11 @@
   font-size: var(--text-sm);
   color: var(--text-secondary);
   line-height: 1.7;
+  text-align: justify;
+  text-align-last: left;
+  text-justify: inter-word;
+  word-spacing: normal;
+  hyphens: auto;
 }
 
 .split-screen__stats {
@@ -522,6 +532,11 @@
   font-size: var(--text-sm);
   color: var(--text-secondary);
   line-height: 1.7;
+  text-align: justify;
+  text-align-last: left;
+  text-justify: inter-word;
+  word-spacing: normal;
+  hyphens: auto;
 }
 
 .item-stats {
@@ -842,12 +857,23 @@
     margin-bottom: 2rem;
   }
 
+  .zigzag__item-title {
+    text-align: center;
+  }
+
   .zigzag__visual {
     min-height: 220px;
   }
 
   .split-screen__left {
     padding: 2rem 1.5rem;
+    text-align: center;
+  }
+
+  .split-screen__overline,
+  .split-screen__title,
+  .split-screen__text {
+    text-align: center;
   }
 
   .bento-grid {
@@ -864,6 +890,20 @@
     grid-column: span 1;
   }
 
+  .bento-card {
+    text-align: center;
+    align-items: center;
+  }
+
+  .bento-card__icon,
+  .bento-card__title,
+  .bento-card__text,
+  .bento-card__stat,
+  .bento-card__stat-value,
+  .bento-card__stat-label {
+    text-align: center;
+  }
+
   .asymmetrical-grid {
     padding: 2.5rem var(--section-padding-x);
   }
@@ -874,6 +914,17 @@
 
   .asymmetrical-grid__item--large {
     grid-column: span 1;
+  }
+
+  .item-title {
+    text-align: center;
+  }
+
+  .item-overline {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
   }
 
   .timeline-section {
