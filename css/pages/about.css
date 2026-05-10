@@ -937,11 +937,31 @@
     left: 2rem;
   }
 
+  .timeline__text {
+    text-align: justify;
+    text-align-last: left;
+    text-justify: inter-word;
+    word-spacing: normal;
+    hyphens: auto;
+  }
+
   .diagonal-section {
     padding: 2.5rem var(--section-padding-x);
   }
 
   .diagonal-section::before {
     transform: rotate(0deg);
+  }
+
+  .diagonal-section__content,
+  .diagonal-section__overline,
+  .diagonal-section__title,
+  .diagonal-section__text {
+    text-align: center;
+  }
+
+  .diagonal-section__content .hero__cta {
+    margin-left: auto;
+    margin-right: auto;
   }
 }
