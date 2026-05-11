@@ -72,6 +72,32 @@ function checkHtmlFile(htmlPathAbs) {
     });
   }
 
+  if (rel.startsWith(`blog${path.sep}`)) {
+    const requiredBlogDetailMarkers = [
+      [/<div class="article-progress"/, "Missing article reading progress"],
+      [/<nav class="article-breadcrumb"/, "Missing article breadcrumb"],
+      [/<article class="article-content" id="article-content">/, "Missing article content anchor"],
+      [/<div class="article-intro">/, "Missing article intro block"],
+      [/<nav class="article-sidebox article-toc"/, "Missing article table of contents"],
+      [/data-copy-link/, "Missing copy-link share action"],
+      [/<section class="article-related"/, "Missing related insights section"],
+    ];
+
+    for (const [pattern, detail] of requiredBlogDetailMarkers) {
+      if (!pattern.test(html)) {
+        issues.push({ type: "blog-style", file: rel, detail });
+      }
+    }
+
+    if (/--article-image:\s*url\('\.\.\/images\//.test(html)) {
+      issues.push({
+        type: "blog-style",
+        file: rel,
+        detail: "Hero image custom property must use ../../images/... so external article CSS resolves it",
+      });
+    }
+  }
+
   // Basic href/src scanning. Intentionally simple; we just want guardrails.
   const attrRe = /\b(?:href|src)\s*=\s*["']([^"']+)["']/gi;
   let m;
@@ -140,4 +166,3 @@ function main() {
 }
 
 main();
-
