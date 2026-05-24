@@ -29,10 +29,23 @@ export function initSearchConsole() {
     { id: 'sustainability', title: 'Sustainability', description: 'ESG & environmental practices', url: 'sustainability.html', category: 'Pages', icon: 'ESG' },
 
     // Products
-    { id: 'iron-ore', title: 'Iron Ore', description: '62-68% Fe Grade from Pakistan', url: 'products.html#iron-ore', category: 'Products', icon: 'Fe' },
-    { id: 'barite', title: 'Barite', description: 'API Standard 95% purity', url: 'products.html#barite', category: 'Products', icon: 'Ba' },
-    { id: 'chromite', title: 'Chromite', description: '46-48% Cr2O3 concentration', url: 'products.html#chromite', category: 'Products', icon: 'Cr' },
-    { id: 'copper', title: 'Copper', description: 'Chagai exploration opportunities', url: 'products.html#copper', category: 'Products', icon: 'Cu' },
+    { id: 'copper', title: 'Copper', description: '2% - 10% Cu lumps from Chaghi', url: 'product-metallic.html#copper', category: 'Products', icon: 'Cu' },
+    { id: 'chromite', title: 'Chromite', description: '12% - 52% Cr2O3 lumps and 32% - 52% concentrate', url: 'product-metallic.html#chromite', category: 'Products', icon: 'Cr' },
+    { id: 'iron-ore', title: 'Iron Ore', description: '40% - 58% Fe lumps and 50% - 62% concentrate', url: 'product-metallic.html#iron-ore', category: 'Products', icon: 'Fe' },
+    { id: 'antimony', title: 'Antimony', description: '4% - 58% lumps and 20% - 60% concentrate', url: 'product-metallic.html#antimony', category: 'Products', icon: 'Sb' },
+    { id: 'lead-zinc', title: 'Lead / Zinc', description: '10% - 60% Pb/Zn from Chaghi', url: 'product-metallic.html#lead-zinc', category: 'Products', icon: 'Pb' },
+    { id: 'barite', title: 'Barite', description: '92% - 98% BaSO4, API SG 4.20+ available', url: 'product-industrial.html#barite', category: 'Products', icon: 'Ba' },
+    { id: 'fluorite', title: 'Fluorite / Fluorspar', description: '50% - 90%+ CaF2 grades', url: 'product-industrial.html#fluorite', category: 'Products', icon: 'Ca' },
+    { id: 'gypsum', title: 'Gypsum', description: '90% - 95% typical construction and cement grade', url: 'product-industrial.html#gypsum', category: 'Products', icon: 'Gy' },
+    { id: 'magnesite', title: 'Magnesite', description: '42% - 47% raw MgO and calcined options', url: 'product-industrial.html#magnesite', category: 'Products', icon: 'Mg' },
+    { id: 'sulphur', title: 'Sulphur', description: 'COA-based ore and industrial feed', url: 'product-industrial.html#sulphur', category: 'Products', icon: 'S' },
+    { id: 'bauxite', title: 'Bauxite', description: '45% - 62% Al2O3 ore', url: 'product-industrial.html#bauxite', category: 'Products', icon: 'Al' },
+    { id: 'celestite', title: 'Celestite', description: '80% - 95% SrSO4 typical material', url: 'product-industrial.html#celestite', category: 'Products', icon: 'Sr' },
+    { id: 'marble', title: 'Marble', description: 'Blocks, slabs and tiles', url: 'product-stones.html#marble', category: 'Products', icon: 'Mr' },
+    { id: 'white-marble', title: 'White Marble', description: 'Premium bright marble blocks, slabs and tiles', url: 'product-stones.html#white-marble', category: 'Products', icon: 'WM' },
+    { id: 'onyx', title: 'Onyx', description: 'Decorative translucent stone', url: 'product-stones.html#onyx', category: 'Products', icon: 'Ox' },
+    { id: 'granite', title: 'Granite', description: 'Blocks and slabs', url: 'product-stones.html#granite', category: 'Products', icon: 'Gr' },
+    { id: 'coal-fields', title: 'Coal Fields', description: 'Sorange-Degari, Khost-Shahrig-Harnai, Duki and Mach-Anjira', url: 'product-energy.html#energy-minerals', category: 'Products', icon: 'Co' },
 
     // Mines/Projects
     { id: 'muslim-bagh', title: 'Muslim Bagh', description: 'Chromite Mine - Active Operations', url: 'our-mines.html#muslim-bagh', category: 'Mines', icon: 'MB' },

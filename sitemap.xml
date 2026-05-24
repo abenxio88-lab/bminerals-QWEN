@@ -13,6 +13,30 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://balochistanminerals.com/product-metallic</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://balochistanminerals.com/product-industrial</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://balochistanminerals.com/product-stones</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://balochistanminerals.com/product-energy</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://balochistanminerals.com/projects</loc>
     <lastmod>2026-04-28</lastmod>
     <changefreq>monthly</changefreq>

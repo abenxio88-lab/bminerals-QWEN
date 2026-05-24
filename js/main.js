@@ -76,9 +76,58 @@ document.addEventListener('DOMContentLoaded', async () => {
   runInit('initTactileFeedback', initTactileFeedback);
   runInit('initEarthTechCore', initEarthTechCore);
   runInit('initStepper', initStepper);
+  runInit('initProductDetailLinks', initProductDetailLinks);
   // Ensure loader is removed after all inits complete
   setTimeout(() => removeLoader(), 100);
 });
+
+function initProductDetailLinks() {
+  if (window.__productDetailLinksInitialized) return;
+
+  const detailTargets = {
+    copper: 'product-metallic.html#copper',
+    chromite: 'product-metallic.html#chromite',
+    'iron-ore': 'product-metallic.html#iron-ore',
+    antimony: 'product-metallic.html#antimony',
+    'lead-zinc': 'product-metallic.html#lead-zinc',
+    barite: 'product-industrial.html#barite',
+    fluorite: 'product-industrial.html#fluorite',
+    gypsum: 'product-industrial.html#gypsum',
+    magnesite: 'product-industrial.html#magnesite',
+    sulphur: 'product-industrial.html#sulphur',
+    bauxite: 'product-industrial.html#bauxite',
+    celestite: 'product-industrial.html#celestite',
+    marble: 'product-stones.html#marble',
+    'white-marble': 'product-stones.html#white-marble',
+    onyx: 'product-stones.html#onyx',
+    granite: 'product-stones.html#granite'
+  };
+
+  const cards = document.querySelectorAll('.product-card[id], .stone-card[id]');
+  if (!cards.length) return;
+
+  window.__productDetailLinksInitialized = true;
+
+  cards.forEach((card) => {
+    const target = detailTargets[card.id];
+    if (!target) return;
+
+    card.setAttribute('role', 'link');
+    card.setAttribute('tabindex', '0');
+    card.dataset.href = target;
+
+    card.addEventListener('click', (event) => {
+      if (event.target.closest('a, button')) return;
+      window.location.href = target;
+    });
+
+    card.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      window.location.href = target;
+    });
+  });
+}
 
 // ============================================
 // Interactive Stepper for Operations
@@ -403,6 +452,6 @@ export {
   initParallaxEffect,
   initMineMarkers,
   initNewsletterForm,
-  initHomepageWhatsAppButton
+  initHomepageWhatsAppButton,
+  initProductDetailLinks
 };
-

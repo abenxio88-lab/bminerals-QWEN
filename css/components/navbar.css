@@ -550,6 +550,13 @@
   height: 20px;
 }
 
+.navbar__dropdown-item-icon--text {
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
 .navbar__dropdown-item:hover .navbar__dropdown-item-icon {
   background: rgba(15, 23, 42, 0.075);
   border-color: rgba(15, 23, 42, 0.16);
@@ -581,6 +588,37 @@
 
 .navbar__dropdown-item:hover .navbar__dropdown-item-text span {
   color: var(--charcoal-600);
+}
+
+.navbar__dropdown-menu--products {
+  min-width: 360px;
+  max-height: min(70vh, 610px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(15, 23, 42, 0.35) rgba(15, 23, 42, 0.06);
+}
+
+.navbar__dropdown-menu--products::-webkit-scrollbar {
+  width: 9px;
+}
+
+.navbar__dropdown-menu--products::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.06);
+}
+
+.navbar__dropdown-menu--products::-webkit-scrollbar-thumb {
+  background: rgba(15, 23, 42, 0.28);
+}
+
+.navbar__dropdown-section-label {
+  padding: 0.7rem 1.5rem 0.35rem;
+  color: var(--charcoal-500);
+  font-family: var(--font-ui);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
 
 /* Dropdown Divider */
@@ -662,6 +700,20 @@
 .navbar__dropdown-menu--mobile .navbar__dropdown-item-icon svg {
   width: 15px;
   height: 15px;
+}
+
+.navbar__dropdown-menu--mobile.navbar__dropdown-menu--products {
+  max-height: 58vh;
+  overflow-y: auto;
+}
+
+.navbar__dropdown-menu--mobile .navbar__dropdown-item-icon--text {
+  font-size: 0.66rem;
+}
+
+.navbar__dropdown-menu--mobile .navbar__dropdown-section-label {
+  padding: 0.65rem 0.7rem 0.25rem;
+  font-size: 0.62rem;
 }
 
 .navbar__dropdown-menu--mobile .navbar__dropdown-item-text {

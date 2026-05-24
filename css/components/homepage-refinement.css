@@ -103,7 +103,7 @@ body.homepage :is(.section-label,
 
 @media (min-width: 769px) {
   body.homepage .hero__headline {
-    font-size: clamp(1.75rem, 3.8vw, 2.125rem);
+    font-size: clamp(2.15rem, 4vw, 3.15rem);
     line-height: 1.02;
     letter-spacing: 0.01em;
   }
@@ -496,13 +496,11 @@ body.homepage .trust-bar__logo-placeholder {
     inset 0 1px 0 rgba(255, 255, 255, 0.86),
     0 10px 24px rgba(15, 31, 58, 0.04);
   transition:
-    transform 0.34s var(--home-motion),
     border-color 0.34s var(--home-motion),
     background-color 0.34s var(--home-motion);
 }
 
 body.homepage .trust-bar__logo-placeholder:hover {
-  transform: translateY(-2px);
   border-color: rgba(212, 90, 21, 0.3);
   background: #FFFFFF;
 }
@@ -792,6 +790,56 @@ body.homepage .about__subtitle {
   margin-right: auto;
   color: var(--charcoal-700);
   font-weight: 400;
+}
+
+body.homepage .about__leadership-grid {
+  grid-template-columns: repeat(2, minmax(0, 540px));
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  justify-content: center;
+  align-items: stretch;
+}
+
+body.homepage .about__leader-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: clamp(0.9rem, 1.4vw, 1.2rem);
+}
+
+body.homepage .about__leader-avatar {
+  width: 100%;
+  height: clamp(300px, 24vw, 390px);
+  margin: 0 auto 1.25rem;
+  background: var(--bg-secondary);
+}
+
+body.homepage .about__leader-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transform: scale(1.02);
+}
+
+body.homepage .about__leader-info {
+  width: 100%;
+}
+
+body.homepage .about__leader-bio {
+  max-width: 40ch;
+  margin: 0 auto;
+  color: var(--charcoal-700);
+}
+
+@media (max-width: 900px) {
+  body.homepage .about__leadership-grid {
+    grid-template-columns: minmax(0, 520px);
+  }
+
+  body.homepage .about__leader-avatar {
+    height: clamp(285px, 68vw, 360px);
+  }
 }
 
 /* Restore the original sticky split feel in the expertise section. */
