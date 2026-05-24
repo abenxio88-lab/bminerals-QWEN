@@ -1113,26 +1113,138 @@
       </div>
     </section>
 
-    <section class="product-category" id="metallic-minerals" aria-label="Metallic minerals">
-      <div class="product-category__container">
-        <div class="product-category__header reveal">
-          <span class="zigzag__overline">Category 01</span>
-          <h2 class="product-category__title">Metallic minerals</h2>
-          <p class="product-category__copy">Core export minerals for smelting, alloying, steelmaking, battery supply chains, and base-metal trading.</p>
+    <section class="metallic-showcase" id="metallic-minerals" aria-label="Metallic minerals">
+      <!-- Section Header -->
+      <div class="metallic-showcase__header reveal">
+        <div class="metallic-showcase__header-inner">
+          <div class="metallic-showcase__header-text">
+            <span class="metallic-showcase__overline">Category 01</span>
+            <h2 class="metallic-showcase__title">Metallic Minerals</h2>
+            <p class="metallic-showcase__subtitle">Core export minerals for smelting, alloying, steelmaking, battery supply chains, and base-metal trading.</p>
+          </div>
+          <div class="metallic-showcase__header-stats">
+            <div class="metallic-showcase__stat">
+              <span class="metallic-showcase__stat-value">05</span>
+              <span class="metallic-showcase__stat-label">Core Ores</span>
+            </div>
+            <div class="metallic-showcase__stat">
+              <span class="metallic-showcase__stat-value">60%</span>
+              <span class="metallic-showcase__stat-label">Export Volume</span>
+            </div>
+          </div>
         </div>
-        <div class="product-grid product-grid--metallic">
-          <article class="product-card product-card--featured reveal" id="copper">
-            <div class="product-card__media"><img src="images/copper-new.webp" alt="Copper ore lumps from Chaghi" loading="lazy"></div>
-            <div class="product-card__body"><span class="product-card__category">Copper</span><h3>Copper Lumps</h3><dl class="product-card__specs"><div><dt>Grade</dt><dd>2% - 10% Cu</dd></div><div><dt>Region</dt><dd>Chaghi</dd></div><div><dt>Quantity</dt><dd>3,000 - 5,000 MT</dd></div></dl><p>Available as copper-bearing lumps for buyers seeking direct ore supply with assay-backed shipment terms.</p></div>
-          </article>
-          <article class="product-card product-card--featured reveal" id="chromite">
-            <div class="product-card__media"><img src="images/chromite-new.webp" alt="Chromite lumps and concentrate" loading="lazy"></div>
-            <div class="product-card__body"><span class="product-card__category">Chromite</span><h3>Chrome Lumps &amp; Concentrate</h3><dl class="product-card__specs"><div><dt>Lumps</dt><dd>12% - 52% Cr2O3</dd></div><div><dt>Concentrate</dt><dd>32% - 52% Cr2O3</dd></div><div><dt>Region</dt><dd>Kharan / Muslim Bagh / Dalbandin</dd></div></dl><p>Supplied for ferrochrome, refractory, and foundry buyers, with size and Cr:Fe terms confirmed per lot.</p></div>
-          </article>
-          <article class="product-card reveal" id="iron-ore"><div class="product-card__body"><span class="product-card__category">Iron Ore</span><h3>Iron Lumps &amp; Concentrate</h3><dl class="product-card__specs"><div><dt>Lumps</dt><dd>40% - 58% Fe</dd></div><div><dt>Concentrate</dt><dd>50% - 62% Fe</dd></div><div><dt>Type</dt><dd>Hematite / Magnetite</dd></div></dl><p>Kharan-origin iron ore for steel feedstock, blending, crushing, screening, and beneficiation programs.</p></div></article>
-          <article class="product-card reveal" id="antimony"><div class="product-card__body"><span class="product-card__category">Antimony</span><h3>Antimony Lumps &amp; Concentrate</h3><dl class="product-card__specs"><div><dt>Lumps</dt><dd>4% - 58% Sb</dd></div><div><dt>Concentrate</dt><dd>20% - 60% Sb</dd></div><div><dt>Region</dt><dd>Washuk / Zhob</dd></div></dl><p>Antimony-bearing material for buyers requiring stibnite ore, concentrate options, and per-shipment assay.</p></div></article>
-          <article class="product-card reveal" id="lead-zinc"><div class="product-card__body"><span class="product-card__category">Lead / Zinc</span><h3>Lead-Zinc Ore</h3><dl class="product-card__specs"><div><dt>Grade</dt><dd>10% - 60% Pb/Zn</dd></div><div><dt>Region</dt><dd>Chaghi</dd></div><div><dt>Form</dt><dd>Lumps / concentrate</dd></div></dl><p>Base-metal ore and concentrate supply arranged against buyer grade requirements and inspection terms.</p></div></article>
-        </div>
+      </div>
+
+      <!-- Bento Grid for Metallic Minerals -->
+      <div class="metallic-showcase__grid">
+        
+        <!-- Hero Card 1: Copper -->
+        <article class="metallic-card metallic-card--hero reveal" id="copper">
+          <div class="metallic-card__image">
+            <img src="images/copper-new.webp" alt="Copper ore lumps from Chaghi" loading="lazy">
+            <div class="metallic-card__glow"></div>
+          </div>
+          <div class="metallic-card__content">
+            <span class="metallic-card__tag">Flagship Export</span>
+            <h3>Copper Lumps</h3>
+            <p>Available as copper-bearing lumps for buyers seeking direct ore supply with assay-backed shipment terms.</p>
+            <div class="metallic-card__specs-grid">
+              <div class="metallic-card__spec"><dt>Grade</dt><dd>2% - 10% Cu</dd></div>
+              <div class="metallic-card__spec"><dt>Region</dt><dd>Chaghi</dd></div>
+              <div class="metallic-card__spec"><dt>Volume</dt><dd>3k - 5k MT</dd></div>
+            </div>
+            <a href="product-metallic.html#copper" class="metallic-card__link">
+              Full specifications
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Hero Card 2: Chromite -->
+        <article class="metallic-card metallic-card--hero reveal" id="chromite">
+          <div class="metallic-card__image">
+            <img src="images/chromite-new.webp" alt="Chromite lumps and concentrate" loading="lazy">
+            <div class="metallic-card__glow"></div>
+          </div>
+          <div class="metallic-card__content">
+            <span class="metallic-card__tag">High Demand</span>
+            <h3>Chrome Lumps &amp; Concentrate</h3>
+            <p>Supplied for ferrochrome, refractory, and foundry buyers, with size and Cr:Fe terms confirmed per lot.</p>
+            <div class="metallic-card__specs-grid">
+              <div class="metallic-card__spec"><dt>Lumps</dt><dd>12% - 52% Cr₂O₃</dd></div>
+              <div class="metallic-card__spec"><dt>Concentrate</dt><dd>32% - 52% Cr₂O₃</dd></div>
+              <div class="metallic-card__spec"><dt>Region</dt><dd>Muslim Bagh / Dalbandin</dd></div>
+            </div>
+            <a href="product-metallic.html#chromite" class="metallic-card__link">
+              Full specifications
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Compact Card: Iron Ore -->
+        <article class="metallic-card metallic-card--compact reveal" id="iron-ore">
+          <div class="metallic-card__image metallic-card__image--compact">
+            <img src="images/iron-ore-new.avif" alt="Iron Ore lumps and concentrate" loading="lazy">
+          </div>
+          <div class="metallic-card__content">
+            <span class="metallic-card__tag metallic-card__tag--sub">Iron Ore</span>
+            <h3>Lumps &amp; Concentrate</h3>
+            <div class="metallic-card__specs-grid metallic-card__specs-grid--compact">
+              <div class="metallic-card__spec"><dt>Lumps</dt><dd>40% - 58% Fe</dd></div>
+              <div class="metallic-card__spec"><dt>Type</dt><dd>Hematite</dd></div>
+            </div>
+            <a href="product-metallic.html#iron-ore" class="metallic-card__link">
+              Full specs <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Compact Card: Antimony -->
+        <article class="metallic-card metallic-card--compact reveal" id="antimony">
+          <div class="metallic-card__image metallic-card__image--compact">
+            <img src="images/antimony.avif" alt="Antimony lumps and concentrate" loading="lazy">
+          </div>
+          <div class="metallic-card__content">
+            <span class="metallic-card__tag metallic-card__tag--sub">Antimony</span>
+            <h3>Stibnite Ore Supply</h3>
+            <div class="metallic-card__specs-grid metallic-card__specs-grid--compact">
+              <div class="metallic-card__spec"><dt>Grade</dt><dd>4% - 60% Sb</dd></div>
+              <div class="metallic-card__spec"><dt>Region</dt><dd>Washuk</dd></div>
+            </div>
+            <a href="product-metallic.html#antimony" class="metallic-card__link">
+              Full specs <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Compact Card: Lead / Zinc -->
+        <article class="metallic-card metallic-card--compact reveal" id="lead-zinc">
+          <div class="metallic-card__image metallic-card__image--compact">
+            <img src="images/lead-zinc.avif" alt="Lead and Zinc lumps" loading="lazy">
+          </div>
+          <div class="metallic-card__content">
+            <span class="metallic-card__tag metallic-card__tag--sub">Lead / Zinc</span>
+            <h3>Base-Metal Ore</h3>
+            <div class="metallic-card__specs-grid metallic-card__specs-grid--compact">
+              <div class="metallic-card__spec"><dt>Grade</dt><dd>10% - 60% Pb/Zn</dd></div>
+              <div class="metallic-card__spec"><dt>Form</dt><dd>Lumps</dd></div>
+            </div>
+            <a href="product-metallic.html#lead-zinc" class="metallic-card__link">
+              Full specs <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
+            </a>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Metallic CTA -->
+      <div class="metallic-showcase__cta reveal">
+        <p>All metallic minerals are rigorously assayed prior to shipment. Export logistics managed directly from port of loading.</p>
+        <a href="product-metallic.html" class="metallic-showcase__cta-btn">
+          View full metallic catalog
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9h10M10 5l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
+        </a>
       </div>
     </section>
 
