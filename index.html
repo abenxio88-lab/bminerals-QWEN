@@ -3765,10 +3765,28 @@
             and market context.</p>
         </div>
 
-        <div class="encyclopedia-grid">
-          <a href="products.html#chromite" class="encyclopedia-card reveal" data-delay="1">
+        <div class="encyclopedia-carousel reveal" data-mineral-carousel>
+          <div class="encyclopedia-carousel__top">
+            <p class="encyclopedia-carousel__count" aria-live="polite" data-mineral-carousel-count>01 / 17</p>
+            <div class="encyclopedia-carousel__controls" aria-label="Mineral carousel controls">
+              <button class="encyclopedia-carousel__button" type="button" aria-label="Previous minerals" data-mineral-carousel-prev>
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M11 4L6 9L11 14" />
+                </svg>
+              </button>
+              <button class="encyclopedia-carousel__button" type="button" aria-label="Next minerals" data-mineral-carousel-next>
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M7 4L12 9L7 14" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="encyclopedia-carousel__viewport" data-mineral-carousel-viewport tabindex="0" aria-label="All Balochistan mineral profiles">
+            <div class="encyclopedia-grid">
+          <a href="product-metallic.html#chromite" class="encyclopedia-card" data-delay="1">
             <div class="encyclopedia-card__image">
-              <img src="images/chromite-new.webp" alt="Chromite ore specimen" loading="lazy">
+              <img src="images/chromite-new.webp" alt="Chromite ore specimen" loading="eager" decoding="async">
             </div>
             <div class="encyclopedia-card__body">
               <div class="encyclopedia-card__formula">FeCr₂O₄</div>
@@ -3782,9 +3800,9 @@
             </div>
           </a>
 
-          <a href="products.html#iron-ore" class="encyclopedia-card reveal" data-delay="2">
+          <a href="product-metallic.html#iron-ore" class="encyclopedia-card" data-delay="2">
             <div class="encyclopedia-card__image">
-              <img src="images/iron-ore-new.webp" alt="Iron ore specimen" loading="lazy">
+              <img src="images/iron-ore-new.webp" alt="Iron ore specimen" loading="eager" decoding="async">
             </div>
             <div class="encyclopedia-card__body">
               <div class="encyclopedia-card__formula">Fe₂O₃</div>
@@ -3798,9 +3816,9 @@
             </div>
           </a>
 
-          <a href="products.html#barite" class="encyclopedia-card reveal" data-delay="3">
+          <a href="product-industrial.html#barite" class="encyclopedia-card" data-delay="3">
             <div class="encyclopedia-card__image">
-              <img src="images/barite-card.jpg" alt="Barite ore specimen" loading="lazy">
+              <img src="images/barite-card.jpg" alt="Barite ore specimen" loading="eager" decoding="async">
             </div>
             <div class="encyclopedia-card__body">
               <div class="encyclopedia-card__formula">BaSO₄</div>
@@ -3814,9 +3832,9 @@
             </div>
           </a>
 
-          <a href="products.html#copper" class="encyclopedia-card reveal" data-delay="4">
+          <a href="product-metallic.html#copper" class="encyclopedia-card" data-delay="4">
             <div class="encyclopedia-card__image">
-              <img src="images/copper-new.webp" alt="Copper ore specimen" loading="lazy">
+              <img src="images/copper-new.webp" alt="Copper ore specimen" loading="eager" decoding="async">
             </div>
             <div class="encyclopedia-card__body">
               <div class="encyclopedia-card__formula">Cu</div>
@@ -3829,6 +3847,206 @@
               </div>
             </div>
           </a>
+
+          <a href="product-metallic.html#antimony" class="encyclopedia-card">
+            <div class="encyclopedia-card__image">
+              <img src="images/antimony.avif" alt="Antimony ore specimen" loading="eager" decoding="async">
+            </div>
+            <div class="encyclopedia-card__body">
+              <div class="encyclopedia-card__formula">Sb</div>
+              <h3 class="encyclopedia-card__name">Antimony</h3>
+              <p class="encyclopedia-card__excerpt">Washuk and Zhob antimony material is evaluated lot by lot for alloy, chemical, flame-retardant and specialty metal buyers.</p>
+              <div class="encyclopedia-card__specs">
+                <span class="encyclopedia-card__spec"><strong>Grade:</strong> 4-60% Sb</span>
+                <span class="encyclopedia-card__spec"><strong>Use:</strong> Alloys</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="product-metallic.html#lead-zinc" class="encyclopedia-card">
+            <div class="encyclopedia-card__image">
+              <img src="images/lead-zinc.avif" alt="Lead zinc mineral specimen" loading="eager" decoding="async">
+            </div>
+            <div class="encyclopedia-card__body">
+              <div class="encyclopedia-card__formula">Pb / Zn</div>
+              <h3 class="encyclopedia-card__name">Lead / Zinc</h3>
+              <p class="encyclopedia-card__excerpt">Base-metal ore from Chaghi supplied as lumps or concentrate with separate lead, zinc and penalty-element assay checks.</p>
+              <div class="encyclopedia-card__specs">
+                <span class="encyclopedia-card__spec"><strong>Grade:</strong> 10-60%</span>
+                <span class="encyclopedia-card__spec"><strong>Region:</strong> Chaghi</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="product-industrial.html#fluorite" class="encyclopedia-card">
+            <div class="encyclopedia-card__image">
+              <img src="images/fluorite.avif" alt="Fluorite mineral specimen" loading="eager" decoding="async">
+            </div>
+            <div class="encyclopedia-card__body">
+              <div class="encyclopedia-card__formula">CaF<sub>2</sub></div>
+              <h3 class="encyclopedia-card__name">Fluorite</h3>
+              <p class="encyclopedia-card__excerpt">Fluorspar used as steelmaking flux, ceramic feed and chemical raw material where CaF2 and silica control define value.</p>
+              <div class="encyclopedia-card__specs">
+                <span class="encyclopedia-card__spec"><strong>CaF2:</strong> 50-90%+</span>
+                <span class="encyclopedia-card__spec"><strong>Form:</strong> Lumps</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="product-industrial.html#gypsum" class="encyclopedia-card">
+            <div class="encyclopedia-card__image">
+              <img src="images/gypsum.avif" alt="Gypsum crystal specimen" loading="eager" decoding="async">
+            </div>
+            <div class="encyclopedia-card__body">
+              <div class="encyclopedia-card__formula">CaSO<sub>4</sub>.2H<sub>2</sub>O</div>
+              <h3 class="encyclopedia-card__name">Gypsum</h3>
+              <p class="encyclopedia-card__excerpt">Construction, cement, plaster and agriculture gypsum with buyer checks for purity, moisture, insolubles and sizing.</p>
+              <div class="encyclopedia-card__specs">
+                <span class="encyclopedia-card__spec"><strong>Purity:</strong> 90-95%</span>
+                <span class="encyclopedia-card__spec"><strong>Use:</strong> Cement</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="product-industrial.html#magnesite" class="encyclopedia-card">
+            <div class="encyclopedia-card__image">
+              <img src="images/magnesite.avif" alt="Magnesite rock specimen" loading="eager" decoding="async">
+            </div>
+            <div class="encyclopedia-card__body">
+              <div class="encyclopedia-card__formula">MgCO<sub>3</sub></div>
+              <h3 class="encyclopedia-card__name">Magnesite</h3>
+              <p class="encyclopedia-card__excerpt">Raw and calcined magnesite for refractory, agricultural, chemical and magnesium compound applications.</p>
+              <div class="encyclopedia-card__specs">
+                <span class="encyclopedia-card__spec"><strong>MgO:</strong> 42-47%</span>
+                <span class="encyclopedia-card__spec"><strong>Type:</strong> Raw</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="product-industrial.html#sulphur" class="encyclopedia-card">
+            <div class="encyclopedia-card__image">
+              <img src="images/sulphur-ore.avif" alt="Sulphur ore specimen" loading="eager" decoding="async">
+            </div>
+            <div class="encyclopedia-card__body">
+              <div class="encyclopedia-card__formula">S</div>
+              <h3 class="encyclopedia-card__name">Sulphur</h3>
+              <p class="encyclopedia-card__excerpt">Sulphur-bearing industrial feed handled as COA-backed supply for chemical, fertilizer and process buyers.</p>
+              <div class="encyclopedia-card__specs">
+                <span class="encyclopedia-card__spec"><strong>Grade:</strong> COA-led</span>
+                <span class="encyclopedia-card__spec"><strong>Form:</strong> Ore</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="product-industrial.html#bauxite" class="encyclopedia-card">
+            <div class="encyclopedia-card__image">
+              <img src="images/bauxite.avif" alt="Bauxite mineral specimen" loading="eager" decoding="async">
+            </div>
+            <div class="encyclopedia-card__body">
+              <div class="encyclopedia-card__formula">Al<sub>2</sub>O<sub>3</sub></div>
+              <h3 class="encyclopedia-card__name">Bauxite</h3>
+              <p class="encyclopedia-card__excerpt">Alumina-bearing ore for refractory, cement, industrial mineral and calcined material buyers depending on assay.</p>
+              <div class="encyclopedia-card__specs">
+                <span class="encyclopedia-card__spec"><strong>Al2O3:</strong> 45-62%</span>
+                <span class="encyclopedia-card__spec"><strong>Use:</strong> Refractory</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="product-industrial.html#celestite" class="encyclopedia-card">
+            <div class="encyclopedia-card__image">
+              <img src="images/celestite.avif" alt="Celestite crystal specimen" loading="eager" decoding="async">
+            </div>
+            <div class="encyclopedia-card__body">
+              <div class="encyclopedia-card__formula">SrSO<sub>4</sub></div>
+              <h3 class="encyclopedia-card__name">Celestite</h3>
+              <p class="encyclopedia-card__excerpt">Strontium ore for chemical supply chains, valued by SrSO4 content, moisture, sizing and impurity control.</p>
+              <div class="encyclopedia-card__specs">
+                <span class="encyclopedia-card__spec"><strong>SrSO4:</strong> 80-95%</span>
+                <span class="encyclopedia-card__spec"><strong>Use:</strong> Chemicals</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="product-stones.html#marble" class="encyclopedia-card">
+            <div class="encyclopedia-card__image">
+              <img src="images/marble.avif" alt="Marble quarry stone" loading="eager" decoding="async">
+            </div>
+            <div class="encyclopedia-card__body">
+              <div class="encyclopedia-card__formula">CaCO<sub>3</sub></div>
+              <h3 class="encyclopedia-card__name">Marble</h3>
+              <p class="encyclopedia-card__excerpt">Commercial and premium marble selected by color consistency, vein movement, cracks, polish and slab thickness.</p>
+              <div class="encyclopedia-card__specs">
+                <span class="encyclopedia-card__spec"><strong>Form:</strong> Slabs</span>
+                <span class="encyclopedia-card__spec"><strong>Use:</strong> Interiors</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="product-stones.html#white-marble" class="encyclopedia-card">
+            <div class="encyclopedia-card__image">
+              <img src="images/marble.avif" alt="White marble surface" loading="eager" decoding="async">
+            </div>
+            <div class="encyclopedia-card__body">
+              <div class="encyclopedia-card__formula">CaCO<sub>3</sub></div>
+              <h3 class="encyclopedia-card__name">White Marble</h3>
+              <p class="encyclopedia-card__excerpt">Bright white to off-white marble selected for cleaner backgrounds, controlled veining and premium interior presentation.</p>
+              <div class="encyclopedia-card__specs">
+                <span class="encyclopedia-card__spec"><strong>Tone:</strong> White</span>
+                <span class="encyclopedia-card__spec"><strong>Use:</strong> Premium</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="product-stones.html#onyx" class="encyclopedia-card">
+            <div class="encyclopedia-card__image">
+              <img src="images/onyx.avif" alt="Onyx stone surface" loading="eager" decoding="async">
+            </div>
+            <div class="encyclopedia-card__body">
+              <div class="encyclopedia-card__formula">SiO<sub>2</sub></div>
+              <h3 class="encyclopedia-card__name">Onyx</h3>
+              <p class="encyclopedia-card__excerpt">Decorative translucent stone for feature walls, tabletops, backlit panels and luxury interior applications.</p>
+              <div class="encyclopedia-card__specs">
+                <span class="encyclopedia-card__spec"><strong>Form:</strong> Slabs</span>
+                <span class="encyclopedia-card__spec"><strong>Trait:</strong> Translucent</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="product-stones.html#granite" class="encyclopedia-card">
+            <div class="encyclopedia-card__image">
+              <img src="images/granite.avif" alt="Granite stone close-up" loading="eager" decoding="async">
+            </div>
+            <div class="encyclopedia-card__body">
+              <div class="encyclopedia-card__formula">SiO<sub>2</sub></div>
+              <h3 class="encyclopedia-card__name">Granite</h3>
+              <p class="encyclopedia-card__excerpt">Hard-wearing blocks and slabs for counters, exterior cladding, flooring, paving and monuments.</p>
+              <div class="encyclopedia-card__specs">
+                <span class="encyclopedia-card__spec"><strong>Form:</strong> Blocks</span>
+                <span class="encyclopedia-card__spec"><strong>Use:</strong> Surfaces</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="product-energy.html#energy-minerals" class="encyclopedia-card">
+            <div class="encyclopedia-card__image">
+              <img src="images/coal.avif" alt="Coal sample" loading="eager" decoding="async">
+            </div>
+            <div class="encyclopedia-card__body">
+              <div class="encyclopedia-card__formula">C</div>
+              <h3 class="encyclopedia-card__name">Coal</h3>
+              <p class="encyclopedia-card__excerpt">Balochistan coal field sourcing from Quetta, Harnai, Duki and Mach corridors, accepted by fresh lab report.</p>
+              <div class="encyclopedia-card__specs">
+                <span class="encyclopedia-card__spec"><strong>Basis:</strong> Lot assay</span>
+                <span class="encyclopedia-card__spec"><strong>Use:</strong> Fuel</span>
+              </div>
+            </div>
+          </a>
+            </div>
+          </div>
+          <div class="encyclopedia-carousel__rail" aria-hidden="true">
+            <span data-mineral-carousel-rail></span>
+          </div>
         </div>
 
         <div class="encyclopedia-cta">

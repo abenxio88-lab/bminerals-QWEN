@@ -53,6 +53,108 @@ export function initIntelligenceHub() {
       if (window.tactileFeedback) window.tactileFeedback('light');
     });
   }
+
+  // 4. Mineral Index carousel
+  initMineralCarousel();
+}
+
+function initMineralCarousel() {
+  if (window.__mineralCarouselInitialized) return;
+
+  const carousel = document.querySelector('[data-mineral-carousel]');
+  if (!carousel) return;
+
+  const viewport = carousel.querySelector('[data-mineral-carousel-viewport]');
+  const cards = Array.from(carousel.querySelectorAll('.encyclopedia-card'));
+  const prevButton = carousel.querySelector('[data-mineral-carousel-prev]');
+  const nextButton = carousel.querySelector('[data-mineral-carousel-next]');
+  const count = carousel.querySelector('[data-mineral-carousel-count]');
+  const rail = carousel.querySelector('[data-mineral-carousel-rail]');
+
+  if (!viewport || !cards.length || !prevButton || !nextButton) return;
+
+  window.__mineralCarouselInitialized = true;
+  let activeIndex = 0;
+  let scrollFrame = 0;
+
+  const getActiveIndex = () => {
+    const viewportLeft = viewport.getBoundingClientRect().left;
+    let nearestIndex = 0;
+    let nearestDistance = Number.POSITIVE_INFINITY;
+
+    cards.forEach((card, index) => {
+      const distance = Math.abs(card.getBoundingClientRect().left - viewportLeft);
+      if (distance < nearestDistance) {
+        nearestDistance = distance;
+        nearestIndex = index;
+      }
+    });
+
+    return nearestIndex;
+  };
+
+  const updateState = () => {
+    activeIndex = getActiveIndex();
+    const maxScrollLeft = viewport.scrollWidth - viewport.clientWidth - 2;
+    const atStart = viewport.scrollLeft <= 2;
+    const atEnd = viewport.scrollLeft >= maxScrollLeft;
+
+    prevButton.disabled = atStart;
+    nextButton.disabled = atEnd;
+
+    if (count) {
+      count.textContent = `${String(activeIndex + 1).padStart(2, '0')} / ${String(cards.length).padStart(2, '0')}`;
+    }
+
+    if (rail) {
+      const visibleRatio = Math.min(1, viewport.clientWidth / viewport.scrollWidth);
+      const scrollableWidth = Math.max(1, viewport.scrollWidth - viewport.clientWidth);
+      const progress = viewport.scrollLeft / scrollableWidth;
+      const railTrack = rail.parentElement;
+      const railTrackWidth = railTrack?.clientWidth || 0;
+      const railWidth = Math.max(railTrackWidth * visibleRatio, railTrackWidth * 0.12);
+      const railTravel = Math.max(0, railTrackWidth - railWidth);
+
+      rail.style.width = `${railWidth}px`;
+      rail.style.transform = `translateX(${progress * railTravel}px)`;
+    }
+  };
+
+  const goToCard = (index) => {
+    const targetIndex = Math.max(0, Math.min(cards.length - 1, index));
+    cards[targetIndex].scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'start'
+    });
+
+    if (window.tactileFeedback) window.tactileFeedback('light');
+  };
+
+  prevButton.addEventListener('click', () => {
+    goToCard(getActiveIndex() - 1);
+  });
+
+  nextButton.addEventListener('click', () => {
+    goToCard(getActiveIndex() + 1);
+  });
+
+  viewport.addEventListener('keydown', (event) => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    event.preventDefault();
+    goToCard(getActiveIndex() + (event.key === 'ArrowRight' ? 1 : -1));
+  });
+
+  viewport.addEventListener('scroll', () => {
+    if (scrollFrame) return;
+    scrollFrame = window.requestAnimationFrame(() => {
+      scrollFrame = 0;
+      updateState();
+    });
+  }, { passive: true });
+
+  window.addEventListener('resize', updateState);
+  updateState();
 }
 
 let activeTourTrigger = null;
