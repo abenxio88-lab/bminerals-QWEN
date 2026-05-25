@@ -1507,17 +1507,18 @@
         <div class="about__leadership reveal" data-delay="4">
           <h3 class="about__leadership-title">Led by Industry Veterans</h3>
           <p class="about__leadership-subtitle">
-            Our leadership team brings decades of combined experience in geology, mining operations,
-            international trade, and sustainable development across South Asia and the Middle East.
+            Our leadership team brings together respected, prominent, and visionary figures with decades of combined
+            experience in geology, mining operations, international trade, and sustainable development across South Asia
+            and the Middle East.
           </p>
           <div class="about__leadership-grid">
             <div class="about__leader-card">
               <div class="about__leader-avatar">
-                <img src="images/aboutus/Mir Lashkari Raesani- Founder.PNG" alt="Nawabzada Haji Mir Lashkari Khan Raisani, Founder" loading="lazy">
+                <img src="images/aboutus/Mir Lashkari Raesani- Founder.PNG" alt="Nawabzada Haji Mir Lashkari Raisani, Founder" loading="lazy">
               </div>
               <div class="about__leader-info">
                 <span class="about__leader-honorific">His Highness</span>
-                <h4 class="about__leader-name">Nawabzada Haji Mir Lashkari Khan Raisani</h4>
+                <h4 class="about__leader-name">Nawabzada Haji Mir Lashkari Raisani</h4>
                 <p class="about__leader-role">Founder | Ex Senate Member | Former MPA Balochistan</p>
                 <p class="about__leader-bio">
                   Senior political figure from Balochistan's influential Raisani family, known for his public role on
@@ -1711,147 +1712,229 @@
             standards, delivered worldwide.</p>
         </header>
 
-        <div class="minerals__showcase">
-          <!-- Iron Ore - Hero-style wide card -->
-          <article class="mineral-showcase mineral-showcase--wide reveal" data-delay="1">
-            <div class="mineral-showcase__image">
-              <img src="images/iron-ore-new.webp" alt="Iron ore deposits from Chiniot and Balochistan mining sites"
-                loading="lazy">
-              <div class="mineral-showcase__overlay"></div>
-            </div>
-            <div class="mineral-showcase__content">
-              <div class="mineral-showcase__label">Iron Ore / Fe₂O₃</div>
-              <h3 class="mineral-showcase__title">High-Grade Iron Ore</h3>
-              <p class="mineral-showcase__description">Premium magnetite and hematite from Chiniot and Balochistan
-                deposits. Essential feedstock for steel manufacturing and infrastructure development across South Asia
-                and the Middle East.</p>
-              <div class="mineral-showcase__stats">
-                <div class="showcase-stat">
-                  <span class="showcase-stat__value">62-68%</span>
-                  <span class="showcase-stat__label">Fe Content</span>
-                </div>
-                <div class="showcase-stat">
-                  <span class="showcase-stat__value">50K</span>
-                  <span class="showcase-stat__label">MT/Month</span>
-                </div>
-                <div class="showcase-stat">
-                  <span class="showcase-stat__value">Low SiO₂</span>
-                  <span class="showcase-stat__label">Impurities</span>
-                </div>
-              </div>
-              <a href="products.html#iron-ore" class="mineral-showcase__cta">
-                <span>Download Spec Sheet</span>
-                <svg width="16" height="16" viewBox="0 0 16 16">
-                  <path d="M8 2 V11 M4 8 L8 12 L12 8 M3 14 H13" stroke="currentColor" stroke-width="1.5" fill="none"
-                    stroke-linecap="round" />
-                </svg>
-              </a>
-            </div>
-          </article>
+        <div class="mineral-category-nav reveal" role="tablist" aria-label="Mineral categories">
+          <button class="mineral-category-card is-active" type="button" role="tab" aria-selected="true"
+            aria-controls="home-metallic" data-mineral-category="metallic">
+            <span class="mineral-category-card__index">01</span>
+            <strong>Metallic Minerals</strong>
+            <small>5 core ores</small>
+          </button>
+          <button class="mineral-category-card" type="button" role="tab" aria-selected="false"
+            aria-controls="home-industrial" data-mineral-category="industrial">
+            <span class="mineral-category-card__index">02</span>
+            <strong>Industrial Minerals</strong>
+            <small>7 process minerals</small>
+          </button>
+          <button class="mineral-category-card" type="button" role="tab" aria-selected="false"
+            aria-controls="home-stones" data-mineral-category="stones">
+            <span class="mineral-category-card__index">03</span>
+            <strong>Decorative Stones</strong>
+            <small>4 stone lines</small>
+          </button>
+          <button class="mineral-category-card" type="button" role="tab" aria-selected="false"
+            aria-controls="home-energy" data-mineral-category="energy">
+            <span class="mineral-category-card__index">04</span>
+            <strong>Energy Minerals</strong>
+            <small>4 coal fields</small>
+          </button>
+        </div>
 
-          <!-- Barite & Chromite - Side by side -->
-          <div class="minerals__dual-grid">
-            <!-- Barite - Vertical card -->
-            <article class="mineral-showcase mineral-showcase--tall reveal" data-delay="2">
+        <div class="minerals__showcase">
+          <div class="minerals-category-panel is-active" id="home-metallic" role="tabpanel" data-mineral-panel="metallic">
+            <article class="mineral-showcase mineral-showcase--wide reveal" data-delay="1">
               <div class="mineral-showcase__image">
-                <img src="images/barite-card.jpg" alt="Barite mineral samples from Khuzdar drilling operations"
-                  loading="lazy">
+                <img src="images/copper-new.webp" alt="Copper ore from Chagai exploration blocks in Balochistan" loading="lazy">
                 <div class="mineral-showcase__overlay"></div>
               </div>
               <div class="mineral-showcase__content">
-                <div class="mineral-showcase__label">Barite / BaSO₄</div>
-                <h3 class="mineral-showcase__title">API-Grade Barite</h3>
-                <p class="mineral-showcase__description">High-specific-gravity barite from Khuzdar. Critical for oil &
-                  gas drilling mud, paint manufacturing, and chemical processing.</p>
+                <div class="mineral-showcase__label">Copper / Cu</div>
+                <h3 class="mineral-showcase__title">Copper Lumps</h3>
+                <p class="mineral-showcase__description">SGS-referenced copper ore sample from Chaghi, with copper reported at 0.740% Cu in the submitted material.</p>
                 <div class="mineral-showcase__stats">
-                  <div class="showcase-stat">
-                    <span class="showcase-stat__value">4.20-4.50</span>
-                    <span class="showcase-stat__label">Specific Gravity</span>
-                  </div>
-                  <div class="showcase-stat">
-                    <span class="showcase-stat__value">95%</span>
-                    <span class="showcase-stat__label">BaSO₄ Purity</span>
-                  </div>
+                  <div class="showcase-stat"><span class="showcase-stat__value">0.740%</span><span class="showcase-stat__label">Cu Result</span></div>
+                  <div class="showcase-stat"><span class="showcase-stat__value">AAS</span><span class="showcase-stat__label">Method</span></div>
+                  <div class="showcase-stat"><span class="showcase-stat__value">PKS2333078</span><span class="showcase-stat__label">SGS Ref</span></div>
                 </div>
-                <a href="products.html#barite" class="mineral-showcase__cta">
-                  <span>Download Spec Sheet</span>
-                  <svg width="16" height="16" viewBox="0 0 16 16">
-                    <path d="M8 2 V11 M4 8 L8 12 L12 8 M3 14 H13" stroke="currentColor" stroke-width="1.5" fill="none"
-                      stroke-linecap="round" />
-                  </svg>
-                </a>
+                <a href="product-metallic.html#copper" class="mineral-showcase__cta"><span>View Specifications</span></a>
               </div>
             </article>
 
-            <!-- Chromite - Vertical card -->
-            <article class="mineral-showcase mineral-showcase--tall reveal" data-delay="3">
+            <div class="minerals__dual-grid">
+              <article class="mineral-showcase mineral-showcase--tall reveal" data-delay="2">
+                <div class="mineral-showcase__image">
+                  <img src="images/chromite-new.webp" alt="Chromite ore from Muslim Bagh mining operations in Balochistan" loading="lazy">
+                  <div class="mineral-showcase__overlay"></div>
+                </div>
+                <div class="mineral-showcase__content">
+                  <div class="mineral-showcase__label">Chromite / FeCr2O4</div>
+                  <h3 class="mineral-showcase__title">Chrome Lumps &amp; Concentrate</h3>
+                  <p class="mineral-showcase__description">Chromite supply for ferrochrome, refractory and foundry buyers, with size and Cr:Fe terms confirmed per lot.</p>
+                  <div class="mineral-showcase__stats">
+                    <div class="showcase-stat"><span class="showcase-stat__value">12-52%</span><span class="showcase-stat__label">Cr2O3</span></div>
+                    <div class="showcase-stat"><span class="showcase-stat__value">Muslim Bagh</span><span class="showcase-stat__label">Region</span></div>
+                  </div>
+                  <a href="product-metallic.html#chromite" class="mineral-showcase__cta"><span>View Specifications</span></a>
+                </div>
+              </article>
+
+              <article class="mineral-showcase mineral-showcase--tall reveal" data-delay="3">
+                <div class="mineral-showcase__image">
+                  <img src="images/iron-ore-new.webp" alt="Iron ore deposits from Chiniot and Balochistan mining sites" loading="lazy">
+                  <div class="mineral-showcase__overlay"></div>
+                </div>
+                <div class="mineral-showcase__content">
+                  <div class="mineral-showcase__label">Iron Ore / Fe2O3</div>
+                  <h3 class="mineral-showcase__title">Iron Ore Lumps &amp; Concentrate</h3>
+                  <p class="mineral-showcase__description">Hematite and magnetite feedstock for steel buyers, infrastructure projects and regional trading programs.</p>
+                  <div class="mineral-showcase__stats">
+                    <div class="showcase-stat"><span class="showcase-stat__value">40-58%</span><span class="showcase-stat__label">Fe Lumps</span></div>
+                    <div class="showcase-stat"><span class="showcase-stat__value">Hematite</span><span class="showcase-stat__label">Type</span></div>
+                  </div>
+                  <a href="product-metallic.html#iron-ore" class="mineral-showcase__cta"><span>View Specifications</span></a>
+                </div>
+              </article>
+            </div>
+
+            <div class="minerals__dual-grid">
+              <article class="mineral-showcase mineral-showcase--tall reveal">
+                <div class="mineral-showcase__image">
+                  <img src="images/antimony.avif" alt="Antimony ore sample" loading="lazy">
+                  <div class="mineral-showcase__overlay"></div>
+                </div>
+                <div class="mineral-showcase__content">
+                  <div class="mineral-showcase__label">Antimony / Sb</div>
+                  <h3 class="mineral-showcase__title">Stibnite Ore Supply</h3>
+                  <p class="mineral-showcase__description">SGS final report confirms antimony at 55.86% Sb by acid digestion titrimetric method for the submitted sample.</p>
+                  <div class="mineral-showcase__stats">
+                    <div class="showcase-stat"><span class="showcase-stat__value">55.86%</span><span class="showcase-stat__label">Sb Result</span></div>
+                    <div class="showcase-stat"><span class="showcase-stat__value">Titrimetric</span><span class="showcase-stat__label">Method</span></div>
+                    <div class="showcase-stat"><span class="showcase-stat__value">PKS2557744</span><span class="showcase-stat__label">SGS Ref</span></div>
+                  </div>
+                  <a href="product-metallic.html#antimony" class="mineral-showcase__cta"><span>View Specifications</span></a>
+                </div>
+              </article>
+
+              <article class="mineral-showcase mineral-showcase--tall reveal">
+                <div class="mineral-showcase__image">
+                  <img src="images/lead-zinc.avif" alt="Lead and zinc ore lumps" loading="lazy">
+                  <div class="mineral-showcase__overlay"></div>
+                </div>
+                <div class="mineral-showcase__content">
+                  <div class="mineral-showcase__label">Lead / Zinc</div>
+                  <h3 class="mineral-showcase__title">Base-Metal Ore</h3>
+                  <p class="mineral-showcase__description">Lead and zinc ore lots for base-metal traders, with grade, form and impurity profile confirmed before shipment.</p>
+                  <div class="mineral-showcase__stats">
+                    <div class="showcase-stat"><span class="showcase-stat__value">10-60%</span><span class="showcase-stat__label">Pb/Zn</span></div>
+                    <div class="showcase-stat"><span class="showcase-stat__value">Lumps</span><span class="showcase-stat__label">Form</span></div>
+                  </div>
+                  <a href="product-metallic.html#lead-zinc" class="mineral-showcase__cta"><span>View Specifications</span></a>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="minerals-category-panel" id="home-industrial" role="tabpanel" data-mineral-panel="industrial" hidden>
+            <article class="mineral-showcase mineral-showcase--wide reveal" data-delay="1">
               <div class="mineral-showcase__image">
-                <img src="images/chromite-new.webp" alt="Chromite ore from Muslim Bagh mining operations in Balochistan"
-                  loading="lazy">
+                <img src="images/barite-card.jpg" alt="Barite mineral samples from Khuzdar drilling operations" loading="lazy">
                 <div class="mineral-showcase__overlay"></div>
               </div>
               <div class="mineral-showcase__content">
-                <div class="mineral-showcase__label">Chromite / FeCr₂O₄</div>
-                <h3 class="mineral-showcase__title">Metallurgical Chromite</h3>
-                <p class="mineral-showcase__description">High-chromium chromite from Muslim Bagh. Essential for
-                  stainless steel production, ferrochrome alloys, and refractory applications.</p>
+                <div class="mineral-showcase__label">Barite / BaSO4</div>
+                <h3 class="mineral-showcase__title">Drilling &amp; Industrial Barite</h3>
+                <p class="mineral-showcase__description">Drilling-fluid weighting material and industrial filler supplied in lumps or powder with SG and purity checks.</p>
                 <div class="mineral-showcase__stats">
-                  <div class="showcase-stat">
-                    <span class="showcase-stat__value">46-48%</span>
-                    <span class="showcase-stat__label">Cr₂O₃</span>
-                  </div>
-                  <div class="showcase-stat">
-                    <span class="showcase-stat__value">30K</span>
-                    <span class="showcase-stat__label">MT/Month</span>
-                  </div>
+                  <div class="showcase-stat"><span class="showcase-stat__value">92-98%</span><span class="showcase-stat__label">BaSO4</span></div>
+                  <div class="showcase-stat"><span class="showcase-stat__value">4.20+</span><span class="showcase-stat__label">API SG</span></div>
+                  <div class="showcase-stat"><span class="showcase-stat__value">Khuzdar</span><span class="showcase-stat__label">Region</span></div>
                 </div>
-                <a href="products.html#chromite" class="mineral-showcase__cta">
-                  <span>Download Spec Sheet</span>
-                  <svg width="16" height="16" viewBox="0 0 16 16">
-                    <path d="M8 2 V11 M4 8 L8 12 L12 8 M3 14 H13" stroke="currentColor" stroke-width="1.5" fill="none"
-                      stroke-linecap="round" />
-                  </svg>
-                </a>
+                <a href="product-industrial.html#barite" class="mineral-showcase__cta"><span>View Specifications</span></a>
+              </div>
+            </article>
+
+            <div class="minerals__dual-grid">
+              <article class="mineral-showcase mineral-showcase--tall reveal"><div class="mineral-showcase__image"><img src="images/fluorite.avif" alt="Fluorite mineral sample" loading="lazy"><div class="mineral-showcase__overlay"></div></div><div class="mineral-showcase__content"><div class="mineral-showcase__label">Fluorite / CaF2</div><h3 class="mineral-showcase__title">Metallurgical &amp; Ceramic Fluorspar</h3><p class="mineral-showcase__description">Fluorspar for metallurgy, ceramic and glass buyers, available as lumps or powder by lot.</p><div class="mineral-showcase__stats"><div class="showcase-stat"><span class="showcase-stat__value">50-90%+</span><span class="showcase-stat__label">CaF2</span></div><div class="showcase-stat"><span class="showcase-stat__value">Lumps</span><span class="showcase-stat__label">Form</span></div></div><a href="product-industrial.html#fluorite" class="mineral-showcase__cta"><span>View Specifications</span></a></div></article>
+              <article class="mineral-showcase mineral-showcase--tall reveal"><div class="mineral-showcase__image"><img src="images/gypsum.avif" alt="Gypsum mineral sample" loading="lazy"><div class="mineral-showcase__overlay"></div></div><div class="mineral-showcase__content"><div class="mineral-showcase__label">Gypsum</div><h3 class="mineral-showcase__title">Construction &amp; Cement Grade</h3><p class="mineral-showcase__description">Gypsum for cement, plaster and construction uses, selected by purity, sizing and moisture conditions.</p><div class="mineral-showcase__stats"><div class="showcase-stat"><span class="showcase-stat__value">90-95%</span><span class="showcase-stat__label">Purity</span></div><div class="showcase-stat"><span class="showcase-stat__value">Cement</span><span class="showcase-stat__label">Use</span></div></div><a href="product-industrial.html#gypsum" class="mineral-showcase__cta"><span>View Specifications</span></a></div></article>
+            </div>
+            <div class="minerals__dual-grid">
+              <article class="mineral-showcase mineral-showcase--tall reveal"><div class="mineral-showcase__image"><img src="images/magnesite.avif" alt="Magnesite mineral sample" loading="lazy"><div class="mineral-showcase__overlay"></div></div><div class="mineral-showcase__content"><div class="mineral-showcase__label">Magnesite / MgO</div><h3 class="mineral-showcase__title">Raw &amp; Calcined Magnesite</h3><p class="mineral-showcase__description">Magnesite material for refractory and industrial use, supplied raw or calcined against lot-specific chemistry.</p><div class="mineral-showcase__stats"><div class="showcase-stat"><span class="showcase-stat__value">42-47%</span><span class="showcase-stat__label">Raw MgO</span></div><div class="showcase-stat"><span class="showcase-stat__value">85-90%</span><span class="showcase-stat__label">Calcined</span></div></div><a href="product-industrial.html#magnesite" class="mineral-showcase__cta"><span>View Specifications</span></a></div></article>
+              <article class="mineral-showcase mineral-showcase--tall reveal"><div class="mineral-showcase__image"><img src="images/sulphur-ore.avif" alt="Sulphur ore sample" loading="lazy"><div class="mineral-showcase__overlay"></div></div><div class="mineral-showcase__content"><div class="mineral-showcase__label">Sulphur</div><h3 class="mineral-showcase__title">Sulphur Ore &amp; Industrial Feed</h3><p class="mineral-showcase__description">Sulphur-bearing material for chemical, fertilizer and industrial feed applications, confirmed by COA.</p><div class="mineral-showcase__stats"><div class="showcase-stat"><span class="showcase-stat__value">COA</span><span class="showcase-stat__label">Grade</span></div><div class="showcase-stat"><span class="showcase-stat__value">Chemical</span><span class="showcase-stat__label">Use</span></div></div><a href="product-industrial.html#sulphur" class="mineral-showcase__cta"><span>View Specifications</span></a></div></article>
+            </div>
+            <div class="minerals__dual-grid">
+              <article class="mineral-showcase mineral-showcase--tall reveal"><div class="mineral-showcase__image"><img src="images/bauxite.avif" alt="Bauxite ore sample" loading="lazy"><div class="mineral-showcase__overlay"></div></div><div class="mineral-showcase__content"><div class="mineral-showcase__label">Bauxite / Al2O3</div><h3 class="mineral-showcase__title">Alumina-Bearing Ore</h3><p class="mineral-showcase__description">Bauxite material for alumina and refractory buyers, selected by alumina content and impurity profile.</p><div class="mineral-showcase__stats"><div class="showcase-stat"><span class="showcase-stat__value">45-62%</span><span class="showcase-stat__label">Al2O3</span></div><div class="showcase-stat"><span class="showcase-stat__value">Refractory</span><span class="showcase-stat__label">Use</span></div></div><a href="product-industrial.html#bauxite" class="mineral-showcase__cta"><span>View Specifications</span></a></div></article>
+              <article class="mineral-showcase mineral-showcase--tall reveal"><div class="mineral-showcase__image"><img src="images/celestite.avif" alt="Celestite mineral sample" loading="lazy"><div class="mineral-showcase__overlay"></div></div><div class="mineral-showcase__content"><div class="mineral-showcase__label">Celestite / SrSO4</div><h3 class="mineral-showcase__title">Strontium Ore</h3><p class="mineral-showcase__description">Celestite supply for strontium compounds and industrial processing, verified by lot chemistry.</p><div class="mineral-showcase__stats"><div class="showcase-stat"><span class="showcase-stat__value">80-95%</span><span class="showcase-stat__label">SrSO4</span></div><div class="showcase-stat"><span class="showcase-stat__value">Compounds</span><span class="showcase-stat__label">Use</span></div></div><a href="product-industrial.html#celestite" class="mineral-showcase__cta"><span>View Specifications</span></a></div></article>
+            </div>
+          </div>
+
+          <div class="minerals-category-panel" id="home-stones" role="tabpanel" data-mineral-panel="stones" hidden>
+            <article class="mineral-showcase mineral-showcase--wide reveal" data-delay="1">
+              <div class="mineral-showcase__image"><img src="images/marble.avif" alt="Marble quarry stone surface" loading="lazy"><div class="mineral-showcase__overlay"></div></div>
+              <div class="mineral-showcase__content">
+                <div class="mineral-showcase__label">Marble</div>
+                <h3 class="mineral-showcase__title">Commercial &amp; Premium Marble</h3>
+                <p class="mineral-showcase__description">Blocks, slabs, tiles and cut-to-size orders selected by color, veining, polish and thickness.</p>
+                <div class="mineral-showcase__stats">
+                  <div class="showcase-stat"><span class="showcase-stat__value">Blocks</span><span class="showcase-stat__label">Forms</span></div>
+                  <div class="showcase-stat"><span class="showcase-stat__value">Polished</span><span class="showcase-stat__label">Finish</span></div>
+                  <div class="showcase-stat"><span class="showcase-stat__value">Custom</span><span class="showcase-stat__label">Cut Size</span></div>
+                </div>
+                <a href="product-stones.html#marble" class="mineral-showcase__cta"><span>View Specifications</span></a>
+              </div>
+            </article>
+            <div class="minerals__dual-grid">
+              <article class="mineral-showcase mineral-showcase--tall reveal"><div class="mineral-showcase__image"><img src="images/marble.avif" alt="White marble slab surface" loading="lazy"><div class="mineral-showcase__overlay"></div></div><div class="mineral-showcase__content"><div class="mineral-showcase__label">White Marble</div><h3 class="mineral-showcase__title">Bright White Marble Selection</h3><p class="mineral-showcase__description">Cleaner white to off-white selections for hospitality, residential and premium interior applications.</p><div class="mineral-showcase__stats"><div class="showcase-stat"><span class="showcase-stat__value">White</span><span class="showcase-stat__label">Selection</span></div><div class="showcase-stat"><span class="showcase-stat__value">Slabs</span><span class="showcase-stat__label">Forms</span></div></div><a href="product-stones.html#white-marble" class="mineral-showcase__cta"><span>View Specifications</span></a></div></article>
+              <article class="mineral-showcase mineral-showcase--tall reveal"><div class="mineral-showcase__image"><img src="images/onyx.avif" alt="Onyx stone surface" loading="lazy"><div class="mineral-showcase__overlay"></div></div><div class="mineral-showcase__content"><div class="mineral-showcase__label">Onyx</div><h3 class="mineral-showcase__title">Decorative Translucent Stone</h3><p class="mineral-showcase__description">Onyx slabs and decorative pieces for backlit walls, feature panels, tabletops and luxury interiors.</p><div class="mineral-showcase__stats"><div class="showcase-stat"><span class="showcase-stat__value">Backlit</span><span class="showcase-stat__label">Use</span></div><div class="showcase-stat"><span class="showcase-stat__value">Slabs</span><span class="showcase-stat__label">Forms</span></div></div><a href="product-stones.html#onyx" class="mineral-showcase__cta"><span>View Specifications</span></a></div></article>
+            </div>
+            <article class="mineral-showcase mineral-showcase--wide mineral-showcase--reversed reveal">
+              <div class="mineral-showcase__image"><img src="images/granite.avif" alt="Granite stone close-up" loading="lazy"><div class="mineral-showcase__overlay"></div></div>
+              <div class="mineral-showcase__content">
+                <div class="mineral-showcase__label">Granite</div>
+                <h3 class="mineral-showcase__title">Hard-Wearing Granite Blocks</h3>
+                <p class="mineral-showcase__description">Granite blocks and slabs for counters, exterior cladding, paving, monuments and high-traffic surfaces.</p>
+                <div class="mineral-showcase__stats">
+                  <div class="showcase-stat"><span class="showcase-stat__value">Blocks</span><span class="showcase-stat__label">Forms</span></div>
+                  <div class="showcase-stat"><span class="showcase-stat__value">Exterior</span><span class="showcase-stat__label">Use</span></div>
+                  <div class="showcase-stat"><span class="showcase-stat__value">Durable</span><span class="showcase-stat__label">Surface</span></div>
+                </div>
+                <a href="product-stones.html#granite" class="mineral-showcase__cta"><span>View Specifications</span></a>
               </div>
             </article>
           </div>
 
-          <!-- Copper - Hero-style wide card (reversed) -->
-          <article class="mineral-showcase mineral-showcase--wide mineral-showcase--reversed reveal" data-delay="4">
-            <div class="mineral-showcase__image">
-              <img src="images/copper-new.webp" alt="Copper ore from Chagai exploration blocks in Balochistan"
-                loading="lazy">
-              <div class="mineral-showcase__overlay"></div>
-            </div>
-            <div class="mineral-showcase__content">
-              <div class="mineral-showcase__label">Copper / Cu</div>
-              <h3 class="mineral-showcase__title">Copper Concentrate</h3>
-              <p class="mineral-showcase__description">Emerging copper-gold deposits from the Chagai mineral belt. One
-                of Pakistan's most promising undeveloped resources, with significant exploration upside and world-class
-                porphyry-style mineralization.</p>
-              <div class="mineral-showcase__stats">
-                <div class="showcase-stat">
-                  <span class="showcase-stat__value">1.5-3.0%</span>
-                  <span class="showcase-stat__label">Cu Grade</span>
+          <div class="minerals-category-panel" id="home-energy" role="tabpanel" data-mineral-panel="energy" hidden>
+            <article class="mineral-showcase mineral-showcase--wide reveal" data-delay="1">
+              <div class="mineral-showcase__image"><img src="images/coal.avif" alt="Coal sample from Balochistan" loading="lazy"><div class="mineral-showcase__overlay"></div></div>
+              <div class="mineral-showcase__content">
+                <div class="mineral-showcase__label">Quetta Coalfield</div>
+                <h3 class="mineral-showcase__title">Sorange-Degari</h3>
+                <p class="mineral-showcase__description">Coal field supply for fuel blending, industrial boilers and local energy demand, accepted by lab report.</p>
+                <div class="mineral-showcase__stats">
+                  <div class="showcase-stat"><span class="showcase-stat__value">GCV</span><span class="showcase-stat__label">Buyer Check</span></div>
+                  <div class="showcase-stat"><span class="showcase-stat__value">Quetta</span><span class="showcase-stat__label">Field</span></div>
+                  <div class="showcase-stat"><span class="showcase-stat__value">Lot Based</span><span class="showcase-stat__label">Supply</span></div>
                 </div>
-                <div class="showcase-stat">
-                  <span class="showcase-stat__value">0.5-1.5</span>
-                  <span class="showcase-stat__label">g/t Au</span>
-                </div>
-                <div class="showcase-stat">
-                  <span class="showcase-stat__value">Exploration</span>
-                  <span class="showcase-stat__label">Stage</span>
-                </div>
+                <a href="product-energy.html#sorange-degari" class="mineral-showcase__cta"><span>View Specifications</span></a>
               </div>
-              <a href="products.html#copper" class="mineral-showcase__cta">
-                <span>View Exploration Data</span>
-                <svg width="16" height="16" viewBox="0 0 16 16">
-                  <path d="M3 8 H13 M9 4 L13 8 L9 12" stroke="currentColor" stroke-width="1.5" fill="none"
-                    stroke-linecap="round" />
-                </svg>
-              </a>
+            </article>
+            <div class="minerals__dual-grid">
+              <article class="mineral-showcase mineral-showcase--tall reveal"><div class="mineral-showcase__image"><img src="images/coal.avif" alt="Coal sample from Harnai coal belt" loading="lazy"><div class="mineral-showcase__overlay"></div></div><div class="mineral-showcase__content"><div class="mineral-showcase__label">Harnai Coal Belt</div><h3 class="mineral-showcase__title">Khost-Shahrig-Harnai</h3><p class="mineral-showcase__description">Harnai coal belt material organized around field-led sourcing, lot inspection and transport planning.</p><div class="mineral-showcase__stats"><div class="showcase-stat"><span class="showcase-stat__value">Ash</span><span class="showcase-stat__label">Buyer Check</span></div><div class="showcase-stat"><span class="showcase-stat__value">Harnai</span><span class="showcase-stat__label">Belt</span></div></div><a href="product-energy.html#khost-shahrig-harnai" class="mineral-showcase__cta"><span>View Specifications</span></a></div></article>
+              <article class="mineral-showcase mineral-showcase--tall reveal"><div class="mineral-showcase__image"><img src="images/coal.avif" alt="Duki coal sample" loading="lazy"><div class="mineral-showcase__overlay"></div></div><div class="mineral-showcase__content"><div class="mineral-showcase__label">Duki</div><h3 class="mineral-showcase__title">High-Volume Coal Supply</h3><p class="mineral-showcase__description">Repeated lot availability from Duki, with grade bands locked through testing and shipment documentation.</p><div class="mineral-showcase__stats"><div class="showcase-stat"><span class="showcase-stat__value">Bulk</span><span class="showcase-stat__label">Supply</span></div><div class="showcase-stat"><span class="showcase-stat__value">Duki</span><span class="showcase-stat__label">Field</span></div></div><a href="product-energy.html#duki" class="mineral-showcase__cta"><span>View Specifications</span></a></div></article>
             </div>
-          </article>
+            <article class="mineral-showcase mineral-showcase--wide mineral-showcase--reversed reveal">
+              <div class="mineral-showcase__image"><img src="images/coal.avif" alt="Mach-Anjira coal sample" loading="lazy"><div class="mineral-showcase__overlay"></div></div>
+              <div class="mineral-showcase__content">
+                <div class="mineral-showcase__label">Mach Corridor</div>
+                <h3 class="mineral-showcase__title">Mach-Anjira</h3>
+                <p class="mineral-showcase__description">Corridor-based coal sourcing where transport planning, consistency and lab reporting guide acceptance.</p>
+                <div class="mineral-showcase__stats">
+                  <div class="showcase-stat"><span class="showcase-stat__value">Moisture</span><span class="showcase-stat__label">Buyer Check</span></div>
+                  <div class="showcase-stat"><span class="showcase-stat__value">Mach</span><span class="showcase-stat__label">Corridor</span></div>
+                  <div class="showcase-stat"><span class="showcase-stat__value">Route</span><span class="showcase-stat__label">Planned</span></div>
+                </div>
+                <a href="product-energy.html#mach-anjira" class="mineral-showcase__cta"><span>View Specifications</span></a>
+              </div>
+            </article>
+          </div>
         </div>
       </div>
     </section>
@@ -4259,6 +4342,7 @@
   <script type="module" src="js/animations-premium.js" defer></script>
   <script type="module" src="js/earth-tech-core.js" defer></script>
   <script type="module" src="js/tactile-feedback.js" defer></script>
+  <script type="module" src="js/minerals-tabs.js" defer></script>
   <script type="module" src="js/main.js" defer></script>
   <script type="module">
     import { initIntelligenceHub } from './js/intelligence-hub.js';
