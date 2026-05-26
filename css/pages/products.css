@@ -2474,7 +2474,7 @@
 }
 
 #marble { --stone-image: url('../../images/marble.avif'); }
-#white-marble { --stone-image: url('https://commons.wikimedia.org/wiki/Special:FilePath/Vietnamese%20white%20marble.JPG'); }
+#white-marble { --stone-image: url('../../images/white-marble.avif'); }
 #onyx { --stone-image: url('../../images/onyx.avif'); }
 #granite { --stone-image: url('../../images/granite.avif'); }
 
@@ -2526,14 +2526,37 @@
   content: "";
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
+}
+
+.coal-list__item > :not(.coal-list__media) {
+  position: relative;
+  z-index: 1;
 }
 
 .coal-list__item::before {
+  display: none;
   bottom: auto;
   height: 58%;
-  background: url('../../images/coal.avif') center / cover;
+  background: var(--coal-image, url('../../images/coal.avif')) center / cover;
   opacity: 1;
+  transform: scale(1.02);
+  transition: transform 0.45s var(--ease-smooth);
+}
+
+.coal-list__media {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 0;
+  display: block;
+  height: 58%;
+  overflow: hidden;
+}
+
+.coal-list__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   transform: scale(1.02);
   transition: transform 0.45s var(--ease-smooth);
 }
@@ -2551,6 +2574,10 @@
 }
 
 .coal-list__item:hover::before {
+  transform: scale(1.08);
+}
+
+.coal-list__item:hover .coal-list__media img {
   transform: scale(1.08);
 }
 
@@ -2736,6 +2763,12 @@
   overflow: hidden;
 }
 
+.detail-hero__media picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .detail-hero__media img {
   width: 100%;
   height: 100%;
@@ -2873,12 +2906,118 @@
   border: 1px solid rgba(15, 23, 42, 0.1);
 }
 
-.detail-record > img {
+.detail-record > img,
+.detail-record > picture {
   order: -1;
   width: 100%;
   height: 100%;
   min-height: 285px;
   object-fit: cover;
+}
+
+.detail-record > picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.stone-gallery {
+  position: relative;
+  order: -1;
+  min-height: 285px;
+  overflow: hidden;
+  background: var(--charcoal-900);
+}
+
+.stone-gallery__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.035);
+  transition: opacity 0.35s var(--ease-smooth), transform 0.45s var(--ease-smooth);
+}
+
+.stone-gallery__slide.is-active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 1;
+}
+
+.stone-gallery__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.stone-gallery__button {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: inline-flex;
+  width: 2.65rem;
+  height: 2.65rem;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background: rgba(10, 22, 40, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  transform: translateY(-50%);
+  transition: background 0.2s var(--ease-smooth), border-color 0.2s var(--ease-smooth), transform 0.2s var(--ease-smooth);
+}
+
+.stone-gallery__button::before {
+  content: "";
+  width: 0.68rem;
+  height: 0.68rem;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+}
+
+.stone-gallery__button--prev {
+  left: 1rem;
+}
+
+.stone-gallery__button--prev::before {
+  transform: rotate(-135deg);
+}
+
+.stone-gallery__button--next {
+  right: 1rem;
+}
+
+.stone-gallery__button--next::before {
+  transform: rotate(45deg);
+}
+
+.stone-gallery__button:hover,
+.stone-gallery__button:focus-visible {
+  background: rgba(230, 92, 26, 0.9);
+  border-color: rgba(255, 255, 255, 0.56);
+  transform: translateY(-50%) scale(1.04);
+}
+
+.stone-gallery__dots {
+  position: absolute;
+  left: 50%;
+  bottom: 1rem;
+  z-index: 2;
+  display: flex;
+  gap: 0.4rem;
+  transform: translateX(-50%);
+}
+
+.stone-gallery__dots span {
+  display: block;
+  width: 0.55rem;
+  height: 0.55rem;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(10, 22, 40, 0.24);
+}
+
+.stone-gallery__dots span.is-active {
+  width: 1.45rem;
+  background: var(--primary-gold-500);
+  border-color: rgba(255, 255, 255, 0.55);
 }
 
 .detail-record__copy {
@@ -3051,7 +3190,9 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .detail-record > img {
+  .detail-record > img,
+  .detail-record > picture,
+  .stone-gallery {
     min-height: 260px;
   }
 }
@@ -3086,7 +3227,14 @@
     grid-template-columns: 1fr;
   }
 
-  .detail-record > img {
+  .detail-record > img,
+  .detail-record > picture,
+  .stone-gallery {
     min-height: 220px;
+  }
+
+  .stone-gallery__button {
+    width: 2.35rem;
+    height: 2.35rem;
   }
 }
