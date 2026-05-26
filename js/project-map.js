@@ -43,11 +43,11 @@ export function initProjectMap() {
       radius: 36000
     },
     {
-      name: "Khuzdar",
-      coords: [27.8, 66.6],
-      commodity: "Barite",
-      type: "Barite Operations",
-      status: "Active Processing",
+      name: "Dilband",
+      coords: [29.0, 66.4],
+      commodity: "Iron Ore",
+      type: "Iron Ore Project",
+      status: "Bulk Supply",
       tone: "barite",
       radius: 42000
     },
@@ -59,6 +59,24 @@ export function initProjectMap() {
       status: "Exploration",
       tone: "copper",
       radius: 52000
+    },
+    {
+      name: "Washuk-Zhob",
+      coords: [30.2, 65.2],
+      commodity: "Antimony",
+      type: "Specialty Metal Project",
+      status: "Lot-Based Supply",
+      tone: "chromite",
+      radius: 38000
+    },
+    {
+      name: "Lead-Zinc Corridor",
+      coords: [28.6, 63.7],
+      commodity: "Lead-Zinc",
+      type: "Base-Metal Project",
+      status: "Assay-Led Supply",
+      tone: "copper",
+      radius: 44000
     }
   ];
 
