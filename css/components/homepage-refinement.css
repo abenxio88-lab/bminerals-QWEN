@@ -1202,7 +1202,7 @@ body.homepage .projects__cards-grid {
   display: flex;
   gap: clamp(0.9rem, 1.4vw, 1.2rem);
   margin-top: clamp(1.1rem, 2vw, 1.6rem);
-  padding: 0.15rem 0 1rem;
+  padding: 0.15rem 0 1.15rem;
   overflow-x: auto;
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
@@ -1213,15 +1213,17 @@ body.homepage .projects__cards-grid {
 }
 
 body.homepage .projects__cards-grid::-webkit-scrollbar {
-  height: 8px;
+  height: 10px;
 }
 
 body.homepage .projects__cards-grid::-webkit-scrollbar-track {
   background: rgba(15, 31, 58, 0.08);
+  border: 1px solid rgba(15, 31, 58, 0.08);
 }
 
 body.homepage .projects__cards-grid::-webkit-scrollbar-thumb {
   background: rgba(230, 92, 26, 0.7);
+  border: 2px solid rgba(255, 255, 255, 0.85);
 }
 
 body.homepage .project-card {
@@ -1255,6 +1257,191 @@ body.homepage .project-card__detail-label {
 
 body.homepage .project-card__footer {
   margin-top: auto;
+}
+
+body.homepage .our-mines__operations {
+  position: relative;
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  margin-bottom: 0;
+  padding: clamp(1.35rem, 2.8vw, 2.1rem) var(--home-section-x, var(--section-padding-x));
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(10, 22, 40, 0.98), rgba(18, 34, 55, 0.96)),
+    var(--navy-950);
+  border: 1px solid rgba(159, 178, 195, 0.16);
+  box-shadow: 0 34px 90px rgba(10, 22, 40, 0.18);
+}
+
+body.homepage .our-mines__operations::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(230, 92, 26, 0.16), transparent 30%),
+    radial-gradient(circle at 78% 88%, rgba(197, 217, 232, 0.08), transparent 32%);
+  opacity: 0.78;
+}
+
+body.homepage .our-mines__operations-title {
+  position: relative;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  margin-bottom: clamp(1.4rem, 2.4vw, 2rem);
+  color: #f5f0e8;
+  text-align: center;
+}
+
+body.homepage .our-mines__timeline {
+  position: relative;
+  z-index: 1;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: row;
+  counter-reset: mine-slide;
+  gap: 0.85rem;
+  padding: 0.25rem 0 0.95rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-color: rgba(230, 92, 26, 0.68) rgba(255, 255, 255, 0.09);
+  scrollbar-width: thin;
+  overscroll-behavior-inline: contain;
+}
+
+body.homepage .our-mines__timeline::-webkit-scrollbar {
+  height: 8px;
+}
+
+body.homepage .our-mines__timeline::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+body.homepage .our-mines__timeline::-webkit-scrollbar-thumb {
+  background: rgba(230, 92, 26, 0.7);
+}
+
+body.homepage .our-mines__timeline-item {
+  flex: 0 0 clamp(330px, 32vw, 420px);
+  display: block;
+  counter-increment: mine-slide;
+  padding-bottom: 0;
+  scroll-snap-align: start;
+}
+
+body.homepage .our-mines__timeline-marker {
+  display: none;
+}
+
+body.homepage .our-mines__timeline-line {
+  display: none;
+}
+
+body.homepage .our-mines__timeline-content {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  min-height: 330px;
+  flex-direction: column;
+  padding: clamp(1.2rem, 1.8vw, 1.55rem);
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.095), rgba(255, 255, 255, 0.035)),
+    rgba(8, 18, 31, 0.88);
+  border: 1px solid rgba(197, 217, 232, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 24px 54px rgba(3, 8, 15, 0.28);
+}
+
+body.homepage .our-mines__timeline-content::before {
+  content: counter(mine-slide, decimal-leading-zero);
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 1.55rem;
+  color: rgba(245, 240, 232, 0.62);
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1;
+  background: rgba(255, 255, 255, 0.065);
+  border: 1px solid rgba(197, 217, 232, 0.14);
+}
+
+body.homepage .our-mines__timeline-content::after {
+  content: "";
+  position: absolute;
+  inset: auto 1.2rem 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-gold-500), transparent);
+}
+
+body.homepage .our-mines__timeline-item:hover .our-mines__timeline-content {
+  border-color: rgba(245, 136, 71, 0.4);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 30px 70px rgba(3, 8, 15, 0.35);
+}
+
+body.homepage .our-mines__site-location {
+  margin-bottom: 1rem;
+  color: rgba(245, 240, 232, 0.66);
+}
+
+body.homepage .our-mines__site-location svg {
+  color: var(--primary-gold-300);
+}
+
+body.homepage .our-mines__site-badge {
+  width: fit-content;
+  background: rgba(230, 92, 26, 0.14);
+  border-color: rgba(230, 92, 26, 0.38);
+  color: var(--primary-gold-200);
+}
+
+body.homepage .our-mines__site-name {
+  max-width: 17rem;
+  color: #fff;
+  font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+  line-height: 1.05;
+}
+
+body.homepage .our-mines__site-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+body.homepage .our-mines__metric-value {
+  color: var(--primary-gold-200);
+  font-size: 1rem;
+}
+
+body.homepage .our-mines__metric-label {
+  color: rgba(245, 240, 232, 0.58);
+  font-size: 0.62rem;
+  line-height: 1.35;
+}
+
+@media (max-width: 768px) {
+  body.homepage .our-mines__timeline-item {
+    flex-basis: min(86vw, 360px);
+  }
+
+  body.homepage .our-mines__site-metrics {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Media hub cleanup: keep presentation in CSS, not inline attributes. */
@@ -1994,7 +2181,21 @@ body.homepage .projects-footprint__site p {
 }
 
 body.homepage .projects-footprint__pulse {
-  display: none;
+  display: block;
+  fill: none;
+  stroke: rgba(230, 92, 26, 0.34);
+  stroke-width: 2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: footprintSvgPulse 2.8s ease-out infinite;
+}
+
+body.homepage .projects-footprint__pin--barite .projects-footprint__pulse {
+  stroke: rgba(112, 148, 174, 0.34);
+}
+
+body.homepage .projects-footprint__pin--copper .projects-footprint__pulse {
+  stroke: rgba(230, 92, 26, 0.38);
 }
 
 body.homepage .projects-footprint__halo {
@@ -2084,10 +2285,97 @@ body.homepage .projects-footprint__site p {
 }
 
 @media (max-width: 900px) {
+  body.homepage .projects-footprint__map,
+  body.homepage .projects-footprint__svg {
+    min-height: 380px;
+  }
+
   body.homepage .projects-footprint__panel {
-    height: auto;
-    max-height: none;
-    overflow: visible;
-    padding-right: 0;
+    height: 320px;
+    min-height: 320px;
+    max-height: 320px;
+    overflow-y: auto;
+    padding-right: 0.35rem;
+  }
+}
+
+@media (max-width: 768px) {
+  body.homepage .projects__cards-grid {
+    width: 100%;
+    gap: 0.85rem;
+    padding-bottom: 1.35rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: auto;
+    background:
+      linear-gradient(90deg, transparent, rgba(230, 92, 26, 0.22), transparent) left bottom / 100% 3px no-repeat;
+  }
+
+  body.homepage .projects__cards-grid::-webkit-scrollbar {
+    display: block;
+    height: 12px;
+  }
+
+  body.homepage .projects__cards-grid::-webkit-scrollbar-track {
+    background: rgba(15, 31, 58, 0.14);
+  }
+
+  body.homepage .projects__cards-grid::-webkit-scrollbar-thumb {
+    background: var(--primary-gold-500);
+    border: 3px solid #fff;
+  }
+
+  body.homepage .project-card {
+    flex-basis: min(86vw, 340px);
+  }
+
+  body.homepage .projects-footprint__panel {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: auto;
+  }
+
+  body.homepage .projects-footprint__panel::-webkit-scrollbar {
+    display: block;
+    width: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  body.homepage .projects__map-container.projects-footprint {
+    padding: 0.8rem;
+  }
+
+  body.homepage .projects-footprint__map,
+  body.homepage .projects-footprint__svg {
+    min-height: 340px !important;
+    height: 340px !important;
+  }
+
+  body.homepage .projects-footprint__panel {
+    height: 260px !important;
+    min-height: 260px !important;
+    max-height: 260px !important;
+    overflow-y: auto !important;
+  }
+
+  body.homepage .projects-footprint__pulse {
+    display: block !important;
+    animation: footprintSvgPulse 2.35s ease-out infinite !important;
+  }
+}
+
+@media (max-width: 768px) {
+  body.homepage .operations__header .section-title,
+  body.homepage .projects__header .section-title {
+    max-width: min(100%, 27rem) !important;
+    font-size: clamp(1.08rem, 5.4vw, 1.36rem) !important;
+    line-height: 1.28 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0 !important;
+    text-wrap: balance;
+  }
+
+  body.homepage .operations__header,
+  body.homepage .projects__header {
+    gap: 0.65rem;
   }
 }

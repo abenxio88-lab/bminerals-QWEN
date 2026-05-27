@@ -553,6 +553,25 @@ body.homepage .stats-section .metric-strip__item.glass-bento:focus-within {
 @media (max-width: 768px) {
   .mineral-category-nav {
     grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .mineral-category-card {
+    width: min(100%, 22rem);
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    row-gap: 0.42rem;
+  }
+
+  .mineral-category-card__index {
+    grid-row: auto;
+    width: auto;
+    height: auto;
+    padding-right: 0;
+    padding-bottom: 0.4rem;
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
   }
 
   #minerals .mineral-showcase--tall {
