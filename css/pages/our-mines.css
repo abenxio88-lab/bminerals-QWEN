@@ -233,6 +233,10 @@
   background: var(--charcoal-500);
 }
 
+.mine-profile__status-badge--sourcing {
+  background: #6c7a3a;
+}
+
 .mine-profile__info {
   padding: 2.5rem;
   display: flex;
