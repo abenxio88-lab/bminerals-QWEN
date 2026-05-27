@@ -1199,10 +1199,37 @@ body.homepage .projects__map-svg rect {
 }
 
 body.homepage .projects__cards-grid {
-  gap: clamp(1.2rem, 2vw, 1.6rem);
+  display: flex;
+  gap: clamp(0.9rem, 1.4vw, 1.2rem);
+  margin-top: clamp(1.1rem, 2vw, 1.6rem);
+  padding: 0.15rem 0 1rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 0.25rem;
+  scrollbar-color: rgba(230, 92, 26, 0.65) rgba(15, 31, 58, 0.08);
+  scrollbar-width: thin;
+  overscroll-behavior-inline: contain;
+}
+
+body.homepage .projects__cards-grid::-webkit-scrollbar {
+  height: 8px;
+}
+
+body.homepage .projects__cards-grid::-webkit-scrollbar-track {
+  background: rgba(15, 31, 58, 0.08);
+}
+
+body.homepage .projects__cards-grid::-webkit-scrollbar-thumb {
+  background: rgba(230, 92, 26, 0.7);
 }
 
 body.homepage .project-card {
+  flex: 0 0 clamp(300px, 30vw, 368px);
+  min-height: 330px;
+  display: flex;
+  flex-direction: column;
+  scroll-snap-align: start;
   border: 1px solid rgba(15, 31, 58, 0.12);
   background:
     linear-gradient(180deg, #FFFFFF, #F9FBFC);
@@ -1224,6 +1251,10 @@ body.homepage .project-card__title {
 
 body.homepage .project-card__detail-label {
   letter-spacing: 0.1em;
+}
+
+body.homepage .project-card__footer {
+  margin-top: auto;
 }
 
 /* Media hub cleanup: keep presentation in CSS, not inline attributes. */
@@ -1992,10 +2023,71 @@ body.homepage .projects-footprint__meta span {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 18px 42px rgba(5, 10, 16, 0.18);
 }
 
+body.homepage .projects-footprint__panel {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  gap: 0.6rem;
+  height: clamp(520px, 43.8vw, 624px);
+  max-height: clamp(520px, 43.8vw, 624px);
+  min-height: 520px;
+  overflow-y: auto;
+  padding-right: 0.35rem;
+  overscroll-behavior: contain;
+  scrollbar-color: rgba(230, 92, 26, 0.64) rgba(255, 255, 255, 0.08);
+  scrollbar-width: thin;
+}
+
+body.homepage .projects-footprint__panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+body.homepage .projects-footprint__panel::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+body.homepage .projects-footprint__panel::-webkit-scrollbar-thumb {
+  background: rgba(230, 92, 26, 0.7);
+}
+
+body.homepage .projects-footprint__panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 136, 71, 0.9);
+}
+
+body.homepage .projects-footprint__site {
+  flex: 0 0 auto;
+  padding: 0.86rem;
+  min-height: 0;
+}
+
+body.homepage .projects-footprint__site span {
+  width: 1.85rem;
+  height: 1.85rem;
+  margin-bottom: 0.72rem;
+  font-size: 0.76rem;
+}
+
 body.homepage .projects-footprint__kicker {
   color: #e65c1a;
 }
 
 body.homepage .projects-footprint__site strong {
+  margin-bottom: 0.32rem;
+  font-size: 0.98rem;
   color: #f5f0e8;
+}
+
+body.homepage .projects-footprint__site p {
+  color: rgba(245, 240, 232, 0.82);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  body.homepage .projects-footprint__panel {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+    padding-right: 0;
+  }
 }

@@ -2230,20 +2230,20 @@
       <div class="projects__container">
         <header class="projects__header reveal">
           <span class="section-label">Projects & Operations</span>
-          <h2 class="section-title">Balochistan Mining Footprint: Muslim Bagh, Khuzdar and Chagai</h2>
-          <p class="projects__subtitle">A clear view of active production, processing, and exploration sites across
-            the province's key mineral corridors.</p>
+          <h2 class="section-title">Balochistan Mineral Portfolio: metallic, industrial, stone and energy assets</h2>
+          <p class="projects__subtitle">A clear view of active production, processing, exploration and sourcing sites
+            across the province's key mineral corridors.</p>
         </header>
 
         <div class="projects__map-container projects-footprint reveal">
           <div class="projects-footprint__header">
             <div>
               <span class="projects-footprint__kicker">Balochistan Mining Footprint</span>
-              <h3 class="projects-footprint__title">Muslim Bagh, Khuzdar and Chagai</h3>
+              <h3 class="projects-footprint__title">Key corridors across Balochistan</h3>
             </div>
             <div class="projects-footprint__meta">
-              <span>3 districts</span>
-              <span>800+ km corridor</span>
+              <span>8 corridors</span>
+              <span>Metallic to energy</span>
               <span>Mine to port view</span>
             </div>
           </div>
@@ -2253,7 +2253,7 @@
               <svg class="projects-footprint__svg" viewBox="0 0 1200 680" role="img"
                 aria-labelledby="footprint-map-title footprint-map-desc">
                 <title id="footprint-map-title">Balochistan mining footprint map</title>
-                <desc id="footprint-map-desc">Stylized map connecting Chagai, Muslim Bagh and Khuzdar to Karachi and Gwadar export corridors.</desc>
+                <desc id="footprint-map-desc">Stylized map connecting Balochistan metallic, industrial, dimension stone and coal corridors to Karachi and Gwadar export corridors.</desc>
                 <defs>
                   <filter id="mapShadow" x="-20%" y="-20%" width="140%" height="140%">
                     <feDropShadow dx="0" dy="24" stdDeviation="18" flood-color="#0a1628" flood-opacity="0.18" />
@@ -2281,6 +2281,10 @@
                   d="M566 196C625 280 689 334 736 382C782 429 854 499 1047 554" />
                 <path class="projects-footprint__route projects-footprint__route--secondary"
                   d="M736 382C695 473 793 542 959 598" />
+                <path class="projects-footprint__route projects-footprint__route--secondary"
+                  d="M438 264C525 326 633 363 736 382C846 402 948 461 1047 554" />
+                <path class="projects-footprint__route projects-footprint__route--secondary"
+                  d="M624 304C694 370 793 453 959 598" />
                 <path class="projects-footprint__route-light" d="M201 205C330 291 509 323 736 382C858 413 948 461 1047 554" />
                 <path class="projects-footprint__route-light projects-footprint__route-light--delay"
                   d="M566 196C625 280 689 334 736 382C782 429 854 499 1047 554" />
@@ -2322,10 +2326,56 @@
                   <text x="26" y="-16">Khuzdar</text>
                   <text class="projects-footprint__caption" x="26" y="0">Barite</text>
                 </g>
+
+                <g class="projects-footprint__pin projects-footprint__pin--iron" transform="translate(438 264)">
+                  <circle class="projects-footprint__pulse" r="32" />
+                  <circle class="projects-footprint__halo" r="18" />
+                  <circle class="projects-footprint__dot" r="8" />
+                  <path class="projects-footprint__label-rule" d="M-72 24H-20" />
+                  <text x="-118" y="20">Dilband</text>
+                  <text class="projects-footprint__caption" x="-118" y="36">Iron ore</text>
+                </g>
+
+                <g class="projects-footprint__pin projects-footprint__pin--antimony" transform="translate(506 302)">
+                  <circle class="projects-footprint__pulse" r="32" />
+                  <circle class="projects-footprint__halo" r="18" />
+                  <circle class="projects-footprint__dot" r="8" />
+                  <path class="projects-footprint__label-rule" d="M-66 16H-20" />
+                  <text x="-126" y="12">Washuk-Zhob</text>
+                  <text class="projects-footprint__caption" x="-126" y="28">Antimony</text>
+                </g>
+
+                <g class="projects-footprint__pin projects-footprint__pin--lead" transform="translate(624 304)">
+                  <circle class="projects-footprint__pulse" r="32" />
+                  <circle class="projects-footprint__halo" r="18" />
+                  <circle class="projects-footprint__dot" r="8" />
+                  <path class="projects-footprint__label-rule" d="M20 32H70" />
+                  <text x="24" y="48">Lead-Zinc</text>
+                  <text class="projects-footprint__caption" x="24" y="64">Base metals</text>
+                </g>
+
+                <g class="projects-footprint__pin projects-footprint__pin--coal" transform="translate(668 270)">
+                  <circle class="projects-footprint__pulse" r="32" />
+                  <circle class="projects-footprint__halo" r="18" />
+                  <circle class="projects-footprint__dot" r="8" />
+                  <path class="projects-footprint__label-rule" d="M24 -30H78" />
+                  <text x="28" y="-34">Coal Belt</text>
+                  <text class="projects-footprint__caption" x="28" y="-18">Harnai-Duki-Mach</text>
+                </g>
+
+                <g class="projects-footprint__pin projects-footprint__pin--stone" transform="translate(812 416)">
+                  <circle class="projects-footprint__pulse" r="32" />
+                  <circle class="projects-footprint__halo" r="18" />
+                  <circle class="projects-footprint__dot" r="8" />
+                  <path class="projects-footprint__label-rule" d="M22 20H76" />
+                  <text x="26" y="16">Stone Belt</text>
+                  <text class="projects-footprint__caption" x="26" y="32">Marble, onyx, granite</text>
+                </g>
               </svg>
             </div>
 
-            <div class="projects-footprint__panel">
+            <div class="projects-footprint__panel" data-lenis-prevent data-lenis-prevent-wheel data-lenis-prevent-touch
+              tabindex="0" aria-label="Scrollable list of Balochistan project corridors">
               <article class="projects-footprint__site">
                 <span>01</span>
                 <strong>Muslim Bagh</strong>
@@ -2341,13 +2391,38 @@
                 <strong>Chagai</strong>
                 <p>Copper-gold exploration across the western mineral corridor.</p>
               </article>
+              <article class="projects-footprint__site">
+                <span>04</span>
+                <strong>Dilband</strong>
+                <p>Iron ore feedstock corridor for steel, blending and bulk supply programs.</p>
+              </article>
+              <article class="projects-footprint__site">
+                <span>05</span>
+                <strong>Washuk-Zhob</strong>
+                <p>Antimony sourcing corridor with lot-by-lot assay and grade control.</p>
+              </article>
+              <article class="projects-footprint__site">
+                <span>06</span>
+                <strong>Lead-Zinc</strong>
+                <p>Base-metal corridor for lead-zinc mineralization and assay-led buyer lots.</p>
+              </article>
+              <article class="projects-footprint__site">
+                <span>07</span>
+                <strong>Coal Belt</strong>
+                <p>Harnai, Duki, Mach and Sorange-Degari thermal fuel supply areas.</p>
+              </article>
+              <article class="projects-footprint__site">
+                <span>08</span>
+                <strong>Stone Belt</strong>
+                <p>Marble, white marble, onyx and granite blocks for dimensional stone buyers.</p>
+              </article>
             </div>
           </div>
         </div>
 
-        <div class="projects__cards-grid">
+        <div class="projects__cards-grid reveal" aria-label="Project portfolio slider" data-lenis-prevent-touch>
           <!-- Project Card 1 -->
-          <div class="project-card reveal" data-delay="1">
+          <div class="project-card">
             <div class="project-card__status project-card__status--active"></div>
             <div class="project-card__header">
               <h3 class="project-card__title">Muslim Bagh Chromite Project</h3>
@@ -2382,7 +2457,7 @@
           </div>
 
           <!-- Project Card 2 -->
-          <div class="project-card reveal" data-delay="2">
+          <div class="project-card">
             <div class="project-card__status project-card__status--processing"></div>
             <div class="project-card__header">
               <h3 class="project-card__title">Khuzdar Barite Operations</h3>
@@ -2417,7 +2492,7 @@
           </div>
 
           <!-- Project Card 3 -->
-          <div class="project-card reveal" data-delay="3">
+          <div class="project-card">
             <div class="project-card__status project-card__status--exploration"></div>
             <div class="project-card__header">
               <h3 class="project-card__title">Chagai Copper-Gold Prospect</h3>
@@ -2448,6 +2523,176 @@
             </div>
             <div class="project-card__footer">
               <a href="projects.html#chagai" class="project-card__link">View Exploration Data →</a>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-card__status project-card__status--processing"></div>
+            <div class="project-card__header">
+              <h3 class="project-card__title">Dilband Iron Ore Corridor</h3>
+              <span class="project-card__location">
+                <svg width="14" height="14" viewBox="0 0 14 14">
+                  <path d="M7 0 C4 0 2 2 2 5 C2 9 7 14 7 14 C7 14 12 9 12 5 C12 2 10 0 7 0 Z" fill="currentColor" />
+                </svg>
+                Dilband, Balochistan
+              </span>
+            </div>
+            <div class="project-card__details">
+              <div class="project-card__detail">
+                <span class="project-card__detail-label">Mineral</span>
+                <span class="project-card__detail-value">Iron ore</span>
+              </div>
+              <div class="project-card__detail">
+                <span class="project-card__detail-label">Status</span>
+                <span class="project-card__detail-value project-card__status-text--processing">Supply Review</span>
+              </div>
+              <div class="project-card__detail">
+                <span class="project-card__detail-label">Use</span>
+                <span class="project-card__detail-value">Steel feedstock</span>
+              </div>
+              <div class="project-card__detail">
+                <span class="project-card__detail-label">Checks</span>
+                <span class="project-card__detail-value">Fe, SiO2, Al2O3</span>
+              </div>
+            </div>
+            <div class="project-card__footer">
+              <a href="projects.html#dilband" class="project-card__link">View Project →</a>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-card__status project-card__status--exploration"></div>
+            <div class="project-card__header">
+              <h3 class="project-card__title">Washuk-Zhob Antimony</h3>
+              <span class="project-card__location">
+                <svg width="14" height="14" viewBox="0 0 14 14">
+                  <path d="M7 0 C4 0 2 2 2 5 C2 9 7 14 7 14 C7 14 12 9 12 5 C12 2 10 0 7 0 Z" fill="currentColor" />
+                </svg>
+                Washuk-Zhob, Balochistan
+              </span>
+            </div>
+            <div class="project-card__details">
+              <div class="project-card__detail">
+                <span class="project-card__detail-label">Mineral</span>
+                <span class="project-card__detail-value">Antimony (Sb)</span>
+              </div>
+              <div class="project-card__detail">
+                <span class="project-card__detail-label">Status</span>
+                <span class="project-card__detail-value project-card__status-text--exploration">Assay-led lots</span>
+              </div>
+              <div class="project-card__detail">
+                <span class="project-card__detail-label">Ore Range</span>
+                <span class="project-card__detail-value">4-58% Sb</span>
+              </div>
+              <div class="project-card__detail">
+                <span class="project-card__detail-label">Mineral</span>
+                <span class="project-card__detail-value">Stibnite</span>
+              </div>
+            </div>
+            <div class="project-card__footer">
+              <a href="projects.html#antimony" class="project-card__link">View Project →</a>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-card__status project-card__status--exploration"></div>
+            <div class="project-card__header">
+              <h3 class="project-card__title">Lead-Zinc Base Metal Lots</h3>
+              <span class="project-card__location">
+                <svg width="14" height="14" viewBox="0 0 14 14">
+                  <path d="M7 0 C4 0 2 2 2 5 C2 9 7 14 7 14 C7 14 12 9 12 5 C12 2 10 0 7 0 Z" fill="currentColor" />
+                </svg>
+                Base-metal corridor
+              </span>
+            </div>
+            <div class="project-card__details">
+              <div class="project-card__detail">
+                <span class="project-card__detail-label">Mineral</span>
+                <span class="project-card__detail-value">Lead & zinc</span>
+              </div>
+              <div class="project-card__detail">
+                <span class="project-card__detail-label">Status</span>
+                <span class="project-card__detail-value project-card__status-text--exploration">Buyer lots</span>
+              </div>
+              <div class="project-card__detail">
+                <span class="project-card__detail-label">Checks</span>
+                <span class="project-card__detail-value">Pb, Zn, Ag</span>
+              </div>
+              <div class="project-card__detail">
+                <span class="project-card__detail-label">Format</span>
+                <span class="project-card__detail-value">Assay report</span>
+              </div>
+            </div>
+            <div class="project-card__footer">
+              <a href="projects.html#lead-zinc" class="project-card__link">View Project →</a>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-card__status project-card__status--processing"></div>
+            <div class="project-card__header">
+              <h3 class="project-card__title">Dimension Stone Belt</h3>
+              <span class="project-card__location">
+                <svg width="14" height="14" viewBox="0 0 14 14">
+                  <path d="M7 0 C4 0 2 2 2 5 C2 9 7 14 7 14 C7 14 12 9 12 5 C12 2 10 0 7 0 Z" fill="currentColor" />
+                </svg>
+                Balochistan stone corridors
+              </span>
+            </div>
+            <div class="project-card__details">
+              <div class="project-card__detail">
+                <span class="project-card__detail-label">Minerals</span>
+                <span class="project-card__detail-value">Marble, onyx, granite</span>
+              </div>
+              <div class="project-card__detail">
+                <span class="project-card__detail-label">Status</span>
+                <span class="project-card__detail-value project-card__status-text--processing">Block supply</span>
+              </div>
+              <div class="project-card__detail">
+                <span class="project-card__detail-label">Forms</span>
+                <span class="project-card__detail-value">Blocks, slabs</span>
+              </div>
+              <div class="project-card__detail">
+                <span class="project-card__detail-label">Checks</span>
+                <span class="project-card__detail-value">Shade, polish</span>
+              </div>
+            </div>
+            <div class="project-card__footer">
+              <a href="projects.html#stone-marble" class="project-card__link">View Stone Assets →</a>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-card__status project-card__status--active"></div>
+            <div class="project-card__header">
+              <h3 class="project-card__title">Balochistan Coal Belt</h3>
+              <span class="project-card__location">
+                <svg width="14" height="14" viewBox="0 0 14 14">
+                  <path d="M7 0 C4 0 2 2 2 5 C2 9 7 14 7 14 C7 14 12 9 12 5 C12 2 10 0 7 0 Z" fill="currentColor" />
+                </svg>
+                Harnai, Duki, Mach, Sorange
+              </span>
+            </div>
+            <div class="project-card__details">
+              <div class="project-card__detail">
+                <span class="project-card__detail-label">Mineral</span>
+                <span class="project-card__detail-value">Thermal coal</span>
+              </div>
+              <div class="project-card__detail">
+                <span class="project-card__detail-label">Status</span>
+                <span class="project-card__detail-value project-card__status-text">Field supply</span>
+              </div>
+              <div class="project-card__detail">
+                <span class="project-card__detail-label">Checks</span>
+                <span class="project-card__detail-value">GCV, ash, sulphur</span>
+              </div>
+              <div class="project-card__detail">
+                <span class="project-card__detail-label">Use</span>
+                <span class="project-card__detail-value">Industrial fuel</span>
+              </div>
+            </div>
+            <div class="project-card__footer">
+              <a href="projects.html#energy-sorange-degari" class="project-card__link">View Energy Assets →</a>
             </div>
           </div>
         </div>
