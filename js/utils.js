@@ -16,5 +16,5 @@ export function highlightActiveLink() {
 }
 
 export function isMobile() {
-  return window.innerWidth <= 1024;
+  return window.innerWidth <= 1180;
 }
