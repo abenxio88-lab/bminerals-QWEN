@@ -22,9 +22,26 @@ const productMenuItems = [
 
 const detailDropdownMenus = {
   Projects: [
-    { title: 'Muslim Bagh', detail: 'Chromite Mine - Active', url: 'projects.html#muslim-bagh', code: 'MB' },
-    { title: 'Khuzdar', detail: 'Barite Operations', url: 'projects.html#khuzdar', code: 'Kh' },
-    { title: 'Chagai', detail: 'Copper-Gold Exploration', url: 'projects.html#chagai', code: 'Ch' },
+    { title: 'Muslim Bagh', detail: 'Chromite mine - active', url: 'projects.html#muslim-bagh', code: 'MB', group: 'Metallic' },
+    { title: 'Dilband', detail: 'Iron ore steel feedstock', url: 'projects.html#dilband', code: 'Fe', group: 'Metallic' },
+    { title: 'Chagai', detail: 'Copper-gold exploration', url: 'projects.html#chagai', code: 'Cu', group: 'Metallic' },
+    { title: 'Washuk-Zhob', detail: 'Antimony specialty metal', url: 'projects.html#antimony', code: 'Sb', group: 'Metallic' },
+    { title: 'Lead-Zinc Corridor', detail: 'Base-metal ore lots', url: 'projects.html#lead-zinc', code: 'Pb', group: 'Metallic' },
+    { title: 'Khuzdar Barite', detail: 'Industrial barite processing', url: 'projects.html#industrial-barite', code: 'Ba', group: 'Industrial' },
+    { title: 'Fluorspar', detail: 'Metallurgical and ceramic feed', url: 'projects.html#industrial-fluorspar', code: 'Ca', group: 'Industrial' },
+    { title: 'Gypsum', detail: 'Cement and plaster markets', url: 'projects.html#industrial-gypsum', code: 'Gy', group: 'Industrial' },
+    { title: 'Magnesite', detail: 'Refractory minerals', url: 'projects.html#industrial-magnesite', code: 'Mg', group: 'Industrial' },
+    { title: 'Sulphur', detail: 'Chemical and fertilizer feed', url: 'projects.html#industrial-sulphur', code: 'S', group: 'Industrial' },
+    { title: 'Bauxite', detail: 'Refractory and alumina buyers', url: 'projects.html#industrial-bauxite', code: 'Al', group: 'Industrial' },
+    { title: 'Celestite', detail: 'Strontium mineral project', url: 'projects.html#industrial-celestite', code: 'Sr', group: 'Industrial' },
+    { title: 'Marble', detail: 'Blocks, slabs and tiles', url: 'projects.html#stone-marble', code: 'Mr', group: 'Stone' },
+    { title: 'White Marble', detail: 'Premium block selection', url: 'projects.html#stone-white-marble', code: 'Wm', group: 'Stone' },
+    { title: 'Onyx', detail: 'Backlit decorative stone', url: 'projects.html#stone-onyx', code: 'Ox', group: 'Stone' },
+    { title: 'Granite', detail: 'Hard stone blocks', url: 'projects.html#stone-granite', code: 'Gr', group: 'Stone' },
+    { title: 'Sorange-Degari', detail: 'Quetta coalfield', url: 'projects.html#energy-sorange-degari', code: 'Co', group: 'Energy' },
+    { title: 'Khost-Shahrig-Harnai', detail: 'Harnai coal belt', url: 'projects.html#energy-khost-shahrig-harnai', code: 'Kh', group: 'Energy' },
+    { title: 'Duki', detail: 'High-volume coal supply', url: 'projects.html#energy-duki', code: 'Du', group: 'Energy' },
+    { title: 'Mach-Anjira', detail: 'Mach corridor coal', url: 'projects.html#energy-mach-anjira', code: 'Ma', group: 'Energy' },
     { title: 'View All Projects', detail: 'Project portfolio', url: 'projects.html', code: 'All', cta: true }
   ],
   Investors: [
@@ -34,9 +51,15 @@ const detailDropdownMenus = {
     { title: 'Investor Portal', detail: 'Investor information', url: 'investors.html', code: 'IP', cta: true }
   ],
   'Our Mines': [
-    { title: 'Muslim Bagh', detail: 'Chromite Mine - Active', url: 'our-mines.html', code: 'MB' },
-    { title: 'Khuzdar', detail: 'Barite Operations', url: 'our-mines.html', code: 'Kh' },
-    { title: 'Chagai', detail: 'Copper-Gold Exploration', url: 'our-mines.html', code: 'Ch' },
+    { title: 'Muslim Bagh', detail: 'Chromite mine - active', url: 'our-mines.html#muslim-bagh', code: 'MB', group: 'Active sites' },
+    { title: 'Khuzdar', detail: 'Barite processing facility', url: 'our-mines.html#khuzdar', code: 'Kh', group: 'Active sites' },
+    { title: 'Chagai', detail: 'Copper-gold exploration', url: 'our-mines.html#chagai', code: 'Ch', group: 'Exploration' },
+    { title: 'Kharan Iron Ore', detail: 'Iron ore sourcing zone', url: 'our-mines.html#kharan-iron-ore', code: 'Fe', group: 'Sourcing zones' },
+    { title: 'Washuk Antimony', detail: 'Antimony prospect', url: 'our-mines.html#washuk-antimony', code: 'Sb', group: 'Sourcing zones' },
+    { title: 'Chagai Lead-Zinc', detail: 'Base-metal lots', url: 'our-mines.html#chagai-lead-zinc', code: 'Pb', group: 'Sourcing zones' },
+    { title: 'Duki Coalfield', detail: 'Coalfield supply zone', url: 'our-mines.html#duki-coal', code: 'Du', group: 'Coal belts' },
+    { title: 'Khost-Shahrig-Harnai', detail: 'Harnai coal belt', url: 'our-mines.html#harnai-coal', code: 'Ha', group: 'Coal belts' },
+    { title: 'Lasbela Stone', detail: 'Stone and limestone corridor', url: 'our-mines.html#lasbela-stone', code: 'Ls', group: 'Stone corridors' },
     { title: 'View All Mines', detail: 'Mine locations and operations', url: 'our-mines.html', code: 'All', cta: true }
   ],
   Logistics: [
@@ -88,13 +111,19 @@ function buildProductDropdown({ mobile = false } = {}) {
 
 function buildDetailDropdown(label) {
   const items = detailDropdownMenus[label] || [];
+  const prefix = getProductsPathPrefix();
+  let currentGroup = '';
 
   return items.map((item, index) => {
     const divider = item.cta && index > 0 ? '<div class="navbar__dropdown-divider"></div>' : '';
     const ctaClass = item.cta ? ' navbar__dropdown-item--cta' : '';
+    const groupLabel = item.group && item.group !== currentGroup
+      ? `<div class="navbar__dropdown-section-label">${item.group}</div>`
+      : '';
+    currentGroup = item.group || currentGroup;
 
-    return `${divider}
-      <a href="${item.url}" class="navbar__dropdown-item${ctaClass}">
+    return `${divider}${groupLabel}
+      <a href="${prefix}${item.url}" class="navbar__dropdown-item${ctaClass}">
         <span class="navbar__dropdown-item-icon navbar__dropdown-item-icon--text">${item.code}</span>
         <span class="navbar__dropdown-item-text">
           <strong>${item.title}</strong>
@@ -127,10 +156,20 @@ function getDirectLinkLabel(link) {
 }
 
 function initDetailPageMenus() {
-  if (!document.querySelector('.detail-hero')) return;
-
   const desktopNav = document.querySelector('.navbar__nav');
   if (desktopNav) {
+    desktopNav.querySelectorAll('.navbar__dropdown-group').forEach((group) => {
+      const trigger = group.querySelector(':scope > .navbar__dropdown-trigger');
+      const menu = group.querySelector(':scope > .navbar__dropdown-menu');
+      if (!trigger || !menu) return;
+
+      const label = getDirectLinkLabel(trigger);
+      if (!detailDropdownMenus[label]) return;
+
+      menu.innerHTML = buildDetailDropdown(label);
+      prepareLongDropdown(label, menu);
+    });
+
     desktopNav.querySelectorAll(':scope > a.navbar__link').forEach((link) => {
       const label = getDirectLinkLabel(link);
       if (!detailDropdownMenus[label]) return;
@@ -150,6 +189,7 @@ function initDetailPageMenus() {
       const menu = document.createElement('div');
       menu.className = 'navbar__dropdown-menu';
       menu.innerHTML = buildDetailDropdown(label);
+      prepareLongDropdown(label, menu);
 
       group.append(link, menu);
       desktopNav.insertBefore(group, nextNode);
@@ -158,6 +198,17 @@ function initDetailPageMenus() {
 
   const mobileMenu = document.querySelector('.navbar__mobile-menu');
   if (mobileMenu) {
+    mobileMenu.querySelectorAll(':scope > .navbar__dropdown-trigger--mobile').forEach((trigger) => {
+      const label = getDirectLinkLabel(trigger);
+      if (!detailDropdownMenus[label]) return;
+
+      const menu = trigger.nextElementSibling;
+      if (!menu || !menu.classList.contains('navbar__dropdown-menu')) return;
+
+      menu.innerHTML = buildDetailDropdown(label);
+      prepareLongDropdown(label, menu);
+    });
+
     mobileMenu.querySelectorAll(':scope > a.navbar__link').forEach((link) => {
       const label = getDirectLinkLabel(link);
       if (!detailDropdownMenus[label]) return;
@@ -171,6 +222,7 @@ function initDetailPageMenus() {
       const menu = document.createElement('div');
       menu.className = 'navbar__dropdown-menu navbar__dropdown-menu--mobile';
       menu.innerHTML = buildDetailDropdown(label);
+      prepareLongDropdown(label, menu);
 
       link.replaceWith(button, menu);
     });
@@ -186,7 +238,7 @@ function initProductMenus() {
     menu.classList.add('navbar__dropdown-menu--products');
     menu.setAttribute('data-lenis-prevent', '');
     menu.innerHTML = buildProductDropdown();
-    trapProductMenuWheel(menu);
+    trapDropdownWheel(menu);
   });
 
   const mobileTriggers = document.querySelectorAll('.navbar__dropdown-trigger--mobile');
@@ -197,13 +249,22 @@ function initProductMenus() {
     menu.classList.add('navbar__dropdown-menu--products');
     menu.setAttribute('data-lenis-prevent', '');
     menu.innerHTML = buildProductDropdown({ mobile: true });
-    trapProductMenuWheel(menu);
+    trapDropdownWheel(menu);
   });
 }
 
-function trapProductMenuWheel(menu) {
-  if (menu.dataset.productWheelReady === 'true') return;
-  menu.dataset.productWheelReady = 'true';
+function prepareLongDropdown(label, menu) {
+  const itemCount = detailDropdownMenus[label]?.filter((item) => !item.cta).length || 0;
+  if (itemCount < 6) return;
+
+  menu.classList.add('navbar__dropdown-menu--long');
+  menu.setAttribute('data-lenis-prevent', '');
+  trapDropdownWheel(menu);
+}
+
+function trapDropdownWheel(menu) {
+  if (menu.dataset.dropdownWheelReady === 'true') return;
+  menu.dataset.dropdownWheelReady = 'true';
 
   menu.addEventListener('wheel', (event) => {
     const canScroll = menu.scrollHeight > menu.clientHeight;

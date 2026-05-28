@@ -590,7 +590,8 @@
   color: var(--charcoal-600);
 }
 
-.navbar__dropdown-menu--products {
+.navbar__dropdown-menu--products,
+.navbar__dropdown-menu--long {
   min-width: 360px;
   max-height: min(70vh, 610px);
   overflow-y: auto;
@@ -599,15 +600,18 @@
   scrollbar-color: rgba(15, 23, 42, 0.35) rgba(15, 23, 42, 0.06);
 }
 
-.navbar__dropdown-menu--products::-webkit-scrollbar {
+.navbar__dropdown-menu--products::-webkit-scrollbar,
+.navbar__dropdown-menu--long::-webkit-scrollbar {
   width: 9px;
 }
 
-.navbar__dropdown-menu--products::-webkit-scrollbar-track {
+.navbar__dropdown-menu--products::-webkit-scrollbar-track,
+.navbar__dropdown-menu--long::-webkit-scrollbar-track {
   background: rgba(15, 23, 42, 0.06);
 }
 
-.navbar__dropdown-menu--products::-webkit-scrollbar-thumb {
+.navbar__dropdown-menu--products::-webkit-scrollbar-thumb,
+.navbar__dropdown-menu--long::-webkit-scrollbar-thumb {
   background: rgba(15, 23, 42, 0.28);
 }
 
@@ -702,9 +706,11 @@
   height: 15px;
 }
 
-.navbar__dropdown-menu--mobile.navbar__dropdown-menu--products {
+.navbar__dropdown-menu--mobile.navbar__dropdown-menu--products,
+.navbar__dropdown-menu--mobile.navbar__dropdown-menu--long {
   max-height: 58vh;
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .navbar__dropdown-menu--mobile .navbar__dropdown-item-icon--text {
