@@ -1683,7 +1683,11 @@
         <div class="asymmetrical-grid__layout">
           <div class="asymmetrical-grid__item asymmetrical-grid__item--large reveal">
             <div class="item-image">
-              <img src="images/lead-zinc.avif" alt="Lead zinc metallic mineral project" loading="lazy">
+              <picture>
+                <source type="image/avif" srcset="images/lead-zinc.avif">
+                <source type="image/webp" srcset="images/lead-zinc.webp">
+                <img src="images/lead-zinc.webp" alt="Lead zinc metallic mineral project" loading="lazy">
+              </picture>
             </div>
             <div>
               <span class="item-overline">Geological Context</span>

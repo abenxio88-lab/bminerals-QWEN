@@ -1221,7 +1221,11 @@
         <!-- Compact Card: Lead / Zinc -->
         <article class="metallic-card metallic-card--compact reveal" id="lead-zinc">
           <div class="metallic-card__image metallic-card__image--compact">
-            <img src="images/lead-zinc.avif" alt="Lead and Zinc lumps" loading="lazy">
+            <picture>
+              <source type="image/avif" srcset="images/lead-zinc.avif">
+              <source type="image/webp" srcset="images/lead-zinc.webp">
+              <img src="images/lead-zinc.webp" alt="Lead and Zinc lumps" loading="lazy">
+            </picture>
           </div>
           <div class="metallic-card__content">
             <span class="metallic-card__tag metallic-card__tag--sub">Lead / Zinc</span>

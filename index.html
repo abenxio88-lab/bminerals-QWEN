@@ -1825,7 +1825,11 @@
 
               <article class="mineral-showcase mineral-showcase--tall reveal">
                 <div class="mineral-showcase__image">
-                  <img src="images/lead-zinc.avif" alt="Lead and zinc ore lumps" loading="lazy">
+                  <picture>
+                    <source type="image/avif" srcset="images/lead-zinc.avif">
+                    <source type="image/webp" srcset="images/lead-zinc.webp">
+                    <img src="images/lead-zinc.webp" alt="Lead and zinc ore lumps" loading="lazy">
+                  </picture>
                   <div class="mineral-showcase__overlay"></div>
                 </div>
                 <div class="mineral-showcase__content">
@@ -4328,7 +4332,11 @@
 
           <a href="product-metallic.html#lead-zinc" class="encyclopedia-card">
             <div class="encyclopedia-card__image">
-              <img src="images/lead-zinc.avif" alt="Lead zinc mineral specimen" loading="eager" decoding="async">
+              <picture>
+                <source type="image/avif" srcset="images/lead-zinc.avif">
+                <source type="image/webp" srcset="images/lead-zinc.webp">
+                <img src="images/lead-zinc.webp" alt="Lead zinc mineral specimen" loading="eager" decoding="async">
+              </picture>
             </div>
             <div class="encyclopedia-card__body">
               <div class="encyclopedia-card__formula">Pb / Zn</div>
