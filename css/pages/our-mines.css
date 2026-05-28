@@ -213,9 +213,7 @@
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background:
-    linear-gradient(180deg, rgba(5, 10, 16, 0) 42%, rgba(5, 10, 16, 0.42)),
-    radial-gradient(circle at 18% 18%, rgba(230, 92, 26, 0.16), transparent 28%);
+  background: linear-gradient(180deg, rgba(5, 10, 16, 0) 48%, rgba(5, 10, 16, 0.34));
 }
 
 .mine-profile__image picture {
@@ -429,9 +427,7 @@
 .mine-profile--feature {
   grid-template-columns: minmax(0, 1.22fr) minmax(330px, 0.78fr);
   min-height: 520px;
-  background:
-    radial-gradient(circle at 82% 18%, rgba(230, 92, 26, 0.16), transparent 28%),
-    linear-gradient(135deg, #101923, #172637);
+  background: linear-gradient(135deg, #101923, #172637);
   color: #f5f0e8;
 }
 
