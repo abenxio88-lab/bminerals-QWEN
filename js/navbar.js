@@ -63,10 +63,12 @@ const detailDropdownMenus = {
     { title: 'View All Mines', detail: 'Mine locations and operations', url: 'our-mines.html', code: 'All', cta: true }
   ],
   Logistics: [
-    { title: 'Road Transport', detail: 'Fleet and dispatch planning', url: 'logistics.html', code: 'RT' },
-    { title: 'Rail Network', detail: 'Rail-linked movement', url: 'logistics.html', code: 'RN' },
-    { title: 'Port Access', detail: 'Karachi and Gwadar routes', url: 'logistics.html', code: 'PA' },
-    { title: 'Logistics Network', detail: 'Export handling overview', url: 'logistics.html', code: 'All', cta: true }
+    { title: 'Road Transport', detail: 'Fleet and dispatch planning', url: 'logistics.html#transport-modes', code: 'RT' },
+    { title: 'Freight Analytics', detail: 'Route timing simulator', url: 'logistics.html#freight-analytics', code: 'FA' },
+    { title: 'Warehousing', detail: 'Storage and lot control', url: 'logistics.html#warehousing', code: 'Wh' },
+    { title: 'Corridors', detail: 'Karachi and Gwadar routing', url: 'logistics.html#corridors', code: 'Co' },
+    { title: 'Export Capacity', detail: 'Annual movement capability', url: 'logistics.html#capacity', code: 'Ex' },
+    { title: 'Request Shipping Quote', detail: 'Freight and delivery inquiry', url: 'logistics.html#shipping-quote', code: 'Go', cta: true }
   ],
   'About Us': [
     { title: 'Our Story', detail: 'Since 2008 in Balochistan', url: 'about.html', code: 'OS' },

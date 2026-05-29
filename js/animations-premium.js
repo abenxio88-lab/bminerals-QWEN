@@ -138,17 +138,28 @@ export function initPremiumAnimations() {
   // 8. B2B FREIGHT CALCULATOR MOCK LOGIC
   const originSelect = document.getElementById('origin-select');
   const destSelect = document.getElementById('dest-select');
+  const modeSelect = document.getElementById('mode-select');
   const freightDays = document.getElementById('freight-days');
 
   if (originSelect && destSelect && freightDays) {
     const updateFreight = () => {
         const o = originSelect.value;
         const d = destSelect.value;
-        let days = 10;
-        
-        if (o === 'chagai') days += 5;
-        if (o === 'muslim-bagh' && d === 'gwadar') days += 4;
-        if (d === 'karachi') days -= 2;
+        const mode = modeSelect?.value || 'integrated';
+        const originDays = {
+            'warehouse': 5,
+            'khuzdar': 8,
+            'muslim-bagh': 10,
+            'kharan': 11,
+            'washuk-zhob': 12,
+            'chagai': 14
+        };
+
+        let days = originDays[o] || 10;
+
+        if (d === 'gwadar') days += 2;
+        if (mode === 'direct-road') days += 1;
+        if (mode === 'warehouse-port') days = Math.max(4, days - 3);
 
         gsap.to(freightDays, {
             innerText: days,
@@ -160,6 +171,8 @@ export function initPremiumAnimations() {
 
     originSelect.addEventListener('change', updateFreight);
     destSelect.addEventListener('change', updateFreight);
+    modeSelect?.addEventListener('change', updateFreight);
+    updateFreight();
   }
 
   // 9. 3D MINERAL PREVIEW MOUSE-TRACKING (MOCK)

@@ -77,9 +77,250 @@ document.addEventListener('DOMContentLoaded', async () => {
   runInit('initEarthTechCore', initEarthTechCore);
   runInit('initStepper', initStepper);
   runInit('initProductDetailLinks', initProductDetailLinks);
+  runInit('initChromiteCardToggle', initChromiteCardToggle);
+  runInit('initIronCardToggle', initIronCardToggle);
+  runInit('initAntimonyCardToggle', initAntimonyCardToggle);
   // Ensure loader is removed after all inits complete
   setTimeout(() => removeLoader(), 100);
 });
+
+function initIronCardToggle() {
+  if (window.__ironCardToggleInitialized) return;
+
+  const card = document.querySelector('[data-iron-card]');
+  if (!card) return;
+
+  const imageWrap = card.querySelector('.mineral-showcase__image');
+  const content = card.querySelector('.mineral-showcase__content');
+  const image = card.querySelector('[data-iron-image]');
+  const caption = card.querySelector('[data-iron-caption]');
+  const title = card.querySelector('[data-iron-title]');
+  const description = card.querySelector('[data-iron-description]');
+  const nextButton = card.querySelector('[data-iron-next]');
+  const statValues = Array.from(card.querySelectorAll('[data-iron-stat-value]'));
+  const statLabels = Array.from(card.querySelectorAll('[data-iron-stat-label]'));
+
+  if (!imageWrap || !content || !image || !caption || !title || !description || !nextButton || !statValues.length || !statLabels.length) return;
+
+  window.__ironCardToggleInitialized = true;
+
+  const views = [
+    {
+      image: 'images/iron-ore-new.webp',
+      alt: 'Iron ore lumps from Balochistan mining sites',
+      caption: 'Iron Ore Lumps',
+      title: 'Iron Ore Lumps',
+      description: 'Hematite and magnetite iron ore lumps are supplied for steel buyers, infrastructure projects and regional trading programs, with typical Fe purity ranging from 40% - 58% depending on lot assay.',
+      stats: [
+        ['40-58%', 'Fe Lumps'],
+        ['Hem / Mag', 'Type']
+      ],
+      nextLabel: 'Show iron concentrate'
+    },
+    {
+      image: 'images/iron-concentrate.avif',
+      alt: 'Iron ore concentrate sample',
+      caption: 'Iron Concentrate',
+      title: 'Iron Concentrate',
+      description: 'Iron concentrate is prepared through beneficiation for buyers requiring stronger Fe feed and cleaner sizing. Typical concentrate purity ranges from 50% - 62% Fe, with hematite or magnetite character confirmed by lot testing.',
+      stats: [
+        ['50-62%', 'Fe Concentrate'],
+        ['Assay', 'Lot Check']
+      ],
+      nextLabel: 'Show iron ore lumps'
+    }
+  ];
+
+  let activeIndex = 0;
+
+  const renderView = (index) => {
+    const view = views[index];
+    imageWrap.classList.add('is-changing');
+    content.classList.add('is-changing');
+
+    window.setTimeout(() => {
+      image.src = view.image;
+      image.alt = view.alt;
+      caption.textContent = view.caption;
+      title.textContent = view.title;
+      description.textContent = view.description;
+      nextButton.setAttribute('aria-label', view.nextLabel);
+
+      view.stats.forEach(([value, label], statIndex) => {
+        if (statValues[statIndex]) statValues[statIndex].textContent = value;
+        if (statLabels[statIndex]) statLabels[statIndex].textContent = label;
+      });
+
+      imageWrap.classList.remove('is-changing');
+      content.classList.remove('is-changing');
+    }, 120);
+  };
+
+  nextButton.addEventListener('click', () => {
+    activeIndex = (activeIndex + 1) % views.length;
+    renderView(activeIndex);
+  });
+}
+
+function initChromiteCardToggle() {
+  if (window.__chromiteCardToggleInitialized) return;
+
+  const card = document.querySelector('[data-chromite-card]');
+  if (!card) return;
+
+  const imageWrap = card.querySelector('.mineral-showcase__image');
+  const content = card.querySelector('.mineral-showcase__content');
+  const image = card.querySelector('[data-chromite-image]');
+  const caption = card.querySelector('[data-chromite-caption]');
+  const title = card.querySelector('[data-chromite-title]');
+  const description = card.querySelector('[data-chromite-description]');
+  const nextButton = card.querySelector('[data-chromite-next]');
+  const statValues = Array.from(card.querySelectorAll('[data-chromite-stat-value]'));
+  const statLabels = Array.from(card.querySelectorAll('[data-chromite-stat-label]'));
+
+  if (!imageWrap || !content || !image || !caption || !title || !description || !nextButton || !statValues.length || !statLabels.length) return;
+
+  window.__chromiteCardToggleInitialized = true;
+
+  const views = [
+    {
+      image: 'images/chromite-new.webp',
+      alt: 'Chromite lumps from Muslim Bagh mining operations in Balochistan',
+      caption: 'Chrome Lumps',
+      title: 'Chrome Lumps',
+      description: 'Chrome lumps are supplied for ferrochrome, refractory and foundry buyers, with typical Cr2O3 purity ranging from 12% - 52% depending on lot grade, sizing and final assay.',
+      stats: [
+        ['12-52%', 'Cr2O3 Lumps'],
+        ['Muslim Bagh', 'Region']
+      ],
+      nextLabel: 'Show chrome concentrate'
+    },
+    {
+      image: 'images/chrome-concentrate.avif',
+      alt: 'Chrome concentrate sample',
+      caption: 'Chrome Concentrate',
+      title: 'Chrome Concentrate',
+      description: 'Chrome concentrate is prepared as an upgraded chromite product for buyers needing stronger and more consistent Cr2O3 feed. Typical concentrate purity ranges from 32% - 52%, with final shipment terms confirmed by assay.',
+      stats: [
+        ['32-52%', 'Cr2O3 Concentrate'],
+        ['Assay', 'Lot Check']
+      ],
+      nextLabel: 'Show chrome lumps'
+    }
+  ];
+
+  let activeIndex = 0;
+
+  const renderView = (index) => {
+    const view = views[index];
+    imageWrap.classList.add('is-changing');
+    content.classList.add('is-changing');
+
+    window.setTimeout(() => {
+      image.src = view.image;
+      image.alt = view.alt;
+      caption.textContent = view.caption;
+      title.textContent = view.title;
+      description.textContent = view.description;
+      nextButton.setAttribute('aria-label', view.nextLabel);
+
+      view.stats.forEach(([value, label], statIndex) => {
+        if (statValues[statIndex]) statValues[statIndex].textContent = value;
+        if (statLabels[statIndex]) statLabels[statIndex].textContent = label;
+      });
+
+      imageWrap.classList.remove('is-changing');
+      content.classList.remove('is-changing');
+    }, 120);
+  };
+
+  nextButton.addEventListener('click', () => {
+    activeIndex = (activeIndex + 1) % views.length;
+    renderView(activeIndex);
+  });
+}
+
+function initAntimonyCardToggle() {
+  if (window.__antimonyCardToggleInitialized) return;
+
+  const card = document.querySelector('[data-antimony-card]');
+  if (!card) return;
+
+  const imageWrap = card.querySelector('.mineral-showcase__image');
+  const content = card.querySelector('.mineral-showcase__content');
+  const image = card.querySelector('[data-antimony-image]');
+  const caption = card.querySelector('[data-antimony-caption]');
+  const title = card.querySelector('[data-antimony-title]');
+  const description = card.querySelector('[data-antimony-description]');
+  const nextButton = card.querySelector('[data-antimony-next]');
+  const statValues = Array.from(card.querySelectorAll('[data-antimony-stat-value]'));
+  const statLabels = Array.from(card.querySelectorAll('[data-antimony-stat-label]'));
+
+  if (!imageWrap || !content || !image || !caption || !title || !description || !nextButton || !statValues.length || !statLabels.length) return;
+
+  window.__antimonyCardToggleInitialized = true;
+
+  const views = [
+    {
+      key: 'lumps',
+      image: 'images/antimony.avif',
+      alt: 'Antimony lumps sample',
+      caption: 'Antimony Lumps',
+      title: 'Antimony Lumps',
+      description: 'Sorted antimony lumps are supplied for specialty metal, alloy and chemical buyers, with typical Sb purity ranging from 4% - 58% depending on the lot and final assay.',
+      stats: [
+        ['4-58%', 'Sb Lumps'],
+        ['Sorted', 'Form'],
+        ['Assay', 'Lot Check']
+      ],
+      nextLabel: 'Show antimony concentrate'
+    },
+    {
+      key: 'concentrate',
+      image: 'images/antimony-concentrate.avif',
+      alt: 'Antimony concentrate sample',
+      caption: 'Antimony Concentrate',
+      title: 'Antimony Concentrate',
+      description: 'Antimony concentrate is the upgraded product after sorting and processing, prepared for buyers who require stronger Sb content. Typical concentrate purity ranges from 20% - 60% Sb, subject to fresh lot testing.',
+      stats: [
+        ['20-60%', 'Sb Concentrate'],
+        ['Upgraded', 'Form'],
+        ['Assay', 'Lot Check']
+      ],
+      nextLabel: 'Show antimony lumps'
+    }
+  ];
+
+  let activeIndex = 0;
+
+  const renderView = (index) => {
+    const view = views[index];
+    imageWrap.classList.add('is-changing');
+    content.classList.add('is-changing');
+
+    window.setTimeout(() => {
+      image.src = view.image;
+      image.alt = view.alt;
+      caption.textContent = view.caption;
+      title.textContent = view.title;
+      description.textContent = view.description;
+      nextButton.setAttribute('aria-label', view.nextLabel);
+
+      view.stats.forEach(([value, label], statIndex) => {
+        if (statValues[statIndex]) statValues[statIndex].textContent = value;
+        if (statLabels[statIndex]) statLabels[statIndex].textContent = label;
+      });
+
+      imageWrap.classList.remove('is-changing');
+      content.classList.remove('is-changing');
+    }, 120);
+  };
+
+  nextButton.addEventListener('click', () => {
+    activeIndex = (activeIndex + 1) % views.length;
+    renderView(activeIndex);
+  });
+}
 
 function initProductDetailLinks() {
   if (window.__productDetailLinksInitialized) return;
@@ -453,5 +694,8 @@ export {
   initMineMarkers,
   initNewsletterForm,
   initHomepageWhatsAppButton,
-  initProductDetailLinks
+  initProductDetailLinks,
+  initChromiteCardToggle,
+  initIronCardToggle,
+  initAntimonyCardToggle
 };
