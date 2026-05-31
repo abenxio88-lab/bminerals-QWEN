@@ -82,9 +82,52 @@ document.addEventListener('DOMContentLoaded', async () => {
   runInit('initAntimonyCardToggle', initAntimonyCardToggle);
   runInit('initProductsMetallicCardToggles', initProductsMetallicCardToggles);
   runInit('initTradeSpecsWheelScroll', initTradeSpecsWheelScroll);
+  runInit('initStoneCardImageToggles', initStoneCardImageToggles);
   // Ensure loader is removed after all inits complete
   setTimeout(() => removeLoader(), 100);
 });
+
+function initStoneCardImageToggles() {
+  if (window.__stoneCardImageTogglesInitialized) return;
+
+  const stoneImageMap = {
+    marble: ['images/marble.avif'],
+    'white-marble': ['images/white-marble.avif', 'images/white-marble2.avif'],
+    onyx: ['images/onyx.avif', 'images/onyx2.avif'],
+    granite: ['images/granite.avif', 'images/granite1.avif', 'images/granite2.avif', 'images/granite3.avif']
+  };
+
+  const cards = document.querySelectorAll('[data-stone-card]');
+  if (!cards.length) return;
+  window.__stoneCardImageTogglesInitialized = true;
+
+  cards.forEach((card) => {
+    const key = card.getAttribute('data-stone-card');
+    const images = stoneImageMap[key] || [];
+    const nextButton = card.querySelector('[data-stone-next]');
+    if (!images.length || !nextButton) return;
+
+    let activeIndex = 0;
+
+    if (images.length <= 1) {
+      nextButton.hidden = true;
+      return;
+    }
+
+    nextButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      activeIndex = (activeIndex + 1) % images.length;
+      card.classList.add('is-changing');
+
+      window.setTimeout(() => {
+        card.style.setProperty('--stone-image', `url('../../${images[activeIndex]}')`);
+        card.classList.remove('is-changing');
+      }, 110);
+    });
+  });
+}
 
 function initTradeSpecsWheelScroll() {
   if (window.__tradeSpecsWheelScrollInitialized) return;

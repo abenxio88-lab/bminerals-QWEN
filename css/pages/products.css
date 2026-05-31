@@ -2525,6 +2525,10 @@
   position: relative;
 }
 
+.stone-card.is-changing::before {
+  opacity: 0.58;
+}
+
 .stone-card:hover {
   transform: translateY(-3px);
   border-color: rgba(230, 92, 26, 0.32);
@@ -2556,6 +2560,308 @@
   font-size: 3rem;
   line-height: 0.9;
   font-variant-numeric: tabular-nums;
+}
+
+.stone-card__arrow {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  color: #fff;
+  background: rgba(10, 22, 40, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  cursor: pointer;
+  transition: background 0.2s var(--ease-smooth), transform 0.2s var(--ease-smooth);
+}
+
+.stone-card__arrow:hover {
+  background: rgba(230, 92, 26, 0.88);
+  transform: translateX(1px);
+}
+
+/* ============================================
+   DIMENSION STONES - Professional refinement
+   ============================================ */
+#dimension-stones {
+  position: relative;
+  background:
+    radial-gradient(120% 75% at 10% -10%, rgba(230, 92, 26, 0.08), transparent 52%),
+    radial-gradient(110% 70% at 100% 0%, rgba(15, 31, 58, 0.08), transparent 55%),
+    linear-gradient(180deg, #f9fafb 0%, #f3f5f7 100%);
+}
+
+#dimension-stones .product-category__header {
+  max-width: 920px;
+  margin-bottom: 1.65rem;
+  padding: 1.5rem 1.6rem;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(15, 23, 42, 0.09);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.07);
+  backdrop-filter: blur(6px);
+}
+
+#dimension-stones .product-category__title {
+  letter-spacing: 0.01em;
+}
+
+#dimension-stones .product-category__copy {
+  max-width: 76ch;
+  color: var(--charcoal-700);
+  line-height: 1.72;
+}
+
+#dimension-stones .stone-curation {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+#dimension-stones .stone-curation__intro,
+#dimension-stones .stone-curation__brief {
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.07);
+  backdrop-filter: blur(6px);
+}
+
+#dimension-stones .stone-curation__intro {
+  padding: 1.5rem 1.6rem;
+}
+
+#dimension-stones .stone-curation__eyebrow {
+  display: inline-block;
+  margin-bottom: 0.7rem;
+  color: var(--primary-gold-500);
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+#dimension-stones .stone-curation__title {
+  max-width: 28ch;
+  color: var(--navy-950);
+  font-family: var(--font-heading);
+  font-size: clamp(1.35rem, 2vw, 1.9rem);
+  font-weight: 600;
+  line-height: 1.08;
+  text-transform: uppercase;
+}
+
+#dimension-stones .stone-curation__text {
+  max-width: none;
+  margin-top: 0.95rem;
+  color: var(--charcoal-700);
+  font-size: 0.96rem;
+  line-height: 1.74;
+  text-align: justify;
+  text-wrap: pretty;
+}
+
+#dimension-stones .stone-curation__checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.1rem;
+}
+
+#dimension-stones .stone-curation__checks span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.4rem 0.72rem;
+  background: rgba(15, 31, 58, 0.05);
+  color: var(--navy-900);
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+#dimension-stones .stone-curation__link {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 1.25rem;
+  color: var(--primary-gold-500);
+  font-family: var(--font-ui);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+#dimension-stones .stone-curation__brief {
+  display: grid;
+  gap: 0.7rem;
+  padding: 1rem;
+}
+
+#dimension-stones .stone-brief-card {
+  padding: 1rem 1.05rem;
+  background: rgba(15, 31, 58, 0.035);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+#dimension-stones .stone-brief-card strong {
+  display: block;
+  color: var(--navy-950);
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+#dimension-stones .stone-brief-card span {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--charcoal-700);
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+#dimension-stones .stone-grid {
+  gap: 1.1rem;
+}
+
+#dimension-stones .stone-grid--editorial {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+#dimension-stones .stone-grid--editorial #marble {
+  grid-column: auto;
+}
+
+#dimension-stones .stone-grid--editorial #white-marble {
+  grid-column: auto;
+}
+
+#dimension-stones .stone-grid--editorial #onyx {
+  grid-column: auto;
+}
+
+#dimension-stones .stone-grid--editorial #granite {
+  grid-column: auto;
+  min-height: 340px;
+}
+
+#dimension-stones .stone-card {
+  min-height: 340px;
+  padding: 1.5rem;
+  border: 1px solid rgba(15, 23, 42, 0.14);
+  border-bottom: 3px solid rgba(230, 92, 26, 0.28);
+  box-shadow: 0 16px 42px rgba(15, 23, 42, 0.07);
+}
+
+#dimension-stones .stone-card::before {
+  opacity: 0.9;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(10, 22, 40, 0.64)),
+    var(--stone-image, url('../../images/marble.avif')) center / cover;
+}
+
+#dimension-stones .stone-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(230, 92, 26, 0.42);
+  box-shadow: 0 24px 55px rgba(15, 23, 42, 0.14);
+}
+
+#dimension-stones .stone-card span {
+  margin-bottom: 3rem;
+  color: var(--primary-gold-500);
+  font-size: 2.6rem;
+}
+
+#dimension-stones .stone-card__eyebrow {
+  display: inline-block;
+  margin-bottom: 0.65rem;
+  color: var(--primary-gold-500);
+  font-family: var(--font-ui);
+  font-size: 0.63rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+#dimension-stones .stone-card h3 {
+  color: #ffffff;
+  text-shadow: 0 1px 18px rgba(5, 8, 14, 0.28);
+}
+
+#dimension-stones .stone-card p {
+  color: rgba(240, 245, 251, 0.9);
+  text-shadow: 0 1px 12px rgba(5, 8, 14, 0.24);
+}
+
+#dimension-stones .stone-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+#dimension-stones .stone-card__meta em {
+  color: rgba(255, 220, 198, 0.76);
+  font-family: var(--font-ui);
+  font-size: 0.62rem;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+#dimension-stones .stone-card__meta strong {
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 0.92rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1080px) {
+  #dimension-stones .stone-curation,
+  #dimension-stones .stone-grid--editorial {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #dimension-stones .stone-grid--editorial #marble,
+  #dimension-stones .stone-grid--editorial #white-marble,
+  #dimension-stones .stone-grid--editorial #onyx,
+  #dimension-stones .stone-grid--editorial #granite {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  #dimension-stones .stone-curation,
+  #dimension-stones .stone-grid--editorial {
+    grid-template-columns: 1fr;
+  }
+
+  #dimension-stones .product-category__header,
+  #dimension-stones .stone-curation__intro,
+  #dimension-stones .stone-curation__brief {
+    padding: 1.2rem;
+  }
+
+  #dimension-stones .stone-curation__title {
+    max-width: none;
+    font-size: 1.3rem;
+  }
+
+  #dimension-stones .stone-card {
+    min-height: 330px;
+  }
 }
 
 .coal-list {
