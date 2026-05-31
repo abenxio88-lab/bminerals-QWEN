@@ -1288,6 +1288,12 @@
 
 .trade-specs__table {
   overflow-x: auto;
+  overflow-y: auto;
+  max-height: 430px;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pan-y;
 }
 
 .trade-specs .tech-table {
@@ -1460,6 +1466,13 @@
   height: 280px;
 }
 
+.metallic-card__image-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+}
+
 .metallic-card__image img {
   width: 100%;
   height: 100%;
@@ -1473,6 +1486,47 @@
 
 .metallic-card__image--compact {
   height: 200px;
+}
+
+.metallic-card__media-caption {
+  position: absolute;
+  left: 0.85rem;
+  bottom: 0.85rem;
+  z-index: 3;
+  padding: 0.35rem 0.6rem;
+  background: rgba(10, 22, 40, 0.72);
+  color: #fff;
+  font-family: var(--font-ui);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.metallic-card__arrow {
+  position: absolute;
+  right: 0.75rem;
+  top: 0.75rem;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  color: #fff;
+  background: rgba(10, 22, 40, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  transition: background 0.2s var(--ease-smooth), transform 0.2s var(--ease-smooth);
+}
+
+.metallic-card__arrow:hover {
+  background: rgba(230, 92, 26, 0.88);
+  transform: translateX(1px);
+}
+
+.metallic-card__image.is-changing img {
+  opacity: 0.55;
 }
 
 /* ---------- CARD CONTENT ---------- */
@@ -1961,6 +2015,14 @@
   min-height: 260px;
 }
 
+.industrial-card__image-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  position: relative;
+}
+
 .industrial-card__image img {
   width: 100%;
   height: 100%;
@@ -2116,6 +2178,7 @@
 
 /* ---------- COMPACT IMAGE ---------- */
 .industrial-card__compact-image {
+  display: block;
   height: 160px;
   background-size: cover;
   background-position: center;
@@ -2831,14 +2894,20 @@
 }
 
 .detail-profile {
+  --metal-accent: var(--primary-gold-500);
+  --metal-tint: rgba(230, 92, 26, 0.08);
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
   gap: 2rem;
   align-items: stretch;
   max-width: var(--max-width);
   margin: 0 auto 1.25rem;
-  background: var(--bg-card);
-  border: 1px solid rgba(15, 23, 42, 0.1);
+  background:
+    linear-gradient(135deg, var(--metal-tint), rgba(255, 255, 255, 0.94) 45%),
+    var(--bg-card);
+  border: 1px solid color-mix(in srgb, var(--metal-accent) 28%, rgba(15, 23, 42, 0.14));
+  box-shadow: 0 16px 42px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
 }
 
 .detail-profile--reverse {
@@ -2857,7 +2926,7 @@
 .detail-profile__copy span {
   display: block;
   margin-bottom: 0.7rem;
-  color: var(--primary-gold-500);
+  color: var(--metal-accent);
   font-family: var(--font-ui);
   font-size: 0.72rem;
   font-weight: 800;
@@ -2885,7 +2954,7 @@
 
 .detail-profile li {
   padding-left: 1rem;
-  border-left: 2px solid rgba(230, 92, 26, 0.45);
+  border-left: 2px solid color-mix(in srgb, var(--metal-accent) 60%, transparent);
 }
 
 .detail-profile > img {
@@ -2893,6 +2962,57 @@
   height: 100%;
   min-height: 360px;
   object-fit: cover;
+}
+
+.detail-profile > picture {
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+}
+
+.detail-profile > picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.detail-profile .mineral-showcase__image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  overflow: hidden;
+}
+
+.detail-profile .mineral-showcase__image > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#copper {
+  --metal-accent: #bf6a1e;
+  --metal-tint: rgba(191, 106, 30, 0.1);
+}
+
+#chromite {
+  --metal-accent: #46617a;
+  --metal-tint: rgba(70, 97, 122, 0.11);
+}
+
+#iron-ore {
+  --metal-accent: #6b5f53;
+  --metal-tint: rgba(107, 95, 83, 0.12);
+}
+
+#antimony {
+  --metal-accent: #2f5f6b;
+  --metal-tint: rgba(47, 95, 107, 0.11);
+}
+
+#lead-zinc {
+  --metal-accent: #57607a;
+  --metal-tint: rgba(87, 96, 122, 0.11);
 }
 
 .detail-record {
@@ -3238,3 +3358,4 @@
     height: 2.35rem;
   }
 }
+

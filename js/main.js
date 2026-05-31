@@ -80,9 +80,145 @@ document.addEventListener('DOMContentLoaded', async () => {
   runInit('initChromiteCardToggle', initChromiteCardToggle);
   runInit('initIronCardToggle', initIronCardToggle);
   runInit('initAntimonyCardToggle', initAntimonyCardToggle);
+  runInit('initProductsMetallicCardToggles', initProductsMetallicCardToggles);
+  runInit('initTradeSpecsWheelScroll', initTradeSpecsWheelScroll);
   // Ensure loader is removed after all inits complete
   setTimeout(() => removeLoader(), 100);
 });
+
+function initTradeSpecsWheelScroll() {
+  if (window.__tradeSpecsWheelScrollInitialized) return;
+
+  const scrollerSelector = '.trade-specs__table';
+  const scroller = document.querySelector(scrollerSelector);
+  if (!scroller) return;
+
+  window.__tradeSpecsWheelScrollInitialized = true;
+
+  const handleWheel = (event) => {
+    const activeScroller = event.target instanceof Element
+      ? event.target.closest(scrollerSelector)
+      : null;
+    if (!activeScroller) return;
+
+    if (Math.abs(event.deltaY) < Math.abs(event.deltaX)) return;
+
+    const canScroll = activeScroller.scrollHeight > activeScroller.clientHeight;
+    if (!canScroll) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    activeScroller.scrollTop += event.deltaY;
+  };
+
+  // Capture phase prevents the page from consuming wheel first.
+  document.addEventListener('wheel', handleWheel, { passive: false, capture: true });
+}
+
+function initProductsMetallicCardToggles() {
+  if (window.__productsMetallicCardTogglesInitialized) return;
+
+  const toggles = [
+    {
+      card: '[data-products-chromite-card]',
+      image: '[data-products-chromite-image]',
+      caption: '[data-products-chromite-caption]',
+      next: '[data-products-chromite-next]',
+      views: [
+        {
+          image: 'images/chromite-new.webp',
+          alt: 'Chromite lumps from Muslim Bagh mining operations in Balochistan',
+          caption: 'Chrome Lumps',
+          nextLabel: 'Show chrome concentrate'
+        },
+        {
+          image: 'images/chrome-concentrate.avif',
+          alt: 'Chrome concentrate sample',
+          caption: 'Chrome Concentrate',
+          nextLabel: 'Show chrome lumps'
+        }
+      ]
+    },
+    {
+      card: '[data-products-iron-card]',
+      image: '[data-products-iron-image]',
+      caption: '[data-products-iron-caption]',
+      next: '[data-products-iron-next]',
+      views: [
+        {
+          image: 'images/iron-ore-new.avif',
+          alt: 'Iron ore lumps from Balochistan mining sites',
+          caption: 'Iron Ore Lumps',
+          nextLabel: 'Show iron concentrate'
+        },
+        {
+          image: 'images/iron-concentrate.avif',
+          alt: 'Iron ore concentrate sample',
+          caption: 'Iron Concentrate',
+          nextLabel: 'Show iron ore lumps'
+        }
+      ]
+    },
+    {
+      card: '[data-products-antimony-card]',
+      image: '[data-products-antimony-image]',
+      caption: '[data-products-antimony-caption]',
+      next: '[data-products-antimony-next]',
+      views: [
+        {
+          image: 'images/antimony.avif',
+          alt: 'Antimony lumps sample',
+          caption: 'Antimony Lumps',
+          nextLabel: 'Show antimony concentrate'
+        },
+        {
+          image: 'images/antimony-concentrate.avif',
+          alt: 'Antimony concentrate sample',
+          caption: 'Antimony Concentrate',
+          nextLabel: 'Show antimony lumps'
+        }
+      ]
+    }
+  ];
+
+  let hasAnyToggle = false;
+
+  toggles.forEach((config) => {
+    const card = document.querySelector(config.card);
+    if (!card) return;
+
+    const imageWrap = card.querySelector('.metallic-card__image');
+    const image = card.querySelector(config.image);
+    const caption = card.querySelector(config.caption);
+    const nextButton = card.querySelector(config.next);
+    if (!imageWrap || !image || !caption || !nextButton) return;
+
+    hasAnyToggle = true;
+    let activeIndex = 0;
+
+    const renderView = (index) => {
+      const view = config.views[index];
+      imageWrap.classList.add('is-changing');
+
+      window.setTimeout(() => {
+        image.src = view.image;
+        image.alt = view.alt;
+        caption.textContent = view.caption;
+        nextButton.setAttribute('aria-label', view.nextLabel);
+        imageWrap.classList.remove('is-changing');
+      }, 120);
+    };
+
+    nextButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      activeIndex = (activeIndex + 1) % config.views.length;
+      renderView(activeIndex);
+    });
+  });
+
+  if (hasAnyToggle) window.__productsMetallicCardTogglesInitialized = true;
+}
 
 function initIronCardToggle() {
   if (window.__ironCardToggleInitialized) return;
