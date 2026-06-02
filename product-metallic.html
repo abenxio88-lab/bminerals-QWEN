@@ -72,8 +72,8 @@
         <h2>Metallic minerals</h2>
         <p>Grades shown here are commercial ranges. Final sale terms should be tied to current lot assay, inspection, sizing and moisture.</p>
       </div>
-      <article class="detail-profile" id="copper">
-        <div class="detail-profile__copy">
+      <article class="detail-profile detail-profile--copper" id="copper">
+        <div class="detail-profile__copy detail-profile__copy--metrics">
           <span>Copper</span>
           <h3>Copper lumps from Chaghi</h3>
           <p>
@@ -81,16 +81,21 @@
             terms should be set against fresh lot assay, sizing and moisture, with penalties agreed for deleterious
             elements where applicable.
           </p>
-          <p>
+          <ul class="detail-profile__stats detail-profile__stats--chips">
+            <li class="showcase-stat"><span class="showcase-stat__value">0.740%</span><span class="showcase-stat__label">SGS Sample</span></li>
+            <li class="showcase-stat"><span class="showcase-stat__value">Lumps</span><span class="showcase-stat__label">Shipment Form</span></li>
+            <li class="showcase-stat"><span class="showcase-stat__value">Chaghi</span><span class="showcase-stat__label">Region</span></li>
+          </ul>
+          <p class="detail-profile__note">
             Reference: an SGS-referenced sample from Chaghi reported <strong>0.740% Cu</strong> in the submitted
             material (PKS2333078, AAS). Contract ranges vary by source block and upgrade step.
           </p>
-          <ul>
-            <li>Typical range: assay-led (lot dependent)</li>
-            <li>Form: lumps (screened, buyer sizing on request)</li>
-            <li>Buyer checks: Cu%, moisture, silica, sulphur, impurities</li>
-            <li>Use: smelter feed, blending and copper ore trading</li>
-            <li>Documentation: assay report, weight slips, lot photos</li>
+          <ul class="detail-profile__facts detail-profile__facts--chips">
+            <li>Assay-led lots</li>
+            <li>Buyer sizing on request</li>
+            <li>Cu / moisture / silica checks</li>
+            <li>Smelter and blending feed</li>
+            <li>Lot photos and weight slips</li>
           </ul>
         </div>
         <picture>
@@ -99,17 +104,21 @@
           <img src="images/copper-new.webp" alt="Copper ore from Chaghi">
         </picture>
       </article>
-      <article class="detail-profile detail-profile--reverse" id="chromite" data-chromite-card>
-        <div class="detail-profile__copy mineral-showcase__content">
+      <article class="detail-profile detail-profile--reverse detail-profile--chromite" id="chromite" data-chromite-card>
+        <div class="detail-profile__copy detail-profile__copy--metrics mineral-showcase__content">
           <span>Chromite</span>
           <h3 data-chromite-title>Chrome Lumps</h3>
           <p data-chromite-description>
             Chrome lumps are supplied for ferrochrome, refractory and foundry buyers, with typical Cr2O3 purity ranging
             from 12% - 52% depending on lot grade, sizing and final assay.
           </p>
-          <ul class="mineral-showcase__stats">
+          <ul class="mineral-showcase__stats detail-profile__stats detail-profile__stats--rail">
             <li class="showcase-stat"><span class="showcase-stat__value" data-chromite-stat-value="0">12-52%</span><span class="showcase-stat__label" data-chromite-stat-label="0">Cr2O3 Lumps</span></li>
             <li class="showcase-stat"><span class="showcase-stat__value" data-chromite-stat-value="1">Muslim Bagh</span><span class="showcase-stat__label" data-chromite-stat-label="1">Region</span></li>
+          </ul>
+          <ul class="detail-profile__facts detail-profile__facts--split">
+            <li><strong>Furnace path</strong><span>Ferrochrome, refractory and foundry programs.</span></li>
+            <li><strong>Control points</strong><span>Cr2O3, Cr:Fe ratio, sizing and moisture.</span></li>
           </ul>
         </div>
         <div class="mineral-showcase__image">
@@ -123,18 +132,23 @@
           <div class="mineral-showcase__overlay"></div>
         </div>
       </article>
-      <article class="detail-profile" id="iron-ore" data-iron-card>
-        <div class="detail-profile__copy mineral-showcase__content">
+      <article class="detail-profile detail-profile--iron" id="iron-ore" data-iron-card>
+        <div class="detail-profile__copy detail-profile__copy--metrics mineral-showcase__content">
           <span>Iron Ore</span>
           <h3 data-iron-title>Iron Ore Lumps</h3>
           <p data-iron-description>
             Hematite and magnetite iron ore lumps are supplied for steel buyers, infrastructure projects and regional
             trading programs, with typical Fe purity ranging from 40% - 58% depending on lot assay.
           </p>
-          <ul class="mineral-showcase__stats">
+          <ul class="mineral-showcase__stats detail-profile__stats detail-profile__stats--stack">
             <li class="showcase-stat"><span class="showcase-stat__value" data-iron-stat-value="0">40-58%</span><span class="showcase-stat__label" data-iron-stat-label="0">Fe Lumps</span></li>
             <li class="showcase-stat"><span class="showcase-stat__value" data-iron-stat-value="1">Hem / Mag</span><span class="showcase-stat__label" data-iron-stat-label="1">Type</span></li>
           </ul>
+          <div class="detail-profile__microband">
+            <span>Steel feed</span>
+            <span>Infrastructure raw material</span>
+            <span>Regional trading lots</span>
+          </div>
         </div>
         <div class="mineral-showcase__image">
           <img src="images/iron-ore-new.webp" alt="Iron ore lumps from Balochistan mining sites" data-iron-image>
@@ -147,18 +161,24 @@
           <div class="mineral-showcase__overlay"></div>
         </div>
       </article>
-      <article class="detail-profile detail-profile--reverse" id="antimony" data-antimony-card>
-        <div class="detail-profile__copy mineral-showcase__content">
+      <article class="detail-profile detail-profile--reverse detail-profile--antimony" id="antimony" data-antimony-card>
+        <div class="detail-profile__copy detail-profile__copy--metrics mineral-showcase__content">
           <span>Antimony</span>
           <h3 data-antimony-title>Antimony Lumps</h3>
           <p data-antimony-description>
             Sorted antimony lumps are supplied for specialty metal, alloy and chemical buyers, with typical Sb purity
             ranging from 4% - 58% depending on the lot and final assay.
           </p>
-          <ul class="mineral-showcase__stats">
+          <ul class="mineral-showcase__stats detail-profile__stats detail-profile__stats--chips">
             <li class="showcase-stat"><span class="showcase-stat__value" data-antimony-stat-value="0">4-58%</span><span class="showcase-stat__label" data-antimony-stat-label="0">Sb Lumps</span></li>
             <li class="showcase-stat"><span class="showcase-stat__value" data-antimony-stat-value="1">Sorted</span><span class="showcase-stat__label" data-antimony-stat-label="1">Form</span></li>
             <li class="showcase-stat"><span class="showcase-stat__value" data-antimony-stat-value="2">Assay</span><span class="showcase-stat__label" data-antimony-stat-label="2">Lot Check</span></li>
+          </ul>
+          <ul class="detail-profile__facts detail-profile__facts--chips">
+            <li>Alloy feed</li>
+            <li>Chemical buyers</li>
+            <li>Fresh lot testing</li>
+            <li>Sorting-sensitive lots</li>
           </ul>
         </div>
         <div class="mineral-showcase__image">
@@ -172,8 +192,8 @@
           <div class="mineral-showcase__overlay"></div>
         </div>
       </article>
-      <article class="detail-profile" id="lead-zinc">
-        <div class="detail-profile__copy">
+      <article class="detail-profile detail-profile--lead-zinc detail-profile--copper" id="lead-zinc">
+        <div class="detail-profile__copy detail-profile__copy--ledger">
           <span>Lead / Zinc</span>
           <h3>Base-metal ore from Chaghi</h3>
           <p>
@@ -181,16 +201,16 @@
             Commercial evaluation should include separate Pb and Zn assays, potential Ag credits, and penalty elements
             agreed in advance.
           </p>
-          <p>
+          <p class="detail-profile__note">
             For loading, we align packaging (bulk / jumbo bags / containers) to protect grade separation and minimize
             contamination during transit.
           </p>
-          <ul>
-            <li>Typical range: 10% - 60% Pb/Zn (lot dependent)</li>
-            <li>Region: Chaghi</li>
-            <li>Buyer checks: Pb, Zn, Ag, moisture, impurities/penalties</li>
-            <li>Use: base-metal smelting and concentrate trading</li>
-            <li>Documentation: assay report + weight/packing list</li>
+          <ul class="detail-profile__facts detail-profile__facts--ledger">
+            <li><strong>Typical range</strong><span>10% - 60% Pb/Zn by lot and upgrade stage.</span></li>
+            <li><strong>Mining province</strong><span>Chaghi base-metal corridor.</span></li>
+            <li><strong>Assay focus</strong><span>Pb, Zn, Ag, moisture and penalty impurities.</span></li>
+            <li><strong>Commercial path</strong><span>Base-metal smelting and concentrate trading.</span></li>
+            <li><strong>Dispatch file</strong><span>Assay report, packing list and weight note.</span></li>
           </ul>
         </div>
         <picture>
