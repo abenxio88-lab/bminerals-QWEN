@@ -122,6 +122,43 @@ function initHeroScene() {
   });
 }
 
+function initDataFreshnessFade() {
+  const banner = document.querySelector('.data-freshness');
+  const hero = document.querySelector('.hero');
+  if (!banner || !hero || window.innerWidth <= 768) return;
+
+  let ticking = false;
+
+  const updateBannerState = () => {
+    ticking = false;
+
+    const scrollY = window.scrollY || window.pageYOffset || 0;
+    const heroTop = hero.offsetTop;
+    const heroHeight = hero.offsetHeight;
+    const fadeStart = heroTop + heroHeight * 0.58;
+    const fadeEnd = heroTop + heroHeight * 0.96;
+    const fadeRange = Math.max(1, fadeEnd - fadeStart);
+    const progress = Math.min(Math.max((scrollY - fadeStart) / fadeRange, 0), 1);
+    const opacity = 1 - progress;
+
+    banner.style.opacity = opacity.toFixed(3);
+    banner.style.transform = `translate3d(0, ${(-10 * progress).toFixed(2)}px, 0)`;
+    banner.classList.toggle('data-freshness--hidden', progress > 0.98);
+    banner.setAttribute('aria-hidden', progress > 0.98 ? 'true' : 'false');
+  };
+
+  const requestUpdate = () => {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(updateBannerState);
+  };
+
+  updateBannerState();
+  window.addEventListener('scroll', requestUpdate, { passive: true });
+  window.addEventListener('resize', requestUpdate);
+  window.addEventListener('load', requestUpdate);
+}
+
 function initCitableReveals() {
   const items = document.querySelectorAll('.reveal');
   if (!items.length) return;
@@ -281,6 +318,7 @@ function init() {
   initLenis();
   if (hasGsap) gsap.registerPlugin(ScrollTrigger);
   initHeroScene();
+  initDataFreshnessFade();
   initHeroSnapshotStats();
   initCitableReveals();
   buildOperationsScene();

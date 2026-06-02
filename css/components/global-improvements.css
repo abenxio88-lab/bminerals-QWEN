@@ -61,6 +61,15 @@ a:focus-visible {
   padding: 0.38rem var(--section-padding-x);
   z-index: var(--z-data-freshness);
   display: block;
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  visibility: visible;
+  will-change: opacity, transform;
+}
+
+.data-freshness--hidden {
+  pointer-events: none;
+  visibility: hidden;
 }
 
 .data-freshness__container {
