@@ -2182,11 +2182,23 @@
 
         <!-- Washuk Antimony -->
         <div class="mine-profile mine-profile--compact reveal" id="washuk-antimony">
-          <div class="mine-profile__image">
-            <picture>
-              <source type="image/avif" srcset="images/antimony.avif">
-              <img src="images/antimony.avif" alt="Washuk antimony exploration and sourcing prospect" loading="lazy">
-            </picture>
+          <div class="mine-profile__image mine-profile__image--carousel" data-mine-carousel>
+            <div class="mine-profile__slides">
+              <picture class="mine-profile__slide is-active">
+                <source type="image/webp" srcset="images/our-mines/washuk-mining-site.webp">
+                <img src="images/our-mines/washuk-mining-site.webp" alt="Washuk antimony mining site" loading="lazy">
+              </picture>
+              <picture class="mine-profile__slide">
+                <source type="image/avif" srcset="images/antimony.avif">
+                <img src="images/antimony.avif" alt="Washuk antimony exploration and sourcing prospect" loading="lazy">
+              </picture>
+            </div>
+            <div class="mine-profile__carousel-controls" aria-label="Washuk image gallery">
+              <button class="mine-profile__carousel-btn" type="button" data-carousel-direction="prev"
+                aria-label="Previous Washuk image">&lsaquo;</button>
+              <button class="mine-profile__carousel-btn" type="button" data-carousel-direction="next"
+                aria-label="Next Washuk image">&rsaquo;</button>
+            </div>
             <div class="mine-profile__badges">
               <span class="mine-profile__status-badge mine-profile__status-badge--exploration">Exploration</span>
               <div class="ops-pulse"><span class="ops-pulse__dot"></span> Samples Logged</div>
@@ -2230,12 +2242,25 @@
 
         <!-- Chagai Lead Zinc -->
         <div class="mine-profile mine-profile--wide mine-profile--reverse reveal" id="chagai-lead-zinc">
-          <div class="mine-profile__image">
-            <picture>
-              <source type="image/avif" srcset="images/lead-zinc.avif">
-              <source type="image/webp" srcset="images/lead-zinc.webp">
-              <img src="images/lead-zinc.webp" alt="Chagai lead and zinc base-metal ore lots" loading="lazy">
-            </picture>
+          <div class="mine-profile__image mine-profile__image--carousel" data-mine-carousel>
+            <div class="mine-profile__slides">
+              <picture class="mine-profile__slide is-active">
+                <source type="image/webp" srcset="images/our-mines/chagai-lead-zinc-site.webp">
+                <img src="images/our-mines/chagai-lead-zinc-site.webp" alt="Chagai lead-zinc mining site"
+                  loading="lazy">
+              </picture>
+              <picture class="mine-profile__slide">
+                <source type="image/avif" srcset="images/lead-zinc.avif">
+                <source type="image/webp" srcset="images/lead-zinc.webp">
+                <img src="images/lead-zinc.webp" alt="Chagai lead and zinc base-metal ore lots" loading="lazy">
+              </picture>
+            </div>
+            <div class="mine-profile__carousel-controls" aria-label="Chagai lead-zinc image gallery">
+              <button class="mine-profile__carousel-btn" type="button" data-carousel-direction="prev"
+                aria-label="Previous Chagai lead-zinc image">&lsaquo;</button>
+              <button class="mine-profile__carousel-btn" type="button" data-carousel-direction="next"
+                aria-label="Next Chagai lead-zinc image">&rsaquo;</button>
+            </div>
             <div class="mine-profile__badges">
               <span class="mine-profile__status-badge mine-profile__status-badge--sourcing">Assay Led</span>
               <div class="ops-pulse"><span class="ops-pulse__dot"></span> Buyer Samples</div>
