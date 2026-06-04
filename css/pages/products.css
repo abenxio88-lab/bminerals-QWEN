@@ -3136,6 +3136,11 @@
   overflow: hidden;
 }
 
+.detail-hero__media--metallic-products {
+  aspect-ratio: 3 / 2;
+  position: relative;
+}
+
 .detail-hero__media picture {
   display: block;
   width: 100%;
@@ -3147,6 +3152,11 @@
   height: 100%;
   object-fit: cover;
   opacity: 0.78;
+}
+
+.detail-hero__media--metallic-products img {
+  position: absolute;
+  inset: 0;
 }
 
 .detail-hero__content {
