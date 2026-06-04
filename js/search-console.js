@@ -38,6 +38,7 @@ export function initSearchConsole() {
     { id: 'fluorite', title: 'Fluorite / Fluorspar', description: '50% - 90%+ CaF2 grades', url: 'product-industrial.html#fluorite', category: 'Products', icon: 'Ca' },
     { id: 'gypsum', title: 'Gypsum', description: '90% - 95% typical construction and cement grade', url: 'product-industrial.html#gypsum', category: 'Products', icon: 'Gy' },
     { id: 'magnesite', title: 'Magnesite', description: '42% - 47% raw MgO and calcined options', url: 'product-industrial.html#magnesite', category: 'Products', icon: 'Mg' },
+    { id: 'phosphate-rock', title: 'Phosphate Rock', description: 'P2O5 assay-based fertilizer and chemical feedstock', url: 'product-industrial.html#phosphate-rock', category: 'Products', icon: 'P' },
     { id: 'sulphur', title: 'Sulphur', description: 'COA-based ore and industrial feed', url: 'product-industrial.html#sulphur', category: 'Products', icon: 'S' },
     { id: 'bauxite', title: 'Bauxite', description: '45% - 62% Al2O3 ore', url: 'product-industrial.html#bauxite', category: 'Products', icon: 'Al' },
     { id: 'celestite', title: 'Celestite', description: '80% - 95% SrSO4 typical material', url: 'product-industrial.html#celestite', category: 'Products', icon: 'Sr' },

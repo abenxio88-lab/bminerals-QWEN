@@ -514,6 +514,7 @@ function initProductDetailLinks() {
     fluorite: 'product-industrial.html#fluorite',
     gypsum: 'product-industrial.html#gypsum',
     magnesite: 'product-industrial.html#magnesite',
+    'phosphate-rock': 'product-industrial.html#phosphate-rock',
     sulphur: 'product-industrial.html#sulphur',
     bauxite: 'product-industrial.html#bauxite',
     celestite: 'product-industrial.html#celestite',

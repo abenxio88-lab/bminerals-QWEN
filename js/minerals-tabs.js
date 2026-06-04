@@ -6,8 +6,12 @@ let mediaModal = null;
 let lastMediaTrigger = null;
 
 const reportLinksBySpecHref = {
-  'product-metallic.html#copper': 'images/pdf-reports/copper-ore.png',
-  'product-metallic.html#antimony': 'images/pdf-reports/anitmony-SGS-report.pdf',
+  'product-metallic.html#copper': 'images/pdf-reports/copper-ore.pdf',
+  'product-metallic.html#chromite': 'images/pdf-reports/chrome-ore.pdf',
+  'product-metallic.html#iron-ore': 'images/pdf-reports/iron-ore.pdf',
+  'product-metallic.html#antimony': 'images/pdf-reports/antimony.pdf',
+  'product-industrial.html#bauxite': 'images/pdf-reports/bauxite.pdf',
+  'product-industrial.html#phosphate-rock': 'images/pdf-reports/phosphate-rock.pdf',
 };
 
 const actionIcons = {

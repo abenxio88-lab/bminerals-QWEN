@@ -2185,6 +2185,10 @@
   position: relative;
 }
 
+#phosphate-rock .industrial-card__compact-image {
+  background-image: url("../../images/phosphate-rock.webp");
+}
+
 .industrial-card__compact-image::after {
   content: "";
   position: absolute;
