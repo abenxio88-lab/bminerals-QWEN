@@ -1433,7 +1433,6 @@
 /* Compact Cards (Bottom Row) */
 .metallic-showcase__grid #iron-ore { grid-column: 1 / 3; grid-row: 3; }
 .metallic-showcase__grid #antimony { grid-column: 3 / 5; grid-row: 3; }
-.metallic-showcase__grid #lead-zinc { grid-column: 5 / 7; grid-row: 3; }
 
 /* ---------- METALLIC CARD (base) ---------- */
 .metallic-card {
@@ -1720,7 +1719,6 @@
   
   .metallic-showcase__grid #iron-ore { grid-column: 1; grid-row: 3; }
   .metallic-showcase__grid #antimony { grid-column: 2; grid-row: 3; }
-  .metallic-showcase__grid #lead-zinc { grid-column: 1 / 3; grid-row: 4; }
 
   .metallic-showcase__header-inner {
     grid-template-columns: 1fr;
@@ -1744,8 +1742,7 @@
   .metallic-showcase__grid #copper,
   .metallic-showcase__grid #chromite,
   .metallic-showcase__grid #iron-ore,
-  .metallic-showcase__grid #antimony,
-  .metallic-showcase__grid #lead-zinc {
+  .metallic-showcase__grid #antimony {
     grid-column: 1;
     grid-row: auto;
   }
@@ -2393,13 +2390,10 @@
 
 #iron-ore { --product-image: url('../../images/iron-ore-new.webp'); }
 #antimony { --product-image: url('../../images/antimony.avif'); }
-#lead-zinc { --product-image: url('../../images/lead-zinc.avif'); }
 #fluorite { --product-image: url('../../images/fluorite.avif'); }
 #gypsum { --product-image: url('../../images/gypsum.avif'); }
 #magnesite { --product-image: url('../../images/magnesite.avif'); }
-#sulphur { --product-image: url('../../images/sulphur-ore.avif'); }
 #bauxite { --product-image: url('../../images/bauxite.avif'); }
-#celestite { --product-image: url('../../images/celestite.avif'); }
 
 .product-card:hover {
   transform: translateY(-3px);
@@ -3496,10 +3490,6 @@
   --metal-tint: rgba(47, 95, 107, 0.11);
 }
 
-#lead-zinc {
-  --metal-accent: #57607a;
-  --metal-tint: rgba(87, 96, 122, 0.11);
-}
 
 .detail-profile--copper {
   grid-template-columns: minmax(260px, 0.76fr) minmax(0, 1.24fr);
@@ -3529,9 +3519,6 @@
   background: linear-gradient(180deg, color-mix(in srgb, var(--metal-accent) 4%, white), white 62%);
 }
 
-.detail-profile--lead-zinc .detail-profile__copy {
-  gap: 0.55rem;
-}
 
 .detail-record {
   display: grid;

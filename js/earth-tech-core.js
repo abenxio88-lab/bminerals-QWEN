@@ -49,7 +49,7 @@ export function initEarthTechCore() {
 
   // 3. Material (Industrial Slate with Metallic Sheen)
   const material = new THREE.MeshStandardMaterial({
-    color: 0x3f3f46, // Zinc-600 (Lighter industrial slate)
+    color: 0x3f3f46, // Lighter industrial slate
     wireframe: true,
     transparent: true,
     opacity: 0.35, // Increased visibility

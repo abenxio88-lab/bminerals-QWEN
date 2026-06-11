@@ -9,7 +9,6 @@ document.querySelectorAll('.project-category-switch').forEach((switcher) => {
     '#dilband': 'metallic',
     '#chagai': 'metallic',
     '#antimony': 'metallic',
-    '#lead-zinc': 'metallic',
     '#industrial-': 'industrial',
     '#stone-': 'stones',
     '#energy-': 'energy'

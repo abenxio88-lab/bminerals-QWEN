@@ -68,15 +68,6 @@ export function initProjectMap() {
       status: "Lot-Based Supply",
       tone: "chromite",
       radius: 38000
-    },
-    {
-      name: "Lead-Zinc Corridor",
-      coords: [28.6, 63.7],
-      commodity: "Lead-Zinc",
-      type: "Base-Metal Project",
-      status: "Assay-Led Supply",
-      tone: "copper",
-      radius: 44000
     }
   ];
 

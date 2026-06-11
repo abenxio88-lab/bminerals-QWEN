@@ -15,7 +15,7 @@ function init(){
     'Coal':'#4A90D9','Marble':'#27AE60','Limestone':'#F1C40F','Iron':'#E74C3C',
     'Chromite':'#C0392B','Shale':'#7F8C8D','Serpentine':'#6B8E23','Manganese':'#8E44AD',
     'Barite':'#9B59B6','Pumice':'#1ABC9C','Marble Onyx':'#2ECC71','Travertine':'#D35400',
-    'Sulphur':'#F39C12','Granite':'#00E676','Fluorite':'#E91E63','Copper':'#FF6D00',
+    'Granite':'#00E676','Fluorite':'#E91E63','Copper':'#FF6D00',
     'Basalt':'#1A237E','Calcite':'#81D4FA','Mangasite':'#FF80AB'
   };
 
@@ -47,7 +47,6 @@ function init(){
     [[66.5,28.5],[67.2,28.2],[67.8,28.0],[68.0,28.0]],
     // Quetta-Pishin border
     [[66.2,30.4],[66.8,30.4],[67.0,30.5]],
-    // Ziarat-Harnai-Duki horizontal
     [[67.0,30.5],[67.5,30.2],[68.0,30.2],[68.5,30.0]],
     // Loralai-Barkhan horizontal
     [[68.5,30.0],[69.0,30.0],[69.5,29.8],[69.8,29.6]],
@@ -92,8 +91,8 @@ function init(){
     ['Awaran',65.0,26.2],['Lasbela',67.0,26.2],['Khuzdar',66.5,27.8],
     ['Qalat',66.3,29.2],['Mastung',66.7,29.6],['Nushki',65.8,29.6],
     ['Quetta',66.8,30.2],['Pishin',66.8,30.55],['Qilla\nSaifullah',67.6,30.9],
-    ['Zhob',69.3,31.3],['Ziarat',67.5,30.3],['Harnai',67.9,30.05],
-    ['Loralai',68.5,30.4],['Duki',68.4,30.1],['Barkhan',69.6,29.8],
+    ['Zhob',69.3,31.3],['Ziarat',67.5,30.3],
+    ['Loralai',68.5,30.4],['Barkhan',69.6,29.8],
     ['Musakhel',70.1,30.8],['Kohlu',69.0,29.8],['Dera\nBugti',69.0,29.0],
     ['Sibi',67.7,29.5],['Bolan',67.4,29.7],['Nasirabad',68.2,28.4],
     ['Jhal\nMagsi',67.1,28.4]
@@ -102,16 +101,15 @@ function init(){
   // Mineral deposits
   var deposits = [
     [63.55,29.25,'Copper','Chagai'],[63.0,29.10,'Copper','Chagai'],
-    [63.80,29.35,'Iron','Chagai'],[62.50,28.90,'Sulphur','Chagai'],
+    [63.80,29.35,'Iron','Chagai'],
     [64.10,29.45,'Pumice','Chagai'],[65.40,28.55,'Marble','Kharan'],
     [66.00,29.55,'Marble Onyx','Nushki'],[66.97,30.18,'Limestone','Quetta'],
     [67.15,30.25,'Coal','Quetta'],[66.99,30.58,'Chromite','Pishin'],
     [67.73,30.80,'Chromite','Muslim Bagh'],[67.90,30.90,'Serpentine','Qilla Saifullah'],
     [67.60,30.70,'Manganese','Qilla Saifullah'],[69.45,31.35,'Chromite','Zhob'],
     [69.20,31.25,'Coal','Zhob'],[67.73,30.38,'Coal','Ziarat'],
-    [67.94,30.10,'Coal','Harnai'],[68.10,30.15,'Marble','Harnai'],
     [68.60,30.37,'Coal','Loralai'],[68.75,30.45,'Chromite','Loralai'],
-    [68.57,30.15,'Coal','Duki'],[67.60,29.80,'Limestone','Bolan'],
+    [67.60,29.80,'Limestone','Bolan'],
     [67.88,29.54,'Coal','Sibi'],[69.25,29.90,'Marble','Kohlu'],
     [66.60,29.40,'Limestone','Qalat'],[66.85,29.80,'Marble','Mastung'],
     [66.62,27.80,'Barite','Khuzdar'],[66.40,27.65,'Marble','Khuzdar'],
@@ -124,7 +122,7 @@ function init(){
     [64.20,27.70,'Granite','Washuk'],[64.10,26.95,'Marble','Panjgur'],
     [63.05,26.00,'Marble','Kech'],[62.33,25.30,'Limestone','Gwadar'],
     [69.52,29.90,'Coal','Barkhan'],[69.70,29.80,'Shale','Barkhan'],
-    [70.30,30.90,'Coal','Musakhel'],[69.15,29.05,'Sulphur','Dera Bugti'],
+    [70.30,30.90,'Coal','Musakhel'],
     [68.35,28.50,'Limestone','Nasirabad'],[67.20,28.50,'Mangasite','Jhal Magsi']
   ];
 
