@@ -824,6 +824,297 @@
   line-height: 1.65;
 }
 
+.export-documents {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(4rem, 7vw, 6.5rem) var(--section-padding-x);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 82% 18%, rgba(230, 92, 26, 0.12), transparent 30%),
+    linear-gradient(135deg, #0b1726 0%, #132235 58%, #101923 100%);
+  color: #ffffff;
+}
+
+.export-documents::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055), transparent 36%),
+    linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.035) 100%);
+  opacity: 0.62;
+}
+
+.export-documents__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.export-documents__header {
+  display: grid;
+  grid-template-columns: minmax(0, 0.86fr) minmax(280px, 0.64fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: end;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.export-documents__overline {
+  grid-column: 1 / -1;
+  width: fit-content;
+  padding: 0.42rem 0.85rem;
+  color: var(--primary-gold-400);
+  background: rgba(230, 92, 26, 0.12);
+  border: 1px solid rgba(230, 92, 26, 0.28);
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.export-documents__title {
+  max-width: 560px;
+  color: #f5f0e8;
+  font-family: var(--font-heading);
+  font-size: clamp(1.45rem, 2.35vw, 2.35rem);
+  font-weight: 600;
+  line-height: 1.14;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.export-documents__subtitle {
+  max-width: 520px;
+  color: rgba(245, 240, 232, 0.68);
+  font-size: clamp(0.94rem, 1.2vw, 1.05rem);
+  line-height: 1.7;
+}
+
+.export-documents__layout {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.78fr) minmax(0, 1.22fr);
+  gap: clamp(0.9rem, 2vw, 1.25rem);
+  align-items: stretch;
+}
+
+.export-documents__brief {
+  position: relative;
+  display: flex;
+  min-height: 360px;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.2rem, 2vw, 1.65rem);
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.078), rgba(255, 255, 255, 0.038));
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.export-documents__brief::after {
+  content: '';
+  position: absolute;
+  inset: auto 1.2rem 1.2rem 1.2rem;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(230, 92, 26, 0.56), transparent);
+}
+
+.export-documents__seal {
+  display: grid;
+  place-items: center;
+  width: 3.65rem;
+  height: 3.65rem;
+  color: var(--primary-gold-400);
+  background: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.export-documents__seal svg,
+.export-document-card__icon svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.export-documents__brief-label {
+  display: block;
+  margin-top: auto;
+  margin-bottom: 0.75rem;
+  color: var(--primary-gold-400);
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.export-documents__brief-title {
+  max-width: 340px;
+  margin-bottom: 0.95rem;
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 1.8vw, 1.78rem);
+  font-weight: 600;
+  line-height: 1.12;
+  text-transform: uppercase;
+}
+
+.export-documents__brief-text {
+  max-width: 44rem;
+  color: rgba(245, 240, 232, 0.68);
+  font-size: 0.86rem;
+  line-height: 1.66;
+}
+
+.export-documents__steps {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 1.35rem;
+}
+
+.export-documents__steps span {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: rgba(245, 240, 232, 0.78);
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.export-documents__steps span::before {
+  content: '';
+  width: 0.48rem;
+  height: 0.48rem;
+  background: var(--primary-gold-400);
+}
+
+.export-documents__cards {
+  display: grid;
+  gap: 1rem;
+  align-content: stretch;
+}
+
+.export-document-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr) auto;
+  gap: clamp(0.9rem, 2vw, 1.35rem);
+  align-items: center;
+  min-height: 168px;
+  padding: clamp(1.05rem, 2.2vw, 1.8rem);
+  overflow: hidden;
+  color: #f5f0e8;
+  text-decoration: none;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.045));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: border-color 0.28s ease, transform 0.28s ease, background-color 0.28s ease;
+}
+
+.export-document-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--primary-gold-500);
+  opacity: 0.85;
+}
+
+.export-document-card::after {
+  content: '';
+  position: absolute;
+  inset: 1rem 1rem auto auto;
+  width: 92px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(245, 240, 232, 0.28));
+}
+
+.export-document-card:hover,
+.export-document-card:focus-visible {
+  color: #ffffff;
+  border-color: rgba(242, 106, 33, 0.42);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.145), rgba(255, 255, 255, 0.064));
+  transform: translateY(-2px);
+}
+
+.export-document-card:active {
+  transform: translateY(0) scale(0.995);
+}
+
+.export-document-card__index {
+  color: rgba(245, 240, 232, 0.4);
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 2.3vw, 1.95rem);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.export-document-card__icon {
+  display: grid;
+  place-items: center;
+  width: 3.65rem;
+  height: 3.65rem;
+  color: var(--primary-gold-400);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+.export-document-card__body {
+  display: grid;
+  gap: 0.48rem;
+}
+
+.export-document-card__body strong {
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: clamp(1.08rem, 1.7vw, 1.62rem);
+  font-weight: 600;
+  line-height: 1.12;
+  text-transform: uppercase;
+}
+
+.export-document-card__body small {
+  color: rgba(245, 240, 232, 0.62);
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.export-document-card__cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.45rem;
+  padding: 0.68rem 0.9rem;
+  color: #ffffff;
+  background: rgba(230, 92, 26, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-family: var(--font-ui);
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.export-document-card--lading::before {
+  background: #95b8d4;
+}
+
+.export-document-card--lading .export-document-card__icon {
+  color: #b9d6eb;
+}
+
 .capacity-section {
   padding: 3.5rem var(--section-padding-x);
   background: var(--bg-primary);
@@ -985,6 +1276,15 @@
 
   .capacity-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .export-documents__header,
+  .export-documents__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .export-documents__brief {
+    min-height: 320px;
   }
 
   .logistics-cta__container {
@@ -1206,6 +1506,56 @@
     padding-top: 1rem !important;
   }
 
+  .export-documents {
+    padding: 3rem 0.95rem;
+  }
+
+  .export-documents__header {
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .export-documents__title {
+    font-size: clamp(1.55rem, 9vw, 2.3rem);
+    line-height: 1.06;
+  }
+
+  .export-documents__subtitle {
+    font-size: 0.9rem;
+  }
+
+  .export-documents__brief {
+    min-height: 0;
+    padding: 1.15rem;
+  }
+
+  .export-documents__seal {
+    width: 3.4rem;
+    height: 3.4rem;
+    margin-bottom: 2rem;
+  }
+
+  .export-document-card {
+    grid-template-columns: auto 1fr;
+    min-height: 0;
+    padding: 1.05rem;
+  }
+
+  .export-document-card__index {
+    grid-row: 1 / span 2;
+    align-self: start;
+    min-width: 2rem;
+  }
+
+  .export-document-card__icon {
+    display: none;
+  }
+
+  .export-document-card__cta {
+    grid-column: 2;
+    width: fit-content;
+  }
+
   .capacity-grid {
     grid-template-columns: 1fr;
   }
@@ -1252,6 +1602,24 @@
 
   .logistics-analytics__header .route-overview__title {
     font-size: clamp(1.28rem, 9vw, 1.65rem) !important;
+  }
+
+  .export-documents {
+    padding-inline: 0.75rem;
+  }
+
+  .export-documents__brief-title {
+    font-size: 1.28rem;
+  }
+
+  .export-documents__steps span,
+  .export-document-card__body small,
+  .export-document-card__cta {
+    letter-spacing: 0.06em;
+  }
+
+  .export-document-card__body strong {
+    font-size: 1.12rem;
   }
 
   .corridor-panel__metrics {
