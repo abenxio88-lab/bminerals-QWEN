@@ -3,15 +3,55 @@ const categoryPanels = document.querySelectorAll('[data-mineral-panel]');
 const mineralCards = document.querySelectorAll('#minerals .mineral-showcase');
 
 let mediaModal = null;
+let reportModal = null;
 let lastMediaTrigger = null;
+let lastReportTrigger = null;
 
 const reportLinksBySpecHref = {
-  'product-metallic.html#copper': 'images/pdf-reports/copper-ore.pdf',
-  'product-metallic.html#chromite': 'images/pdf-reports/chrome-ore.pdf',
-  'product-metallic.html#iron-ore': 'images/pdf-reports/iron-ore.pdf',
-  'product-metallic.html#antimony': 'images/pdf-reports/antimony.pdf',
-  'product-industrial.html#bauxite': 'images/pdf-reports/bauxite.pdf',
-  'product-industrial.html#phosphate-rock': 'images/pdf-reports/phosphate-rock.pdf',
+  'product-metallic.html#copper': [
+    {
+      title: 'Copper Ore Test Report',
+      href: 'images/pdf-reports/copper-ore.pdf',
+    },
+  ],
+  'product-metallic.html#chromite': [
+    {
+      title: 'Chrome Ore Test Report',
+      href: 'images/pdf-reports/chrome-ore/sgs-doc-2026-06-09-wa0052.pdf.pdf',
+    },
+  ],
+  'product-metallic.html#iron-ore': [
+    {
+      title: 'Iron Ore Test Report',
+      href: 'images/pdf-reports/iron-ore/sgs-ironore-wa0051.pdf.pdf',
+    },
+  ],
+  'product-metallic.html#antimony': [
+    {
+      title: 'Antimony Test Report',
+      href: 'images/pdf-reports/antimony/antimony_sgs-report_combined.pdf',
+    },
+  ],
+  'product-industrial.html#bauxite': [
+    {
+      title: 'Bauxite Test Report: Baluchistan Enterprises',
+      href: 'images/pdf-reports/bauxite/baluchistan-enterprises-20260609-wa0053-2026.pdf.pdf',
+    },
+    {
+      title: 'Bauxite Test Report: MS Al Azan Pak China',
+      href: 'images/pdf-reports/bauxite/ms-al-azan-pak-china-sgs.pdf.pdf',
+    },
+    {
+      title: 'Bauxite Test Report: SEP SGS',
+      href: 'images/pdf-reports/bauxite/sep-sgs-bauxite.pdf.pdf',
+    },
+  ],
+  'product-industrial.html#phosphate-rock': [
+    {
+      title: 'Phosphate Rock Test Report',
+      href: 'images/pdf-reports/phosphate-rock/sgs-rock-phosphate-doc-wa0050.pdf.pdf',
+    },
+  ],
 };
 
 const actionIcons = {
@@ -48,14 +88,19 @@ function createActionLink(label, href, icon = 'report') {
   return link;
 }
 
-function createMediaButton(card) {
+function createActionButton(label, icon = 'report') {
   const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'mineral-showcase__cta mineral-showcase__cta--secondary';
+  button.innerHTML = `<span>${label}</span>${actionIcons[icon] || actionIcons.report}`;
+  return button;
+}
+
+function createMediaButton(card) {
+  const button = createActionButton('Media Gallery', 'media');
   const title = card.querySelector('.mineral-showcase__title')?.textContent?.trim() || 'Mineral media';
   const image = card.querySelector('.mineral-showcase__image img')?.getAttribute('src') || '';
 
-  button.type = 'button';
-  button.className = 'mineral-showcase__cta mineral-showcase__cta--secondary';
-  button.innerHTML = `<span>Media Gallery</span>${actionIcons.media}`;
   button.addEventListener('click', () => openMediaModal({ title, image }));
 
   return button;
@@ -70,13 +115,15 @@ function enhanceMineralCards() {
 
     const title = card.querySelector('.mineral-showcase__title')?.textContent?.trim() || 'Mineral';
     const specHref = specLink.getAttribute('href');
-    const reportHref = reportLinksBySpecHref[specHref];
-    const reportLink = createActionLink(
-      'Test Reports',
-      reportHref || `contact.html?subject=${encodeURIComponent(`${title} test reports`)}`
-    );
+    const reports = reportLinksBySpecHref[specHref] || [];
+    const reportLink = reports.length > 1
+      ? createReportButton('3 Test Reports', 'Bauxite', reports)
+      : createActionLink(
+        'Test Reports',
+        reports[0]?.href || `contact.html?subject=${encodeURIComponent(`${title} test reports`)}`
+      );
 
-    if (reportHref) {
+    if (reports.length === 1) {
       reportLink.target = '_blank';
       reportLink.rel = 'noopener';
     }
@@ -92,6 +139,78 @@ function enhanceMineralCards() {
       createMediaButton(card)
     );
   });
+}
+
+function createReportButton(label, title, reports) {
+  const button = createActionButton(label, 'report');
+  button.addEventListener('click', () => openReportModal({ title, reports }));
+  return button;
+}
+
+function createReportModal() {
+  const modal = document.createElement('div');
+  modal.className = 'mineral-report-modal';
+  modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-modal', 'true');
+  modal.setAttribute('aria-hidden', 'true');
+  modal.innerHTML = `
+    <div class="mineral-report-modal__backdrop" data-report-close></div>
+    <div class="mineral-report-modal__dialog" role="document">
+      <button class="mineral-report-modal__close" type="button" aria-label="Close test reports" data-report-close>x</button>
+      <div class="mineral-report-modal__header">
+        <span>Test Reports</span>
+        <h3 data-report-title></h3>
+        <p>Choose a Bauxite lab report to open in a new browser tab.</p>
+      </div>
+      <div class="mineral-report-modal__list" data-report-list></div>
+    </div>
+  `;
+
+  modal.addEventListener('click', (event) => {
+    if (event.target.matches('[data-report-close]')) closeReportModal();
+  });
+
+  modal.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeReportModal();
+  });
+
+  document.body.appendChild(modal);
+  return modal;
+}
+
+function openReportModal({ title, reports }) {
+  if (!reportModal) reportModal = createReportModal();
+
+  lastReportTrigger = document.activeElement;
+
+  reportModal.querySelector('[data-report-title]').textContent = title;
+
+  const reportList = reportModal.querySelector('[data-report-list]');
+  reportList.replaceChildren(...reports.map((report, index) => {
+    const link = document.createElement('a');
+    link.className = 'mineral-report-modal__item';
+    link.href = report.href;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    link.innerHTML = `
+      <span class="mineral-report-modal__index">${String(index + 1).padStart(2, '0')}</span>
+      <span class="mineral-report-modal__name">${report.title}</span>
+      <span class="mineral-report-modal__action">Open PDF</span>
+    `;
+    return link;
+  }));
+
+  reportModal.classList.add('is-open');
+  reportModal.setAttribute('aria-hidden', 'false');
+  reportModal.querySelector('[data-report-close]')?.focus();
+}
+
+function closeReportModal() {
+  if (!reportModal) return;
+
+  reportModal.classList.remove('is-open');
+  reportModal.setAttribute('aria-hidden', 'true');
+  lastReportTrigger?.focus();
 }
 
 function createMediaModal() {

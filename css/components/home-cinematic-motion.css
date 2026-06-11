@@ -269,6 +269,10 @@ body.homepage .stats-section {
   color: var(--primary-gold-600);
 }
 
+[data-antimony-card] .mineral-showcase__overlay {
+  display: none;
+}
+
 button.mineral-showcase__cta {
   cursor: pointer;
 }
@@ -354,6 +358,148 @@ button.mineral-showcase__cta {
   border: 1px solid rgba(15, 31, 58, 0.14);
   color: var(--text-primary);
   font: 800 1.2rem/1 var(--font-ui);
+}
+
+.mineral-report-modal {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 3vw, 2rem);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.24s var(--ease-smooth);
+}
+
+.mineral-report-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mineral-report-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 10, 16, 0.7);
+  backdrop-filter: blur(8px);
+}
+
+.mineral-report-modal__dialog {
+  position: relative;
+  width: min(720px, 100%);
+  max-height: min(760px, 90vh);
+  overflow: auto;
+  background: #ffffff;
+  border: 1px solid rgba(232, 241, 248, 0.28);
+  box-shadow: 0 38px 90px rgba(3, 8, 15, 0.42);
+}
+
+.mineral-report-modal__header {
+  display: grid;
+  gap: 0.85rem;
+  padding: clamp(1.35rem, 2.8vw, 2.3rem);
+  padding-right: clamp(4.2rem, 8vw, 5rem);
+  border-bottom: 1px solid rgba(15, 31, 58, 0.12);
+  background:
+    linear-gradient(135deg, rgba(247, 249, 251, 0.96), rgba(255, 255, 255, 0.98)),
+    radial-gradient(circle at 92% 12%, rgba(242, 106, 33, 0.12), transparent 28%);
+}
+
+.mineral-report-modal__header span {
+  color: var(--primary-gold-600);
+  font: 800 0.68rem/1 var(--font-ui);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.mineral-report-modal__header h3 {
+  color: var(--text-primary);
+  font: 700 clamp(1.55rem, 2.6vw, 2.35rem) / 1.08 var(--font-heading);
+  text-transform: uppercase;
+}
+
+.mineral-report-modal__header p {
+  max-width: 42rem;
+  color: var(--text-secondary);
+  line-height: 1.68;
+}
+
+.mineral-report-modal__list {
+  display: grid;
+  gap: 0.75rem;
+  padding: clamp(1rem, 2.4vw, 1.5rem);
+}
+
+.mineral-report-modal__item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.85rem;
+  align-items: center;
+  min-height: 72px;
+  padding: 0.95rem 1rem;
+  background: linear-gradient(180deg, #ffffff, #f7f9fb);
+  border: 1px solid rgba(15, 31, 58, 0.12);
+  border-left: 3px solid rgba(15, 31, 58, 0.28);
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.mineral-report-modal__item:hover,
+.mineral-report-modal__item:focus-visible {
+  border-color: rgba(15, 31, 58, 0.2);
+  border-left-color: var(--primary-gold-500);
+  color: var(--navy-900);
+  transform: translateY(-1px);
+}
+
+.mineral-report-modal__index {
+  display: grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  background: #101923;
+  color: #ffffff;
+  font: 800 0.7rem/1 var(--font-ui);
+  letter-spacing: 0.08em;
+}
+
+.mineral-report-modal__name {
+  font: 800 0.86rem/1.25 var(--font-ui);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.mineral-report-modal__action {
+  color: var(--primary-gold-600);
+  font: 800 0.68rem/1 var(--font-ui);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.mineral-report-modal__close {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(15, 31, 58, 0.14);
+  color: var(--text-primary);
+  font: 800 1.2rem/1 var(--font-ui);
+}
+
+@media (max-width: 640px) {
+  .mineral-report-modal__item {
+    grid-template-columns: auto 1fr;
+  }
+
+  .mineral-report-modal__action {
+    grid-column: 2;
+  }
 }
 .operations {
   background: #f3f4f6;
