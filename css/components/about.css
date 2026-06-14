@@ -427,9 +427,9 @@
   }
 
   .about__leader-avatar {
-    width: 180px;
-    height: 180px;
-    min-width: 180px;
+    width: 280px;
+    height: 280px;
+    min-width: 280px;
   }
 
   .about__leader-info {

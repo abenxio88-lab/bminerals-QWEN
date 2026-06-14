@@ -846,9 +846,9 @@ body.homepage .about__leader-bio {
   }
 
   body.homepage .about__leader-avatar {
-    width: 200px;
-    height: 200px;
-    min-width: 200px;
+    width: 280px;
+    height: 280px;
+    min-width: 280px;
     margin: 0 auto;
   }
 
