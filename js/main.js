@@ -172,13 +172,29 @@ function initProductsMetallicCardToggles() {
           image: 'images/chromite-new.webp',
           alt: 'Chromite lumps from Muslim Bagh mining operations in Balochistan',
           caption: 'Chrome Lumps',
-          nextLabel: 'Show chrome concentrate'
+          nextLabel: 'Show chrome concentrate',
+          tag: 'High Demand',
+          title: 'Chrome Lumps',
+          description: 'Chrome lumps are supplied for ferrochrome, refractory, and foundry buyers, with size and Cr:Fe terms confirmed per lot.',
+          stats: [
+            ['Grade', '12% - 52% Cr₂O₃'],
+            ['Region', 'Muslim Bagh / Dalbandin'],
+            ['Form', 'Sized Lumps']
+          ]
         },
         {
           image: 'images/chrome-concentrate.avif',
           alt: 'Chrome concentrate sample',
           caption: 'Chrome Concentrate',
-          nextLabel: 'Show chrome lumps'
+          nextLabel: 'Show chrome lumps',
+          tag: 'Upgraded',
+          title: 'Chrome Concentrate',
+          description: 'Chrome concentrate is prepared as an upgraded chromite product for buyers needing stronger and more consistent Cr2O3 feed.',
+          stats: [
+            ['Grade', '32% - 52% Cr₂O₃'],
+            ['Region', 'Muslim Bagh / Dalbandin'],
+            ['Form', 'Concentrate']
+          ]
         }
       ]
     },
@@ -192,13 +208,29 @@ function initProductsMetallicCardToggles() {
           image: 'images/iron-ore-new.avif',
           alt: 'Iron ore lumps from Balochistan mining sites',
           caption: 'Iron Ore Lumps',
-          nextLabel: 'Show iron concentrate'
+          nextLabel: 'Show iron concentrate',
+          tag: 'Steel Feed',
+          title: 'Iron Ore Lumps',
+          description: 'Hematite and magnetite iron ore lumps are supplied for steel buyers, infrastructure projects, and regional trading programs.',
+          stats: [
+            ['Grade', '40% - 58% Fe'],
+            ['Region', 'Kharan / Dilband'],
+            ['Form', 'Lumps']
+          ]
         },
         {
           image: 'images/iron-concentrate.avif',
           alt: 'Iron ore concentrate sample',
           caption: 'Iron Concentrate',
-          nextLabel: 'Show iron ore lumps'
+          nextLabel: 'Show iron ore lumps',
+          tag: 'Steel Feed',
+          title: 'Iron Concentrate',
+          description: 'Iron concentrate is prepared through beneficiation for buyers requiring stronger Fe feed and cleaner sizing.',
+          stats: [
+            ['Grade', '50% - 62% Fe'],
+            ['Region', 'Kharan / Dilband'],
+            ['Form', 'Concentrate']
+          ]
         }
       ]
     },
@@ -212,13 +244,29 @@ function initProductsMetallicCardToggles() {
           image: 'images/antimony.avif',
           alt: 'Antimony lumps sample',
           caption: 'Antimony Lumps',
-          nextLabel: 'Show antimony concentrate'
+          nextLabel: 'Show antimony concentrate',
+          tag: 'Specialty Metal',
+          title: 'Antimony Lumps',
+          description: 'Sorted antimony lumps are supplied for specialty metal, alloy, and chemical buyers with lot-based assay terms.',
+          stats: [
+            ['Grade', '4% - 58% Sb'],
+            ['Region', 'Washuk'],
+            ['Form', 'Sorted Lumps']
+          ]
         },
         {
           image: 'images/antimony-concentrate.avif',
           alt: 'Antimony concentrate sample',
           caption: 'Antimony Concentrate',
-          nextLabel: 'Show antimony lumps'
+          nextLabel: 'Show antimony lumps',
+          tag: 'Specialty Metal',
+          title: 'Antimony Concentrate',
+          description: 'Antimony concentrate is the upgraded product after sorting and processing, prepared for buyers who require stronger Sb content.',
+          stats: [
+            ['Grade', '20% - 60% Sb'],
+            ['Region', 'Washuk'],
+            ['Form', 'Concentrate']
+          ]
         }
       ]
     }
@@ -236,19 +284,45 @@ function initProductsMetallicCardToggles() {
     const nextButton = card.querySelector(config.next);
     if (!imageWrap || !image || !caption || !nextButton) return;
 
+    // Content parts
+    const content = card.querySelector('.metallic-card__content');
+    const tag = card.querySelector('.metallic-card__tag');
+    const title = card.querySelector('.metallic-card__content h3');
+    const description = card.querySelector('.metallic-card__content p');
+    const specElements = Array.from(card.querySelectorAll('.metallic-card__spec'));
+
     hasAnyToggle = true;
     let activeIndex = 0;
 
     const renderView = (index) => {
       const view = config.views[index];
       imageWrap.classList.add('is-changing');
+      if (content) content.classList.add('is-changing');
 
       window.setTimeout(() => {
         image.src = view.image;
         image.alt = view.alt;
         caption.textContent = view.caption;
         nextButton.setAttribute('aria-label', view.nextLabel);
+
+        if (tag && view.tag) tag.textContent = view.tag;
+        if (title && view.title) title.textContent = view.title;
+        if (description && view.description) description.textContent = view.description;
+
+        if (view.stats && specElements.length > 0) {
+          view.stats.forEach(([label, value], statIndex) => {
+            const specEl = specElements[statIndex];
+            if (specEl) {
+              const dt = specEl.querySelector('dt');
+              const dd = specEl.querySelector('dd');
+              if (dt) dt.textContent = label;
+              if (dd) dd.textContent = value;
+            }
+          });
+        }
+
         imageWrap.classList.remove('is-changing');
+        if (content) content.classList.remove('is-changing');
       }, 120);
     };
 
