@@ -2865,18 +2865,18 @@
 .coal-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.9rem;
+  gap: 1.5rem;
   background: transparent;
   border: 0;
 }
 
 .coal-list__item {
   display: flex;
-  min-height: 250px;
+  min-height: 380px;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 1.15rem;
-  padding-top: 9.25rem;
+  padding: 1.5rem 1.75rem;
+  padding-top: 14rem;
   isolation: isolate;
   overflow: hidden;
   position: relative;
@@ -2904,7 +2904,7 @@
 .coal-list__item::before {
   display: none;
   bottom: auto;
-  height: 58%;
+  height: 68%;
   background: var(--coal-image, url('../../images/coal.avif')) center / cover;
   opacity: 1;
   transform: scale(1.02);
@@ -2916,7 +2916,7 @@
   inset: 0 0 auto;
   z-index: 0;
   display: block;
-  height: 58%;
+  height: 68%;
   overflow: hidden;
 }
 
@@ -2930,7 +2930,7 @@
 
 .coal-list__item::after {
   top: auto;
-  height: 42%;
+  height: 40%;
   background: linear-gradient(180deg, rgba(23, 23, 22, 0.92), #171716);
 }
 
@@ -2950,7 +2950,7 @@
 
 .coal-list__item strong {
   font-family: var(--font-heading);
-  font-size: clamp(1.1rem, 1.7vw, 1.35rem);
+  font-size: clamp(1.3rem, 2vw, 1.6rem);
   font-weight: 600;
   line-height: 1.08;
   text-transform: uppercase;
@@ -2959,7 +2959,7 @@
 .coal-list__item span {
   margin-top: 0.45rem;
   color: rgba(255, 255, 255, 0.72);
-  font-size: var(--text-sm);
+  font-size: 0.95rem;
 }
 
 .assay-note {
@@ -3063,7 +3063,7 @@
   }
 
   .coal-list__item {
-    min-height: 230px;
+    min-height: 300px;
   }
 
   .stone-card span {
