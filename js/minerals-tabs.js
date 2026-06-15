@@ -52,6 +52,12 @@ const reportLinksBySpecHref = {
       href: 'images/pdf-reports/phosphate-rock/sgs-rock-phosphate-doc-wa0050.pdf.pdf',
     },
   ],
+  'product-industrial.html#fluorite': [
+    {
+      title: 'Fluorite Test Report',
+      href: 'images/pdf-reports/flourite/flourite-report.pdf.pdf',
+    },
+  ],
 };
 
 const actionIcons = {
