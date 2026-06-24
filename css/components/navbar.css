@@ -672,6 +672,9 @@
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65), 0 10px 24px rgba(10, 22, 40, 0.06);
   pointer-events: auto;
   visibility: visible;
+  flex-shrink: 0;
+  max-height: 220px;
+  overflow-y: auto;
 }
 
 .navbar__dropdown-menu--mobile .navbar__dropdown-item:hover {
@@ -708,7 +711,7 @@
 
 .navbar__dropdown-menu--mobile.navbar__dropdown-menu--products,
 .navbar__dropdown-menu--mobile.navbar__dropdown-menu--long {
-  max-height: 58vh;
+  max-height: 220px;
   overflow-y: auto;
   overscroll-behavior: contain;
 }
