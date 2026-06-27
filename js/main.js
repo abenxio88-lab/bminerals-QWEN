@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   runInit('initAntimonyCardToggle', initAntimonyCardToggle);
   runInit('initProductsMetallicCardToggles', initProductsMetallicCardToggles);
   runInit('initTradeSpecsWheelScroll', initTradeSpecsWheelScroll);
+  runInit('initMineralAtlasWheelScroll', initMineralAtlasWheelScroll);
   runInit('initStoneCardImageToggles', initStoneCardImageToggles);
   // Ensure loader is removed after all inits complete
   setTimeout(() => removeLoader(), 100);
@@ -156,6 +157,40 @@ function initTradeSpecsWheelScroll() {
 
   // Capture phase prevents the page from consuming wheel first.
   document.addEventListener('wheel', handleWheel, { passive: false, capture: true });
+}
+
+// ============================================
+// Mineral Atlas: Wheel Scroll for Categories
+// ============================================
+function initMineralAtlasWheelScroll() {
+  if (window.__mineralAtlasWheelScrollInitialized) return;
+
+  const scroller = document.querySelector('.mineral-atlas__categories');
+  if (!scroller) return;
+
+  window.__mineralAtlasWheelScrollInitialized = true;
+
+  scroller.addEventListener('wheel', (event) => {
+    // Skip horizontal scrolls
+    if (Math.abs(event.deltaY) < Math.abs(event.deltaX)) return;
+
+    const { scrollTop, scrollHeight, clientHeight } = scroller;
+    const delta = event.deltaY;
+
+    const atTop = scrollTop <= 0;
+    const atBottom = scrollTop + clientHeight >= scrollHeight - 1;
+
+    const scrollingDown = delta > 0;
+    const scrollingUp = delta < 0;
+
+    if ((scrollingDown && !atBottom) || (scrollingUp && !atTop)) {
+      // Inside scrolling limits: block Lenis from moving the main page
+      scroller.setAttribute('data-lenis-prevent', '');
+    } else {
+      // At boundary: remove block so Lenis scrolls the page
+      scroller.removeAttribute('data-lenis-prevent');
+    }
+  }, { passive: true });
 }
 
 function initProductsMetallicCardToggles() {

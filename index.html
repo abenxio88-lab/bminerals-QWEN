@@ -151,6 +151,7 @@
   <!-- Core CSS (Critical) -->
   <link rel="stylesheet" href="output.css?v=homepage-map-mobile-20260527">
   <link rel="stylesheet" href="css/components/our-mines.css">
+  <link rel="stylesheet" href="css/components/mineral-atlas.css?v=fresh-scroll">
   <link rel="stylesheet" href="css/components/home-cinematic-motion.css">
 
   <!-- Component CSS (Non-Critical) -->
@@ -3038,6 +3039,151 @@
     </section>
 
     <!-- ============================================ -->
+    <!-- MINERAL ATLAS - Regional Resource Breakdown  -->
+    <!-- ============================================ -->
+    <section class="mineral-atlas" id="mineral-atlas" aria-label="Mineral resources atlas across Balochistan">
+      <div class="mineral-atlas__container">
+        <!-- Section Header -->
+        <header class="mineral-atlas__header reveal">
+          <span class="mineral-atlas__overline">Regional Resource Atlas</span>
+          <h2 class="mineral-atlas__title">Mineral Wealth of <span style="color: var(--primary-gold-400);">Balochistan</span></h2>
+          <p class="mineral-atlas__subtitle">Pakistan's largest province holds one of South Asia's most diverse mineral basins — spanning metallic ores, industrial-grade stones, ornamental gems, and strategic energy deposits across 20+ mining districts.</p>
+        </header>
+
+        <!-- Split Panel: Map + Categories -->
+        <div class="mineral-atlas__body reveal" data-delay="1">
+          <!-- Left: Map Image -->
+          <div class="mineral-atlas__map-panel">
+            <img src="images/baochistan-mineral-resources.webp" alt="Balochistan mineral wealth and mining areas — geological survey map" loading="lazy" class="mineral-atlas__map-img">
+            <div class="mineral-atlas__map-caption">Data compiled from official geological surveys — Panjgur, Kech, Awaran &amp; beyond</div>
+          </div>
+
+          <!-- Right: Mineral Categories -->
+          <div class="mineral-atlas__categories" data-lenis-prevent>
+
+            <!-- Metallic Minerals -->
+            <div class="mineral-atlas__cat-card" style="--cat-accent: #C0392B;">
+              <div class="mineral-atlas__cat-header">
+                <div class="mineral-atlas__cat-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                </div>
+                <span class="mineral-atlas__cat-name">Metallic Minerals</span>
+              </div>
+              <div class="mineral-atlas__chip-list">
+                <span class="mineral-atlas__chip"><span class="mineral-atlas__chip-dot" style="background:#C0392B;"></span>Chromite</span>
+                <span class="mineral-atlas__chip"><span class="mineral-atlas__chip-dot" style="background:#FF6D00;"></span>Copper</span>
+                <span class="mineral-atlas__chip"><span class="mineral-atlas__chip-dot" style="background:#E74C3C;"></span>Iron</span>
+                <span class="mineral-atlas__chip"><span class="mineral-atlas__chip-dot" style="background:#8E44AD;"></span>Manganese</span>
+                <span class="mineral-atlas__chip"><span class="mineral-atlas__chip-dot" style="background:#E5C158;"></span>Antimony</span>
+              </div>
+              <div class="mineral-atlas__districts">
+                <span class="mineral-atlas__district-tag">Muslim Bagh</span>
+                <span class="mineral-atlas__district-tag">Chagai</span>
+                <span class="mineral-atlas__district-tag">Khuzdar</span>
+                <span class="mineral-atlas__district-tag">Lasbela</span>
+                <span class="mineral-atlas__district-tag">Zhob</span>
+                <span class="mineral-atlas__district-tag">Kharan</span>
+              </div>
+            </div>
+
+            <!-- Industrial Minerals -->
+            <div class="mineral-atlas__cat-card" style="--cat-accent: #9B59B6;">
+              <div class="mineral-atlas__cat-header">
+                <div class="mineral-atlas__cat-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><path d="M12 12v4"/><path d="M2 12h20"/></svg>
+                </div>
+                <span class="mineral-atlas__cat-name">Industrial Minerals</span>
+              </div>
+              <div class="mineral-atlas__chip-list">
+                <span class="mineral-atlas__chip"><span class="mineral-atlas__chip-dot" style="background:#F1C40F;"></span>Limestone</span>
+                <span class="mineral-atlas__chip"><span class="mineral-atlas__chip-dot" style="background:#7F8C8D;"></span>Shale</span>
+                <span class="mineral-atlas__chip"><span class="mineral-atlas__chip-dot" style="background:#6B8E23;"></span>Serpentine</span>
+                <span class="mineral-atlas__chip"><span class="mineral-atlas__chip-dot" style="background:#9B59B6;"></span>Barite</span>
+                <span class="mineral-atlas__chip"><span class="mineral-atlas__chip-dot" style="background:#D4AF37;"></span>Gypsum</span>
+              </div>
+              <div class="mineral-atlas__districts">
+                <span class="mineral-atlas__district-tag">Khuzdar</span>
+                <span class="mineral-atlas__district-tag">Quetta</span>
+                <span class="mineral-atlas__district-tag">Barkhan</span>
+                <span class="mineral-atlas__district-tag">Loralai</span>
+                <span class="mineral-atlas__district-tag">Washuk</span>
+              </div>
+            </div>
+
+            <!-- Ornamental & Gem Stones -->
+            <div class="mineral-atlas__cat-card" style="--cat-accent: #2ECC71;">
+              <div class="mineral-atlas__cat-header">
+                <div class="mineral-atlas__cat-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <span class="mineral-atlas__cat-name">Ornamental &amp; Gem Stones</span>
+              </div>
+              <div class="mineral-atlas__chip-list">
+                <span class="mineral-atlas__chip"><span class="mineral-atlas__chip-dot" style="background:#ffffff;"></span>Marble</span>
+                <span class="mineral-atlas__chip"><span class="mineral-atlas__chip-dot" style="background:#2ECC71;"></span>Onyx</span>
+                <span class="mineral-atlas__chip"><span class="mineral-atlas__chip-dot" style="background:#00E676;"></span>Granite</span>
+                <span class="mineral-atlas__chip"><span class="mineral-atlas__chip-dot" style="background:#1ABC9C;"></span>Chrysolite</span>
+                <span class="mineral-atlas__chip"><span class="mineral-atlas__chip-dot" style="background:#D35400;"></span>Travertine</span>
+              </div>
+              <div class="mineral-atlas__districts">
+                <span class="mineral-atlas__district-tag">Nushki</span>
+                <span class="mineral-atlas__district-tag">Kharan</span>
+                <span class="mineral-atlas__district-tag">Lasbela</span>
+                <span class="mineral-atlas__district-tag">Chagai</span>
+                <span class="mineral-atlas__district-tag">Khuzdar</span>
+              </div>
+            </div>
+
+            <!-- Energy Resources -->
+            <div class="mineral-atlas__cat-card" style="--cat-accent: #4A90D9;">
+              <div class="mineral-atlas__cat-header">
+                <div class="mineral-atlas__cat-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                </div>
+                <span class="mineral-atlas__cat-name">Energy Resources</span>
+              </div>
+              <div class="mineral-atlas__chip-list">
+                <span class="mineral-atlas__chip"><span class="mineral-atlas__chip-dot" style="background:#4A90D9;"></span>Coal</span>
+                <span class="mineral-atlas__chip"><span class="mineral-atlas__chip-dot" style="background:#F39C12;"></span>Natural Gas</span>
+                <span class="mineral-atlas__chip"><span class="mineral-atlas__chip-dot" style="background:#E91E63;"></span>Fluorite</span>
+              </div>
+              <div class="mineral-atlas__districts">
+                <span class="mineral-atlas__district-tag">Duki</span>
+                <span class="mineral-atlas__district-tag">Harnai</span>
+                <span class="mineral-atlas__district-tag">Barkhan</span>
+                <span class="mineral-atlas__district-tag">Sibi</span>
+                <span class="mineral-atlas__district-tag">Kohlu</span>
+                <span class="mineral-atlas__district-tag">Dera Bugti</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Bottom Stats -->
+        <div class="mineral-atlas__stats-bar reveal" data-delay="2">
+          <div class="mineral-atlas__stat">
+            <span class="mineral-atlas__stat-val">20+</span>
+            <span class="mineral-atlas__stat-lbl">Mining Districts</span>
+          </div>
+          <div class="mineral-atlas__stat">
+            <span class="mineral-atlas__stat-val">40+</span>
+            <span class="mineral-atlas__stat-lbl">Mineral Types Identified</span>
+          </div>
+          <div class="mineral-atlas__stat">
+            <span class="mineral-atlas__stat-val">347,190</span>
+            <span class="mineral-atlas__stat-lbl">km² Province Area</span>
+          </div>
+          <div class="mineral-atlas__stat">
+            <span class="mineral-atlas__stat-val">6</span>
+            <span class="mineral-atlas__stat-lbl">Active Resource Categories</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================ -->
     <!-- OUR MINES SECTION - Mining Operations -->
     <!-- ============================================ -->
     <section class="our-mines-section" id="our-mines" aria-label="Quality assurance and assay laboratories">
@@ -4798,7 +4944,7 @@
   <script type="module" src="js/earth-tech-core.js" defer></script>
   <script type="module" src="js/tactile-feedback.js" defer></script>
   <script type="module" src="js/minerals-tabs.js" defer></script>
-  <script type="module" src="js/main.js" defer></script>
+  <script type="module" src="js/main.js?v=fresh-scroll" defer></script>
   <script type="module">
     import { initIntelligenceHub } from './js/intelligence-hub.js';
     document.addEventListener('DOMContentLoaded', initIntelligenceHub);
