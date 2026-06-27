@@ -150,6 +150,7 @@
 
   <!-- Core CSS (Critical) -->
   <link rel="stylesheet" href="output.css?v=homepage-map-mobile-20260527">
+  <link rel="stylesheet" href="css/components/our-mines.css">
   <link rel="stylesheet" href="css/components/home-cinematic-motion.css">
 
   <!-- Component CSS (Non-Critical) -->
@@ -3039,240 +3040,150 @@
     <!-- ============================================ -->
     <!-- OUR MINES SECTION - Mining Operations -->
     <!-- ============================================ -->
-    <section class="our-mines-section" id="our-mines" aria-label="Our mining operations">
+    <section class="our-mines-section" id="our-mines" aria-label="Quality assurance and assay laboratories">
       <div class="our-mines__container">
         <!-- Section Header -->
         <div class="our-mines__header reveal">
-          <span class="section-label">Our Mines</span>
+          <span class="section-label">Assay & Quality Control</span>
           <h2 class="our-mines__title">
-            Strategic Mineral Operations<br>
-            Across <span class="gradient-text">Balochistan</span>
+            TECHNICAL ASSAYING &<br>
+            <span class="gradient-text">PROCESSING INFRASTRUCTURE</span>
           </h2>
           <p class="our-mines__subtitle">
-            A wider operating portfolio spanning metallic minerals, industrial minerals, dimension stone and energy
-            fuel corridors, supported by field sourcing, processing controls and export-focused logistics.
+            Verifying mineralogical specifications, sizing tolerances, and chemical compliance through standard laboratory protocols before export.
           </p>
         </div>
 
-        <!-- Mining Operations Timeline -->
-        <div class="our-mines__operations reveal" data-delay="1">
-          <h3 class="our-mines__operations-title">Active & Developing Operations</h3>
-          <div class="our-mines__timeline" data-lenis-prevent data-lenis-prevent-wheel data-lenis-prevent-touch
-            tabindex="0" aria-label="Scrollable operations deck">
-            <!-- Muslim Bagh -->
-            <div class="our-mines__timeline-item">
-              <div class="our-mines__timeline-marker">
-                <div class="our-mines__timeline-dot our-mines__timeline-dot--active"></div>
-                <div class="our-mines__timeline-line"></div>
-              </div>
-              <div class="our-mines__timeline-content">
-                <div class="our-mines__site-badge our-mines__site-badge--active">Active Production</div>
-                <h4 class="our-mines__site-name">Muslim Bagh Chromite Mine</h4>
-                <p class="our-mines__site-location">
-                  <svg width="16" height="16" viewBox="0 0 16 16">
-                    <path d="M8 0C5 0 3 2 3 5C3 9 8 14 8 14C8 14 13 9 13 5C13 2 11 0 8 0Z" fill="currentColor" />
-                  </svg>
-                  Qila Saifullah District, Balochistan
-                </p>
-                <div class="our-mines__site-metrics">
-                  <div class="our-mines__metric">
-                    <span class="our-mines__metric-value">30,000</span>
-                    <span class="our-mines__metric-label">MT Annual Capacity</span>
-                  </div>
-                  <div class="our-mines__metric">
-                    <span class="our-mines__metric-value">46-48%</span>
-                    <span class="our-mines__metric-label">Cr₂O₃ Grade</span>
-                  </div>
-                  <div class="our-mines__metric">
-                    <span class="our-mines__metric-value">450</span>
-                    <span class="our-mines__metric-label">Hectares Lease Area</span>
+        <!-- Bento Grid for QA / Processing Capabilities -->
+        <div class="qa-bento-grid reveal" data-delay="1">
+          <!-- Card 1: On-Site Assay Laboratories (Large Bento - Image Background) -->
+          <div class="qa-card qa-card--large qa-card--lab">
+            <div class="qa-card__outer-shell">
+              <div class="qa-card__inner-core">
+                <div class="qa-card__bg-image-wrapper">
+                  <img src="images/hero/hero-6.webp" alt="On-site chemical assay laboratory testing" loading="lazy" class="qa-card__bg-image">
+                  <div class="qa-card__overlay"></div>
+                </div>
+                <div class="qa-card__content">
+                  <span class="qa-card__tag">Assay Laboratories</span>
+                  <h3 class="qa-card__title">On-Site Chemical Assay Labs</h3>
+                  <p class="qa-card__text">
+                    Equipped with X-ray Fluorescence (XRF) and Atomic Absorption Spectroscopy (AAS). Certified geochemists conduct multi-element grade checks directly at Muslim Bagh and Khuzdar mining hubs to verify Cr₂O₃ and BaSO₄ content.
+                  </p>
+                  <div class="qa-card__metrics">
+                    <div class="qa-card__metric">
+                      <span class="qa-card__metric-val">XRF & AAS</span>
+                      <span class="qa-card__metric-lbl">Analysis Instruments</span>
+                    </div>
+                    <div class="qa-card__metric">
+                      <span class="qa-card__metric-val">±0.05%</span>
+                      <span class="qa-card__metric-lbl">Detection Threshold</span>
+                    </div>
+                    <div class="qa-card__metric">
+                      <span class="qa-card__metric-val">ISO 9001</span>
+                      <span class="qa-card__metric-lbl">Lab Certification</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
 
-            <!-- Khuzdar -->
-            <div class="our-mines__timeline-item">
-              <div class="our-mines__timeline-marker">
-                <div class="our-mines__timeline-dot our-mines__timeline-dot--processing"></div>
-                <div class="our-mines__timeline-line"></div>
-              </div>
-              <div class="our-mines__timeline-content">
-                <div class="our-mines__site-badge our-mines__site-badge--processing">Processing Stage</div>
-                <h4 class="our-mines__site-name">Khuzdar Barite Operations</h4>
-                <p class="our-mines__site-location">
-                  <svg width="16" height="16" viewBox="0 0 16 16">
-                    <path d="M8 0C5 0 3 2 3 5C3 9 8 14 8 14C8 14 13 9 13 5C13 2 11 0 8 0Z" fill="currentColor" />
-                  </svg>
-                  Khuzdar District, Balochistan
-                </p>
-                <div class="our-mines__site-metrics">
-                  <div class="our-mines__metric">
-                    <span class="our-mines__metric-value">15,000</span>
-                    <span class="our-mines__metric-label">MT Annual Capacity</span>
+          <!-- Card 2: Beneficiation & Size Control (Medium Bento) -->
+          <div class="qa-card qa-card--medium qa-card--processing">
+            <div class="qa-card__outer-shell">
+              <div class="qa-card__inner-core">
+                <div class="qa-card__content">
+                  <div class="qa-card__icon">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor">
+                      <path d="M4 8H28M8 16H24M12 24H20" stroke-width="2" stroke-linecap="round"/>
+                      <circle cx="6" cy="12" r="1.5" fill="currentColor"/>
+                      <circle cx="26" cy="20" r="1.5" fill="currentColor"/>
+                    </svg>
                   </div>
-                  <div class="our-mines__metric">
-                    <span class="our-mines__metric-value">95%</span>
-                    <span class="our-mines__metric-label">API Purity Standard</span>
-                  </div>
-                  <div class="our-mines__metric">
-                    <span class="our-mines__metric-value">320</span>
-                    <span class="our-mines__metric-label">Hectares Lease Area</span>
+                  <span class="qa-card__tag">Processing</span>
+                  <h3 class="qa-card__title">Beneficiation & Sizing</h3>
+                  <p class="qa-card__text">
+                    Mobile crushing, screening, and jigging lines process run-of-mine (ROM) ores into specific sizes (e.g., 10-50mm lumpy ores or fine chemical powders) aligned with international refinery tolerances.
+                  </p>
+                  <div class="qa-card__metrics">
+                    <div class="qa-card__metric">
+                      <span class="qa-card__metric-val">3 Lines</span>
+                      <span class="qa-card__metric-lbl">Crushing Lines</span>
+                    </div>
+                    <div class="qa-card__metric">
+                      <span class="qa-card__metric-val">10-250mm</span>
+                      <span class="qa-card__metric-lbl">Sizing Options</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
 
-            <!-- Chagai -->
-            <div class="our-mines__timeline-item">
-              <div class="our-mines__timeline-marker">
-                <div class="our-mines__timeline-dot our-mines__timeline-dot--exploration"></div>
-              </div>
-              <div class="our-mines__timeline-content">
-                <div class="our-mines__site-badge our-mines__site-badge--exploration">Exploration Phase</div>
-                <h4 class="our-mines__site-name">Chagai Copper-Gold Prospect</h4>
-                <p class="our-mines__site-location">
-                  <svg width="16" height="16" viewBox="0 0 16 16">
-                    <path d="M8 0C5 0 3 2 3 5C3 9 8 14 8 14C8 14 13 9 13 5C13 2 11 0 8 0Z" fill="currentColor" />
-                  </svg>
-                  Chagai District, Balochistan
-                </p>
-                <div class="our-mines__site-metrics">
-                  <div class="our-mines__metric">
-                    <span class="our-mines__metric-value">1,200+</span>
-                    <span class="our-mines__metric-label">Hectares Exploration Bloc</span>
+          <!-- Card 3: Lot-Traceability & Sealing (Medium Bento) -->
+          <div class="qa-card qa-card--medium qa-card--trace">
+            <div class="qa-card__outer-shell">
+              <div class="qa-card__inner-core">
+                <div class="qa-card__content">
+                  <div class="qa-card__icon">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor">
+                      <rect x="6" y="6" width="20" height="20" rx="2" stroke-width="2"/>
+                      <path d="M11 11H14V14H11V11Z" fill="currentColor"/>
+                      <path d="M18 11H21V14H18V11Z" fill="currentColor"/>
+                      <path d="M11 18H14V21H11V18Z" fill="currentColor"/>
+                      <path d="M18 18H21M18 21H21" stroke-width="2"/>
+                    </svg>
                   </div>
-                  <div class="our-mines__metric">
-                    <span class="our-mines__metric-value">Cu-Au</span>
-                    <span class="our-mines__metric-label">Porphyry Deposit Type</span>
-                  </div>
-                  <div class="our-mines__metric">
-                    <span class="our-mines__metric-value">2026</span>
-                    <span class="our-mines__metric-label">Target Feasibility Study</span>
+                  <span class="qa-card__tag">Traceability</span>
+                  <h3 class="qa-card__title">Lot-Specific Tagging</h3>
+                  <p class="qa-card__text">
+                    Every batch of mineral is cataloged with a unique lot ID and stored in distinct, numbered stockpiles. Hand-held GPS coordinates link the dispatch lot back to the specific extraction pit.
+                  </p>
+                  <div class="qa-card__metrics">
+                    <div class="qa-card__metric">
+                      <span class="qa-card__metric-val">100%</span>
+                      <span class="qa-card__metric-lbl">Batch Traceability</span>
+                    </div>
+                    <div class="qa-card__metric">
+                      <span class="qa-card__metric-val">GPS</span>
+                      <span class="qa-card__metric-lbl">Pit Mapping Link</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
 
-            <!-- Dilband -->
-            <div class="our-mines__timeline-item">
-              <div class="our-mines__timeline-marker">
-                <div class="our-mines__timeline-dot our-mines__timeline-dot--processing"></div>
-              </div>
-              <div class="our-mines__timeline-content">
-                <div class="our-mines__site-badge our-mines__site-badge--processing">Supply Review</div>
-                <h4 class="our-mines__site-name">Dilband Iron Ore Corridor</h4>
-                <p class="our-mines__site-location">
-                  <svg width="16" height="16" viewBox="0 0 16 16">
-                    <path d="M8 0C5 0 3 2 3 5C3 9 8 14 8 14C8 14 13 9 13 5C13 2 11 0 8 0Z" fill="currentColor" />
-                  </svg>
-                  Dilband, Balochistan
-                </p>
-                <div class="our-mines__site-metrics">
-                  <div class="our-mines__metric">
-                    <span class="our-mines__metric-value">Fe</span>
-                    <span class="our-mines__metric-label">Primary Assay</span>
+          <!-- Card 4: SGS & Global Inspection Standards (Large Bento) -->
+          <div class="qa-card qa-card--large qa-card--verification">
+            <div class="qa-card__outer-shell">
+              <div class="qa-card__inner-core">
+                <div class="qa-card__content">
+                  <div class="qa-card__icon">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor">
+                      <circle cx="16" cy="16" r="10" stroke-width="2"/>
+                      <path d="M12 16L15 19L20 13" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                   </div>
-                  <div class="our-mines__metric">
-                    <span class="our-mines__metric-value">Steel</span>
-                    <span class="our-mines__metric-label">Feedstock Use</span>
-                  </div>
-                  <div class="our-mines__metric">
-                    <span class="our-mines__metric-value">Bulk</span>
-                    <span class="our-mines__metric-label">Supply Format</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Antimony -->
-            <div class="our-mines__timeline-item">
-              <div class="our-mines__timeline-marker">
-                <div class="our-mines__timeline-dot our-mines__timeline-dot--exploration"></div>
-              </div>
-              <div class="our-mines__timeline-content">
-                <div class="our-mines__site-badge our-mines__site-badge--exploration">Assay-Led Lots</div>
-                <h4 class="our-mines__site-name">Washuk-Zhob Antimony</h4>
-                <p class="our-mines__site-location">
-                  <svg width="16" height="16" viewBox="0 0 16 16">
-                    <path d="M8 0C5 0 3 2 3 5C3 9 8 14 8 14C8 14 13 9 13 5C13 2 11 0 8 0Z" fill="currentColor" />
-                  </svg>
-                  Washuk-Zhob Corridor, Balochistan
-                </p>
-                <div class="our-mines__site-metrics">
-                  <div class="our-mines__metric">
-                    <span class="our-mines__metric-value">Sb</span>
-                    <span class="our-mines__metric-label">Primary Assay</span>
-                  </div>
-                  <div class="our-mines__metric">
-                    <span class="our-mines__metric-value">4-58%</span>
-                    <span class="our-mines__metric-label">Ore Range</span>
-                  </div>
-                  <div class="our-mines__metric">
-                    <span class="our-mines__metric-value">Lot</span>
-                    <span class="our-mines__metric-label">Supply Basis</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Stone Belt -->
-            <div class="our-mines__timeline-item">
-              <div class="our-mines__timeline-marker">
-                <div class="our-mines__timeline-dot our-mines__timeline-dot--processing"></div>
-              </div>
-              <div class="our-mines__timeline-content">
-                <div class="our-mines__site-badge our-mines__site-badge--processing">Block Supply</div>
-                <h4 class="our-mines__site-name">Dimension Stone Belt</h4>
-                <p class="our-mines__site-location">
-                  <svg width="16" height="16" viewBox="0 0 16 16">
-                    <path d="M8 0C5 0 3 2 3 5C3 9 8 14 8 14C8 14 13 9 13 5C13 2 11 0 8 0Z" fill="currentColor" />
-                  </svg>
-                  Marble, onyx and granite corridors
-                </p>
-                <div class="our-mines__site-metrics">
-                  <div class="our-mines__metric">
-                    <span class="our-mines__metric-value">Block</span>
-                    <span class="our-mines__metric-label">Primary Form</span>
-                  </div>
-                  <div class="our-mines__metric">
-                    <span class="our-mines__metric-value">Slab</span>
-                    <span class="our-mines__metric-label">Finish Route</span>
-                  </div>
-                  <div class="our-mines__metric">
-                    <span class="our-mines__metric-value">Shade</span>
-                    <span class="our-mines__metric-label">Lot Control</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Coal Belt -->
-            <div class="our-mines__timeline-item">
-              <div class="our-mines__timeline-marker">
-                <div class="our-mines__timeline-dot our-mines__timeline-dot--active"></div>
-              </div>
-              <div class="our-mines__timeline-content">
-                <div class="our-mines__site-badge our-mines__site-badge--active">Field Supply</div>
-                <h4 class="our-mines__site-name">Balochistan Coal Belt</h4>
-                <p class="our-mines__site-location">
-                  <svg width="16" height="16" viewBox="0 0 16 16">
-                    <path d="M8 0C5 0 3 2 3 5C3 9 8 14 8 14C8 14 13 9 13 5C13 2 11 0 8 0Z" fill="currentColor" />
-                  </svg>
-                  Mach and Sorange-Degari
-                </p>
-                <div class="our-mines__site-metrics">
-                  <div class="our-mines__metric">
-                    <span class="our-mines__metric-value">GCV</span>
-                    <span class="our-mines__metric-label">Energy Check</span>
-                  </div>
-                  <div class="our-mines__metric">
-                    <span class="our-mines__metric-value">Ash</span>
-                    <span class="our-mines__metric-label">Quality Limit</span>
-                  </div>
-                  <div class="our-mines__metric">
-                    <span class="our-mines__metric-value">Bulk</span>
-                    <span class="our-mines__metric-label">Dispatch Mode</span>
+                  <span class="qa-card__tag">Verification</span>
+                  <h3 class="qa-card__title">Independent Port Inspection</h3>
+                  <p class="qa-card__text">
+                    Collaborating with global inspection agencies (SGS, Alfred H. Knight, Intertek) to supervise bulk loading at Gwadar and Karachi Ports. Sealed container security and joint sampling guarantee that clients receive certified grades corresponding to port assays.
+                  </p>
+                  <div class="qa-card__metrics">
+                    <div class="qa-card__metric">
+                      <span class="qa-card__metric-val">SGS / AHK</span>
+                      <span class="qa-card__metric-lbl">Inspection Partners</span>
+                    </div>
+                    <div class="qa-card__metric">
+                      <span class="qa-card__metric-val">100%</span>
+                      <span class="qa-card__metric-lbl">Sealed Shipments</span>
+                    </div>
+                    <div class="qa-card__metric">
+                      <span class="qa-card__metric-val">COA</span>
+                      <span class="qa-card__metric-lbl">Certificate Issuance</span>
+                    </div>
                   </div>
                 </div>
               </div>
