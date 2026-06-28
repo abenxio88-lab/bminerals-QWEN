@@ -181,7 +181,8 @@
 /* Metrics row */
 .qa-card__metrics {
   display: flex;
-  gap: 2.5rem;
+  gap: 2.0rem;
+  justify-content: center;
   padding-top: 1.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   margin-top: auto;
@@ -190,7 +191,10 @@
 .qa-card__metric {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
   gap: 0.25rem;
+  flex: 1;
 }
 
 .qa-card__metric-val {
