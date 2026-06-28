@@ -160,18 +160,20 @@ function initTradeSpecsWheelScroll() {
 }
 
 // ============================================
-// Mineral Atlas: Wheel Scroll for Categories
+// Mineral Atlas: Wheel Scroll & Visual Scrollbar
 // ============================================
 function initMineralAtlasWheelScroll() {
   if (window.__mineralAtlasWheelScrollInitialized) return;
 
   const scroller = document.querySelector('.mineral-atlas__categories');
+  const thumb = document.querySelector('.mineral-atlas__custom-scrollbar-thumb');
+  const track = document.querySelector('.mineral-atlas__custom-scrollbar');
   if (!scroller) return;
 
   window.__mineralAtlasWheelScrollInitialized = true;
 
+  // 1. Wheel boundary logic to work with Lenis
   scroller.addEventListener('wheel', (event) => {
-    // Skip horizontal scrolls
     if (Math.abs(event.deltaY) < Math.abs(event.deltaX)) return;
 
     const { scrollTop, scrollHeight, clientHeight } = scroller;
@@ -184,13 +186,46 @@ function initMineralAtlasWheelScroll() {
     const scrollingUp = delta < 0;
 
     if ((scrollingDown && !atBottom) || (scrollingUp && !atTop)) {
-      // Inside scrolling limits: block Lenis from moving the main page
       scroller.setAttribute('data-lenis-prevent', '');
     } else {
-      // At boundary: remove block so Lenis scrolls the page
       scroller.removeAttribute('data-lenis-prevent');
     }
   }, { passive: true });
+
+  // 2. Custom Visual Scrollbar Synchronization
+  if (thumb && track) {
+    function updateScrollbar() {
+      const { scrollTop, scrollHeight, clientHeight } = scroller;
+      
+      // If content is not scrollable, hide the scrollbar track
+      if (scrollHeight <= clientHeight) {
+        track.style.opacity = '0';
+        track.style.pointerEvents = 'none';
+        return;
+      }
+      
+      track.style.opacity = '1';
+      track.style.pointerEvents = 'auto';
+
+      const scrollPercent = scrollTop / (scrollHeight - clientHeight);
+      const trackHeight = track.clientHeight;
+      const thumbHeight = Math.max(30, (clientHeight / scrollHeight) * trackHeight);
+      const maxScrollTop = trackHeight - thumbHeight;
+      const thumbTop = scrollPercent * maxScrollTop;
+
+      thumb.style.height = `${thumbHeight}px`;
+      thumb.style.transform = `translateY(${thumbTop}px)`;
+    }
+
+    scroller.addEventListener('scroll', updateScrollbar);
+    window.addEventListener('resize', updateScrollbar);
+    updateScrollbar();
+
+    // Fire again when window fully loaded / transitions finished
+    window.addEventListener('load', updateScrollbar);
+    setTimeout(updateScrollbar, 500);
+    setTimeout(updateScrollbar, 2000);
+  }
 }
 
 function initProductsMetallicCardToggles() {

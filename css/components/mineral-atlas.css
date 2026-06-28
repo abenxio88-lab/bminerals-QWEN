@@ -101,26 +101,39 @@
   flex-direction: column;
   gap: 1.25rem;
   overflow-y: auto;
-  padding-right: 0.5rem;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+  padding-right: 1.25rem; /* space to stay clear of the custom scrollbar */
+  scrollbar-width: none;  /* hide Firefox native scrollbar */
+  -webkit-overflow-scrolling: touch;
 }
 
 .mineral-atlas__categories::-webkit-scrollbar {
-  width: 4px;
+  display: none;          /* hide WebKit/Blink native scrollbar */
 }
 
-.mineral-atlas__categories::-webkit-scrollbar-track {
-  background: transparent;
+/* Custom Visual Scrollbar — always visible on both desktop & mobile */
+.mineral-atlas__custom-scrollbar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.mineral-atlas__categories::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 4px;
-}
-
-.mineral-atlas__categories::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
+.mineral-atlas__custom-scrollbar-thumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  background: #ffffff;
+  border-radius: 6px;
+  border: 1px solid rgba(10, 22, 40, 0.4);
 }
 
 /* Individual Category Card */
@@ -314,7 +327,7 @@
     position: relative;
     height: 450px;
     overflow-y: auto;
-    padding-right: 0.5rem;
+    padding-right: 1.25rem;
   }
 }
 
