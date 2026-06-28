@@ -50,9 +50,9 @@
 .mineral-atlas__title {
   font-family: var(--font-heading);
   font-size: clamp(1.4rem, 2.8vw, 2.125rem);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.15;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
   color: #ffffff;
   margin-bottom: 0.75rem;
