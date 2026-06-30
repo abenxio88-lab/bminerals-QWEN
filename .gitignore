@@ -44,3 +44,12 @@ coverage.xml
 # Repo-local generated artifacts (do not commit)
 backups/
 graphify-out/
+
+# AI Workspaces & Browser Verification Caches
+.chrome-profile-verify/
+.agents/
+.claude/
+.qwen/
+.trae/
+.windsurf/
+skills-lock.json
