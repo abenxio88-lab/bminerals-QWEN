@@ -891,7 +891,10 @@
         <!-- Form -->
         <div class="contact-form">
           <h2 class="contact-form__title">Send Us a Message</h2>
-          <form action="mailto:sales@balochistanminerals.com" method="post" enctype="text/plain">
+          <form action="https://api.web3forms.com/submit" method="POST" id="contact-form">
+            <input type="hidden" name="access_key" value="063c7c36-c93f-467e-9c27-89c7e932fa2c">
+            <input type="hidden" name="subject" value="New Website Inquiry - Balochistan Minerals">
+            <input type="checkbox" name="botcheck" style="display: none;">
             <div class="contact-form__row">
               <div class="contact-form__group">
                 <label for="name" class="contact-form__label">Full Name *</label>
@@ -916,7 +919,7 @@
             </div>
             <div class="contact-form__group">
               <label for="inquiry" class="contact-form__label">Inquiry Type *</label>
-              <select id="inquiry" name="inquiry" class="contact-form__select" required>
+              <select id="inquiry" name="inquiry_type" class="contact-form__select" required>
                 <option value="">Select an option</option>
                 <option value="product">Product Quote</option>
                 <option value="logistics">Logistics & Shipping</option>
@@ -1215,27 +1218,63 @@
   <script type="module" src="js/main.js" defer></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const form = document.querySelector('.contact-form form');
+      const form = document.getElementById('contact-form');
       if (!form) return;
 
-      form.addEventListener('submit', (event) => {
+      // Create a container for the status message right below the button
+      const statusMessage = document.createElement('div');
+      statusMessage.style.marginTop = '16px';
+      statusMessage.style.fontSize = '1rem';
+      form.appendChild(statusMessage);
+
+      form.addEventListener('submit', async (event) => {
         event.preventDefault();
 
         if (!form.reportValidity()) return;
 
-        const data = new FormData(form);
-        const subject = `Website inquiry: ${data.get('inquiry') || 'General'}`;
-        const body = [
-          `Name: ${data.get('name') || ''}`,
-          `Company: ${data.get('company') || ''}`,
-          `Email: ${data.get('email') || ''}`,
-          `Phone: ${data.get('phone') || ''}`,
-          `Inquiry: ${data.get('inquiry') || ''}`,
-          '',
-          data.get('message') || ''
-        ].join('\n');
+        const submitButton = form.querySelector('button[type="submit"]');
+        const originalButtonText = submitButton.innerHTML;
+        
+        submitButton.disabled = true;
+        submitButton.innerHTML = 'Sending...';
+        statusMessage.textContent = '';
+        statusMessage.style.color = 'inherit';
 
-        window.location.href = `mailto:sales@balochistanminerals.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        const formData = new FormData(form);
+        const object = Object.fromEntries(formData);
+        const json = JSON.stringify(object);
+
+        try {
+          const response = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: json
+          });
+          const result = await response.json();
+          if (response.status === 200) {
+            statusMessage.style.color = '#10b981';
+            statusMessage.textContent = "Thank you for submitting! Your message has been sent.";
+            form.reset();
+          } else {
+            console.log(response);
+            statusMessage.style.color = '#ef4444';
+            statusMessage.textContent = "Oops! Something went wrong. Please try again.";
+          }
+        } catch (error) {
+          console.log(error);
+          statusMessage.style.color = '#ef4444';
+          statusMessage.textContent = "Oops! Something went wrong. Please try again.";
+        } finally {
+          submitButton.disabled = false;
+          submitButton.innerHTML = originalButtonText;
+          
+          setTimeout(() => {
+            statusMessage.textContent = '';
+          }, 5000);
+        }
       });
     });
   </script>
