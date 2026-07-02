@@ -430,7 +430,7 @@
 .investors-next-journey__links a {
   position: relative;
   display: grid;
-  grid-template-rows: minmax(10rem, 0.95fr) auto;
+  grid-template-rows: 12rem 1fr;
   min-height: 16rem;
   padding: 0;
   border: 1px solid rgba(72, 62, 66, 0.1);
@@ -444,12 +444,7 @@
 }
 
 .investors-next-journey__links a::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 44%, rgba(255, 255, 255, 0.96) 76%);
-  z-index: 1;
-  pointer-events: none;
+  content: none;
 }
 
 .investors-next-journey__card--large {
@@ -471,12 +466,12 @@
   position: relative;
   z-index: 2;
   display: flex;
-  min-height: 12rem;
+  min-height: auto;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
   padding: clamp(1.25rem, 1.8vw, 1.5rem);
   padding-right: 3.5rem; /* Prevents text overlap with arrow */
-  margin-top: -4.5rem;
+  margin-top: 0;
 }
 
 .investors-next-journey__links a::after {
