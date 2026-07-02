@@ -2,6 +2,7 @@
 
 Options -Indexes
 ServerSignature Off
+AddDefaultCharset UTF-8
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
