@@ -95,7 +95,8 @@ function initStoneCardImageToggles() {
     marble: ['images/marble.avif'],
     'white-marble': ['images/white-marble.avif', 'images/white-marble2.avif'],
     onyx: ['images/onyx.avif', 'images/onyx2.avif'],
-    granite: ['images/granite.avif', 'images/granite1.avif', 'images/granite2.avif', 'images/granite3.avif']
+    granite: ['images/granite.avif', 'images/granite1.avif', 'images/granite2.avif', 'images/granite3.avif'],
+    'irani-marble': ['images/silver-steam-white-marble-1.jpeg', 'images/silver-steam-white-marble-2.jpeg', 'images/silver-steam-white-marble-3.webp']
   };
 
   const cards = document.querySelectorAll('[data-stone-card]');

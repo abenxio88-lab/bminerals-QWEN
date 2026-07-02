@@ -15,6 +15,7 @@ const productMenuItems = [
   { title: 'White Marble', detail: 'Premium bright selection', url: 'product-stones.html#white-marble', code: 'Wm', group: 'Stones' },
   { title: 'Onyx', detail: 'Decorative translucent stone', url: 'product-stones.html#onyx', code: 'Ox', group: 'Stones' },
   { title: 'Granite', detail: 'Blocks and slabs', url: 'product-stones.html#granite', code: 'Gr', group: 'Stones' },
+  { title: 'Silver Steam', detail: 'Premium Iranian marble', url: 'product-stones.html#irani-marble', code: 'Ss', group: 'Stones' },
   { title: 'Coal Fields', detail: 'Quetta, Mach', url: 'product-energy.html#energy-minerals', code: 'Co', group: 'Energy' }
 ];
 
@@ -34,6 +35,7 @@ const detailDropdownMenus = {
     { title: 'White Marble', detail: 'Premium block selection', url: 'projects.html#stone-white-marble', code: 'Wm', group: 'Stone' },
     { title: 'Onyx', detail: 'Backlit decorative stone', url: 'projects.html#stone-onyx', code: 'Ox', group: 'Stone' },
     { title: 'Granite', detail: 'Hard stone blocks', url: 'projects.html#stone-granite', code: 'Gr', group: 'Stone' },
+    { title: 'Silver Steam', detail: 'Premium Iranian marble', url: 'product-stones.html#irani-marble', code: 'Ss', group: 'Stone' },
     { title: 'Sorange-Degari', detail: 'Quetta coalfield', url: 'projects.html#energy-sorange-degari', code: 'Co', group: 'Energy' },
     { title: 'Mach-Anjira', detail: 'Mach corridor coal', url: 'projects.html#energy-mach-anjira', code: 'Ma', group: 'Energy' },
     { title: 'View All Projects', detail: 'Project portfolio', url: 'projects.html', code: 'All', cta: true }

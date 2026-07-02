@@ -2534,13 +2534,14 @@
 
 .stone-card:hover::before {
   opacity: 0.95;
-  transform: scale(1.06);
+  transform: scale(1.02);
 }
 
 #marble { --stone-image: url('../../images/marble.avif'); }
 #white-marble { --stone-image: url('../../images/white-marble.avif'); }
 #onyx { --stone-image: url('../../images/onyx.avif'); }
 #granite { --stone-image: url('../../images/granite.avif'); }
+#irani-marble { --stone-image: url('../../images/silver-steam-white-marble-1.jpeg'); }
 
 .stone-card--white {
   background:
