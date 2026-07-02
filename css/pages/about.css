@@ -534,9 +534,9 @@
   line-height: 1.7;
   text-align: justify;
   text-align-last: left;
-  text-justify: inter-word;
-  word-spacing: normal;
   hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
 }
 
 .item-stats {
