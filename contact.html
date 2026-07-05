@@ -118,7 +118,7 @@
   <header class="navbar" role="banner">
     <div class="navbar__container">
       <a href="index.html" class="navbar__brand" aria-label="Balochistan Minerals Home">
-        <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals logo" class="navbar__logo-img">
+        <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals logo" class="navbar__logo-img" width="723" height="371">
       </a>
 
       <nav class="navbar__nav" role="navigation" aria-label="Main navigation">
@@ -887,7 +887,7 @@
     <!-- Hero -->
     <section class="contact-hero">
       <div class="contact-hero__bg"><img loading="eager" src="images/hero/hero-4.webp"
-          alt="Contact Balochistan Minerals"></div>
+          alt="Contact Balochistan Minerals" width="2160" height="1215"></div>
       <div class="contact-hero__overlay"></div>
       <div class="contact-hero__content">
         <span class="contact-hero__overline">Contact Us</span>
@@ -1144,7 +1144,7 @@
         <div class="footer__brand-section">
           <div class="footer__brand">
             <div class="footer__logo">
-              <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals" class="footer__logo-img">
+              <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals" class="footer__logo-img" width="723" height="371">
             </div>
             <p class="footer__mission">Committed to ethical mining practices, community uplift, and sustainable growth.
               Delivering Pakistan's mineral wealth to the world with integrity, transparency, and excellence.</p>
@@ -1238,6 +1238,9 @@
       const statusMessage = document.createElement('div');
       statusMessage.style.marginTop = '16px';
       statusMessage.style.fontSize = '1rem';
+      statusMessage.setAttribute('role', 'status');
+      statusMessage.setAttribute('aria-live', 'polite');
+      statusMessage.setAttribute('aria-atomic', 'true');
       form.appendChild(statusMessage);
 
       form.addEventListener('submit', async (event) => {
