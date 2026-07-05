@@ -1272,12 +1272,10 @@
             statusMessage.textContent = "Thank you for submitting! Your message has been sent.";
             form.reset();
           } else {
-            console.log(response);
             statusMessage.style.color = '#ef4444';
             statusMessage.textContent = "Oops! Something went wrong. Please try again.";
           }
         } catch (error) {
-          console.log(error);
           statusMessage.style.color = '#ef4444';
           statusMessage.textContent = "Oops! Something went wrong. Please try again.";
         } finally {

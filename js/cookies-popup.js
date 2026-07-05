@@ -189,14 +189,11 @@ class CookiesPopup {
   }
 
   openSettings() {
-    // For future implementation - open a more detailed settings modal
-    console.log('Settings panel - to be implemented');
+    // Reserved for a future detailed settings panel.
   }
 
   initializeTracking() {
-    // Initialize Google Analytics or other tracking services
-    // This is where you'd load GTM, GA, etc.
-    console.log('Tracking scripts initialized');
+    // No tracking services are currently configured.
   }
 
   lockPageScroll() {
