@@ -94,8 +94,10 @@ function initStoneCardImageToggles() {
   const stoneImageMap = {
     marble: ['images/marble.avif'],
     'white-marble': ['images/white-marble.avif', 'images/white-marble2.avif'],
-    onyx: ['images/onyx.avif', 'images/onyx2.avif'],
-    granite: ['images/granite.avif', 'images/granite1.avif', 'images/granite2.avif', 'images/granite3.avif'],
+    'persian-silk-tundra-grey': ['images/persian-silk marble-tundra-grey.jpeg', 'images/persian-silk marble-tundra-grey2.jpeg', 'images/persian-silk marble-tundra-grey-3.jpeg'],
+    'persian-silk-block': ['images/persian-silk-block-1.jpeg', 'images/persian-silk-block-2.jpeg', 'images/persian-silk-block-3.jpeg', 'images/persian-silk-block-4.jpeg'],
+    'pietra-grey-block': ['images/pietra-grey marble-block (1).jpeg', 'images/pietra-grey marble-block (2).jpeg'],
+    'pietra-grey-slab': ['images/pietra-grey marble-slab.jpeg', 'images/pietra-grey marble-slab2.jpeg'],
     'irani-marble': ['images/silver-steam-white-marble-1.jpeg', 'images/silver-steam-white-marble-2.jpeg', 'images/silver-steam-white-marble-3.webp']
   };
 
@@ -662,8 +664,10 @@ function initProductDetailLinks() {
     bauxite: 'product-industrial.html#bauxite',
     marble: 'product-stones.html#marble',
     'white-marble': 'product-stones.html#white-marble',
-    onyx: 'product-stones.html#onyx',
-    granite: 'product-stones.html#granite'
+    'persian-silk-tundra-grey': 'product-stones.html#persian-silk-tundra-grey',
+    'persian-silk-block': 'product-stones.html#persian-silk-block',
+    'pietra-grey-block': 'product-stones.html#pietra-grey-block',
+    'pietra-grey-slab': 'product-stones.html#pietra-grey-slab'
   };
 
   const cards = document.querySelectorAll('.product-card[id], .stone-card[id]');

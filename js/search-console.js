@@ -41,8 +41,10 @@ export function initSearchConsole() {
     { id: 'bauxite', title: 'Bauxite', description: '45% - 62% Al2O3 ore', url: 'product-industrial.html#bauxite', category: 'Products', icon: 'Al' },
     { id: 'marble', title: 'Marble', description: 'Blocks, slabs and tiles', url: 'product-stones.html#marble', category: 'Products', icon: 'Mr' },
     { id: 'white-marble', title: 'White Marble', description: 'Premium bright marble blocks, slabs and tiles', url: 'product-stones.html#white-marble', category: 'Products', icon: 'WM' },
-    { id: 'onyx', title: 'Onyx', description: 'Decorative translucent stone', url: 'product-stones.html#onyx', category: 'Products', icon: 'Ox' },
-    { id: 'granite', title: 'Granite', description: 'Blocks and slabs', url: 'product-stones.html#granite', category: 'Products', icon: 'Gr' },
+    { id: 'persian-silk-tundra-grey', title: 'Persian Silk Tundra Grey', description: 'Iranian soft-grey marble slabs', url: 'product-stones.html#persian-silk-tundra-grey', category: 'Products', icon: 'Ps' },
+    { id: 'persian-silk-block', title: 'Persian Silk Block', description: 'Iranian grey marble blocks', url: 'product-stones.html#persian-silk-block', category: 'Products', icon: 'Pb' },
+    { id: 'pietra-grey-block', title: 'Pietra Grey Marble Block', description: 'Iranian premium dark-grey blocks', url: 'product-stones.html#pietra-grey-block', category: 'Products', icon: 'Pg' },
+    { id: 'pietra-grey-slab', title: 'Pietra Grey Marble Slab', description: 'Iranian polished dark-grey slabs', url: 'product-stones.html#pietra-grey-slab', category: 'Products', icon: 'Ps' },
     { id: 'coal-fields', title: 'Coal Fields', description: 'Sorange-Degari and Mach-Anjira', url: 'product-energy.html#energy-minerals', category: 'Products', icon: 'Co' },
 
     // Mines/Projects

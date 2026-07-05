@@ -1766,6 +1766,32 @@ body.homepage main>section:not(.hero):not(.commodity-ticker):not(.trust-bar) {
     flex: 1 1 auto;
     max-width: 100%;
   }
+
+  /* Mobile: editorial stays sticky — make it fully opaque so metrics scrolling
+     underneath don't bleed through the semi-transparent background */
+  body.homepage .stats-section__editorial {
+    position: sticky;
+    top: var(--navbar-height, 70px);
+    z-index: 20;
+    background: #ffffff !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: 0 8px 32px rgba(15, 31, 58, 0.12) !important;
+  }
+
+  /* Mobile: metrics section gets a solid white base + top blur shadow
+     so it feels lifted and clean when sliding over editorial */
+  body.homepage .stats-section__metrics {
+    position: relative;
+    z-index: 10;
+    background: #ffffff;
+    border-radius: 1.25rem;
+    margin-top: 0.5rem;
+    padding: 1.25rem;
+    box-shadow:
+      0 -4px 0 0 #ffffff,
+      0 -16px 40px 8px rgba(255, 255, 255, 1);
+  }
 }
 
 body.homepage .homepage-whatsapp {
@@ -2038,6 +2064,23 @@ body.homepage .homepage-whatsapp:focus-visible {
     padding-block: 4rem;
   }
 
+  /* On mobile 768px, disable sticky on editorial so layout is normal stacked flow */
+  body.homepage .stats-section__editorial {
+    position: static !important;
+    z-index: auto !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    border-left: 3px solid var(--home-accent);
+  }
+
+  body.homepage .stats-section__metrics {
+    background: transparent;
+    border-radius: 0;
+    padding: 0;
+    margin-top: 0;
+    box-shadow: none;
+  }
+
   body.homepage .hero__cta-group {
     align-items: stretch;
   }
@@ -2301,6 +2344,7 @@ body.homepage .projects-footprint__site p {
 }
 
 @media (max-width: 900px) {
+
   body.homepage .projects-footprint__map,
   body.homepage .projects-footprint__svg {
     min-height: 380px;
@@ -2380,6 +2424,7 @@ body.homepage .projects-footprint__site p {
 }
 
 @media (max-width: 768px) {
+
   body.homepage .operations__header .section-title,
   body.homepage .projects__header .section-title {
     max-width: min(100%, 27rem) !important;
