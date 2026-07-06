@@ -6,6 +6,95 @@ let mediaModal = null;
 let reportModal = null;
 let lastMediaTrigger = null;
 let lastReportTrigger = null;
+let activeMediaItems = [];
+let activeMediaIndex = 0;
+
+const additionalMediaBySpecHref = {
+  'product-metallic.html#copper': [
+    {
+      type: 'video',
+      src: 'images/mineral-vids/copper-lump-mine-video-1.mp4',
+      title: 'Copper Ore at the Mine',
+      description: 'Field footage showing copper-bearing material at the Balochistan mine site.',
+    },
+    {
+      type: 'video',
+      src: 'images/mineral-vids/copper-lump-mine-video-2.mp4',
+      title: 'Copper Lumps — Field View',
+      description: 'A closer operational view of copper ore lumps before sampling and dispatch preparation.',
+    },
+  ],
+  'product-metallic.html#chromite': [
+    {
+      type: 'image',
+      src: 'images/chrome-concentrate.avif',
+      title: 'Chrome Concentrate',
+      description: 'Upgraded chromite concentrate prepared for consistent Cr2O3 feed.',
+    },
+  ],
+  'product-metallic.html#iron-ore': [
+    {
+      type: 'image',
+      src: 'images/iron-concentrate.avif',
+      title: 'Iron Concentrate',
+      description: 'Beneficiated iron concentrate prepared for stronger Fe content and cleaner sizing.',
+    },
+  ],
+  'product-metallic.html#antimony': [
+    {
+      type: 'image',
+      src: 'images/antimony-concentrate.avif',
+      title: 'Antimony Concentrate',
+      description: 'Processed antimony concentrate prepared for specialty metal and alloy buyers.',
+    },
+  ],
+  'product-stones.html#white-marble': [
+    {
+      type: 'video',
+      src: 'images/mineral-vids/white-marble-mining-site-1.mp4',
+      title: 'Bright White Marble — Mining Site 1',
+      description: 'An overview of bright white marble extraction at the mining site.',
+    },
+    {
+      type: 'video',
+      src: 'images/mineral-vids/white-marble-mining-site-2.mp4',
+      title: 'Bright White Marble — Mining Site 2',
+      description: 'Field footage showing marble faces and material selection during mining.',
+    },
+    {
+      type: 'video',
+      src: 'images/mineral-vids/white-marble-mining-site-3.mp4',
+      title: 'Bright White Marble — Mining Site 3',
+      description: 'A closer view of bright white marble blocks and active site conditions.',
+    },
+  ],
+  'product-energy.html#sorange-degari': [
+    {
+      type: 'video',
+      src: 'images/mineral-vids/quetta-coal-active-mine-1.mp4',
+      title: 'Quetta Coal — Active Mine 1',
+      description: 'An operational overview of active coal mining in the Quetta coalfield.',
+    },
+    {
+      type: 'video',
+      src: 'images/mineral-vids/quetta-coal-active-mine-2.mp4',
+      title: 'Quetta Coal — Active Mine 2',
+      description: 'Field footage documenting coal extraction and current mine conditions.',
+    },
+    {
+      type: 'video',
+      src: 'images/mineral-vids/quetta-coal-active-mine-3.mp4',
+      title: 'Quetta Coal — Active Mine 3',
+      description: 'A closer operational view of coal material at the active mine site.',
+    },
+    {
+      type: 'video',
+      src: 'images/mineral-vids/quetta-coal-active-mine-4.mp4',
+      title: 'Quetta Coal — Active Mine 4',
+      description: 'Additional site footage showing the Quetta coal mining operation.',
+    },
+  ],
+};
 
 const reportLinksBySpecHref = {
   'product-metallic.html#copper': [
@@ -102,12 +191,22 @@ function createActionButton(label, icon = 'report') {
   return button;
 }
 
-function createMediaButton(card) {
+function createMediaButton(card, href) {
   const button = createActionButton('Media Gallery', 'media');
   const title = card.querySelector('.mineral-showcase__title')?.textContent?.trim() || 'Mineral media';
   const image = card.querySelector('.mineral-showcase__image img')?.getAttribute('src') || '';
+  const description = card.querySelector('.mineral-showcase__description')?.textContent?.trim() || '';
+  const items = [
+    {
+      type: 'image',
+      src: image,
+      title,
+      description,
+    },
+    ...(additionalMediaBySpecHref[href] || []),
+  ].filter((item) => item.src);
 
-  button.addEventListener('click', () => openMediaModal({ title, image }));
+  button.addEventListener('click', () => openMediaModal({ title, href, items }));
 
   return button;
 }
@@ -142,7 +241,7 @@ function enhanceMineralCards() {
       specLink,
       reportLink,
       createActionLink('Shipping Route', 'logistics.html', 'route'),
-      createMediaButton(card)
+      createMediaButton(card, specHref)
     );
   });
 }
@@ -229,11 +328,24 @@ function createMediaModal() {
     <div class="mineral-media-modal__backdrop" data-media-close></div>
     <div class="mineral-media-modal__dialog" role="document">
       <button class="mineral-media-modal__close" type="button" aria-label="Close media gallery" data-media-close>x</button>
-      <img class="mineral-media-modal__image" src="" alt="" data-media-image>
+      <div class="mineral-media-modal__stage">
+        <img class="mineral-media-modal__media" src="" alt="" data-media-image>
+        <video class="mineral-media-modal__media" controls playsinline preload="metadata" hidden data-media-video></video>
+        <button class="mineral-media-modal__arrow mineral-media-modal__arrow--prev" type="button"
+          aria-label="Previous media" data-media-prev>&larr;</button>
+        <button class="mineral-media-modal__arrow mineral-media-modal__arrow--next" type="button"
+          aria-label="Next media" data-media-next>&rarr;</button>
+      </div>
       <div class="mineral-media-modal__body">
-        <span>Media Gallery</span>
+        <div class="mineral-media-modal__meta">
+          <span>Media Gallery</span>
+          <span data-media-count></span>
+        </div>
         <h3 data-media-title></h3>
-        <p>Photos, videos and inspection media can be added here for instant buyer preview.</p>
+        <p data-media-description></p>
+        <a class="mineral-media-modal__section-link" href="products.html" data-media-section>
+          View full mineral section <span aria-hidden="true">&rarr;</span>
+        </a>
       </div>
     </div>
   `;
@@ -244,21 +356,58 @@ function createMediaModal() {
 
   modal.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') closeMediaModal();
+    if (event.key === 'ArrowLeft') showMediaItem(activeMediaIndex - 1);
+    if (event.key === 'ArrowRight') showMediaItem(activeMediaIndex + 1);
   });
+  modal.querySelector('[data-media-prev]').addEventListener('click', () => showMediaItem(activeMediaIndex - 1));
+  modal.querySelector('[data-media-next]').addEventListener('click', () => showMediaItem(activeMediaIndex + 1));
 
   document.body.appendChild(modal);
   return modal;
 }
 
-function openMediaModal({ title, image }) {
+function showMediaItem(index) {
+  if (!mediaModal || !activeMediaItems.length) return;
+
+  activeMediaIndex = (index + activeMediaItems.length) % activeMediaItems.length;
+  const item = activeMediaItems[activeMediaIndex];
+  const imageElement = mediaModal.querySelector('[data-media-image]');
+  const videoElement = mediaModal.querySelector('[data-media-video]');
+  const isVideo = item.type === 'video';
+
+  videoElement.pause();
+  imageElement.hidden = isVideo;
+  videoElement.hidden = !isVideo;
+
+  if (isVideo) {
+    if (videoElement.getAttribute('src') !== item.src) {
+      videoElement.src = item.src;
+      videoElement.load();
+    }
+  } else {
+    imageElement.src = item.src;
+    imageElement.alt = `${item.title} media preview`;
+  }
+
+  mediaModal.querySelector('[data-media-title]').textContent = item.title;
+  mediaModal.querySelector('[data-media-description]').textContent = item.description;
+  mediaModal.querySelector('[data-media-count]').textContent =
+    `${String(activeMediaIndex + 1).padStart(2, '0')} / ${String(activeMediaItems.length).padStart(2, '0')}`;
+
+  const hasMultipleItems = activeMediaItems.length > 1;
+  mediaModal.querySelector('[data-media-prev]').hidden = !hasMultipleItems;
+  mediaModal.querySelector('[data-media-next]').hidden = !hasMultipleItems;
+}
+
+function openMediaModal({ title, href, items }) {
   if (!mediaModal) mediaModal = createMediaModal();
 
   lastMediaTrigger = document.activeElement;
-
-  const imageElement = mediaModal.querySelector('[data-media-image]');
-  imageElement.src = image;
-  imageElement.alt = `${title} media preview`;
-  mediaModal.querySelector('[data-media-title]').textContent = title;
+  activeMediaItems = items;
+  activeMediaIndex = 0;
+  mediaModal.querySelector('[data-media-section]').href = href || 'products.html';
+  mediaModal.setAttribute('aria-label', `${title} media gallery`);
+  showMediaItem(0);
 
   mediaModal.classList.add('is-open');
   mediaModal.setAttribute('aria-hidden', 'false');
@@ -268,6 +417,7 @@ function openMediaModal({ title, image }) {
 function closeMediaModal() {
   if (!mediaModal) return;
 
+  mediaModal.querySelector('[data-media-video]')?.pause();
   mediaModal.classList.remove('is-open');
   mediaModal.setAttribute('aria-hidden', 'true');
   lastMediaTrigger?.focus();
