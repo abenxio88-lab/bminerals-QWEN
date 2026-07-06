@@ -1177,7 +1177,7 @@
 
 .investors-opportunity-panel {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1.1fr);
+  grid-template-columns: minmax(0, 0.92fr) minmax(420px, 1.08fr);
   gap: clamp(2.4rem, 5vw, 5.5rem);
   align-items: center;
   width: 100vw;
@@ -1251,6 +1251,8 @@
 
 .investors-opportunity-panel__media {
   margin: 0;
+  width: min(100%, 920px);
+  justify-self: end;
   border: 1px solid rgba(32, 39, 43, 0.08);
   border-radius: 1.65rem;
   overflow: hidden;
@@ -1261,10 +1263,11 @@
 .investors-opportunity-panel__media img {
   display: block;
   width: 100%;
+  height: auto;
   aspect-ratio: 16 / 10;
   object-fit: cover;
   object-position: center;
-  transform: scale(1.02);
+  transform: none;
 }
 
 @media (max-width: 900px) {
@@ -1274,6 +1277,8 @@
 
   .investors-opportunity-panel__media {
     order: -1;
+    width: 100%;
+    justify-self: stretch;
   }
 }
 
