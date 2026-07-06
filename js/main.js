@@ -38,6 +38,16 @@ function preloadImages(views) {
   });
 }
 
+function preloadImageUrls(urls) {
+  urls.forEach((url) => {
+    if (!url) return;
+
+    const preloader = new Image();
+    preloader.decoding = 'async';
+    preloader.src = url;
+  });
+}
+
 function swapGalleryImage({ image, imageWrap, content, nextButton, view, updateContent }) {
   imageWrap.classList.add('is-changing');
   if (content) content.classList.add('is-changing');
@@ -117,6 +127,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   runInit('initAntimonyCardToggle', initAntimonyCardToggle);
   runInit('initProductsMetallicCardToggles', initProductsMetallicCardToggles);
   runInit('initTradeSpecsWheelScroll', initTradeSpecsWheelScroll);
+  runInit('initMineCarouselPreload', initMineCarouselPreload);
   runInit('initMineralAtlasWheelScroll', initMineralAtlasWheelScroll);
   runInit('initStoneCardImageToggles', initStoneCardImageToggles);
   // Ensure loader is removed after all inits complete
@@ -153,17 +164,18 @@ function initStoneCardImageToggles() {
       return;
     }
 
+    preloadImageUrls(images);
+
     nextButton.addEventListener('click', (event) => {
       event.preventDefault();
       event.stopPropagation();
 
       activeIndex = (activeIndex + 1) % images.length;
       card.classList.add('is-changing');
-
-      window.setTimeout(() => {
-        card.style.setProperty('--stone-image', `url('../../${images[activeIndex]}')`);
+      card.style.setProperty('--stone-image', `url('../../${images[activeIndex]}')`);
+      window.requestAnimationFrame(() => {
         card.classList.remove('is-changing');
-      }, 110);
+      });
     });
   });
 }
@@ -195,6 +207,25 @@ function initTradeSpecsWheelScroll() {
 
   // Capture phase prevents the page from consuming wheel first.
   document.addEventListener('wheel', handleWheel, { passive: false, capture: true });
+}
+
+function initMineCarouselPreload() {
+  if (window.__mineCarouselPreloadInitialized) return;
+
+  const carousels = document.querySelectorAll('[data-mine-carousel]');
+  if (!carousels.length) return;
+
+  window.__mineCarouselPreloadInitialized = true;
+
+  carousels.forEach((carousel) => {
+    carousel.querySelectorAll('.mine-profile__slide img').forEach((img) => {
+      img.decoding = 'async';
+
+      const preloader = new Image();
+      preloader.decoding = 'async';
+      preloader.src = img.currentSrc || img.src;
+    });
+  });
 }
 
 // ============================================

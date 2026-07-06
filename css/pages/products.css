@@ -2503,6 +2503,7 @@
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  touch-action: manipulation;
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.62), rgba(238, 241, 245, 0.52));
   border: 1px solid rgba(15, 23, 42, 0.1);
@@ -2576,6 +2577,7 @@
   background: rgba(10, 22, 40, 0.78);
   border: 1px solid rgba(255, 255, 255, 0.34);
   cursor: pointer;
+  touch-action: manipulation;
   transition: background 0.2s var(--ease-smooth), transform 0.2s var(--ease-smooth);
 }
 
@@ -3556,6 +3558,7 @@
   min-height: 285px;
   overflow: hidden;
   background: var(--charcoal-900);
+  touch-action: manipulation;
 }
 
 .stone-gallery__slide {
@@ -3591,6 +3594,7 @@
   background: rgba(10, 22, 40, 0.72);
   border: 1px solid rgba(255, 255, 255, 0.32);
   transform: translateY(-50%);
+  touch-action: manipulation;
   transition: background 0.2s var(--ease-smooth), border-color 0.2s var(--ease-smooth), transform 0.2s var(--ease-smooth);
 }
 

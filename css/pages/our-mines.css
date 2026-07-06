@@ -205,6 +205,7 @@
   overflow: hidden;
   background: #101923;
   isolation: isolate;
+  touch-action: manipulation;
 }
 
 .mine-profile__image::after {
@@ -277,6 +278,7 @@
   background: rgba(245, 240, 232, 0.92);
   border: 1px solid rgba(245, 240, 232, 0.72);
   box-shadow: 0 14px 28px rgba(3, 8, 15, 0.28);
+  touch-action: manipulation;
   transition: background 0.2s var(--ease-smooth), transform 0.2s var(--ease-smooth);
 }
 

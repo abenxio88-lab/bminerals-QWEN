@@ -8,6 +8,17 @@ document.querySelectorAll('[data-stone-gallery]').forEach((gallery) => {
 
   let activeIndex = 0;
 
+  slides.forEach((slide) => {
+    const img = slide.querySelector('img');
+    if (!img) return;
+
+    img.decoding = 'async';
+
+    const preloader = new Image();
+    preloader.decoding = 'async';
+    preloader.src = img.currentSrc || img.src;
+  });
+
   const showSlide = (index) => {
     activeIndex = (index + slides.length) % slides.length;
 

@@ -753,6 +753,7 @@
 
 .encyclopedia-carousel {
   position: relative;
+  touch-action: manipulation;
 }
 
 .encyclopedia-carousel__top {
@@ -761,6 +762,7 @@
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: 1.25rem;
+  touch-action: manipulation;
 }
 
 .encyclopedia-carousel__count {
@@ -777,6 +779,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
+  touch-action: manipulation;
 }
 
 .encyclopedia-carousel__button {
@@ -788,6 +791,7 @@
   background: var(--bg-card);
   color: var(--text-primary);
   cursor: pointer;
+  touch-action: manipulation;
   transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
 }
 
