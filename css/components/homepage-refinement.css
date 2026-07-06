@@ -1777,6 +1777,12 @@ body.homepage main>section:not(.hero):not(.commodity-ticker):not(.trust-bar) {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     box-shadow: 0 8px 32px rgba(15, 31, 58, 0.12) !important;
+    transition: filter 0.28s var(--ease-smooth), opacity 0.28s var(--ease-smooth);
+  }
+
+  body.homepage .stats-section.stats-section--metrics-overlap .stats-section__editorial {
+    filter: blur(10px);
+    opacity: 0.42;
   }
 
   /* Mobile: metrics section gets a solid white base + top blur shadow
@@ -2064,21 +2070,33 @@ body.homepage .homepage-whatsapp:focus-visible {
     padding-block: 4rem;
   }
 
-  /* On mobile 768px, disable sticky on editorial so layout is normal stacked flow */
+  /* On smaller phones, keep the editorial sticky so it can soften once the
+     metrics column starts sliding over it. */
   body.homepage .stats-section__editorial {
-    position: static !important;
-    z-index: auto !important;
-    box-shadow: none !important;
-    background: transparent !important;
+    position: sticky !important;
+    top: var(--navbar-height, 70px);
+    z-index: 20 !important;
+    box-shadow: 0 8px 24px rgba(15, 31, 58, 0.1) !important;
+    background: #ffffff !important;
     border-left: 3px solid var(--home-accent);
+    transition: filter 0.28s var(--ease-smooth), opacity 0.28s var(--ease-smooth);
+  }
+
+  body.homepage .stats-section.stats-section--metrics-overlap .stats-section__editorial {
+    filter: blur(10px);
+    opacity: 0.38;
   }
 
   body.homepage .stats-section__metrics {
-    background: transparent;
-    border-radius: 0;
-    padding: 0;
-    margin-top: 0;
-    box-shadow: none;
+    position: relative;
+    z-index: 10;
+    background: #ffffff;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-top: 0.35rem;
+    box-shadow:
+      0 -4px 0 0 #ffffff,
+      0 -12px 32px 6px rgba(255, 255, 255, 0.95);
   }
 
   body.homepage .hero__cta-group {

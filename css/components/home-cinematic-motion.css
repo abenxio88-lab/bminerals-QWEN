@@ -694,9 +694,71 @@ body.homepage .stats-section .metric-strip__item.glass-bento:focus-within {
   #minerals .mineral-showcase--tall {
     grid-template-rows: 245px 1fr;
   }
+
+  body.homepage .stats-section__editorial {
+    position: sticky;
+    top: var(--navbar-height, 70px);
+    z-index: 20;
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(15, 31, 58, 0.1);
+    transition: filter 0.28s var(--ease-smooth), opacity 0.28s var(--ease-smooth);
+  }
+
+  body.homepage .stats-section.stats-section--metrics-overlap .stats-section__editorial {
+    filter: blur(10px);
+    opacity: 0.38;
+    z-index: 5;
+  }
+
+  body.homepage .stats-section__metrics {
+    position: relative;
+    z-index: 10;
+    background: #ffffff;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-top: 0.35rem;
+    box-shadow:
+      0 -4px 0 0 #ffffff,
+      0 -12px 32px 6px rgba(255, 255, 255, 0.95);
+  }
+
+  body.homepage .stats-section.stats-section--metrics-overlap .stats-section__metrics {
+    z-index: 25;
+  }
 }
 
 @media (max-width: 768px) {
+  body.homepage .stats-section__editorial {
+    position: sticky;
+    top: var(--navbar-height, 70px);
+    z-index: 20;
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(15, 31, 58, 0.1);
+    transition: filter 0.28s var(--ease-smooth), opacity 0.28s var(--ease-smooth);
+  }
+
+  body.homepage .stats-section.stats-section--metrics-overlap .stats-section__editorial {
+    filter: blur(10px);
+    opacity: 0.38;
+    z-index: 5;
+  }
+
+  body.homepage .stats-section__metrics {
+    position: relative;
+    z-index: 10;
+    background: #ffffff;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-top: 0.35rem;
+    box-shadow:
+      0 -4px 0 0 #ffffff,
+      0 -12px 32px 6px rgba(255, 255, 255, 0.95);
+  }
+
+  body.homepage .stats-section.stats-section--metrics-overlap .stats-section__metrics {
+    z-index: 25;
+  }
+
   .mineral-category-nav {
     grid-template-columns: 1fr;
     justify-items: center;
