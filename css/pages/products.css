@@ -1463,6 +1463,7 @@
   position: relative;
   overflow: hidden;
   height: 280px;
+  touch-action: manipulation;
 }
 
 .metallic-card__image-link {
@@ -1516,6 +1517,7 @@
   background: rgba(10, 22, 40, 0.78);
   border: 1px solid rgba(255, 255, 255, 0.35);
   cursor: pointer;
+  touch-action: manipulation;
   transition: background 0.2s var(--ease-smooth), transform 0.2s var(--ease-smooth);
 }
 

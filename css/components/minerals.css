@@ -82,6 +82,7 @@
   position: relative;
   overflow: hidden;
   background: #e9ecef;
+  touch-action: manipulation;
 }
 
 .mineral-showcase__image img {
@@ -125,6 +126,7 @@
   border: 1px solid rgba(255, 255, 255, 0.36);
   color: #ffffff;
   transform: none;
+  touch-action: manipulation;
   transition: background 0.2s var(--ease-smooth), transform 0.2s var(--ease-smooth);
 }
 

@@ -28,6 +28,41 @@ function runInit(featureName, initializer) {
   }
 }
 
+function preloadImages(views) {
+  views.forEach((view) => {
+    if (!view || !view.image) return;
+
+    const preloader = new Image();
+    preloader.decoding = 'async';
+    preloader.src = view.image;
+  });
+}
+
+function swapGalleryImage({ image, imageWrap, content, nextButton, view, updateContent }) {
+  imageWrap.classList.add('is-changing');
+  if (content) content.classList.add('is-changing');
+
+  image.alt = view.alt;
+  image.src = view.image;
+  nextButton.setAttribute('aria-label', view.nextLabel);
+
+  if (typeof updateContent === 'function') {
+    updateContent();
+  }
+
+  const finishSwap = () => {
+    imageWrap.classList.remove('is-changing');
+    if (content) content.classList.remove('is-changing');
+  };
+
+  if (typeof image.decode === 'function') {
+    image.decode().catch(() => {}).finally(finishSwap);
+    return;
+  }
+
+  window.requestAnimationFrame(finishSwap);
+}
+
 // ============================================
 // BM Hill Preloader Logic
 // ============================================
@@ -366,17 +401,18 @@ function initProductsMetallicCardToggles() {
 
     hasAnyToggle = true;
     let activeIndex = 0;
+    preloadImages(config.views);
 
     const renderView = (index) => {
       const view = config.views[index];
-      imageWrap.classList.add('is-changing');
-      if (content) content.classList.add('is-changing');
-
-      window.setTimeout(() => {
-        image.src = view.image;
-        image.alt = view.alt;
+      swapGalleryImage({
+        image,
+        imageWrap,
+        content,
+        nextButton,
+        view,
+        updateContent: () => {
         caption.textContent = view.caption;
-        nextButton.setAttribute('aria-label', view.nextLabel);
 
         if (tag && view.tag) tag.textContent = view.tag;
         if (title && view.title) title.textContent = view.title;
@@ -393,10 +429,8 @@ function initProductsMetallicCardToggles() {
             }
           });
         }
-
-        imageWrap.classList.remove('is-changing');
-        if (content) content.classList.remove('is-changing');
-      }, 120);
+        }
+      });
     };
 
     nextButton.addEventListener('click', (event) => {
@@ -458,28 +492,27 @@ function initIronCardToggle() {
   ];
 
   let activeIndex = 0;
+  preloadImages(views);
 
   const renderView = (index) => {
     const view = views[index];
-    imageWrap.classList.add('is-changing');
-    content.classList.add('is-changing');
-
-    window.setTimeout(() => {
-      image.src = view.image;
-      image.alt = view.alt;
+    swapGalleryImage({
+      image,
+      imageWrap,
+      content,
+      nextButton,
+      view,
+      updateContent: () => {
       caption.textContent = view.caption;
       title.textContent = view.title;
       description.textContent = view.description;
-      nextButton.setAttribute('aria-label', view.nextLabel);
 
       view.stats.forEach(([value, label], statIndex) => {
         if (statValues[statIndex]) statValues[statIndex].textContent = value;
         if (statLabels[statIndex]) statLabels[statIndex].textContent = label;
       });
-
-      imageWrap.classList.remove('is-changing');
-      content.classList.remove('is-changing');
-    }, 120);
+      }
+    });
   };
 
   nextButton.addEventListener('click', () => {
@@ -536,28 +569,27 @@ function initChromiteCardToggle() {
   ];
 
   let activeIndex = 0;
+  preloadImages(views);
 
   const renderView = (index) => {
     const view = views[index];
-    imageWrap.classList.add('is-changing');
-    content.classList.add('is-changing');
-
-    window.setTimeout(() => {
-      image.src = view.image;
-      image.alt = view.alt;
+    swapGalleryImage({
+      image,
+      imageWrap,
+      content,
+      nextButton,
+      view,
+      updateContent: () => {
       caption.textContent = view.caption;
       title.textContent = view.title;
       description.textContent = view.description;
-      nextButton.setAttribute('aria-label', view.nextLabel);
 
       view.stats.forEach(([value, label], statIndex) => {
         if (statValues[statIndex]) statValues[statIndex].textContent = value;
         if (statLabels[statIndex]) statLabels[statIndex].textContent = label;
       });
-
-      imageWrap.classList.remove('is-changing');
-      content.classList.remove('is-changing');
-    }, 120);
+      }
+    });
   };
 
   nextButton.addEventListener('click', () => {
@@ -618,28 +650,27 @@ function initAntimonyCardToggle() {
   ];
 
   let activeIndex = 0;
+  preloadImages(views);
 
   const renderView = (index) => {
     const view = views[index];
-    imageWrap.classList.add('is-changing');
-    content.classList.add('is-changing');
-
-    window.setTimeout(() => {
-      image.src = view.image;
-      image.alt = view.alt;
+    swapGalleryImage({
+      image,
+      imageWrap,
+      content,
+      nextButton,
+      view,
+      updateContent: () => {
       caption.textContent = view.caption;
       title.textContent = view.title;
       description.textContent = view.description;
-      nextButton.setAttribute('aria-label', view.nextLabel);
 
       view.stats.forEach(([value, label], statIndex) => {
         if (statValues[statIndex]) statValues[statIndex].textContent = value;
         if (statLabels[statIndex]) statLabels[statIndex].textContent = label;
       });
-
-      imageWrap.classList.remove('is-changing');
-      content.classList.remove('is-changing');
-    }, 120);
+      }
+    });
   };
 
   nextButton.addEventListener('click', () => {
