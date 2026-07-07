@@ -322,19 +322,44 @@
 @media (max-width: 768px) {
   .mineral-atlas__stats-bar {
     grid-template-columns: repeat(2, 1fr);
+    margin-top: 2rem;
   }
 
   .mineral-atlas__header {
     margin-bottom: 2.5rem;
   }
+
+  .mineral-atlas__stat {
+    padding: 1.25rem 0.75rem;
+    min-width: 0;
+  }
+
+  .mineral-atlas__stat-val {
+    font-size: clamp(1.1rem, 6vw, 1.5rem);
+    line-height: 1.1;
+  }
+
+  .mineral-atlas__stat-lbl {
+    font-size: 0.5rem;
+    line-height: 1.35;
+    letter-spacing: 0.08em;
+  }
 }
 
 @media (max-width: 480px) {
   .mineral-atlas__stats-bar {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .mineral-atlas__cat-card {
     padding: 1.5rem;
+  }
+
+  .mineral-atlas__stat {
+    padding: 1rem 0.5rem;
+  }
+
+  .mineral-atlas__stat-val {
+    font-size: clamp(1rem, 7vw, 1.25rem);
   }
 }

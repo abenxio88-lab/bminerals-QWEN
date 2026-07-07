@@ -919,6 +919,11 @@
   font-size: 0.825rem;
   color: var(--text-muted);
   line-height: 1.6;
+  text-align: justify;
+  text-align-last: left;
+  text-justify: inter-word;
+  hyphens: auto;
+  word-spacing: normal;
   margin-bottom: 1rem;
   flex: 1;
 }
