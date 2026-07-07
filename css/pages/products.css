@@ -1392,12 +1392,13 @@
 }
 
 .metallic-showcase__stat-value {
-  font-family: var(--font-heading);
-  font-size: clamp(1.6rem, 2.8vw, 2.25rem);
-  font-weight: 800;
+  font-family: var(--font-ui);
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  font-weight: 600;
   line-height: 1;
   color: var(--primary-gold-500);
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
 }
 
 .metallic-showcase__stat-label {
@@ -1617,10 +1618,11 @@
 
 .metallic-card__spec dd {
   margin: 0.25rem 0 0;
-  color: var(--navy-900);
-  font-family: var(--font-heading);
-  font-size: clamp(0.88rem, 1.1vw, 1.02rem);
-  font-weight: 700;
+  color: var(--charcoal-700);
+  font-family: var(--font-ui);
+  font-size: clamp(0.82rem, 1vw, 0.95rem);
+  font-weight: 500;
+  letter-spacing: 0;
   font-variant-numeric: tabular-nums;
 }
 
@@ -2138,9 +2140,10 @@
 .industrial-card__spec dd {
   margin: 0.2rem 0 0;
   color: #fff;
-  font-family: var(--font-heading);
-  font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+  font-family: var(--font-ui);
+  font-size: clamp(0.82rem, 1vw, 0.95rem);
   font-weight: 500;
+  letter-spacing: 0;
   font-variant-numeric: tabular-nums;
 }
 
@@ -2487,7 +2490,9 @@
 .product-card__specs dd {
   margin: 0;
   color: var(--text-primary);
-  font-weight: 700;
+  font-family: var(--font-ui);
+  font-weight: 500;
+  letter-spacing: 0;
   font-variant-numeric: tabular-nums;
 }
 
@@ -2542,6 +2547,10 @@
 
 #marble { --stone-image: url('../../images/marble.avif'); }
 #white-marble { --stone-image: url('../../images/white-marble.avif'); }
+#persian-silk-tundra-grey { --stone-image: url('../../images/persian-silk marble-tundra-grey.jpeg'); }
+#persian-silk-block { --stone-image: url('../../images/persian-silk-block-1.jpeg'); }
+#pietra-grey-block { --stone-image: url('../../images/pietra-grey marble-block (1).jpeg'); }
+#pietra-grey-slab { --stone-image: url('../../images/pietra-grey marble-slab.jpeg'); }
 #onyx { --stone-image: url('../../images/onyx.avif'); }
 #granite { --stone-image: url('../../images/granite.avif'); }
 #irani-marble { --stone-image: url('../../images/silver-steam-white-marble-1.jpeg'); }
