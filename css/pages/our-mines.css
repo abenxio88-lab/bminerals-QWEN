@@ -689,12 +689,12 @@
   margin-bottom: 1.25rem;
 }
 
-.mines-cta__image {
+.mines-cta__visual {
   border-radius: var(--radius-md);
   overflow: hidden;
 }
 
-.mines-cta__image img {
+.mines-cta__visual img {
   width: 100%;
   height: auto;
   display: block;
