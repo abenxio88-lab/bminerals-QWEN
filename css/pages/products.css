@@ -1036,6 +1036,11 @@
   .product-overview-intro+.reveal h3 {
     text-align: center;
   }
+
+  #products-cta .diagonal-section__text {
+    text-align: center;
+    text-align-last: center;
+  }
 }
 
 @media (max-width: 480px) {
@@ -2933,6 +2938,20 @@
     font-size: 1.3rem;
   }
 
+  #dimension-stones .stone-curation__checks {
+    justify-content: center;
+  }
+
+  #dimension-stones .stone-curation__link {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+
+  #dimension-stones .stone-brief-card {
+    text-align: center;
+  }
+
   #dimension-stones .stone-card {
     min-height: 330px;
   }
@@ -3145,6 +3164,18 @@
 
   .coal-list__item {
     min-height: 300px;
+  }
+
+  .assay-note__container,
+  .assay-note p {
+    text-align: center;
+  }
+
+  .assay-note a {
+    justify-content: center;
+    justify-self: center;
+    text-align: center;
+    white-space: normal;
   }
 
   .stone-card span {
