@@ -79,7 +79,7 @@
   color: rgba(255, 255, 255, 0.68);
   font-family: var(--font-ui);
   font-size: 0.66rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -101,7 +101,7 @@
   border: 1px solid rgba(242, 106, 33, 0.32);
   background: rgba(242, 106, 33, 0.14);
   color: #fed7aa;
-  font: 800 0.62rem/1 var(--font-ui);
+  font: 600 0.62rem/1 var(--font-ui);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
@@ -112,6 +112,7 @@
   margin: 0.65rem 0 0.65rem;
   font-family: var(--font-heading);
   font-size: clamp(1.55rem, 2.55vw, 2.45rem);
+  font-weight: 500;
   line-height: 1.08;
   letter-spacing: 0;
   text-transform: uppercase;
@@ -135,7 +136,7 @@
   color: rgba(255, 255, 255, 0.78);
   font-family: var(--font-ui);
   font-size: 0.7rem;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
@@ -199,7 +200,7 @@
   color: var(--primary-gold-600);
   font-family: var(--font-ui);
   font-size: 0.72rem;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 0.1em;
   text-decoration: none;
   text-transform: uppercase;
@@ -215,6 +216,7 @@
   color: var(--navy-950) !important;
   font-family: var(--font-heading);
   font-size: clamp(1.25rem, 2vw, 1.75rem) !important;
+  font-weight: 500;
   line-height: 1.18 !important;
   text-transform: uppercase;
   text-wrap: balance;
@@ -245,6 +247,7 @@
   color: var(--navy-950);
   font-family: var(--font-ui);
   font-size: 0.68rem;
+  font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -260,6 +263,7 @@
   margin: 2.2rem 0 0.75rem;
   font-family: var(--font-heading);
   font-size: clamp(1.18rem, 1.7vw, 1.55rem);
+  font-weight: 500;
   line-height: 1.16;
   color: var(--navy-900);
   letter-spacing: 0;
@@ -328,6 +332,7 @@
   color: #fff;
   font-family: var(--font-heading);
   font-size: clamp(1rem, 1.45vw, 1.25rem);
+  font-weight: 500;
   line-height: 1.24;
   text-transform: uppercase;
   text-align: left;
@@ -360,6 +365,7 @@
   margin: 0 0 0.65rem;
   font-family: var(--font-heading);
   font-size: 1rem;
+  font-weight: 500;
   letter-spacing: 0;
   text-transform: uppercase;
   color: inherit;
@@ -377,7 +383,7 @@
 .article-share__button {
   color: var(--primary-gold-500);
   font-family: var(--font-ui);
-  font-weight: 800;
+  font-weight: 600;
   text-decoration: none;
 }
 
@@ -410,7 +416,7 @@
   color: #fff !important;
   font-family: var(--font-ui);
   font-size: 0.75rem;
-  font-weight: 900;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   text-decoration: none;
@@ -468,6 +474,7 @@
   margin: 0 0 0.5rem;
   font-family: var(--font-heading);
   font-size: clamp(1.25rem, 2.2vw, 1.8rem);
+  font-weight: 500;
   letter-spacing: 0;
   text-transform: uppercase;
 }
@@ -505,7 +512,7 @@
   color: var(--primary-gold-600);
   font-family: var(--font-ui);
   font-size: 0.7rem;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 0.13em;
   text-transform: uppercase;
 }
@@ -516,6 +523,7 @@
   color: var(--navy-950);
   font-family: var(--font-heading);
   font-size: clamp(1.25rem, 2.2vw, 1.8rem);
+  font-weight: 500;
   line-height: 1.14;
   text-transform: uppercase;
 }
@@ -530,7 +538,7 @@
   color: var(--navy-950);
   font-family: var(--font-ui);
   font-size: 0.72rem;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 0.08em;
   text-decoration: none;
   text-transform: uppercase;
@@ -601,7 +609,7 @@
   color: #fed7aa;
   font-family: var(--font-ui);
   font-size: 0.68rem;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -611,6 +619,7 @@
   margin-top: auto;
   font-family: var(--font-heading);
   font-size: clamp(1.1rem, 1.8vw, 1.45rem);
+  font-weight: 500;
   line-height: 1.12;
   text-transform: uppercase;
   text-wrap: balance;
@@ -622,7 +631,7 @@
   color: rgba(255, 255, 255, 0.72);
   font-family: var(--font-ui);
   font-size: 0.78rem;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .article-related-card:hover {
