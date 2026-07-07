@@ -3046,6 +3046,11 @@
     padding: 2.75rem var(--section-padding-x);
   }
 
+  .products-catalog__lead {
+    text-align: left;
+    text-align-last: auto;
+  }
+
   .products-catalog__title,
   .trade-specs__title,
   .product-category__title {

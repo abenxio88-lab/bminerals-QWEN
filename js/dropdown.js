@@ -8,6 +8,12 @@ export function initDropdownMenus() {
   const dropdownGroups = document.querySelectorAll('.navbar__dropdown-group');
   const dropdownTriggers = document.querySelectorAll('.navbar__dropdown-trigger');
 
+  const getControlledMenu = (trigger) => {
+    const mobileHead = trigger.closest('.navbar__mobile-dropdown-head');
+    const menu = mobileHead ? mobileHead.nextElementSibling : trigger.nextElementSibling;
+    return menu && menu.classList.contains('navbar__dropdown-menu') ? menu : null;
+  };
+
   // ============================================
   // DESKTOP: JavaScript-driven hover handling
   // This ensures dropdowns work reliably on ALL pages,
@@ -77,7 +83,7 @@ export function initDropdownMenus() {
 
       if (mobile) {
         const isMobileTrigger = trigger.classList.contains('navbar__dropdown-trigger--mobile') || trigger.tagName === 'BUTTON';
-        const nextMenu = trigger.nextElementSibling;
+        const nextMenu = getControlledMenu(trigger);
         const clickedArrow = Boolean(e.target.closest('.navbar__dropdown-arrow') || e.target.closest('svg'));
 
         // Keep desktop nav links navigable on mobile widths.
@@ -96,8 +102,8 @@ export function initDropdownMenus() {
             if (t !== trigger) {
               t.classList.remove('open');
               t.setAttribute('aria-expanded', 'false');
-              const menu = t.nextElementSibling;
-              if (menu && menu.classList.contains('navbar__dropdown-menu')) {
+              const menu = getControlledMenu(t);
+              if (menu) {
                 menu.classList.remove('open');
               }
             }
@@ -115,11 +121,17 @@ export function initDropdownMenus() {
           }
         }
       } else {
+        const clickedArrow = Boolean(e.target.closest('.navbar__dropdown-arrow') || e.target.closest('svg'));
+        if (!clickedArrow) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
         // Desktop: toggle aria-expanded and menu visibility for accessibility
         const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
         trigger.setAttribute('aria-expanded', String(!isExpanded));
-        const menu = trigger.nextElementSibling;
-        if (menu && menu.classList.contains('navbar__dropdown-menu')) {
+        const menu = getControlledMenu(trigger);
+        if (menu) {
           if (isExpanded) {
             menu.classList.remove('dropdown-active');
           } else {
@@ -131,13 +143,16 @@ export function initDropdownMenus() {
 
     // Keyboard support for trigger (Enter / Space / Escape)
     trigger.addEventListener('keydown', (e) => {
+      if (!isMobile() && trigger.tagName === 'A' && e.key === 'Enter') {
+        return;
+      }
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         trigger.click();
       }
       if (e.key === 'Escape') {
         trigger.setAttribute('aria-expanded', 'false');
-        const menu = trigger.nextElementSibling;
+        const menu = getControlledMenu(trigger);
         if (menu) menu.classList.remove('dropdown-active', 'open');
       }
     });
@@ -168,8 +183,8 @@ export function initDropdownMenus() {
         dropdownTriggers.forEach(trigger => {
           trigger.classList.remove('open');
           trigger.setAttribute('aria-expanded', 'false');
-          const menu = trigger.nextElementSibling;
-          if (menu && menu.classList.contains('navbar__dropdown-menu')) {
+          const menu = getControlledMenu(trigger);
+          if (menu) {
             menu.classList.remove('open');
           }
         });

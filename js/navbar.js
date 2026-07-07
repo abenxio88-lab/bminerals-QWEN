@@ -75,6 +75,16 @@ const detailDropdownMenus = {
   ]
 };
 
+const dropdownParentLinks = {
+  Products: 'products.html',
+  Projects: 'projects.html',
+  Investors: 'investors.html',
+  Sustainability: 'sustainability.html',
+  'Our Mines': 'our-mines.html',
+  Logistics: 'logistics.html',
+  'About Us': 'about.html'
+};
+
 function getProductsPathPrefix() {
   return window.location.pathname.includes('/blog/') ? '../' : '';
 }
@@ -252,6 +262,39 @@ function initProductMenus() {
   });
 }
 
+function splitMobileDropdownTriggers() {
+  const mobileMenu = document.querySelector('.navbar__mobile-menu');
+  if (!mobileMenu || mobileMenu.dataset.splitDropdownTriggers === 'true') return;
+
+  mobileMenu.querySelectorAll(':scope > .navbar__dropdown-trigger--mobile').forEach((trigger) => {
+    const label = getDirectLinkLabel(trigger);
+    const href = dropdownParentLinks[label];
+    const menu = trigger.nextElementSibling;
+    if (!href || !menu || !menu.classList.contains('navbar__dropdown-menu')) return;
+
+    const row = document.createElement('div');
+    row.className = 'navbar__mobile-dropdown-head';
+
+    const link = document.createElement('a');
+    link.href = href;
+    link.className = 'navbar__link navbar__mobile-parent-link';
+    link.textContent = label;
+
+    const toggle = document.createElement('button');
+    toggle.type = 'button';
+    toggle.className = 'navbar__dropdown-toggle navbar__dropdown-trigger navbar__dropdown-trigger--mobile';
+    toggle.setAttribute('aria-haspopup', 'true');
+    toggle.setAttribute('aria-expanded', trigger.getAttribute('aria-expanded') || 'false');
+    toggle.setAttribute('aria-label', `Show ${label} menu`);
+    toggle.appendChild(createChevronSvg());
+
+    row.append(link, toggle);
+    trigger.replaceWith(row);
+  });
+
+  mobileMenu.dataset.splitDropdownTriggers = 'true';
+}
+
 function prepareLongDropdown(label, menu) {
   const itemCount = detailDropdownMenus[label]?.filter((item) => !item.cta).length || 0;
   if (itemCount < 6) return;
@@ -294,6 +337,7 @@ export function initNavbar() {
 
   initDetailPageMenus();
   initProductMenus();
+  splitMobileDropdownTriggers();
 
   // Highlight active link
   highlightActiveLink();
