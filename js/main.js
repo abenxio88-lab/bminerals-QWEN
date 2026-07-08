@@ -130,9 +130,43 @@ document.addEventListener('DOMContentLoaded', async () => {
   runInit('initMineCarouselPreload', initMineCarouselPreload);
   runInit('initMineralAtlasWheelScroll', initMineralAtlasWheelScroll);
   runInit('initStoneCardImageToggles', initStoneCardImageToggles);
+  runInit('initInvestorMetricSliderIndicator', initInvestorMetricSliderIndicator);
   // Ensure loader is removed after all inits complete
   setTimeout(() => removeLoader(), 100);
 });
+
+function initInvestorMetricSliderIndicator() {
+  const slider = document.querySelector('.investors__metrics-grid');
+  const indicator = document.querySelector('.investors__slider-lines');
+  if (!slider || !indicator) return;
+
+  const cards = Array.from(slider.querySelectorAll('.investor-metric'));
+  const lines = Array.from(indicator.querySelectorAll('span'));
+  if (!cards.length || !lines.length) return;
+
+  let frame = 0;
+
+  const setActiveLine = () => {
+    frame = 0;
+    const maxIndex = Math.min(cards.length, lines.length) - 1;
+    const cardStep = cards[1]
+      ? cards[1].offsetLeft - cards[0].offsetLeft
+      : cards[0].getBoundingClientRect().width;
+    const activeIndex = Math.min(maxIndex, Math.max(0, Math.round(slider.scrollLeft / Math.max(1, cardStep))));
+
+    lines.forEach((line, index) => {
+      line.classList.toggle('is-active', index === activeIndex);
+    });
+  };
+
+  slider.addEventListener('scroll', () => {
+    if (frame) return;
+    frame = window.requestAnimationFrame(setActiveLine);
+  }, { passive: true });
+
+  window.addEventListener('resize', setActiveLine, { passive: true });
+  setActiveLine();
+}
 
 function initStoneCardImageToggles() {
   if (window.__stoneCardImageTogglesInitialized) return;

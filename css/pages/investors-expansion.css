@@ -82,6 +82,14 @@
   color: rgba(255, 255, 255, 0.6);
   font-size: clamp(0.96rem, 1.25vw, 1.05rem);
   line-height: 1.75;
+  text-align: justify;
+  text-align-last: left;
+  text-justify: inter-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphenate-character: "-";
+  overflow-wrap: break-word;
+  word-spacing: normal;
 }
 
 .investors-thesis-grid__cards {
@@ -404,6 +412,14 @@
   font-size: clamp(0.95rem, 1.2vw, 1.05rem);
   color: var(--investor-muted);
   line-height: 1.65;
+  text-align: justify;
+  text-align-last: left;
+  text-justify: inter-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphenate-character: "-";
+  overflow-wrap: break-word;
+  word-spacing: normal;
 }
 
 .investors-next-journey__note {
@@ -577,14 +593,77 @@
     grid-template-rows: none;
     min-height: 0;
     width: 100%;
+    gap: 0.75rem;
   }
 
   .investors-next-journey__links a {
-    min-height: 13rem;
+    display: grid;
+    grid-template-columns: 5.5rem minmax(0, 1fr);
+    grid-template-rows: 1fr;
+    align-items: stretch;
+    min-height: 0;
+    border-radius: 0.95rem;
   }
 
   .investors-next-journey__card--large {
     grid-row: auto;
+  }
+
+  .investors-next-journey__links img {
+    height: 100%;
+    min-height: 8.4rem;
+    object-fit: cover;
+  }
+
+  .investors-next-journey__card-body {
+    justify-content: center;
+    min-height: 8.4rem;
+    padding: 0.95rem 2.85rem 0.95rem 1rem;
+    text-align: left;
+  }
+
+  .investors-next-journey__links small {
+    padding-bottom: 0.35rem;
+    font-size: 0.58rem;
+    letter-spacing: 0.13em;
+  }
+
+  .investors-next-journey__links span,
+  .investors-next-journey__card--large span {
+    margin: 0.65rem 0 0.42rem;
+    font-size: 1rem;
+    line-height: 1.1;
+  }
+
+  .investors-next-journey__links strong,
+  .investors-next-journey__card--large strong {
+    max-width: none;
+    font-size: 0.74rem;
+    line-height: 1.42;
+  }
+
+  .investors-next-journey__links a::after {
+    right: 0.9rem;
+    bottom: 0.9rem;
+    width: 30px;
+    height: 30px;
+    font-size: 0.95rem;
+  }
+
+  .investors-next-journey__copy {
+    align-items: center;
+    text-align: center;
+  }
+
+  .investors-next-journey__copy h2,
+  .investors-next-journey__copy p,
+  .investors-next-journey__note {
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .investors-next-journey__note {
+    border-left: 1px solid rgba(72, 62, 66, 0.1);
   }
 
   .investors-thesis-grid__intro {
@@ -622,6 +701,11 @@
   .investors-next-journey__copy h2 {
     font-size: var(--investors-section-title-size, 1.48rem);
     line-height: var(--investors-section-title-line, 1.12);
+  }
+
+  .investors-thesis-grid__intro p {
+    text-align: justify;
+    text-align-last: left;
   }
 }
 
@@ -661,10 +745,21 @@
   }
 
   .investors-resource-ladder__steps div {
+    align-items: center;
     padding: 2rem 1.5rem;
+    text-align: center;
+  }
+
+  .investors-resource-ladder__steps div::after {
+    text-align: center;
   }
 
   .investors-resource-ladder__steps strong {
     margin-bottom: 0.75rem;
+  }
+
+  .investors-resource-ladder__steps span {
+    max-width: 24rem;
+    margin-inline: auto;
   }
 }

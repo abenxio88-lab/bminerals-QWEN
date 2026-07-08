@@ -52,11 +52,11 @@
 
 .investor-metric__value {
   font-family: 'Oswald', sans-serif;
-  font-size: 2.125rem;
-  font-weight: 700;
+  font-size: clamp(1.45rem, 2.15vw, 1.78rem);
+  font-weight: 500;
   color: var(--text-primary, #f8fafc);
-  line-height: 1;
-  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  line-height: 1.05;
+  text-shadow: 0 2px 7px rgba(0, 0, 0, 0.22);
 }
 
 .investor-metric__legend {
@@ -194,4 +194,43 @@
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .investor-metric {
+    min-height: 18rem;
+    padding: 1.15rem;
+    scroll-snap-align: center;
+  }
+
+  .investor-metric__header {
+    gap: 0.75rem;
+  }
+
+  .investor-metric__label {
+    font-size: 0.68rem;
+    line-height: 1.35;
+  }
+
+  .investor-metric__trend {
+    flex-shrink: 0;
+    font-size: 0.66rem;
+    padding: 0.18rem 0.42rem;
+  }
+
+  .investor-metric__value {
+    font-size: 1.38rem;
+    font-weight: 500;
+    line-height: 1.05;
+  }
+
+  .investor-metric__legend {
+    font-size: 0.58rem;
+    line-height: 1.45;
+  }
+
+  .investor-metric__chart {
+    height: 78px;
+    margin-top: 0.75rem;
+  }
 }
