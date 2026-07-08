@@ -34,11 +34,25 @@
   margin-bottom: 4rem;
 }
 
+.investors__title {
+  max-width: 720px;
+  margin: 0;
+  margin-inline: auto;
+  font-family: var(--font-heading);
+  font-size: clamp(1.45rem, 2.45vw, 2.15rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: var(--text-primary);
+}
+
 .investors__subtitle {
-  font-size: var(--text-lg);
+  font-size: clamp(0.92rem, 1.05vw, 1rem);
   color: var(--text-secondary);
   line-height: 1.7;
-  max-width: 800px;
+  max-width: 680px;
   margin: 1rem auto 0;
 }
 

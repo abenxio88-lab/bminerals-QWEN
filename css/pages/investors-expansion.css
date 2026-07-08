@@ -59,7 +59,6 @@
 }
 
 .investors-thesis-grid__intro h3,
-.investors-resource-ladder__heading h3,
 .investors-next-journey__copy h2 {
   margin: 0;
   font-family: var(--font-heading);
@@ -195,19 +194,23 @@
 
 .investors-resource-ladder__heading h3 {
   color: var(--navy-900);
-  font-size: var(--investors-section-title-size, clamp(1.9rem, 3vw, 2.75rem));
-  font-weight: 600;
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1.45rem, 2.45vw, 2.15rem);
+  font-weight: 700;
   text-transform: uppercase;
   margin-top: 0.75rem;
-  letter-spacing: -0.01em;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  text-wrap: balance;
 }
 
 .investors-resource-ladder__heading p {
   max-width: 55ch;
   margin: 1rem auto 0;
   color: var(--text-secondary);
-  font-size: clamp(1rem, 1.3vw, 1.1rem);
-  line-height: 1.65;
+  font-size: 1rem;
+  line-height: 1.7;
 }
 
 /* Designed Step Card Columns */
@@ -615,10 +618,19 @@
 
 @media (max-width: 620px) {
   .investors-thesis-grid__intro h3,
-  .investors-resource-ladder__heading h3,
   .investors-next-journey__copy h2 {
     font-size: var(--investors-section-title-size, 1.48rem);
     line-height: var(--investors-section-title-line, 1.12);
+  }
+
+  .investors-resource-ladder__heading h3 {
+    font-size: 1.28rem;
+    line-height: 1.12;
+  }
+
+  .investors-resource-ladder__heading p {
+    font-size: 0.9rem;
+    line-height: 1.7;
   }
 
   .investors-next-journey__copy h2 {

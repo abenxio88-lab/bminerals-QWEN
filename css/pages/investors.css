@@ -1225,6 +1225,10 @@
   color: rgba(32, 39, 43, 0.76);
   font-size: clamp(0.95rem, 1.3vw, 1.04rem);
   line-height: 1.75;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  overflow-wrap: normal;
 }
 
 .investors-opportunity-panel__chips {
@@ -1273,12 +1277,49 @@
 @media (max-width: 900px) {
   .investors-opportunity-panel {
     grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .investors-opportunity-panel__content {
+    max-width: 680px;
+    margin-inline: auto;
+  }
+
+  .investors-opportunity-panel__content p {
+    text-align: center;
+    hyphens: manual;
+  }
+
+  .investors-opportunity-panel__chips {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-content: center;
+    width: min(100%, 360px);
+    gap: 0.55rem;
+    margin-inline: auto;
+  }
+
+  .investors-opportunity-panel__chips span {
+    justify-content: center;
+    min-height: 2rem;
+    padding: 0.42rem 0.55rem;
+    font-size: 0.66rem;
+    line-height: 1.2;
+    letter-spacing: 0.045em;
+    text-align: center;
+  }
+
+  .investors-opportunity-panel__chips span:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc((100% - 0.55rem) / 2);
   }
 
   .investors-opportunity-panel__media {
     order: -1;
     width: 100%;
-    justify-self: stretch;
+    justify-self: center;
   }
 }
 
