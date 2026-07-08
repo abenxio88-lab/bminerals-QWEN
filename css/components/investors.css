@@ -39,9 +39,9 @@
   margin: 0;
   margin-inline: auto;
   font-family: var(--font-heading);
-  font-size: clamp(1.45rem, 2.45vw, 2.15rem);
+  font-size: var(--investors-section-title-size, clamp(1.45rem, 2.45vw, 2.15rem));
   font-weight: 700;
-  line-height: 1.15;
+  line-height: var(--investors-section-title-line, 1.15);
   letter-spacing: 0.02em;
   text-transform: uppercase;
   text-wrap: balance;
@@ -54,6 +54,35 @@
   line-height: 1.7;
   max-width: 680px;
   margin: 1rem auto 0;
+}
+
+@media (max-width: 768px) {
+  body.investors-page main :is(
+    .q3-results-premium__title,
+    .investors__title,
+    .investors-opportunity-panel__title,
+    .investors-thesis-grid__intro h3,
+    .investors-resource-ladder__heading h3,
+    .investors-next-journey__copy h2,
+    .reports-section .section-header-light__title,
+    .financial-dashboard__title,
+    .investors-cta__title
+  ) {
+    max-width: var(--investors-section-title-measure, min(100%, 22rem));
+    font-size: var(--investors-section-title-size, 1.48rem) !important;
+    line-height: var(--investors-section-title-line, 1.12) !important;
+  }
+
+  .investors__title {
+    max-width: var(--investors-section-title-measure, min(100%, 22rem));
+    font-size: var(--investors-section-title-size, 1.48rem);
+    line-height: var(--investors-section-title-line, 1.12);
+  }
+
+  .investors__subtitle {
+    font-size: 0.9rem;
+    line-height: 1.68;
+  }
 }
 
 /* Investors Dashboard */

@@ -968,32 +968,51 @@
   }
 
   .q3-metrics-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
     margin-bottom: 2.5rem;
   }
 
   .q3-metric-card {
-    padding: 1.5rem;
+    padding: 0.9rem 0.65rem;
+  }
+
+  .q3-metric-card__visual {
+    margin-bottom: 0.55rem;
+  }
+
+  .q3-metric-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1.25rem;
+  }
+
+  .q3-metric-icon svg {
+    width: 32px;
+    height: 32px;
   }
 
   .q3-metric-card__value {
-    font-size: 1.75rem;
+    font-size: clamp(1.05rem, 4.6vw, 1.35rem);
+    line-height: 1.05;
+    margin-bottom: 0.35rem;
+  }
+
+  .q3-metric-card__label {
+    font-size: 0.68rem;
+    line-height: 1.28;
+    letter-spacing: 0.015em;
   }
 }
 
 /* ============================================
    Homepage Heading Rhythm Applied to Investors
    ============================================ */
-.investors-hero,
-.q3-results-premium,
-.reports-section,
-.compliance-section,
-.investors-cta {
+body.investors-page {
   --investors-support-copy-size: var(--body-size);
   --investors-support-copy-line: 1.72;
-  --investors-section-title-size: var(--h1-size);
-  --investors-section-title-line: 1.12;
+  --investors-section-title-size: clamp(1.45rem, 2.45vw, 2.15rem);
+  --investors-section-title-line: 1.15;
   --investors-section-title-measure: min(100%, 26ch);
   --investors-subsection-title-size: var(--h2-size);
   --investors-subsection-title-line: 1.16;
@@ -1090,11 +1109,7 @@
 
 @media (max-width: 768px) {
 
-  .investors-hero,
-  .q3-results-premium,
-  .reports-section,
-  .compliance-section,
-  .investors-cta {
+  body.investors-page {
     --investors-support-copy-size: 0.9rem;
     --investors-support-copy-line: 1.68;
     --investors-section-title-size: 1.48rem;
@@ -1211,7 +1226,7 @@
 .investors-opportunity-panel__title {
   margin: 0 0 1rem;
   font-family: var(--font-heading);
-  font-size: var(--investors-section-title-size, clamp(1.9rem, 3vw, 2.75rem));
+  font-size: var(--investors-section-title-size, clamp(1.45rem, 2.45vw, 2.15rem));
   font-weight: 600;
   line-height: var(--investors-section-title-line, 1.12);
   letter-spacing: 0.01em;
@@ -1354,6 +1369,11 @@
 
   .premium-card-light__title {
     text-align: center;
+  }
+
+  .investors-opportunity-panel__title {
+    font-size: var(--investors-section-title-size, 1.48rem);
+    line-height: var(--investors-section-title-line, 1.12);
   }
 }
 
