@@ -8,6 +8,9 @@ let lastMediaTrigger = null;
 let lastReportTrigger = null;
 let activeMediaItems = [];
 let activeMediaIndex = 0;
+let mediaModalScrollY = 0;
+let mediaModalScrollLocked = false;
+let previousBodyScrollStyles = null;
 
 const additionalMediaBySpecHref = {
   'product-metallic.html#copper': [
@@ -211,6 +214,45 @@ function createMediaButton(card, href) {
   return button;
 }
 
+function enableImageViewer(card, href) {
+  const imageWrap = card.querySelector('.mineral-showcase__image');
+  const image = imageWrap?.querySelector('img');
+  if (!imageWrap || !image || imageWrap.dataset.viewerReady === 'true') return;
+
+  imageWrap.dataset.viewerReady = 'true';
+  imageWrap.setAttribute('role', 'button');
+  imageWrap.setAttribute('tabindex', '0');
+
+  const title = card.querySelector('.mineral-showcase__title')?.textContent?.trim() || image.alt || 'Mineral image';
+  const description = card.querySelector('.mineral-showcase__description')?.textContent?.trim() || '';
+  imageWrap.setAttribute('aria-label', `Open ${title} image`);
+
+  const openViewer = () => {
+    openMediaModal({
+      title,
+      href,
+      imageOnly: true,
+      items: [{
+        type: 'image',
+        src: image.getAttribute('src'),
+        title,
+        description,
+      }],
+    });
+  };
+
+  imageWrap.addEventListener('click', (event) => {
+    if (event.target.closest('button, a')) return;
+    openViewer();
+  });
+
+  imageWrap.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    openViewer();
+  });
+}
+
 function enhanceMineralCards() {
   mineralCards.forEach((card) => {
     if (card.querySelector('.mineral-showcase__actions')) return;
@@ -232,6 +274,8 @@ function enhanceMineralCards() {
       reportLink.target = '_blank';
       reportLink.rel = 'noopener';
     }
+
+    enableImageViewer(card, specHref);
 
     const actions = document.createElement('div');
     actions.className = 'mineral-showcase__actions';
@@ -327,7 +371,7 @@ function createMediaModal() {
   modal.innerHTML = `
     <div class="mineral-media-modal__backdrop" data-media-close></div>
     <div class="mineral-media-modal__dialog" role="document">
-      <button class="mineral-media-modal__close" type="button" aria-label="Close media gallery" data-media-close>x</button>
+      <button class="mineral-media-modal__close" type="button" aria-label="Close media gallery" data-media-close>&times;</button>
       <div class="mineral-media-modal__stage">
         <img class="mineral-media-modal__media" src="" alt="" data-media-image>
         <video class="mineral-media-modal__media" controls playsinline preload="metadata" hidden data-media-video></video>
@@ -399,18 +443,65 @@ function showMediaItem(index) {
   mediaModal.querySelector('[data-media-next]').hidden = !hasMultipleItems;
 }
 
-function openMediaModal({ title, href, items }) {
+function lockPageScroll() {
+  if (mediaModalScrollLocked) return;
+
+  mediaModalScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+  previousBodyScrollStyles = {
+    position: document.body.style.position,
+    top: document.body.style.top,
+    left: document.body.style.left,
+    right: document.body.style.right,
+    width: document.body.style.width,
+  };
+
+  window.__bmLenis?.stop?.();
+  document.documentElement.classList.add('is-media-modal-open');
+  document.body.classList.add('is-media-modal-open');
+  document.body.style.position = 'fixed';
+  document.body.style.top = `-${mediaModalScrollY}px`;
+  document.body.style.left = '0';
+  document.body.style.right = '0';
+  document.body.style.width = '100%';
+  mediaModalScrollLocked = true;
+}
+
+function unlockPageScroll() {
+  if (!mediaModalScrollLocked) return;
+
+  document.documentElement.classList.remove('is-media-modal-open');
+  document.body.classList.remove('is-media-modal-open');
+
+  if (previousBodyScrollStyles) {
+    document.body.style.position = previousBodyScrollStyles.position;
+    document.body.style.top = previousBodyScrollStyles.top;
+    document.body.style.left = previousBodyScrollStyles.left;
+    document.body.style.right = previousBodyScrollStyles.right;
+    document.body.style.width = previousBodyScrollStyles.width;
+  }
+
+  window.scrollTo(0, mediaModalScrollY);
+  window.__bmLenis?.start?.();
+  previousBodyScrollStyles = null;
+  mediaModalScrollLocked = false;
+}
+
+function openMediaModal({ title, href, items, imageOnly = false }) {
   if (!mediaModal) mediaModal = createMediaModal();
 
   lastMediaTrigger = document.activeElement;
   activeMediaItems = items;
   activeMediaIndex = 0;
+  mediaModal.classList.toggle('mineral-media-modal--image-viewer', imageOnly);
+  mediaModal.querySelector('.mineral-media-modal__meta span:first-child').textContent =
+    imageOnly ? 'Product Image' : 'Media Gallery';
   mediaModal.querySelector('[data-media-section]').href = href || 'products.html';
   mediaModal.setAttribute('aria-label', `${title} media gallery`);
   showMediaItem(0);
 
   mediaModal.classList.add('is-open');
   mediaModal.setAttribute('aria-hidden', 'false');
+  lockPageScroll();
   mediaModal.querySelector('[data-media-close]')?.focus();
 }
 
@@ -420,6 +511,7 @@ function closeMediaModal() {
   mediaModal.querySelector('[data-media-video]')?.pause();
   mediaModal.classList.remove('is-open');
   mediaModal.setAttribute('aria-hidden', 'true');
+  unlockPageScroll();
   lastMediaTrigger?.focus();
 }
 
