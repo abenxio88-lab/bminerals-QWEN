@@ -787,6 +787,12 @@
 }
 
 /* Responsive */
+@media (max-width: 1600px) {
+  .navbar__phone {
+    display: none;
+  }
+}
+
 @media (max-width: 1180px) {
   :root {
     --navbar-height: 72px;
