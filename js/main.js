@@ -1,7 +1,7 @@
 import { initNavbar } from './navbar.js';
 import { initScrollReveal } from './scroll-reveal.js';
 import { initDropdownMenus } from './dropdown.js';
-import { initHeroSlider } from './hero-slider.js';
+import { initHeroSlider } from './hero-slider.js?v=hero-ready-20260709';
 import { initBorderBeam } from './border-beam.js';
 import { initTactileFeedback } from './tactile-feedback.js';
 import { initEarthTechCore } from './earth-tech-core.js';

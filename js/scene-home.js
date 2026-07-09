@@ -163,23 +163,26 @@ function initCitableReveals() {
   const items = document.querySelectorAll('.reveal');
   if (!items.length) return;
 
+  items.forEach((item) => item.classList.add('revealed'));
+
   if (!hasGsap || prefersReduced) {
-    items.forEach((item) => item.classList.add('revealed'));
     return;
   }
 
   gsap.utils.toArray(items).forEach((el) => {
-    gsap.fromTo(
+    gsap.from(
       el,
-      { clipPath: 'inset(0 0 16% 0)', y: 24 },
       {
-        clipPath: 'inset(0 0 0% 0)',
-        y: 0,
-        duration: 1,
+        y: 16,
+        opacity: 0,
+        duration: 0.55,
         ease: 'power2.out',
+        immediateRender: false,
+        clearProps: 'transform,opacity,visibility,clipPath',
         scrollTrigger: {
           trigger: el,
-          start: 'top 88%'
+          start: 'top 96%',
+          once: true
         }
       }
     );

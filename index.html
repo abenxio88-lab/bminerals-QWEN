@@ -127,7 +127,7 @@
   </style>
 
   <!-- Preload hero image to improve LCP (prefer AVIF when available) -->
-  <link rel="preload" as="image" href="images/hero/hero-1.webp">
+  <link rel="preload" as="image" href="images/hero/hero-1.webp" fetchpriority="high">
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
 <link rel="manifest" href="images/favicon/site.webmanifest">
 <!-- Google Fonts -->
@@ -1096,19 +1096,19 @@
       <div class="hero__slider">
         <div class="hero__slide active">
           <img src="images/hero/hero-1.webp" alt="Balochistan Minerals operations in the mountains of Balochistan"
-            class="hero__background-image" loading="eager" width="1904" height="1079">
+            class="hero__background-image" loading="eager" fetchpriority="high" decoding="async" width="1904" height="1079">
         </div>
         <div class="hero__slide">
-          <img src="images/hero/hero-2.webp" alt="Mineral extraction and processing facility"
-            class="hero__background-image" loading="lazy" width="2160" height="1215">
+          <img data-src="images/hero/hero-2.webp" alt="Mineral extraction and processing facility"
+            class="hero__background-image" loading="lazy" decoding="async" width="2160" height="1215">
         </div>
         <div class="hero__slide">
-          <img src="images/hero/hero-3.webp" alt="Chromite mining operations Muslim Bagh" class="hero__background-image"
-            loading="lazy" width="2160" height="1215">
+          <img data-src="images/hero/hero-3.webp" alt="Chromite mining operations Muslim Bagh" class="hero__background-image"
+            loading="lazy" decoding="async" width="2160" height="1215">
         </div>
         <div class="hero__slide">
-          <img src="images/hero/hero-4.webp" alt="Barite processing plant Khuzdar" class="hero__background-image"
-            loading="lazy" width="2160" height="1215">
+          <img data-src="images/hero/hero-4.webp" alt="Barite processing plant Khuzdar" class="hero__background-image"
+            loading="lazy" decoding="async" width="2160" height="1215">
         </div>
         <div class="hero__pattern-overlay"></div>
       </div>
@@ -4576,7 +4576,7 @@
   <script defer src="vendor/gsap/gsap.min.js"></script>
   <script defer src="vendor/gsap/ScrollTrigger.min.js"></script>
   <script defer src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-  <script type="module" src="js/scene-home.js?v=process-stepper-restore-20260709" defer></script>
+  <script type="module" src="js/scene-home.js?v=homepage-reveal-full-20260709" defer></script>
   <script type="module" src="js/animations-premium.js" defer></script>
   <script type="module" src="js/earth-tech-core.js" defer></script>
   <script type="module" src="js/tactile-feedback.js" defer></script>

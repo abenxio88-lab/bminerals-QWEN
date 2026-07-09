@@ -1,119 +1,173 @@
 /**
  * Hero Image Slider
- * Auto-rotates every 10 seconds with smooth fade transitions
- * Supports manual navigation via arrows and dots
+ * Keeps the first hero image eager, preloads the next slide, and only switches
+ * after the next image is ready.
  */
 export function initHeroSlider() {
-  const slides = document.querySelectorAll('.hero__slide');
-  const dots = document.querySelectorAll('.hero__slider-dot');
+  const slides = Array.from(document.querySelectorAll('.hero__slide'));
+  const dots = Array.from(document.querySelectorAll('.hero__slider-dot'));
   const prevArrow = document.querySelector('.hero__slider-arrow--prev');
   const nextArrow = document.querySelector('.hero__slider-arrow--next');
+  const heroSection = document.querySelector('.hero');
 
   if (!slides.length) return;
 
-  let currentSlide = 0;
-  let autoPlayInterval = null;
-  const SLIDE_INTERVAL = 6000; // Snappier 6 seconds
+  let currentSlide = Math.max(0, slides.findIndex(slide => slide.classList.contains('active')));
+  let autoPlayTimeout = null;
+  let isTransitioning = false;
+  let autoPlayToken = 0;
+  const SLIDE_INTERVAL = 7000;
+  const RETRY_DELAY = 300;
+  const loadPromises = new WeakMap();
 
-  function goToSlide(index) {
-    // Failsafe: Remove active state from ALL slides/dots to prevent desync
+  function getImage(index) {
+    return slides[index]?.querySelector('.hero__background-image') || null;
+  }
+
+  function getImageSource(img) {
+    return img?.currentSrc || img?.getAttribute('src') || img?.dataset.src || '';
+  }
+
+  function markLoaded(index) {
+    slides[index]?.classList.add('hero__slide--loaded');
+  }
+
+  function loadSlideImage(index) {
+    const normalizedIndex = (index + slides.length) % slides.length;
+    const img = getImage(normalizedIndex);
+    if (!img) return Promise.resolve();
+
+    const src = getImageSource(img);
+    if (!src) return Promise.resolve();
+
+    if (img.complete && img.naturalWidth > 0) {
+      markLoaded(normalizedIndex);
+      return Promise.resolve(img);
+    }
+
+    if (loadPromises.has(img)) {
+      return loadPromises.get(img);
+    }
+
+    const promise = new Promise((resolve) => {
+      const finish = () => {
+        markLoaded(normalizedIndex);
+        resolve(img);
+      };
+
+      img.addEventListener('load', finish, { once: true });
+      img.addEventListener('error', finish, { once: true });
+
+      if (!img.getAttribute('src') && img.dataset.src) {
+        img.src = img.dataset.src;
+      }
+    });
+
+    loadPromises.set(img, promise);
+    return promise;
+  }
+
+  function preloadAdjacentSlides() {
+    loadSlideImage(currentSlide + 1);
+  }
+
+  function setActiveSlide(index) {
     slides.forEach(slide => slide.classList.remove('active'));
     dots.forEach(dot => dot.classList.remove('active'));
 
-    // Wrap around
     currentSlide = (index + slides.length) % slides.length;
-
-    // Add active state to new slide
     slides[currentSlide].classList.add('active');
-    if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+    dots[currentSlide]?.classList.add('active');
+    markLoaded(currentSlide);
+    preloadAdjacentSlides();
   }
 
-  function nextSlide() {
-    goToSlide(currentSlide + 1);
+  async function goToSlide(index) {
+    const targetIndex = (index + slides.length) % slides.length;
+    if (targetIndex === currentSlide || isTransitioning) return;
+
+    isTransitioning = true;
+    await loadSlideImage(targetIndex);
+    setActiveSlide(targetIndex);
+    isTransitioning = false;
   }
 
-  function prevSlide() {
-    goToSlide(currentSlide - 1);
-  }
-
-  function startAutoPlay() {
+  function scheduleAutoPlay(delay = SLIDE_INTERVAL) {
     stopAutoPlay();
-    autoPlayInterval = setInterval(nextSlide, SLIDE_INTERVAL);
+    const token = ++autoPlayToken;
+    autoPlayTimeout = window.setTimeout(async () => {
+      if (token !== autoPlayToken) return;
+      const targetIndex = (currentSlide + 1) % slides.length;
+      await loadSlideImage(targetIndex);
+      if (token !== autoPlayToken) return;
+      await goToSlide(targetIndex);
+      if (token !== autoPlayToken) return;
+      scheduleAutoPlay();
+    }, delay);
   }
 
   function stopAutoPlay() {
-    if (autoPlayInterval) {
-      clearInterval(autoPlayInterval);
-      autoPlayInterval = null;
+    autoPlayToken += 1;
+    if (autoPlayTimeout) {
+      window.clearTimeout(autoPlayTimeout);
+      autoPlayTimeout = null;
     }
   }
 
-  // Event listeners
-  if (nextArrow) {
-    nextArrow.addEventListener('click', () => {
-      nextSlide();
-      startAutoPlay(); // Reset timer
-    });
+  function restartAutoPlay() {
+    scheduleAutoPlay(RETRY_DELAY + SLIDE_INTERVAL);
   }
 
-  if (prevArrow) {
-    prevArrow.addEventListener('click', () => {
-      prevSlide();
-      startAutoPlay(); // Reset timer
-    });
-  }
+  nextArrow?.addEventListener('click', async () => {
+    stopAutoPlay();
+    await goToSlide(currentSlide + 1);
+    restartAutoPlay();
+  });
+
+  prevArrow?.addEventListener('click', async () => {
+    stopAutoPlay();
+    await goToSlide(currentSlide - 1);
+    restartAutoPlay();
+  });
 
   dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-      goToSlide(index);
-      startAutoPlay(); // Reset timer
+    dot.addEventListener('click', async () => {
+      stopAutoPlay();
+      await goToSlide(index);
+      restartAutoPlay();
     });
   });
 
-  // Keyboard navigation
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') {
-      prevSlide();
-      startAutoPlay();
-    } else if (e.key === 'ArrowRight') {
-      nextSlide();
-      startAutoPlay();
-    }
+  document.addEventListener('keydown', async (event) => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    stopAutoPlay();
+    await goToSlide(currentSlide + (event.key === 'ArrowRight' ? 1 : -1));
+    restartAutoPlay();
   });
 
-  // Pause on hover
-  const heroSection = document.querySelector('.hero');
-  if (heroSection) {
-    heroSection.addEventListener('mouseenter', stopAutoPlay);
-    heroSection.addEventListener('mouseleave', startAutoPlay);
-  }
+  heroSection?.addEventListener('mouseenter', stopAutoPlay);
+  heroSection?.addEventListener('mouseleave', () => scheduleAutoPlay());
 
-  // Touch support for mobile
   let touchStartX = 0;
   let touchEndX = 0;
 
-  if (heroSection) {
-    heroSection.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-      stopAutoPlay();
-    }, { passive: true });
+  heroSection?.addEventListener('touchstart', (event) => {
+    touchStartX = event.changedTouches[0].screenX;
+    stopAutoPlay();
+  }, { passive: true });
 
-    heroSection.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      const diff = touchStartX - touchEndX;
+  heroSection?.addEventListener('touchend', async (event) => {
+    touchEndX = event.changedTouches[0].screenX;
+    const diff = touchStartX - touchEndX;
 
-      if (Math.abs(diff) > 50) {
-        if (diff > 0) {
-          nextSlide();
-        } else {
-          prevSlide();
-        }
-      }
+    if (Math.abs(diff) > 50) {
+      await goToSlide(currentSlide + (diff > 0 ? 1 : -1));
+    }
 
-      startAutoPlay();
-    }, { passive: true });
-  }
+    restartAutoPlay();
+  }, { passive: true });
 
-  // Start autoplay
-  startAutoPlay();
+  markLoaded(currentSlide);
+  preloadAdjacentSlides();
+  scheduleAutoPlay();
 }
