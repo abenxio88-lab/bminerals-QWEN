@@ -187,6 +187,9 @@ function initCitableReveals() {
 }
 
 function buildOperationsScene() {
+  // Keep the original process stepper visible; the generated pinned scene drifted from the site styling.
+  return;
+
   const section = document.querySelector('.operations');
   const stepper = section?.querySelector('.operations__stepper');
   if (!section || !stepper) return;
