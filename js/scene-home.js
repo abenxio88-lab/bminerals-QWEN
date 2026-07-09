@@ -93,19 +93,7 @@ function initHeroScene() {
   const hero = document.querySelector('.hero');
   if (!hero || !hasGsap || prefersReduced) return;
 
-  const title = hero.querySelector('.hero__headline');
-  const sublines = hero.querySelectorAll('.hero__subheadline');
-  const ctas = hero.querySelector('.hero__cta-group');
-  const proof = hero.querySelector('.hero__proofline');
-  const panel = hero.querySelector('.hero__stats-panel');
   const bgImages = hero.querySelectorAll('.hero__background-image');
-
-  const intro = gsap.timeline({ defaults: { ease: 'power3.out' } });
-  if (title) intro.fromTo(title, { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 1.2 }, 0);
-  if (sublines.length) intro.fromTo(sublines, { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 0.95, stagger: 0.14 }, 0.35);
-  if (proof) intro.fromTo(proof, { yPercent: 24, clipPath: 'inset(0 0 100% 0)' }, { yPercent: 0, clipPath: 'inset(0 0 0 0)', duration: 0.8 }, 0.52);
-  if (ctas) intro.fromTo(ctas, { y: 18, clipPath: 'inset(0 0 100% 0)' }, { y: 0, clipPath: 'inset(0 0 0 0)', duration: 0.85 }, 0.62);
-  if (panel) intro.fromTo(panel, { x: 26, clipPath: 'inset(0 0 0 100%)' }, { x: 0, clipPath: 'inset(0 0 0 0)', duration: 1.05 }, 0.4);
 
   bgImages.forEach((image, idx) => {
     gsap.to(image, {

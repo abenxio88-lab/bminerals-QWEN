@@ -103,7 +103,8 @@ body.homepage :is(.section-label,
 
 @media (min-width: 769px) {
   body.homepage .hero__headline {
-    font-size: clamp(2.05rem, 3.75vw, 3rem);
+    font-size: clamp(1.9rem, 3.25vw, 2.65rem);
+    font-weight: 450;
     line-height: 1.02;
     letter-spacing: 0.01em;
   }
