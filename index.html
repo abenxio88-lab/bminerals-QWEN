@@ -127,7 +127,7 @@
   </style>
 
   <!-- Preload hero image to improve LCP (prefer AVIF when available) -->
-  <link rel="preload" as="image" href="images/hero/hero-1.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="images/hero/optimized/hero-1.avif" type="image/avif" fetchpriority="high">
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
 <link rel="manifest" href="images/favicon/site.webmanifest">
 <!-- Google Fonts -->
@@ -1095,19 +1095,19 @@
       <!-- Hero Image Slider -->
       <div class="hero__slider">
         <div class="hero__slide active">
-          <img src="images/hero/hero-1.webp" alt="Balochistan Minerals operations in the mountains of Balochistan"
+          <img src="images/hero/optimized/hero-1.avif" alt="Balochistan Minerals operations in the mountains of Balochistan"
             class="hero__background-image" loading="eager" fetchpriority="high" decoding="async" width="1904" height="1079">
         </div>
         <div class="hero__slide">
-          <img data-src="images/hero/hero-2.webp" alt="Mineral extraction and processing facility"
+          <img data-src="images/hero/optimized/hero-2.avif" alt="Mineral extraction and processing facility"
             class="hero__background-image" loading="lazy" decoding="async" width="2160" height="1215">
         </div>
         <div class="hero__slide">
-          <img data-src="images/hero/hero-3.webp" alt="Chromite mining operations Muslim Bagh" class="hero__background-image"
+          <img data-src="images/hero/optimized/hero-3.avif" alt="Chromite mining operations Muslim Bagh" class="hero__background-image"
             loading="lazy" decoding="async" width="2160" height="1215">
         </div>
         <div class="hero__slide">
-          <img data-src="images/hero/hero-4.webp" alt="Barite processing plant Khuzdar" class="hero__background-image"
+          <img data-src="images/hero/optimized/hero-4.avif" alt="Barite processing plant Khuzdar" class="hero__background-image"
             loading="lazy" decoding="async" width="2160" height="1215">
         </div>
         <div class="hero__pattern-overlay"></div>
@@ -4044,7 +4044,7 @@
             <div class="encyclopedia-grid">
               <a href="product-metallic.html#chromite" class="encyclopedia-card" data-delay="1">
                 <div class="encyclopedia-card__image">
-                  <img src="images/chromite-new.webp" alt="Chromite ore specimen" loading="eager" decoding="async" width="1170" height="777">
+                  <img src="images/chromite-new.webp" alt="Chromite ore specimen" loading="lazy" decoding="async" width="1170" height="777">
                 </div>
                 <div class="encyclopedia-card__body">
                   <div class="encyclopedia-card__formula">FeCr<sub>2</sub>O<sub>4</sub></div>
@@ -4060,7 +4060,7 @@
 
               <a href="product-metallic.html#chromite" class="encyclopedia-card" data-delay="2">
                 <div class="encyclopedia-card__image">
-                  <img src="images/chrome-concentrate.avif" alt="Chrome concentrate prepared from Balochistan chromite" loading="eager" decoding="async">
+                  <img src="images/chrome-concentrate.avif" alt="Chrome concentrate prepared from Balochistan chromite" loading="lazy" decoding="async">
                 </div>
                 <div class="encyclopedia-card__body">
                   <div class="encyclopedia-card__formula">FeCr<sub>2</sub>O<sub>4</sub></div>
@@ -4076,7 +4076,7 @@
 
               <a href="product-metallic.html#iron-ore" class="encyclopedia-card" data-delay="3">
                 <div class="encyclopedia-card__image">
-                  <img src="images/iron-ore-new.webp" alt="Iron ore specimen" loading="eager" decoding="async" width="1986" height="1533">
+                  <img src="images/iron-ore-new.webp" alt="Iron ore specimen" loading="lazy" decoding="async" width="1986" height="1533">
                 </div>
                 <div class="encyclopedia-card__body">
                   <div class="encyclopedia-card__formula">Fe<sub>2</sub>O<sub>3</sub></div>
@@ -4092,7 +4092,7 @@
 
               <a href="product-metallic.html#iron-ore" class="encyclopedia-card" data-delay="4">
                 <div class="encyclopedia-card__image">
-                  <img src="images/iron-concentrate.avif" alt="Beneficiated iron ore concentrate from Balochistan" loading="eager" decoding="async">
+                  <img src="images/iron-concentrate.avif" alt="Beneficiated iron ore concentrate from Balochistan" loading="lazy" decoding="async">
                 </div>
                 <div class="encyclopedia-card__body">
                   <div class="encyclopedia-card__formula">Fe<sub>2</sub>O<sub>3</sub></div>
@@ -4108,7 +4108,7 @@
 
               <a href="product-industrial.html#barite" class="encyclopedia-card" data-delay="5">
                 <div class="encyclopedia-card__image">
-                  <img src="images/barite-card.jpg" alt="Barite ore specimen" loading="eager" decoding="async" width="1536" height="1024">
+                  <img src="images/barite-card.jpg" alt="Barite ore specimen" loading="lazy" decoding="async" width="1536" height="1024">
                 </div>
                 <div class="encyclopedia-card__body">
                   <div class="encyclopedia-card__formula">BaSO<sub>4</sub></div>
@@ -4125,7 +4125,7 @@
 
               <a href="product-metallic.html#copper" class="encyclopedia-card" data-delay="6">
                 <div class="encyclopedia-card__image">
-                  <img src="images/copper-new.webp" alt="Copper ore specimen" loading="eager" decoding="async" width="1200" height="797">
+                  <img src="images/copper-new.webp" alt="Copper ore specimen" loading="lazy" decoding="async" width="1200" height="797">
                 </div>
                 <div class="encyclopedia-card__body">
                   <div class="encyclopedia-card__formula">Cu</div>
@@ -4142,7 +4142,7 @@
 
               <a href="product-metallic.html#antimony" class="encyclopedia-card">
                 <div class="encyclopedia-card__image">
-                  <img src="images/antimony.avif" alt="Antimony ore specimen" loading="eager" decoding="async" width="1440" height="1080">
+                  <img src="images/antimony.avif" alt="Antimony ore specimen" loading="lazy" decoding="async" width="1440" height="1080">
                 </div>
                 <div class="encyclopedia-card__body">
                   <div class="encyclopedia-card__formula">Sb</div>
@@ -4158,7 +4158,7 @@
 
               <a href="product-industrial.html#fluorite" class="encyclopedia-card">
                 <div class="encyclopedia-card__image">
-                  <img src="images/fluorite.avif" alt="Fluorite mineral specimen" loading="eager" decoding="async" width="1200" height="925">
+                  <img src="images/fluorite.avif" alt="Fluorite mineral specimen" loading="lazy" decoding="async" width="1200" height="925">
                 </div>
                 <div class="encyclopedia-card__body">
                   <div class="encyclopedia-card__formula">CaF<sub>2</sub></div>
@@ -4174,7 +4174,7 @@
 
               <a href="product-industrial.html#gypsum" class="encyclopedia-card">
                 <div class="encyclopedia-card__image">
-                  <img src="images/gypsum.avif" alt="Gypsum crystal specimen" loading="eager" decoding="async" width="1200" height="716">
+                  <img src="images/gypsum.avif" alt="Gypsum crystal specimen" loading="lazy" decoding="async" width="1200" height="716">
                 </div>
                 <div class="encyclopedia-card__body">
                   <div class="encyclopedia-card__formula">CaSO<sub>4</sub>.2H<sub>2</sub>O</div>
@@ -4190,7 +4190,7 @@
 
               <a href="product-industrial.html#magnesite" class="encyclopedia-card">
                 <div class="encyclopedia-card__image">
-                  <img src="images/magnesite.avif" alt="Magnesite rock specimen" loading="eager" decoding="async" width="1200" height="800">
+                  <img src="images/magnesite.avif" alt="Magnesite rock specimen" loading="lazy" decoding="async" width="1200" height="800">
                 </div>
                 <div class="encyclopedia-card__body">
                   <div class="encyclopedia-card__formula">MgCO<sub>3</sub></div>
@@ -4206,7 +4206,7 @@
 
               <a href="product-industrial.html#bauxite" class="encyclopedia-card">
                 <div class="encyclopedia-card__image">
-                  <img src="images/bauxite.avif" alt="Bauxite mineral specimen" loading="eager" decoding="async" width="1200" height="900">
+                  <img src="images/bauxite.avif" alt="Bauxite mineral specimen" loading="lazy" decoding="async" width="1200" height="900">
                 </div>
                 <div class="encyclopedia-card__body">
                   <div class="encyclopedia-card__formula">Al<sub>2</sub>O<sub>3</sub></div>
@@ -4222,7 +4222,7 @@
 
               <a href="product-industrial.html#phosphate-rock" class="encyclopedia-card">
                 <div class="encyclopedia-card__image">
-                  <img src="images/phosphate-rock.webp" alt="Phosphate rock mineral specimen" loading="eager"
+                  <img src="images/phosphate-rock.webp" alt="Phosphate rock mineral specimen" loading="lazy"
                     decoding="async" width="1309" height="856">
                 </div>
                 <div class="encyclopedia-card__body">
@@ -4239,7 +4239,7 @@
 
               <a href="product-stones.html#marble" class="encyclopedia-card">
                 <div class="encyclopedia-card__image">
-                  <img src="images/marble.avif" alt="Marble quarry stone" loading="eager" decoding="async" width="1400" height="1050">
+                  <img src="images/marble.avif" alt="Marble quarry stone" loading="lazy" decoding="async" width="1400" height="1050">
                 </div>
                 <div class="encyclopedia-card__body">
                   <div class="encyclopedia-card__formula">CaCO<sub>3</sub></div>
@@ -4255,7 +4255,7 @@
 
               <a href="product-stones.html#white-marble" class="encyclopedia-card">
                 <div class="encyclopedia-card__image">
-                  <img src="images/white-marble.avif" alt="White marble surface" loading="eager" decoding="async" width="1448" height="1086">
+                  <img src="images/white-marble.avif" alt="White marble surface" loading="lazy" decoding="async" width="1448" height="1086">
                 </div>
                 <div class="encyclopedia-card__body">
                   <div class="encyclopedia-card__formula">CaCO<sub>3</sub></div>
@@ -4271,7 +4271,7 @@
 
               <a href="product-stones.html#persian-silk-tundra-grey" class="encyclopedia-card">
                 <div class="encyclopedia-card__image">
-                  <img src="images/persian-silk marble-tundra-grey.jpeg" alt="Persian Silk Tundra Grey marble" loading="eager" decoding="async" width="756" height="725">
+                  <img src="images/persian-silk marble-tundra-grey.jpeg" alt="Persian Silk Tundra Grey marble" loading="lazy" decoding="async" width="756" height="725">
                 </div>
                 <div class="encyclopedia-card__body">
                   <div class="encyclopedia-card__formula">CaCO<sub>3</sub></div>
@@ -4286,7 +4286,7 @@
 
               <a href="product-stones.html#persian-silk-block" class="encyclopedia-card">
                 <div class="encyclopedia-card__image">
-                  <img src="images/persian-silk-block-1.jpeg" alt="Persian Silk marble block" loading="eager" decoding="async" width="1024" height="768">
+                  <img src="images/persian-silk-block-1.jpeg" alt="Persian Silk marble block" loading="lazy" decoding="async" width="1024" height="768">
                 </div>
                 <div class="encyclopedia-card__body">
                   <div class="encyclopedia-card__formula">CaCO<sub>3</sub></div>
@@ -4300,7 +4300,7 @@
               </a>
 
               <a href="product-stones.html#pietra-grey-block" class="encyclopedia-card">
-                <div class="encyclopedia-card__image"><img src="images/pietra-grey marble-block (1).jpeg" alt="Pietra Grey marble block" loading="eager" decoding="async" width="1600" height="1197"></div>
+                <div class="encyclopedia-card__image"><img src="images/pietra-grey marble-block (1).jpeg" alt="Pietra Grey marble block" loading="lazy" decoding="async" width="1600" height="1197"></div>
                 <div class="encyclopedia-card__body">
                   <div class="encyclopedia-card__formula">CaCO<sub>3</sub></div>
                   <h3 class="encyclopedia-card__name">Pietra Grey Block</h3>
@@ -4310,7 +4310,7 @@
               </a>
 
               <a href="product-stones.html#pietra-grey-slab" class="encyclopedia-card">
-                <div class="encyclopedia-card__image"><img src="images/pietra-grey marble-slab.jpeg" alt="Polished Pietra Grey marble slab" loading="eager" decoding="async" width="810" height="777"></div>
+                <div class="encyclopedia-card__image"><img src="images/pietra-grey marble-slab.jpeg" alt="Polished Pietra Grey marble slab" loading="lazy" decoding="async" width="810" height="777"></div>
                 <div class="encyclopedia-card__body">
                   <div class="encyclopedia-card__formula">CaCO<sub>3</sub></div>
                   <h3 class="encyclopedia-card__name">Pietra Grey Slab</h3>
@@ -4321,7 +4321,7 @@
 
               <a href="product-stones.html#irani-marble" class="encyclopedia-card">
                 <div class="encyclopedia-card__image">
-                  <img src="images/silver-steam-white-marble-1.jpeg" alt="Silver Steam Iranian marble slab" loading="eager" decoding="async" width="719" height="670">
+                  <img src="images/silver-steam-white-marble-1.jpeg" alt="Silver Steam Iranian marble slab" loading="lazy" decoding="async" width="719" height="670">
                 </div>
                 <div class="encyclopedia-card__body">
                   <div class="encyclopedia-card__formula">CaCO<sub>3</sub></div>
@@ -4336,7 +4336,7 @@
 
               <a href="product-energy.html#energy-minerals" class="encyclopedia-card">
                 <div class="encyclopedia-card__image">
-                  <img src="images/coal.avif" alt="Coal sample" loading="eager" decoding="async" width="1448" height="1086">
+                  <img src="images/coal.avif" alt="Coal sample" loading="lazy" decoding="async" width="1448" height="1086">
                 </div>
                 <div class="encyclopedia-card__body">
                   <div class="encyclopedia-card__formula">C</div>

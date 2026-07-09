@@ -28,7 +28,16 @@ function runInit(featureName, initializer) {
   }
 }
 
-function preloadImages(views) {
+function runWhenIdle(callback) {
+  if (typeof window.requestIdleCallback === 'function') {
+    window.requestIdleCallback(callback, { timeout: 2500 });
+    return;
+  }
+
+  window.setTimeout(callback, 1200);
+}
+
+function preloadImagesNow(views) {
   views.forEach((view) => {
     if (!view || !view.image) return;
 
@@ -38,7 +47,11 @@ function preloadImages(views) {
   });
 }
 
-function preloadImageUrls(urls) {
+function preloadImages(views) {
+  runWhenIdle(() => preloadImagesNow(views));
+}
+
+function preloadImageUrlsNow(urls) {
   urls.forEach((url) => {
     if (!url) return;
 
@@ -46,6 +59,10 @@ function preloadImageUrls(urls) {
     preloader.decoding = 'async';
     preloader.src = url;
   });
+}
+
+function preloadImageUrls(urls) {
+  runWhenIdle(() => preloadImageUrlsNow(urls));
 }
 
 function swapGalleryImage({ image, imageWrap, content, nextButton, view, updateContent }) {
