@@ -50,6 +50,15 @@
   transform: scale(1.02);
 }
 
+@supports (background-image: image-set(url("") type("image/avif") 1x)) {
+  .article-hero::before {
+    background:
+      linear-gradient(90deg, rgba(7, 16, 26, 0.96) 0%, rgba(7, 16, 26, 0.84) 42%, rgba(7, 16, 26, 0.38) 68%, rgba(7, 16, 26, 0.12) 100%),
+      linear-gradient(180deg, rgba(7, 16, 26, 0.08), rgba(7, 16, 26, 0.24)),
+      var(--article-image-avif, var(--article-image, none)) center/cover no-repeat;
+  }
+}
+
 .article-hero::after {
   content: "";
   position: absolute;

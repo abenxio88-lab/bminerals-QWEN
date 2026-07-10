@@ -86,7 +86,12 @@
   </div>
   <main id="main-content">
     <section class="detail-hero">
-      <div class="detail-hero__media detail-hero__media--metallic-products"><img src="images/hero/metallic-minerals-products.webp" alt="Metallic mineral product samples" width="900" height="794"></div>
+      <div class="detail-hero__media detail-hero__media--metallic-products"><picture><source
+            type="image/avif"
+            srcset="/images/hero/optimized/metallic-minerals-products-640.avif 640w,
+                    /images/hero/optimized/metallic-minerals-products-960.avif 960w,
+                    /images/hero/optimized/metallic-minerals-products-1400.avif 1400w"
+            sizes="(max-width: 1024px) 100vw, 42vw"><img src="/images/hero/metallic-minerals-products.webp" alt="Metallic mineral product samples" loading="eager" fetchpriority="high" decoding="async" width="900" height="794"></picture></div>
       <div class="detail-hero__content">
         <span class="zigzag__overline">Metallic Minerals</span>
         <h1>Ore and concentrate supply</h1>
@@ -126,9 +131,14 @@
           </ul>
         </div>
         <picture>
-          <source type="image/avif" srcset="images/copper-new.avif">
+          <source
+            type="image/avif"
+            srcset="/images/copper-new-480.avif 480w,
+                    /images/copper-new-768.avif 768w,
+                    /images/copper-new-1200.avif 1200w"
+            sizes="(max-width: 1024px) 100vw, 38vw">
           <source type="image/webp" srcset="images/copper-new.webp">
-          <img src="images/copper-new.webp" alt="Copper ore from Chaghi" width="1200" height="797" loading="lazy">
+          <img src="images/copper-new.webp" alt="Copper ore from Chaghi" width="1200" height="797" loading="lazy" decoding="async">
         </picture>
       </article>
       <article class="detail-profile detail-profile--reverse detail-profile--chromite" id="chromite" data-chromite-card>
@@ -149,7 +159,7 @@
           </ul>
         </div>
         <div class="mineral-showcase__image">
-          <img src="images/chromite-new.webp" alt="Chromite lumps from Muslim Bagh mining operations in Balochistan" data-chromite-image width="1170" height="777" loading="lazy">
+          <img src="images/chromite-new.webp" alt="Chromite lumps from Muslim Bagh mining operations in Balochistan" data-chromite-image width="1170" height="777" loading="lazy" decoding="async">
           <div class="mineral-showcase__media-caption" data-chromite-caption>Chrome Lumps</div>
           <button class="mineral-showcase__arrow" type="button" aria-label="Show chrome concentrate" data-chromite-next>
             <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
@@ -178,7 +188,7 @@
           </div>
         </div>
         <div class="mineral-showcase__image">
-          <img src="images/iron-ore-new.webp" alt="Iron ore lumps from Balochistan mining sites" data-iron-image width="1986" height="1533" loading="lazy">
+          <img src="images/iron-ore-new.webp" alt="Iron ore lumps from Balochistan mining sites" data-iron-image width="1986" height="1533" loading="lazy" decoding="async">
           <div class="mineral-showcase__media-caption" data-iron-caption>Iron Ore Lumps</div>
           <button class="mineral-showcase__arrow" type="button" aria-label="Show iron concentrate" data-iron-next>
             <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
@@ -209,7 +219,7 @@
           </ul>
         </div>
         <div class="mineral-showcase__image">
-          <img src="images/antimony.avif" alt="Antimony lumps sample" data-antimony-image width="1440" height="1080" loading="lazy">
+          <img src="images/antimony.avif" alt="Antimony lumps sample" data-antimony-image width="1440" height="1080" loading="lazy" decoding="async">
           <div class="mineral-showcase__media-caption" data-antimony-caption>Antimony Lumps</div>
           <button class="mineral-showcase__arrow" type="button" aria-label="Show antimony concentrate" data-antimony-next>
             <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">

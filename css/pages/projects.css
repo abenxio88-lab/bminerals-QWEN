@@ -20,6 +20,12 @@
   z-index: 0;
 }
 
+.parallax-hero__bg picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .parallax-hero__bg img {
   width: 100%;
   height: 120%;
@@ -553,6 +559,12 @@
   min-height: 280px;
 }
 
+.zigzag__visual picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .zigzag__visual img {
   display: block;
   width: 100%;
@@ -690,6 +702,12 @@
   background: #fff;
 }
 
+.split-screen__right picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .split-screen__right img {
   display: block;
   width: 100%;
@@ -775,6 +793,11 @@
 .diagonal-section__image {
   border-radius: var(--radius-md);
   overflow: hidden;
+}
+
+.diagonal-section__image picture {
+  display: block;
+  width: 100%;
 }
 
 .diagonal-section__image img {
