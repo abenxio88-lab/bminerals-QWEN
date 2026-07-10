@@ -23,6 +23,15 @@
 
   <title>Mining Insights Pakistan | Balochistan Minerals Blog</title>
   <link rel="canonical" href="https://balochistanminerals.com/blogs">
+  <link rel="preload" as="image"
+        href="/images/hero/optimized/hero-3-1400.avif"
+        imagesrcset="/images/hero/optimized/hero-3-640.avif 640w,
+                     /images/hero/optimized/hero-3-960.avif 960w,
+                     /images/hero/optimized/hero-3-1400.avif 1400w,
+                     /images/hero/optimized/hero-3-1920.avif 1920w"
+        imagesizes="100vw"
+        type="image/avif"
+        fetchpriority="high">
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
 <link rel="manifest" href="images/favicon/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,6 +54,12 @@
       background:
         linear-gradient(180deg, rgba(15, 31, 58, 0.6), rgba(15, 31, 58, 0.6)),
         url('images/hero/hero-3.webp') center/cover no-repeat;
+      background-image:
+        linear-gradient(180deg, rgba(15, 31, 58, 0.6), rgba(15, 31, 58, 0.6)),
+        image-set(
+          url('/images/hero/optimized/hero-3-640.avif') type('image/avif') 1x,
+          url('/images/hero/optimized/hero-3-1400.avif') type('image/avif') 2x
+        );
       position: relative;
       overflow: hidden;
       display: flex;
@@ -184,6 +199,12 @@
       height: 190px;
       overflow: hidden;
       position: relative;
+    }
+
+    .blog-card__image picture {
+      display: block;
+      width: 100%;
+      height: 100%;
     }
 
     .blog-card__image img {
@@ -1191,7 +1212,7 @@
           <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">ESG Impact</span>
-              <img loading="lazy" src="images/hero/hero-5.webp" alt="Sustainable Mining" width="2160" height="1215">
+              <picture><source type="image/avif" srcset="/images/hero/optimized/hero-5-480.avif 480w, /images/hero/optimized/hero-5-768.avif 768w, /images/hero/optimized/hero-5-1200.avif 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/hero-5.webp" alt="Sustainable Mining" width="2160" height="1215"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -1210,7 +1231,7 @@
           <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Operations</span>
-              <img loading="lazy" src="images/copper-new.webp" alt="Copper Extraction" width="1200" height="797">
+              <picture><source type="image/avif" srcset="/images/copper-new-480.avif 480w, /images/copper-new-768.avif 768w, /images/copper-new-1200.avif 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/copper-new.webp" alt="Copper Extraction" width="1200" height="797"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -1229,7 +1250,7 @@
           <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Community</span>
-              <img loading="lazy" src="images/hero/about-us-hero-img.webp" alt="Local Workforce" width="1920" height="672">
+              <picture><source type="image/avif" srcset="/images/hero/optimized/about-us-hero-img-640.avif 640w, /images/hero/optimized/about-us-hero-img-960.avif 960w, /images/hero/optimized/about-us-hero-img-1400.avif 1400w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/about-us-hero-img.webp" alt="Local Workforce" width="1920" height="672"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -1248,7 +1269,7 @@
           <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Technology</span>
-              <img loading="lazy" src="images/hero/hero-4.webp" alt="Advanced Machinery" width="2160" height="1215">
+              <picture><source type="image/avif" srcset="/images/hero/optimized/hero-4-480.avif 480w, /images/hero/optimized/hero-4-768.avif 768w, /images/hero/optimized/hero-4-1200.avif 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/hero-4.webp" alt="Advanced Machinery" width="2160" height="1215"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -1267,7 +1288,7 @@
           <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Economy</span>
-              <img loading="lazy" src="images/hero/hero-6.webp" alt="Global Trade" width="2160" height="1215">
+              <picture><source type="image/avif" srcset="/images/hero/optimized/hero-6-640.avif 640w, /images/hero/optimized/hero-6-960.avif 960w, /images/hero/optimized/hero-6-1400.avif 1400w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/hero-6.webp" alt="Global Trade" width="2160" height="1215"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -1286,7 +1307,7 @@
           <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Safety</span>
-              <img loading="lazy" src="images/hero/hero-7.webp" alt="Safety First" width="2160" height="1215">
+              <picture><source srcset="/images/hero/optimized/hero-7.avif" type="image/avif"><img loading="lazy" decoding="async" src="images/hero/hero-7.webp" alt="Safety First" width="2160" height="1215"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -1305,7 +1326,7 @@
           <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Environment</span>
-              <img loading="lazy" src="images/hero/hero-5.webp" alt="Land Reclamation" width="2160" height="1215">
+              <picture><source type="image/avif" srcset="/images/hero/optimized/hero-5-480.avif 480w, /images/hero/optimized/hero-5-768.avif 768w, /images/hero/optimized/hero-5-1200.avif 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/hero-5.webp" alt="Land Reclamation" width="2160" height="1215"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -1324,7 +1345,7 @@
           <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Logistics</span>
-              <img loading="lazy" src="images/hero/hero-2.webp" alt="Logistics Network" width="2160" height="1215">
+              <picture><source type="image/avif" srcset="/images/hero/optimized/hero-2-640.avif 640w, /images/hero/optimized/hero-2-960.avif 960w, /images/hero/optimized/hero-2-1400.avif 1400w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/hero-2.webp" alt="Logistics Network" width="2160" height="1215"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -1343,7 +1364,7 @@
           <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Resources</span>
-              <img loading="lazy" src="images/barite-card.jpg" alt="Barite Mineral" width="1536" height="1024">
+              <picture><source type="image/avif" srcset="/images/barite-card-480.avif 480w, /images/barite-card-768.avif 768w, /images/barite-card-1200.avif 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/barite-card.jpg" alt="Barite Mineral" width="1536" height="1024"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -1362,7 +1383,7 @@
           <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Innovation</span>
-              <img loading="lazy" src="images/hero/hero-4.webp" alt="Mining Innovation" width="2160" height="1215">
+              <picture><source type="image/avif" srcset="/images/hero/optimized/hero-4-480.avif 480w, /images/hero/optimized/hero-4-768.avif 768w, /images/hero/optimized/hero-4-1200.avif 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/hero-4.webp" alt="Mining Innovation" width="2160" height="1215"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
