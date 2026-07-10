@@ -11,15 +11,24 @@ AddDefaultCharset UTF-8
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
-  # Force HTTPS in production.
-  RewriteCond %{HTTPS} !=on
-  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+  # Redirect a direct request for index.html to the canonical homepage.
+  RewriteCond %{THE_REQUEST} \s/+index\.html(?:[?\s]) [NC]
+  RewriteRule ^index\.html$ https://balochistanminerals.com/ [R=301,L,NE]
 
-  # Canonicalize www to apex domain.
-  RewriteCond %{HTTP_HOST} ^www\.balochistanminerals\.com$ [NC]
+  # Redirect direct .html requests to clean canonical URLs,
+  # excluding the custom 404 error document.
+  RewriteCond %{THE_REQUEST} \s/+(.+?)\.html(?:[?\s]) [NC]
+  RewriteCond %{REQUEST_URI} !^/404\.html$ [NC]
+  RewriteRule ^(.+)\.html$ https://balochistanminerals.com/$1 [R=301,L,NE]
+
+  # Redirect HTTP and all non-canonical hostnames to HTTPS apex.
+  RewriteCond %{HTTPS} !=on [OR]
+  RewriteCond %{HTTP_HOST} !^balochistanminerals\.com$ [NC]
   RewriteRule ^ https://balochistanminerals.com%{REQUEST_URI} [R=301,L]
 
-  # Serve clean URLs such as /products from products.html.
+  # Internally serve clean URLs from physical HTML files.
+  # Never expose /404 as a clean page returning status 200.
+  RewriteCond %{REQUEST_URI} !^/404/?$ [NC]
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{DOCUMENT_ROOT}/$1.html -f
