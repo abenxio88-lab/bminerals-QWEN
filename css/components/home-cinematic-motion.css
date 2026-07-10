@@ -910,6 +910,22 @@ body.homepage .stats-section .metric-strip__item.glass-bento:focus-within {
 }
 
 @media (max-width: 768px) {
+  body.homepage .hero .reveal,
+  body.homepage .stats-section .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: inset(0 0 0 0) !important;
+    transition: none !important;
+  }
+
+  body.homepage .hero__headline,
+  body.homepage .hero__subheadline,
+  body.homepage .hero__proofline,
+  body.homepage .hero__cta-group,
+  body.homepage .hero__stats-panel {
+    will-change: auto;
+  }
+
   body.homepage .stats-section__editorial {
     position: sticky;
     top: var(--navbar-height, 70px);

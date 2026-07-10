@@ -2,6 +2,7 @@ const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').mat
 const gsap = window.gsap;
 const ScrollTrigger = window.ScrollTrigger;
 const hasGsap = Boolean(gsap && ScrollTrigger);
+const mobileExtraMotion = window.matchMedia('(max-width: 768px)').matches;
 
 window.__sceneHomeEnhanced = true;
 
@@ -58,7 +59,7 @@ function animateCounterValue(el, options = {}) {
 
   el.dataset.sceneCounted = 'true';
 
-  if (!hasGsap || prefersReduced) {
+  if (!hasGsap || prefersReduced || options.skipAnimation) {
     el.textContent = `${target.toLocaleString()}${suffix}`;
     return;
   }
@@ -86,7 +87,11 @@ function animateCounterValue(el, options = {}) {
 function initHeroSnapshotStats() {
   document
     .querySelectorAll('.hero__stats-panel .panel-stat__number[data-target]')
-    .forEach((el, index) => animateCounterValue(el, { delay: 0.55 + index * 0.08, duration: 1.45 }));
+    .forEach((el, index) => animateCounterValue(el, {
+      delay: 0.55 + index * 0.08,
+      duration: 1.45,
+      skipAnimation: mobileExtraMotion
+    }));
 }
 
 function initHeroScene() {
@@ -158,6 +163,10 @@ function initCitableReveals() {
   }
 
   gsap.utils.toArray(items).forEach((el) => {
+    if (mobileExtraMotion && el.closest('.hero, .stats-section')) {
+      return;
+    }
+
     gsap.from(
       el,
       {
@@ -293,6 +302,13 @@ function initStatsDashboard() {
   if (!section) return;
   window.__counterAnimationInitialized = true;
   window.__sceneHomeCounterManaged = true;
+
+  if (mobileExtraMotion) {
+    section.querySelectorAll('.metric-strip__number[data-target]').forEach((el) => {
+      animateCounterValue(el, { skipAnimation: true });
+    });
+    return;
+  }
 
   if (hasGsap && !prefersReduced) {
     ScrollTrigger.create({

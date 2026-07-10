@@ -1397,20 +1397,20 @@
 }
 
 .metallic-showcase__stat-value {
-  font-family: var(--font-ui);
+  font-family: var(--font-heading);
   font-size: clamp(1.15rem, 2vw, 1.55rem);
   font-weight: 600;
   line-height: 1;
   color: var(--primary-gold-500);
-  letter-spacing: 0;
-  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+  font-variant-numeric: normal;
 }
 
 .metallic-showcase__stat-label {
   font-family: var(--font-ui);
-  font-size: 0.62rem;
+  font-size: 0.64rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--charcoal-500);
 }
@@ -1618,20 +1618,20 @@
   margin: 0;
   color: var(--charcoal-500);
   font-family: var(--font-ui);
-  font-size: 0.55rem;
+  font-size: 0.58rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .metallic-card__spec dd {
   margin: 0.25rem 0 0;
   color: var(--charcoal-700);
-  font-family: var(--font-ui);
-  font-size: clamp(0.82rem, 1vw, 0.95rem);
-  font-weight: 500;
-  letter-spacing: 0;
-  font-variant-numeric: tabular-nums;
+  font-family: var(--font-heading);
+  font-size: clamp(0.9rem, 1.05vw, 1rem);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  font-variant-numeric: normal;
 }
 
 /* ---------- CARD LINK ---------- */
@@ -1925,13 +1925,14 @@
   line-height: 1;
   color: rgba(242, 106, 33, 0.92);
   letter-spacing: 0.02em;
+  font-variant-numeric: normal;
 }
 
 .industrial-showcase__stat-label {
   font-family: var(--font-ui);
   font-size: 0.64rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.48);
 }
@@ -2177,18 +2178,18 @@
   font-family: var(--font-ui);
   font-size: 0.6rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .industrial-card__spec dd {
   margin: 0.2rem 0 0;
   color: #fff;
-  font-family: var(--font-ui);
-  font-size: clamp(0.82rem, 1vw, 0.95rem);
-  font-weight: 500;
-  letter-spacing: 0;
-  font-variant-numeric: tabular-nums;
+  font-family: var(--font-heading);
+  font-size: clamp(0.9rem, 1.05vw, 1rem);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  font-variant-numeric: normal;
 }
 
 /* ---------- CARD LINK ---------- */
