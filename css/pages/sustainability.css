@@ -78,7 +78,7 @@
 /* Registry Stats Section */
 .sustainability-stats {
   background: #0a0a0a;
-  padding: 4.5rem var(--section-padding-x);
+  padding: 2.25rem var(--section-padding-x);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   position: relative;
   z-index: 5;
@@ -618,11 +618,11 @@
   }
 
   .sustainability-stats {
-    padding: 3rem 1.5rem;
+    padding: 1.4rem 1rem;
   }
 
   .registry-stat__value {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
   .perf-grid,
@@ -665,20 +665,37 @@
 
 @media (max-width: 576px) {
   .registry-stats {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
   }
 
   .registry-stat {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.55rem 0.45rem;
+  }
+
+  .registry-stat:nth-child(2n) {
     border-right: none;
-    border-bottom: 1px solid var(--border-light);
-    padding-bottom: 1.5rem;
-    padding-left: 0;
-    padding-right: 0;
+  }
+
+  .registry-stat:nth-last-child(-n + 2) {
+    border-bottom: none;
+  }
+
+  .registry-stat__value {
+    font-size: 1.25rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .registry-stat__label {
+    font-size: 0.52rem;
+    letter-spacing: 0.08em;
+    line-height: 1.25;
   }
 
   .registry-stat:last-child {
-    border-bottom: none;
+    border-right: none;
   }
 }
 

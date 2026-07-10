@@ -609,6 +609,11 @@
   position: relative;
 }
 
+.timeline-section .timeline__item.reveal {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
 .timeline__item::before {
   content: '';
   position: absolute;

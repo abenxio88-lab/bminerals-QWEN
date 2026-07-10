@@ -5,7 +5,7 @@
   left: 0;
   right: 0;
   height: var(--navbar-height);
-  background: #f8f8f5 !important;
+  background: #ffffff !important;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   z-index: var(--z-navbar);
   transition: all 0.4s var(--ease-smooth);
@@ -356,7 +356,7 @@
   left: 0;
   right: 0;
   height: calc(100vh - var(--navbar-height));
-  background: rgba(248, 248, 245, 0.99);
+  background: rgba(255, 255, 255, 0.99);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-top: 1px solid rgba(0, 0, 0, 0.06);

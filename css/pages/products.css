@@ -3302,6 +3302,11 @@
   text-wrap: pretty;
 }
 
+.detail-record p {
+  text-align: justify;
+  text-align-last: left;
+}
+
 .detail-category {
   padding: 4rem var(--section-padding-x);
   background: var(--bg-primary);
@@ -3380,6 +3385,8 @@
   margin-top: 0.25rem;
   font-size: 0.95rem;
   line-height: 1.62;
+  text-align: justify;
+  text-align-last: left;
 }
 
 .detail-profile__note {
@@ -4116,6 +4123,20 @@
     justify-content: flex-start;
   }
 
+  .detail-hero__content {
+    justify-self: center;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .detail-hero__content .zigzag__overline,
+  .detail-hero h1,
+  .detail-hero p {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
   .detail-hero h1,
   .detail-category__header h2,
   .detail-cta h2 {
@@ -4175,6 +4196,20 @@
   .detail-profile__microband,
   .detail-profile__facts--chips {
     gap: 0.45rem;
+  }
+
+  .detail-profile__stats--chips,
+  .detail-profile__stats--rail,
+  .detail-profile__stats--stack {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .detail-profile__stats--chips > .showcase-stat:last-child:nth-child(odd),
+  .detail-profile__stats--rail > .showcase-stat:last-child:nth-child(odd),
+  .detail-profile__stats--stack > .showcase-stat:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc(50% - 0.225rem);
   }
 }
 
