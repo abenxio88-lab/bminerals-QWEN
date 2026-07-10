@@ -907,8 +907,14 @@
   <main id="main-content">
     <!-- Hero -->
     <section class="logistics-hero">
-      <div class="logistics-hero__bg"><img src="images/hero/logistics-hero.webp"
-          alt="Balochistan Minerals logistics and transport network across Balochistan" loading="eager" width="1920" height="1080"></div>
+      <div class="logistics-hero__bg"><picture><source
+            type="image/avif"
+            srcset="/images/hero/optimized/logistics-hero-640.avif 640w,
+                    /images/hero/optimized/logistics-hero-960.avif 960w,
+                    /images/hero/optimized/logistics-hero-1400.avif 1400w,
+                    /images/hero/optimized/logistics-hero-1920.avif 1920w"
+            sizes="100vw"><img src="/images/hero/logistics-hero.webp"
+          alt="Balochistan Minerals logistics and transport network across Balochistan" loading="eager" fetchpriority="high" decoding="async" width="1920" height="1080"></picture></div>
       <div class="logistics-hero__overlay"></div>
       <div class="logistics-hero__content">
         <span class="logistics-hero__overline">Logistics Network</span>
@@ -984,14 +990,27 @@
           <div class="warehouse-showcase__visual reveal">
             <figure class="warehouse-showcase__image warehouse-showcase__image--main">
               <picture>
-                <source srcset="images/warehouse/bulk-stock-coordination.avif" type="image/avif">
+                <source
+                  type="image/avif"
+                  srcset="/images/warehouse/bulk-stock-coordination-480.avif 480w,
+                          /images/warehouse/bulk-stock-coordination-768.avif 768w,
+                          /images/warehouse/bulk-stock-coordination-1200.avif 1200w"
+                  sizes="(max-width: 900px) 100vw, 42vw">
                 <source srcset="images/warehouse/bulk-stock-coordination.webp" type="image/webp">
-                <img src="images/warehouse/bulk-stock-coordination.webp" alt="Bulk mineral stock coordination inside the warehouse" loading="lazy" width="1080" height="1350">
+                <img src="images/warehouse/bulk-stock-coordination.webp" alt="Bulk mineral stock coordination inside the warehouse" loading="lazy" decoding="async" width="1080" height="1350">
               </picture>
               <figcaption>Bulk stock coordination</figcaption>
             </figure>
             <figure class="warehouse-showcase__image warehouse-showcase__image--offset">
-              <img src="images/warehouse/covered-storage.avif" alt="Covered mineral storage area at the warehouse" loading="lazy" width="1080" height="855">
+              <picture>
+                <source
+                  type="image/avif"
+                  srcset="/images/warehouse/covered-storage-480.avif 480w,
+                          /images/warehouse/covered-storage-768.avif 768w,
+                          /images/warehouse/covered-storage-1200.avif 1200w"
+                  sizes="(max-width: 900px) 100vw, 32vw">
+                <img src="images/warehouse/covered-storage.avif" alt="Covered mineral storage area at the warehouse" loading="lazy" decoding="async" width="1080" height="855">
+              </picture>
               <figcaption>Covered storage</figcaption>
             </figure>
           </div>

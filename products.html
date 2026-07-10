@@ -150,7 +150,14 @@
       width: 100%;
     }
   </style>
-  <link rel="preload" as="image" href="images/hero/hero-2.webp">
+  <link rel="preload" as="image"
+        href="/images/hero/optimized/hero-2-1920.avif"
+        imagesrcset="/images/hero/optimized/hero-2-640.avif 640w,
+                     /images/hero/optimized/hero-2-960.avif 960w,
+                     /images/hero/optimized/hero-2-1400.avif 1400w,
+                     /images/hero/optimized/hero-2-1920.avif 1920w"
+        imagesizes="100vw"
+        type="image/avif">
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
 <link rel="manifest" href="images/favicon/site.webmanifest">
 <!-- Google Fonts -->
@@ -1044,7 +1051,16 @@
     <!-- ============================================ -->
     <section class="parallax-hero" aria-label="Products hero section">
       <div class="parallax-hero__bg">
-        <img src="images/hero/hero-2.webp" alt="Mineral extraction and processing" loading="eager" width="2160" height="1215">
+        <picture>
+          <source
+            type="image/avif"
+            srcset="/images/hero/optimized/hero-2-640.avif 640w,
+                    /images/hero/optimized/hero-2-960.avif 960w,
+                    /images/hero/optimized/hero-2-1400.avif 1400w,
+                    /images/hero/optimized/hero-2-1920.avif 1920w"
+            sizes="100vw">
+          <img src="/images/hero/hero-2.webp" alt="Mineral extraction and processing" loading="eager" fetchpriority="high" decoding="async" width="2160" height="1215">
+        </picture>
       </div>
       <div class="parallax-hero__overlay"></div>
       <div class="parallax-hero__content">
@@ -1189,7 +1205,15 @@
         <article class="metallic-card metallic-card--hero reveal" id="copper">
           <div class="metallic-card__image">
             <a href="/product-metallic#copper" class="metallic-card__image-link" aria-label="View copper full specifications">
-              <img src="images/copper-new.webp" alt="Copper ore lumps from Chaghi" loading="lazy" width="1200" height="797">
+              <picture>
+                <source
+                  type="image/avif"
+                  srcset="/images/copper-new-480.avif 480w,
+                          /images/copper-new-768.avif 768w,
+                          /images/copper-new-1200.avif 1200w"
+                  sizes="(max-width: 768px) 100vw, 50vw">
+                <img src="images/copper-new.webp" alt="Copper ore lumps from Chaghi" loading="lazy" decoding="async" width="1200" height="797">
+              </picture>
               <div class="metallic-card__glow"></div>
             </a>
           </div>
@@ -1213,7 +1237,7 @@
         <article class="metallic-card metallic-card--hero reveal" id="chromite" data-products-chromite-card>
           <div class="metallic-card__image">
             <a href="/product-metallic#chromite" class="metallic-card__image-link" aria-label="View chromite full specifications">
-              <img src="images/chromite-new.webp" alt="Chromite lumps from Muslim Bagh mining operations in Balochistan" loading="lazy" data-products-chromite-image width="1170" height="777">
+              <img src="images/chromite-new.webp" alt="Chromite lumps from Muslim Bagh mining operations in Balochistan" loading="lazy" decoding="async" data-products-chromite-image width="1170" height="777">
               <div class="metallic-card__glow"></div>
             </a>
             <div class="metallic-card__media-caption" data-products-chromite-caption>Chrome Lumps</div>
@@ -1243,7 +1267,7 @@
         <article class="metallic-card metallic-card--hero reveal" id="iron-ore" data-products-iron-card>
           <div class="metallic-card__image">
             <a href="/product-metallic#iron-ore" class="metallic-card__image-link" aria-label="View iron ore full specifications">
-              <img src="images/iron-ore-new.avif" alt="Iron ore lumps from Balochistan mining sites" loading="lazy" data-products-iron-image width="1986" height="1533">
+              <img src="images/iron-ore-new.avif" alt="Iron ore lumps from Balochistan mining sites" loading="lazy" decoding="async" data-products-iron-image width="1986" height="1533">
               <div class="metallic-card__glow"></div>
             </a>
             <div class="metallic-card__media-caption" data-products-iron-caption>Iron Ore Lumps</div>
@@ -1273,7 +1297,7 @@
         <article class="metallic-card metallic-card--hero reveal" id="antimony" data-products-antimony-card>
           <div class="metallic-card__image">
             <a href="/product-metallic#antimony" class="metallic-card__image-link" aria-label="View antimony full specifications">
-              <img src="images/antimony.avif" alt="Antimony lumps sample" loading="lazy" data-products-antimony-image width="1440" height="1080">
+              <img src="images/antimony.avif" alt="Antimony lumps sample" loading="lazy" decoding="async" data-products-antimony-image width="1440" height="1080">
               <div class="metallic-card__glow"></div>
             </a>
             <div class="metallic-card__media-caption" data-products-antimony-caption>Antimony Lumps</div>
@@ -1372,7 +1396,15 @@
         <article class="industrial-card industrial-card--hero reveal" id="barite">
           <div class="industrial-card__image">
             <a href="/product-industrial#barite" class="industrial-card__image-link" aria-label="View barite full specifications">
-              <img src="images/barite-card.jpg" alt="Barite mineral specimen from Balochistan" loading="lazy" width="1536" height="1024">
+              <picture>
+                <source
+                  type="image/avif"
+                  srcset="/images/barite-card-480.avif 480w,
+                          /images/barite-card-768.avif 768w,
+                          /images/barite-card-1200.avif 1200w"
+                  sizes="(max-width: 768px) 100vw, 50vw">
+                <img src="images/barite-card.jpg" alt="Barite mineral specimen from Balochistan" loading="lazy" decoding="async" width="1536" height="1024">
+              </picture>
               <div class="industrial-card__image-overlay"></div>
               <span class="industrial-card__badge">Flagship Product</span>
             </a>
@@ -1644,7 +1676,15 @@
         </div>
         <div class="diagonal-section__visual">
           <div class="diagonal-section__image">
-            <img src="images/hero/body/products-cts.webp" alt="Contact Balochistan Minerals sales team" loading="lazy" width="1920" height="1080">
+            <picture>
+              <source
+                type="image/avif"
+                srcset="/images/hero/body/products-cts-480.avif 480w,
+                        /images/hero/body/products-cts-768.avif 768w,
+                        /images/hero/body/products-cts-1200.avif 1200w"
+                sizes="(max-width: 1024px) 100vw, 50vw">
+              <img src="images/hero/body/products-cts.webp" alt="Contact Balochistan Minerals sales team" loading="lazy" decoding="async" width="1920" height="1080">
+            </picture>
           </div>
         </div>
       </div>

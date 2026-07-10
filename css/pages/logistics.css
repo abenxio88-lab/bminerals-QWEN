@@ -20,6 +20,12 @@
   z-index: 0;
 }
 
+.logistics-hero__bg picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .logistics-hero__bg img {
   width: 100%;
   height: 120%;
@@ -594,6 +600,12 @@
   position: absolute;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.06);
+}
+
+.warehouse-showcase__image picture {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .warehouse-showcase__image img,
