@@ -897,8 +897,16 @@
   <main id="main-content">
     <!-- Hero -->
     <section class="contact-hero">
-      <div class="contact-hero__bg"><img loading="eager" src="images/hero/hero-4.webp"
-          alt="Contact Balochistan Minerals" width="2160" height="1215"></div>
+      <div class="contact-hero__bg"><picture><source
+            srcset="/images/hero/optimized/hero-4.avif"
+            type="image/avif"><img
+            src="/images/hero/hero-4.webp"
+            alt="Contact Balochistan Minerals"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            width="2160"
+            height="1215"></picture></div>
       <div class="contact-hero__overlay"></div>
       <div class="contact-hero__content">
         <span class="contact-hero__overline">Contact Us</span>

@@ -857,7 +857,16 @@
   <main id="main-content">
     <!-- Hero -->
     <section class="investors-hero">
-      <div class="investors-hero__bg"><img loading="eager" src="images/hero/hero-6.webp" alt="Investor relations" width="2160" height="1215"></div>
+      <div class="investors-hero__bg"><picture><source
+            srcset="/images/hero/optimized/hero-6.avif"
+            type="image/avif"><img
+            src="/images/hero/hero-6.webp"
+            alt="Investor relations"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            width="2160"
+            height="1215"></picture></div>
       <div class="investors-hero__overlay"></div>
       <div class="investors-hero__content">
         <span class="investors-hero__overline">Investor Relations</span>
@@ -1017,8 +1026,16 @@
             </div>
           </div>
           <figure class="investors-opportunity-panel__media">
-            <img src="images/investors/bm-map2.webp" alt="Balochistan mineral opportunity map with resource callouts"
-              loading="lazy" decoding="async" width="1536" height="1024">
+            <picture>
+              <source
+                type="image/avif"
+                srcset="/images/investors/bm-map2-480.avif 480w,
+                        /images/investors/bm-map2-768.avif 768w,
+                        /images/investors/bm-map2-1200.avif 1200w"
+                sizes="(max-width: 900px) 100vw, 54vw">
+              <img src="images/investors/bm-map2.webp" alt="Balochistan mineral opportunity map with resource callouts"
+                loading="lazy" decoding="async" width="1536" height="1024">
+            </picture>
           </figure>
         </section>
     <!-- ============================================ -->
@@ -1396,8 +1413,16 @@
         </div>
         <div class="investors-next-journey__links">
           <a href="/products" class="investors-next-journey__card investors-next-journey__card--large">
-            <img src="images/chromite-new.webp" alt="Chromite mineral product from Balochistan Minerals" loading="lazy"
-              decoding="async" width="1170" height="777">
+            <picture>
+              <source
+                type="image/avif"
+                srcset="/images/chromite-new-480.avif 480w,
+                        /images/chromite-new-768.avif 768w,
+                        /images/chromite-new-1200.avif 1200w"
+                sizes="(max-width: 900px) 5.5rem, 33vw">
+              <img src="images/chromite-new.webp" alt="Chromite mineral product from Balochistan Minerals" loading="lazy"
+                decoding="async" width="1170" height="777">
+            </picture>
             <div class="investors-next-journey__card-body">
               <small>01 / Portfolio</small>
               <span>Products</span>
@@ -1406,8 +1431,16 @@
             </div>
           </a>
           <a href="/our-mines" class="investors-next-journey__card">
-            <img src="images/our-mines/muslim-bagh-1.avif" alt="Balochistan Minerals mine site landscape" loading="lazy"
-              decoding="async" width="1536" height="1024">
+            <picture>
+              <source
+                type="image/avif"
+                srcset="/images/our-mines/muslim-bagh-1-480.avif 480w,
+                        /images/our-mines/muslim-bagh-1-768.avif 768w,
+                        /images/our-mines/muslim-bagh-1-1200.avif 1200w"
+                sizes="(max-width: 900px) 5.5rem, 33vw">
+              <img src="images/our-mines/muslim-bagh-1.avif" alt="Balochistan Minerals mine site landscape" loading="lazy"
+                decoding="async" width="1536" height="1024">
+            </picture>
             <div class="investors-next-journey__card-body">
               <small>02 / Ground</small>
               <span>Our Mines</span>
@@ -1415,8 +1448,16 @@
             </div>
           </a>
           <a href="/projects" class="investors-next-journey__card">
-            <img src="images/our-mines/copper-gold-site.webp"
-              alt="Copper-gold project terrain in Balochistan" loading="lazy" decoding="async" width="1691" height="930">
+            <picture>
+              <source
+                type="image/avif"
+                srcset="/images/our-mines/copper-gold-site-480.avif 480w,
+                        /images/our-mines/copper-gold-site-768.avif 768w,
+                        /images/our-mines/copper-gold-site-1200.avif 1200w"
+                sizes="(max-width: 900px) 5.5rem, 33vw">
+              <img src="images/our-mines/copper-gold-site.webp"
+                alt="Copper-gold project terrain in Balochistan" loading="lazy" decoding="async" width="1691" height="930">
+            </picture>
             <div class="investors-next-journey__card-body">
               <small>03 / Pipeline</small>
               <span>Projects</span>
@@ -1552,7 +1593,15 @@
           </a>
         </div>
         <div class="investors-cta__visual">
-          <img loading="lazy" src="images/investors/investor-cts.webp" alt="Contact investor relations" width="1672" height="941">
+          <picture>
+            <source
+              type="image/avif"
+              srcset="/images/investors/investor-cts-480.avif 480w,
+                      /images/investors/investor-cts-768.avif 768w,
+                      /images/investors/investor-cts-1200.avif 1200w"
+              sizes="(max-width: 768px) 100vw, 50vw">
+            <img loading="lazy" src="images/investors/investor-cts.webp" alt="Contact investor relations" decoding="async" width="1672" height="941">
+          </picture>
         </div>
       </div>
     </section>

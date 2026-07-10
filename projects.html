@@ -978,7 +978,23 @@
     <!-- ============================================ -->
     <section class="parallax-hero" aria-label="Projects hero section">
       <div class="parallax-hero__bg">
-        <img src="images/hero/hero-3.webp" alt="Mining operations across Balochistan" loading="eager" width="2160" height="1215">
+        <picture>
+          <source
+            type="image/avif"
+            srcset="/images/hero/optimized/hero-3-640.avif 640w,
+                    /images/hero/optimized/hero-3-960.avif 960w,
+                    /images/hero/optimized/hero-3-1400.avif 1400w,
+                    /images/hero/optimized/hero-3-1920.avif 1920w"
+            sizes="100vw">
+          <img
+            src="/images/hero/hero-3.webp"
+            alt="Mining operations across Balochistan"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            width="2160"
+            height="1215">
+        </picture>
       </div>
       <div class="parallax-hero__overlay"></div>
       <div class="parallax-hero__content">
@@ -1202,7 +1218,15 @@
         </div>
       </div>
       <div class="split-screen__right">
-        <img src="images/chromite-new.webp" alt="Muslim Bagh chromite mining operations" loading="lazy" width="1170" height="777">
+        <picture>
+          <source
+            type="image/avif"
+            srcset="/images/chromite-new-480.avif 480w,
+                    /images/chromite-new-768.avif 768w,
+                    /images/chromite-new-1200.avif 1200w"
+            sizes="(max-width: 1200px) 100vw, 50vw">
+          <img src="images/chromite-new.webp" alt="Muslim Bagh chromite mining operations" loading="lazy" decoding="async" width="1170" height="777">
+        </picture>
         <div class="split-screen__right-overlay"></div>
       </div>
     </section>
@@ -1252,7 +1276,15 @@
             </div>
           </div>
           <div class="zigzag__visual">
-            <img src="images/hero/hero-1.webp" alt="Mining operations at Muslim Bagh" loading="lazy" width="1904" height="1079">
+            <picture>
+              <source
+                type="image/avif"
+                srcset="/images/hero/optimized/hero-1-480.avif 480w,
+                        /images/hero/optimized/hero-1-768.avif 768w,
+                        /images/hero/optimized/hero-1-1200.avif 1200w"
+                sizes="(max-width: 1200px) calc(100vw - 3rem), 50vw">
+              <img src="images/hero/hero-1.webp" alt="Mining operations at Muslim Bagh" loading="lazy" decoding="async" width="1904" height="1079">
+            </picture>
             <div class="zigzag__visual-overlay"></div>
           </div>
         </div>
@@ -1300,7 +1332,15 @@
             </div>
           </div>
           <div class="zigzag__visual">
-            <img src="images/hero/hero-4.webp" alt="Processing plant infrastructure" loading="lazy" width="2160" height="1215">
+            <picture>
+              <source
+                type="image/avif"
+                srcset="/images/hero/optimized/hero-4-480.avif 480w,
+                        /images/hero/optimized/hero-4-768.avif 768w,
+                        /images/hero/optimized/hero-4-1200.avif 1200w"
+                sizes="(max-width: 1200px) calc(100vw - 3rem), 50vw">
+              <img src="images/hero/hero-4.webp" alt="Processing plant infrastructure" loading="lazy" decoding="async" width="2160" height="1215">
+            </picture>
             <div class="zigzag__visual-overlay"></div>
           </div>
         </div>
@@ -1330,7 +1370,15 @@
         </div>
         <div class="diagonal-section__visual">
           <div class="diagonal-section__image">
-            <img src="images/iron-ore-new.webp" alt="Dilband iron ore project operations" loading="lazy" width="1986" height="1533">
+            <picture>
+              <source
+                type="image/avif"
+                srcset="/images/iron-ore-new-480.avif 480w,
+                        /images/iron-ore-new-768.avif 768w,
+                        /images/iron-ore-new-1200.avif 1200w"
+                sizes="(max-width: 1200px) calc(100vw - 10vw), 50vw">
+              <img src="images/iron-ore-new.webp" alt="Dilband iron ore project operations" loading="lazy" decoding="async" width="1986" height="1533">
+            </picture>
           </div>
         </div>
       </div>
@@ -1400,7 +1448,15 @@
             </div>
           </div>
           <div class="zigzag__visual">
-            <img src="images/iron-ore-new.avif" alt="Iron ore grade control and preparation" loading="lazy" width="1986" height="1533">
+            <picture>
+              <source
+                type="image/avif"
+                srcset="/images/iron-ore-new-480.avif 480w,
+                        /images/iron-ore-new-768.avif 768w,
+                        /images/iron-ore-new-1200.avif 1200w"
+                sizes="(max-width: 1200px) calc(100vw - 3rem), 50vw">
+              <img src="images/iron-ore-new.avif" alt="Iron ore grade control and preparation" loading="lazy" decoding="async" width="1986" height="1533">
+            </picture>
             <div class="zigzag__visual-overlay"></div>
           </div>
         </div>

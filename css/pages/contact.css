@@ -20,6 +20,12 @@
   z-index: 0;
 }
 
+.contact-hero__bg picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .contact-hero__bg img {
   width: 100%;
   height: 120%;
