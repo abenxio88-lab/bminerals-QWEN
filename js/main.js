@@ -65,6 +65,51 @@ function preloadImageUrls(urls) {
   runWhenIdle(() => preloadImageUrlsNow(urls));
 }
 
+const productImageSets = {
+  copper: [
+    { image: 'images/copper-new.webp', alt: 'Copper ore from Chaghi', title: 'Copper Lumps' }
+  ],
+  chromite: [
+    { image: 'images/chromite-new.webp', alt: 'Chromite lumps from Muslim Bagh mining operations in Balochistan', title: 'Chrome Lumps' },
+    { image: 'images/chrome-concentrate.avif', alt: 'Chrome concentrate sample', title: 'Chrome Concentrate' }
+  ],
+  'iron-ore': [
+    { image: 'images/iron-ore-new.webp', alt: 'Iron ore lumps from Balochistan mining sites', title: 'Iron Ore Lumps' },
+    { image: 'images/iron-concentrate.avif', alt: 'Iron ore concentrate sample', title: 'Iron Concentrate' }
+  ],
+  antimony: [
+    { image: 'images/antimony.avif', alt: 'Antimony lumps sample', title: 'Antimony Lumps' },
+    { image: 'images/antimony-concentrate.avif', alt: 'Antimony concentrate sample', title: 'Antimony Concentrate' }
+  ],
+  barite: [
+    { image: 'images/barite-card.jpg', alt: 'Barite specimen', title: 'Drilling and Industrial Barite' }
+  ],
+  fluorite: [
+    { image: 'images/fluorite.avif', alt: 'Fluorite mineral', title: 'Fluorite / Fluorspar' }
+  ],
+  gypsum: [
+    { image: 'images/gypsum.avif', alt: 'Gypsum crystal', title: 'Gypsum' }
+  ],
+  magnesite: [
+    { image: 'images/magnesite.avif', alt: 'Magnesite rock', title: 'Magnesite' }
+  ],
+  'phosphate-rock': [
+    { image: 'images/phosphate-rock.webp', alt: 'Phosphate rock mineral sample', title: 'Phosphate Rock' }
+  ],
+  bauxite: [
+    { image: 'images/bauxite.avif', alt: 'Bauxite mineral', title: 'Bauxite' }
+  ],
+  'sorange-degari': [
+    { image: 'images/coal-sorange.avif', alt: 'Sorange-Degari coal sample', title: 'Sorange-Degari' }
+  ],
+  'mach-anjira': [
+    { image: 'images/Mach-Anjira-coal4.avif', alt: 'Mach-Anjira coal sample', title: 'Mach-Anjira' }
+  ],
+  marble: [
+    { image: 'images/marble.avif', alt: 'Marble quarry', title: 'Commercial and Premium Marble' }
+  ]
+};
+
 function swapGalleryImage({ image, imageWrap, content, nextButton, view, updateContent }) {
   imageWrap.classList.add('is-changing');
   if (content) content.classList.add('is-changing');
@@ -143,6 +188,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   runInit('initIronCardToggle', initIronCardToggle);
   runInit('initAntimonyCardToggle', initAntimonyCardToggle);
   runInit('initProductsMetallicCardToggles', initProductsMetallicCardToggles);
+  runInit('initProductImageLightbox', initProductImageLightbox);
   runInit('initTradeSpecsWheelScroll', initTradeSpecsWheelScroll);
   runInit('initMineCarouselPreload', initMineCarouselPreload);
   runInit('initMineralAtlasWheelScroll', initMineralAtlasWheelScroll);
@@ -258,6 +304,170 @@ function initTradeSpecsWheelScroll() {
 
   // Capture phase prevents the page from consuming wheel first.
   document.addEventListener('wheel', handleWheel, { passive: false, capture: true });
+}
+
+function initProductImageLightbox() {
+  if (window.__productImageLightboxInitialized) return;
+
+  const getSource = (target) => {
+    if (target instanceof HTMLImageElement) return target.currentSrc || target.getAttribute('src') || target.src;
+
+    const image = target.querySelector?.('img');
+    if (image) return image.currentSrc || image.getAttribute('src') || image.src;
+
+    const background = window.getComputedStyle(target).backgroundImage;
+    const match = background.match(/url\(["']?(.+?)["']?\)/);
+    return match ? match[1] : '';
+  };
+
+  const normalizePath = (src) => {
+    try {
+      return new URL(src, window.location.href).pathname.split('/').pop();
+    } catch {
+      return String(src).split('/').pop();
+    }
+  };
+
+  let modal = null;
+  let activeItems = [];
+  let activeIndex = 0;
+  let previousFocus = null;
+
+  const createModal = () => {
+    const element = document.createElement('div');
+    element.className = 'stone-lightbox';
+    element.setAttribute('role', 'dialog');
+    element.setAttribute('aria-modal', 'true');
+    element.setAttribute('aria-hidden', 'true');
+    element.innerHTML = `
+      <div class="stone-lightbox__backdrop" data-product-lightbox-close></div>
+      <div class="stone-lightbox__dialog" role="document">
+        <button class="stone-lightbox__close" type="button" aria-label="Close image viewer" data-product-lightbox-close>&times;</button>
+        <button class="stone-lightbox__arrow stone-lightbox__arrow--prev" type="button" aria-label="Previous image" data-product-lightbox-prev></button>
+        <img class="stone-lightbox__image" src="" alt="" data-product-lightbox-image>
+        <button class="stone-lightbox__arrow stone-lightbox__arrow--next" type="button" aria-label="Next image" data-product-lightbox-next></button>
+        <div class="stone-lightbox__footer">
+          <div>
+            <span>Product Gallery</span>
+            <h3 data-product-lightbox-title></h3>
+          </div>
+          <p data-product-lightbox-count></p>
+        </div>
+      </div>
+    `;
+
+    element.addEventListener('click', (event) => {
+      if (event.target.matches('[data-product-lightbox-close]')) closeModal();
+      if (event.target.closest('[data-product-lightbox-prev]')) showImage(activeIndex - 1);
+      if (event.target.closest('[data-product-lightbox-next]')) showImage(activeIndex + 1);
+    });
+
+    element.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeModal();
+      if (event.key === 'ArrowLeft') showImage(activeIndex - 1);
+      if (event.key === 'ArrowRight') showImage(activeIndex + 1);
+    });
+
+    document.body.appendChild(element);
+    return element;
+  };
+
+  const showImage = (index) => {
+    if (!modal || !activeItems.length) return;
+
+    activeIndex = (index + activeItems.length) % activeItems.length;
+    const item = activeItems[activeIndex];
+    const hasMultiple = activeItems.length > 1;
+
+    modal.querySelector('[data-product-lightbox-image]').src = item.image;
+    modal.querySelector('[data-product-lightbox-image]').alt = item.alt || item.title || 'Product image';
+    modal.querySelector('[data-product-lightbox-title]').textContent = item.title || 'Product image';
+    modal.querySelector('[data-product-lightbox-count]').textContent = `${activeIndex + 1} / ${activeItems.length}`;
+    modal.querySelector('[data-product-lightbox-prev]').hidden = !hasMultiple;
+    modal.querySelector('[data-product-lightbox-next]').hidden = !hasMultiple;
+  };
+
+  const openModal = ({ items, index }) => {
+    if (!items.length) return;
+
+    modal = modal || createModal();
+    activeItems = items;
+    previousFocus = document.activeElement;
+    showImage(index);
+
+    document.documentElement.classList.add('is-stone-lightbox-open');
+    document.body.classList.add('is-stone-lightbox-open');
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    modal.querySelector('[data-product-lightbox-close]')?.focus();
+  };
+
+  const closeModal = () => {
+    if (!modal) return;
+
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.documentElement.classList.remove('is-stone-lightbox-open');
+    document.body.classList.remove('is-stone-lightbox-open');
+
+    if (previousFocus && typeof previousFocus.focus === 'function') previousFocus.focus();
+  };
+
+  const resolveItems = (trigger, record) => {
+    const id = record?.id;
+    const mappedItems = id ? productImageSets[id] : null;
+    const fallbackSource = getSource(trigger);
+
+    if (mappedItems?.length) return mappedItems;
+
+    if (!fallbackSource) return [];
+
+    const title = record?.querySelector('h3')?.textContent?.trim() || trigger.alt || 'Product image';
+    return [{ image: fallbackSource, alt: trigger.alt || title, title }];
+  };
+
+  const resolveIndex = (trigger, items) => {
+    const currentName = normalizePath(getSource(trigger));
+    const matchedIndex = items.findIndex((item) => normalizePath(item.image) === currentName);
+    return matchedIndex >= 0 ? matchedIndex : 0;
+  };
+
+  const triggers = Array.from(document.querySelectorAll([
+    '.detail-record > img',
+    '.detail-record > picture img',
+    '.detail-profile > picture img',
+    '.mineral-showcase__image > img',
+    '.metallic-card__image-link',
+    '.industrial-card__image-link',
+    '.industrial-card__compact-image'
+  ].join(','))).filter((trigger) => !trigger.closest('[data-stone-gallery]'));
+
+  if (!triggers.length) return;
+
+  window.__productImageLightboxInitialized = true;
+
+  triggers.forEach((trigger) => {
+    const record = trigger.closest('article[id]');
+    if (!record) return;
+
+    const items = resolveItems(trigger, record);
+    if (!items.length) return;
+
+    trigger.setAttribute('role', 'button');
+    trigger.setAttribute('tabindex', '0');
+    trigger.setAttribute('aria-label', `Open ${record.querySelector('h3')?.textContent?.trim() || 'product'} image gallery`);
+
+    trigger.addEventListener('click', (event) => {
+      event.preventDefault();
+      openModal({ items, index: resolveIndex(trigger, items) });
+    });
+
+    trigger.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      openModal({ items, index: resolveIndex(trigger, items) });
+    });
+  });
 }
 
 function initMineCarouselPreload() {

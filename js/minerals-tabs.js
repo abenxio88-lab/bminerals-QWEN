@@ -196,22 +196,29 @@ function createActionButton(label, icon = 'report') {
 
 function createMediaButton(card, href) {
   const button = createActionButton('Media Gallery', 'media');
+  const { title, items } = getCardMediaItems(card, href);
+
+  button.addEventListener('click', () => openMediaModal({ title, href, items }));
+
+  return button;
+}
+
+function getCardMediaItems(card, href) {
   const title = card.querySelector('.mineral-showcase__title')?.textContent?.trim() || 'Mineral media';
-  const image = card.querySelector('.mineral-showcase__image img')?.getAttribute('src') || '';
+  const image = card.querySelector('.mineral-showcase__image img');
+  const imageSrc = image?.currentSrc || image?.getAttribute('src') || '';
   const description = card.querySelector('.mineral-showcase__description')?.textContent?.trim() || '';
   const items = [
     {
       type: 'image',
-      src: image,
+      src: imageSrc,
       title,
       description,
     },
     ...(additionalMediaBySpecHref[href] || []),
   ].filter((item) => item.src);
 
-  button.addEventListener('click', () => openMediaModal({ title, href, items }));
-
-  return button;
+  return { title, description, items };
 }
 
 function enableImageViewer(card, href) {
@@ -223,28 +230,42 @@ function enableImageViewer(card, href) {
   imageWrap.setAttribute('role', 'button');
   imageWrap.setAttribute('tabindex', '0');
 
-  const title = card.querySelector('.mineral-showcase__title')?.textContent?.trim() || image.alt || 'Mineral image';
-  const description = card.querySelector('.mineral-showcase__description')?.textContent?.trim() || '';
-  imageWrap.setAttribute('aria-label', `Open ${title} image`);
+  const getActiveMedia = () => {
+    const media = getCardMediaItems(card, href);
+    const activeSrc = image.currentSrc || image.getAttribute('src') || image.src;
+    const activeIndex = media.items.findIndex((item) => item.src === activeSrc);
+
+    if (activeIndex > 0) {
+      const [activeItem] = media.items.splice(activeIndex, 1);
+      media.items.unshift(activeItem);
+    }
+
+    return media;
+  };
+
+  const initialTitle = card.querySelector('.mineral-showcase__title')?.textContent?.trim() || image.alt || 'Mineral image';
+  imageWrap.setAttribute('aria-label', `Open ${initialTitle} image gallery`);
 
   const openViewer = () => {
+    const { title, items } = getActiveMedia();
     openMediaModal({
       title,
       href,
       imageOnly: true,
-      items: [{
-        type: 'image',
-        src: image.getAttribute('src'),
-        title,
-        description,
-      }],
+      items,
     });
   };
 
-  imageWrap.addEventListener('click', (event) => {
+  const handleOpen = (event) => {
     if (event.target.closest('button, a')) return;
+    event.preventDefault();
     openViewer();
-  });
+  };
+
+  imageWrap.addEventListener('click', handleOpen);
+  image.addEventListener('click', handleOpen);
+  imageWrap.querySelector('.mineral-showcase__overlay')?.addEventListener('click', handleOpen);
+  imageWrap.querySelector('.mineral-showcase__media-caption')?.addEventListener('click', handleOpen);
 
   imageWrap.addEventListener('keydown', (event) => {
     if (event.key !== 'Enter' && event.key !== ' ') return;

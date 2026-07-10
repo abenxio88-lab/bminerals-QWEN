@@ -308,7 +308,6 @@ html.is-media-modal-open,
 body.is-media-modal-open {
   overflow: hidden;
   overscroll-behavior: none;
-  touch-action: none;
 }
 
 [data-antimony-card] .mineral-showcase__overlay {
@@ -401,20 +400,23 @@ button.mineral-showcase__cta {
   max-height: min(720px, 72vh);
   object-fit: contain;
   box-shadow: 0 30px 70px rgba(3, 8, 15, 0.34);
+  touch-action: pinch-zoom;
 }
 
 .mineral-media-modal--image-viewer .mineral-media-modal__body {
   display: flex;
+  align-items: center;
   width: min(100%, 760px);
   margin: 0 auto;
   padding: clamp(1rem, 2.5vw, 1.35rem) clamp(1rem, 3vw, 1.65rem);
   background: #ffffff;
   border-top: 3px solid var(--primary-gold-500);
   box-shadow: 0 26px 70px rgba(3, 8, 15, 0.28);
+  text-align: center;
 }
 
 .mineral-media-modal--image-viewer .mineral-media-modal__meta {
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .mineral-media-modal--image-viewer .mineral-media-modal__body h3 {
@@ -427,6 +429,7 @@ button.mineral-showcase__cta {
   max-width: 68ch;
   font-size: 0.9rem;
   line-height: 1.62;
+  text-align: center;
 }
 
 .mineral-media-modal--image-viewer .mineral-media-modal__section-link {

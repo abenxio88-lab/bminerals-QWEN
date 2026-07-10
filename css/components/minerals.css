@@ -91,6 +91,7 @@
   object-fit: cover;
   object-position: center;
   display: block;
+  pointer-events: none;
 }
 
 .mineral-showcase__media-caption {
@@ -111,6 +112,7 @@
   letter-spacing: 0.08em;
   line-height: 1.15;
   text-transform: uppercase;
+  pointer-events: none;
 }
 
 .mineral-showcase__arrow {
