@@ -1342,7 +1342,7 @@
             <div class="metric-strip">
               <div class="metric-strip__item glass-bento" data-delay="1">
                 <div class="border-beam"></div>
-                <div class="metric-strip__number" data-target="50000" data-suffix="+">0</div>
+                <div class="metric-strip__number">50,000+</div>
                 <div class="metric-strip__label">Metric Tons Exported</div>
                 <div class="metric-strip__context">Annual production capacity from Muslim Bagh, Khuzdar &amp; Chiniot
                   operations</div>
@@ -1350,21 +1350,21 @@
               <div class="metric-strip__separator"></div>
               <div class="metric-strip__item glass-bento" data-delay="2">
                 <div class="border-beam"></div>
-                <div class="metric-strip__number" data-target="50" data-suffix="+">0</div>
+                <div class="metric-strip__number">50+</div>
                 <div class="metric-strip__label">Global Clients</div>
                 <div class="metric-strip__context">Active buyers across Middle East &amp; South Asia</div>
               </div>
               <div class="metric-strip__separator"></div>
               <div class="metric-strip__item glass-bento" data-delay="3">
                 <div class="border-beam"></div>
-                <div class="metric-strip__number" data-target="10" data-suffix="+">0</div>
+                <div class="metric-strip__number">10+</div>
                 <div class="metric-strip__label">Years Experience</div>
                 <div class="metric-strip__context">Continuous operations since 2015 under Pakistani mining law</div>
               </div>
               <div class="metric-strip__separator"></div>
               <div class="metric-strip__item glass-bento" data-delay="4">
                 <div class="border-beam"></div>
-                <div class="metric-strip__number" data-target="4" data-suffix="">0</div>
+                <div class="metric-strip__number">4</div>
                 <div class="metric-strip__label">Categories of Minerals</div>
                 <div class="metric-strip__context">Metallic, Industrial, Dimension Stones &amp; Energy Fuels</div>
               </div>
@@ -2885,7 +2885,10 @@
         <div class="mineral-atlas__body reveal" data-delay="1">
           <!-- Left: Map Image -->
           <div class="mineral-atlas__map-panel">
-            <img src="images/baochistan-mineral-resources.webp" alt="Balochistan mineral wealth and mining areas &mdash; geological survey map" loading="lazy" class="mineral-atlas__map-img" width="1525" height="856">
+            <picture>
+              <source type="image/avif" srcset="/images/baochistan-mineral-resources-480.avif 480w, /images/baochistan-mineral-resources-768.avif 768w, /images/baochistan-mineral-resources-1200.avif 1200w" sizes="(max-width: 900px) calc(100vw - 2rem), 58vw">
+              <img src="images/baochistan-mineral-resources.webp" alt="Balochistan mineral wealth and mining areas &mdash; geological survey map" loading="lazy" class="mineral-atlas__map-img" width="1525" height="856">
+            </picture>
           </div>
 
           <!-- Right: Mineral Categories -->
