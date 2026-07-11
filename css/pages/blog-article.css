@@ -189,14 +189,14 @@
   content: "";
   position: absolute;
   inset: 0 auto 0 0;
-  width: 3px;
-  background: linear-gradient(180deg, var(--primary-gold-500), rgba(230, 92, 26, 0.08));
+  width: 1px;
+  background: linear-gradient(180deg, rgba(230, 92, 26, 0.24), rgba(230, 92, 26, 0.025));
 }
 
 .article-intro {
   padding-bottom: clamp(1.45rem, 3vw, 2rem);
   margin-bottom: clamp(1.4rem, 3vw, 2.1rem);
-  border-bottom: 1px solid rgba(15, 31, 58, 0.11);
+  border-bottom: 1px solid rgba(15, 31, 58, 0.035);
 }
 
 .article-backlink {
@@ -456,6 +456,38 @@
   transition: transform 0.25s var(--ease-smooth), box-shadow 0.25s var(--ease-smooth), background 0.25s var(--ease-smooth);
 }
 
+.article-share__icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 0.85rem;
+}
+
+.article-share__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(15, 31, 58, 0.12);
+  background: var(--navy-950);
+  color: #fff !important;
+  cursor: pointer;
+  transition: transform 0.25s var(--ease-smooth), box-shadow 0.25s var(--ease-smooth), background 0.25s var(--ease-smooth);
+}
+
+.article-share__icon svg {
+  width: 17px;
+  height: 17px;
+  fill: currentColor;
+}
+
+.article-share__icon:hover {
+  background: var(--primary-gold-600);
+  box-shadow: 0 12px 24px rgba(212, 90, 21, 0.2);
+  transform: translateY(-2px);
+}
+
 .article-footer-cta {
   max-width: 1240px;
   margin: 0 auto;
@@ -664,11 +696,15 @@
 
   .article-footer-cta__inner {
     display: block;
+    text-align: center;
   }
 
   .article-footer-cta .article-cta {
     max-width: none;
+    width: fit-content;
     margin-top: 1.25rem;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .article-related__grid {
@@ -726,6 +762,21 @@
     padding: 1.2rem;
   }
 
+  .article-lede {
+    font-size: clamp(1.26rem, 5.4vw, 1.48rem) !important;
+    line-height: 1.16 !important;
+  }
+
+  .article-content h2 {
+    font-weight: 400;
+  }
+
+  .article-content > h2.article-mobile-section-heading {
+    font-size: 20px !important;
+    font-weight: 430 !important;
+    line-height: 1.18 !important;
+  }
+
   .article-content p:not(.article-lede) {
     text-align: left;
     hyphens: none;
@@ -734,6 +785,10 @@
   .article-media img {
     max-height: 260px;
     aspect-ratio: 16 / 9;
+  }
+
+  .article-media figcaption {
+    text-align: center;
   }
 }
 
