@@ -922,6 +922,11 @@
       <div class="contact-section__container">
         <!-- Form -->
         <div class="contact-form">
+          <div class="contact-form__mode" aria-label="Choose inquiry type">
+            <button class="contact-form__mode-button is-active" type="button" data-contact-mode="message">Send Message</button>
+            <button class="contact-form__mode-button" type="button" data-contact-mode="quote">Request Quote</button>
+            <button class="contact-form__mode-button" type="button" data-contact-mode="review">Leave Review</button>
+          </div>
           <h2 class="contact-form__title">Send Us a Message</h2>
           <form action="https://api.web3forms.com/submit" method="POST" id="contact-form">
             <input type="hidden" name="access_key" value="063c7c36-c93f-467e-9c27-89c7e932fa2c">
@@ -958,8 +963,32 @@
                 <option value="investor">Investor Relations</option>
                 <option value="partnership">Partnership Opportunity</option>
                 <option value="media">Media Inquiry</option>
+                <option value="review">Leave a Review</option>
                 <option value="other">Other</option>
               </select>
+            </div>
+            <div class="contact-form__review-fields" data-review-fields hidden>
+              <div class="contact-form__row">
+                <div class="contact-form__group">
+                  <label for="review-rating" class="contact-form__label">Rating *</label>
+                  <select id="review-rating" name="review_rating" class="contact-form__select" data-review-required>
+                    <option value="">Select rating</option>
+                    <option value="5">5 - Excellent</option>
+                    <option value="4">4 - Very good</option>
+                    <option value="3">3 - Good</option>
+                    <option value="2">2 - Needs improvement</option>
+                    <option value="1">1 - Poor</option>
+                  </select>
+                </div>
+                <div class="contact-form__group">
+                  <label for="review-product" class="contact-form__label">Product or Service Reviewed *</label>
+                  <input type="text" id="review-product" name="review_product" class="contact-form__input" placeholder="Iron ore, barite, logistics..." data-review-required>
+                </div>
+              </div>
+              <label class="contact-form__consent">
+                <input type="checkbox" name="review_publish_consent" value="Yes">
+                I allow Balochistan Minerals to review and publish my feedback with my name/company.
+              </label>
             </div>
             <div class="contact-form__group">
               <label for="message" class="contact-form__label">Message *</label>
@@ -967,7 +996,7 @@
                 placeholder="Tell us about your requirements..." required></textarea>
             </div>
             <button type="submit" class="contact-form__submit">
-              Send Message
+              <span data-submit-label>Send Message</span>
               <svg width="18" height="18" class="icon">
                 <use href="images/icons.svg#icon-arrow-right"></use>
               </svg>
@@ -1223,6 +1252,7 @@
               <a href="/sustainability" class="footer__link">Community Updates</a>
               <a href="/ethics#grievance" class="footer__link">Grievance Redressal</a>
               <a href="/contact" class="footer__link">Tender Notices</a>
+              <a href="/contact?type=review" class="footer__link">Leave a Review</a>
             </nav>
           </div>
         </div>
@@ -1252,6 +1282,70 @@
     document.addEventListener('DOMContentLoaded', () => {
       const form = document.getElementById('contact-form');
       if (!form) return;
+      const formTitle = document.querySelector('.contact-form__title');
+      const modeButtons = document.querySelectorAll('[data-contact-mode]');
+      const inquirySelect = document.getElementById('inquiry');
+      const messageField = document.getElementById('message');
+      const reviewFields = document.querySelector('[data-review-fields]');
+      const reviewRequiredFields = document.querySelectorAll('[data-review-required]');
+      const submitButton = form.querySelector('button[type="submit"]');
+      const submitButtonLabel = form.querySelector('[data-submit-label]');
+
+      const modeConfig = {
+        message: {
+          title: 'Send Us a Message',
+          inquiry: '',
+          button: 'Send Message',
+          placeholder: 'Tell us about your requirements...'
+        },
+        quote: {
+          title: 'Request a Quote',
+          inquiry: 'product',
+          button: 'Request Quote',
+          placeholder: 'Tell us your required mineral, grade, quantity, sizing and destination...'
+        },
+        review: {
+          title: 'Leave a Review',
+          inquiry: 'review',
+          button: 'Submit Review',
+          placeholder: 'Share your experience with product quality, documentation, logistics or communication...'
+        }
+      };
+
+      const setMode = (mode) => {
+        const config = modeConfig[mode] || modeConfig.message;
+        modeButtons.forEach((button) => {
+          button.classList.toggle('is-active', button.dataset.contactMode === mode);
+        });
+        if (formTitle) formTitle.textContent = config.title;
+        if (inquirySelect) inquirySelect.value = config.inquiry;
+        if (messageField) messageField.placeholder = config.placeholder;
+        if (submitButtonLabel) submitButtonLabel.textContent = config.button;
+        if (reviewFields) reviewFields.hidden = mode !== 'review';
+        reviewRequiredFields.forEach((field) => {
+          field.required = mode === 'review';
+        });
+      };
+
+      modeButtons.forEach((button) => {
+        button.addEventListener('click', () => setMode(button.dataset.contactMode));
+      });
+
+      if (inquirySelect) {
+        inquirySelect.addEventListener('change', () => {
+          if (inquirySelect.value === 'review') setMode('review');
+          else if (inquirySelect.value === 'product') setMode('quote');
+          else setMode('message');
+        });
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('type') === 'review' || window.location.hash === '#leave-review') {
+        setMode('review');
+        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else if (params.get('type') === 'quote') {
+        setMode('quote');
+      }
 
       // Create a container for the status message right below the button
       const statusMessage = document.createElement('div');
@@ -1267,7 +1361,6 @@
 
         if (!form.reportValidity()) return;
 
-        const submitButton = form.querySelector('button[type="submit"]');
         const originalButtonText = submitButton.innerHTML;
         
         submitButton.disabled = true;

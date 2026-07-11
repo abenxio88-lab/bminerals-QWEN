@@ -112,6 +112,33 @@
   margin-bottom: 1.5rem;
 }
 
+.contact-form__mode {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.35rem;
+  margin-bottom: 1.2rem;
+  padding: 0.28rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+}
+
+.contact-form__mode-button {
+  min-height: 38px;
+  padding: 0.55rem 0.7rem;
+  color: var(--text-secondary);
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background 0.25s var(--ease-smooth), color 0.25s var(--ease-smooth);
+}
+
+.contact-form__mode-button.is-active {
+  background: var(--navy-950);
+  color: #fff;
+}
+
 .contact-form__group {
   margin-bottom: 1.25rem;
 }
@@ -154,6 +181,27 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
+}
+
+.contact-form__review-fields {
+  margin-bottom: 1.25rem;
+  padding: 1rem;
+  background: rgba(230, 92, 26, 0.05);
+  border: 1px solid rgba(230, 92, 26, 0.16);
+}
+
+.contact-form__consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.contact-form__consent input {
+  margin-top: 0.22rem;
+  accent-color: var(--primary-gold-500);
 }
 
 .contact-form__submit {

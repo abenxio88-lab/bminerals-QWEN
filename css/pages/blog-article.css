@@ -488,6 +488,18 @@
   transform: translateY(-2px);
 }
 
+.article-cta--feedback {
+  margin-top: 0.65rem;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  color: #fff !important;
+}
+
+.article-cta--feedback:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.38);
+}
+
 .article-footer-cta {
   max-width: 1240px;
   margin: 0 auto;
