@@ -736,3 +736,11 @@
     aspect-ratio: 16 / 9;
   }
 }
+
+@media (max-width: 640px) and (hover: none), (max-width: 640px) and (pointer: coarse) {
+  .article-title {
+    font-size: clamp(1rem, 4.6vw, 1.18rem) !important;
+    font-weight: 400 !important;
+    line-height: 1.14;
+  }
+}
