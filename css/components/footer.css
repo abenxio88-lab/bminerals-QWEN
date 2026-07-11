@@ -1,10 +1,11 @@
 .footer {
-  background: #FFFCFB;
+  background: #ffffff;
   color: var(--text-secondary);
   padding: var(--section-padding-y) var(--section-padding-x) 2.5rem;
   position: relative;
   overflow: hidden;
-  border-top: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.035);
 }
 
 .footer::before {
@@ -29,7 +30,7 @@
   gap: 4rem;
   margin-bottom: 4rem;
   padding-bottom: 4rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 /* Brand Section */
@@ -138,7 +139,7 @@
   left: 0;
   width: 40px;
   height: 2px;
-  background: var(--navy-500);
+  background: var(--primary-gold-500);
 }
 
 .footer__links {
@@ -169,7 +170,7 @@
 }
 
 .footer__link:hover {
-  color: var(--primary-gold-300);
+  color: var(--primary-gold-600);
 }
 
 .footer__link:hover::before {
@@ -224,7 +225,7 @@
 
 .footer__emergency strong {
   display: block;
-  color: #FCA5A5;
+  color: #B91C1C;
   font-size: var(--text-sm);
   font-weight: 700;
   text-transform: uppercase;
@@ -236,13 +237,13 @@
   font-family: var(--font-heading);
   font-size: var(--text-xl);
   font-weight: 700;
-  color: white;
+  color: var(--text-primary);
   margin-bottom: 0.25rem;
 }
 
 .footer__emergency p {
   font-size: var(--text-xs);
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-muted);
   margin: 0;
 }
 
@@ -299,7 +300,7 @@
 }
 
 .footer__bottom-link:hover {
-  color: var(--primary-gold-300);
+  color: var(--primary-gold-600);
 }
 
 .footer__bottom-link:hover::before {
