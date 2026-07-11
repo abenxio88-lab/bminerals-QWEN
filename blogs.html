@@ -339,8 +339,9 @@
         line-height: 1.12 !important;
       }
       .blog-card__title {
-        font-size: 1rem;
-        line-height: 1.24;
+        font-size: 0.80rem !important;
+        font-weight: 400 !important;
+        line-height: 1.28;
       }
       .blog-hero__text,
       .blog-section__header p,
@@ -350,13 +351,15 @@
       }
     }
 
-    @media (max-width: 768px) and (hover: none), (max-width: 768px) and (pointer: coarse) {
-      .blog-card__title {
-        font-size: 0.82rem !important;
-        font-weight: 400 !important;
-        line-height: 1.28;
+    @media screen and (max-width: 768px) {
+      html body .blog-section .blog-grid article.blog-card .blog-card__content > h2.blog-card__title {
+        font-size: 22px !important;
+        font-weight: 420 !important;
+        line-height: 1.2 !important;
+        margin-bottom: 0.7rem !important;
       }
     }
+
   </style>
   <script type="application/ld+json">
   {
