@@ -3295,6 +3295,8 @@
 }
 
 #dimension-stones .stone-card {
+  display: flex;
+  flex-direction: column;
   min-height: 340px;
   padding: 1.5rem;
   border: 1px solid rgba(15, 23, 42, 0.14);
@@ -3322,7 +3324,7 @@
 }
 
 #dimension-stones .stone-card span {
-  margin-bottom: 3rem;
+  margin-bottom: auto;
   color: var(--primary-gold-500);
   font-size: 2.6rem;
 }
@@ -3552,7 +3554,7 @@
   font-size: var(--text-sm);
 }
 
-.assay-note a {
+.assay-note__container > a {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
@@ -3564,6 +3566,63 @@
   text-decoration: none;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+.product-jump-strip {
+  padding: 0.95rem var(--section-padding-x) 1.2rem;
+  background: #ffffff;
+}
+
+.product-jump-strip__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  justify-content: center;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.product-jump-strip__inner > span {
+  color: var(--text-muted);
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.product-jump-strip__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.85rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-jump-strip__links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2rem;
+  padding: 0.35rem 0.2rem;
+  color: var(--navy-900);
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(230, 92, 26, 0.28);
+  transition: border-color 0.2s var(--ease-smooth), color 0.2s var(--ease-smooth);
+}
+
+.product-jump-strip__links a:hover {
+  color: var(--primary-gold-600);
+  border-color: currentColor;
 }
 
 @media (max-width: 1024px) {
@@ -3639,11 +3698,20 @@
     text-align: center;
   }
 
-  .assay-note a {
+  .assay-note__container > a {
     justify-content: center;
     justify-self: center;
     text-align: center;
     white-space: normal;
+  }
+
+  .product-jump-strip {
+    padding-top: 0.6rem;
+  }
+
+  .product-jump-strip__inner,
+  .product-jump-strip__links {
+    justify-content: center;
   }
 
   .stone-card span {
@@ -4533,6 +4601,59 @@ body.is-stone-lightbox-open {
   font-size: var(--text-sm);
 }
 
+.detail-category-strip {
+  padding: 1rem var(--section-padding-x);
+  background: #ffffff;
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.detail-category-strip__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.detail-category-strip__inner > span {
+  color: var(--text-muted);
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.detail-category-strip__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.35rem 0.75rem;
+}
+
+.detail-category-strip__links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  color: var(--navy-900);
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(230, 92, 26, 0.32);
+  transition: color 0.2s var(--ease-smooth), border-color 0.2s var(--ease-smooth);
+}
+
+.detail-category-strip__links a:hover {
+  color: var(--primary-gold-600);
+  border-color: currentColor;
+}
+
 .detail-cta {
   position: relative;
   isolation: isolate;
@@ -4701,6 +4822,15 @@ body.is-stone-lightbox-open {
 
   .detail-cta__actions {
     width: min(100%, 30rem);
+  }
+
+  .detail-category-strip__inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .detail-category-strip__links {
+    justify-content: flex-start;
   }
 
   .detail-hero__media {
