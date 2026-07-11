@@ -614,6 +614,13 @@
   display: block;
 }
 
+@media (min-width: 1025px) {
+  #products-cta .diagonal-section__image {
+    width: 92%;
+    margin-inline: auto;
+  }
+}
+
 /* Responsive */
 @media (max-width: 1200px) {
   .zigzag__row {
@@ -2220,6 +2227,11 @@
     word-break: normal;
   }
 
+  .metallic-card__link {
+    justify-content: center;
+    margin-inline: auto;
+  }
+
   .metallic-card__specs-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -3288,6 +3300,12 @@
   border: 1px solid rgba(15, 23, 42, 0.14);
   border-bottom: 3px solid rgba(230, 92, 26, 0.28);
   box-shadow: 0 16px 42px rgba(15, 23, 42, 0.07);
+}
+
+@media (min-width: 1081px) {
+  #dimension-stones .stone-card {
+    min-height: 450px;
+  }
 }
 
 #dimension-stones .stone-card::before {
@@ -4785,6 +4803,12 @@ body.is-stone-lightbox-open {
   .detail-record > picture,
   .stone-gallery {
     min-height: 220px;
+  }
+
+  #dimension-stones .detail-record > img,
+  #dimension-stones .detail-record > picture,
+  #dimension-stones .stone-gallery {
+    min-height: 280px;
   }
 
   .stone-gallery__button {

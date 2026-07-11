@@ -576,6 +576,13 @@
   display: block;
 }
 
+@media (min-width: 1025px) {
+  .sustainability-cta__image {
+    width: 92%;
+    margin-inline: auto;
+  }
+}
+
 /* Responsive Overrides */
 @media (max-width: 1200px) {
 

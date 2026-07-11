@@ -700,6 +700,13 @@
   display: block;
 }
 
+@media (min-width: 1025px) {
+  .mines-cta__visual {
+    width: 92%;
+    margin-inline: auto;
+  }
+}
+
 /* Responsive */
 @media (max-width: 1200px) {
   .mine-profile,

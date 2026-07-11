@@ -646,6 +646,13 @@
   display: block;
 }
 
+@media (min-width: 1025px) {
+  .investors-cta__visual {
+    width: 92%;
+    margin-inline: auto;
+  }
+}
+
 /* ============================================
    Q3 2025 RESULTS - Premium Center Design
    ============================================ */

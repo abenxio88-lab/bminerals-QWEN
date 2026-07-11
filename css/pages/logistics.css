@@ -1267,6 +1267,13 @@
   display: block;
 }
 
+@media (min-width: 1025px) {
+  .logistics-cta__image {
+    width: 92%;
+    margin-inline: auto;
+  }
+}
+
 /* Responsive */
 @media (max-width: 1200px) {
   .route-grid {

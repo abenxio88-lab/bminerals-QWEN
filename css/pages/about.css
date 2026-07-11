@@ -780,6 +780,13 @@
   display: block;
 }
 
+@media (min-width: 1025px) {
+  .diagonal-section[aria-label="Call to action"] .diagonal-section__image {
+    width: 92%;
+    margin-inline: auto;
+  }
+}
+
 /* Responsive */
 @media (max-width: 1200px) {
   .zigzag__row {
