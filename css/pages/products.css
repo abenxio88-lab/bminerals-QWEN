@@ -4611,10 +4611,11 @@ body.is-stone-lightbox-open {
 .detail-category-strip__inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 1rem;
   max-width: var(--max-width);
   margin: 0 auto;
+  text-align: center;
 }
 
 .detail-category-strip__inner > span {
@@ -4630,7 +4631,7 @@ body.is-stone-lightbox-open {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 0.35rem 0.75rem;
 }
 
@@ -4825,12 +4826,12 @@ body.is-stone-lightbox-open {
   }
 
   .detail-category-strip__inner {
-    align-items: flex-start;
+    align-items: center;
     flex-direction: column;
   }
 
   .detail-category-strip__links {
-    justify-content: flex-start;
+    justify-content: center;
   }
 
   .detail-hero__media {

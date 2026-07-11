@@ -1191,10 +1191,11 @@
 .project-next-strip__inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 1rem;
   max-width: var(--max-width);
   margin: 0 auto;
+  text-align: center;
 }
 
 .project-next-strip__inner > span {
@@ -1210,7 +1211,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 0.45rem;
 }
 
@@ -1287,12 +1288,12 @@
 
 @media (max-width: 768px) {
   .project-next-strip__inner {
-    align-items: flex-start;
+    align-items: center;
     flex-direction: column;
   }
 
   .project-next-strip__links {
-    justify-content: flex-start;
+    justify-content: center;
   }
 
   .footprint-map {
