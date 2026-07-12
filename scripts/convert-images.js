@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+﻿#!/usr/bin/env node
 // Simple image conversion script using sharp
 // Converts images in images/hero to WebP and AVIF
 
@@ -19,7 +19,7 @@ async function convertFile(file) {
   try {
     await sharp(input).webp({ quality: 80 }).toFile(path.join(outDir, `${base}.webp`));
     await sharp(input).avif({ quality: 50 }).toFile(path.join(outDir, `${base}.avif`));
-    console.log(`Converted ${file} → ${base}.webp, ${base}.avif`);
+    console.log(`Converted ${file} -> ${base}.webp, ${base}.avif`);
   } catch (err) {
     console.error(`Failed ${file}:`, err.message);
   }
