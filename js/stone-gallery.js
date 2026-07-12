@@ -5,6 +5,10 @@
   let previousFocus = null;
 
   const getImageSource = (img) => img.currentSrc || img.getAttribute('src') || img.src;
+  const clearAccidentalMediaSelection = () => {
+    const selection = window.getSelection?.();
+    if (selection && selection.rangeCount) selection.removeAllRanges();
+  };
 
   const createModal = () => {
     const element = document.createElement('div');
@@ -125,6 +129,8 @@
       preloader.decoding = 'async';
       preloader.src = items[index].src;
 
+      slide.addEventListener('pointerdown', clearAccidentalMediaSelection, { passive: true });
+      slide.addEventListener('touchend', clearAccidentalMediaSelection, { passive: true });
       slide.addEventListener('click', () => openModal({ title, items, index }));
       slide.addEventListener('keydown', (event) => {
         if (event.key !== 'Enter' && event.key !== ' ') return;

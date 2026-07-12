@@ -59,6 +59,16 @@ body {
 img, picture, video, canvas, svg {
   display: block;
   max-width: 100%;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+img,
+[role="button"],
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
 }
 
 input, button, textarea, select {

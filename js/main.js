@@ -306,6 +306,11 @@ function initTradeSpecsWheelScroll() {
   document.addEventListener('wheel', handleWheel, { passive: false, capture: true });
 }
 
+function clearAccidentalMediaSelection() {
+  const selection = window.getSelection?.();
+  if (selection && selection.rangeCount) selection.removeAllRanges();
+}
+
 function initProductImageLightbox() {
   if (window.__productImageLightboxInitialized) return;
 
@@ -456,6 +461,8 @@ function initProductImageLightbox() {
     trigger.setAttribute('role', 'button');
     trigger.setAttribute('tabindex', '0');
     trigger.setAttribute('aria-label', `Open ${record.querySelector('h3')?.textContent?.trim() || 'product'} image gallery`);
+    trigger.addEventListener('pointerdown', clearAccidentalMediaSelection, { passive: true });
+    trigger.addEventListener('touchend', clearAccidentalMediaSelection, { passive: true });
 
     trigger.addEventListener('click', (event) => {
       event.preventDefault();
