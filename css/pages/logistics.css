@@ -1312,6 +1312,11 @@
 }
 
 @media (max-width: 768px) {
+  body.logistics-page {
+    --mobile-content-heading-size: 1.48rem;
+    --mobile-content-heading-line: 1.12;
+  }
+
   .logistics-hero {
     height: auto;
     min-height: 450px;
@@ -1339,6 +1344,17 @@
 
   .route-overview {
     padding: 2.5rem var(--section-padding-x);
+  }
+
+  .route-overview__title,
+  .export-documents__title,
+  .logistics-cta__title {
+    font-size: 1.48rem;
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: 0.01em;
+    text-align: center;
+    text-wrap: balance;
   }
 
   .route-grid {
@@ -1465,10 +1481,10 @@
   }
 
   .logistics-analytics__header .route-overview__title {
-    font-size: clamp(1.45rem, 8vw, 1.95rem) !important;
-    line-height: 1.1;
+    font-size: var(--mobile-content-heading-size);
+    line-height: var(--mobile-content-heading-line);
     margin-bottom: 0.65rem;
-    letter-spacing: 0;
+    letter-spacing: 0.01em;
     text-wrap: balance;
   }
 
@@ -1532,11 +1548,6 @@
   .export-documents__header {
     gap: 1rem;
     margin-bottom: 1.25rem;
-  }
-
-  .export-documents__title {
-    font-size: clamp(1.55rem, 9vw, 2.3rem);
-    line-height: 1.06;
   }
 
   .export-documents__subtitle {
@@ -1617,10 +1628,6 @@
 
   .warehouse-checklist__item span {
     grid-row: auto;
-  }
-
-  .logistics-analytics__header .route-overview__title {
-    font-size: clamp(1.28rem, 9vw, 1.65rem) !important;
   }
 
   .export-documents {

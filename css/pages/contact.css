@@ -638,6 +638,11 @@
 }
 
 @media (max-width: 768px) {
+  body.contact-page {
+    --mobile-content-heading-size: 1.48rem;
+    --mobile-content-heading-line: 1.12;
+  }
+
   .contact-hero {
     height: auto;
     min-height: 450px;
