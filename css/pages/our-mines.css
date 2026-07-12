@@ -740,6 +740,11 @@
 }
 
 @media (max-width: 768px) {
+  body.mines-page {
+    --mobile-content-heading-size: 1.48rem;
+    --mobile-content-heading-line: 1.12;
+  }
+
   .mines-hero {
     height: auto;
     min-height: 450px;

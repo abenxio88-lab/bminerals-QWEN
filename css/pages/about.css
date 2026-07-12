@@ -853,6 +853,11 @@
 }
 
 @media (max-width: 768px) {
+  body.about-page {
+    --mobile-content-heading-size: 1.48rem;
+    --mobile-content-heading-line: 1.12;
+  }
+
   .parallax-hero {
     height: auto;
     min-height: 450px;
@@ -988,6 +993,25 @@
   .diagonal-section__title,
   .diagonal-section__text {
     text-align: center;
+  }
+
+  .diagonal-section[aria-label="Call to action"] .diagonal-section__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .diagonal-section[aria-label="Call to action"] .diagonal-section__overline,
+  .diagonal-section[aria-label="Call to action"] .diagonal-section__title,
+  .diagonal-section[aria-label="Call to action"] .diagonal-section__text {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    text-align-last: center;
+  }
+
+  .diagonal-section[aria-label="Call to action"] .diagonal-section__text {
+    max-width: 36rem;
   }
 
   .diagonal-section__content .hero__cta {

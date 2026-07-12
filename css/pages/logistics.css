@@ -1357,6 +1357,31 @@
     text-wrap: balance;
   }
 
+  .logistics-cta__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .logistics-cta__overline,
+  .logistics-cta__title,
+  .logistics-cta__text {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    text-align-last: center;
+  }
+
+  .logistics-cta__text {
+    max-width: 36rem;
+  }
+
+  .logistics-cta__content .hero__cta {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .route-grid {
     grid-template-columns: 1fr;
   }

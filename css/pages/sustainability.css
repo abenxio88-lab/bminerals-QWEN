@@ -609,6 +609,11 @@
 }
 
 @media (max-width: 768px) {
+  body.sustainability-page {
+    --mobile-content-heading-size: 1.48rem;
+    --mobile-content-heading-line: 1.12;
+  }
+
   .sustainability-hero {
     height: auto;
     min-height: 380px;

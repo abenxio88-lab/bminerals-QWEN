@@ -1287,6 +1287,15 @@
 }
 
 @media (max-width: 768px) {
+  body.projects-page {
+    --mobile-content-heading-size: 1.48rem;
+    --mobile-content-heading-line: 1.12;
+  }
+
+  .project-category-switch__title {
+    font-weight: 600;
+  }
+
   .project-next-strip__inner {
     align-items: center;
     flex-direction: column;
