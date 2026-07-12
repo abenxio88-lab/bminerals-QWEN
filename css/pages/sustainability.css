@@ -823,10 +823,10 @@
 
 .covenant-title {
   font-family: var(--font-heading);
-  font-size: 2.25rem;
-  font-weight: 700;
+  font-size: clamp(1.65rem, 2.35vw, 1.95rem);
+  font-weight: 600;
   color: var(--navy-950);
-  line-height: 1.1;
+  line-height: 1.12;
   text-transform: uppercase;
 }
 
@@ -874,7 +874,7 @@
 
 .m-val {
   font-family: 'Oswald', sans-serif;
-  font-size: 2.5rem;
+  font-size: clamp(1.7rem, 2.2vw, 2rem);
   font-weight: 700;
   color: var(--navy-950);
   line-height: 1;
@@ -943,9 +943,9 @@
 
 .finale-title {
   font-family: var(--font-heading);
-  font-size: 2.125rem;
-  font-weight: 700;
-  line-height: 1.1;
+  font-size: clamp(1.65rem, 2.35vw, 1.95rem);
+  font-weight: 600;
+  line-height: 1.12;
   margin-bottom: 2rem;
   text-transform: uppercase;
 }
@@ -1026,6 +1026,20 @@
     flex-direction: column;
     align-items: center;
   }
+
+  .covenant-title {
+    font-size: 1.48rem;
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: 0.01em;
+  }
+
+  .finale-title {
+    font-size: 1.48rem;
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: 0.01em;
+  }
   
   .covenant-list {
     text-align: center;
@@ -1041,11 +1055,16 @@
   
   .covenant-metrics {
     justify-content: center;
+    gap: 1.75rem;
   }
   
   .metric {
     align-items: center;
     text-align: center;
+  }
+
+  .m-val {
+    font-size: 1.55rem;
   }
 }
 
@@ -1170,7 +1189,7 @@
 }
 
 .ledger-node:hover .node-scanner {
-  animation: nodeScan 2s infinite linear;
+  animation: nodeScan 2.6s linear 1;
   opacity: 1;
 }
 

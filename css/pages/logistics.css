@@ -255,7 +255,7 @@
   min-height: 520px;
   overflow: hidden;
   background:
-    linear-gradient(180deg, #f9fbf8 0%, #eef3ef 100%);
+    linear-gradient(180deg, #ffffff 0%, #f6fbff 100%);
   border: 1px solid rgba(15, 31, 58, 0.11);
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.86),
@@ -269,7 +269,7 @@
   z-index: 2;
   white-space: nowrap;
   padding: 0.44rem 0.62rem;
-  background: rgba(255, 255, 255, 0.88);
+  background: #ffffff;
   border: 1px solid rgba(15, 31, 58, 0.12);
   color: var(--navy-900);
   font-family: var(--font-ui);
@@ -544,15 +544,7 @@
 }
 
 .warehouse-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-  background-size: 46px 46px;
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.85), transparent 88%);
+  display: none;
 }
 
 .warehouse-section__container {
@@ -1421,8 +1413,21 @@
     grid-template-columns: 1fr;
   }
 
+  .corridor-panel__header strong {
+    font-size: 1.08rem;
+    font-weight: 600;
+    line-height: 1.14;
+    letter-spacing: 0.01em;
+  }
+
   .corridor-panel__metrics {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .corridor-panel__metrics strong {
+    font-size: 1.12rem;
+    font-weight: 600;
+    line-height: 1.05;
   }
 
   .corridor-node__label {
@@ -1450,6 +1455,21 @@
   .warehouse-section__header {
     gap: 1rem;
     margin-bottom: 1.5rem;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .warehouse-section .route-overview__overline,
+  .warehouse-section .route-overview__title,
+  .warehouse-section .route-overview__subtitle {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    text-align-last: center;
+  }
+
+  .warehouse-section .route-overview__subtitle {
+    max-width: 36rem;
   }
 
   .warehouse-showcase__visual {
@@ -1573,10 +1593,22 @@
   .export-documents__header {
     gap: 1rem;
     margin-bottom: 1.25rem;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .export-documents__overline,
+  .export-documents__title,
+  .export-documents__subtitle {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    text-align-last: center;
   }
 
   .export-documents__subtitle {
     font-size: 0.9rem;
+    max-width: 36rem;
   }
 
   .export-documents__brief {
