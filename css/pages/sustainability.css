@@ -764,15 +764,79 @@
 }
 
 .covenant-panel:nth-child(1) .covenant-visual {
-  background-image: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=2000');
+  background-image: url("../../images/sustainability/restoration-passion.webp");
+  background-image: image-set(
+    url("../../images/sustainability/restoration-passion-1200.avif") type("image/avif"),
+    url("../../images/sustainability/restoration-passion.webp") type("image/webp")
+  );
 }
 
 .covenant-panel:nth-child(2) .covenant-visual {
-  background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=2000');
+  background-image: url("../../images/sustainability/baloch-promise.webp");
+  background-image: image-set(
+    url("../../images/sustainability/baloch-promise-1200.avif") type("image/avif"),
+    url("../../images/sustainability/baloch-promise.webp") type("image/webp")
+  );
 }
 
 .covenant-panel:nth-child(3) .covenant-visual {
-  background-image: url('https://images.unsplash.com/photo-1542332213-9b5a5a3fad35?auto=format&fit=crop&q=80&w=2000');
+  background-image: url("../../images/sustainability/sacred-safety.webp");
+  background-image: image-set(
+    url("../../images/sustainability/sacred-safety-1200.avif") type("image/avif"),
+    url("../../images/sustainability/sacred-safety.webp") type("image/webp")
+  );
+}
+
+@media (max-width: 640px) {
+  .covenant-panel:nth-child(1) .covenant-visual {
+    background-image: url("../../images/sustainability/restoration-passion.webp");
+    background-image: image-set(
+      url("../../images/sustainability/restoration-passion-480.avif") type("image/avif"),
+      url("../../images/sustainability/restoration-passion.webp") type("image/webp")
+    );
+  }
+
+  .covenant-panel:nth-child(2) .covenant-visual {
+    background-image: url("../../images/sustainability/baloch-promise.webp");
+    background-image: image-set(
+      url("../../images/sustainability/baloch-promise-480.avif") type("image/avif"),
+      url("../../images/sustainability/baloch-promise.webp") type("image/webp")
+    );
+  }
+
+  .covenant-panel:nth-child(3) .covenant-visual {
+    background-image: url("../../images/sustainability/sacred-safety.webp");
+    background-image: image-set(
+      url("../../images/sustainability/sacred-safety-480.avif") type("image/avif"),
+      url("../../images/sustainability/sacred-safety.webp") type("image/webp")
+    );
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .covenant-panel:nth-child(1) .covenant-visual {
+    background-image: url("../../images/sustainability/restoration-passion.webp");
+    background-image: image-set(
+      url("../../images/sustainability/restoration-passion-768.avif") type("image/avif"),
+      url("../../images/sustainability/restoration-passion.webp") type("image/webp")
+    );
+  }
+
+  .covenant-panel:nth-child(2) .covenant-visual {
+    background-image: url("../../images/sustainability/baloch-promise.webp");
+    background-image: image-set(
+      url("../../images/sustainability/baloch-promise-768.avif") type("image/avif"),
+      url("../../images/sustainability/baloch-promise.webp") type("image/webp")
+    );
+  }
+
+  .covenant-panel:nth-child(3) .covenant-visual {
+    background-image: url("../../images/sustainability/sacred-safety.webp");
+    background-image: image-set(
+      url("../../images/sustainability/sacred-safety-768.avif") type("image/avif"),
+      url("../../images/sustainability/sacred-safety.webp") type("image/webp")
+    );
+  }
 }
 
 .visual-overlay {
