@@ -1,8 +1,10 @@
+import { createImageModalGuard } from './image-modal-guard.js?v=20260713';
+
 (() => {
   let modal = null;
   let activeItems = [];
   let activeIndex = 0;
-  let previousFocus = null;
+  const lightboxGuard = createImageModalGuard('is-stone-lightbox-open');
 
   const getImageSource = (img) => img.currentSrc || img.getAttribute('src') || img.src;
   const clearAccidentalMediaSelection = () => {
@@ -18,8 +20,8 @@
     element.setAttribute('aria-hidden', 'true');
     element.innerHTML = `
       <div class="stone-lightbox__backdrop" data-stone-lightbox-close></div>
+      <button class="stone-lightbox__close" type="button" aria-label="Close image viewer" data-stone-lightbox-close>&times;</button>
       <div class="stone-lightbox__dialog" role="document">
-        <button class="stone-lightbox__close" type="button" aria-label="Close image viewer" data-stone-lightbox-close>&times;</button>
         <button class="stone-lightbox__arrow stone-lightbox__arrow--prev" type="button" aria-label="Previous image" data-stone-lightbox-prev></button>
         <img class="stone-lightbox__image" src="" alt="" data-stone-lightbox-image>
         <button class="stone-lightbox__arrow stone-lightbox__arrow--next" type="button" aria-label="Next image" data-stone-lightbox-next></button>
@@ -34,9 +36,23 @@
     `;
 
     element.addEventListener('click', (event) => {
-      if (event.target.matches('[data-stone-lightbox-close]')) closeModal();
+      if (event.target.matches('[data-stone-lightbox-close]')) {
+        event.preventDefault();
+        closeModal();
+      }
       if (event.target.closest('[data-stone-lightbox-prev]')) showModalImage(activeIndex - 1);
       if (event.target.closest('[data-stone-lightbox-next]')) showModalImage(activeIndex + 1);
+    });
+
+    element.querySelector('.stone-lightbox__backdrop').addEventListener('pointerup', (event) => {
+      event.preventDefault();
+      window.requestAnimationFrame(closeModal);
+    });
+
+    element.querySelector('.stone-lightbox__close').addEventListener('pointerup', (event) => {
+      if (event.pointerType === 'mouse') return;
+      event.preventDefault();
+      window.requestAnimationFrame(closeModal);
     });
 
     element.addEventListener('keydown', (event) => {
@@ -66,35 +82,27 @@
     modal.querySelector('[data-stone-lightbox-next]').hidden = !hasMultiple;
   };
 
-  const openModal = ({ title, items, index }) => {
-    if (!items.length) return;
+  const openModal = ({ title, items, index, trigger, restoreFocus = false }) => {
+    if (!items.length || lightboxGuard.isOpen()) return;
 
     modal = modal || createModal();
     activeItems = items;
     activeIndex = index;
-    previousFocus = document.activeElement;
 
     modal.querySelector('[data-stone-lightbox-title]').textContent = title || 'Stone gallery';
     showModalImage(activeIndex);
 
-    document.documentElement.classList.add('is-stone-lightbox-open');
-    document.body.classList.add('is-stone-lightbox-open');
-    modal.classList.add('is-open');
-    modal.setAttribute('aria-hidden', 'false');
-    modal.querySelector('[data-stone-lightbox-close]')?.focus();
+    lightboxGuard.open({
+      modal,
+      trigger,
+      restoreFocus,
+      closeButton: modal.querySelector('.stone-lightbox__close'),
+    });
   };
 
   const closeModal = () => {
-    if (!modal) return;
-
-    modal.classList.remove('is-open');
-    modal.setAttribute('aria-hidden', 'true');
-    document.documentElement.classList.remove('is-stone-lightbox-open');
-    document.body.classList.remove('is-stone-lightbox-open');
-
-    if (previousFocus && typeof previousFocus.focus === 'function') {
-      previousFocus.focus();
-    }
+    if (!modal?.classList.contains('is-open')) return;
+    lightboxGuard.close({ modal });
   };
 
   document.querySelectorAll('[data-stone-gallery]').forEach((gallery) => {
@@ -131,11 +139,17 @@
 
       slide.addEventListener('pointerdown', clearAccidentalMediaSelection, { passive: true });
       slide.addEventListener('touchend', clearAccidentalMediaSelection, { passive: true });
-      slide.addEventListener('click', () => openModal({ title, items, index }));
+      slide.addEventListener('click', (event) => openModal({
+        title,
+        items,
+        index,
+        trigger: slide,
+        restoreFocus: event.detail === 0,
+      }));
       slide.addEventListener('keydown', (event) => {
         if (event.key !== 'Enter' && event.key !== ' ') return;
         event.preventDefault();
-        openModal({ title, items, index });
+        openModal({ title, items, index, trigger: slide, restoreFocus: true });
       });
     });
 

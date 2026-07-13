@@ -1,16 +1,15 @@
+import { createImageModalGuard } from './image-modal-guard.js?v=20260713';
+
 const categoryButtons = document.querySelectorAll('[data-mineral-category]');
 const categoryPanels = document.querySelectorAll('[data-mineral-panel]');
 const mineralCards = document.querySelectorAll('#minerals .mineral-showcase');
 
 let mediaModal = null;
 let reportModal = null;
-let lastMediaTrigger = null;
 let lastReportTrigger = null;
 let activeMediaItems = [];
 let activeMediaIndex = 0;
-let mediaModalScrollY = 0;
-let mediaModalScrollLocked = false;
-let previousBodyScrollStyles = null;
+const mediaModalGuard = createImageModalGuard('is-media-modal-open');
 
 const additionalMediaBySpecHref = {
   'product-metallic.html#copper': [
@@ -198,7 +197,13 @@ function createMediaButton(card, href) {
   const button = createActionButton('Media Gallery', 'media');
   const { title, items } = getCardMediaItems(card, href);
 
-  button.addEventListener('click', () => openMediaModal({ title, href, items }));
+  button.addEventListener('click', (event) => openMediaModal({
+    title,
+    href,
+    items,
+    trigger: button,
+    restoreFocus: event.detail === 0,
+  }));
 
   return button;
 }
@@ -246,31 +251,30 @@ function enableImageViewer(card, href) {
   const initialTitle = card.querySelector('.mineral-showcase__title')?.textContent?.trim() || image.alt || 'Mineral image';
   imageWrap.setAttribute('aria-label', `Open ${initialTitle} image gallery`);
 
-  const openViewer = () => {
+  const openViewer = ({ restoreFocus = false } = {}) => {
     const { title, items } = getActiveMedia();
     openMediaModal({
       title,
       href,
       imageOnly: true,
       items,
+      trigger: imageWrap,
+      restoreFocus,
     });
   };
 
   const handleOpen = (event) => {
     if (event.target.closest('button, a')) return;
     event.preventDefault();
-    openViewer();
+    openViewer({ restoreFocus: event.detail === 0 });
   };
 
   imageWrap.addEventListener('click', handleOpen);
-  image.addEventListener('click', handleOpen);
-  imageWrap.querySelector('.mineral-showcase__overlay')?.addEventListener('click', handleOpen);
-  imageWrap.querySelector('.mineral-showcase__media-caption')?.addEventListener('click', handleOpen);
 
   imageWrap.addEventListener('keydown', (event) => {
     if (event.key !== 'Enter' && event.key !== ' ') return;
     event.preventDefault();
-    openViewer();
+    openViewer({ restoreFocus: true });
   });
 }
 
@@ -389,10 +393,13 @@ function createMediaModal() {
   modal.setAttribute('role', 'dialog');
   modal.setAttribute('aria-modal', 'true');
   modal.setAttribute('aria-hidden', 'true');
+  modal.setAttribute('data-lenis-prevent', '');
+  modal.setAttribute('data-lenis-prevent-wheel', '');
+  modal.setAttribute('data-lenis-prevent-touch', '');
   modal.innerHTML = `
     <div class="mineral-media-modal__backdrop" data-media-close></div>
+    <button class="mineral-media-modal__close" type="button" aria-label="Close media gallery" data-media-close>&times;</button>
     <div class="mineral-media-modal__dialog" role="document">
-      <button class="mineral-media-modal__close" type="button" aria-label="Close media gallery" data-media-close>&times;</button>
       <div class="mineral-media-modal__stage">
         <img class="mineral-media-modal__media" src="" alt="" data-media-image>
         <video class="mineral-media-modal__media" controls playsinline preload="metadata" hidden data-media-video></video>
@@ -416,7 +423,20 @@ function createMediaModal() {
   `;
 
   modal.addEventListener('click', (event) => {
-    if (event.target.matches('[data-media-close]')) closeMediaModal();
+    if (!event.target.matches('[data-media-close]')) return;
+    event.preventDefault();
+    closeMediaModal();
+  });
+
+  modal.querySelector('.mineral-media-modal__backdrop').addEventListener('pointerup', (event) => {
+    event.preventDefault();
+    window.requestAnimationFrame(closeMediaModal);
+  });
+
+  modal.querySelector('.mineral-media-modal__close').addEventListener('pointerup', (event) => {
+    if (event.pointerType === 'mouse') return;
+    event.preventDefault();
+    window.requestAnimationFrame(closeMediaModal);
   });
 
   modal.addEventListener('keydown', (event) => {
@@ -464,53 +484,17 @@ function showMediaItem(index) {
   mediaModal.querySelector('[data-media-next]').hidden = !hasMultipleItems;
 }
 
-function lockPageScroll() {
-  if (mediaModalScrollLocked) return;
-
-  mediaModalScrollY = window.scrollY || document.documentElement.scrollTop || 0;
-  previousBodyScrollStyles = {
-    position: document.body.style.position,
-    top: document.body.style.top,
-    left: document.body.style.left,
-    right: document.body.style.right,
-    width: document.body.style.width,
-  };
-
-  window.__bmLenis?.stop?.();
-  document.documentElement.classList.add('is-media-modal-open');
-  document.body.classList.add('is-media-modal-open');
-  document.body.style.position = 'fixed';
-  document.body.style.top = `-${mediaModalScrollY}px`;
-  document.body.style.left = '0';
-  document.body.style.right = '0';
-  document.body.style.width = '100%';
-  mediaModalScrollLocked = true;
-}
-
-function unlockPageScroll() {
-  if (!mediaModalScrollLocked) return;
-
-  document.documentElement.classList.remove('is-media-modal-open');
-  document.body.classList.remove('is-media-modal-open');
-
-  if (previousBodyScrollStyles) {
-    document.body.style.position = previousBodyScrollStyles.position;
-    document.body.style.top = previousBodyScrollStyles.top;
-    document.body.style.left = previousBodyScrollStyles.left;
-    document.body.style.right = previousBodyScrollStyles.right;
-    document.body.style.width = previousBodyScrollStyles.width;
-  }
-
-  window.scrollTo(0, mediaModalScrollY);
-  window.__bmLenis?.start?.();
-  previousBodyScrollStyles = null;
-  mediaModalScrollLocked = false;
-}
-
-function openMediaModal({ title, href, items, imageOnly = false }) {
+function openMediaModal({
+  title,
+  href,
+  items,
+  imageOnly = false,
+  trigger = null,
+  restoreFocus = false,
+}) {
   if (!mediaModal) mediaModal = createMediaModal();
+  if (mediaModalGuard.isOpen()) return;
 
-  lastMediaTrigger = document.activeElement;
   activeMediaItems = items;
   activeMediaIndex = 0;
   mediaModal.classList.toggle('mineral-media-modal--image-viewer', imageOnly);
@@ -520,20 +504,19 @@ function openMediaModal({ title, href, items, imageOnly = false }) {
   mediaModal.setAttribute('aria-label', `${title} media gallery`);
   showMediaItem(0);
 
-  mediaModal.classList.add('is-open');
-  mediaModal.setAttribute('aria-hidden', 'false');
-  lockPageScroll();
-  mediaModal.querySelector('[data-media-close]')?.focus();
+  mediaModalGuard.open({
+    modal: mediaModal,
+    trigger,
+    restoreFocus,
+    closeButton: mediaModal.querySelector('.mineral-media-modal__close'),
+  });
 }
 
 function closeMediaModal() {
-  if (!mediaModal) return;
+  if (!mediaModal?.classList.contains('is-open')) return;
 
   mediaModal.querySelector('[data-media-video]')?.pause();
-  mediaModal.classList.remove('is-open');
-  mediaModal.setAttribute('aria-hidden', 'true');
-  unlockPageScroll();
-  lastMediaTrigger?.focus();
+  mediaModalGuard.close({ modal: mediaModal });
 }
 
 enhanceMineralCards();

@@ -6,6 +6,7 @@ import { initBorderBeam } from './border-beam.js';
 import { initTactileFeedback } from './tactile-feedback.js';
 import { initEarthTechCore } from './earth-tech-core.js';
 import { initSearchConsole } from './search-console.js';
+import { createImageModalGuard } from './image-modal-guard.js?v=20260713';
 
 function isLocalDebug() {
   return ['localhost', '127.0.0.1'].includes(window.location.hostname) || window.location.protocol === 'file:';
@@ -336,7 +337,7 @@ function initProductImageLightbox() {
   let modal = null;
   let activeItems = [];
   let activeIndex = 0;
-  let previousFocus = null;
+  const lightboxGuard = createImageModalGuard('is-stone-lightbox-open');
 
   const createModal = () => {
     const element = document.createElement('div');
@@ -346,8 +347,8 @@ function initProductImageLightbox() {
     element.setAttribute('aria-hidden', 'true');
     element.innerHTML = `
       <div class="stone-lightbox__backdrop" data-product-lightbox-close></div>
+      <button class="stone-lightbox__close" type="button" aria-label="Close image viewer" data-product-lightbox-close>&times;</button>
       <div class="stone-lightbox__dialog" role="document">
-        <button class="stone-lightbox__close" type="button" aria-label="Close image viewer" data-product-lightbox-close>&times;</button>
         <button class="stone-lightbox__arrow stone-lightbox__arrow--prev" type="button" aria-label="Previous image" data-product-lightbox-prev></button>
         <img class="stone-lightbox__image" src="" alt="" data-product-lightbox-image>
         <button class="stone-lightbox__arrow stone-lightbox__arrow--next" type="button" aria-label="Next image" data-product-lightbox-next></button>
@@ -362,9 +363,23 @@ function initProductImageLightbox() {
     `;
 
     element.addEventListener('click', (event) => {
-      if (event.target.matches('[data-product-lightbox-close]')) closeModal();
+      if (event.target.matches('[data-product-lightbox-close]')) {
+        event.preventDefault();
+        closeModal();
+      }
       if (event.target.closest('[data-product-lightbox-prev]')) showImage(activeIndex - 1);
       if (event.target.closest('[data-product-lightbox-next]')) showImage(activeIndex + 1);
+    });
+
+    element.querySelector('.stone-lightbox__backdrop').addEventListener('pointerup', (event) => {
+      event.preventDefault();
+      window.requestAnimationFrame(closeModal);
+    });
+
+    element.querySelector('.stone-lightbox__close').addEventListener('pointerup', (event) => {
+      if (event.pointerType === 'mouse') return;
+      event.preventDefault();
+      window.requestAnimationFrame(closeModal);
     });
 
     element.addEventListener('keydown', (event) => {
@@ -392,30 +407,24 @@ function initProductImageLightbox() {
     modal.querySelector('[data-product-lightbox-next]').hidden = !hasMultiple;
   };
 
-  const openModal = ({ items, index }) => {
-    if (!items.length) return;
+  const openModal = ({ items, index, trigger, restoreFocus = false }) => {
+    if (!items.length || lightboxGuard.isOpen()) return;
 
     modal = modal || createModal();
     activeItems = items;
-    previousFocus = document.activeElement;
     showImage(index);
 
-    document.documentElement.classList.add('is-stone-lightbox-open');
-    document.body.classList.add('is-stone-lightbox-open');
-    modal.classList.add('is-open');
-    modal.setAttribute('aria-hidden', 'false');
-    modal.querySelector('[data-product-lightbox-close]')?.focus();
+    lightboxGuard.open({
+      modal,
+      trigger,
+      restoreFocus,
+      closeButton: modal.querySelector('.stone-lightbox__close'),
+    });
   };
 
   const closeModal = () => {
-    if (!modal) return;
-
-    modal.classList.remove('is-open');
-    modal.setAttribute('aria-hidden', 'true');
-    document.documentElement.classList.remove('is-stone-lightbox-open');
-    document.body.classList.remove('is-stone-lightbox-open');
-
-    if (previousFocus && typeof previousFocus.focus === 'function') previousFocus.focus();
+    if (!modal?.classList.contains('is-open')) return;
+    lightboxGuard.close({ modal });
   };
 
   const resolveItems = (trigger, record) => {
@@ -466,13 +475,18 @@ function initProductImageLightbox() {
 
     trigger.addEventListener('click', (event) => {
       event.preventDefault();
-      openModal({ items, index: resolveIndex(trigger, items) });
+      openModal({
+        items,
+        index: resolveIndex(trigger, items),
+        trigger,
+        restoreFocus: event.detail === 0,
+      });
     });
 
     trigger.addEventListener('keydown', (event) => {
       if (event.key !== 'Enter' && event.key !== ' ') return;
       event.preventDefault();
-      openModal({ items, index: resolveIndex(trigger, items) });
+      openModal({ items, index: resolveIndex(trigger, items), trigger, restoreFocus: true });
     });
   });
 }

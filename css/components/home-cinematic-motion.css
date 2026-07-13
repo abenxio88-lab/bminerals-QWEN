@@ -325,6 +325,7 @@ button.mineral-showcase__cta {
   display: grid;
   place-items: center;
   padding: clamp(1rem, 3vw, 2rem);
+  overscroll-behavior: contain;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.24s var(--ease-smooth);
@@ -340,6 +341,7 @@ button.mineral-showcase__cta {
   inset: 0;
   background: rgba(5, 10, 16, 0.68);
   backdrop-filter: blur(8px);
+  touch-action: manipulation;
 }
 
 .mineral-media-modal__dialog {
@@ -348,6 +350,7 @@ button.mineral-showcase__cta {
   grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
   width: min(980px, 100%);
   max-height: min(760px, 90vh);
+  overscroll-behavior: contain;
   overflow: hidden;
   background: #ffffff;
   border: 1px solid rgba(232, 241, 248, 0.28);
@@ -532,9 +535,10 @@ button.mineral-showcase__cta {
 }
 
 .mineral-media-modal__close {
-  position: absolute;
-  top: 0.8rem;
-  right: 0.8rem;
+  position: fixed;
+  top: max(0.8rem, env(safe-area-inset-top));
+  right: max(0.8rem, env(safe-area-inset-right));
+  z-index: 4;
   display: grid;
   place-items: center;
   width: 42px;
@@ -543,6 +547,8 @@ button.mineral-showcase__cta {
   border: 1px solid rgba(15, 31, 58, 0.14);
   color: var(--text-primary);
   font: 800 1.2rem/1 var(--font-ui);
+  cursor: pointer;
+  touch-action: manipulation;
 }
 
 .mineral-report-modal {
