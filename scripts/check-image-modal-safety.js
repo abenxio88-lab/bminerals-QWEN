@@ -49,8 +49,8 @@ assertSafeModalSection('Stone gallery lightbox', stones);
 assert(!/window\.scrollTo\s*\(/.test(guard), 'Shared image-modal guard must never move the page.');
 assert(!/document\.body\.style\.(?:position|top|left|right|width)/.test(guard), 'Shared guard must never fix-position the body.');
 assert(guard.includes('focus({ preventScroll: true })'), 'Shared guard lost scroll-safe focus handling.');
-assert(guard.includes('window.visualViewport'), 'Shared guard lost visual viewport tracking.');
 assert(guard.includes("document.addEventListener('touchmove', handleTouchMove, nonPassiveCapture)"), 'Shared guard lost legacy touch-scroll containment.');
+assert(guard.includes("document.addEventListener('click', blockResidualClick, nonPassiveCapture)"), 'Shared guard lost residual click-through protection.');
 
 assert((minerals.match(/imageWrap\.addEventListener\('click', handleOpen\)/g) || []).length === 1, 'Homepage image must have exactly one open handler.');
 assert(!minerals.includes("image.addEventListener('click', handleOpen)"), 'Nested homepage image handler would open the modal twice.');
@@ -58,8 +58,11 @@ assert((minerals.match(/requestAnimationFrame\(closeMediaModal\)/g) || []).lengt
 assert((main.match(/requestAnimationFrame\(closeModal\)/g) || []).length >= 2, 'Product lightbox touch close must remain click-through safe.');
 assert((stones.match(/requestAnimationFrame\(closeModal\)/g) || []).length >= 2, 'Stone lightbox touch close must remain click-through safe.');
 
-assert(/\.mineral-media-modal__close\s*\{[^}]*position:\s*fixed;[^}]*z-index:\s*4;/s.test(homeCss), 'Homepage modal X must remain viewport-fixed and topmost.');
-assert(/\.stone-lightbox__close\s*\{[^}]*position:\s*fixed;[^}]*z-index:\s*4;/s.test(productsCss), 'Product lightbox X must remain viewport-fixed and topmost.');
+assert(/\.mineral-media-modal__close\s*\{[^}]*position:\s*absolute;[^}]*z-index:\s*4;/s.test(homeCss), 'Homepage modal X must remain picture-anchored and topmost.');
+assert(/\.stone-lightbox__close\s*\{[^}]*position:\s*absolute;[^}]*z-index:\s*4;/s.test(productsCss), 'Product lightbox X must remain picture-anchored and topmost.');
+assert(minerals.includes('<button class="mineral-media-modal__close"') && minerals.indexOf('<button class="mineral-media-modal__close"') > minerals.indexOf('<div class="mineral-media-modal__stage">'), 'Homepage modal X must live inside the mineral picture stage.');
+assert(main.includes('<div class="stone-lightbox__stage">') && main.indexOf('<button class="stone-lightbox__close"') > main.indexOf('<div class="stone-lightbox__stage">'), 'Product lightbox X must live inside the picture stage.');
+assert(stones.includes('<div class="stone-lightbox__stage">') && stones.indexOf('<button class="stone-lightbox__close"') > stones.indexOf('<div class="stone-lightbox__stage">'), 'Stone gallery X must live inside the picture stage.');
 
 function listHtmlFiles(directory) {
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {

@@ -398,11 +398,11 @@ function createMediaModal() {
   modal.setAttribute('data-lenis-prevent-touch', '');
   modal.innerHTML = `
     <div class="mineral-media-modal__backdrop" data-media-close></div>
-    <button class="mineral-media-modal__close" type="button" aria-label="Close media gallery" data-media-close>&times;</button>
     <div class="mineral-media-modal__dialog" role="document">
       <div class="mineral-media-modal__stage">
         <img class="mineral-media-modal__media" src="" alt="" data-media-image>
         <video class="mineral-media-modal__media" controls playsinline preload="metadata" hidden data-media-video></video>
+        <button class="mineral-media-modal__close" type="button" aria-label="Close media gallery" data-media-close>&times;</button>
         <button class="mineral-media-modal__arrow mineral-media-modal__arrow--prev" type="button"
           aria-label="Previous media" data-media-prev>&larr;</button>
         <button class="mineral-media-modal__arrow mineral-media-modal__arrow--next" type="button"
@@ -425,17 +425,20 @@ function createMediaModal() {
   modal.addEventListener('click', (event) => {
     if (!event.target.matches('[data-media-close]')) return;
     event.preventDefault();
+    event.stopPropagation();
     closeMediaModal();
   });
 
   modal.querySelector('.mineral-media-modal__backdrop').addEventListener('pointerup', (event) => {
     event.preventDefault();
+    event.stopPropagation();
     window.requestAnimationFrame(closeMediaModal);
   });
 
   modal.querySelector('.mineral-media-modal__close').addEventListener('pointerup', (event) => {
     if (event.pointerType === 'mouse') return;
     event.preventDefault();
+    event.stopPropagation();
     window.requestAnimationFrame(closeMediaModal);
   });
 

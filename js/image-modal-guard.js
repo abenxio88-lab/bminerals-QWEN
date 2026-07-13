@@ -117,28 +117,36 @@ export function createImageModalGuard(lockClass) {
   let releaseScrollLock = null;
   let trigger = null;
   let restoreFocus = false;
-  let activeCloseButton = null;
+  let suppressResidualClicksUntil = 0;
+  let releaseResidualClickBlocker = null;
 
-  const syncCloseButtonToVisualViewport = () => {
-    if (!activeCloseButton) return;
+  const blockResidualClick = (event) => {
+    if (performance.now() > suppressResidualClicksUntil) {
+      releaseResidualClickBlocker?.();
+      return;
+    }
 
-    const offsetLeft = window.visualViewport?.offsetLeft || 0;
-    const offsetTop = window.visualViewport?.offsetTop || 0;
-    activeCloseButton.style.transform = `translate(${offsetLeft}px, ${offsetTop}px)`;
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation?.();
   };
 
-  const startCloseButtonTracking = (closeButton) => {
-    activeCloseButton = closeButton;
-    syncCloseButtonToVisualViewport();
-    window.visualViewport?.addEventListener('resize', syncCloseButtonToVisualViewport);
-    window.visualViewport?.addEventListener('scroll', syncCloseButtonToVisualViewport);
-  };
+  const blockResidualClicks = () => {
+    suppressResidualClicksUntil = performance.now() + 700;
+    if (releaseResidualClickBlocker) return;
 
-  const stopCloseButtonTracking = () => {
-    window.visualViewport?.removeEventListener('resize', syncCloseButtonToVisualViewport);
-    window.visualViewport?.removeEventListener('scroll', syncCloseButtonToVisualViewport);
-    activeCloseButton?.style.removeProperty('transform');
-    activeCloseButton = null;
+    document.addEventListener('click', blockResidualClick, nonPassiveCapture);
+    document.addEventListener('pointerup', blockResidualClick, nonPassiveCapture);
+    document.addEventListener('touchend', blockResidualClick, nonPassiveCapture);
+
+    releaseResidualClickBlocker = () => {
+      document.removeEventListener('click', blockResidualClick, nonPassiveCapture);
+      document.removeEventListener('pointerup', blockResidualClick, nonPassiveCapture);
+      document.removeEventListener('touchend', blockResidualClick, nonPassiveCapture);
+      releaseResidualClickBlocker = null;
+    };
+
+    window.setTimeout(() => releaseResidualClickBlocker?.(), 760);
   };
 
   return {
@@ -146,7 +154,12 @@ export function createImageModalGuard(lockClass) {
       return Boolean(releaseScrollLock);
     },
 
-    open({ modal, trigger: nextTrigger = null, restoreFocus: shouldRestore = false, closeButton = null }) {
+    open({
+      modal,
+      trigger: nextTrigger = null,
+      restoreFocus: shouldRestore = false,
+      closeButton = null,
+    }) {
       if (!modal || releaseScrollLock) return false;
 
       trigger = nextTrigger;
@@ -159,7 +172,6 @@ export function createImageModalGuard(lockClass) {
       document.documentElement.classList.add(lockClass);
       document.body.classList.add(lockClass);
       releaseScrollLock = lockModalScroll(modal);
-      startCloseButtonTracking(closeButton);
 
       if (restoreFocus) focusWithoutScroll(closeButton);
       return true;
@@ -173,7 +185,7 @@ export function createImageModalGuard(lockClass) {
       modal.setAttribute('aria-hidden', 'true');
       document.documentElement.classList.remove(lockClass);
       document.body.classList.remove(lockClass);
-      stopCloseButtonTracking();
+      blockResidualClicks();
 
       const release = releaseScrollLock;
       releaseScrollLock = null;

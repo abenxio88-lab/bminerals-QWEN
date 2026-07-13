@@ -4363,6 +4363,13 @@ body.is-stone-lightbox-open {
   overscroll-behavior: contain;
 }
 
+.stone-lightbox__stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 0;
+}
+
 .stone-lightbox__image {
   display: block;
   justify-self: center;
@@ -4387,14 +4394,27 @@ body.is-stone-lightbox-open {
 }
 
 .stone-lightbox__close {
-  position: fixed;
-  top: max(0.8rem, env(safe-area-inset-top));
-  right: max(0.8rem, env(safe-area-inset-right));
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
   z-index: 4;
   width: 42px;
   height: 42px;
-  font: 800 1.3rem/1 var(--font-ui);
+  background: rgba(255, 255, 255, 0.94);
+  border-color: rgba(15, 31, 58, 0.14);
+  box-shadow: 0 12px 30px rgba(3, 8, 15, 0.22);
+  color: var(--text-primary);
+  font: 800 1.25rem/1 var(--font-ui);
   touch-action: manipulation;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.stone-lightbox__close:hover,
+.stone-lightbox__close:focus-visible {
+  border-color: rgba(230, 92, 26, 0.42);
+  background: var(--primary-gold-500);
+  color: #fff;
+  transform: translateY(-1px);
 }
 
 .stone-lightbox__arrow {

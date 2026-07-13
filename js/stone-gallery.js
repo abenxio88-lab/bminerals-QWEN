@@ -20,11 +20,13 @@ import { createImageModalGuard } from './image-modal-guard.js?v=20260713';
     element.setAttribute('aria-hidden', 'true');
     element.innerHTML = `
       <div class="stone-lightbox__backdrop" data-stone-lightbox-close></div>
-      <button class="stone-lightbox__close" type="button" aria-label="Close image viewer" data-stone-lightbox-close>&times;</button>
       <div class="stone-lightbox__dialog" role="document">
-        <button class="stone-lightbox__arrow stone-lightbox__arrow--prev" type="button" aria-label="Previous image" data-stone-lightbox-prev></button>
-        <img class="stone-lightbox__image" src="" alt="" data-stone-lightbox-image>
-        <button class="stone-lightbox__arrow stone-lightbox__arrow--next" type="button" aria-label="Next image" data-stone-lightbox-next></button>
+        <div class="stone-lightbox__stage">
+          <img class="stone-lightbox__image" src="" alt="" data-stone-lightbox-image>
+          <button class="stone-lightbox__close" type="button" aria-label="Close image viewer" data-stone-lightbox-close>&times;</button>
+          <button class="stone-lightbox__arrow stone-lightbox__arrow--prev" type="button" aria-label="Previous image" data-stone-lightbox-prev></button>
+          <button class="stone-lightbox__arrow stone-lightbox__arrow--next" type="button" aria-label="Next image" data-stone-lightbox-next></button>
+        </div>
         <div class="stone-lightbox__footer">
           <div>
             <span data-stone-lightbox-kicker>Stone Gallery</span>
@@ -38,6 +40,7 @@ import { createImageModalGuard } from './image-modal-guard.js?v=20260713';
     element.addEventListener('click', (event) => {
       if (event.target.matches('[data-stone-lightbox-close]')) {
         event.preventDefault();
+        event.stopPropagation();
         closeModal();
       }
       if (event.target.closest('[data-stone-lightbox-prev]')) showModalImage(activeIndex - 1);
@@ -46,12 +49,14 @@ import { createImageModalGuard } from './image-modal-guard.js?v=20260713';
 
     element.querySelector('.stone-lightbox__backdrop').addEventListener('pointerup', (event) => {
       event.preventDefault();
+      event.stopPropagation();
       window.requestAnimationFrame(closeModal);
     });
 
     element.querySelector('.stone-lightbox__close').addEventListener('pointerup', (event) => {
       if (event.pointerType === 'mouse') return;
       event.preventDefault();
+      event.stopPropagation();
       window.requestAnimationFrame(closeModal);
     });
 
