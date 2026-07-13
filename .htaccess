@@ -6,6 +6,7 @@ AddDefaultCharset UTF-8
 
 <IfModule mod_mime.c>
   AddType image/avif .avif
+  AddType application/manifest+json .webmanifest
 </IfModule>
 
 <IfModule mod_rewrite.c>
