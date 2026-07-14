@@ -88,6 +88,15 @@ function preloadPanelImages(category) {
   return Promise.all(pending);
 }
 
+function normalizeSpecHref(href = '') {
+  return href
+    .replace(/^\/+/, '')
+    .replace(/^product-metallic(?=#)/, 'product-metallic.html')
+    .replace(/^product-industrial(?=#)/, 'product-industrial.html')
+    .replace(/^product-stones(?=#)/, 'product-stones.html')
+    .replace(/^product-energy(?=#)/, 'product-energy.html');
+}
+
 const additionalMediaBySpecHref = {
   'product-metallic.html#copper': [
     {
@@ -310,6 +319,7 @@ function createMediaButton(card, href) {
 }
 
 function getCardMediaItems(card, href) {
+  const mediaKey = normalizeSpecHref(href);
   const title = card.querySelector('.mineral-showcase__title')?.textContent?.trim() || 'Mineral media';
   const image = card.querySelector('.mineral-showcase__image img');
   const imageSrc = image?.currentSrc || image?.getAttribute('src') || '';
@@ -321,7 +331,7 @@ function getCardMediaItems(card, href) {
       title,
       description,
     },
-    ...(additionalMediaBySpecHref[href] || []),
+    ...(additionalMediaBySpecHref[mediaKey] || []),
   ].filter((item) => item.src);
 
   return { title, description, items };
@@ -391,7 +401,8 @@ function enhanceMineralCards() {
 
     const title = card.querySelector('.mineral-showcase__title')?.textContent?.trim() || 'Mineral';
     const specHref = specLink.getAttribute('href');
-    const reports = reportLinksBySpecHref[specHref] || [];
+    const specKey = normalizeSpecHref(specHref);
+    const reports = reportLinksBySpecHref[specKey] || [];
     const reportLink = reports.length > 1
       ? createReportButton('3 Test Reports', 'Bauxite', reports)
       : createActionLink(
