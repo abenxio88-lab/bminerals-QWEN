@@ -2110,19 +2110,18 @@ body.homepage .homepage-whatsapp:focus-visible {
     padding-block: 4rem;
   }
 
-  /* Keep the original sticky reading effect, but do not animate blur on this
-     layer while Lenis is smoothing the page. */
+  /* Mobile stats stay in normal flow: editorial first, metric cards below. */
   body.homepage .stats-section__editorial {
-    position: sticky !important;
-    top: calc(var(--navbar-height, 70px) + 0.6rem) !important;
+    position: relative !important;
+    top: auto !important;
     z-index: 20 !important;
     box-shadow: 0 8px 24px rgba(15, 31, 58, 0.1) !important;
     background: #ffffff !important;
     border-left: 3px solid var(--home-accent);
     transition: none !important;
-    transform: translateZ(0) !important;
+    transform: none !important;
     backface-visibility: hidden !important;
-    contain: paint !important;
+    contain: none !important;
   }
 
   body.homepage .stats-section.stats-section--metrics-overlap .stats-section__editorial {
@@ -2132,14 +2131,25 @@ body.homepage .homepage-whatsapp:focus-visible {
 
   body.homepage .stats-section__metrics {
     position: relative;
-    z-index: 10;
+    z-index: 1;
     background: #ffffff;
     border-radius: 1rem;
     padding: 1rem;
-    margin-top: 0.35rem;
-    box-shadow:
-      0 -4px 0 0 #ffffff,
-      0 -12px 32px 6px rgba(255, 255, 255, 0.95);
+    margin-top: 1.25rem;
+    box-shadow: none;
+  }
+
+  body.homepage .stats-section__metrics::before,
+  body.homepage .stats-section .border-beam {
+    display: none !important;
+  }
+
+  body.homepage .stats-section .metric-strip__item,
+  body.homepage .stats-section .metric-strip__item::before,
+  body.homepage .stats-section .metric-strip__item.glass-bento,
+  body.homepage .stats-section .metric-strip__item.glass-bento:hover {
+    transition: none !important;
+    transform: none !important;
   }
 
   body.homepage .hero__cta-group {
