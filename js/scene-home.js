@@ -7,16 +7,28 @@ const mobileExtraMotion = window.matchMedia('(max-width: 768px)').matches;
 window.__sceneHomeEnhanced = true;
 
 function initLenis() {
-  if (prefersReduced || !window.Lenis) return null;
+  if (window.__smoothScrollingInitialized || window.__lenisEnabled || prefersReduced || !window.Lenis) return null;
+  window.__smoothScrollingInitialized = true;
+
   const lenis = new window.Lenis({
     lerp: 0.08,
     duration: 1.15,
     wheelMultiplier: 0.88,
     smoothWheel: true,
-    smoothTouch: false
+    smoothTouch: false,
+    autoResize: false
   });
 
+  const syncLenisToCurrentScroll = () => {
+    const y = window.scrollY || window.pageYOffset || 0;
+    lenis.resize?.();
+    lenis.scrollTo?.(y, { immediate: true, force: true, lock: false, duration: 0 });
+  };
+
   if (hasGsap) {
+    ScrollTrigger.config({
+      autoRefreshEvents: 'visibilitychange,DOMContentLoaded,load'
+    });
     lenis.on('scroll', () => ScrollTrigger.update());
     gsap.ticker.add((time) => {
       lenis.raf(time * 1000);
@@ -30,8 +42,37 @@ function initLenis() {
     requestAnimationFrame(raf);
   }
 
+  let resizeFrame = null;
+  let resizeTimer = null;
+  const handleResize = () => {
+    if (document.documentElement.classList.contains('is-media-modal-open')) return;
+    const scrollBeforeResize = window.scrollY || window.pageYOffset || 0;
+
+    window.cancelAnimationFrame(resizeFrame);
+    window.clearTimeout(resizeTimer);
+    lenis.stop?.();
+
+    resizeFrame = window.requestAnimationFrame(() => {
+      lenis.resize?.();
+      if (hasGsap) ScrollTrigger.refresh();
+      lenis.scrollTo?.(scrollBeforeResize, { immediate: true, force: true, lock: false, duration: 0 });
+      if (Math.abs((window.scrollY || window.pageYOffset || 0) - scrollBeforeResize) > 2) {
+        window.scrollTo(0, scrollBeforeResize);
+      }
+      resizeTimer = window.setTimeout(() => {
+        syncLenisToCurrentScroll();
+        lenis.start?.();
+      }, 120);
+    });
+  };
+
+  window.addEventListener('resize', handleResize);
+  window.visualViewport?.addEventListener('resize', handleResize);
+
   window.__bmLenis = lenis;
   window.__lenisEnabled = true;
+  window.__homepageNativeScroll = false;
+  window.__homepageLenisResizeSync = handleResize;
   document.documentElement.classList.add('lenis-enhanced');
 
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {

@@ -5,6 +5,22 @@
   margin-inline: auto;
 }
 
+html:has(body.homepage),
+body.homepage {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+body.homepage main {
+  overflow-x: clip;
+}
+
+body.homepage .commodity-ticker {
+  max-width: 100vw;
+  contain: paint;
+  overflow-x: clip;
+}
+
 .lenis.lenis-smooth {
   scroll-behavior: auto !important;
 }

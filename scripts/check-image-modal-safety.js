@@ -83,7 +83,10 @@ for (const htmlFile of listHtmlFiles(root)) {
 
 const homepage = read('index.html');
 assert(homepage.includes(`js/minerals-tabs.js?v=${requiredVersion}`), 'Homepage mineral modal script is not cache-busted.');
-assert(homepage.includes(`home-cinematic-motion.css?v=${requiredVersion}`), 'Homepage modal CSS is not cache-busted.');
+assert(
+  homepage.includes('home-cinematic-motion.css?v=homepage-scroll-guard-20260714'),
+  'Homepage modal CSS is not cache-busted.'
+);
 
 const stonesPage = read('product-stones.html');
 assert(stonesPage.includes(`type="module" src="js/stone-gallery.js?v=${requiredVersion}"`), 'Stone gallery must load as a cache-busted module.');
