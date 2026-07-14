@@ -31,7 +31,7 @@ body.bm-cookies-modal-open {
   background: rgba(15, 23, 42, 0.28);
   backdrop-filter: blur(3px);
   opacity: 0;
-  transition: opacity 0.9s ease;
+  transition: opacity 0.28s ease;
   pointer-events: none;
 }
 
@@ -51,8 +51,8 @@ body.bm-cookies-modal-open {
   overscroll-behavior: contain;
   touch-action: pan-y;
   transition:
-    transform 1.35s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.75s ease;
+    transform 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.28s ease;
   will-change: transform, opacity;
 }
 
@@ -308,8 +308,8 @@ body.bm-cookies-modal-open {
     max-width: 100%;
     transform: translate3d(0, calc(100% + 18px), 0);
     transition:
-      transform 1.7s cubic-bezier(0.16, 1, 0.3, 1),
-      opacity 0.95s ease;
+      transform 0.48s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.28s ease;
   }
 
   .bm-cookies-content {

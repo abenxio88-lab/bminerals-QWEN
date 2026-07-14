@@ -8,8 +8,8 @@ class CookiesPopup {
     this.options = {
       expiryDays: 365,
       storageKey: 'bm_cookies_accepted',
-      desktopShowDelayMs: 650,
-      mobileShowDelayMs: 1000,
+      desktopShowDelayMs: 250,
+      mobileShowDelayMs: 300,
       ...options
     };
     
@@ -26,10 +26,10 @@ class CookiesPopup {
       }, this.getShowDelay());
     };
 
-    if (document.readyState === 'complete') {
-      schedulePopup();
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', schedulePopup, { once: true });
     } else {
-      window.addEventListener('load', schedulePopup, { once: true });
+      schedulePopup();
     }
   }
 
@@ -221,7 +221,7 @@ class CookiesPopup {
     setTimeout(() => {
       this.popup?.remove();
       this.unlockPageScroll();
-    }, window.matchMedia('(max-width: 640px)').matches ? 1700 : 1400);
+    }, window.matchMedia('(max-width: 640px)').matches ? 520 : 450);
   }
 }
 
