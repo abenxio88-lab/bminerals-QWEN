@@ -111,24 +111,9 @@ function initHeroSnapshotStats() {
 }
 
 function initHeroScene() {
-  const hero = document.querySelector('.hero');
-  if (!hero || !hasGsap || prefersReduced) return;
-
-  const bgImages = hero.querySelectorAll('.hero__background-image');
-
-  bgImages.forEach((image, idx) => {
-    gsap.to(image, {
-      yPercent: 10 + idx * 1.2,
-      scale: 1.1,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: hero,
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1.4
-      }
-    });
-  });
+  // Keep the hero slider as the only hero motion. The old scroll-scrubbed
+  // parallax animated every hero image at once and duplicated work near the
+  // first fold.
 }
 
 function initDataFreshnessFade() {
@@ -179,7 +164,7 @@ function initCitableReveals() {
   }
 
   gsap.utils.toArray(items).forEach((el) => {
-    if (el.closest('.expertise, #minerals')) {
+    if (el.closest('.hero, .expertise, #minerals')) {
       return;
     }
 

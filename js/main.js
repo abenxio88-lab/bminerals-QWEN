@@ -197,6 +197,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   runInit('initDropdownMenus', initDropdownMenus);
   runInit('initHeroSlider', initHeroSlider);
   runInit('initCounterAnimation', initCounterAnimation);
+  runInit('initCommodityTickerVisibility', initCommodityTickerVisibility);
   runInit('initSmoothScrolling', initSmoothScrolling);
   runInit('initParallaxEffect', initParallaxEffect);
   runInit('initMineMarkers', initMineMarkers);
@@ -1161,6 +1162,27 @@ function initCounterAnimation() {
   }, observerOptions);
 
   counters.forEach(counter => observer.observe(counter));
+}
+
+function initCommodityTickerVisibility() {
+  if (window.__commodityTickerVisibilityInitialized) return;
+  window.__commodityTickerVisibilityInitialized = true;
+
+  const ticker = document.querySelector('.commodity-ticker');
+  if (!ticker) return;
+
+  if (typeof IntersectionObserver === 'undefined') {
+    ticker.classList.add('is-in-view');
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      entry.target.classList.toggle('is-in-view', entry.isIntersecting);
+    });
+  }, { threshold: 0.01 });
+
+  observer.observe(ticker);
 }
 
 // ============================================

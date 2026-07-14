@@ -12,6 +12,7 @@ export function initBorderBeam() {
   const beams = document.querySelectorAll('.border-beam');
   if (beams.length === 0) return;
 
+  const activeBeams = new Set();
   let angle = 0;
   let running = false;
   let frameId = null;
@@ -19,9 +20,13 @@ export function initBorderBeam() {
   function animate() {
     if (!running) return;
     angle = (angle + 1) % 360;
-    beams.forEach(beam => {
+    activeBeams.forEach(beam => {
       beam.style.setProperty('--current-angle', `${angle}deg`);
     });
+    if (!activeBeams.size) {
+      stop();
+      return;
+    }
     frameId = requestAnimationFrame(animate);
   }
 
@@ -37,11 +42,28 @@ export function initBorderBeam() {
     frameId = null;
   }
 
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) stop();
-    else start();
+  function activate(beam) {
+    activeBeams.add(beam);
+    if (!document.hidden) start();
+  }
+
+  function deactivate(beam) {
+    activeBeams.delete(beam);
+    if (!activeBeams.size) stop();
+  }
+
+  beams.forEach((beam) => {
+    const card = beam.closest('.glass-bento') || beam.parentElement;
+    if (!card) return;
+
+    card.addEventListener('pointerenter', () => activate(beam));
+    card.addEventListener('pointerleave', () => deactivate(beam));
+    card.addEventListener('focusin', () => activate(beam));
+    card.addEventListener('focusout', () => deactivate(beam));
   });
 
-  start();
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stop();
+    else if (activeBeams.size) start();
+  });
 }
-

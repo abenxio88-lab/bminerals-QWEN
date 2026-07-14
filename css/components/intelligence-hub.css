@@ -15,7 +15,12 @@
 .commodity-ticker__track {
   display: flex;
   animation: tickerScroll 40s linear infinite;
+  animation-play-state: paused;
   width: max-content;
+}
+
+.commodity-ticker.is-in-view .commodity-ticker__track {
+  animation-play-state: running;
 }
 
 @media (hover: hover) and (pointer: fine) {
