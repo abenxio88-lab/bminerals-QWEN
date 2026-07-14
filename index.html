@@ -143,7 +143,7 @@
   <link rel="stylesheet" href="output.css?v=homepage-map-mobile-20260527">
   <link rel="stylesheet" href="css/components/our-mines.css">
   <link rel="stylesheet" href="css/components/mineral-atlas.css?v=fresh-scroll">
-  <link rel="stylesheet" href="css/components/home-cinematic-motion.css?v=homepage-lenis-stable-20260714">
+  <link rel="stylesheet" href="css/components/home-cinematic-motion.css?v=homepage-mobile-paint-20260714">
 
   <!-- Component CSS (Non-Critical) -->
   <link rel="stylesheet" href="css/components/investor-metrics.css" media="print" onload="this.media='all'">
@@ -1752,7 +1752,7 @@
             <article class="mineral-showcase mineral-showcase--wide reveal" data-delay="1">
               <div class="mineral-showcase__image">
                 <img src="images/copper-new.webp" alt="Copper ore from Chagai exploration blocks in Balochistan"
-                  loading="lazy" width="1200" height="797">
+                  loading="eager" decoding="async" fetchpriority="high" width="1200" height="797">
                 <div class="mineral-showcase__overlay"></div>
               </div>
               <div class="mineral-showcase__content">
@@ -1777,7 +1777,7 @@
               <article class="mineral-showcase mineral-showcase--tall reveal" data-delay="2" data-chromite-card>
                 <div class="mineral-showcase__image">
                   <img src="images/chromite-new.webp"
-                    alt="Chromite lumps from Muslim Bagh mining operations in Balochistan" loading="lazy"
+                    alt="Chromite lumps from Muslim Bagh mining operations in Balochistan" loading="eager" decoding="async"
                     data-chromite-image width="1170" height="777">
                   <div class="mineral-showcase__media-caption" data-chromite-caption>Chrome Lumps</div>
                   <button class="mineral-showcase__arrow" type="button" aria-label="Show chrome concentrate"
@@ -1809,7 +1809,7 @@
 
               <article class="mineral-showcase mineral-showcase--tall reveal" data-delay="3" data-iron-card>
                 <div class="mineral-showcase__image">
-                  <img src="images/iron-ore-new.webp" alt="Iron ore lumps from Balochistan mining sites" loading="lazy"
+                  <img src="images/iron-ore-new.webp" alt="Iron ore lumps from Balochistan mining sites" loading="eager" decoding="async"
                     data-iron-image width="1986" height="1533">
                   <div class="mineral-showcase__media-caption" data-iron-caption>Iron Ore Lumps</div>
                   <button class="mineral-showcase__arrow" type="button" aria-label="Show iron concentrate"
@@ -1843,7 +1843,7 @@
             <article class="mineral-showcase mineral-showcase--wide mineral-showcase--reversed reveal"
               data-antimony-card>
               <div class="mineral-showcase__image">
-                <img src="images/antimony.avif" alt="Antimony lumps sample" loading="lazy" data-antimony-image width="1440" height="1080">
+                <img src="images/antimony.avif" alt="Antimony lumps sample" loading="eager" decoding="async" data-antimony-image width="1440" height="1080">
                 <div class="mineral-showcase__media-caption" data-antimony-caption>Antimony Lumps</div>
                 <button class="mineral-showcase__arrow" type="button" aria-label="Show antimony concentrate"
                   data-antimony-next>
@@ -4605,12 +4605,12 @@
   <script defer src="vendor/gsap/gsap.min.js"></script>
   <script defer src="vendor/gsap/ScrollTrigger.min.js"></script>
   <script defer src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-  <script type="module" src="js/scene-home.js?v=homepage-lenis-stable-20260714" defer></script>
+  <script type="module" src="js/scene-home.js?v=homepage-mobile-paint-20260714" defer></script>
   <script type="module" src="js/animations-premium.js" defer></script>
   <script type="module" src="js/earth-tech-core.js" defer></script>
   <script type="module" src="js/tactile-feedback.js" defer></script>
-  <script type="module" src="js/minerals-tabs.js?v=image-modal-guard-20260713" defer></script>
-  <script type="module" src="js/main.js?v=image-modal-guard-20260713" defer></script>
+  <script type="module" src="js/minerals-tabs.js?v=mineral-image-frame-20260714" defer></script>
+  <script type="module" src="js/main.js?v=mineral-image-frame-20260714" defer></script>
   <script type="module">
     import { initIntelligenceHub } from './js/intelligence-hub.js';
     document.addEventListener('DOMContentLoaded', initIntelligenceHub);

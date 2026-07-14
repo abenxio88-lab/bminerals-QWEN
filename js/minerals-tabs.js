@@ -11,6 +11,83 @@ let activeMediaItems = [];
 let activeMediaIndex = 0;
 const mediaModalGuard = createImageModalGuard('is-media-modal-open');
 
+function preloadMineralImage(url) {
+  if (!url) return Promise.resolve();
+
+  const image = new Image();
+  image.decoding = 'async';
+  image.src = url;
+  if (typeof image.decode === 'function') {
+    return image.decode().catch(() => {});
+  }
+
+  return new Promise((resolve) => {
+    image.onload = resolve;
+    image.onerror = resolve;
+  });
+}
+
+function toCssUrl(url) {
+  return `url("${String(url).replace(/"/g, '\\"')}")`;
+}
+
+function setMineralPreview(image) {
+  const imageWrap = image.closest('.mineral-showcase__image');
+  const src = image.currentSrc || image.getAttribute('src') || image.src;
+  if (!imageWrap || !src) return;
+
+  imageWrap.style.setProperty('--mineral-preview', toCssUrl(src));
+}
+
+function initMineralPreviewFrames() {
+  document.querySelectorAll('#minerals .mineral-showcase__image img').forEach((image) => {
+    setMineralPreview(image);
+    image.addEventListener('load', () => setMineralPreview(image));
+  });
+}
+
+function preloadHomepageMineralImages() {
+  const urls = new Set();
+
+  document.querySelectorAll('#minerals .mineral-showcase__image img').forEach((image) => {
+    image.loading = 'eager';
+    image.decoding = 'async';
+    const src = image.currentSrc || image.getAttribute('src');
+    if (src) urls.add(src);
+  });
+
+  Object.values(additionalMediaBySpecHref).forEach((items) => {
+    items
+      .filter((item) => item.type === 'image')
+      .forEach((item) => urls.add(item.src));
+  });
+
+  const queue = Array.from(urls);
+  const warmNext = () => {
+    const next = queue.shift();
+    if (!next) return;
+
+    preloadMineralImage(next).finally(() => {
+      window.setTimeout(warmNext, 45);
+    });
+  };
+
+  warmNext();
+}
+
+function preloadPanelImages(category) {
+  const panel = document.querySelector(`[data-mineral-panel="${category}"]`);
+  if (!panel) return Promise.resolve();
+
+  const pending = Array.from(panel.querySelectorAll('.mineral-showcase__image img')).map((image) => {
+    image.loading = 'eager';
+    image.decoding = 'async';
+    return preloadMineralImage(image.currentSrc || image.getAttribute('src'));
+  });
+
+  return Promise.all(pending);
+}
+
 const additionalMediaBySpecHref = {
   'product-metallic.html#copper': [
     {
@@ -157,23 +234,47 @@ const actionIcons = {
   media: '<svg class="mineral-showcase__action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="5" width="16" height="14" rx="1"/><path d="m8 15 2.5-3 2 2.5 1.5-1.8L18 17"/><path d="M8 9h.01"/></svg>',
 };
 
-function showMineralCategory(category) {
+let categorySwitchToken = 0;
+
+async function showMineralCategory(category) {
+  const activePanel = Array.from(categoryPanels).find((panel) => panel.classList.contains('is-active'));
+  if (activePanel?.dataset.mineralPanel === category) return;
+
+  const switchToken = ++categorySwitchToken;
+
   categoryButtons.forEach((button) => {
     const isActive = button.dataset.mineralCategory === category;
     button.classList.toggle('is-active', isActive);
     button.setAttribute('aria-selected', String(isActive));
   });
 
+  const nextPanel = Array.from(categoryPanels).find((panel) => panel.dataset.mineralPanel === category);
+  if (!nextPanel) return;
+
+  await preloadPanelImages(category);
+  if (switchToken !== categorySwitchToken) return;
+
+  nextPanel.classList.add('is-switching');
   categoryPanels.forEach((panel) => {
     const isActive = panel.dataset.mineralPanel === category;
     panel.classList.toggle('is-active', isActive);
     panel.hidden = !isActive;
   });
+
+  window.requestAnimationFrame(() => {
+    if (switchToken === categorySwitchToken) {
+      nextPanel.classList.remove('is-switching');
+    }
+  });
 }
 
 categoryButtons.forEach((button) => {
+  const category = button.dataset.mineralCategory;
+  button.addEventListener('pointerenter', () => preloadPanelImages(category));
+  button.addEventListener('focus', () => preloadPanelImages(category));
+  button.addEventListener('touchstart', () => preloadPanelImages(category), { passive: true });
   button.addEventListener('click', () => {
-    showMineralCategory(button.dataset.mineralCategory);
+    showMineralCategory(category);
   });
 });
 
@@ -279,6 +380,9 @@ function enableImageViewer(card, href) {
 }
 
 function enhanceMineralCards() {
+  initMineralPreviewFrames();
+  preloadHomepageMineralImages();
+
   mineralCards.forEach((card) => {
     if (card.querySelector('.mineral-showcase__actions')) return;
 

@@ -112,28 +112,50 @@ const productImageSets = {
 };
 
 function swapGalleryImage({ image, imageWrap, content, nextButton, view, updateContent }) {
+  const setPreview = () => {
+    const src = image.currentSrc || image.getAttribute('src') || image.src;
+    if (src) imageWrap.style.setProperty('--mineral-preview', `url("${String(src).replace(/"/g, '\\"')}")`);
+  };
+
+  const loadNextImage = () => {
+    const nextImage = new Image();
+    nextImage.decoding = 'async';
+    nextImage.src = view.image;
+
+    if (typeof nextImage.decode === 'function') {
+      return nextImage.decode().catch(() => {}).then(() => nextImage);
+    }
+
+    return new Promise((resolve) => {
+      nextImage.onload = () => resolve(nextImage);
+      nextImage.onerror = () => resolve(nextImage);
+    });
+  };
+
+  setPreview();
   imageWrap.classList.add('is-changing');
   if (content) content.classList.add('is-changing');
 
-  image.alt = view.alt;
-  image.src = view.image;
+  nextButton.disabled = true;
   nextButton.setAttribute('aria-label', view.nextLabel);
 
-  if (typeof updateContent === 'function') {
-    updateContent();
-  }
+  const finishSwap = (nextImage) => {
+    image.alt = view.alt;
+    image.src = nextImage.src;
 
-  const finishSwap = () => {
-    imageWrap.classList.remove('is-changing');
-    if (content) content.classList.remove('is-changing');
+    if (typeof updateContent === 'function') {
+      updateContent();
+    }
+
+    setPreview();
+    window.requestAnimationFrame(() => {
+      imageWrap.classList.remove('is-changing');
+      if (content) content.classList.remove('is-changing');
+      nextButton.disabled = false;
+    });
   };
 
-  if (typeof image.decode === 'function') {
-    image.decode().catch(() => {}).finally(finishSwap);
-    return;
-  }
-
-  window.requestAnimationFrame(finishSwap);
+  loadNextImage().then(finishSwap);
 }
 
 // ============================================

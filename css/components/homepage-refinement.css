@@ -873,11 +873,17 @@ body.homepage .expertise__visual {
   top: calc(var(--navbar-height) + 2rem);
   align-self: flex-start;
   padding-top: 1.5rem;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  contain: paint;
+  will-change: transform;
 }
 
 body.homepage .expertise__visual-card {
   padding-top: 3rem;
   overflow: visible;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 
 body.homepage .expertise__visual-badge {
@@ -885,6 +891,11 @@ body.homepage .expertise__visual-badge {
   right: 1.2rem;
   transform: translateY(-50%);
   z-index: 2;
+}
+
+body.homepage .expertise .feature-item--left,
+body.homepage .expertise .feature-item--right {
+  animation: none;
 }
 
 /* Operations opener and stepper */
@@ -1772,18 +1783,21 @@ body.homepage main>section:not(.hero):not(.commodity-ticker):not(.trust-bar) {
      underneath don't bleed through the semi-transparent background */
   body.homepage .stats-section__editorial {
     position: sticky;
-    top: var(--navbar-height, 70px);
+    top: calc(var(--navbar-height, 70px) + 0.75rem);
     z-index: 20;
     background: #ffffff !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     box-shadow: 0 8px 32px rgba(15, 31, 58, 0.12) !important;
-    transition: filter 0.28s var(--ease-smooth), opacity 0.28s var(--ease-smooth);
+    transition: none;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    contain: paint;
   }
 
   body.homepage .stats-section.stats-section--metrics-overlap .stats-section__editorial {
-    filter: blur(10px);
-    opacity: 0.42;
+    filter: none;
+    opacity: 1;
   }
 
   /* Mobile: metrics section gets a solid white base + top blur shadow
@@ -1798,6 +1812,20 @@ body.homepage main>section:not(.hero):not(.commodity-ticker):not(.trust-bar) {
     box-shadow:
       0 -4px 0 0 #ffffff,
       0 -16px 40px 8px rgba(255, 255, 255, 1);
+  }
+
+  body.homepage .stats-section__metrics::before {
+    content: "";
+    position: absolute;
+    left: -0.25rem;
+    right: -0.25rem;
+    top: -1.35rem;
+    height: 2.5rem;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.98) 70%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 }
 
@@ -2082,21 +2110,24 @@ body.homepage .homepage-whatsapp:focus-visible {
     padding-block: 4rem;
   }
 
-  /* On smaller phones, keep the editorial sticky so it can soften once the
-     metrics column starts sliding over it. */
+  /* Keep the original sticky reading effect, but do not animate blur on this
+     layer while Lenis is smoothing the page. */
   body.homepage .stats-section__editorial {
     position: sticky !important;
-    top: var(--navbar-height, 70px);
+    top: calc(var(--navbar-height, 70px) + 0.6rem) !important;
     z-index: 20 !important;
     box-shadow: 0 8px 24px rgba(15, 31, 58, 0.1) !important;
     background: #ffffff !important;
     border-left: 3px solid var(--home-accent);
-    transition: filter 0.28s var(--ease-smooth), opacity 0.28s var(--ease-smooth);
+    transition: none !important;
+    transform: translateZ(0) !important;
+    backface-visibility: hidden !important;
+    contain: paint !important;
   }
 
   body.homepage .stats-section.stats-section--metrics-overlap .stats-section__editorial {
-    filter: blur(10px);
-    opacity: 0.38;
+    filter: none !important;
+    opacity: 1 !important;
   }
 
   body.homepage .stats-section__metrics {

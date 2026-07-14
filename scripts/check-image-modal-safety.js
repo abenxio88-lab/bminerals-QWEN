@@ -72,7 +72,7 @@ function listHtmlFiles(directory) {
   });
 }
 
-const requiredVersion = 'image-modal-guard-20260713';
+const requiredVersion = 'mineral-image-frame-20260714';
 for (const htmlFile of listHtmlFiles(root)) {
   const html = fs.readFileSync(htmlFile, 'utf8');
   const mainReferences = html.match(/(?:\.\.\/)?js\/main\.js(?:\?[^"']*)?/g) || [];
@@ -84,7 +84,7 @@ for (const htmlFile of listHtmlFiles(root)) {
 const homepage = read('index.html');
 assert(homepage.includes(`js/minerals-tabs.js?v=${requiredVersion}`), 'Homepage mineral modal script is not cache-busted.');
 assert(
-  homepage.includes('home-cinematic-motion.css?v=homepage-lenis-stable-20260714'),
+  homepage.includes('home-cinematic-motion.css?v=homepage-mobile-paint-20260714'),
   'Homepage modal CSS is not cache-busted.'
 );
 

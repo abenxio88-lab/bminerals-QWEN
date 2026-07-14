@@ -174,12 +174,12 @@ function initCitableReveals() {
 
   items.forEach((item) => item.classList.add('revealed'));
 
-  if (!hasGsap || prefersReduced) {
+  if (!hasGsap || prefersReduced || mobileExtraMotion) {
     return;
   }
 
   gsap.utils.toArray(items).forEach((el) => {
-    if (mobileExtraMotion && el.closest('.hero, .stats-section')) {
+    if (el.closest('.expertise, #minerals')) {
       return;
     }
 
@@ -342,45 +342,7 @@ function initStatsDashboard() {
 
 function initStatsEditorialOverlap() {
   const section = document.querySelector('.stats-section');
-  const editorial = section?.querySelector('.stats-section__editorial');
-  const metrics = section?.querySelector('.stats-section__metrics');
-  if (!section || !editorial || !metrics) return;
-
-  let ticking = false;
-
-  const updateOverlapState = () => {
-    ticking = false;
-
-    const isMobileLayout = window.innerWidth <= 1024;
-    if (!isMobileLayout) {
-      section.classList.remove('stats-section--metrics-overlap');
-      return;
-    }
-
-    const sectionRect = section.getBoundingClientRect();
-    const editorialRect = editorial.getBoundingClientRect();
-    const metricsRect = metrics.getBoundingClientRect();
-    const headerOffset = 88;
-
-    const sectionIsActive = sectionRect.top < window.innerHeight && sectionRect.bottom > headerOffset;
-    const metricsHasReachedEditorial = metricsRect.top <= editorialRect.bottom - 28;
-
-    section.classList.toggle(
-      'stats-section--metrics-overlap',
-      sectionIsActive && metricsHasReachedEditorial
-    );
-  };
-
-  const requestUpdate = () => {
-    if (ticking) return;
-    ticking = true;
-    window.requestAnimationFrame(updateOverlapState);
-  };
-
-  updateOverlapState();
-  window.addEventListener('scroll', requestUpdate, { passive: true });
-  window.addEventListener('resize', requestUpdate);
-  window.addEventListener('load', requestUpdate);
+  section?.classList.remove('stats-section--metrics-overlap');
 }
 
 function init() {
