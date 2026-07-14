@@ -84,7 +84,7 @@ for (const htmlFile of listHtmlFiles(root)) {
 const homepage = read('index.html');
 assert(homepage.includes(`js/minerals-tabs.js?v=${requiredVersion}`), 'Homepage mineral modal script is not cache-busted.');
 assert(
-  homepage.includes('home-cinematic-motion.css?v=homepage-native-scroll-20260714'),
+  homepage.includes('home-cinematic-motion.css?v=homepage-lenis-stable-20260714'),
   'Homepage modal CSS is not cache-busted.'
 );
 

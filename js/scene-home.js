@@ -6,13 +6,48 @@ const mobileExtraMotion = window.matchMedia('(max-width: 768px)').matches;
 
 window.__sceneHomeEnhanced = true;
 
-function initLenis() {
+function initHomepageScroll() {
+  if (window.__smoothScrollingInitialized || window.__lenisEnabled || prefersReduced || !window.Lenis) return null;
   window.__smoothScrollingInitialized = true;
-  window.__homepageNativeScroll = true;
-  window.__bmLenis = null;
-  window.__lenisEnabled = false;
+  window.__homepageNativeScroll = false;
   window.__homepageLenisResizeSync = null;
-  document.documentElement.classList.remove('lenis', 'lenis-smooth', 'lenis-enhanced', 'lenis-stopped');
+
+  const lenis = new window.Lenis({
+    lerp: 0.08,
+    duration: 1.15,
+    wheelMultiplier: 0.88,
+    smoothWheel: true,
+    smoothTouch: false,
+    prevent: (node) => Boolean(node.closest?.('[data-lenis-prevent], .mineral-media-modal, .mineral-report-modal, .stone-lightbox'))
+  });
+
+  const allowBrowserZoom = (event) => {
+    if (!event.ctrlKey && !event.metaKey) return;
+    event.stopImmediatePropagation();
+  };
+
+  window.addEventListener('wheel', allowBrowserZoom, { capture: true, passive: true });
+
+  if (hasGsap) {
+    lenis.on('scroll', () => ScrollTrigger.update());
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+    gsap.ticker.lagSmoothing(0);
+  } else {
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+  }
+
+  window.__bmLenis = lenis;
+  window.__lenisEnabled = true;
+  window.__homepageLenisStable = true;
+  window.__homepageSmoothWheel = false;
+  window.__homepageStopSmoothWheel = null;
+  document.documentElement.classList.add('lenis-enhanced');
 
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener('click', (event) => {
@@ -22,15 +57,14 @@ function initLenis() {
       if (!target) return;
       event.preventDefault();
       const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 88;
-      const targetTop = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
-      window.scrollTo({
-        top: Math.max(0, targetTop),
-        behavior: prefersReduced ? 'auto' : 'smooth'
+      lenis.scrollTo(target, {
+        offset: -navbarHeight,
+        duration: 1.15
       });
     });
   });
 
-  return null;
+  return lenis;
 }
 
 function animateCounterValue(el, options = {}) {
@@ -350,7 +384,7 @@ function initStatsEditorialOverlap() {
 }
 
 function init() {
-  initLenis();
+  initHomepageScroll();
   if (hasGsap) gsap.registerPlugin(ScrollTrigger);
   initHeroScene();
   initDataFreshnessFade();
