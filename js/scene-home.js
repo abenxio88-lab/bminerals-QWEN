@@ -7,73 +7,12 @@ const mobileExtraMotion = window.matchMedia('(max-width: 768px)').matches;
 window.__sceneHomeEnhanced = true;
 
 function initLenis() {
-  if (window.__smoothScrollingInitialized || window.__lenisEnabled || prefersReduced || !window.Lenis) return null;
   window.__smoothScrollingInitialized = true;
-
-  const lenis = new window.Lenis({
-    lerp: 0.08,
-    duration: 1.15,
-    wheelMultiplier: 0.88,
-    smoothWheel: true,
-    smoothTouch: false,
-    autoResize: false
-  });
-
-  const syncLenisToCurrentScroll = () => {
-    const y = window.scrollY || window.pageYOffset || 0;
-    lenis.resize?.();
-    lenis.scrollTo?.(y, { immediate: true, force: true, lock: false, duration: 0 });
-  };
-
-  if (hasGsap) {
-    ScrollTrigger.config({
-      autoRefreshEvents: 'visibilitychange,DOMContentLoaded,load'
-    });
-    lenis.on('scroll', () => ScrollTrigger.update());
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
-    gsap.ticker.lagSmoothing(0);
-  } else {
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-  }
-
-  let resizeFrame = null;
-  let resizeTimer = null;
-  const handleResize = () => {
-    if (document.documentElement.classList.contains('is-media-modal-open')) return;
-    const scrollBeforeResize = window.scrollY || window.pageYOffset || 0;
-
-    window.cancelAnimationFrame(resizeFrame);
-    window.clearTimeout(resizeTimer);
-    lenis.stop?.();
-
-    resizeFrame = window.requestAnimationFrame(() => {
-      lenis.resize?.();
-      if (hasGsap) ScrollTrigger.refresh();
-      lenis.scrollTo?.(scrollBeforeResize, { immediate: true, force: true, lock: false, duration: 0 });
-      if (Math.abs((window.scrollY || window.pageYOffset || 0) - scrollBeforeResize) > 2) {
-        window.scrollTo(0, scrollBeforeResize);
-      }
-      resizeTimer = window.setTimeout(() => {
-        syncLenisToCurrentScroll();
-        lenis.start?.();
-      }, 120);
-    });
-  };
-
-  window.addEventListener('resize', handleResize);
-  window.visualViewport?.addEventListener('resize', handleResize);
-
-  window.__bmLenis = lenis;
-  window.__lenisEnabled = true;
-  window.__homepageNativeScroll = false;
-  window.__homepageLenisResizeSync = handleResize;
-  document.documentElement.classList.add('lenis-enhanced');
+  window.__homepageNativeScroll = true;
+  window.__bmLenis = null;
+  window.__lenisEnabled = false;
+  window.__homepageLenisResizeSync = null;
+  document.documentElement.classList.remove('lenis', 'lenis-smooth', 'lenis-enhanced', 'lenis-stopped');
 
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener('click', (event) => {
@@ -82,14 +21,16 @@ function initLenis() {
       const target = document.querySelector(href);
       if (!target) return;
       event.preventDefault();
-      lenis.scrollTo(target, {
-        offset: -88,
-        duration: 1.2
+      const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 88;
+      const targetTop = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+      window.scrollTo({
+        top: Math.max(0, targetTop),
+        behavior: prefersReduced ? 'auto' : 'smooth'
       });
     });
   });
 
-  return lenis;
+  return null;
 }
 
 function animateCounterValue(el, options = {}) {
