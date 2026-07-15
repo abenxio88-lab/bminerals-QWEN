@@ -1315,13 +1315,13 @@
         }
       };
 
-      const setMode = (mode) => {
+      const setMode = (mode, inquiryValue) => {
         const config = modeConfig[mode] || modeConfig.message;
         modeButtons.forEach((button) => {
           button.classList.toggle('is-active', button.dataset.contactMode === mode);
         });
         if (formTitle) formTitle.textContent = config.title;
-        if (inquirySelect) inquirySelect.value = config.inquiry;
+        if (inquirySelect) inquirySelect.value = inquiryValue ?? config.inquiry;
         if (messageField) messageField.placeholder = config.placeholder;
         if (submitButtonLabel) submitButtonLabel.textContent = config.button;
         if (reviewFields) reviewFields.hidden = mode !== 'review';
@@ -1338,7 +1338,7 @@
         inquirySelect.addEventListener('change', () => {
           if (inquirySelect.value === 'review') setMode('review');
           else if (inquirySelect.value === 'product') setMode('quote');
-          else setMode('message');
+          else setMode('message', inquirySelect.value);
         });
       }
 
