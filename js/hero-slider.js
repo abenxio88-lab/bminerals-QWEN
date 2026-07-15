@@ -145,9 +145,6 @@ export function initHeroSlider() {
     restartAutoPlay();
   });
 
-  heroSection?.addEventListener('mouseenter', stopAutoPlay);
-  heroSection?.addEventListener('mouseleave', () => scheduleAutoPlay());
-
   let touchStartX = 0;
   let touchEndX = 0;
 
