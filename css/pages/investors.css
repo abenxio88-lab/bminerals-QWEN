@@ -976,6 +976,18 @@
     scroll-snap-align: center;
   }
 
+  .reports-list .report-item.reveal {
+    transform: translateX(2rem);
+  }
+
+  .reports-list .report-item.reveal:nth-child(even) {
+    transform: translateX(-2rem);
+  }
+
+  .reports-list .report-item.reveal.revealed {
+    transform: translateX(0);
+  }
+
   .report-item__icon {
     width: 40px;
     height: 40px;
