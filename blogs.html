@@ -287,6 +287,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 0.9rem;
       padding-top: 1.5rem;
       border-top: 1px solid rgba(0,0,0,0.05);
     }
@@ -305,6 +306,24 @@
 
     .blog-card__link:hover {
       gap: 0.8rem;
+    }
+
+    .blog-card__cta {
+      color: var(--navy-900);
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-decoration: underline;
+      text-decoration-color: rgba(15, 31, 58, 0.24);
+      text-underline-offset: 3px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .blog-card__cta:hover {
+      color: var(--primary-gold-600);
+      text-decoration-color: currentColor;
     }
 
     @media (max-width: 768px) {
@@ -330,6 +349,10 @@
       .blog-section > .container { padding-inline: 0.75rem; }
       .blog-grid { grid-template-columns: minmax(0, 1fr); }
       .blog-card__content { padding: 1.25rem; }
+      .blog-card__footer {
+        align-items: flex-start;
+        flex-direction: column;
+      }
       .blog-hero__title {
         font-size: 1.86rem !important;
         line-height: 1.04 !important;
@@ -364,11 +387,26 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Blog",
+    "@type": "CollectionPage",
     "name": "Balochistan Minerals Insights",
     "url": "https://balochistanminerals.com/blogs",
     "description": "Insights on Pakistan minerals, responsible mining, logistics and sourcing from Balochistan.",
-    "publisher": { "@id": "https://balochistanminerals.com/#organization" }
+    "publisher": { "@id": "https://balochistanminerals.com/#organization" },
+    "mainEntity": {
+      "@type": "ItemList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "The Future of Sustainable Mining in Balochistan", "url": "https://balochistanminerals.com/blog/sustainable-mining-balochistan" },
+        { "@type": "ListItem", "position": 2, "name": "Copper: Powering the Electric Revolution", "url": "https://balochistanminerals.com/blog/copper-electric-revolution" },
+        { "@type": "ListItem", "position": 3, "name": "Empowering Local Communities through Mining", "url": "https://balochistanminerals.com/blog/empowering-local-communities-mining" },
+        { "@type": "ListItem", "position": 4, "name": "AI and Automation in Deep-Pit Mining", "url": "https://balochistanminerals.com/blog/ai-automation-deep-pit-mining" },
+        { "@type": "ListItem", "position": 5, "name": "Pakistan's Role in the Global Mineral Supply Chain", "url": "https://balochistanminerals.com/blog/pakistan-global-mineral-supply-chain" },
+        { "@type": "ListItem", "position": 6, "name": "Vision Zero: Our Road to Zero Workplace Accidents", "url": "https://balochistanminerals.com/blog/vision-zero-workplace-accidents" },
+        { "@type": "ListItem", "position": 7, "name": "Land Reclamation: Life After Mining", "url": "https://balochistanminerals.com/blog/land-reclamation-life-after-mining" },
+        { "@type": "ListItem", "position": 8, "name": "Streamlining Exports through Gwadar Port", "url": "https://balochistanminerals.com/blog/streamlining-exports-gwadar-port" },
+        { "@type": "ListItem", "position": 9, "name": "The Crucial Role of Barite in Modern Drilling", "url": "https://balochistanminerals.com/blog/barite-modern-drilling" },
+        { "@type": "ListItem", "position": 10, "name": "Next-Gen Minerals: Chromite and High-Grade Alloys", "url": "https://balochistanminerals.com/blog/chromite-high-grade-alloys" }
+      ]
+    }
   }
   </script>
 
@@ -1233,7 +1271,7 @@
           <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">ESG Impact</span>
-              <picture><source type="image/avif" srcset="/images/hero/optimized/hero-5-480.avif 480w, /images/hero/optimized/hero-5-768.avif 768w, /images/hero/optimized/hero-5-1200.avif 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/hero-5.webp" alt="Sustainable Mining" width="2160" height="1215"></picture>
+              <picture><source type="image/avif" srcset="/images/hero/optimized/hero-5-480.avif 480w, /images/hero/optimized/hero-5-768.avif 768w, /images/hero/optimized/hero-5-1200.avif 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/hero-5.webp" alt="Mineral processing plant with conveyors at dusk" width="2160" height="1215"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -1241,9 +1279,10 @@
                 January 15, 2026
               </div>
               <h2 class="blog-card__title">The Future of Sustainable Mining in Balochistan</h2>
-              <p class="blog-card__excerpt">How Balochistan Minerals is leading the way in integrating ESG principles into every stage of the mining lifecycle, ensuring a greener future for Pakistan.</p>
+              <p class="blog-card__excerpt">How <a href="/sustainability">responsible mining</a> connects environmental controls, governance and community planning across a mine lifecycle.</p>
               <div class="blog-card__footer">
                 <a href="/blog/sustainable-mining-balochistan" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="/sustainability" class="blog-card__cta">ESG standards</a>
               </div>
             </div>
           </article>
@@ -1252,7 +1291,7 @@
           <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Operations</span>
-              <picture><source type="image/avif" srcset="/images/copper-new-480.avif 480w, /images/copper-new-768.avif 768w, /images/copper-new-1200.avif 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/copper-new.webp" alt="Copper Extraction" width="1200" height="797"></picture>
+              <picture><source type="image/avif" srcset="/images/copper-new-480.avif 480w, /images/copper-new-768.avif 768w, /images/copper-new-1200.avif 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/copper-new.webp" alt="Close-up of copper-bearing rock" width="1200" height="797"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -1260,9 +1299,10 @@
                 January 10, 2026
               </div>
               <h2 class="blog-card__title">Copper: Powering the Electric Revolution</h2>
-              <p class="blog-card__excerpt">Exploring the vital role of copper in global electrification and how our Chagai projects are poised to meet the rising international demand.</p>
+              <p class="blog-card__excerpt">Exploring <a href="/product-metallic#copper">copper supply</a> and why electrification demand keeps the metal central to modern infrastructure.</p>
               <div class="blog-card__footer">
                 <a href="/blog/copper-electric-revolution" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="/product-metallic#copper" class="blog-card__cta">Copper specs</a>
               </div>
             </div>
           </article>
@@ -1271,7 +1311,7 @@
           <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Community</span>
-              <picture><source type="image/avif" srcset="/images/hero/optimized/about-us-hero-img-640.avif 640w, /images/hero/optimized/about-us-hero-img-960.avif 960w, /images/hero/optimized/about-us-hero-img-1400.avif 1400w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/about-us-hero-img.webp" alt="Local Workforce" width="1920" height="672"></picture>
+              <picture><source type="image/avif" srcset="/images/hero/optimized/about-us-hero-img-640.avif 640w, /images/hero/optimized/about-us-hero-img-960.avif 960w, /images/hero/optimized/about-us-hero-img-1400.avif 1400w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/about-us-hero-img.webp" alt="Bulldozers working across a mined material yard" width="1920" height="672"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -1279,9 +1319,10 @@
                 January 5, 2026
               </div>
               <h2 class="blog-card__title">Empowering Local Communities through Mining</h2>
-              <p class="blog-card__excerpt">A look at our community development initiatives and how we achieve an 85% local employment rate across our major mining projects.</p>
+              <p class="blog-card__excerpt">A look at <a href="/sustainability">community engagement in mining</a> and why consultation, training and local services matter around resource projects.</p>
               <div class="blog-card__footer">
                 <a href="/blog/empowering-local-communities-mining" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="/sustainability" class="blog-card__cta">Community work</a>
               </div>
             </div>
           </article>
@@ -1290,7 +1331,7 @@
           <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Technology</span>
-              <picture><source type="image/avif" srcset="/images/hero/optimized/hero-4-480.avif 480w, /images/hero/optimized/hero-4-768.avif 768w, /images/hero/optimized/hero-4-1200.avif 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/hero-4.webp" alt="Advanced Machinery" width="2160" height="1215"></picture>
+              <picture><source type="image/avif" srcset="/images/hero/optimized/hero-4-480.avif 480w, /images/hero/optimized/hero-4-768.avif 768w, /images/hero/optimized/hero-4-1200.avif 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/hero-4.webp" alt="Wheel loader filling a haul truck in an open-pit mine" width="2160" height="1215"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -1298,9 +1339,10 @@
                 December 28, 2025
               </div>
               <h2 class="blog-card__title">AI and Automation in Deep-Pit Mining</h2>
-              <p class="blog-card__excerpt">Integrating cutting-edge automation technologies to improve safety and operational efficiency in our high-altitude chromite operations.</p>
+              <p class="blog-card__excerpt">How <a href="/product-metallic#chromite">mineral operations</a> can use mining automation for safer planning, monitoring and equipment coordination.</p>
               <div class="blog-card__footer">
                 <a href="/blog/ai-automation-deep-pit-mining" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="/product-metallic#chromite" class="blog-card__cta">Chromite catalog</a>
               </div>
             </div>
           </article>
@@ -1309,7 +1351,7 @@
           <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Economy</span>
-              <picture><source type="image/avif" srcset="/images/hero/optimized/hero-6-640.avif 640w, /images/hero/optimized/hero-6-960.avif 960w, /images/hero/optimized/hero-6-1400.avif 1400w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/hero-6.webp" alt="Global Trade" width="2160" height="1215"></picture>
+              <picture><source type="image/avif" srcset="/images/hero/optimized/hero-6-640.avif 640w, /images/hero/optimized/hero-6-960.avif 960w, /images/hero/optimized/hero-6-1400.avif 1400w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/hero-6.webp" alt="Aerial view of excavators and conveyor equipment at a mine site" width="2160" height="1215"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -1317,9 +1359,10 @@
                 December 20, 2025
               </div>
               <h2 class="blog-card__title">Pakistan's Role in the Global Mineral Supply Chain</h2>
-              <p class="blog-card__excerpt">Analyzing how our strategic logistics and port access are putting Pakistan on the map as a reliable mining partner for global industries.</p>
+              <p class="blog-card__excerpt">How <a href="/logistics">mine-to-port logistics</a>, documentation and reliable handoffs shape mineral export planning for international buyers.</p>
               <div class="blog-card__footer">
                 <a href="/blog/pakistan-global-mineral-supply-chain" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="/logistics" class="blog-card__cta">Export routes</a>
               </div>
             </div>
           </article>
@@ -1328,7 +1371,7 @@
           <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Safety</span>
-              <picture><source srcset="/images/hero/optimized/hero-7.avif" type="image/avif"><img loading="lazy" decoding="async" src="images/hero/hero-7.webp" alt="Safety First" width="2160" height="1215"></picture>
+              <picture><source srcset="/images/hero/optimized/hero-7.avif" type="image/avif"><img loading="lazy" decoding="async" src="images/hero/hero-7.webp" alt="Large excavator working in an open-pit mine at sunset" width="2160" height="1215"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -1336,9 +1379,10 @@
                 December 12, 2025
               </div>
               <h2 class="blog-card__title">Vision Zero: Our Road to Zero Workplace Accidents</h2>
-              <p class="blog-card__excerpt">Deep-diving into our comprehensive safety protocols and training programs that keep our workforce safe in challenging terrains.</p>
+              <p class="blog-card__excerpt">How <a href="/sustainability">mining safety training</a>, reporting routines and field controls help reduce risk in challenging terrain.</p>
               <div class="blog-card__footer">
                 <a href="/blog/vision-zero-workplace-accidents" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="/sustainability" class="blog-card__cta">Safety approach</a>
               </div>
             </div>
           </article>
@@ -1347,7 +1391,7 @@
           <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Environment</span>
-              <picture><source type="image/avif" srcset="/images/hero/optimized/hero-5-480.avif 480w, /images/hero/optimized/hero-5-768.avif 768w, /images/hero/optimized/hero-5-1200.avif 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/hero-5.webp" alt="Land Reclamation" width="2160" height="1215"></picture>
+              <picture><source type="image/avif" srcset="/images/hero/optimized/hero-5-480.avif 480w, /images/hero/optimized/hero-5-768.avif 768w, /images/hero/optimized/hero-5-1200.avif 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/hero-5.webp" alt="Mineral processing plant with conveyors at dusk" width="2160" height="1215"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -1355,9 +1399,10 @@
                 December 1, 2025
               </div>
               <h2 class="blog-card__title">Land Reclamation: Life After Mining</h2>
-              <p class="blog-card__excerpt">Highlighting our successful restoration of over 120 hectares of former mining sites into productive ecological zones.</p>
+              <p class="blog-card__excerpt">How mining land restoration, water management and <a href="/sustainability">responsible reclamation</a> support long-term site recovery after extraction.</p>
               <div class="blog-card__footer">
                 <a href="/blog/land-reclamation-life-after-mining" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="/sustainability" class="blog-card__cta">Reclamation</a>
               </div>
             </div>
           </article>
@@ -1366,7 +1411,7 @@
           <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Logistics</span>
-              <picture><source type="image/avif" srcset="/images/hero/optimized/hero-2-640.avif 640w, /images/hero/optimized/hero-2-960.avif 960w, /images/hero/optimized/hero-2-1400.avif 1400w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/hero-2.webp" alt="Logistics Network" width="2160" height="1215"></picture>
+              <picture><source type="image/avif" srcset="/images/hero/optimized/hero-2-640.avif 640w, /images/hero/optimized/hero-2-960.avif 960w, /images/hero/optimized/hero-2-1400.avif 1400w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/hero-2.webp" alt="Haul truck driving through an open-pit mine" width="2160" height="1215"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -1374,9 +1419,10 @@
                 November 25, 2025
               </div>
               <h2 class="blog-card__title">Streamlining Exports through Gwadar Port</h2>
-              <p class="blog-card__excerpt">How the development of the Gwadar Port is enhancing our ability to reach international markets with record efficiency.</p>
+              <p class="blog-card__excerpt">How <a href="/logistics">Gwadar Port logistics</a>, route planning and export documentation can make mineral shipping clearer for buyers.</p>
               <div class="blog-card__footer">
                 <a href="/blog/streamlining-exports-gwadar-port" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="/logistics" class="blog-card__cta">Logistics network</a>
               </div>
             </div>
           </article>
@@ -1385,7 +1431,7 @@
           <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Resources</span>
-              <picture><source type="image/avif" srcset="/images/barite-card-480.avif 480w, /images/barite-card-768.avif 768w, /images/barite-card-1200.avif 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/barite-card.jpg" alt="Barite Mineral" width="1536" height="1024"></picture>
+              <picture><source type="image/avif" srcset="/images/barite-card-480.avif 480w, /images/barite-card-768.avif 768w, /images/barite-card-1200.avif 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/barite-card.jpg" alt="Cluster of pale blue and amber mineral crystals" width="1536" height="1024"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -1393,9 +1439,10 @@
                 November 15, 2025
               </div>
               <h2 class="blog-card__title">The Crucial Role of Barite in Modern Drilling</h2>
-              <p class="blog-card__excerpt">Understanding why barite is indispensable for the global energy sector and how Khuzdar is becoming a central hub for its production.</p>
+              <p class="blog-card__excerpt">Why <a href="/product-industrial#barite">barite in drilling fluids</a> matters for density control and what buyers review when evaluating industrial mineral supply.</p>
               <div class="blog-card__footer">
                 <a href="/blog/barite-modern-drilling" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="/product-industrial#barite" class="blog-card__cta">Barite specs</a>
               </div>
             </div>
           </article>
@@ -1404,7 +1451,7 @@
           <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Innovation</span>
-              <picture><source type="image/avif" srcset="/images/hero/optimized/hero-4-480.avif 480w, /images/hero/optimized/hero-4-768.avif 768w, /images/hero/optimized/hero-4-1200.avif 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/hero-4.webp" alt="Mining Innovation" width="2160" height="1215"></picture>
+              <picture><source type="image/avif" srcset="/images/hero/optimized/hero-4-480.avif 480w, /images/hero/optimized/hero-4-768.avif 768w, /images/hero/optimized/hero-4-1200.avif 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/hero-4.webp" alt="Wheel loader filling a haul truck in an open-pit mine" width="2160" height="1215"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -1412,9 +1459,10 @@
                 November 2, 2025
               </div>
               <h2 class="blog-card__title">Next-Gen Minerals: Chromite and High-Grade Alloys</h2>
-              <p class="blog-card__excerpt">How Balochistan's high-grade chromite ores are driving advancements in stainless steel and superalloy manufacturing worldwide.</p>
+              <p class="blog-card__excerpt">How <a href="/product-metallic#chromite">chromite for alloys</a> supports stainless steel and alloy manufacturing, and why material quality matters to buyers.</p>
               <div class="blog-card__footer">
                 <a href="/blog/chromite-high-grade-alloys" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="/product-metallic#chromite" class="blog-card__cta">Chromite specs</a>
               </div>
             </div>
           </article>
