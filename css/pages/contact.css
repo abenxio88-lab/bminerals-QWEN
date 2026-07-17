@@ -162,7 +162,11 @@
   font-size: var(--text-sm);
   color: var(--text-primary);
   background: var(--bg-secondary);
-  transition: border-color 0.3s var(--ease-smooth);
+  transition: border-color 0.2s var(--ease-smooth);
+}
+
+.contact-form__select {
+  transition: none;
 }
 
 .contact-form__input:focus,
@@ -674,6 +678,16 @@
 
   .contact-form {
     padding: 2rem 1.5rem;
+  }
+
+  .contact-form__input,
+  .contact-form__textarea,
+  .contact-form__select {
+    font-size: 16px;
+  }
+
+  .contact-form__textarea {
+    resize: none;
   }
 
   .contact-form__row {
