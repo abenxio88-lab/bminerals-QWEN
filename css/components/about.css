@@ -416,6 +416,10 @@
   .about__story-stat:nth-child(2) { order: 3; }
   .about__story-stat:nth-child(3) { order: 2; }
 
+  .about__values {
+    display: none;
+  }
+
   .about__values-grid {
     grid-template-columns: 1fr;
   }
