@@ -3,7 +3,7 @@
    ============================================ */
 .our-mines-section {
   padding: var(--section-padding-y) var(--section-padding-x);
-  background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+  background: var(--bg-primary);
   position: relative;
   overflow: hidden;
 }
@@ -12,9 +12,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: 
-    radial-gradient(circle at 30% 20%, rgba(212, 175, 55, 0.04) 0%, transparent 50%),
-    radial-gradient(circle at 70% 80%, rgba(44, 94, 143, 0.03) 0%, transparent 50%);
+  background: none;
   pointer-events: none;
 }
 
@@ -34,7 +32,7 @@
 
 .our-mines__title {
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: var(--display-size);
   font-weight: 600;
   line-height: 1.1;
   letter-spacing: 0.02em;
@@ -51,226 +49,217 @@
   margin: 0 auto;
 }
 
-/* Mining Operations Timeline */
-.our-mines__operations {
-  margin-bottom: 5rem;
-}
-
-.our-mines__operations-title {
-  font-family: var(--font-heading);
-  font-size: var(--text-2xl);
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 3rem;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-}
-
-.our-mines__timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  max-width: 1000px;
+/* Quality Assurance Bento Grid */
+.qa-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-.our-mines__timeline-item {
-  display: flex;
-  gap: 3rem;
-  padding-bottom: 3rem;
+/* Card Outer Shell (Double-Bezel) */
+.qa-card__outer-shell {
+  background: rgba(17, 30, 47, 0.03);
+  border: 1px solid rgba(17, 30, 47, 0.08);
+  padding: 8px;
+  height: 100%;
+  transition: all 0.7s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* Card Inner Core (Double-Bezel Content) */
+.qa-card__inner-core {
+  background: #111e2f; /* Dark background to showcase high-end laboratory aesthetics */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2.5rem;
+  height: 100%;
   position: relative;
-}
-
-.our-mines__timeline-item:last-child {
-  padding-bottom: 0;
-}
-
-/* Timeline Marker */
-.our-mines__timeline-marker {
+  overflow: hidden !important;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: flex-start;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.05), var(--shadow-sm);
+  transition: all 0.7s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* Asymmetric Bento Span Definitions */
+.qa-card--large {
+  grid-column: span 7;
+}
+
+.qa-card--medium {
+  grid-column: span 5;
+}
+
+/* Card Image Background (e.g. for Lab testing card) */
+.qa-card__bg-image-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.qa-card__bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.22;
+  transition: transform 0.7s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.qa-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(17, 30, 47, 0.2) 0%, rgba(17, 30, 47, 0.95) 100%);
+}
+
+.qa-card__content {
   position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex-grow: 1;
 }
 
-.our-mines__timeline-dot {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 3px solid;
-  background: var(--bg-card);
-  position: relative;
-  z-index: 2;
-  transition: all 0.3s var(--ease-smooth);
+/* Align text to bottom for lab image card */
+.qa-card--lab .qa-card__content {
+  justify-content: flex-end;
+  min-height: 380px;
 }
 
-.our-mines__timeline-dot--active {
-  border-color: var(--primary-gold-500);
-  box-shadow: 0 0 0 6px rgba(212, 175, 55, 0.15);
-}
-
-.our-mines__timeline-dot--processing {
-  border-color: var(--navy-500);
-  box-shadow: 0 0 0 6px rgba(44, 94, 143, 0.15);
-}
-
-.our-mines__timeline-dot--exploration {
-  border-color: var(--charcoal-600);
-  box-shadow: 0 0 0 6px rgba(74, 86, 96, 0.15);
-}
-
-.our-mines__timeline-item:hover .our-mines__timeline-dot {
-  transform: scale(1.2);
-}
-
-.our-mines__timeline-line {
-  width: 3px;
-  flex: 1;
-  background: linear-gradient(
-    to bottom,
-    var(--border) 0%,
-    var(--border-light) 100%
-  );
-  margin-top: 1rem;
-}
-
-/* Timeline Content */
-.our-mines__timeline-content {
-  flex: 1;
-  padding: 2rem 2.5rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-  transition: all 0.4s var(--ease-smooth);
-}
-
-.our-mines__timeline-item:hover .our-mines__timeline-content {
-  box-shadow: var(--shadow-lg);
-  border-color: var(--primary-gold-300);
-}
-
-/* Site Badge */
-.our-mines__site-badge {
-  display: inline-block;
-  padding: 0.35rem 0.875rem;
-  border-radius: var(--radius-pill);
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 1rem;
-}
-
-.our-mines__site-badge--active {
-  background: rgba(212, 175, 55, 0.12);
-  color: var(--primary-gold-600);
-  border: 1px solid rgba(212, 175, 55, 0.35);
-}
-
-.our-mines__site-badge--processing {
-  background: rgba(44, 94, 143, 0.1);
-  color: var(--navy-600);
-  border: 1px solid rgba(44, 94, 143, 0.3);
-}
-
-.our-mines__site-badge--exploration {
-  background: rgba(74, 86, 96, 0.1);
-  color: var(--charcoal-700);
-  border: 1px solid rgba(74, 86, 96, 0.3);
-}
-
-/* Site Name & Location */
-.our-mines__site-name {
-  font-family: var(--font-heading);
-  font-size: var(--text-xl);
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 0.5rem;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-}
-
-.our-mines__site-location {
+/* Icons */
+.qa-card__icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(230, 92, 26, 0.06);
+  border: 1px solid rgba(230, 92, 26, 0.15);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: var(--text-sm);
-  color: var(--text-muted);
+  justify-content: center;
   margin-bottom: 1.5rem;
+  transition: all 0.7s cubic-bezier(0.32, 0.72, 0, 1);
 }
 
-.our-mines__site-location svg {
+.qa-card__icon svg {
   color: var(--primary-gold-400);
 }
 
-/* Site Metrics */
-.our-mines__site-metrics {
-  display: flex;
-  gap: 2.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--border-light);
+/* Eyebrow tag */
+.qa-card__tag {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--primary-gold-400);
+  margin-bottom: 1rem;
 }
 
-.our-mines__metric {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.our-mines__metric-value {
+/* Heading */
+.qa-card__title {
   font-family: var(--font-heading);
-  font-size: var(--text-lg);
+  font-size: var(--text-xl);
   font-weight: 600;
-  color: var(--primary-gold-500);
+  color: #ffffff;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
   letter-spacing: 0.02em;
 }
 
-.our-mines__metric-label {
-  font-size: var(--text-xs);
+/* Description */
+.qa-card__text {
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  color: var(--navy-100);
+  margin-bottom: 2rem;
+  flex-grow: 1;
+  text-align: justify;
+}
+
+/* Metrics row */
+.qa-card__metrics {
+  display: flex;
+  gap: 2.0rem;
+  justify-content: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: auto;
+}
+
+.qa-card__metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.qa-card__metric-val {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
   font-weight: 600;
-  color: var(--text-muted);
+  color: var(--primary-gold-400);
+  letter-spacing: 0.02em;
+}
+
+.qa-card__metric-lbl {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--navy-200);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 
-/* Responsive */
-@media (max-width: 1200px) {
-  .our-mines__site-metrics {
-    flex-wrap: wrap;
-    gap: 1.5rem;
+/* Interactive Hover States */
+.qa-card:hover .qa-card__outer-shell {
+  border-color: rgba(230, 92, 26, 0.22);
+  box-shadow: 0 16px 40px rgba(230, 92, 26, 0.04);
+  background: rgba(230, 92, 26, 0.02);
+}
+
+.qa-card:hover .qa-card__inner-core {
+  border-color: rgba(230, 92, 26, 0.4);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.08), 0 20px 48px rgba(10, 22, 40, 0.25);
+  transform: translateY(-2px);
+}
+
+.qa-card:hover .qa-card__bg-image {
+  transform: scale(1.04);
+  opacity: 0.28;
+}
+
+.qa-card:hover .qa-card__icon {
+  transform: scale(1.08);
+  background: rgba(230, 92, 26, 0.12);
+  border-color: rgba(230, 92, 26, 0.35);
+  box-shadow: 0 0 15px rgba(230, 92, 26, 0.1);
+}
+
+/* Responsive Collapses */
+@media (max-width: 992px) {
+  .qa-card--large, .qa-card--medium {
+    grid-column: span 12;
+  }
+  
+  .qa-card--lab .qa-card__content {
+    min-height: auto;
   }
 }
 
 @media (max-width: 768px) {
-  .our-mines-section {
-    padding: 4rem var(--section-padding-x);
+  .qa-bento-grid {
+    gap: 1.5rem;
   }
-
-  .our-mines__header {
-    margin-bottom: 3rem;
+  
+  .qa-card__inner-core {
+    padding: 2rem;
   }
-
-  .our-mines__title {
-    font-size: var(--text-2xl);
-  }
-
-  .our-mines__timeline-item {
-    gap: 2rem;
-  }
-
-  .our-mines__timeline-content {
-    padding: 1.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .our-mines__operations-title {
-    font-size: var(--text-xl);
-  }
-
-  .our-mines__site-name {
-    font-size: var(--text-lg);
+  
+  .qa-card__metrics {
+    gap: 1.5rem;
+    flex-wrap: wrap;
   }
 }

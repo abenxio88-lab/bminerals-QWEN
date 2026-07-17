@@ -14,7 +14,7 @@
   border-radius: 0 0 var(--radius-md) var(--radius-md);
   font-weight: 600;
   font-size: var(--text-sm);
-  z-index: 10000;
+  z-index: var(--z-critical-overlay);
   text-decoration: none;
   transition: top 0.2s var(--ease-smooth);
 }
@@ -56,10 +56,20 @@ a:focus-visible {
   top: var(--navbar-height);
   left: 0;
   right: 0;
-  background: var(--navy-950);
-  border-bottom: 1px solid rgba(44, 94, 143, 0.2);
-  padding: 0.625rem var(--section-padding-x);
-  z-index: 998;
+  background: #05070A;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.38rem var(--section-padding-x);
+  z-index: var(--z-data-freshness);
+  display: block;
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  visibility: visible;
+  will-change: opacity, transform;
+}
+
+.data-freshness--hidden {
+  pointer-events: none;
+  visibility: hidden;
 }
 
 .data-freshness__container {
@@ -70,6 +80,7 @@ a:focus-visible {
   justify-content: center;
   gap: 0.625rem;
   font-size: var(--text-xs);
+  line-height: 1.35;
   color: rgba(255, 255, 255, 0.75);
 }
 
@@ -97,7 +108,7 @@ a:focus-visible {
 
 @media (max-width: 768px) {
   .data-freshness {
-    padding: 0.5rem var(--section-padding-x);
+    display: none;
   }
 
   .data-freshness__container {

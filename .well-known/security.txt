@@ -1,0 +1,4 @@
+Contact: mailto:security@balochistanminerals.com
+Preferred-Languages: en
+Canonical: https://balochistanminerals.com/.well-known/security.txt
+Expires: 2027-07-05T00:00:00Z

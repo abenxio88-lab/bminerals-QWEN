@@ -3,12 +3,30 @@
    ============================================ */
 .investors {
   padding: var(--section-padding-y) var(--section-padding-x);
-  background: linear-gradient(to bottom, var(--bg-secondary), var(--bg-primary));
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.investors::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: none;
+  pointer-events: none;
 }
 
 .investors__container {
   max-width: var(--max-width);
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .investors__header {
@@ -16,12 +34,55 @@
   margin-bottom: 4rem;
 }
 
+.investors__title {
+  max-width: 720px;
+  margin: 0;
+  margin-inline: auto;
+  font-family: var(--font-heading);
+  font-size: var(--investors-section-title-size, clamp(1.45rem, 2.45vw, 2.15rem));
+  font-weight: 700;
+  line-height: var(--investors-section-title-line, 1.15);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: var(--text-primary);
+}
+
 .investors__subtitle {
-  font-size: var(--text-lg);
+  font-size: clamp(0.92rem, 1.05vw, 1rem);
   color: var(--text-secondary);
   line-height: 1.7;
-  max-width: 800px;
+  max-width: 680px;
   margin: 1rem auto 0;
+}
+
+@media (max-width: 768px) {
+  body.investors-page main :is(
+    .q3-results-premium__title,
+    .investors__title,
+    .investors-opportunity-panel__title,
+    .investors-thesis-grid__intro h3,
+    .investors-resource-ladder__heading h3,
+    .investors-next-journey__copy h2,
+    .reports-section .section-header-light__title,
+    .financial-dashboard__title,
+    .investors-cta__title
+  ) {
+    max-width: var(--investors-section-title-measure, min(100%, 22rem));
+    font-size: var(--investors-section-title-size, 1.48rem) !important;
+    line-height: var(--investors-section-title-line, 1.12) !important;
+  }
+
+  .investors__title {
+    max-width: var(--investors-section-title-measure, min(100%, 22rem));
+    font-size: var(--investors-section-title-size, 1.48rem);
+    line-height: var(--investors-section-title-line, 1.12);
+  }
+
+  .investors__subtitle {
+    font-size: 0.9rem;
+    line-height: 1.68;
+  }
 }
 
 /* Investors Dashboard */
@@ -39,6 +100,10 @@
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
   margin-bottom: 4rem;
+}
+
+.investors__slider-lines {
+  display: none;
 }
 
 .investor-metric {
@@ -81,12 +146,12 @@
 
 .investor-metric__trend--up {
   color: var(--primary-gold-600);
-  background: rgba(212, 175, 55, 0.1);
+  background: rgba(230, 92, 26, 0.1);
 }
 
 .investor-metric__value {
   font-family: var(--font-heading);
-  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-size: var(--h2-size);
   font-weight: 600;
   color: var(--text-primary);
   line-height: 1.1;
@@ -171,14 +236,104 @@
 /* Responsive */
 @media (max-width: 768px) {
   .investors__dashboard {
-    padding: 2rem 1.5rem;
+    padding: 1.35rem 0 1.6rem;
+    overflow: hidden;
   }
 
   .investors__metrics-grid {
-    grid-template-columns: 1fr;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(78vw, 82vw);
+    grid-template-columns: none;
+    gap: 0.9rem;
+    margin-bottom: 0.85rem;
+    padding: 0 1.15rem 0.75rem;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: inline mandatory;
+    scrollbar-width: thin;
+  }
+
+  .investors__metrics-grid::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .investors__metrics-grid::-webkit-scrollbar-track {
+    background: rgba(15, 31, 58, 0.08);
+  }
+
+  .investors__metrics-grid::-webkit-scrollbar-thumb {
+    background: rgba(230, 92, 26, 0.65);
+  }
+
+  .investors__slider-lines {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.38rem;
+    width: min(100%, 8.5rem);
+    margin: 0.15rem auto 2.1rem;
+    padding: 0 0.2rem;
+  }
+
+  .investors__slider-lines span {
+    display: block;
+    height: 3px;
+    background: rgba(15, 31, 58, 0.18);
+    transition: background-color 0.2s var(--ease-smooth), transform 0.2s var(--ease-smooth);
+  }
+
+  .investors__slider-lines span.is-active {
+    background: var(--primary-gold-500);
+    transform: scaleY(1.35);
+  }
+
+  .investor-metric {
+    min-height: 18rem;
+    padding: 1.15rem;
+    scroll-snap-align: center;
+  }
+
+  .investor-metric__header {
+    gap: 0.75rem;
+  }
+
+  .investor-metric__label {
+    font-size: 0.68rem;
+    line-height: 1.35;
+  }
+
+  .investor-metric__trend {
+    flex-shrink: 0;
+    font-size: 0.66rem;
+    padding: 0.18rem 0.42rem;
+  }
+
+  .investor-metric__value {
+    font-size: 1.38rem;
+    font-weight: 500;
+  }
+
+  .investor-metric__legend {
+    font-size: 0.58rem;
+    line-height: 1.45;
+  }
+
+  .investor-metric__chart {
+    height: 78px;
+    margin-top: 0.75rem;
+  }
+
+  .investors__reports-title {
+    text-align: center;
   }
 
   .investor-report {
-    flex-wrap: wrap;
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .investor-report__info {
+    align-items: center;
   }
 }

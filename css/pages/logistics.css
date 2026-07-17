@@ -20,6 +20,12 @@
   z-index: 0;
 }
 
+.logistics-hero__bg picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .logistics-hero__bg img {
   width: 100%;
   height: 120%;
@@ -30,7 +36,7 @@
 .logistics-hero__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(15,31,58,0.88) 0%, rgba(15,31,58,0.65) 100%);
+  background: linear-gradient(180deg, rgba(15, 31, 58, 0.6) 0%, rgba(15, 31, 58, 0.6) 100%);
   z-index: 1;
 }
 
@@ -58,7 +64,7 @@
 
 .logistics-hero__title {
   font-family: var(--font-heading);
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-size: var(--display-size);
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: 0.03em;
@@ -67,11 +73,12 @@
 }
 
 .logistics-hero__text {
-  font-size: var(--text-sm);
+  font-size: var(--text-base) !important;
   line-height: 1.7;
   max-width: 600px;
   margin: 0 auto;
-  color: rgba(255,255,255,0.9);
+  color: rgba(255, 255, 255, 0.9);
+  text-wrap: pretty;
 }
 
 /* Route Overview */
@@ -101,13 +108,13 @@
   color: var(--primary-gold-400);
   margin-bottom: 0.75rem;
   padding: 0.4rem 1rem;
-  background: rgba(230,92,26,0.1);
-  border: 1px solid rgba(230,92,26,0.3);
+  background: rgba(230, 92, 26, 0.1);
+  border: 1px solid rgba(230, 92, 26, 0.3);
 }
 
 .route-overview__title {
   font-family: var(--font-heading);
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: var(--h1-size);
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: 0.02em;
@@ -189,35 +196,929 @@
 
 /* Network Map Section */
 .network-map {
-  padding: 3.5rem var(--section-padding-x);
-  background: var(--bg-secondary);
+  padding: 4rem var(--section-padding-x) 4.5rem;
+  background:
+    linear-gradient(180deg, #f8faf8 0%, #ffffff 100%);
 }
 
 .network-map__container {
   max-width: var(--max-width);
   margin: 0 auto;
-  text-align: center;
 }
 
 .network-map__header {
   max-width: 750px;
   margin: 0 auto 2.5rem;
+  text-align: center;
 }
 
 .network-map__visual {
-  background: var(--bg-card);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-md);
-  padding: 2rem;
+  position: relative;
 }
 
 .network-map__svg {
   width: 100%;
-  height: auto;
-  max-height: 400px;
+  height: 100%;
+  min-height: 520px;
+  display: block;
+}
+
+.corridor-board {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+  gap: 1rem;
+  padding: clamp(0.9rem, 2vw, 1.3rem);
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, #ffffff 0%, #f4f7f4 100%);
+  border: 1px solid rgba(15, 31, 58, 0.12);
+  box-shadow: 0 30px 80px rgba(15, 31, 58, 0.1);
+}
+
+.corridor-board::before {
+  content: '';
+  position: absolute;
+  inset: 1rem auto 1rem 1rem;
+  width: 3px;
+  background: linear-gradient(180deg, var(--primary-gold-500), rgba(44, 94, 143, 0.35));
+  opacity: 0.78;
+}
+
+.corridor-board__map,
+.corridor-board__panel {
+  position: relative;
+  z-index: 1;
+}
+
+.corridor-board__map {
+  min-height: 520px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, #ffffff 0%, #f6fbff 100%);
+  border: 1px solid rgba(15, 31, 58, 0.11);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.86),
+    0 20px 46px rgba(15, 31, 58, 0.07);
+}
+
+.corridor-board__tag {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 2;
+  white-space: nowrap;
+  padding: 0.44rem 0.62rem;
+  background: #ffffff;
+  border: 1px solid rgba(15, 31, 58, 0.12);
+  color: var(--navy-900);
+  font-family: var(--font-ui);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.corridor-frame {
+  fill: rgba(255, 255, 255, 0.62);
+  stroke: rgba(15, 31, 58, 0.08);
+}
+
+.corridor-lane {
+  fill: none;
+  stroke: rgba(15, 31, 58, 0.08);
+  stroke-linecap: round;
+  stroke-width: 18;
+}
+
+.corridor-lane--minor {
+  stroke-dasharray: 2 18;
+}
+
+.corridor-route,
+.corridor-route-light {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.corridor-route {
+  stroke: rgba(15, 31, 58, 0.3);
+  stroke-width: 5;
+}
+
+.corridor-route--primary {
+  stroke: rgba(212, 90, 21, 0.62);
+}
+
+.corridor-route--secondary {
+  stroke: rgba(44, 94, 143, 0.58);
+}
+
+.corridor-route--port {
+  stroke: rgba(154, 107, 66, 0.58);
+}
+
+.corridor-route-light {
+  stroke: var(--primary-gold-500);
+  stroke-dasharray: 4 460;
+  stroke-opacity: 0.8;
+  stroke-width: 3;
+  animation: corridorRouteTravel 5.8s linear infinite;
+}
+
+.corridor-route-light--delay {
+  animation-delay: -2s;
+  stroke: var(--navy-500);
+}
+
+.corridor-route-light--slow {
+  animation-delay: -3.6s;
+  animation-duration: 6.6s;
+  stroke: #9a6b42;
+}
+
+.corridor-hub__body {
+  fill: #ffffff;
+  stroke: rgba(15, 31, 58, 0.16);
+  stroke-width: 1.2;
+}
+
+.corridor-hub__title,
+.corridor-hub__meta {
+  font-family: var(--font-ui);
+  text-transform: uppercase;
+}
+
+.corridor-hub__title {
+  fill: var(--navy-950);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.corridor-hub__meta {
+  fill: rgba(47, 58, 64, 0.6);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.corridor-node__plate {
+  fill: #ffffff;
+  stroke: rgba(212, 90, 21, 0.2);
+  stroke-width: 1.2;
+}
+
+.corridor-node__plate--port {
+  stroke: rgba(44, 94, 143, 0.22);
+}
+
+.corridor-node__dot {
+  fill: var(--primary-gold-500);
+  stroke: #ffffff;
+  stroke-width: 3;
+}
+
+.corridor-node--port .corridor-node__dot {
+  fill: var(--navy-500);
+}
+
+.corridor-node__label,
+.corridor-node__meta,
+.corridor-map-label {
+  font-family: var(--font-ui);
+  text-transform: uppercase;
+}
+
+.corridor-node__label {
+  fill: var(--navy-950);
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.035em;
+}
+
+.corridor-node__meta {
+  fill: rgba(47, 58, 64, 0.62);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.corridor-map-label {
+  fill: rgba(15, 31, 58, 0.34);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.corridor-map-label--small {
+  fill: rgba(15, 31, 58, 0.48);
+  font-size: 9px;
+}
+
+.corridor-board__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.corridor-panel__header,
+.corridor-panel__metrics,
+.corridor-step {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 248, 0.9));
+  border: 1px solid rgba(15, 31, 58, 0.11);
+  box-shadow: 0 16px 36px rgba(15, 31, 58, 0.055);
+}
+
+.corridor-panel__header {
+  padding: 1.25rem;
+  border-top: 3px solid rgba(212, 90, 21, 0.5);
+}
+
+.corridor-panel__header span,
+.corridor-panel__metrics span,
+.corridor-step__number {
+  display: block;
+  color: var(--primary-gold-600);
+  font-family: var(--font-ui);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.corridor-panel__header strong {
+  display: block;
+  margin-top: 0.45rem;
+  color: var(--navy-950);
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.corridor-panel__metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.corridor-panel__metrics div {
+  padding: 1rem;
+}
+
+.corridor-panel__metrics div+div {
+  border-left: 1px solid rgba(15, 31, 58, 0.1);
+}
+
+.corridor-panel__metrics strong {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--navy-950);
+  font-family: var(--font-heading);
+  font-size: 1.45rem;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.corridor-step {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.85rem;
+  padding: 1.05rem;
+}
+
+.corridor-step__number {
+  color: rgba(15, 31, 58, 0.35);
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  letter-spacing: 0.03em;
+}
+
+.corridor-step strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--navy-950);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  line-height: 1.1;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.corridor-step p {
+  color: var(--charcoal-700);
+  font-size: 0.8rem;
+  line-height: 1.58;
+}
+
+@keyframes corridorRouteTravel {
+  0% {
+    stroke-dashoffset: 460;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+  }
 }
 
 /* Capacity Section */
+#transport-modes,
+#freight-analytics,
+#warehousing,
+#corridors,
+#capacity,
+#shipping-quote {
+  scroll-margin-top: calc(var(--navbar-height) + 1.25rem);
+}
+
+.warehouse-section {
+  position: relative;
+  overflow: hidden;
+  padding: 4.5rem var(--section-padding-x);
+  background:
+    linear-gradient(135deg, rgba(8, 18, 31, 0.98), rgba(16, 31, 48, 0.96)),
+    radial-gradient(circle at 18% 12%, rgba(230, 92, 26, 0.2), transparent 32%);
+  color: #ffffff;
+}
+
+.warehouse-section::before {
+  display: none;
+}
+
+.warehouse-section__container {
+  position: relative;
+  z-index: 1;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.warehouse-section__header {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(280px, 0.58fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: end;
+  margin-bottom: 2.5rem;
+}
+
+.warehouse-section .route-overview__title {
+  max-width: 760px;
+  color: #ffffff;
+  margin-bottom: 0;
+}
+
+.warehouse-section .route-overview__subtitle {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.warehouse-showcase {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.75fr);
+  gap: clamp(1.2rem, 3vw, 2rem);
+  align-items: stretch;
+}
+
+.warehouse-showcase__visual {
+  position: relative;
+  min-height: 520px;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 34px 90px rgba(3, 8, 15, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.warehouse-showcase__image {
+  position: absolute;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.warehouse-showcase__image picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.warehouse-showcase__image img,
+.warehouse-photo-rail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(0.92) contrast(1.05);
+}
+
+.warehouse-showcase__image--main {
+  inset: 1rem 7.5rem 5.2rem 1rem;
+}
+
+.warehouse-showcase__image--offset {
+  right: 1rem;
+  bottom: 1rem;
+  width: min(48%, 320px);
+  height: 230px;
+  border: 8px solid rgba(8, 18, 31, 0.96);
+  box-shadow: 0 28px 70px rgba(3, 8, 15, 0.38);
+}
+
+.warehouse-showcase figcaption,
+.warehouse-photo-rail figcaption {
+  position: absolute;
+  left: 0.85rem;
+  bottom: 0.85rem;
+  z-index: 2;
+  padding: 0.45rem 0.6rem;
+  background: rgba(8, 18, 31, 0.82);
+  color: #ffffff;
+  font-family: var(--font-ui);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.warehouse-showcase__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(1.25rem, 3vw, 2.2rem);
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--text-primary);
+  box-shadow: 0 30px 80px rgba(3, 8, 15, 0.24);
+}
+
+.warehouse-showcase__kicker {
+  width: fit-content;
+  margin-bottom: 1rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 2px solid rgba(230, 92, 26, 0.75);
+  color: var(--primary-gold-600);
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.warehouse-showcase__content h3 {
+  max-width: 18ch;
+  margin-bottom: 1rem;
+  color: var(--navy-950);
+  font-family: var(--font-heading);
+  font-size: clamp(1.45rem, 2.2vw, 2.15rem);
+  line-height: 1.08;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.warehouse-showcase__content > p {
+  max-width: 58ch;
+  color: var(--charcoal-700);
+  font-size: 0.94rem;
+  line-height: 1.76;
+}
+
+.warehouse-checklist {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.35rem;
+}
+
+.warehouse-checklist__item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.7rem 0.9rem;
+  padding: 0.95rem;
+  background: linear-gradient(180deg, #ffffff, #f4f7f4);
+  border-left: 3px solid rgba(230, 92, 26, 0.62);
+}
+
+.warehouse-checklist__item span {
+  grid-row: 1 / 3;
+  color: rgba(15, 31, 58, 0.34);
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.warehouse-checklist__item strong {
+  color: var(--navy-950);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  line-height: 1.1;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.warehouse-checklist__item p {
+  color: var(--charcoal-700);
+  font-size: 0.8rem;
+  line-height: 1.58;
+}
+
+.warehouse-photo-rail {
+  display: grid;
+  grid-template-columns: 1.1fr 0.8fr 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.warehouse-photo-rail figure {
+  position: relative;
+  min-height: 190px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.warehouse-photo-rail figure:nth-child(2) {
+  min-height: 230px;
+}
+
+.logistics-analytics {
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
+  background:
+    linear-gradient(180deg, #ffffff 0%, #f6f8f7 100%);
+}
+
+.logistics-analytics__header {
+  margin-bottom: 2rem;
+}
+
+.logistics-analytics .freight-hub {
+  position: relative;
+  isolation: isolate;
+  grid-template-columns: minmax(280px, 0.82fr) minmax(320px, 1fr);
+  gap: clamp(1.3rem, 3vw, 2.4rem);
+  margin: 0;
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(10, 22, 40, 0.98), rgba(15, 31, 58, 0.96)),
+    radial-gradient(circle at 88% 12%, rgba(230, 92, 26, 0.22), transparent 32%);
+  box-shadow: 0 28px 74px rgba(15, 31, 58, 0.18);
+}
+
+.logistics-analytics .freight-hub::before {
+  content: '';
+  position: absolute;
+  inset: 1rem;
+  z-index: -1;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+.logistics-analytics .freight-form {
+  align-content: center;
+  gap: 1rem;
+}
+
+.logistics-analytics .freight-input-group {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.logistics-analytics .freight-input-group label {
+  color: rgba(255, 255, 255, 0.68);
+  font-weight: 800;
+}
+
+.logistics-analytics .freight-select {
+  min-height: 48px;
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+.logistics-analytics .freight-select option {
+  color: var(--navy-950);
+}
+
+.logistics-analytics .freight-result {
+  min-height: 100%;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.095), rgba(255, 255, 255, 0.035));
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.logistics-analytics .freight-metric {
+  font-size: clamp(4rem, 8vw, 7.5rem);
+  color: var(--primary-gold-400);
+  font-variant-numeric: tabular-nums;
+}
+
+.freight-result__label {
+  margin-bottom: 1.5rem;
+  color: rgba(255, 255, 255, 0.68);
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.freight-result__note {
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.85rem;
+  line-height: 1.65;
+}
+
+.export-documents {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(4rem, 7vw, 6.5rem) var(--section-padding-x);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 82% 18%, rgba(230, 92, 26, 0.12), transparent 30%),
+    linear-gradient(135deg, #0b1726 0%, #132235 58%, #101923 100%);
+  color: #ffffff;
+}
+
+.export-documents::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055), transparent 36%),
+    linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.035) 100%);
+  opacity: 0.62;
+}
+
+.export-documents__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.export-documents__header {
+  display: grid;
+  grid-template-columns: minmax(0, 0.86fr) minmax(280px, 0.64fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: end;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.export-documents__overline {
+  grid-column: 1 / -1;
+  width: fit-content;
+  padding: 0.42rem 0.85rem;
+  color: var(--primary-gold-400);
+  background: rgba(230, 92, 26, 0.12);
+  border: 1px solid rgba(230, 92, 26, 0.28);
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.export-documents__title {
+  max-width: 560px;
+  color: #f5f0e8;
+  font-family: var(--font-heading);
+  font-size: clamp(1.45rem, 2.35vw, 2.35rem);
+  font-weight: 600;
+  line-height: 1.14;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.export-documents__subtitle {
+  max-width: 520px;
+  color: rgba(245, 240, 232, 0.68);
+  font-size: clamp(0.94rem, 1.2vw, 1.05rem);
+  line-height: 1.7;
+}
+
+.export-documents__layout {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.78fr) minmax(0, 1.22fr);
+  gap: clamp(0.9rem, 2vw, 1.25rem);
+  align-items: stretch;
+}
+
+.export-documents__brief {
+  position: relative;
+  display: flex;
+  min-height: 360px;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.2rem, 2vw, 1.65rem);
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.078), rgba(255, 255, 255, 0.038));
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.export-documents__brief::after {
+  content: '';
+  position: absolute;
+  inset: auto 1.2rem 1.2rem 1.2rem;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(230, 92, 26, 0.56), transparent);
+}
+
+.export-documents__seal {
+  display: grid;
+  place-items: center;
+  width: 3.65rem;
+  height: 3.65rem;
+  color: var(--primary-gold-400);
+  background: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.export-documents__seal svg,
+.export-document-card__icon svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.export-documents__brief-label {
+  display: block;
+  margin-top: auto;
+  margin-bottom: 0.75rem;
+  color: var(--primary-gold-400);
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.export-documents__brief-title {
+  max-width: 340px;
+  margin-bottom: 0.95rem;
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 1.8vw, 1.78rem);
+  font-weight: 600;
+  line-height: 1.12;
+  text-transform: uppercase;
+}
+
+.export-documents__brief-text {
+  max-width: 44rem;
+  color: rgba(245, 240, 232, 0.68);
+  font-size: 0.86rem;
+  line-height: 1.66;
+}
+
+.export-documents__steps {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 1.35rem;
+}
+
+.export-documents__steps span {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: rgba(245, 240, 232, 0.78);
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.export-documents__steps span::before {
+  content: '';
+  width: 0.48rem;
+  height: 0.48rem;
+  background: var(--primary-gold-400);
+}
+
+.export-documents__cards {
+  display: grid;
+  gap: 1rem;
+  align-content: stretch;
+}
+
+.export-document-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr) auto;
+  gap: clamp(0.9rem, 2vw, 1.35rem);
+  align-items: center;
+  min-height: 168px;
+  padding: clamp(1.05rem, 2.2vw, 1.8rem);
+  overflow: hidden;
+  color: #f5f0e8;
+  text-decoration: none;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.045));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: border-color 0.28s ease, transform 0.28s ease, background-color 0.28s ease;
+}
+
+.export-document-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--primary-gold-500);
+  opacity: 0.85;
+}
+
+.export-document-card::after {
+  content: '';
+  position: absolute;
+  inset: 1rem 1rem auto auto;
+  width: 92px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(245, 240, 232, 0.28));
+}
+
+.export-document-card:hover,
+.export-document-card:focus-visible {
+  color: #ffffff;
+  border-color: rgba(242, 106, 33, 0.42);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.145), rgba(255, 255, 255, 0.064));
+  transform: translateY(-2px);
+}
+
+.export-document-card:active {
+  transform: translateY(0) scale(0.995);
+}
+
+.export-document-card__index {
+  color: rgba(245, 240, 232, 0.4);
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 2.3vw, 1.95rem);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.export-document-card__icon {
+  display: grid;
+  place-items: center;
+  width: 3.65rem;
+  height: 3.65rem;
+  color: var(--primary-gold-400);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+.export-document-card__body {
+  display: grid;
+  gap: 0.48rem;
+}
+
+.export-document-card__body strong {
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: clamp(1.08rem, 1.7vw, 1.62rem);
+  font-weight: 600;
+  line-height: 1.12;
+  text-transform: uppercase;
+}
+
+.export-document-card__body small {
+  color: rgba(245, 240, 232, 0.62);
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.export-document-card__cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.45rem;
+  padding: 0.68rem 0.9rem;
+  color: #ffffff;
+  background: rgba(230, 92, 26, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-family: var(--font-ui);
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.export-document-card--lading::before {
+  background: #95b8d4;
+}
+
+.export-document-card--lading .export-document-card__icon {
+  color: #b9d6eb;
+}
+
 .capacity-section {
   padding: 3.5rem var(--section-padding-x);
   background: var(--bg-primary);
@@ -332,7 +1233,7 @@
 
 .logistics-cta__title {
   font-family: var(--font-heading);
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: var(--h1-size);
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: 0.02em;
@@ -343,7 +1244,7 @@
 .logistics-cta__text {
   font-size: var(--text-sm);
   line-height: 1.7;
-  color: rgba(255,255,255,0.85);
+  color: rgba(255, 255, 255, 0.85);
   margin-bottom: 1.25rem;
 }
 
@@ -358,43 +1259,462 @@
   display: block;
 }
 
+@media (min-width: 1025px) {
+  .logistics-cta__image {
+    width: 92%;
+    margin-inline: auto;
+  }
+}
+
 /* Responsive */
 @media (max-width: 1200px) {
   .route-grid {
     grid-template-columns: 1fr 1fr;
   }
+
+  .corridor-board {
+    grid-template-columns: 1fr;
+  }
+
+  .corridor-board__panel {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .corridor-panel__header {
+    grid-column: 1 / -1;
+  }
+
   .capacity-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .export-documents__header,
+  .export-documents__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .export-documents__brief {
+    min-height: 320px;
+  }
+
   .logistics-cta__container {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 768px) {
-  .logistics-hero {
-    height: 40vh;
-    min-height: 280px;
+  body.logistics-page {
+    --mobile-content-heading-size: 1.48rem;
+    --mobile-content-heading-line: 1.12;
   }
+
+  .logistics-hero {
+    height: auto;
+    min-height: 450px;
+    padding-top: calc(var(--navbar-height) + 2rem);
+    padding-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .logistics-hero__content {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    padding: 0 1.5rem;
+    margin: 0;
+  }
+
+  .logistics-hero__title {
+    font-size: var(--display-size);
+    line-height: 1.1;
+  }
+
   .route-overview {
     padding: 2.5rem var(--section-padding-x);
   }
+
+  .route-overview__title,
+  .export-documents__title,
+  .logistics-cta__title {
+    font-size: 1.48rem;
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: 0.01em;
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  .logistics-cta__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .logistics-cta__overline,
+  .logistics-cta__title,
+  .logistics-cta__text {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    text-align-last: center;
+  }
+
+  .logistics-cta__text {
+    max-width: 36rem;
+  }
+
+  .logistics-cta__content .hero__cta {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .route-grid {
     grid-template-columns: 1fr;
   }
+
   .network-map {
     padding: 2.5rem var(--section-padding-x);
   }
+
+  .network-map__header {
+    margin-bottom: 1.25rem;
+  }
+
+  .corridor-board {
+    padding: 0.8rem;
+  }
+
+  .corridor-board::before {
+    display: none;
+  }
+
+  .corridor-board__map {
+    min-height: 380px;
+    overflow-x: auto;
+  }
+
+  .corridor-board__tag {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .network-map__svg {
+    width: 760px;
+    min-height: 380px;
+  }
+
+  .corridor-board__panel {
+    grid-template-columns: 1fr;
+  }
+
+  .corridor-panel__header strong {
+    font-size: 1.08rem;
+    font-weight: 600;
+    line-height: 1.14;
+    letter-spacing: 0.01em;
+  }
+
+  .corridor-panel__metrics {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .corridor-panel__metrics strong {
+    font-size: 1.12rem;
+    font-weight: 600;
+    line-height: 1.05;
+  }
+
+  .corridor-node__label {
+    font-size: 12.5px;
+  }
+
+  .corridor-node__meta,
+  .corridor-map-label {
+    font-size: 9.5px;
+  }
+
   .capacity-section {
     padding: 2.5rem var(--section-padding-x);
   }
+
+  .warehouse-section {
+    padding: 3rem var(--section-padding-x);
+  }
+
+  .warehouse-section__header,
+  .warehouse-showcase {
+    grid-template-columns: 1fr;
+  }
+
+  .warehouse-section__header {
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .warehouse-section .route-overview__overline,
+  .warehouse-section .route-overview__title,
+  .warehouse-section .route-overview__subtitle {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    text-align-last: center;
+  }
+
+  .warehouse-section .route-overview__subtitle {
+    max-width: 36rem;
+  }
+
+  .warehouse-showcase__visual {
+    min-height: 430px;
+  }
+
+  .warehouse-showcase__image--main {
+    inset: 0.8rem 0.8rem 9.8rem;
+  }
+
+  .warehouse-showcase__image--offset {
+    left: 1.4rem;
+    right: 1.4rem;
+    bottom: 0.8rem;
+    width: auto;
+    height: 160px;
+    border-width: 6px;
+  }
+
+  .warehouse-showcase__content h3 {
+    max-width: 18ch;
+  }
+
+  .warehouse-photo-rail {
+    grid-template-columns: 1fr;
+  }
+
+  .warehouse-photo-rail figure,
+  .warehouse-photo-rail figure:nth-child(2) {
+    min-height: 190px;
+  }
+
+  .logistics-analytics {
+    padding: 2rem 0.95rem !important;
+  }
+
+  .logistics-analytics .capacity-section__container {
+    max-width: 100%;
+  }
+
+  .logistics-analytics__header {
+    padding: 1.15rem;
+    margin-bottom: 1.15rem;
+    background: #fff;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    border-radius: var(--radius-md);
+    box-shadow: 0 14px 34px rgba(15, 23, 42, 0.05);
+  }
+
+  .logistics-analytics__header .route-overview__overline {
+    margin-bottom: 0.7rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+  }
+
+  .logistics-analytics__header .route-overview__title {
+    font-size: var(--mobile-content-heading-size);
+    line-height: var(--mobile-content-heading-line);
+    margin-bottom: 0.65rem;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+  }
+
+  .logistics-analytics__header .route-overview__subtitle {
+    font-size: 0.88rem;
+    line-height: 1.62;
+  }
+
+  .logistics-analytics .freight-hub {
+    margin: 0;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    border-radius: var(--radius-md);
+  }
+
+  .logistics-analytics .freight-hub.reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .logistics-analytics .freight-form {
+    gap: 0.85rem;
+  }
+
+  .logistics-analytics .freight-input-group label {
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.35rem;
+  }
+
+  .logistics-analytics .freight-select {
+    min-height: 44px;
+    padding: 0.7rem 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .logistics-analytics .freight-result {
+    padding: 1.15rem;
+    border-radius: var(--radius-sm);
+    text-align: center;
+  }
+
+  .logistics-analytics .freight-metric {
+    font-size: clamp(2.6rem, 18vw, 4rem);
+    margin-bottom: 0.35rem;
+  }
+
+  .logistics-analytics .freight-result p {
+    font-size: 0.78rem !important;
+    line-height: 1.55 !important;
+    margin-bottom: 0;
+    padding-top: 1rem !important;
+  }
+
+  .export-documents {
+    padding: 3rem 0.95rem;
+  }
+
+  .export-documents__header {
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .export-documents__overline,
+  .export-documents__title,
+  .export-documents__subtitle {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    text-align-last: center;
+  }
+
+  .export-documents__subtitle {
+    font-size: 0.9rem;
+    max-width: 36rem;
+  }
+
+  .export-documents__brief {
+    min-height: 0;
+    padding: 1.15rem;
+  }
+
+  .export-documents__seal {
+    width: 3.4rem;
+    height: 3.4rem;
+    margin-bottom: 2rem;
+  }
+
+  .export-document-card {
+    grid-template-columns: auto 1fr;
+    min-height: 0;
+    padding: 1.05rem;
+  }
+
+  .export-document-card__index {
+    grid-row: 1 / span 2;
+    align-self: start;
+    min-width: 2rem;
+  }
+
+  .export-document-card__icon {
+    display: none;
+  }
+
+  .export-document-card__cta {
+    grid-column: 2;
+    width: fit-content;
+  }
+
   .capacity-grid {
     grid-template-columns: 1fr;
   }
+
   .logistics-cta {
     padding: 2.5rem var(--section-padding-x);
   }
+
   .logistics-cta::before {
     transform: rotate(0deg);
+  }
+}
+
+@media (max-width: 480px) {
+  .logistics-analytics {
+    padding-inline: 0.75rem !important;
+  }
+
+  .logistics-analytics__header,
+  .logistics-analytics .freight-hub {
+    padding: 0.9rem;
+  }
+
+  .warehouse-section {
+    padding-inline: 0.85rem;
+  }
+
+  .warehouse-showcase__content {
+    padding: 1rem;
+  }
+
+  .warehouse-showcase__content h3 {
+    font-size: 1.32rem;
+    line-height: 1.12;
+  }
+
+  .warehouse-checklist__item {
+    grid-template-columns: 1fr;
+  }
+
+  .warehouse-checklist__item span {
+    grid-row: auto;
+  }
+
+  .export-documents {
+    padding-inline: 0.75rem;
+  }
+
+  .export-documents__brief-title {
+    font-size: 1.28rem;
+  }
+
+  .export-documents__steps span,
+  .export-document-card__body small,
+  .export-document-card__cta {
+    letter-spacing: 0.06em;
+  }
+
+  .export-document-card__body strong {
+    font-size: 1.12rem;
+  }
+
+  .corridor-panel__metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .corridor-panel__metrics div+div {
+    border-left: 0;
+    border-top: 1px solid rgba(15, 31, 58, 0.1);
+  }
+
+  .corridor-step {
+    grid-template-columns: 1fr;
   }
 }

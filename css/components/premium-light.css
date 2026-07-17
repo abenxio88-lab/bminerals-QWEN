@@ -1,0 +1,201 @@
+/* ==========================================================================
+   PREMIUM LIGHT THEME COMPONENTS
+   Designed for: Products, Investors, About, and Subpages
+   Institutional, Clean, High-Legibility
+   ========================================================================== */
+
+/* ===== 1. PREMIUM LIGHT CARDS (Bento Style) ===== */
+.premium-card-light {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  padding: 2.5rem;
+  transition: all 0.4s var(--ease-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-card-light:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-gold-400);
+}
+
+.premium-card-light::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 0;
+  background: var(--gradient-primary-gold);
+  transition: height 0.4s var(--ease-smooth);
+}
+
+.premium-card-light:hover::before {
+  height: 100%;
+}
+
+.premium-card-light__icon {
+  width: 50px;
+  height: 50px;
+  background: var(--navy-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  color: var(--primary-gold-500);
+  font-size: 1.5rem;
+  transition: background 0.3s ease;
+}
+
+.premium-card-light:hover .premium-card-light__icon {
+  background: var(--primary-gold-50);
+}
+
+.premium-card-light__title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.premium-card-light__text {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+
+/* ===== 2. TECHNICAL DATA HUB (Modern Tables) ===== */
+.tech-data-hub {
+  width: 100%;
+  margin: 4rem 0;
+}
+
+.tech-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #ffffff;
+  border: 1px solid var(--border);
+}
+
+.tech-table th {
+  background: var(--navy-950);
+  color: #ffffff;
+  padding: 1.25rem 1.5rem;
+  text-align: left;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.tech-table td {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-light);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.tech-table tr:last-child td {
+  border-bottom: none;
+}
+
+.tech-table tr:hover td {
+  background: var(--navy-50);
+}
+
+.tech-table__value--gold {
+  color: var(--primary-gold-600);
+  font-weight: 700;
+}
+
+
+/* ===== 3. PERFORMANCE DASHBOARD (Investors) ===== */
+.perf-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+}
+
+.perf-stat {
+  padding: 2rem;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  text-align: center;
+}
+
+.perf-stat__value {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.perf-stat__label {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+
+/* ===== 4. CONTENT SECTIONS (Light) ===== */
+.content-section-light {
+  padding: var(--section-padding-y) 0;
+  background: var(--bg-primary);
+}
+
+.content-section-light--alt {
+  background: var(--bg-secondary);
+}
+
+.section-header-light {
+  max-width: 800px;
+  margin-bottom: 4rem;
+}
+
+.section-header-light__overline {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary-gold-500);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.section-header-light__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.section-header-light__text {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* Responsive Fixes */
+@media (max-width: 768px) {
+  .section-header-light__title { font-size: 2rem; }
+  .premium-card-light { padding: 1.5rem; }
+  .tech-table { display: block; overflow-x: auto; }
+}

@@ -1,15 +1,6 @@
-```gitignore
-# Compiled and build artifacts
-*.pyc
-__pycache__/
-*.o
-*.obj
-*.class
-*.exe
-*.dll
-*.so
-*.a
-*.out
+# Build artifacts
+dist/
+build/
 
 # Dependencies
 node_modules/
@@ -46,3 +37,21 @@ target/
 .mypy_cache/
 .pytest_cache/
 ```
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+
+# Repo-local generated artifacts (do not commit)
+backups/
+graphify-out/
+
+# AI Workspaces & Browser Verification Caches
+.chrome-profile-verify/
+.agents/
+.claude/
+.qwen/
+.trae/
+.windsurf/
+skills-lock.json

@@ -1,36 +1,23 @@
 /**
  * Balochistan Minerals Premium Animations
- * Powered by GSAP & ScrollTrigger with Lenis Smooth Scroll
+ * Powered by GSAP & ScrollTrigger when available.
  */
-
-// Register ScrollTrigger plugin
-gsap.registerPlugin(ScrollTrigger);
 
 /**
  * Initialize all premium animations
  */
 export function initPremiumAnimations() {
-  // 0. Initialize Lenis for Smooth Scrolling
-  const lenis = new Lenis({
-    duration: 1.2,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // https://www.desmos.com/calculator/brs54l4xou
-    direction: 'vertical',
-    gestureDirection: 'vertical',
-    smooth: true,
-    mouseMultiplier: 1,
-    smoothTouch: false,
-    touchMultiplier: 2,
-    infinite: false,
-  });
+  if (window.__sceneHomeEnhanced) {
+    return;
+  }
+  const gsap = window.gsap;
+  const ScrollTrigger = window.ScrollTrigger;
 
-  // Keep Lenis and ScrollTrigger in sync
-  lenis.on('scroll', ScrollTrigger.update);
+  if (!gsap || !ScrollTrigger) {
+    return;
+  }
 
-  gsap.ticker.add((time) => {
-    lenis.raf(time * 1000);
-  });
-
-  gsap.ticker.lagSmoothing(0);
+  gsap.registerPlugin(ScrollTrigger);
 
   // 1. Smooth Staggered Reveals for Hero Text
   const heroTitle = document.querySelector('.hero__title');
@@ -66,21 +53,27 @@ export function initPremiumAnimations() {
     });
   }
 
-  // 2. Liquid Scroll Reveal for Mineral Cards
-  const mineralCards = document.querySelectorAll('.mineral-card');
-  if (mineralCards.length > 0) {
-    gsap.from(mineralCards, {
-      scrollTrigger: {
-        trigger: ".products__grid",
-        start: "top 80%",
-        toggleActions: "play none none none"
-      },
-      y: 60,
-      opacity: 0,
-      duration: 1,
-      stagger: 0.2,
-      ease: "power3.out"
-    });
+  // If the cinematic hero module is present, avoid duplicating hero-specific animations
+  const hasCinematicHero = !!document.querySelector('.hero-cinematic');
+
+  // 2. Liquid Scroll Reveal for Mineral Cards (skip when cinematic hero handles them)
+  if (!hasCinematicHero) {
+    const mineralCards = document.querySelectorAll('.mineral-card');
+    const mineralGrid = document.querySelector('.products__grid, .minerals__grid');
+    if (mineralCards.length > 0 && mineralGrid) {
+      gsap.from(mineralCards, {
+        scrollTrigger: {
+          trigger: mineralGrid,
+          start: "top 80%",
+          toggleActions: "play none none none"
+        },
+        y: 60,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power3.out"
+      });
+    }
   }
 
   // 3. Staggered Reveals for Sustainability Pillars
@@ -125,41 +118,77 @@ export function initPremiumAnimations() {
     });
   }
 
-  // 6. Premium 3D Magnetic Hover for Hero Glass Card
-  const heroLeft = document.querySelector('.hero');
-  const glassCard = document.querySelector('.hero__stats-panel');
-
-  if (heroLeft && glassCard) {
-    heroLeft.addEventListener('mousemove', (e) => {
-      const { clientX, clientY } = e;
-      const { left, top, width, height } = glassCard.getBoundingClientRect();
-      
-      const centerX = left + width / 2;
-      const centerY = top + height / 2;
-      
-      const mouseX = clientX - centerX;
-      const mouseY = clientY - centerY;
-      
-      // Limit rotation to a subtle, premium 5 degrees
-      const rotateX = (mouseY / (height / 2)) * -5; 
-      const rotateY = (mouseX / (width / 2)) * 5;  
-      
-      gsap.to(glassCard, {
-        duration: 0.5,
-        rotateX: rotateX,
-        rotateY: rotateY,
-        transformPerspective: 1000,
-        ease: 'power2.out'
-      });
+  // 7. INTERACTIVE TIMELINE (ScrollTrigger)
+  const timelineItems = document.querySelectorAll('.timeline__item');
+  if (timelineItems.length > 0) {
+    timelineItems.forEach((item, i) => {
+        gsap.from(item, {
+            scrollTrigger: {
+                trigger: item,
+                start: "top 80%",
+            },
+            x: i % 2 === 0 ? -100 : 100,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power2.out"
+        });
     });
+  }
 
-    heroLeft.addEventListener('mouseleave', () => {
-      gsap.to(glassCard, {
-        duration: 1,
-        rotateX: 0,
-        rotateY: 0,
-        ease: 'elastic.out(1, 0.3)'
-      });
+  // 8. B2B FREIGHT CALCULATOR MOCK LOGIC
+  const originSelect = document.getElementById('origin-select');
+  const destSelect = document.getElementById('dest-select');
+  const modeSelect = document.getElementById('mode-select');
+  const freightDays = document.getElementById('freight-days');
+
+  if (originSelect && destSelect && freightDays) {
+    const updateFreight = () => {
+        const o = originSelect.value;
+        const d = destSelect.value;
+        const mode = modeSelect?.value || 'integrated';
+        const originDays = {
+            'warehouse': 5,
+            'khuzdar': 8,
+            'muslim-bagh': 10,
+            'kharan': 11,
+            'washuk-zhob': 12,
+            'chagai': 14
+        };
+
+        let days = originDays[o] || 10;
+
+        if (d === 'gwadar') days += 2;
+        if (mode === 'direct-road') days += 1;
+        if (mode === 'warehouse-port') days = Math.max(4, days - 3);
+
+        gsap.to(freightDays, {
+            innerText: days,
+            duration: 1,
+            snap: { innerText: 1 },
+            ease: "power2.inOut"
+        });
+    };
+
+    originSelect.addEventListener('change', updateFreight);
+    destSelect.addEventListener('change', updateFreight);
+    modeSelect?.addEventListener('change', updateFreight);
+    updateFreight();
+  }
+
+  // 9. 3D MINERAL PREVIEW MOUSE-TRACKING (MOCK)
+  const mineral3D = document.querySelector('.mineral-object');
+  const modal3D = document.getElementById('modal-3d');
+  
+  if (mineral3D && modal3D) {
+    modal3D.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 60;
+        const y = (e.clientY / window.innerHeight - 0.5) * -60;
+        gsap.to(mineral3D, {
+            duration: 0.5,
+            rotateY: x,
+            rotateX: y,
+            ease: "power2.out"
+        });
     });
   }
 }

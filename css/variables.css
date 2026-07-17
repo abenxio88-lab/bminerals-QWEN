@@ -1,119 +1,150 @@
 :root {
-  /* Colors - Premium Earth-Tech Palette (Refined Gold & Obsidian Slate) */
+  /* Colors - Authoritative Navy & Orange Palette */
   /* Backgrounds */
   --bg-primary: #FFFFFF;
-  --bg-secondary: #F8FAFC;
+  --bg-secondary: #F5F5F5;
   --bg-card: #FFFFFF;
-  
-  /* Obsidian Slate (replacing navy) - Deep midnight for premium contrast */
-  --navy-950: #020617; /* Deepest Midnight */
-  --navy-900: #0F172A; /* Slate Base */
-  --navy-800: #1E293B; /* Industrial Slate */
-  --navy-700: #334155;
-  --navy-600: #475569;
-  --navy-500: #64748B;
-  --navy-400: #94A3B8;
-  --navy-300: #CBD5E1;
-  --navy-200: #E2E8F0;
-  --navy-100: #F1F5F9;
-  --navy-50: #F8FAFC;
-  --navy-glow: rgba(15, 23, 42, 0.25);
-  
-  /* Charcoal Gray Scale (Mineral Dust) */
-  --charcoal-900: #18181B;
-  --charcoal-800: #27272A;
-  --charcoal-700: #3F3F46;
-  --charcoal-600: #52525B;
-  --charcoal-500: #71717A;
-  --charcoal-400: #A1A1AA;
-  --charcoal-300: #D4D4D8;
-  --charcoal-200: #E4E4E7;
-  --charcoal-100: #F4F4F5;
-  --charcoal-50: #FAFAFA;
-  
-  /* Premium Gold Palette (Replaced Gold/Gold) */
-  --primary-gold-600: #B8860B; /* Dark Goldenrod - Deep Luxury */
-  --primary-gold-500: #D4AF37; /* Metallic Gold (Main CTA) */
-  --primary-gold-400: #F1D46A; /* Shimmering Gold (Hover) */
-  --primary-gold-300: #FFD700; /* Pure Gold (Accent) */
-  --primary-gold-200: #FFE57C; /* Pale Gold */
-  --primary-gold-100: #FFF4CC;
-  --primary-gold-50: #FFFBE6;
-  --primary-gold-glow: rgba(212, 175, 55, 0.35);
-  
-  /* Mineral Bronze / Gold Accent (Enhanced) */
-  --gold-500: #B8860B; /* Dark Goldenrod */
-  --gold-400: #D4AF37; /* Metallic Gold */
-  --gold-300: #FFD700; /* Pure Gold */
-  
-  /* Text Colors */
-  --text-primary: #0F172A;
-  --text-secondary: #334155;
-  --text-muted: #64748B;
-  
-  /* Borders */
-  --border: #E2E8F0;
-  --border-light: #F1F5F9;
 
-  /* Gradients - Premium Mineral Theme */
-  --gradient-navy: linear-gradient(135deg, #020617, #0F172A, #1E293B);
-  --gradient-navy-dark: linear-gradient(135deg, #020617, #0F172A);
-  --gradient-primary-gold: linear-gradient(135deg, #B8860B, #D4AF37, #F1D46A);
-  --gradient-gold-rich: linear-gradient(135deg, #B8860B, #D4AF37, #FFD700);
-  --gradient-charcoal: linear-gradient(135deg, #18181B, #27272A, #3F3F46);
-  --gradient-hero-overlay: linear-gradient(180deg, rgba(2,6,23,0.85) 0%, rgba(15,23,42,0.4) 100%);
+  /* Navy Dark Blue Scale - Deep & Professional */
+  --navy-950: #0A1628;
+  --navy-900: #0F1F3A;
+  --navy-800: #162A4A;
+  --navy-700: #1E3A5F;
+  --navy-600: #254875;
+  --navy-500: #2C5E8F;
+  --navy-400: #4A7BA8;
+  --navy-300: #6B96BF;
+  --navy-200: #95B8D4;
+  --navy-100: #C5D9E8;
+  --navy-50: #E8F1F8;
+  --navy-glow: rgba(10, 22, 40, 0.15);
+
+  /* Charcoal Gray Scale (Mineral Dust) */
+  --charcoal-900: #2F3A40;
+  --charcoal-800: #343F45;
+  --charcoal-700: #4A5660;
+  --charcoal-600: #62707A;
+  --charcoal-500: #7A8894;
+  --charcoal-400: #94A0AA;
+  --charcoal-300: #B0BAC2;
+  --charcoal-200: #CCD4DA;
+  --charcoal-100: #E5EAEE;
+  --charcoal-50: #F2F5F7;
+
+  /* Vibrant Brand Orange */
+  --primary-gold-600: #D45A15;
+  --primary-gold-500: #E65C1A;
+  --primary-gold-400: #F26A21;
+  --primary-gold-300: #F58847;
+  --primary-gold-200: #F8A96E;
+  --primary-gold-100: #FCD4A8;
+  --primary-gold-50: #FFF0E5;
+  --primary-gold-glow: rgba(230, 92, 26, 0.4);
+
+  /* Mineral Accents */
+  --gold-500: #D4AF37;
+  --gold-400: #E5C158;
+  --gold-300: #F0D78C;
+
+  /* Text Colors */
+  --text-primary: #2F3A40;
+  --text-secondary: #4A5660;
+  --text-muted: #62707A;
+
+  /* Borders */
+  --border: #CCD4DA;
+  --border-light: #E5EAEE;
+
+  /* Gradients - Navy & Orange Theme */
+  --gradient-navy: linear-gradient(135deg, #0A1628, #0F1F3A, #162A4A, #1E3A5F);
+  --gradient-navy-dark: linear-gradient(135deg, #0A1628, #0F1F3A);
+  --gradient-primary-gold: linear-gradient(135deg, #D45A15, #E65C1A, #F26A21);
+  --gradient-gold-rich: linear-gradient(135deg, #D45A15, #E65C1A);
+  --gradient-charcoal: linear-gradient(135deg, #2F3A40, #343F45, #4A5660);
+  --gradient-hero-overlay: linear-gradient(180deg, rgba(10, 22, 40, 0.85) 0%, rgba(15, 31, 58, 0.4) 100%);
   /* Typography - Premium Modern Stack */
   --font-heading: 'Oswald', 'Arial Narrow', sans-serif;
   --font-brand: 'Montserrat', 'Poppins', sans-serif;
   --font-body: 'Poppins', system-ui, sans-serif;
   --font-ui: 'Montserrat', sans-serif;
-  
+
   /* Scale */
-  --text-4xl: clamp(2.75rem, 5.5vw, 4.5rem);
-  --text-3xl: clamp(2.25rem, 4.5vw, 3.25rem);
-  --text-2xl: clamp(1.75rem, 3.5vw, 2.5rem);
-  --text-xl: 1.375rem;
+  /* ============================================ */
+  /* TYPOGRAPHY CONTROLLER (Symmetry Engine)       */
+  /* ============================================ */
+
+  /* Desktop Defaults (Capped at 34px) */
+  --display-size: 2.125rem;
+  /* 34px - Main Hero Titles */
+  --h1-size: 2.125rem;
+  /* 34px - Section Headings */
+  --h2-size: 1.75rem;
+  /* 28px - Sub-sections */
+  --h3-size: 1.25rem;
+  /* 20px - Card Titles */
+  --body-size: 1rem;
+  /* 16px - Standard Reading */
+  --body-small: 0.875rem;
+  /* 14px - UI/Meta text */
+
+  /* Legacy Variable Mapping (For Backward Compatibility) */
+  --text-4xl: var(--display-size);
+  --text-3xl: var(--h1-size);
+  --text-2xl: var(--h2-size);
+  --text-xl: var(--h3-size);
   --text-lg: 1.125rem;
-  --text-base: 1rem;
-  --text-sm: 0.875rem;
+  --text-base: var(--body-size);
+  --text-sm: var(--body-small);
   --text-xs: 0.75rem;
-  
+
   /* Spacing */
   --section-padding-y: 6rem;
   --section-padding-x: 5%;
   --max-width: 1400px;
-  --navbar-height: 80px;
-  
+  --navbar-height: 88px;
+
   /* Shadows */
   --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.03);
   --shadow-md: 0 20px 40px rgba(30, 58, 95, 0.12);
   --shadow-navbar: 0 4px 30px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 25px 60px rgba(30, 58, 95, 0.15);
   --shadow-xl: 0 40px 80px rgba(0, 0, 0, 0.15);
-  
+
   /* Border Radius */
   --radius-lg: 0;
   --radius-md: 0;
   --radius-pill: 0;
-  
+
   /* Transitions */
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-in-out: cubic-bezier(0.4, 0.0, 0.2, 1);
+
+  /* Layering */
+  --z-data-freshness: 998;
+  --z-sticky-widget: 999;
+  --z-navbar: 1000;
+  --z-dropdown: 1001;
+  --z-skip-link: 2000;
+  --z-modal: 4000;
+  --z-loader: 9999;
+  --z-critical-overlay: 10000;
 }
 
-.investors {
-  background: var(--navy-950);
-  color: #fff;
-  padding: var(--section-padding-y) 0;
-  position: relative;
-  overflow: hidden;
-}
-
-.investors::after {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: radial-gradient(circle at 70% 30%, rgba(212, 175, 55, 0.05), transparent 40%);
-  pointer-events: none;
+/* Mobile Overrides (The "User Preferred" Layout) */
+@media (max-width: 768px) {
+  :root {
+    --display-size: 1.5rem;
+    /* 24px - Refined Hero Headline */
+    --h1-size: 1.3rem;
+    /* 20.8px (~21px) - Section Titles */
+    --h2-size: 1.15rem;
+    /* 18.4px - Subheaders */
+    --h3-size: 1rem;
+    /* 16px - Standard Card Bold Text */
+    --body-size: 0.875rem;
+    /* 14px - Standard Mobile Body */
+    --body-small: 0.75rem;
+    /* 12px */
+  }
 }

@@ -1,0 +1,1122 @@
+/* ==========================================================================
+   INTELLIGENCE HUB - Premium Institutional Components
+   Market Ticker | ESG Dashboard | COA Portal | Mine Tours | Mineral Index
+   ========================================================================== */
+
+/* ===== 1. INDICATIVE COMMODITY TICKER ===== */
+.commodity-ticker {
+  background: var(--navy-950);
+  border-bottom: 1px solid rgba(230, 92, 26, 0.15);
+  overflow: hidden;
+  position: relative;
+  z-index: var(--z-sticky-widget);
+}
+
+.commodity-ticker__track {
+  display: flex;
+  animation: tickerScroll 40s linear infinite;
+  animation-play-state: paused;
+  width: max-content;
+}
+
+.commodity-ticker.is-in-view .commodity-ticker__track {
+  animation-play-state: running;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .commodity-ticker__track:hover {
+    animation-play-state: paused;
+  }
+}
+
+.commodity-ticker__item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 2rem;
+  white-space: nowrap;
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.7);
+  border-right: 1px solid rgba(255,255,255,0.06);
+}
+
+.commodity-ticker__name {
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.commodity-ticker__price {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--primary-gold-400);
+  font-size: 0.9rem;
+}
+
+.commodity-ticker__change {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.4rem;
+  border-radius: 2px;
+}
+
+.commodity-ticker__change--up {
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.1);
+}
+
+.commodity-ticker__change--down {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.commodity-ticker__source {
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+@keyframes tickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Keep ticker functional on mobile even when global reduced-motion rules exist */
+@media (prefers-reduced-motion: reduce) {
+  .commodity-ticker__track {
+    animation-name: tickerScroll !important;
+    animation-duration: 40s !important;
+    animation-timing-function: linear !important;
+    animation-iteration-count: infinite !important;
+  }
+}
+
+
+/* ===== 2. ESG TRANSPARENCY DASHBOARD ===== */
+.esg-dashboard {
+  background: var(--navy-950);
+  padding: var(--section-padding-y) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.esg-dashboard::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 20%, rgba(34, 197, 94, 0.04), transparent 60%),
+              radial-gradient(ellipse at 70% 80%, rgba(230, 92, 26, 0.03), transparent 60%);
+  pointer-events: none;
+}
+
+.esg-dashboard__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--section-padding-x);
+  position: relative;
+  z-index: 2;
+}
+
+.esg-dashboard__header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.esg-dashboard__overline {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #22c55e;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.esg-dashboard__overline::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  animation: pulseLive 2s ease-in-out infinite;
+}
+
+@keyframes pulseLive {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+  50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+}
+
+.esg-dashboard__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.esg-dashboard__subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: rgba(255,255,255,0.5);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.esg-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.esg-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.esg-card:hover {
+  border-color: rgba(230, 92, 26, 0.2);
+  transform: translateY(-4px);
+}
+
+.esg-card__icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  color: var(--primary-gold-400);
+}
+
+.esg-card__icon svg {
+  width: 32px;
+  height: 32px;
+}
+
+.esg-card__metric {
+  font-family: var(--font-heading);
+  font-size: clamp(1.55rem, 2vw, var(--text-2xl));
+  font-weight: 600;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.esg-card__label {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+}
+
+.esg-card__bar {
+  height: 4px;
+  background: rgba(255,255,255,0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+.esg-card__bar-fill {
+  height: 100%;
+  background: var(--gradient-primary-gold);
+  transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 0;
+}
+
+.esg-card__bar-fill--green {
+  background: linear-gradient(90deg, #22c55e, #4ade80);
+}
+
+.esg-card__context {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.35);
+  margin-top: 0.75rem;
+  line-height: 1.5;
+}
+
+
+/* ===== 3. B2B PORTAL / COA LIBRARY ===== */
+.b2b-portal {
+  background: var(--bg-secondary);
+  padding: var(--section-padding-y) 0;
+}
+
+.b2b-portal__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--section-padding-x);
+}
+
+.b2b-portal__header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.b2b-portal__overline {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--primary-gold-500);
+  margin-bottom: 1rem;
+}
+
+.b2b-portal__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.b2b-portal__subtitle {
+  font-family: var(--font-body);
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.b2b-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.b2b-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 2.5rem 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  position: relative;
+}
+
+.b2b-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-gold-400);
+}
+
+.b2b-card__icon {
+  width: 56px;
+  height: 56px;
+  background: var(--primary-gold-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  color: var(--primary-gold-500);
+}
+
+.b2b-card__icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.b2b-card__title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.b2b-card__text {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.b2b-card__features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.b2b-card__features li {
+  font-size: 0.825rem;
+  color: var(--text-secondary);
+  padding: 0.4rem 0;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.b2b-card__features li::before {
+  content: '✓';
+  color: var(--primary-gold-500);
+  font-weight: 700;
+  font-size: 0.7rem;
+}
+
+.b2b-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary-gold-500);
+  text-decoration: none;
+  transition: gap 0.3s ease;
+}
+
+.b2b-card__cta:hover {
+  gap: 0.8rem;
+}
+
+
+/* ===== 4. VIRTUAL MINE TOURS ===== */
+.mine-tours {
+  background: var(--navy-950);
+  padding: var(--section-padding-y) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.mine-tours::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(230, 92, 26, 0.03), transparent 70%);
+  pointer-events: none;
+}
+
+.mine-tours__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--section-padding-x);
+  position: relative;
+  z-index: 2;
+}
+
+.mine-tours__header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.mine-tours__overline {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--primary-gold-400);
+  margin-bottom: 1rem;
+}
+
+.mine-tours__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.mine-tours__subtitle {
+  font-family: var(--font-body);
+  color: rgba(255,255,255,0.5);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.tours-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.tour-card {
+  position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.tour-card:focus-visible {
+  outline: 2px solid var(--primary-gold-400);
+  outline-offset: 4px;
+}
+
+.tour-card__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.6s ease;
+}
+
+.tour-card:hover .tour-card__bg {
+  transform: scale(1.08);
+}
+
+.tour-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%);
+  transition: background 0.3s ease;
+}
+
+.tour-card:hover .tour-card__overlay {
+  background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 60%);
+}
+
+.tour-card__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  background: rgba(230, 92, 26, 0.15);
+}
+
+.tour-card:hover .tour-card__play {
+  transform: translate(-50%, -50%) scale(1);
+  border-color: var(--primary-gold-400);
+  box-shadow: 0 0 30px rgba(230, 92, 26, 0.3);
+}
+
+.tour-card__play svg {
+  width: 24px;
+  height: 24px;
+  color: #fff;
+  margin-left: 3px;
+}
+
+.tour-card__content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  z-index: 2;
+}
+
+.tour-card__badge {
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary-gold-400);
+  background: rgba(230, 92, 26, 0.12);
+  padding: 0.25rem 0.6rem;
+  display: inline-block;
+  margin-bottom: 0.75rem;
+}
+
+.tour-card__name {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.25rem;
+}
+
+.tour-card__desc {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.5);
+}
+
+.tour-modal {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.tour-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.tour-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(2, 8, 23, 0.78);
+  backdrop-filter: blur(10px);
+}
+
+.tour-modal__dialog {
+  position: relative;
+  width: min(920px, 100%);
+  max-height: min(760px, calc(100vh - 3rem));
+  overflow: auto;
+  background: var(--navy-950);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 30px 90px rgba(0,0,0,0.45);
+}
+
+.tour-modal__media {
+  position: relative;
+  min-height: 320px;
+  background-size: cover;
+  background-position: center;
+}
+
+.tour-modal__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(2,8,23,0.92), rgba(2,8,23,0.12));
+}
+
+.tour-modal__play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.42);
+  background: rgba(230, 92, 26, 0.2);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 1.6rem;
+}
+
+.tour-modal__body {
+  padding: 2rem;
+  color: #fff;
+}
+
+.tour-modal__eyebrow {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--primary-gold-400);
+  margin-bottom: 0.75rem;
+}
+
+.tour-modal__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 3vw, 2.125rem);
+  margin-bottom: 1rem;
+}
+
+.tour-modal__meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.tour-modal__meta-item {
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 1rem;
+  background: rgba(255,255,255,0.03);
+}
+
+.tour-modal__meta-label {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 0.35rem;
+}
+
+.tour-modal__meta-value {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.86);
+  line-height: 1.5;
+}
+
+.tour-modal__note {
+  color: rgba(255,255,255,0.62);
+  line-height: 1.7;
+}
+
+.tour-modal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.tour-modal__link,
+.tour-modal__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.04);
+  color: #fff;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.tour-modal__link {
+  border-color: var(--primary-gold-400);
+  background: var(--primary-gold-500);
+}
+
+.tour-modal__x {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  z-index: 3;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(2, 8, 23, 0.62);
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+
+/* ===== 5. MINERAL ENCYCLOPEDIA TEASER ===== */
+.mineral-encyclopedia {
+  background: var(--bg-primary);
+  padding: var(--section-padding-y) 0;
+  border-top: 1px solid var(--border);
+}
+
+.mineral-encyclopedia__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--section-padding-x);
+}
+
+.mineral-encyclopedia__header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.mineral-encyclopedia__overline {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--primary-gold-500);
+  margin-bottom: 1rem;
+}
+
+.mineral-encyclopedia__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.mineral-encyclopedia__subtitle {
+  font-family: var(--font-body);
+  color: var(--text-muted);
+  max-width: 650px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.encyclopedia-carousel {
+  position: relative;
+  touch-action: manipulation;
+}
+
+.encyclopedia-carousel__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  touch-action: manipulation;
+}
+
+.encyclopedia-carousel__count {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.encyclopedia-carousel__controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  touch-action: manipulation;
+}
+
+.encyclopedia-carousel__button {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+
+.encyclopedia-carousel__button:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary-gold-500);
+  background: var(--primary-gold-500);
+  color: #fff;
+}
+
+.encyclopedia-carousel__button:active {
+  transform: translateY(0);
+}
+
+.encyclopedia-carousel__button:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+  transform: none;
+  background: var(--bg-card);
+  color: var(--text-muted);
+  border-color: var(--border);
+}
+
+.encyclopedia-carousel__viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  outline-offset: 4px;
+}
+
+.encyclopedia-carousel__viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.encyclopedia-carousel__rail {
+  position: relative;
+  height: 3px;
+  margin-top: 0.6rem;
+  overflow: hidden;
+  background: var(--border-light);
+}
+
+.encyclopedia-carousel__rail span {
+  display: block;
+  width: 18%;
+  height: 100%;
+  background: var(--primary-gold-500);
+  transform: translateX(0);
+  transition: transform 0.2s ease, width 0.2s ease;
+}
+
+.encyclopedia-grid {
+  display: flex;
+  gap: 1.5rem;
+  padding: 0.15rem 0.15rem 0.8rem;
+}
+
+.encyclopedia-card {
+  flex: 0 0 calc((100% - 4.5rem) / 4);
+  min-width: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.encyclopedia-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+
+.encyclopedia-card__image {
+  aspect-ratio: 3/2;
+  overflow: hidden;
+  min-height: 10rem;
+  background: var(--border-light);
+}
+
+.encyclopedia-card__image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.encyclopedia-card:hover .encyclopedia-card__image img {
+  transform: scale(1.05);
+}
+
+.encyclopedia-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+.encyclopedia-card__formula {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary-gold-500);
+  margin-bottom: 0.5rem;
+}
+
+.encyclopedia-card__name {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.encyclopedia-card__excerpt {
+  font-family: var(--font-body);
+  font-size: 0.825rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  text-align: justify;
+  text-align-last: left;
+  text-justify: inter-word;
+  hyphens: auto;
+  word-spacing: normal;
+  margin-bottom: 1rem;
+  flex: 1;
+}
+
+.encyclopedia-card__specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.encyclopedia-card__spec {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.encyclopedia-card__spec strong {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.encyclopedia-cta {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.encyclopedia-cta__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary-gold-500);
+  text-decoration: none;
+  padding: 0.75rem 2rem;
+  border: 1px solid var(--primary-gold-500);
+  transition: all 0.3s ease;
+}
+
+.encyclopedia-cta__link:hover {
+  background: var(--primary-gold-500);
+  color: #fff;
+}
+
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .esg-grid { grid-template-columns: repeat(2, 1fr); }
+  .tours-grid { grid-template-columns: repeat(2, 1fr); }
+  .encyclopedia-card { flex-basis: calc((100% - 1.5rem) / 2); }
+}
+
+@media (max-width: 768px) {
+  .esg-grid { grid-template-columns: 1fr; }
+  .b2b-grid { grid-template-columns: 1fr; }
+  .tours-grid { grid-template-columns: 1fr; }
+  .mineral-encyclopedia__header {
+    text-align: center;
+    margin-bottom: 2.25rem;
+  }
+  .mineral-encyclopedia__subtitle {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .mineral-encyclopedia__overline {
+    display: block;
+    text-align: center;
+  }
+  .encyclopedia-carousel__top {
+    align-items: flex-end;
+  }
+  .encyclopedia-grid {
+    gap: 1rem;
+    padding-bottom: 0.55rem;
+  }
+  .encyclopedia-card {
+    flex-basis: min(84vw, 360px);
+  }
+  .encyclopedia-card:hover {
+    transform: none;
+  }
+  .tour-modal__meta { grid-template-columns: 1fr; }
+  .tour-modal__media { min-height: 240px; }
+  .tour-modal__body { padding: 1.5rem; }
+  
+  .esg-card__metric {
+    font-size: 1.45rem;
+    font-weight: 600;
+  }
+  .tour-card { aspect-ratio: 16/9; }
+
+  .tour-card__play {
+    top: 1rem;
+    right: 1rem;
+    left: auto;
+    transform: none !important;
+    width: 46px;
+    height: 46px;
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(242, 245, 247, 0.94));
+    color: var(--primary-gold-500);
+    box-shadow:
+      0 14px 30px rgba(0, 0, 0, 0.34),
+      0 0 0 5px rgba(5, 9, 14, 0.34),
+      inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    transition: border-color 0.25s var(--ease-smooth), box-shadow 0.25s var(--ease-smooth), background 0.25s var(--ease-smooth);
+  }
+
+  .tour-card__play svg {
+    width: 18px;
+    height: 18px;
+    color: var(--primary-gold-500);
+    filter: none;
+  }
+
+  .tour-card__play::after {
+    content: "Watch";
+    position: absolute;
+    right: calc(100% + 0.5rem);
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0.36rem 0.58rem;
+    background: rgba(5, 9, 14, 0.84);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #fff;
+    font-family: var(--font-ui);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+    pointer-events: none;
+  }
+
+  .tour-card:hover .tour-card__play,
+  .tour-card:focus-visible .tour-card__play {
+    transform: none !important;
+    border-color: rgba(242, 106, 33, 0.68);
+    background:
+      linear-gradient(180deg, #ffffff, #f6f2ef);
+    box-shadow:
+      0 16px 34px rgba(0, 0, 0, 0.36),
+      0 0 0 5px rgba(242, 106, 33, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  }
+
+  /* Compact Ticker for Mobile - Slimmer Bar, Readable Text */
+  .commodity-ticker__item {
+    padding: 0.4rem 1rem !important;
+    gap: 0.5rem !important;
+    line-height: 1 !important;
+  }
+  .commodity-ticker__price {
+    font-size: 0.95rem !important;
+  }
+  .commodity-ticker__name {
+    font-size: 0.75rem !important;
+    letter-spacing: 0.02em !important;
+  }
+  .commodity-ticker__change {
+    font-size: 0.7rem !important;
+    padding: 0.1rem 0.3rem !important;
+  }
+  .commodity-ticker__source {
+    font-size: 0.6rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .encyclopedia-carousel__button {
+    width: 40px;
+    height: 40px;
+  }
+  .encyclopedia-card {
+    flex-basis: calc(100% - 0.35rem);
+  }
+  .encyclopedia-card__body {
+    padding: 1.2rem;
+  }
+  .encyclopedia-card__name {
+    font-size: 1.08rem;
+  }
+  .encyclopedia-card__specs {
+    gap: 0.55rem 0.85rem;
+  }
+}

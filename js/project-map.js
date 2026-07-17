@@ -5,124 +5,139 @@
 
 export function initProjectMap() {
   const mapContainer = document.getElementById('premium-map');
-  if (!mapContainer) return;
+  if (!mapContainer || typeof L === 'undefined') return;
 
-  // Initialize map centered on Balochistan
+  // Initialize map centered on Balochistan's operating footprint.
   const map = L.map('premium-map', {
     scrollWheelZoom: false,
-    zoomControl: true
-  }).setView([29.0, 66.0], 6);
+    zoomControl: false,
+    attributionControl: false
+  }).setView([29.3, 65.2], 6);
 
-  // Add Professional Dark Matter Tiles (No API key required)
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+  L.control.zoom({ position: 'bottomright' }).addTo(map);
+  L.control.attribution({ position: 'bottomleft', prefix: false }).addTo(map);
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
     subdomains: 'abcd',
-    maxZoom: 20
+    maxZoom: 19
   }).addTo(map);
 
-  // Custom Icon for Main Hub
-  const mainIcon = L.divIcon({
-    className: 'custom-map-marker main-hub',
-    html: '<div class="marker-pulse"></div><div class="marker-dot main"></div>',
-    iconSize: [30, 30],
-    iconAnchor: [15, 15]
-  });
+  const routeStyle = {
+    className: 'footprint-route-line',
+    color: '#c89a62',
+    weight: 1.35,
+    opacity: 0.48,
+    dashArray: '2 10',
+    lineCap: 'round'
+  };
 
-  // Custom Icon for Sites
-  const siteIcon = L.divIcon({
-    className: 'custom-map-marker mine-site',
-    html: '<div class="marker-dot"></div>',
-    iconSize: [20, 20],
-    iconAnchor: [10, 10]
-  });
-
-  // Project Data
   const projects = [
-    {
-      name: "Balochistan Minerals (HQ)",
-      coords: [30.2, 67.0],
-      type: "Executive Hub",
-      status: "Operational",
-      isMain: true
-    },
     {
       name: "Muslim Bagh",
       coords: [30.8, 67.7],
+      commodity: "Chromite",
       type: "Chromite Mine",
-      status: "Active Production"
+      status: "Active Production",
+      tone: "chromite",
+      radius: 36000
     },
     {
-      name: "Khuzdar",
-      coords: [27.8, 66.6],
-      type: "Barite Operations",
-      status: "Active"
+      name: "Dilband",
+      coords: [29.0, 66.4],
+      commodity: "Iron Ore",
+      type: "Iron Ore Project",
+      status: "Bulk Supply",
+      tone: "barite",
+      radius: 42000
     },
     {
       name: "Chagai",
       coords: [29.2, 61.6],
-      type: "Copper & Gold",
-      status: "Exploration"
+      commodity: "Copper-Gold",
+      type: "Copper-Gold Belt",
+      status: "Exploration",
+      tone: "copper",
+      radius: 52000
     },
     {
-      name: "Dilband",
-      coords: [29.5, 67.2],
-      type: "Iron Ore",
-      status: "Production"
+      name: "Washuk-Zhob",
+      coords: [30.2, 65.2],
+      commodity: "Antimony",
+      type: "Specialty Metal Project",
+      status: "Lot-Based Supply",
+      tone: "chromite",
+      radius: 38000
     }
   ];
 
-  // Add markers to map
+  const ports = [
+    { name: 'Karachi Port', coords: [24.86, 67.01] },
+    { name: 'Gwadar Port', coords: [25.12, 62.32] }
+  ];
+
+  projects.forEach(project => {
+    L.circle(project.coords, {
+      radius: project.radius,
+      className: `footprint-radius footprint-radius--${project.tone}`,
+      color: '#c89a62',
+      fillColor: '#c89a62',
+      fillOpacity: 0.07,
+      weight: 1,
+      opacity: 0.24
+    }).addTo(map);
+  });
+
+  projects.forEach(project => {
+    ports.forEach(port => {
+      L.polyline([project.coords, port.coords], routeStyle).addTo(map);
+    });
+  });
+
+  ports.forEach(port => {
+    L.marker(port.coords, {
+      icon: L.divIcon({
+        className: 'footprint-port-marker',
+        html: `
+          <span class="footprint-port-marker__dot"></span>
+          <span class="footprint-map-marker__label footprint-map-marker__label--port">${port.name}</span>
+        `,
+        iconSize: [120, 30],
+        iconAnchor: [9, 15]
+      })
+    })
+      .addTo(map);
+  });
+
   projects.forEach(project => {
     const marker = L.marker(project.coords, {
-      icon: project.isMain ? mainIcon : siteIcon
+      icon: L.divIcon({
+        className: `footprint-map-marker footprint-map-marker--${project.tone}`,
+        html: `
+          <span class="footprint-map-marker__pulse"></span>
+          <span class="footprint-map-marker__dot"></span>
+          <span class="footprint-map-marker__label footprint-map-marker__label--${project.tone}">${project.name}</span>
+        `,
+        iconSize: [150, 42],
+        iconAnchor: [17, 17]
+      })
     }).addTo(map);
 
     marker.bindPopup(`
-      <div class="map-popup">
-        <strong style="color: var(--var(--primary-gold)-500); font-size: 1.1rem;">${project.name}</strong><br>
-        <span style="color: #fff; font-size: 0.9rem;">${project.type}</span><br>
-        <span style="color: rgba(255,255,255,0.7); font-size: 0.8rem;">Status: ${project.status}</span>
+      <div class="footprint-popup">
+        <span>${project.commodity}</span>
+        <strong>${project.name}</strong>
+        <small>${project.type} / ${project.status}</small>
       </div>
-    `);
+    `, { className: 'footprint-leaflet-popup' });
+
   });
 
-  // Add custom CSS for pulse effect
-  const style = document.createElement('style');
-  style.textContent = `
-    .custom-map-marker {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .marker-dot {
-      width: 12px;
-      height: 12px;
-      background: var(--var(--primary-gold)-500);
-      border-radius: 50%;
-      border: 2px solid #fff;
-      box-shadow: 0 0 10px rgba(249, 115, 22, 0.5);
-    }
-    .marker-dot.main {
-      width: 16px;
-      height: 16px;
-      background: var(--navy-500);
-      border-color: var(--var(--primary-gold)-500);
-    }
-    .marker-pulse {
-      position: absolute;
-      width: 30px;
-      height: 30px;
-      background: var(--var(--primary-gold)-500);
-      border-radius: 50%;
-      opacity: 0.4;
-      animation: mapPulse 2s infinite ease-out;
-    }
-    @keyframes mapPulse {
-      0% { transform: scale(0.5); opacity: 0.5; }
-      100% { transform: scale(1.5); opacity: 0; }
-    }
-  `;
-  document.head.appendChild(style);
+  const bounds = L.latLngBounds([
+    [24.6, 60.6],
+    [31.3, 68.7]
+  ]);
+  map.fitBounds(bounds, { padding: [28, 28] });
 }
 
 // Auto-init

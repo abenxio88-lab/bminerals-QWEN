@@ -4,8 +4,14 @@
  */
 
 export function initEarthTechCore() {
+  // Guard: Skip if already initialized
+  if (window.__earthTechCoreInitialized) return;
+
   const container = document.getElementById('three-horizon-container');
   if (!container) return;
+  if (typeof THREE === 'undefined') return;
+
+  window.__earthTechCoreInitialized = true;
 
   // 1. Setup Scene
   const scene = new THREE.Scene();
@@ -43,7 +49,7 @@ export function initEarthTechCore() {
 
   // 3. Material (Industrial Slate with Metallic Sheen)
   const material = new THREE.MeshStandardMaterial({
-    color: 0x3f3f46, // Zinc-600 (Lighter industrial slate)
+    color: 0x3f3f46, // Lighter industrial slate
     wireframe: true,
     transparent: true,
     opacity: 0.35, // Increased visibility
@@ -58,7 +64,7 @@ export function initEarthTechCore() {
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.6); // Slightly brighter
   scene.add(ambientLight);
 
-  const sunLight = new THREE.DirectionalLight(0xf97316, 1.8); // Brighter Copper/Gold glow
+  const sunLight = new THREE.DirectionalLight(0xf97316, 1.8); // Brighter Copper/orange glow
   sunLight.position.set(50, 20, 10);
   scene.add(sunLight);
 
@@ -74,8 +80,12 @@ export function initEarthTechCore() {
   });
 
   // 6. Animation Loop
+  let running = false;
+  let frameId = null;
+
   const animate = () => {
-    requestAnimationFrame(animate);
+    if (!running) return;
+    frameId = requestAnimationFrame(animate);
 
     // Smooth camera drift
     targetX += (mouseX - targetX) * 0.05;
@@ -91,19 +101,32 @@ export function initEarthTechCore() {
     renderer.render(scene, camera);
   };
 
-  animate();
+  const start = () => {
+    if (running) return;
+    running = true;
+    frameId = requestAnimationFrame(animate);
+  };
 
-  // Handle Resize
-  window.addEventListener('resize', () => {
-    camera.aspect = container.offsetWidth / container.offsetHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(container.offsetWidth, container.offsetHeight);
+  const stop = () => {
+    running = false;
+    if (frameId) cancelAnimationFrame(frameId);
+    frameId = null;
+  };
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stop();
+    else start();
   });
-}
 
-// Auto-init
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initEarthTechCore);
-} else {
-  initEarthTechCore();
+  start();
+
+  // Handle Resize - guard against duplicate listeners
+  if (!window.__earthTechResizeHandler) {
+    window.__earthTechResizeHandler = () => {
+      camera.aspect = container.offsetWidth / container.offsetHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.offsetWidth, container.offsetHeight);
+    };
+    window.addEventListener('resize', window.__earthTechResizeHandler);
+  }
 }

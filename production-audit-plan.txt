@@ -1,0 +1,149 @@
+======================================================================
+PRODUCTION AUDIT PLAN — BALOCHISTAN MINERALS WEBSITE
+======================================================================
+ROLE: Senior Security Engineer, DevOps Engineer, Web Performance Engineer, and SEO Engineer.
+TASK: Prepare the entire project for a high-grade production deployment.
+
+CRITICAL STRUCTURAL GROUND RULES:
+- This is a STATIC WEBSITE.
+- Do NOT redesign anything. Do NOT change layouts or animations.
+- Do NOT modify branding, colors, typography, spacing, or responsiveness.
+- Do NOT remove existing functionality. 
+- Only improve security, performance, SEO, accessibility, maintainability, and production readiness.
+- Treat this as preparing a website that will be used by a government-level organization. All code must follow production-grade best practices.
+
+======================================================================
+STEP 1 — ANALYZE THE PROJECT
+======================================================================
+Perform a complete page-by-page audit of raw code files.
+Identify:
+• framework (Static HTML / Tailwind CSS)
+• build tool (PostCSS / Tailwind compiler)
+• package manager (npm)
+• deployment target (Hostinger Linux Environment via FTP)
+• CDN usage & external libraries (GSAP, Lenis, ScrollTrigger)
+• external fonts, images, videos, and third-party scripts.
+* Note: Remove unused code ONLY if completely safe without breaking smooth scrolling or layouts.
+
+======================================================================
+STEP 2 — SECURITY HARDENING (.HTACCESS)
+======================================================================
+Implement production security best practices inside the root `.htaccess` file.
+Ensure the following headers are fully active and tested:
+• Content-Security-Policy (Strictest possible WITHOUT breaking external CDNs/Fonts)
+• X-Content-Type-Options (Enforce 'nosniff')
+• Referrer-Policy ('strict-origin-when-cross-origin')
+• Permissions-Policy (Restrict unauthorized camera, microphone, geolocation hardware APIs)
+• Cross-Origin-Opener-Policy & Cross-Origin-Resource-Policy
+• Strict-Transport-Security (HSTS enforced for subdomains)
+• X-Frame-Options (Enforce 'DENY' or 'SAMEORIGIN' against clickjacking)
+* Note: Since this is an Apache/Hostinger target, use `.htaccess` instead of `vercel.json`.
+
+======================================================================
+STEP 3 — REMOVE SENSITIVE INFORMATION
+======================================================================
+Search the entire repository and completely scrub:
+• console.log and debugging code fragments
+• Temporary files and unused assets/images
+• Unused scripts or orphaned CSS blocks
+• Developer, TODO, and FIXME comments
+• Test pages, duplicate backup files, and sample/example code
+
+======================================================================
+STEP 4 — DEPENDENCY AUDIT
+======================================================================
+Check every item in package.json and package-lock.json:
+• Remove any unused npm packages.
+• Upgrade vulnerable packages to safe versions.
+• Remove duplicate libraries and minimize the absolute dependency count.
+
+======================================================================
+STEP 5 — PERFORMANCE OPTIMIZATION
+======================================================================
+Optimize every layout asset to target 95+ performance scores:
+• Convert images to WebP where possible without perceptible quality loss.
+• Preload ONLY critical hero assets at the top of the viewport.
+• Native lazy-load (`loading="lazy"`) all images below the fold.
+• Compress and tree-shake JavaScript. Minify raw CSS and clean HTML output.
+• Ensure Brotli/Gzip compression is running on Hostinger.
+• Configure aggressive browser caching headers for static assets.
+• Reduce render-blocking resources and ensure zero Cumulative Layout Shift (CLS).
+
+======================================================================
+STEP 6 — SEO AUDIT
+======================================================================
+Verify the structural presence of:
+• Title tags, Meta Descriptions, and Canonical URLs page-by-page.
+• Open Graph (OG) and Twitter Card tags for professional social sharing.
+• Valid `robots.txt` and an accurate `sitemap.xml`.
+• Favicon, apple-touch-icon, and a valid manifest.json.
+• Correct heading hierarchies (H1 -> H2 -> H3) with zero missing steps.
+• Alt text on every image layer and informative link labels.
+
+======================================================================
+STEP 7 — ACCESSIBILITY (WCAG COMPLIANCE)
+======================================================================
+Audit code manually to hit a 100 Accessibility score:
+• Ensure proper ARIA labels are added where necessary.
+• Use clear, readable labels on interactive elements and forms.
+• Check color contrast minimums across background images.
+• Ensure stable keyboard navigation, visible focus states, and semantic HTML layout.
+
+======================================================================
+STEP 8 — PRODUCTION CLEANUP (STATUS: COMPLETE)
+======================================================================
+• All old local Chrome cache files, hidden agent folders, and markdown files have been successfully purged from the workspace.
+• Keep this environment clean by preserving the updated `.gitignore` rules.
+
+======================================================================
+STEP 9 — SERVER CONFIGURATION
+======================================================================
+Map standard server optimization targets to your live `.htaccess` environment:
+• Maintain security headers, redirect rules, asset caching durations (short for HTML, long for static CSS/JS/images), and Gzip file compression rules.
+
+======================================================================
+STEP 10 — GITHUB PREPARATION (STATUS: COMPLETE)
+======================================================================
+• Repository structure is optimized with a strict deployment-safe `.gitignore` and `.gitattributes` to handle cross-platform line endings cleanly.
+• Ensure no passwords, hosting tokens, or private secrets are written inside project comments.
+
+======================================================================
+STEP 11 — ROBOTS.TXT
+======================================================================
+Verify the root `robots.txt` is present:
+• Allow indexing for production pages.
+• Explicitly block search engine visibility into `/backups/`, staging directories, or config trees.
+• Include a direct link path referencing the production `sitemap.xml`.
+
+======================================================================
+STEP 12 — SECURITY.TXT
+======================================================================
+Maintain a valid compliance file inside the root directory under:
+`/.well-known/security.txt`
+• Use a proper corporate/placeholder email endpoint (`mailto:security@balochistanminerals.com`) and assign a future expiration date to keep it valid.
+
+======================================================================
+STEP 13 — FINAL AUDIT
+======================================================================
+Run a comprehensive checkout loop before marking the project complete:
+• Confirm there are no broken imports or missing layout assets.
+• Ensure zero console errors, zero layout shifts, and zero performance regressions.
+
+======================================================================
+STEP 14 — REPORTING REQUIREMENT
+======================================================================
+• DO NOT silently modify the project layout. 
+• Provide a clear, itemized markdown report detailing any files changed, why changes were introduced, and precise security/speed/SEO/accessibility improvements achieved.
+
+======================================================================
+PROJECT-SPECIFIC PERFORMANCE TARGETS
+======================================================================
+- Website Nature: Premium corporate mining website featuring heavy visual storytelling.
+- Animation Rule: Preserve all GSAP, Lenis, and smooth scrolling transitions completely intact.
+- Target Metric Thresholds:
+  • Performance: 95+
+  • Accessibility: 100
+  • Best Practices: 100
+  • SEO: 100
+- Core Web Vitals Focus: Optimize LCP (Largest Contentful Paint), FID, and secure absolute zero CLS (Cumulative Layout Shift) by declaring explicit container sizes.
+======================================================================

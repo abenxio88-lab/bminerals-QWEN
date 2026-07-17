@@ -3,7 +3,7 @@
    ============================================ */
 .documents {
   padding: var(--section-padding-y) var(--section-padding-x);
-  background: linear-gradient(to bottom, var(--bg-primary), var(--bg-secondary));
+  background: var(--bg-primary);
 }
 
 .documents__container {

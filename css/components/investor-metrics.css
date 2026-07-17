@@ -6,9 +6,9 @@
 .investor-metric {
   position: relative;
   padding: 1.5rem;
-  background: var(--glass-bg, rgba(255, 255, 255, 0.03));
-  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
-  border-radius: 16px;
+  background: transparent;
+  border: 1px solid rgba(71, 85, 105, 0.3); /* Subdued Slate Grey */
+  border-radius: 12px;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   display: flex;
@@ -17,10 +17,7 @@
 }
 
 .investor-metric:hover {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(212, 175, 55, 0.3); /* Subtle Gold Glow only */
-  transform: none; /* Removed lift */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+  border-color: rgba(148, 163, 184, 0.5);
 }
 
 .investor-metric__header {
@@ -33,7 +30,7 @@
   font-family: 'Poppins', sans-serif;
   font-size: 0.85rem;
   font-weight: 500;
-  color: var(--zinc-400, #a1a1aa);
+  color: #a1a1aa;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -55,11 +52,11 @@
 
 .investor-metric__value {
   font-family: 'Oswald', sans-serif;
-  font-size: 2.25rem;
-  font-weight: 700;
+  font-size: clamp(1.45rem, 2.15vw, 1.78rem);
+  font-weight: 500;
   color: var(--text-primary, #f8fafc);
-  line-height: 1;
-  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  line-height: 1.05;
+  text-shadow: 0 2px 7px rgba(0, 0, 0, 0.22);
 }
 
 .investor-metric__legend {
@@ -101,7 +98,9 @@
 }
 
 @keyframes draw-chart {
-  to { stroke-dashoffset: 0; }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 .revealed .chart-area {
@@ -110,7 +109,9 @@
 }
 
 @keyframes fade-in {
-  to { opacity: 0.2; }
+  to {
+    opacity: 0.2;
+  }
 }
 
 .chart-grid {
@@ -124,7 +125,7 @@
 }
 
 .revealed .chart-point {
-  fill: #fff;
+  fill: var(--navy-900);
   stroke: currentColor;
   stroke-width: 2;
   opacity: 0;
@@ -134,7 +135,10 @@
 }
 
 @keyframes point-pop {
-  to { opacity: 1; transform: scale(1); }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .investor-metric:hover .chart-point {
@@ -142,35 +146,23 @@
   filter: none;
 }
 
-/* Secondary "Hidden" Data for Detail */
+/* Secondary Detail Line */
 .chart-detail-line {
   stroke: rgba(255, 255, 255, 0.1);
   stroke-dasharray: 4 4;
   stroke-width: 1;
 }
 
-/* Tooltip Simulation (Visual Only) */
+/* Pulse animation - DISABLED */
 .investor-metric__pulse {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background: #fff;
-  border-radius: 50%;
-  box-shadow: 0 0 20px #fff;
-  animation: pulse-ring 2s infinite;
-  pointer-events: none;
-}
-
-@keyframes pulse-ring {
-  0% { transform: scale(0.8); opacity: 0.8; box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5); }
-  70% { transform: scale(1.5); opacity: 0; box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
-  100% { transform: scale(0.8); opacity: 0; box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+  display: none !important;
 }
 
 /* Scanning Line Effect on Hover */
 .investor-metric__scan {
   position: absolute;
-  top: 0; bottom: 0;
+  top: 0;
+  bottom: 0;
   width: 1px;
   background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.2), transparent);
   left: 0;
@@ -185,16 +177,60 @@
 }
 
 @keyframes scan-move {
-  0% { left: 0%; }
-  100% { left: 100%; }
+  0% {
+    left: 0%;
+  }
+
+  100% {
+    left: 100%;
+  }
 }
 
 /* AXIS LABELS */
 .chart-labels {
   font-size: 9px;
-  fill: var(--text-secondary, #cbd5e1); 
+  fill: var(--text-secondary, #cbd5e1);
   font-family: 'Montserrat', sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .investor-metric {
+    min-height: 18rem;
+    padding: 1.15rem;
+    scroll-snap-align: center;
+  }
+
+  .investor-metric__header {
+    gap: 0.75rem;
+  }
+
+  .investor-metric__label {
+    font-size: 0.68rem;
+    line-height: 1.35;
+  }
+
+  .investor-metric__trend {
+    flex-shrink: 0;
+    font-size: 0.66rem;
+    padding: 0.18rem 0.42rem;
+  }
+
+  .investor-metric__value {
+    font-size: 1.38rem;
+    font-weight: 500;
+    line-height: 1.05;
+  }
+
+  .investor-metric__legend {
+    font-size: 0.58rem;
+    line-height: 1.45;
+  }
+
+  .investor-metric__chart {
+    height: 78px;
+    margin-top: 0.75rem;
+  }
 }

@@ -4,20 +4,31 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:css": "tailwindcss -i ./css/main.css -o ./output.css --watch",
-    "dev": "npm run build:css"
+    "build:css": "postcss src/styles/index.css -o output.css --verbose",
+    "watch:css": "postcss src/styles/index.css -o output.css --watch",
+    "dev": "npm run build:css",
+    "check:site": "node scripts/check-site.js",
+    "check:image-modals": "node scripts/check-image-modal-safety.js",
+    "check": "npm run check:image-modals && npm run build:css && npm run check:site",
+    "optimize:images": "node scripts/convert-images.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
+  "devDependencies": {
+    "autoprefixer": "^10.4.0",
+    "cssnano": "^5.1.0",
+    "postcss": "^8.4.0",
+    "postcss-cli": "^9.1.0",
+    "postcss-import": "^15.1.0",
+    "tailwindcss": "^3.0.0"
+  },
   "dependencies": {
     "@parcel/watcher": "^2.5.6",
-    "@studio-freight/lenis": "^1.0.42",
-    "@tailwindcss/cli": "^4.2.2",
     "gsap": "^3.15.0",
     "lucide": "^1.8.0",
-    "swiper": "^12.1.3",
-    "tailwindcss": "^4.2.2"
+    "sharp": "^0.32.0",
+    "swiper": "^12.1.3"
   }
 }

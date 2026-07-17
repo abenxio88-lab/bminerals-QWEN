@@ -17,17 +17,45 @@
     const heroSection = document.querySelector('.hero-cinematic');
     if (!heroSection) return;
 
-    // Initialize particles
-    initParticles(heroSection);
+    // Initialize particles (Disabled as per request)
+    // initParticles(heroSection);
     
-    // Initialize mineral card interactions
-    initMineralCards(heroSection);
-    
-    // Initialize parallax effect
-    initParallax(heroSection);
+    // Initialize Hero Carousel
+    initHeroCarousel(heroSection);
     
     // Animate stats counter
     animateStats();
+
+    // Handle Background Video Transition (10s delay)
+    initHeroBackgroundTransition(heroSection);
+  }
+
+  /**
+   * Transition from static image to video after 10 seconds
+   */
+  function initHeroBackgroundTransition(container) {
+    const bgImage = container.querySelector('.hero-bg-image');
+    const bgVideo = container.querySelector('.hero-bg-video');
+    const bgOverlay = container.querySelector('.hero-bg-video-overlay');
+
+    if (!bgVideo) return;
+
+    // 10 second delay as requested
+    setTimeout(() => {
+      // Start video play
+      bgVideo.play().then(() => {
+        // Fade in video and overlay
+        bgVideo.classList.add('is-visible');
+        if (bgOverlay) bgOverlay.classList.add('is-visible');
+        
+        // Slightly delay image fade out for smoother blend
+        setTimeout(() => {
+          if (bgImage) bgImage.style.opacity = '0';
+        }, 500);
+      }).catch(() => {
+        container.classList.add('hero-cinematic--video-fallback');
+      });
+    }, 10000);
   }
 
   /**
@@ -65,76 +93,99 @@
   }
 
   /**
-   * Mineral card hover interactions
+   * Hero Carousel Logic
    */
-  function initMineralCards(container) {
-    const cards = container.querySelectorAll('.mineral-card');
+  function initHeroCarousel(container) {
+    const carouselArr = container.querySelectorAll('.mineral-card');
+    const indicators = container.querySelectorAll('.indicator');
+    const prevBtn = container.querySelector('.carousel-nav-btn.prev');
+    const nextBtn = container.querySelector('.carousel-nav-btn.next');
     
-    cards.forEach(card => {
-      card.addEventListener('mouseenter', () => {
-        cards.forEach(c => {
-          if (c !== card) {
-            c.style.opacity = '0.3';
-            c.style.transform = 'scale(0.95) translateZ(-100px)';
-          }
-        });
-      });
-      
-      card.addEventListener('mouseleave', () => {
-        cards.forEach(c => {
-          c.style.opacity = '';
-          c.style.transform = '';
-        });
-      });
-    });
-  }
+    if (!carouselArr.length) return;
 
-  /**
-   * Subtle mouse parallax effect
-   */
-  function initParallax(container) {
-    const visual = container.querySelector('.hero-visual');
-    const cards = container.querySelectorAll('.mineral-card');
-    
-    if (!visual || cards.length === 0) return;
+    let currentIndex = 0;
+    let isTransitioning = false;
 
-    let mouseX = 0;
-    let mouseY = 0;
-    let currentX = 0;
-    let currentY = 0;
-
-    document.addEventListener('mousemove', (e) => {
-      const rect = visual.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      
-      mouseX = x * 30;
-      mouseY = y * 20;
-    });
-
-    function animate() {
-      // Smooth interpolation
-      currentX += (mouseX - currentX) * 0.05;
-      currentY += (mouseY - currentY) * 0.05;
-      
-      cards.forEach((card, index) => {
-        const depth = (index + 1) * 0.5;
-        const rotateY = currentX * depth;
-        const rotateX = -currentY * depth;
+    function updateCarousel() {
+      carouselArr.forEach((card, index) => {
+        // Remove all state classes
+        card.classList.remove('is-active', 'is-next', 'is-prev', 'is-hidden-right', 'is-hidden-left');
         
-        if (card.classList.contains('mineral-card--primary')) {
-          card.style.transform = `translate(-50%, -50%) translateZ(0) rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
-        } else if (card.classList.contains('mineral-card--secondary')) {
-          card.style.transform = `translateZ(-50px) rotateY(${-10 + rotateY * 1.5}deg) rotateX(${rotateX}deg)`;
-        } else if (card.classList.contains('mineral-card--tertiary')) {
-          card.style.transform = `translateZ(-80px) rotateY(${10 + rotateY * 2}deg) rotateX(${rotateX}deg)`;
+        if (index === currentIndex) {
+          card.classList.add('is-active');
+        } else if (index === (currentIndex + 1) % carouselArr.length) {
+          card.classList.add('is-next');
+        } else if (index === (currentIndex - 1 + carouselArr.length) % carouselArr.length) {
+          card.classList.add('is-prev');
+        } else if (index > currentIndex) {
+          card.classList.add('is-hidden-right');
+        } else {
+          card.classList.add('is-hidden-left');
         }
       });
+
+      // Update indicators
+      indicators.forEach((indicator, index) => {
+        indicator.classList.toggle('is-active', index === currentIndex);
+      });
       
-      requestAnimationFrame(animate);
+      // Feedback
+      if (window.tactileFeedback) window.tactileFeedback('soft');
+
+      // Dispatch event for other components (like 3D explorer if re-enabled)
+      const activeMineral = carouselArr[currentIndex].getAttribute('data-mineral');
+      window.dispatchEvent(new CustomEvent('mineralChanged', { 
+        detail: { mineral: activeMineral } 
+      }));
     }
-    
-    animate();
+
+    function nextSlide() {
+      if (isTransitioning) return;
+      isTransitioning = true;
+      currentIndex = (currentIndex + 1) % carouselArr.length;
+      updateCarousel();
+      setTimeout(() => isTransitioning = false, 800);
+    }
+
+    function prevSlide() {
+      if (isTransitioning) return;
+      isTransitioning = true;
+      currentIndex = (currentIndex - 1 + carouselArr.length) % carouselArr.length;
+      updateCarousel();
+      setTimeout(() => isTransitioning = false, 800);
+    }
+
+    // Event Listeners
+    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => {
+        if (currentIndex === index || isTransitioning) return;
+        currentIndex = index;
+        updateCarousel();
+      });
+    });
+
+    // Option: Click card to go next
+    carouselArr.forEach((card, index) => {
+      card.addEventListener('click', () => {
+        if (card.classList.contains('is-next')) {
+          nextSlide();
+        } else if (card.classList.contains('is-prev')) {
+          prevSlide();
+        }
+      });
+    });
+
+    // Initialize first state
+    updateCarousel();
+
+    // Auto-advance
+    let autoPlay = setInterval(nextSlide, 8000);
+
+    container.addEventListener('mouseenter', () => clearInterval(autoPlay));
+    container.addEventListener('mouseleave', () => autoPlay = setInterval(nextSlide, 8000));
   }
 
   /**
@@ -142,6 +193,7 @@
    */
   function animateStats() {
     const statValues = document.querySelectorAll('.stat-value');
+    if (!statValues.length || typeof IntersectionObserver === 'undefined') return;
     
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {

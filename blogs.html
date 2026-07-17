@@ -5,76 +5,209 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
+  <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="description" content="Expert insights on sustainable mining practices, ESG compliance, chromite ore suppliers, barite drilling fluids, copper mining Pakistan, and Balochistan mineral exports.">
   <meta name="keywords" content="sustainable mining practices 2025, ESG mining compliance, chromite ore suppliers, high grade chromite ore 46% Cr2O3, API barite supplier Pakistan, copper mining Pakistan, critical minerals supply chain, Balochistan Minerals, Gwadar port mineral exports, mining automation AI, carbon neutral mining, barite drilling fluids, Pakistan mining investment">
+  <meta name="description" content="Read practical insights on Pakistan minerals, responsible mining, Balochistan operations, mineral logistics, quality assurance and export supply.">
+  <meta name="keywords" content="Balochistan Minerals, Mining Blog, ESG, Copper Mining, Chromite, Barite, Iron Ore, Industrial Growth">
   <meta name="author" content="Balochistan Minerals">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Blogs & Insights | Balochistan Minerals">
-  <meta property="og:description" content="Stay updated with the latest trends and insights in the mineral sector of Pakistan.">
+  <meta property="og:title" content="Mining Insights Pakistan | Balochistan Minerals Blog">
+  <meta property="og:description" content="Read practical insights on Pakistan minerals, responsible mining, Balochistan operations, mineral logistics, quality assurance and export supply.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://balochistanminerals.com/blogs">
   <meta property="og:image" content="https://balochistanminerals.com/images/hero/hero-2.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mining Insights Pakistan | Balochistan Minerals Blog">
+  <meta name="twitter:description" content="Read practical insights on Pakistan minerals, responsible mining, Balochistan operations, mineral logistics, quality assurance and export supply.">
 
-  <title>Blogs & Insights | Balochistan Minerals</title>
-  <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
-  <link rel="manifest" href="images/favicon/site.webmanifest">
-  <link rel="shortcut icon" href="images/favicon/favicon.ico">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <title>Mining Insights Pakistan | Balochistan Minerals Blog</title>
+  <link rel="canonical" href="https://balochistanminerals.com/blogs">
+  <link rel="preload" as="image"
+        href="/images/hero/optimized/hero-3-1400.avif"
+        imagesrcset="/images/hero/optimized/hero-3-640.avif 640w,
+                     /images/hero/optimized/hero-3-960.avif 960w,
+                     /images/hero/optimized/hero-3-1400.avif 1400w,
+                     /images/hero/optimized/hero-3-1920.avif 1920w"
+        imagesizes="100vw"
+        type="image/avif"
+        fetchpriority="high">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+<link rel="manifest" href="images/favicon/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="output.css">
-  <link rel="stylesheet" href="css/premium-polish.css">
   <style>
-    /* Sleek Blog Specific Styles */
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+    }
+
+    /* Professional Blog Specific Styles */
     .blog-hero {
-      padding: 180px 0 100px;
-      background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-900) 100%);
-      text-align: center;
+      height: 45vh;
+      min-height: 320px;
+      margin-top: var(--navbar-height);
+      padding: 0;
+      background:
+        linear-gradient(180deg, rgba(15, 31, 58, 0.6), rgba(15, 31, 58, 0.6)),
+        url('images/hero/hero-3.webp') center/cover no-repeat;
+      background-image:
+        linear-gradient(180deg, rgba(15, 31, 58, 0.6), rgba(15, 31, 58, 0.6)),
+        image-set(
+          url('/images/hero/optimized/hero-3-640.avif') type('image/avif') 1x,
+          url('/images/hero/optimized/hero-3-1400.avif') type('image/avif') 2x
+        );
       position: relative;
       overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .blog-hero::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: url('https://images.unsplash.com/photo-1574689049868-e94ed5301745?q=80&w=2070') center/cover no-repeat;
-      opacity: 0.1;
-      filter: grayscale(1);
+      background:
+        linear-gradient(180deg, rgba(10, 22, 40, 0.18) 0%, rgba(248, 250, 252, 0.08) 100%),
+        radial-gradient(circle at 18% 22%, rgba(242, 106, 33, 0.16), transparent 24%);
+      pointer-events: none;
+    }
+
+    .blog-hero__content {
+      position: relative;
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      text-align: center;
+    }
+
+    .blog-hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 0.35rem 0.85rem;
+      border: 1px solid rgba(242, 106, 33, 0.32);
+      border-radius: var(--radius-md);
+      background: rgba(242, 106, 33, 0.14);
+      color: #fed7aa;
+      font: 800 0.72rem/1 var(--font-ui);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .blog-hero__title {
+      margin: 1rem 0;
+      color: white;
+      font-family: var(--font-heading);
+      font-size: var(--display-size);
+      line-height: 1.1;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      text-wrap: balance;
+    }
+
+    .blog-hero__text {
+      max-width: 720px;
+      margin: 0 auto;
+      color: rgba(255,255,255,0.82);
+      font-size: var(--text-base);
+      line-height: 1.7;
+      text-wrap: pretty;
+    }
+
+    .blog-section {
+      background:
+        linear-gradient(180deg, var(--bg-primary) 0%, var(--charcoal-50) 100%);
+      padding: var(--section-padding-y) 0;
+    }
+
+    .blog-section > .container {
+      width: 100%;
+      max-width: none;
+      padding-inline: clamp(0.75rem, 1.4vw, 1.5rem);
+      margin-inline: auto;
+    }
+
+    .blog-section__header {
+      max-width: 780px;
+      margin: 0 auto 2.5rem;
+      text-align: center;
+    }
+
+    .blog-section__overline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 30px;
+      margin-bottom: 0.8rem;
+      padding: 0.32rem 0.82rem;
+      border: 1px solid rgba(242, 106, 33, 0.2);
+      border-radius: var(--radius-sm);
+      background: rgba(242, 106, 33, 0.08);
+      color: var(--primary-gold-700);
+      font: 800 0.7rem/1 var(--font-ui);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .blog-section__header h2 {
+      margin: 0;
+      font-family: var(--font-heading);
+      font-size: var(--h1-size);
+      font-weight: 500;
+      color: var(--navy-900);
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .blog-section__header p {
+      max-width: 640px;
+      margin: 0.7rem auto 0;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-size: var(--text-sm);
     }
 
     .blog-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 2.5rem;
-      padding: 80px 0;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      justify-content: stretch;
+      gap: 1rem;
     }
 
     .blog-card {
-      background: white;
-      border-radius: var(--radius-lg);
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      box-shadow: 0 14px 38px rgba(15, 23, 42, 0.06);
       transition: all 0.4s var(--ease-smooth);
       display: flex;
       flex-direction: column;
-      border: 1px solid rgba(0,0,0,0.03);
+      border: 1px solid rgba(15, 23, 42, 0.08);
     }
 
     .blog-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-      border-color: var(--var(--primary-gold)-200);
+      transform: translateY(-6px);
+      box-shadow: 0 22px 54px rgba(15, 23, 42, 0.12);
+      border-color: var(--primary-gold-200);
     }
 
     .blog-card__image {
-      height: 220px;
+      height: 190px;
       overflow: hidden;
       position: relative;
+    }
+
+    .blog-card__image picture {
+      display: block;
+      width: 100%;
+      height: 100%;
     }
 
     .blog-card__image img {
@@ -82,6 +215,8 @@
       height: 100%;
       object-fit: cover;
       transition: transform 0.6s var(--ease-smooth);
+      position: relative;
+      z-index: 1;
     }
 
     .blog-card:hover .blog-card__image img {
@@ -92,10 +227,11 @@
       position: absolute;
       top: 1rem;
       left: 1rem;
-      background: var(--var(--primary-gold)-500);
+      z-index: 2;
+      background: var(--primary-gold-500);
       color: white;
       padding: 4px 12px;
-      border-radius: 20px;
+      border-radius: var(--radius-md);
       font-size: 0.75rem;
       font-weight: 600;
       text-transform: uppercase;
@@ -103,10 +239,11 @@
     }
 
     .blog-card__content {
-      padding: 2rem;
+      padding: 1.35rem;
       flex-grow: 1;
       display: flex;
       flex-direction: column;
+      text-align: left;
     }
 
     .blog-card__date {
@@ -115,15 +252,25 @@
       margin-bottom: 0.75rem;
       display: flex;
       align-items: center;
+      justify-content: flex-start;
+      align-self: flex-start;
       gap: 0.5rem;
+      text-align: left;
+    }
+
+    .blog-card__date svg {
+      display: none;
     }
 
     .blog-card__title {
-      font-family: var(--font-header);
-      font-size: 1.5rem;
+      font-family: var(--font-heading);
+      font-size: var(--h3-size);
       color: var(--navy-900);
       margin-bottom: 1rem;
+      font-weight: 500;
       line-height: 1.3;
+      letter-spacing: 0;
+      text-transform: uppercase;
     }
 
     .blog-card__excerpt {
@@ -147,13 +294,15 @@
     }
 
     .blog-card__link {
-      color: var(--var(--primary-gold)-500);
+      color: var(--primary-gold-500);
       font-weight: 600;
       font-size: 0.95rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
       transition: gap 0.3s var(--ease-smooth);
+      text-decoration: none;
+      font-family: var(--font-ui);
     }
 
     .blog-card__link:hover {
@@ -161,13 +310,118 @@
     }
 
     @media (max-width: 768px) {
-      .blog-hero { padding: 140px 0 60px; }
-      .blog-grid { padding: 40px 0; }
+      .blog-hero {
+        height: auto !important;
+        min-height: 450px !important;
+        padding-top: calc(var(--navbar-height) + 2rem) !important;
+        padding-bottom: 3rem !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+      }
+      .blog-hero__content {
+        position: relative !important;
+        z-index: 10 !important;
+        width: 100% !important;
+        padding: 0 1.5rem !important;
+        margin: 0 !important;
+      }
+      .blog-section__header { margin-bottom: 2rem; }
+      .blog-section > .container { padding-inline: 0.75rem; }
+      .blog-grid { grid-template-columns: minmax(0, 1fr); }
+      .blog-card__content { padding: 1.25rem; }
+      .blog-hero__title {
+        font-size: 1.86rem !important;
+        line-height: 1.04 !important;
+      }
+      .blog-section__header h2 {
+        font-size: 1.48rem !important;
+        line-height: 1.12 !important;
+      }
+      .blog-card__title {
+        font-size: 0.80rem !important;
+        font-weight: 400 !important;
+        line-height: 1.28;
+      }
+      .blog-hero__text,
+      .blog-section__header p,
+      .blog-card__excerpt {
+        font-size: 0.875rem !important;
+        line-height: 1.68 !important;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      html body .blog-section .blog-grid article.blog-card .blog-card__content > h2.blog-card__title {
+        font-size: 22px !important;
+        font-weight: 420 !important;
+        line-height: 1.2 !important;
+        margin-bottom: 0.7rem !important;
+      }
+    }
+
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Balochistan Minerals Insights",
+    "url": "https://balochistanminerals.com/blogs",
+    "description": "Insights on Pakistan minerals, responsible mining, logistics and sourcing from Balochistan.",
+    "publisher": { "@id": "https://balochistanminerals.com/#organization" }
+  }
+  </script>
+
+    <!-- Search Console CSS -->
+  <link rel="stylesheet" href="css/search-console.css">
+  <style>
+    /* Desktop Hero Title Override (34px) */
+    .parallax-hero__title,
+    .mines-hero__title,
+    .blog-hero__title,
+    .contact-hero__title,
+    .investors-hero__title,
+    .logistics-hero__title,
+    .sustainability-hero__title,
+    .policy-hero__copy h1,
+    #policy-title {
+      font-size: 2.125rem !important;
+    }
+
+    @media (max-width: 768px) {
+      .parallax-hero__title,
+      .mines-hero__title,
+      .blog-hero__title,
+      .contact-hero__title,
+      .investors-hero__title,
+      .logistics-hero__title,
+      .sustainability-hero__title,
+      .policy-hero__copy h1,
+      #policy-title {
+        font-size: 1.86rem !important;
+      }
     }
   </style>
+  <!-- Favicons -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="manifest" href="/images/favicon/site.webmanifest">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-55KSGPLX2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-55KSGPLX2R');
+  </script>
 </head>
 
 <body class="is-loading">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <div id="bm-hill-loader">
     <div class="bm-hill-content">
       <div class="bm-hill-container">
@@ -183,78 +437,18 @@
   <!-- @SECTION: HEADER -->
   <header class="navbar" role="banner">
     <div class="navbar__container">
-      <a href="index.html" class="navbar__brand" aria-label="Balochistan Minerals Home">
-        <img src="images/new-logo.png" alt="Balochistan Minerals logo" class="navbar__logo-img">
+      <a href="/" class="navbar__brand" aria-label="Balochistan Minerals Home">
+        <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals logo" class="navbar__logo-img" width="723" height="371">
       </a>
 
       <nav class="navbar__nav" role="navigation" aria-label="Main navigation">
-        <a href="index.html" class="navbar__link">
+        <a href="/" class="navbar__link">
           Home
         </a>
 
-        <!-- About Us Dropdown -->
-        <div class="navbar__dropdown-group">
-          <a href="about.html" class="navbar__link navbar__dropdown-trigger" aria-haspopup="true" aria-expanded="false">
-            About Us
-            <svg class="navbar__dropdown-arrow" width="12" height="12">
-              <use href="images/icons.svg#icon-chevron-down"></use>
-            </svg>
-          </a>
-          <div class="navbar__dropdown-menu">
-            <a href="about.html" class="navbar__dropdown-item">
-              <span class="navbar__dropdown-item-icon">
-                <svg width="20" height="20">
-                  <use href="images/icons.svg#icon-story"></use>
-                </svg>
-              </span>
-              <span class="navbar__dropdown-item-text">
-                <strong>Our Story</strong>
-                <span>Since 2008 in Balochistan</span>
-              </span>
-            </a>
-            <a href="about.html#leadership" class="navbar__dropdown-item">
-              <span class="navbar__dropdown-item-icon">
-                <svg width="20" height="20">
-                  <use href="images/icons.svg#icon-leadership"></use>
-                </svg>
-              </span>
-              <span class="navbar__dropdown-item-text">
-                <strong>Leadership Team</strong>
-                <span>Industry Veterans</span>
-              </span>
-            </a>
-            <a href="about.html#vision" class="navbar__dropdown-item">
-              <span class="navbar__dropdown-item-icon">
-                <svg width="20" height="20">
-                  <use href="images/icons.svg#icon-vision"></use>
-                </svg>
-              </span>
-              <span class="navbar__dropdown-item-text">
-                <strong>Vision & Mission</strong>
-                <span>Ethical Mining Excellence</span>
-              </span>
-            </a>
-            <a href="about.html#achievements" class="navbar__dropdown-item">
-              <span class="navbar__dropdown-item-icon">
-                <svg width="20" height="20">
-                  <use href="images/icons.svg#icon-achievements"></use>
-                </svg>
-              </span>
-              <span class="navbar__dropdown-item-text">
-                <strong>Achievements</strong>
-                <span>15+ Years of Excellence</span>
-              </span>
-            </a>
-            <div class="navbar__dropdown-divider"></div>
-            <a href="about.html" class="navbar__dropdown-item navbar__dropdown-item--cta">
-              <span>Learn More About Us →</span>
-            </a>
-          </div>
-        </div>
-
         <!-- Products Dropdown -->
         <div class="navbar__dropdown-group">
-          <a href="products.html" class="navbar__link navbar__dropdown-trigger" aria-haspopup="true"
+          <a href="/products" class="navbar__link navbar__dropdown-trigger" aria-haspopup="true"
             aria-expanded="false">
             Products
             <svg class="navbar__dropdown-arrow" width="12" height="12">
@@ -262,7 +456,7 @@
             </svg>
           </a>
           <div class="navbar__dropdown-menu">
-            <a href="products.html#iron-ore" class="navbar__dropdown-item" data-mineral="iron">
+            <a href="/products#iron-ore" class="navbar__dropdown-item" data-mineral="iron">
               <span class="navbar__dropdown-item-icon">
                 <svg width="20" height="20">
                   <use href="images/icons.svg#icon-iron-ore"></use>
@@ -273,7 +467,7 @@
                 <span>62-68% Fe Grade</span>
               </span>
             </a>
-            <a href="products.html#barite" class="navbar__dropdown-item" data-mineral="barite">
+            <a href="/products#barite" class="navbar__dropdown-item" data-mineral="barite">
               <span class="navbar__dropdown-item-icon">
                 <svg width="20" height="20">
                   <use href="images/icons.svg#icon-barite"></use>
@@ -284,7 +478,7 @@
                 <span>API Standard 95%</span>
               </span>
             </a>
-            <a href="products.html#chromite" class="navbar__dropdown-item" data-mineral="chromite">
+            <a href="/products#chromite" class="navbar__dropdown-item" data-mineral="chromite">
               <span class="navbar__dropdown-item-icon">
                 <svg width="20" height="20">
                   <use href="images/icons.svg#icon-chromite"></use>
@@ -295,7 +489,7 @@
                 <span>46-48% Cr₂O₃</span>
               </span>
             </a>
-            <a href="products.html#copper" class="navbar__dropdown-item" data-mineral="copper">
+            <a href="/products#copper" class="navbar__dropdown-item" data-mineral="copper">
               <span class="navbar__dropdown-item-icon">
                 <svg width="20" height="20">
                   <use href="images/icons.svg#icon-copper"></use>
@@ -307,7 +501,20 @@
               </span>
             </a>
             <div class="navbar__dropdown-divider"></div>
-            <a href="products.html" class="navbar__dropdown-item navbar__dropdown-item--cta">
+            <a href="/product-stones#irani-marble" class="navbar__dropdown-item" data-mineral="silver-steam">
+              <span class="navbar__dropdown-item-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20">
+                  <rect x="3" y="3" width="14" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M6 14 Q10 6 14 14" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.6"/>
+                </svg>
+              </span>
+              <span class="navbar__dropdown-item-text">
+                <strong>Silver Steam Marble</strong>
+                <span>Premium Decorative Stone</span>
+              </span>
+            </a>
+            <div class="navbar__dropdown-divider"></div>
+            <a href="/products" class="navbar__dropdown-item navbar__dropdown-item--cta">
               <span>View All Products →</span>
             </a>
           </div>
@@ -315,7 +522,7 @@
 
         <!-- Projects Dropdown -->
         <div class="navbar__dropdown-group">
-          <a href="projects.html" class="navbar__link navbar__dropdown-trigger" aria-haspopup="true"
+          <a href="/projects" class="navbar__link navbar__dropdown-trigger" aria-haspopup="true"
             aria-expanded="false">
             Projects
             <svg class="navbar__dropdown-arrow" width="12" height="12">
@@ -323,7 +530,7 @@
             </svg>
           </a>
           <div class="navbar__dropdown-menu">
-            <a href="projects.html#muslim-bagh" class="navbar__dropdown-item">
+            <a href="/projects#muslim-bagh" class="navbar__dropdown-item">
               <span class="navbar__dropdown-item-icon">
                 <svg width="20" height="20" viewBox="0 0 20 20">
                   <path d="M3 16L10 4L17 16H3Z" fill="none" stroke="currentColor" stroke-width="1.5" />
@@ -335,7 +542,7 @@
                 <span>Chromite Mine - Active</span>
               </span>
             </a>
-            <a href="projects.html#khuzdar" class="navbar__dropdown-item">
+            <a href="/projects#khuzdar" class="navbar__dropdown-item">
               <span class="navbar__dropdown-item-icon">
                 <svg width="20" height="20" viewBox="0 0 20 20">
                   <rect x="3" y="8" width="14" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5" />
@@ -347,7 +554,7 @@
                 <span>Barite Operations</span>
               </span>
             </a>
-            <a href="projects.html#chagai" class="navbar__dropdown-item">
+            <a href="/projects#chagai" class="navbar__dropdown-item">
               <span class="navbar__dropdown-item-icon">
                 <svg width="20" height="20" viewBox="0 0 20 20">
                   <circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" stroke-width="1.5" />
@@ -360,82 +567,15 @@
               </span>
             </a>
             <div class="navbar__dropdown-divider"></div>
-            <a href="projects.html" class="navbar__dropdown-item navbar__dropdown-item--cta">
+            <a href="/projects" class="navbar__dropdown-item navbar__dropdown-item--cta">
               <span>View All Projects →</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- Sustainability Dropdown -->
-        <div class="navbar__dropdown-group">
-          <a href="sustainability.html" class="navbar__link navbar__dropdown-trigger" aria-haspopup="true"
-            aria-expanded="false">
-            Sustainability
-            <svg class="navbar__dropdown-arrow" width="12" height="12">
-              <use href="images/icons.svg#icon-chevron-down"></use>
-            </svg>
-          </a>
-          <div class="navbar__dropdown-menu">
-            <a href="sustainability.html" class="navbar__dropdown-item">
-              <span class="navbar__dropdown-item-icon">
-                <svg width="20" height="20" viewBox="0 0 20 20">
-                  <path d="M10 18C10 18 3 12 3 8C3 5 5 2 10 2C15 2 17 5 17 8C17 12 10 18 10 18Z" fill="none"
-                    stroke="currentColor" stroke-width="1.5" />
-                </svg>
-              </span>
-              <span class="navbar__dropdown-item-text">
-                <strong>ESG Impact</strong>
-                <span>2025 Sustainability Report</span>
-              </span>
-            </a>
-            <a href="sustainability.html" class="navbar__dropdown-item">
-              <span class="navbar__dropdown-item-icon">
-                <svg width="20" height="20" viewBox="0 0 20 20">
-                  <path d="M3 14Q10 4 17 14" stroke="currentColor" stroke-width="1.5" fill="none" />
-                  <path d="M10 14V18" stroke="currentColor" stroke-width="1.5" />
-                </svg>
-              </span>
-              <span class="navbar__dropdown-item-text">
-                <strong>Water Conservation</strong>
-                <span>Zero-Discharge Systems</span>
-              </span>
-            </a>
-            <a href="sustainability.html" class="navbar__dropdown-item">
-              <span class="navbar__dropdown-item-icon">
-                <svg width="20" height="20" viewBox="0 0 20 20">
-                  <path d="M10 18L6 10C6 6 8 4 10 4C12 4 14 6 14 10L10 18Z" fill="none" stroke="currentColor"
-                    stroke-width="1.5" />
-                  <path d="M10 10V14" stroke="currentColor" stroke-width="1.5" />
-                </svg>
-              </span>
-              <span class="navbar__dropdown-item-text">
-                <strong>Land Reclamation</strong>
-                <span>120+ Hectares Restored</span>
-              </span>
-            </a>
-            <a href="sustainability.html" class="navbar__dropdown-item">
-              <span class="navbar__dropdown-item-icon">
-                <svg width="20" height="20" viewBox="0 0 20 20">
-                  <circle cx="7" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.5" />
-                  <circle cx="13" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.5" />
-                  <circle cx="10" cy="14" r="3" fill="none" stroke="currentColor" stroke-width="1.5" />
-                </svg>
-              </span>
-              <span class="navbar__dropdown-item-text">
-                <strong>Community</strong>
-                <span>85% Local Employment</span>
-              </span>
-            </a>
-            <div class="navbar__dropdown-divider"></div>
-            <a href="sustainability.html" class="navbar__dropdown-item navbar__dropdown-item--cta">
-              <span>Learn More →</span>
             </a>
           </div>
         </div>
 
         <!-- Investors Dropdown -->
         <div class="navbar__dropdown-group">
-          <a href="investors.html" class="navbar__link navbar__dropdown-trigger" aria-haspopup="true"
+          <a href="/investors" class="navbar__link navbar__dropdown-trigger" aria-haspopup="true"
             aria-expanded="false">
             Investors
             <svg class="navbar__dropdown-arrow" width="12" height="12">
@@ -443,7 +583,7 @@
             </svg>
           </a>
           <div class="navbar__dropdown-menu">
-            <a href="investors.html" class="navbar__dropdown-item">
+            <a href="/investors" class="navbar__dropdown-item">
               <span class="navbar__dropdown-item-icon">
                 <svg width="20" height="20" viewBox="0 0 20 20">
                   <path d="M3 16L8 10L12 13L17 4" stroke="currentColor" stroke-width="1.5" fill="none" />
@@ -455,7 +595,7 @@
                 <span>Q3 2025: PKR 4.2B Revenue</span>
               </span>
             </a>
-            <a href="investors.html" class="navbar__dropdown-item">
+            <a href="/investors" class="navbar__dropdown-item">
               <span class="navbar__dropdown-item-icon">
                 <svg width="20" height="20" viewBox="0 0 20 20">
                   <rect x="4" y="2" width="12" height="16" rx="2" fill="none" stroke="currentColor"
@@ -468,7 +608,7 @@
                 <span>Download Latest Reports</span>
               </span>
             </a>
-            <a href="investors.html" class="navbar__dropdown-item">
+            <a href="/investors" class="navbar__dropdown-item">
               <span class="navbar__dropdown-item-icon">
                 <svg width="20" height="20" viewBox="0 0 20 20">
                   <rect x="3" y="4" width="14" height="12" rx="2" fill="none" stroke="currentColor"
@@ -482,7 +622,20 @@
               </span>
             </a>
             <div class="navbar__dropdown-divider"></div>
-            <a href="investors.html" class="navbar__dropdown-item navbar__dropdown-item--cta">
+            <a href="/sustainability" class="navbar__dropdown-item">
+              <span class="navbar__dropdown-item-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20">
+                  <path d="M10 18C10 18 3 12 3 8C3 5 5 2 10 2C15 2 17 5 17 8C17 12 10 18 10 18Z" fill="none"
+                    stroke="currentColor" stroke-width="1.5" />
+                </svg>
+              </span>
+              <span class="navbar__dropdown-item-text">
+                <strong>Sustainability</strong>
+                <span>ESG Impact & Practices</span>
+              </span>
+            </a>
+            <div class="navbar__dropdown-divider"></div>
+            <a href="/investors" class="navbar__dropdown-item navbar__dropdown-item--cta">
               <span>Investor Portal →</span>
             </a>
           </div>
@@ -490,7 +643,7 @@
 
         <!-- Our Mines Dropdown -->
         <div class="navbar__dropdown-group">
-          <a href="our-mines.html" class="navbar__link navbar__dropdown-trigger" aria-haspopup="true"
+          <a href="/our-mines" class="navbar__link navbar__dropdown-trigger" aria-haspopup="true"
             aria-expanded="false">
             Our Mines
             <svg class="navbar__dropdown-arrow" width="12" height="12">
@@ -498,7 +651,7 @@
             </svg>
           </a>
           <div class="navbar__dropdown-menu">
-            <a href="our-mines.html" class="navbar__dropdown-item">
+            <a href="/our-mines" class="navbar__dropdown-item">
               <span class="navbar__dropdown-item-icon">
                 <svg width="20" height="20" viewBox="0 0 20 20">
                   <path d="M3 16L10 4L17 16H3Z" fill="none" stroke="currentColor" stroke-width="1.5" />
@@ -510,7 +663,7 @@
                 <span>Chromite Mine - Active</span>
               </span>
             </a>
-            <a href="our-mines.html" class="navbar__dropdown-item">
+            <a href="/our-mines" class="navbar__dropdown-item">
               <span class="navbar__dropdown-item-icon">
                 <svg width="20" height="20" viewBox="0 0 20 20">
                   <rect x="3" y="8" width="14" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5" />
@@ -522,7 +675,7 @@
                 <span>Barite Operations</span>
               </span>
             </a>
-            <a href="our-mines.html" class="navbar__dropdown-item">
+            <a href="/our-mines" class="navbar__dropdown-item">
               <span class="navbar__dropdown-item-icon">
                 <svg width="20" height="20" viewBox="0 0 20 20">
                   <circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" stroke-width="1.5" />
@@ -535,7 +688,7 @@
               </span>
             </a>
             <div class="navbar__dropdown-divider"></div>
-            <a href="our-mines.html" class="navbar__dropdown-item navbar__dropdown-item--cta">
+            <a href="/our-mines" class="navbar__dropdown-item navbar__dropdown-item--cta">
               <span>View All Mines →</span>
             </a>
           </div>
@@ -543,7 +696,7 @@
 
         <!-- Logistics Dropdown -->
         <div class="navbar__dropdown-group">
-          <a href="logistics.html" class="navbar__link navbar__dropdown-trigger" aria-haspopup="true"
+          <a href="/logistics" class="navbar__link navbar__dropdown-trigger" aria-haspopup="true"
             aria-expanded="false">
             Logistics
             <svg class="navbar__dropdown-arrow" width="12" height="12">
@@ -551,7 +704,7 @@
             </svg>
           </a>
           <div class="navbar__dropdown-menu">
-            <a href="logistics.html" class="navbar__dropdown-item">
+            <a href="/logistics" class="navbar__dropdown-item">
               <span class="navbar__dropdown-item-icon">
                 <svg width="20" height="20" viewBox="0 0 20 20">
                   <rect x="2" y="6" width="16" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5" />
@@ -564,7 +717,7 @@
                 <span>40+ Fleet Vehicles</span>
               </span>
             </a>
-            <a href="logistics.html" class="navbar__dropdown-item">
+            <a href="/logistics" class="navbar__dropdown-item">
               <span class="navbar__dropdown-item-icon">
                 <svg width="20" height="20" viewBox="0 0 20 20">
                   <rect x="2" y="10" width="16" height="4" rx="1" fill="none" stroke="currentColor"
@@ -578,7 +731,7 @@
                 <span>850 km Connectivity</span>
               </span>
             </a>
-            <a href="logistics.html" class="navbar__dropdown-item">
+            <a href="/logistics" class="navbar__dropdown-item">
               <span class="navbar__dropdown-item-icon">
                 <svg width="20" height="20" viewBox="0 0 20 20">
                   <path d="M3 14L10 6L17 14H3Z" fill="none" stroke="currentColor" stroke-width="1.5" />
@@ -590,7 +743,7 @@
                 <span>Karachi & Gwadar Ports</span>
               </span>
             </a>
-            <a href="logistics.html" class="navbar__dropdown-item">
+            <a href="/logistics" class="navbar__dropdown-item">
               <span class="navbar__dropdown-item-icon">
                 <svg width="20" height="20" viewBox="0 0 20 20">
                   <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="1.5" />
@@ -603,16 +756,89 @@
               </span>
             </a>
             <div class="navbar__dropdown-divider"></div>
-            <a href="logistics.html" class="navbar__dropdown-item navbar__dropdown-item--cta">
+            <a href="/logistics" class="navbar__dropdown-item navbar__dropdown-item--cta">
               <span>Logistics Network →</span>
             </a>
           </div>
         </div>
 
-        <a href="blogs.html" class="navbar__link">Blogs</a>
-        <a href="contact.html" class="navbar__link">Contact</a>
+        <a href="/blogs" class="navbar__link">Blogs</a>
+
+        <!-- About Us Dropdown -->
+        <div class="navbar__dropdown-group">
+          <a href="/about" class="navbar__link navbar__dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+            About Us
+            <svg class="navbar__dropdown-arrow" width="12" height="12">
+              <use href="images/icons.svg#icon-chevron-down"></use>
+            </svg>
+          </a>
+          <div class="navbar__dropdown-menu">
+            <a href="/about" class="navbar__dropdown-item">
+              <span class="navbar__dropdown-item-icon">
+                <svg width="20" height="20">
+                  <use href="images/icons.svg#icon-story"></use>
+                </svg>
+              </span>
+              <span class="navbar__dropdown-item-text">
+                <strong>Our Story</strong>
+                <span>Since 2008 in Balochistan</span>
+              </span>
+            </a>
+            <a href="/about#leadership" class="navbar__dropdown-item">
+              <span class="navbar__dropdown-item-icon">
+                <svg width="20" height="20">
+                  <use href="images/icons.svg#icon-leadership"></use>
+                </svg>
+              </span>
+              <span class="navbar__dropdown-item-text">
+                <strong>Leadership Team</strong>
+                <span>Industry Veterans</span>
+              </span>
+            </a>
+            <a href="/about#vision" class="navbar__dropdown-item">
+              <span class="navbar__dropdown-item-icon">
+                <svg width="20" height="20">
+                  <use href="images/icons.svg#icon-vision"></use>
+                </svg>
+              </span>
+              <span class="navbar__dropdown-item-text">
+                <strong>Vision & Mission</strong>
+                <span>Ethical Mining Excellence</span>
+              </span>
+            </a>
+            <a href="/about#achievements" class="navbar__dropdown-item">
+              <span class="navbar__dropdown-item-icon">
+                <svg width="20" height="20">
+                  <use href="images/icons.svg#icon-achievements"></use>
+                </svg>
+              </span>
+              <span class="navbar__dropdown-item-text">
+                <strong>Achievements</strong>
+                <span>15+ Years of Excellence</span>
+              </span>
+            </a>
+            <div class="navbar__dropdown-divider"></div>
+            <a href="/about" class="navbar__dropdown-item navbar__dropdown-item--cta">
+              <span>Learn More About Us →</span>
+            </a>
+          </div>
+        </div>
+
+        <a href="/contact" class="navbar__link">Contact</a>
       </nav>
 
+      <div class="navbar__search">
+        <button class="navbar__search-btn" aria-label="Open search" title="Search (Ctrl+K)">
+          
+        </button>
+      </div>
+
+      <div class="navbar__phone">
+        <a href="tel:+923348888104" class="navbar__phone-link">
+          <span class="navbar__phone-icon">☎</span>
+          <span class="navbar__phone-text">+92 334 8888104</span>
+        </a>
+      </div>
       <button class="navbar__hamburger" aria-label="Toggle menu" aria-expanded="false">
         <span></span>
         <span></span>
@@ -621,7 +847,7 @@
     </div>
 
     <div class="navbar__mobile-menu" role="navigation" aria-label="Mobile navigation">
-      <a href="index.html" class="navbar__link">Home</a>
+      <a href="/" class="navbar__link">Home</a>
 
       <button class="navbar__link navbar__dropdown-trigger navbar__dropdown-trigger--mobile" aria-haspopup="true"
         aria-expanded="false">
@@ -631,10 +857,50 @@
         </svg>
       </button>
       <div class="navbar__dropdown-menu navbar__dropdown-menu--mobile">
-        <a href="about.html" class="navbar__dropdown-item">Our Story</a>
-        <a href="about.html" class="navbar__dropdown-item">Leadership Team</a>
-        <a href="about.html" class="navbar__dropdown-item">Vision & Mission</a>
-        <a href="about.html" class="navbar__dropdown-item">Achievements</a>
+        <a href="/about" class="navbar__dropdown-item">
+          <span class="navbar__dropdown-item-icon">
+            <svg width="18" height="18" aria-hidden="true" focusable="false">
+              <use href="images/icons.svg#icon-story"></use>
+            </svg>
+          </span>
+          <span class="navbar__dropdown-item-text">
+            <strong>Our Story</strong>
+            <span>Since 2008 in Balochistan</span>
+          </span>
+        </a>
+        <a href="/about" class="navbar__dropdown-item">
+          <span class="navbar__dropdown-item-icon">
+            <svg width="18" height="18" aria-hidden="true" focusable="false">
+              <use href="images/icons.svg#icon-leadership"></use>
+            </svg>
+          </span>
+          <span class="navbar__dropdown-item-text">
+            <strong>Leadership Team</strong>
+            <span>Industry veterans</span>
+          </span>
+        </a>
+        <a href="/about" class="navbar__dropdown-item">
+          <span class="navbar__dropdown-item-icon">
+            <svg width="18" height="18" aria-hidden="true" focusable="false">
+              <use href="images/icons.svg#icon-vision"></use>
+            </svg>
+          </span>
+          <span class="navbar__dropdown-item-text">
+            <strong>Vision & Mission</strong>
+            <span>Ethical mining excellence</span>
+          </span>
+        </a>
+        <a href="/about" class="navbar__dropdown-item">
+          <span class="navbar__dropdown-item-icon">
+            <svg width="18" height="18" aria-hidden="true" focusable="false">
+              <use href="images/icons.svg#icon-achievements"></use>
+            </svg>
+          </span>
+          <span class="navbar__dropdown-item-text">
+            <strong>Achievements</strong>
+            <span>15+ years of progress</span>
+          </span>
+        </a>
       </div>
 
       <button class="navbar__link navbar__dropdown-trigger navbar__dropdown-trigger--mobile" aria-haspopup="true"
@@ -645,10 +911,50 @@
         </svg>
       </button>
       <div class="navbar__dropdown-menu navbar__dropdown-menu--mobile">
-        <a href="products.html" class="navbar__dropdown-item">Iron Ore</a>
-        <a href="products.html" class="navbar__dropdown-item">Barite</a>
-        <a href="products.html" class="navbar__dropdown-item">Chromite</a>
-        <a href="products.html" class="navbar__dropdown-item">Copper</a>
+        <a href="/products" class="navbar__dropdown-item">
+          <span class="navbar__dropdown-item-icon">
+            <svg width="18" height="18" aria-hidden="true" focusable="false">
+              <use href="images/icons.svg#icon-iron-ore"></use>
+            </svg>
+          </span>
+          <span class="navbar__dropdown-item-text">
+            <strong>Iron Ore</strong>
+            <span>62-68% Fe grade</span>
+          </span>
+        </a>
+        <a href="/products" class="navbar__dropdown-item">
+          <span class="navbar__dropdown-item-icon">
+            <svg width="18" height="18" aria-hidden="true" focusable="false">
+              <use href="images/icons.svg#icon-barite"></use>
+            </svg>
+          </span>
+          <span class="navbar__dropdown-item-text">
+            <strong>Barite</strong>
+            <span>API standard 95%</span>
+          </span>
+        </a>
+        <a href="/products" class="navbar__dropdown-item">
+          <span class="navbar__dropdown-item-icon">
+            <svg width="18" height="18" aria-hidden="true" focusable="false">
+              <use href="images/icons.svg#icon-chromite"></use>
+            </svg>
+          </span>
+          <span class="navbar__dropdown-item-text">
+            <strong>Chromite</strong>
+            <span>46-48% Cr2O3</span>
+          </span>
+        </a>
+        <a href="/products" class="navbar__dropdown-item">
+          <span class="navbar__dropdown-item-icon">
+            <svg width="18" height="18" aria-hidden="true" focusable="false">
+              <use href="images/icons.svg#icon-copper"></use>
+            </svg>
+          </span>
+          <span class="navbar__dropdown-item-text">
+            <strong>Copper</strong>
+            <span>Chagai exploration</span>
+          </span>
+        </a>
       </div>
 
       <button class="navbar__link navbar__dropdown-trigger navbar__dropdown-trigger--mobile" aria-haspopup="true"
@@ -659,9 +965,39 @@
         </svg>
       </button>
       <div class="navbar__dropdown-menu navbar__dropdown-menu--mobile">
-        <a href="projects.html" class="navbar__dropdown-item">Muslim Bagh</a>
-        <a href="projects.html" class="navbar__dropdown-item">Khuzdar</a>
-        <a href="projects.html" class="navbar__dropdown-item">Chagai</a>
+        <a href="/projects" class="navbar__dropdown-item">
+          <span class="navbar__dropdown-item-icon">
+            <svg width="18" height="18" aria-hidden="true" focusable="false">
+              <use href="images/icons.svg#icon-mine"></use>
+            </svg>
+          </span>
+          <span class="navbar__dropdown-item-text">
+            <strong>Muslim Bagh</strong>
+            <span>Chromite mine</span>
+          </span>
+        </a>
+        <a href="/projects" class="navbar__dropdown-item">
+          <span class="navbar__dropdown-item-icon">
+            <svg width="18" height="18" aria-hidden="true" focusable="false">
+              <use href="images/icons.svg#icon-facility"></use>
+            </svg>
+          </span>
+          <span class="navbar__dropdown-item-text">
+            <strong>Khuzdar</strong>
+            <span>Barite operations</span>
+          </span>
+        </a>
+        <a href="/projects" class="navbar__dropdown-item">
+          <span class="navbar__dropdown-item-icon">
+            <svg width="18" height="18" aria-hidden="true" focusable="false">
+              <use href="images/icons.svg#icon-exploration"></use>
+            </svg>
+          </span>
+          <span class="navbar__dropdown-item-text">
+            <strong>Chagai</strong>
+            <span>Copper-gold exploration</span>
+          </span>
+        </a>
       </div>
 
       <button class="navbar__link navbar__dropdown-trigger navbar__dropdown-trigger--mobile" aria-haspopup="true"
@@ -672,9 +1008,39 @@
         </svg>
       </button>
       <div class="navbar__dropdown-menu navbar__dropdown-menu--mobile">
-        <a href="sustainability.html" class="navbar__dropdown-item">ESG Impact</a>
-        <a href="sustainability.html" class="navbar__dropdown-item">Water Conservation</a>
-        <a href="sustainability.html" class="navbar__dropdown-item">Community</a>
+        <a href="/sustainability" class="navbar__dropdown-item">
+          <span class="navbar__dropdown-item-icon">
+            <svg width="18" height="18" aria-hidden="true" focusable="false">
+              <use href="images/icons.svg#icon-esg"></use>
+            </svg>
+          </span>
+          <span class="navbar__dropdown-item-text">
+            <strong>ESG Impact</strong>
+            <span>Measured responsibility</span>
+          </span>
+        </a>
+        <a href="/sustainability" class="navbar__dropdown-item">
+          <span class="navbar__dropdown-item-icon">
+            <svg width="18" height="18" aria-hidden="true" focusable="false">
+              <use href="images/icons.svg#icon-water"></use>
+            </svg>
+          </span>
+          <span class="navbar__dropdown-item-text">
+            <strong>Water Conservation</strong>
+            <span>Efficient site practices</span>
+          </span>
+        </a>
+        <a href="/sustainability" class="navbar__dropdown-item">
+          <span class="navbar__dropdown-item-icon">
+            <svg width="18" height="18" aria-hidden="true" focusable="false">
+              <use href="images/icons.svg#icon-community"></use>
+            </svg>
+          </span>
+          <span class="navbar__dropdown-item-text">
+            <strong>Community</strong>
+            <span>Local development</span>
+          </span>
+        </a>
       </div>
 
       <button class="navbar__link navbar__dropdown-trigger navbar__dropdown-trigger--mobile" aria-haspopup="true"
@@ -685,9 +1051,39 @@
         </svg>
       </button>
       <div class="navbar__dropdown-menu navbar__dropdown-menu--mobile">
-        <a href="investors.html" class="navbar__dropdown-item">Financial Results</a>
-        <a href="investors.html" class="navbar__dropdown-item">Annual Reports</a>
-        <a href="investors.html" class="navbar__dropdown-item">Stock Info</a>
+        <a href="/investors" class="navbar__dropdown-item">
+          <span class="navbar__dropdown-item-icon">
+            <svg width="18" height="18" aria-hidden="true" focusable="false">
+              <use href="images/icons.svg#icon-financials"></use>
+            </svg>
+          </span>
+          <span class="navbar__dropdown-item-text">
+            <strong>Financial Results</strong>
+            <span>Performance reports</span>
+          </span>
+        </a>
+        <a href="/investors" class="navbar__dropdown-item">
+          <span class="navbar__dropdown-item-icon">
+            <svg width="18" height="18" aria-hidden="true" focusable="false">
+              <use href="images/icons.svg#icon-annual-report"></use>
+            </svg>
+          </span>
+          <span class="navbar__dropdown-item-text">
+            <strong>Annual Reports</strong>
+            <span>Governance filings</span>
+          </span>
+        </a>
+        <a href="/investors" class="navbar__dropdown-item">
+          <span class="navbar__dropdown-item-icon">
+            <svg width="18" height="18" aria-hidden="true" focusable="false">
+              <use href="images/icons.svg#icon-stock"></use>
+            </svg>
+          </span>
+          <span class="navbar__dropdown-item-text">
+            <strong>Stock Info</strong>
+            <span>Market updates</span>
+          </span>
+        </a>
       </div>
 
       <button class="navbar__link navbar__dropdown-trigger navbar__dropdown-trigger--mobile" aria-haspopup="true"
@@ -698,9 +1094,39 @@
         </svg>
       </button>
       <div class="navbar__dropdown-menu navbar__dropdown-menu--mobile">
-        <a href="our-mines.html" class="navbar__dropdown-item">Muslim Bagh</a>
-        <a href="our-mines.html" class="navbar__dropdown-item">Khuzdar</a>
-        <a href="our-mines.html" class="navbar__dropdown-item">Chagai</a>
+        <a href="/our-mines" class="navbar__dropdown-item">
+          <span class="navbar__dropdown-item-icon">
+            <svg width="18" height="18" aria-hidden="true" focusable="false">
+              <use href="images/icons.svg#icon-mine"></use>
+            </svg>
+          </span>
+          <span class="navbar__dropdown-item-text">
+            <strong>Muslim Bagh</strong>
+            <span>Chromite mine</span>
+          </span>
+        </a>
+        <a href="/our-mines" class="navbar__dropdown-item">
+          <span class="navbar__dropdown-item-icon">
+            <svg width="18" height="18" aria-hidden="true" focusable="false">
+              <use href="images/icons.svg#icon-facility"></use>
+            </svg>
+          </span>
+          <span class="navbar__dropdown-item-text">
+            <strong>Khuzdar</strong>
+            <span>Barite operations</span>
+          </span>
+        </a>
+        <a href="/our-mines" class="navbar__dropdown-item">
+          <span class="navbar__dropdown-item-icon">
+            <svg width="18" height="18" aria-hidden="true" focusable="false">
+              <use href="images/icons.svg#icon-exploration"></use>
+            </svg>
+          </span>
+          <span class="navbar__dropdown-item-text">
+            <strong>Chagai</strong>
+            <span>Copper-gold exploration</span>
+          </span>
+        </a>
       </div>
 
       <button class="navbar__link navbar__dropdown-trigger navbar__dropdown-trigger--mobile" aria-haspopup="true"
@@ -711,39 +1137,105 @@
         </svg>
       </button>
       <div class="navbar__dropdown-menu navbar__dropdown-menu--mobile">
-        <a href="logistics.html" class="navbar__dropdown-item">Road Transport</a>
-        <a href="logistics.html" class="navbar__dropdown-item">Rail Network</a>
-        <a href="logistics.html" class="navbar__dropdown-item">Port Access</a>
-        <a href="logistics.html" class="navbar__dropdown-item">Export Capacity</a>
+        <a href="/logistics" class="navbar__dropdown-item">
+          <span class="navbar__dropdown-item-icon">
+            <svg width="18" height="18" aria-hidden="true" focusable="false">
+              <use href="images/icons.svg#icon-road-transport"></use>
+            </svg>
+          </span>
+          <span class="navbar__dropdown-item-text">
+            <strong>Road Transport</strong>
+            <span>Mine-to-port movement</span>
+          </span>
+        </a>
+        <a href="/logistics" class="navbar__dropdown-item">
+          <span class="navbar__dropdown-item-icon">
+            <svg width="18" height="18" aria-hidden="true" focusable="false">
+              <use href="images/icons.svg#icon-rail"></use>
+            </svg>
+          </span>
+          <span class="navbar__dropdown-item-text">
+            <strong>Rail Network</strong>
+            <span>Bulk cargo routes</span>
+          </span>
+        </a>
+        <a href="/logistics" class="navbar__dropdown-item">
+          <span class="navbar__dropdown-item-icon">
+            <svg width="18" height="18" aria-hidden="true" focusable="false">
+              <use href="images/icons.svg#icon-port"></use>
+            </svg>
+          </span>
+          <span class="navbar__dropdown-item-text">
+            <strong>Port Access</strong>
+            <span>Karachi and Gwadar</span>
+          </span>
+        </a>
+        <a href="/logistics" class="navbar__dropdown-item">
+          <span class="navbar__dropdown-item-icon">
+            <svg width="18" height="18" aria-hidden="true" focusable="false">
+              <use href="images/icons.svg#icon-export"></use>
+            </svg>
+          </span>
+          <span class="navbar__dropdown-item-text">
+            <strong>Export Capacity</strong>
+            <span>50,000+ MT annual</span>
+          </span>
+        </a>
       </div>
 
-      <a href="blogs.html" class="navbar__link">Blogs</a>
-      <a href="contact.html" class="navbar__link">Contact</a>
+      <a href="/blogs" class="navbar__link">Blogs</a>
+      <a href="/contact" class="navbar__link">Contact</a>
     </div>
   </header>
+
+  <!-- Search Console Modal -->
+  <div class="search-console" role="dialog" aria-labelledby="search-title">
+    <div class="search-console__container">
+      <div class="search-console__header">
+        <span class="search-console__icon" aria-hidden="true"></span>
+        <input 
+          type="text" 
+          class="search-console__input" 
+          placeholder="Search products, pages, articles..." 
+          autocomplete="off"
+        >
+        <button class="search-console__close" aria-label="Close search">✕</button>
+      </div>
+      <div class="search-console__results"></div>
+    </div>
+  </div>
+
   <!-- @SECTION: HEADER END -->
 
   <main id="main-content">
     <!-- Hero Section -->
     <section class="blog-hero">
       <div class="container">
-        <h1 style="color: white; font-size: 3.5rem; margin-bottom: 1.5rem;">Blogs & Insights</h1>
-        <p style="color: rgba(255,255,255,0.8); max-width: 700px; margin: 0 auto; font-size: 1.1rem;">
-          Exploring the future of mining in Pakistan, from sustainable ESG practices to the latest technological breakthroughs in mineral extraction.
-        </p>
+        <div class="blog-hero__content">
+          <span class="blog-hero__eyebrow">Pakistan Mineral Intelligence</span>
+          <h1 class="blog-hero__title">Blogs & Insights</h1>
+          <p class="blog-hero__text">
+            Long-form field notes on responsible mining, mineral sourcing, logistics, quality assurance and export supply from Balochistan.
+          </p>
+        </div>
       </div>
     </section>
 
     <!-- Blogs Grid -->
-    <section class="section">
+    <section class="blog-section">
       <div class="container">
+        <div class="blog-section__header">
+          <span class="blog-section__overline">Field Notes & Buyer Briefings</span>
+          <h2>Mineral Sourcing Insights</h2>
+          <p>Practical analysis for buyers evaluating Pakistan-origin minerals, mine-to-port logistics, documentation, and responsible supply.</p>
+        </div>
         <div class="blog-grid">
           
           <!-- Blog 1 -->
           <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">ESG Impact</span>
-              <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=2013" alt="Sustainable Mining">
+              <picture><source type="image/avif" srcset="/images/hero/optimized/hero-5-480.avif 480w, /images/hero/optimized/hero-5-768.avif 768w, /images/hero/optimized/hero-5-1200.avif 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/hero-5.webp" alt="Sustainable Mining" width="2160" height="1215"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -753,7 +1245,7 @@
               <h2 class="blog-card__title">Sustainable Mining Practices 2025: ESG Compliance in Balochistan</h2>
               <p class="blog-card__excerpt">Discover how Balochistan Minerals is achieving carbon-neutral mining operations through advanced ESG compliance frameworks. Our 2025 sustainability report reveals a 35% reduction in water consumption, 100% waste recycling at Muslim Bagh chromite mine, and ISO 14001 certification across all active sites—setting new benchmarks for ethical mineral extraction in Pakistan.</p>
               <div class="blog-card__footer">
-                <a href="#" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="/blog/sustainable-mining-balochistan" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
               </div>
             </div>
           </article>
@@ -762,7 +1254,7 @@
           <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Operations</span>
-              <img src="https://images.unsplash.com/photo-1578319439584-104c94d37305?q=80&w=2070" alt="Copper Extraction">
+              <picture><source type="image/avif" srcset="/images/copper-new-480.avif 480w, /images/copper-new-768.avif 768w, /images/copper-new-1200.avif 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/copper-new.webp" alt="Copper Extraction" width="1200" height="797"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -772,7 +1264,7 @@
               <h2 class="blog-card__title">Copper Mining Pakistan: Critical Minerals for Electric Vehicle Revolution</h2>
               <p class="blog-card__excerpt">Global copper demand surges to 28 million tonnes as EV adoption accelerates. Our Chagai exploration projects target 2.5%+ Cu grades in partnership with international geologists. With Pakistan positioned to supply 5% of Asia's copper deficit by 2027, discover how our $45M investment in deep-drilling technology is unlocking the Reko Diq belt's potential for sustainable critical minerals supply chains.</p>
               <div class="blog-card__footer">
-                <a href="#" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="/blog/copper-electric-revolution" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
               </div>
             </div>
           </article>
@@ -781,7 +1273,7 @@
           <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Community</span>
-              <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2084" alt="Local Workforce">
+              <picture><source type="image/avif" srcset="/images/hero/optimized/about-us-hero-img-640.avif 640w, /images/hero/optimized/about-us-hero-img-960.avif 960w, /images/hero/optimized/about-us-hero-img-1400.avif 1400w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/about-us-hero-img.webp" alt="Local Workforce" width="1920" height="672"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -791,16 +1283,16 @@
               <h2 class="blog-card__title">Empowering Local Communities: 85% Local Employment in Balochistan Mining</h2>
               <p class="blog-card__excerpt">Our community-first approach has trained 2,400+ local workers since 2020, with 85% of our workforce hired from Muslim Bagh, Khuzdar, and Chagai districts. Through vocational training centers, scholarship programs for 500+ students, and micro-enterprise partnerships generating $1.2M annually for local families, we're proving that sustainable mining builds thriving communities across Balochistan.</p>
               <div class="blog-card__footer">
-                <a href="#" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="/blog/empowering-local-communities-mining" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
               </div>
             </div>
           </article>
 
           <!-- Blog 4 -->
-          <article class="blog-card reveal" data-reveal="up">
+          <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Technology</span>
-              <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070" alt="Advanced Machinery">
+              <picture><source type="image/avif" srcset="/images/hero/optimized/hero-4-480.avif 480w, /images/hero/optimized/hero-4-768.avif 768w, /images/hero/optimized/hero-4-1200.avif 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/hero-4.webp" alt="Advanced Machinery" width="2160" height="1215"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -810,16 +1302,16 @@
               <h2 class="blog-card__title">AI and Automation in Deep-Pit Mining: Smart Technology for Safer Operations</h2>
               <p class="blog-card__excerpt">Our Muslim Bagh chromite mine now operates with AI-powered predictive maintenance reducing downtime by 42%, autonomous haulage systems cutting fuel consumption by 28%, and drone-based surveying achieving 99.7% accuracy. Learn how $8.5M in smart mining technology investments are setting new safety benchmarks for high-altitude mining operations across Pakistan.</p>
               <div class="blog-card__footer">
-                <a href="#" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="/blog/ai-automation-deep-pit-mining" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
               </div>
             </div>
           </article>
 
           <!-- Blog 5 -->
-          <article class="blog-card reveal" data-reveal="up" data-delay="1">
+          <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Economy</span>
-              <img src="https://images.unsplash.com/photo-1611974717483-9b257aa34326?q=80&w=2070" alt="Global Trade">
+              <picture><source type="image/avif" srcset="/images/hero/optimized/hero-6-640.avif 640w, /images/hero/optimized/hero-6-960.avif 960w, /images/hero/optimized/hero-6-1400.avif 1400w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/hero-6.webp" alt="Global Trade" width="2160" height="1215"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -829,16 +1321,16 @@
               <h2 class="blog-card__title">Pakistan's Role in Global Mineral Supply Chain: $2.8B Export Opportunity</h2>
               <p class="blog-card__excerpt">With Gwadar Port reducing shipping times to Middle East by 60% and China by 45%, Pakistan is emerging as a critical minerals hub. Our chromite (46% Cr₂O₃), barite (SG 4.2+), and iron ore (62% Fe) exports reached 450,000 MT in Q3 2025. Discover how strategic CPEC logistics corridors and competitive FOB pricing are positioning Balochistan Minerals as a preferred supplier for steel mills and drilling operations across Asia.</p>
               <div class="blog-card__footer">
-                <a href="#" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="/blog/pakistan-global-mineral-supply-chain" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
               </div>
             </div>
           </article>
 
           <!-- Blog 6 -->
-          <article class="blog-card reveal" data-reveal="up" data-delay="2">
+          <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Safety</span>
-              <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2070" alt="Safety First">
+              <picture><source srcset="/images/hero/optimized/hero-7.avif" type="image/avif"><img loading="lazy" decoding="async" src="images/hero/hero-7.webp" alt="Safety First" width="2160" height="1215"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -848,16 +1340,16 @@
               <h2 class="blog-card__title">Vision Zero: Achieving 2.5M Safe Work Hours Without LTI</h2>
               <p class="blog-card__excerpt">Our comprehensive safety management system has delivered 2.5 million work hours without a Lost Time Injury (LTI) across all operations. Through mandatory PPE compliance (100% audit score), real-time gas monitoring systems, weekly safety drills, and behavioral-based safety training for 1,800+ workers, we've reduced TRIFR by 68% since 2022. Learn how our ISO 45001-certified protocols are setting the gold standard for zero-harm mining in Pakistan.</p>
               <div class="blog-card__footer">
-                <a href="#" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="/blog/vision-zero-workplace-accidents" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
               </div>
             </div>
           </article>
 
           <!-- Blog 7 -->
-          <article class="blog-card reveal" data-reveal="up">
+          <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Environment</span>
-              <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070" alt="Land Reclamation">
+              <picture><source type="image/avif" srcset="/images/hero/optimized/hero-5-480.avif 480w, /images/hero/optimized/hero-5-768.avif 768w, /images/hero/optimized/hero-5-1200.avif 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/hero-5.webp" alt="Land Reclamation" width="2160" height="1215"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -867,16 +1359,16 @@
               <h2 class="blog-card__title">Land Reclamation: Restoring 120+ Hectares to Thriving Ecosystems</h2>
               <p class="blog-card__excerpt">Our mine closure and rehabilitation program has successfully transformed 127 hectares of exhausted mining sites into productive grasslands and orchards. Through progressive backfilling, topsoil preservation (95% recovery rate), native species replanting (45,000+ trees), and groundwater monitoring achieving pre-mining quality levels, we demonstrate that responsible mining leaves a positive environmental legacy. Our Khuzdar barite site now supports local agriculture and biodiversity corridors.</p>
               <div class="blog-card__footer">
-                <a href="#" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="/blog/land-reclamation-life-after-mining" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
               </div>
             </div>
           </article>
 
           <!-- Blog 8 -->
-          <article class="blog-card reveal" data-reveal="up" data-delay="1">
+          <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Logistics</span>
-              <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070" alt="Logistics Network">
+              <picture><source type="image/avif" srcset="/images/hero/optimized/hero-2-640.avif 640w, /images/hero/optimized/hero-2-960.avif 960w, /images/hero/optimized/hero-2-1400.avif 1400w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/hero-2.webp" alt="Logistics Network" width="2160" height="1215"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -886,16 +1378,16 @@
               <h2 class="blog-card__title">Gwadar Port Mineral Exports: 60% Faster Shipping to Global Markets</h2>
               <p class="blog-card__excerpt">Strategic access to Gwadar Port has slashed our export timelines—14 days to UAE (vs. 35 via Karachi), 18 days to China (vs. 32), and 21 days to Europe. With dedicated mineral bulk handling terminals, 50,000 MT monthly throughput capacity, and CPEC road corridors reducing inland transit by 40%, we offer competitive FOB prices for chromite, barite, and iron ore. Our Q3 2025 logistics performance achieved 98.5% on-time delivery across 28 international shipments.</p>
               <div class="blog-card__footer">
-                <a href="#" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="/blog/streamlining-exports-gwadar-port" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
               </div>
             </div>
           </article>
 
           <!-- Blog 9 -->
-          <article class="blog-card reveal" data-reveal="up" data-delay="2">
+          <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Resources</span>
-              <img src="https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?q=80&w=2034" alt="Barite Mineral">
+              <picture><source type="image/avif" srcset="/images/barite-card-480.avif 480w, /images/barite-card-768.avif 768w, /images/barite-card-1200.avif 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/barite-card.jpg" alt="Barite Mineral" width="1536" height="1024"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -905,16 +1397,16 @@
               <h2 class="blog-card__title">API Barite Supplier Pakistan: High-Grade Drilling Fluids for Oil & Gas</h2>
               <p class="blog-card__excerpt">Our Khuzdar barite operations deliver API-compliant drilling grade material with specific gravity 4.2+, 95% BaSO₄ purity, and 325-mesh particle size distribution. As global oil exploration intensifies, demand for premium barite has surged 22% YoY. With 80,000 MT annual production capacity, bulk vessel loading at Gwadar, and competitive $185-210/MT FOB pricing, we supply leading drilling contractors across Middle East, Southeast Asia, and Africa. Explore how Balochistan Minerals is becoming the preferred API barite supplier for deepwater and unconventional drilling projects.</p>
               <div class="blog-card__footer">
-                <a href="#" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="/blog/barite-modern-drilling" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
               </div>
             </div>
           </article>
 
           <!-- Blog 10 -->
-          <article class="blog-card reveal" data-reveal="up">
+          <article class="blog-card">
             <div class="blog-card__image">
               <span class="blog-card__category">Innovation</span>
-              <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=2070" alt="Mining Innovation">
+              <picture><source type="image/avif" srcset="/images/hero/optimized/hero-4-480.avif 480w, /images/hero/optimized/hero-4-768.avif 768w, /images/hero/optimized/hero-4-1200.avif 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"><img loading="lazy" decoding="async" src="images/hero/hero-4.webp" alt="Mining Innovation" width="2160" height="1215"></picture>
             </div>
             <div class="blog-card__content">
               <div class="blog-card__date">
@@ -924,7 +1416,7 @@
               <h2 class="blog-card__title">High Grade Chromite Ore 46% Cr₂O₃: Premium Feedstock for Stainless Steel & Superalloys</h2>
               <p class="blog-card__excerpt">Balochistan's Muslim Bagh chromite deposits deliver consistent 46-48% Cr₂O₃ grades with low silica (<3.5%) and optimal Cr:Fe ratios (2.8:1)—ideal for ferrochrome smelting and aerospace superalloy production. With global stainless steel demand projected to grow 5.8% annually through 2030, our 120,000 MT/year high-grade chromite output serves foundries in China, Turkey, and UAE. Learn how advanced ore sorting technology, lump sizing (10-50mm), and direct shipper programs at $340-380/MT FOB are making Balochistan Minerals a strategic partner for next-generation alloy manufacturers worldwide.</p>
               <div class="blog-card__footer">
-                <a href="#" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+                <a href="/blog/chromite-high-grade-alloys" class="blog-card__link">Read More <svg width="16" height="16"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
               </div>
             </div>
           </article>
@@ -943,24 +1435,29 @@
         <div class="footer__brand-section">
           <div class="footer__brand">
             <div class="footer__logo">
-              <img src="images/new-logo.png" alt="Balochistan Minerals" class="footer__logo-img">
+              <img loading="eager" src="images/new-logo.png" alt="Balochistan Minerals" class="footer__logo-img" width="723" height="371">
             </div>
             <p class="footer__mission">Committed to ethical mining practices, community uplift, and sustainable growth.
               Delivering Pakistan's mineral wealth to the world with integrity, transparency, and excellence.</p>
             <div class="footer__social-links">
-              <a href="#" class="footer__social-link" aria-label="LinkedIn">
-                <svg width="20" height="20">
-                  <use href="images/icons.svg#icon-linkedin"></use>
+              <a href="/contact" class="footer__social-link" aria-label="Contact Balochistan Minerals">
+                <svg width="20" height="20" aria-hidden="true" focusable="false">
+                  <use href="images/icons.svg#icon-facebook"></use>
                 </svg>
               </a>
-              <a href="#" class="footer__social-link" aria-label="Twitter">
-                <svg width="20" height="20">
-                  <use href="images/icons.svg#icon-twitter"></use>
-                </svg>
-              </a>
-              <a href="#" class="footer__social-link" aria-label="YouTube">
-                <svg width="20" height="20">
+              <a href="/blogs" class="footer__social-link" aria-label="Balochistan Minerals insights">
+                <svg width="20" height="20" aria-hidden="true" focusable="false">
                   <use href="images/icons.svg#icon-youtube"></use>
+                </svg>
+              </a>
+              <a href="/projects" class="footer__social-link" aria-label="Balochistan Minerals projects">
+                <svg width="20" height="20" aria-hidden="true" focusable="false">
+                  <use href="images/icons.svg#icon-instagram"></use>
+                </svg>
+              </a>
+              <a href="/about" class="footer__social-link" aria-label="About Balochistan Minerals">
+                <svg width="20" height="20" aria-hidden="true" focusable="false">
+                  <use href="images/icons.svg#icon-linkedin"></use>
                 </svg>
               </a>
             </div>
@@ -971,33 +1468,34 @@
           <div class="footer__links-col">
             <h4 class="footer__heading">Company</h4>
             <nav class="footer__links" aria-label="Company links">
-              <a href="about.html" class="footer__link">About Us</a>
-              <a href="about.html" class="footer__link">Leadership Team</a>
-              <a href="#" class="footer__link">Licenses & Certifications</a>
-              <a href="#" class="footer__link">Careers</a>
-              <a href="#" class="footer__link">News & Media</a>
+              <a href="/about" class="footer__link">About Us</a>
+              <a href="/about" class="footer__link">Leadership Team</a>
+              <a href="/compliance#licenses" class="footer__link">Licenses & Certifications</a>
+              <a href="/contact" class="footer__link">Careers</a>
+              <a href="/blogs" class="footer__link">News & Media</a>
             </nav>
           </div>
 
           <div class="footer__links-col">
             <h4 class="footer__heading">Operations</h4>
             <nav class="footer__links" aria-label="Operations links">
-              <a href="products.html" class="footer__link">Our Minerals</a>
-              <a href="projects.html" class="footer__link">Mining Projects</a>
-              <a href="our-mines.html" class="footer__link">Processing Facilities</a>
-              <a href="sustainability.html" class="footer__link">Sustainability</a>
-              <a href="#" class="footer__link">Health & Safety</a>
+              <a href="/products" class="footer__link">Our Minerals</a>
+              <a href="/projects" class="footer__link">Mining Projects</a>
+              <a href="/our-mines" class="footer__link">Processing Facilities</a>
+              <a href="/sustainability" class="footer__link">Sustainability</a>
+              <a href="/sustainability" class="footer__link">Health & Safety</a>
             </nav>
           </div>
 
           <div class="footer__links-col">
             <h4 class="footer__heading">Stakeholders</h4>
             <nav class="footer__links" aria-label="Stakeholder links">
-              <a href="investors.html" class="footer__link">Investor Relations</a>
-              <a href="#" class="footer__link">Supplier Portal</a>
-              <a href="#" class="footer__link">Community Updates</a>
-              <a href="#" class="footer__link">Grievance Redressal</a>
-              <a href="#" class="footer__link">Tender Notices</a>
+              <a href="/investors" class="footer__link">Investor Relations</a>
+              <a href="/contact" class="footer__link">Supplier Portal</a>
+              <a href="/sustainability" class="footer__link">Community Updates</a>
+              <a href="/ethics#grievance" class="footer__link">Grievance Redressal</a>
+              <a href="/contact" class="footer__link">Tender Notices</a>
+              <a href="/contact?type=review" class="footer__link">Leave a Review</a>
             </nav>
           </div>
         </div>
@@ -1008,19 +1506,20 @@
           &copy; 2026 Balochistan Minerals (Pvt) Ltd. All rights reserved. Registered under SECP.
         </div>
         <nav class="footer__legal" aria-label="Legal links">
-          <a href="#" class="footer__legal-link">Privacy Policy</a>
-          <a href="#" class="footer__legal-link">Terms of Service</a>
-          <a href="#" class="footer__legal-link">Ethics Policy</a>
+          <a href="/privacy" class="footer__legal-link">Privacy Policy</a>
+          <a href="/terms" class="footer__legal-link">Terms of Service</a>
+          <a href="/ethics" class="footer__legal-link">Ethics Policy</a>
         </nav>
       </div>
     </div>
   </footer>
 
   <!-- JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script type="module" src="js/animations-premium.js"></script>
-  <script type="module" src="js/main.js"></script>
+  <script defer src="vendor/gsap/gsap.min.js"></script>
+  <script defer src="vendor/gsap/ScrollTrigger.min.js"></script>
+  <script type="module" src="js/animations-premium.js" defer></script>
+  <script defer src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script type="module" src="js/main.js?v=mineral-image-frame-20260714" defer></script>
 </body>
 
 </html>

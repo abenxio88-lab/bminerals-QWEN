@@ -1,6 +1,18 @@
+import { isMobile } from './utils.js';
+
 export function initDropdownMenus() {
+  // Guard: Skip if already initialized
+  if (window.__dropdownMenusInitialized) return;
+  window.__dropdownMenusInitialized = true;
+
   const dropdownGroups = document.querySelectorAll('.navbar__dropdown-group');
   const dropdownTriggers = document.querySelectorAll('.navbar__dropdown-trigger');
+
+  const getControlledMenu = (trigger) => {
+    const mobileHead = trigger.closest('.navbar__mobile-dropdown-head');
+    const menu = mobileHead ? mobileHead.nextElementSibling : trigger.nextElementSibling;
+    return menu && menu.classList.contains('navbar__dropdown-menu') ? menu : null;
+  };
 
   // ============================================
   // DESKTOP: JavaScript-driven hover handling
@@ -15,11 +27,8 @@ export function initDropdownMenus() {
     let showTimeout = null;
 
     function showDropdown() {
-      if (window.innerWidth <= 1024) return; // Skip on mobile
-      
+      if (isMobile()) return; // Skip on mobile
       clearTimeout(hideTimeout);
-      
-      // Delay showing to avoid flash when accidentally clipping other buttons
       showTimeout = setTimeout(() => {
         // Close all other dropdowns first
         dropdownGroups.forEach(otherGroup => {
@@ -27,20 +36,24 @@ export function initDropdownMenus() {
             const otherMenu = otherGroup.querySelector('.navbar__dropdown-menu');
             if (otherMenu) {
               otherMenu.classList.remove('dropdown-active');
+              const otherTrigger = otherGroup.querySelector('.navbar__dropdown-trigger');
+              if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
             }
           }
         });
         menu.classList.add('dropdown-active');
+        const trigger = group.querySelector('.navbar__dropdown-trigger');
+        if (trigger) trigger.setAttribute('aria-expanded', 'true');
       }, 150);
     }
 
     function hideDropdown() {
-      if (window.innerWidth <= 1024) return;
-      
+      if (isMobile()) return;
       clearTimeout(showTimeout); // Cancel showing if mouse leaves quickly
-      
       hideTimeout = setTimeout(() => {
         menu.classList.remove('dropdown-active');
+        const trigger = group.querySelector('.navbar__dropdown-trigger');
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
       }, 350); // Generous delay enables 'Hover Safe Tunnel' across gaps
     }
 
@@ -50,10 +63,15 @@ export function initDropdownMenus() {
 
     // Keep open while hovering the menu itself
     menu.addEventListener('mouseenter', () => {
-      if (window.innerWidth <= 1024) return;
+      if (isMobile()) return;
       clearTimeout(hideTimeout);
     });
     menu.addEventListener('mouseleave', hideDropdown);
+
+    // Keyboard: close on Escape when menu is focused
+    menu.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') hideDropdown();
+    });
   });
 
   // ============================================
@@ -61,29 +79,36 @@ export function initDropdownMenus() {
   // ============================================
   dropdownTriggers.forEach(trigger => {
     trigger.addEventListener('click', (e) => {
-      const isMobile = window.innerWidth <= 1024;
+      const mobile = isMobile();
 
-      if (isMobile) {
+      if (mobile) {
+        const isMobileTrigger = trigger.classList.contains('navbar__dropdown-trigger--mobile') || trigger.tagName === 'BUTTON';
+        const nextMenu = getControlledMenu(trigger);
+        const clickedArrow = Boolean(e.target.closest('.navbar__dropdown-arrow') || e.target.closest('svg'));
+
+        // Keep desktop nav links navigable on mobile widths.
+        if (!isMobileTrigger && !clickedArrow) {
+          return;
+        }
+
         e.preventDefault();
         e.stopPropagation();
 
-        const nextMenu = trigger.nextElementSibling;
-        
         if (nextMenu && nextMenu.classList.contains('navbar__dropdown-menu')) {
           const isOpen = trigger.classList.contains('open');
-          
+
           // Close all other dropdowns
           dropdownTriggers.forEach(t => {
             if (t !== trigger) {
               t.classList.remove('open');
               t.setAttribute('aria-expanded', 'false');
-              const menu = t.nextElementSibling;
-              if (menu && menu.classList.contains('navbar__dropdown-menu--mobile')) {
+              const menu = getControlledMenu(t);
+              if (menu) {
                 menu.classList.remove('open');
               }
             }
           });
-          
+
           // Toggle current dropdown
           if (isOpen) {
             trigger.classList.remove('open');
@@ -96,18 +121,46 @@ export function initDropdownMenus() {
           }
         }
       } else {
-        // Desktop: Just update aria-expanded for accessibility
+        const clickedArrow = Boolean(e.target.closest('.navbar__dropdown-arrow') || e.target.closest('svg'));
+        if (!clickedArrow) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Desktop: toggle aria-expanded and menu visibility for accessibility
         const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
-        trigger.setAttribute('aria-expanded', !isExpanded);
+        trigger.setAttribute('aria-expanded', String(!isExpanded));
+        const menu = getControlledMenu(trigger);
+        if (menu) {
+          if (isExpanded) {
+            menu.classList.remove('dropdown-active');
+          } else {
+            menu.classList.add('dropdown-active');
+          }
+        }
+      }
+    });
+
+    // Keyboard support for trigger (Enter / Space / Escape)
+    trigger.addEventListener('keydown', (e) => {
+      if (!isMobile() && trigger.tagName === 'A' && e.key === 'Enter') {
+        return;
+      }
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        trigger.click();
+      }
+      if (e.key === 'Escape') {
+        trigger.setAttribute('aria-expanded', 'false');
+        const menu = getControlledMenu(trigger);
+        if (menu) menu.classList.remove('dropdown-active', 'open');
       }
     });
   });
 
   // Close dropdowns when clicking outside (desktop only)
   document.addEventListener('click', (e) => {
-    const isMobile = window.innerWidth <= 1024;
-    
-    if (!isMobile) {
+    if (!isMobile()) {
       dropdownGroups.forEach(group => {
         if (!group.contains(e.target)) {
           const menu = group.querySelector('.navbar__dropdown-menu');
@@ -126,14 +179,12 @@ export function initDropdownMenus() {
   const dropdownItems = document.querySelectorAll('.navbar__dropdown-item');
   dropdownItems.forEach(item => {
     item.addEventListener('click', () => {
-      const isMobile = window.innerWidth <= 1024;
-      
-      if (isMobile) {
+      if (isMobile()) {
         dropdownTriggers.forEach(trigger => {
           trigger.classList.remove('open');
           trigger.setAttribute('aria-expanded', 'false');
-          const menu = trigger.nextElementSibling;
-          if (menu && menu.classList.contains('navbar__dropdown-menu--mobile')) {
+          const menu = getControlledMenu(trigger);
+          if (menu) {
             menu.classList.remove('open');
           }
         });
