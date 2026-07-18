@@ -7,10 +7,15 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--navbar-height) + 1.5rem);
   -webkit-text-size-adjust: 100%;
   scrollbar-width: thin;
   scrollbar-color: var(--primary-gold-400) var(--bg-primary);
   scrollbar-gutter: stable;
+}
+
+main [id] {
+  scroll-margin-top: calc(var(--navbar-height) + 1.5rem);
 }
 
 html::-webkit-scrollbar {

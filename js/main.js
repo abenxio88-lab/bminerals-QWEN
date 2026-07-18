@@ -1039,7 +1039,8 @@ function initProductDetailLinks() {
     'persian-silk-tundra-grey': 'product-stones.html#persian-silk-tundra-grey',
     'persian-silk-block': 'product-stones.html#persian-silk-block',
     'pietra-grey-block': 'product-stones.html#pietra-grey-block',
-    'pietra-grey-slab': 'product-stones.html#pietra-grey-slab'
+    'pietra-grey-slab': 'product-stones.html#pietra-grey-slab',
+    'irani-marble': 'product-stones.html#irani-marble'
   };
 
   const cards = document.querySelectorAll('.product-card[id], .stone-card[id]');
@@ -1242,15 +1243,17 @@ function initSmoothScrolling() {
         if (target) {
           e.preventDefault();
           const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 80;
+          const rootFontSize = parseFloat(window.getComputedStyle(document.documentElement).fontSize) || 16;
+          const anchorOffset = navbarHeight + (rootFontSize * 1.5);
           if (lenis) {
             lenis.scrollTo(target, {
-              offset: -navbarHeight,
+              offset: -anchorOffset,
               duration: 1.1
             });
             return;
           }
 
-          const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+          const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - anchorOffset;
           window.scrollTo({
             top: targetPosition,
             behavior: 'smooth'
