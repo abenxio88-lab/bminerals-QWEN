@@ -37,20 +37,23 @@
   </script>
   <style>
     :root {
-      color-scheme: dark;
-      --error-ink: #f8fafc;
-      --error-muted: rgba(248, 250, 252, 0.68);
-      --error-line: rgba(255, 255, 255, 0.14);
+      color-scheme: light;
+      --error-ink: var(--navy-950, #0a1628);
+      --error-muted: rgba(47, 58, 64, 0.72);
+      --error-line: rgba(10, 22, 40, 0.12);
       --error-gold: var(--primary-gold-400, #f26a21);
-      --error-gold-soft: rgba(242, 106, 33, 0.22);
+      --error-gold-soft: rgba(242, 106, 33, 0.14);
       --error-navy: var(--navy-950, #0a1628);
+      --error-paper: #ffffff;
+      --error-paper-warm: #f7f4ef;
+      --error-blue-soft: rgba(37, 72, 117, 0.1);
     }
 
     body {
       min-height: 100vh;
       margin: 0;
       overflow-x: hidden;
-      background: var(--error-navy);
+      background: var(--error-paper);
       color: var(--error-ink);
       font-family: var(--font-body, Poppins, system-ui, sans-serif);
     }
@@ -61,9 +64,9 @@
       min-height: 100vh;
       isolation: isolate;
       background:
-        radial-gradient(circle at 84% 18%, rgba(242, 106, 33, 0.2), transparent 26rem),
-        radial-gradient(circle at 14% 88%, rgba(74, 123, 168, 0.22), transparent 24rem),
-        linear-gradient(135deg, #081321 0%, #0d1d32 48%, #111827 100%);
+        linear-gradient(115deg, transparent 0 61%, rgba(242, 106, 33, 0.055) 61% 61.35%, transparent 61.35% 100%),
+        linear-gradient(155deg, transparent 0 42%, rgba(10, 22, 40, 0.045) 42% 42.22%, transparent 42.22% 100%),
+        linear-gradient(180deg, #fff 0%, #fff 58%, #f8fafc 100%);
     }
 
     .not-found::before {
@@ -72,13 +75,11 @@
       inset: 0;
       z-index: -3;
       background-image:
-        linear-gradient(115deg, transparent 0 38%, rgba(242, 106, 33, 0.08) 38% 38.3%, transparent 38.3% 100%),
-        linear-gradient(145deg, transparent 0 54%, rgba(255, 255, 255, 0.06) 54% 54.18%, transparent 54.18% 100%),
-        radial-gradient(ellipse at 74% 52%, transparent 0 19%, rgba(255, 255, 255, 0.075) 19.15% 19.45%, transparent 19.6% 100%),
-        radial-gradient(ellipse at 78% 55%, transparent 0 27%, rgba(255, 255, 255, 0.06) 27.15% 27.38%, transparent 27.55% 100%),
-        radial-gradient(ellipse at 82% 58%, transparent 0 35%, rgba(255, 255, 255, 0.045) 35.15% 35.34%, transparent 35.5% 100%);
+        linear-gradient(rgba(10, 22, 40, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(10, 22, 40, 0.045) 1px, transparent 1px);
       background-position: center;
-      background-size: cover;
+      background-size: 84px 84px;
+      mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.48) 0%, rgba(0, 0, 0, 0.12) 48%, transparent 82%);
     }
 
     .not-found::after {
@@ -86,12 +87,74 @@
       position: fixed;
       inset: 0;
       z-index: -2;
-      opacity: 0.2;
+      opacity: 0.78;
       background-image:
-        linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
-      background-size: 96px 96px;
-      mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.72) 0%, #000 42%, transparent 100%);
+        linear-gradient(122deg, transparent 0 18%, rgba(242, 106, 33, 0.08) 18% 18.25%, transparent 18.25% 100%),
+        linear-gradient(148deg, transparent 0 74%, rgba(37, 72, 117, 0.08) 74% 74.24%, transparent 74.24% 100%);
+      pointer-events: none;
+    }
+
+    .not-found__drawing {
+      position: fixed;
+      right: max(-28px, -2vw);
+      bottom: max(-18px, -2vw);
+      z-index: -1;
+      width: min(62vw, 860px);
+      min-width: 460px;
+      height: auto;
+      color: var(--error-navy);
+      opacity: 0.92;
+      pointer-events: none;
+    }
+
+    .not-found__drawing .line {
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .not-found__drawing .ridge-back {
+      fill: rgba(37, 72, 117, 0.055);
+      stroke-width: 1.2;
+      opacity: 0.2;
+    }
+
+    .not-found__drawing .ridge-mid {
+      fill: rgba(10, 22, 40, 0.04);
+      stroke-width: 1.35;
+      opacity: 0.34;
+    }
+
+    .not-found__drawing .ridge-front {
+      fill: rgba(248, 250, 252, 0.88);
+      stroke-width: 1.55;
+      opacity: 0.56;
+    }
+
+    .not-found__drawing .detail {
+      stroke-width: 1.1;
+      opacity: 0.22;
+    }
+
+    .not-found__drawing .accent {
+      stroke: var(--error-gold);
+      stroke-width: 2;
+      opacity: 0.62;
+    }
+
+    .not-found__drawing .road {
+      stroke: rgba(10, 22, 40, 0.2);
+      stroke-width: 1.35;
+      stroke-dasharray: 7 10;
+      opacity: 0.58;
+    }
+
+    .not-found__drawing .marker {
+      fill: rgba(242, 106, 33, 0.12);
+      stroke: var(--error-gold);
+      stroke-width: 1.25;
+      opacity: 0.76;
     }
 
     .not-found__shell {
@@ -112,14 +175,14 @@
       display: inline-flex;
       align-items: center;
       gap: 14px;
-      color: #fff;
+      color: var(--error-ink);
       text-decoration: none;
     }
 
     .not-found__brand img {
-      width: 78px;
+      width: 96px;
       height: auto;
-      filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.35));
+      filter: drop-shadow(0 12px 26px rgba(10, 22, 40, 0.12));
     }
 
     .not-found__brand span {
@@ -138,12 +201,13 @@
       isolation: isolate;
       border: 1px solid var(--error-line);
       padding: 10px 15px 10px 32px;
-      color: rgba(255, 255, 255, 0.82);
+      color: rgba(10, 22, 40, 0.68);
       font: 700 0.72rem/1 var(--font-ui, Montserrat, sans-serif);
       letter-spacing: 0.14em;
       text-transform: uppercase;
       backdrop-filter: blur(14px);
-      background: rgba(10, 22, 40, 0.35);
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: 0 18px 40px rgba(10, 22, 40, 0.08);
     }
 
     .not-found__status::before {
@@ -184,7 +248,7 @@
       align-items: center;
       gap: 10px;
       margin-bottom: 22px;
-      color: var(--primary-gold-300, #f58847);
+      color: var(--primary-gold-600, #d45a15);
       font: 700 0.72rem/1.2 var(--font-ui, Montserrat, sans-serif);
       letter-spacing: 0.14em;
       text-transform: uppercase;
@@ -203,7 +267,7 @@
       gap: 14px;
       max-width: 100%;
       margin: 0;
-      color: #fff;
+      color: var(--error-ink);
       font-family: var(--font-body, Poppins, system-ui, sans-serif);
       font-size: clamp(1.75rem, 3vw, 3rem);
       font-weight: 600;
@@ -220,8 +284,8 @@
       width: 42px;
       height: 42px;
       border: 1px solid rgba(242, 106, 33, 0.6);
-      background: rgba(242, 106, 33, 0.12);
-      color: var(--primary-gold-300, #f58847);
+      background: rgba(242, 106, 33, 0.1);
+      color: var(--primary-gold-600, #d45a15);
       font-family: var(--font-ui, Montserrat, sans-serif);
       font-size: 1.45rem;
       font-weight: 800;
@@ -248,9 +312,9 @@
       align-items: center;
       justify-content: center;
       min-height: 50px;
-      border: 1px solid rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(10, 22, 40, 0.16);
       padding: 0 22px;
-      color: #fff;
+      color: var(--error-ink);
       font: 700 0.76rem/1 var(--font-ui, Montserrat, sans-serif);
       letter-spacing: 0.08em;
       text-decoration: none;
@@ -262,12 +326,13 @@
       border-color: var(--error-gold);
       background: linear-gradient(135deg, var(--primary-gold-600, #d45a15), var(--primary-gold-400, #f26a21));
       box-shadow: 0 18px 42px rgba(230, 92, 26, 0.28);
+      color: #fff;
     }
 
     .not-found__button:hover {
       transform: translateY(-2px);
-      border-color: rgba(255, 255, 255, 0.46);
-      background-color: rgba(255, 255, 255, 0.08);
+      border-color: rgba(10, 22, 40, 0.32);
+      background-color: rgba(10, 22, 40, 0.045);
     }
 
     .not-found__button--primary:hover {
@@ -277,8 +342,8 @@
 
     .not-found__panel {
       border: 1px solid var(--error-line);
-      background: linear-gradient(180deg, rgba(10, 22, 40, 0.78), rgba(10, 22, 40, 0.46));
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.32);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 250, 252, 0.78));
+      box-shadow: 0 28px 70px rgba(10, 22, 40, 0.12);
       backdrop-filter: blur(18px);
     }
 
@@ -289,7 +354,7 @@
       gap: 16px;
       border-bottom: 1px solid var(--error-line);
       padding: 18px 20px;
-      color: rgba(255, 255, 255, 0.86);
+      color: rgba(10, 22, 40, 0.76);
       font: 700 0.7rem/1.2 var(--font-ui, Montserrat, sans-serif);
       letter-spacing: 0.13em;
       text-transform: uppercase;
@@ -310,9 +375,9 @@
       display: grid;
       grid-template-columns: 34px 1fr;
       gap: 14px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      border-bottom: 1px solid rgba(10, 22, 40, 0.1);
       padding: 18px 20px;
-      color: #fff;
+      color: var(--error-ink);
       text-decoration: none;
       transition: background 0.2s var(--ease-smooth, ease), transform 0.2s var(--ease-smooth, ease);
     }
@@ -322,7 +387,7 @@
     }
 
     .not-found__quick-link:hover {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(242, 106, 33, 0.07);
       transform: translateX(4px);
     }
 
@@ -332,7 +397,8 @@
       width: 34px;
       height: 34px;
       border: 1px solid rgba(242, 106, 33, 0.45);
-      color: var(--primary-gold-300, #f58847);
+      background: rgba(242, 106, 33, 0.055);
+      color: var(--primary-gold-600, #d45a15);
       font-weight: 900;
     }
 
@@ -356,18 +422,18 @@
       gap: 1px;
       max-width: 660px;
       margin-top: 48px;
-      background: rgba(255, 255, 255, 0.14);
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(10, 22, 40, 0.1);
+      border: 1px solid rgba(10, 22, 40, 0.1);
     }
 
     .not-found__meta-item {
       padding: 18px;
-      background: rgba(10, 22, 40, 0.5);
+      background: rgba(255, 255, 255, 0.76);
     }
 
     .not-found__meta-item span {
       display: block;
-      color: var(--primary-gold-300, #f58847);
+      color: var(--primary-gold-600, #d45a15);
       font: 700 0.66rem/1 var(--font-ui, Montserrat, sans-serif);
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -376,16 +442,15 @@
     .not-found__meta-item strong {
       display: block;
       margin-top: 8px;
-      color: #fff;
+      color: var(--error-ink);
       font: 700 0.95rem/1.35 var(--font-body, Poppins, system-ui, sans-serif);
     }
 
     @media (max-width: 900px) {
       .not-found::before {
         background-image:
-          linear-gradient(125deg, transparent 0 36%, rgba(242, 106, 33, 0.08) 36% 36.4%, transparent 36.4% 100%),
-          radial-gradient(ellipse at 78% 42%, transparent 0 22%, rgba(255, 255, 255, 0.065) 22.2% 22.55%, transparent 22.7% 100%),
-          radial-gradient(ellipse at 82% 46%, transparent 0 33%, rgba(255, 255, 255, 0.05) 33.2% 33.45%, transparent 33.6% 100%);
+          linear-gradient(rgba(10, 22, 40, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(10, 22, 40, 0.04) 1px, transparent 1px);
       }
 
       .not-found__layout {
@@ -395,6 +460,13 @@
 
       .not-found__panel {
         max-width: 560px;
+      }
+
+      .not-found__drawing {
+        right: -210px;
+        bottom: 18%;
+        width: 680px;
+        opacity: 0.28;
       }
     }
 
@@ -411,7 +483,7 @@
       }
 
       .not-found__brand img {
-        width: 58px;
+        width: 70px;
       }
 
       .not-found__brand span {
@@ -435,10 +507,10 @@
         transform: translateX(-50%);
         border-color: rgba(239, 68, 68, 0.42);
         background:
-          linear-gradient(135deg, rgba(239, 68, 68, 0.16), rgba(10, 22, 40, 0.58)),
-          rgba(10, 22, 40, 0.62);
-        box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28), 0 0 32px rgba(239, 68, 68, 0.16);
-        color: rgba(255, 255, 255, 0.9);
+          linear-gradient(135deg, rgba(239, 68, 68, 0.09), rgba(255, 255, 255, 0.82)),
+          rgba(255, 255, 255, 0.86);
+        box-shadow: 0 18px 48px rgba(10, 22, 40, 0.1), 0 0 32px rgba(239, 68, 68, 0.1);
+        color: rgba(10, 22, 40, 0.78);
         font-size: 0.64rem;
         letter-spacing: 0.11em;
         white-space: nowrap;
@@ -458,7 +530,7 @@
       }
 
       .not-found h1 {
-        font-size: clamp(1.35rem, 5.8vw, 2.2rem);
+        font-size: clamp(1.28rem, 5.35vw, 2rem);
         gap: 10px;
       }
 
@@ -534,6 +606,28 @@
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
   <main class="not-found" id="main-content">
+    <svg class="not-found__drawing" viewBox="0 0 860 560" aria-hidden="true" focusable="false">
+      <path class="line ridge-back" d="M16 374l86-68 76 28 92-122 92 74 64-102 84 126 84-72 95 112 69-43 86 67v118H16z" />
+      <path class="line ridge-mid" d="M76 416l116-96 76 37 99-139 96 124 58-71 82 98 60-45 122 92v86H76z" />
+      <path class="line ridge-front" d="M0 472l117-82 103 42 120-105 114 86 80-52 97 66 75-28 154 73v88H0z" />
+      <path class="line detail" d="M270 212l44 57 48 17" />
+      <path class="line detail" d="M426 184l-42 93-34 41" />
+      <path class="line detail" d="M594 238l-36 71-48 23" />
+      <path class="line detail" d="M192 320l31 82 65-39" />
+      <path class="line detail" d="M534 361l52 54 76-91" />
+      <path class="line detail" d="M340 327c51 28 92 32 124 12 38-24 80-12 126 34" />
+      <path class="line detail" d="M110 438c70-22 132-18 186 13 56 32 111 35 164 9 76-36 144-34 204 8" />
+      <path class="line road" d="M370 558c-8-56 4-101 36-136 24-26 38-52 42-78" />
+      <path class="line road" d="M508 558c-10-62-2-111 25-146 26-34 40-66 42-97" />
+      <path class="line accent" d="M94 506h666" />
+      <path class="line accent" d="M150 506v-36" />
+      <path class="line accent" d="M708 506v-36" />
+      <path class="line accent" d="M194 156l-62 62" />
+      <path class="line accent" d="M132 156l62 62" />
+      <rect class="marker" x="670" y="164" width="42" height="42" />
+      <path class="line accent" d="M680 185h22" />
+      <path class="line accent" d="M691 174v22" />
+    </svg>
     <div class="not-found__shell">
       <div class="not-found__topbar" aria-label="Page status">
         <a href="/" class="not-found__brand" aria-label="Balochistan Minerals Home">

@@ -4386,7 +4386,9 @@ body.is-stone-lightbox-open {
   z-index: 2;
   display: grid;
   place-items: center;
+  padding: 0;
   border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 0 !important;
   background: rgba(7, 15, 24, 0.72);
   color: #fff;
   cursor: pointer;
@@ -4400,6 +4402,7 @@ body.is-stone-lightbox-open {
   z-index: 4;
   width: 42px;
   height: 42px;
+  border-radius: 0 !important;
   background: rgba(255, 255, 255, 0.94);
   border-color: rgba(15, 31, 58, 0.14);
   box-shadow: 0 12px 30px rgba(3, 8, 15, 0.22);
@@ -4419,9 +4422,20 @@ body.is-stone-lightbox-open {
 
 .stone-lightbox__arrow {
   top: 50%;
-  width: 44px;
-  height: 44px;
-  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 0 !important;
+  background: rgba(7, 15, 24, 0.7);
+  transform: translateY(-50%) scale(1) !important;
+  transition: background-color 0.18s ease, border-color 0.18s ease;
+}
+
+.stone-lightbox__arrow:hover,
+.stone-lightbox__arrow:focus-visible,
+.stone-lightbox__arrow:active {
+  transform: translateY(-50%) scale(1) !important;
+  border-color: rgba(255, 255, 255, 0.72);
+  background: rgba(7, 15, 24, 0.9);
 }
 
 .stone-lightbox__arrow::before {
@@ -4433,7 +4447,7 @@ body.is-stone-lightbox-open {
 }
 
 .stone-lightbox__arrow--prev {
-  left: 0.8rem;
+  left: 0.85rem;
 }
 
 .stone-lightbox__arrow--prev::before {
@@ -4441,7 +4455,7 @@ body.is-stone-lightbox-open {
 }
 
 .stone-lightbox__arrow--next {
-  right: 0.8rem;
+  right: 0.85rem;
 }
 
 .stone-lightbox__arrow--next::before {
