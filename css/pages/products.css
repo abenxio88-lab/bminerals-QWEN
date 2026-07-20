@@ -3787,7 +3787,9 @@
   overflow: hidden;
 }
 
-.detail-hero__media--metallic-products {
+.detail-hero__media--metallic-products,
+.detail-hero__media--energy-products,
+.detail-hero__media--stone-products {
   aspect-ratio: 3 / 2;
   position: relative;
 }
@@ -3805,7 +3807,9 @@
   opacity: 0.78;
 }
 
-.detail-hero__media--metallic-products img {
+.detail-hero__media--metallic-products img,
+.detail-hero__media--energy-products img,
+.detail-hero__media--stone-products img {
   position: absolute;
   inset: 0;
 }
@@ -4906,11 +4910,15 @@ body.is-stone-lightbox-open {
     height: 280px;
   }
 
-  .detail-hero__media--metallic-products {
+  .detail-hero__media--metallic-products,
+  .detail-hero__media--energy-products,
+  .detail-hero__media--stone-products {
     aspect-ratio: unset;
   }
 
-  .detail-hero__media--metallic-products img {
+  .detail-hero__media--metallic-products img,
+  .detail-hero__media--energy-products img,
+  .detail-hero__media--stone-products img {
     position: static;
     width: 100%;
     height: 100%;
