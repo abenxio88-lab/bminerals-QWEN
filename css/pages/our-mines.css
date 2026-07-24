@@ -184,6 +184,13 @@
   transition: box-shadow 0.28s var(--ease-smooth);
 }
 
+.mine-profile.reveal,
+.mine-profile.reveal.revealed {
+  opacity: 1;
+  transform: none;
+  transition: box-shadow 0.28s var(--ease-smooth);
+}
+
 .mine-profile:hover {
   box-shadow: 0 28px 74px rgba(14, 25, 35, 0.11);
 }
