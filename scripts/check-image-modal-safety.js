@@ -73,7 +73,8 @@ function listHtmlFiles(directory) {
   });
 }
 
-const requiredMainVersion = crypto.createHash('sha256').update(main).digest('hex').slice(0, 12);
+const normalizedMain = main.replace(/\r\n?/g, '\n');
+const requiredMainVersion = crypto.createHash('sha256').update(normalizedMain).digest('hex').slice(0, 12);
 for (const htmlFile of listHtmlFiles(root)) {
   const html = fs.readFileSync(htmlFile, 'utf8');
   const mainReferences = html.match(/(?:\.\.\/)?js\/main\.js(?:\?[^"']*)?/g) || [];
