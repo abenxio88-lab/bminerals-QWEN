@@ -34,7 +34,6 @@
   <link rel="stylesheet" href="output.css">
   
   <!-- Cookies Popup CSS -->
-  <link rel="stylesheet" href="css/cookies-popup.css">
 
   <!-- Search Console CSS -->
   <link rel="stylesheet" href="css/search-console.css">
@@ -86,14 +85,8 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
   <link rel="manifest" href="/images/favicon/site.webmanifest">
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-55KSGPLX2R"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-55KSGPLX2R');
-  </script>
+  <!-- Privacy-first analytics consent -->
+  <script src="/js/analytics-consent.js"></script>
 </head>
 <body class="policy-page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -444,7 +437,7 @@
               </span>
               <span class="navbar__dropdown-item-text">
                 <strong>Our Story</strong>
-                <span>Since 2008 in Balochistan</span>
+                <span>Since 2015 in Balochistan</span>
               </span>
             </a>
             <a href="/about#leadership" class="navbar__dropdown-item">
@@ -528,7 +521,7 @@
           </span>
           <span class="navbar__dropdown-item-text">
             <strong>Our Story</strong>
-            <span>Since 2008 in Balochistan</span>
+            <span>Since 2015 in Balochistan</span>
           </span>
         </a>
         <a href="/about" class="navbar__dropdown-item">
@@ -852,13 +845,13 @@
   </header>
 
   <!-- Search Console Modal -->
-  <div class="search-console" role="dialog" aria-labelledby="search-title">
+  <div class="search-console" role="dialog" aria-label="Site search">
     <div class="search-console__container">
       <div class="search-console__header">
         <span class="search-console__icon" aria-hidden="true"></span>
         <input 
           type="text" 
-          class="search-console__input" 
+          class="search-console__input" aria-label="Search products, pages, and articles"
           placeholder="Search products, pages, articles..." 
           autocomplete="off"
         >
@@ -1006,12 +999,15 @@
 
       <div class="policy-section">
         <h2 id="cookies-and-tracking-technologies">9. Cookies and Tracking Technologies</h2>
-        <p>We use cookies and similar tracking technologies to enhance your user experience. Cookies are small files stored on your device that help us recognize you and remember your preferences. You can control cookie settings through your browser preferences. Note that disabling cookies may affect website functionality.</p>
+        <p>We use essential browser storage to provide core website functionality and remember your privacy choice. Essential storage cannot be disabled through our consent panel.</p>
+        <p>With your permission, we use Google Analytics to understand visits, page usage, device and browser characteristics, and general interaction patterns. Analytics storage is denied by default and is enabled only after you select “Accept Analytics” or save an analytics-enabled preference. We do not currently use advertising or marketing cookies.</p>
+        <p>Your preference is stored for up to 365 days. You may withdraw or change your consent at any time by selecting <a href="/privacy#cookies-and-tracking-technologies" data-bm-cookie-settings>Manage cookie preferences</a>. You can also remove stored preferences through your browser settings.</p>
       </div>
 
       <div class="policy-section">
-        <h2>10. Third-Party Links</h2>
-        <p>Our website may contain links to third-party websites. We are not responsible for the privacy practices of these external sites. We encourage you to review the privacy policies of any third-party websites before providing your personal information.</p>
+        <h2>10. Third-Party Services and Links</h2>
+        <p>Our contact form is delivered through Web3Forms. When you submit the form, the contact details and message you provide are sent to Web3Forms for transmission to us. Google processes analytics information only when you have granted analytics consent. These providers process information under their own privacy terms.</p>
+        <p>Our website may also contain links to third-party websites. We are not responsible for the privacy practices of those external sites, and we encourage you to review their privacy policies before providing personal information.</p>
       </div>
 
       <div class="policy-section">
@@ -1036,7 +1032,7 @@
           <p>
             Balochistan Minerals (Pvt) Ltd<br>
             Email: <a href="mailto:privacy@balochistanminerals.com">privacy@balochistanminerals.com</a><br>
-            Phone: +92-XXX-XXXXXXX<br>
+            Phone: <a href="tel:+923348888104">+92 334 8888104</a><br>
             Address: Balochistan, Pakistan
           </p>
           <p class="policy-contact__note">We will respond to your inquiry within 30 days of receipt.</p>
@@ -1059,22 +1055,22 @@
             <div class="footer__social-links">
               <a href="/contact" class="footer__social-link" aria-label="Contact Balochistan Minerals">
                 <svg width="20" height="20" aria-hidden="true" focusable="false">
-                  <use href="images/icons.svg#icon-facebook"></use>
+                  <use href="images/icons.svg#icon-email"></use>
                 </svg>
               </a>
               <a href="/blogs" class="footer__social-link" aria-label="Balochistan Minerals insights">
                 <svg width="20" height="20" aria-hidden="true" focusable="false">
-                  <use href="images/icons.svg#icon-youtube"></use>
+                  <use href="images/icons.svg#icon-document"></use>
                 </svg>
               </a>
               <a href="/projects" class="footer__social-link" aria-label="Balochistan Minerals projects">
                 <svg width="20" height="20" aria-hidden="true" focusable="false">
-                  <use href="images/icons.svg#icon-instagram"></use>
+                  <use href="images/icons.svg#icon-mine"></use>
                 </svg>
               </a>
               <a href="/about" class="footer__social-link" aria-label="About Balochistan Minerals">
                 <svg width="20" height="20" aria-hidden="true" focusable="false">
-                  <use href="images/icons.svg#icon-linkedin"></use>
+                  <use href="images/icons.svg#icon-story"></use>
                 </svg>
               </a>
             </div>
@@ -1141,7 +1137,6 @@
     });
   </script>
   <!-- Cookies Popup Script -->
-  <script defer src="js/cookies-popup.js"></script>
 </body>
 </html>
 

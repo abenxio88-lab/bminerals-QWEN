@@ -1,5 +1,12 @@
 name: Deploy Website
 
+permissions:
+  contents: read
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
 on:
   push:
     branches:
@@ -11,7 +18,22 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Run production checks
+        run: npm run check
+
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
+
       - name: FTP Deployment
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -24,5 +46,10 @@ jobs:
             **/.git/**
             **/.github/**
             **/.vscode/**
+            **/graphify-out/**
             **/node_modules/**
-            **/package-lock.json/**
+            **/scripts/**
+            **/src/**
+            **/package.json
+            **/package-lock.json
+            **/postcss.config.js

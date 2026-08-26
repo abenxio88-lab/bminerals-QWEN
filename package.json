@@ -1,25 +1,29 @@
 {
-  "name": "x",
+  "name": "balochistan-minerals-website",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Production website for Balochistan Minerals.",
   "scripts": {
     "build:css": "postcss src/styles/index.css -o output.css --verbose",
     "watch:css": "postcss src/styles/index.css -o output.css --watch",
     "dev": "npm run build:css",
+    "check:js": "node scripts/check-js-syntax.js",
+    "check:css": "node scripts/check-css-sync.js",
     "check:site": "node scripts/check-site.js",
     "check:image-modals": "node scripts/check-image-modal-safety.js",
-    "check": "npm run check:image-modals && npm run build:css && npm run check:site",
+    "check": "npm run check:js && npm run check:image-modals && npm run check:css && npm run check:site",
     "optimize:images": "node scripts/convert-images.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "balochistan",
+    "minerals",
+    "mining"
+  ],
+  "private": true,
   "type": "module",
   "devDependencies": {
     "autoprefixer": "^10.4.0",
     "cssnano": "^5.1.0",
-    "postcss": "^8.4.0",
+    "postcss": "^8.5.26",
     "postcss-cli": "^9.1.0",
     "postcss-import": "^15.1.0",
     "tailwindcss": "^3.0.0"
@@ -28,7 +32,7 @@
     "@parcel/watcher": "^2.5.6",
     "gsap": "^3.15.0",
     "lucide": "^1.8.0",
-    "sharp": "^0.32.0",
+    "sharp": "^0.35.4",
     "swiper": "^12.1.3"
   }
 }

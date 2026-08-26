@@ -34,7 +34,6 @@
   <link rel="stylesheet" href="output.css">
   
   <!-- Cookies Popup CSS -->
-  <link rel="stylesheet" href="css/cookies-popup.css">
 
   <!-- Search Console CSS -->
   <link rel="stylesheet" href="css/search-console.css">
@@ -86,14 +85,8 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
   <link rel="manifest" href="/images/favicon/site.webmanifest">
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-55KSGPLX2R"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-55KSGPLX2R');
-  </script>
+  <!-- Privacy-first analytics consent -->
+  <script src="/js/analytics-consent.js"></script>
 </head>
 <body class="policy-page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -444,7 +437,7 @@
               </span>
               <span class="navbar__dropdown-item-text">
                 <strong>Our Story</strong>
-                <span>Since 2008 in Balochistan</span>
+                <span>Since 2015 in Balochistan</span>
               </span>
             </a>
             <a href="/about#leadership" class="navbar__dropdown-item">
@@ -528,7 +521,7 @@
           </span>
           <span class="navbar__dropdown-item-text">
             <strong>Our Story</strong>
-            <span>Since 2008 in Balochistan</span>
+            <span>Since 2015 in Balochistan</span>
           </span>
         </a>
         <a href="/about" class="navbar__dropdown-item">
@@ -852,13 +845,13 @@
   </header>
 
   <!-- Search Console Modal -->
-  <div class="search-console" role="dialog" aria-labelledby="search-title">
+  <div class="search-console" role="dialog" aria-label="Site search">
     <div class="search-console__container">
       <div class="search-console__header">
         <span class="search-console__icon" aria-hidden="true"></span>
         <input 
           type="text" 
-          class="search-console__input" 
+          class="search-console__input" aria-label="Search products, pages, and articles"
           placeholder="Search products, pages, articles..." 
           autocomplete="off"
         >
@@ -1039,22 +1032,22 @@
             <div class="footer__social-links">
               <a href="/contact" class="footer__social-link" aria-label="Contact Balochistan Minerals">
                 <svg width="20" height="20" aria-hidden="true" focusable="false">
-                  <use href="images/icons.svg#icon-facebook"></use>
+                  <use href="images/icons.svg#icon-email"></use>
                 </svg>
               </a>
               <a href="/blogs" class="footer__social-link" aria-label="Balochistan Minerals insights">
                 <svg width="20" height="20" aria-hidden="true" focusable="false">
-                  <use href="images/icons.svg#icon-youtube"></use>
+                  <use href="images/icons.svg#icon-document"></use>
                 </svg>
               </a>
               <a href="/projects" class="footer__social-link" aria-label="Balochistan Minerals projects">
                 <svg width="20" height="20" aria-hidden="true" focusable="false">
-                  <use href="images/icons.svg#icon-instagram"></use>
+                  <use href="images/icons.svg#icon-mine"></use>
                 </svg>
               </a>
               <a href="/about" class="footer__social-link" aria-label="About Balochistan Minerals">
                 <svg width="20" height="20" aria-hidden="true" focusable="false">
-                  <use href="images/icons.svg#icon-linkedin"></use>
+                  <use href="images/icons.svg#icon-story"></use>
                 </svg>
               </a>
             </div>
@@ -1121,7 +1114,6 @@
     });
   </script>
   <!-- Cookies Popup Script -->
-  <script defer src="js/cookies-popup.js"></script>
 </body>
 </html>
 

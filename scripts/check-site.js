@@ -13,11 +13,13 @@ const IGNORE_DIRS = new Set([
 
 function isExternalUrl(u) {
   return (
+    u.startsWith("//") ||
     u.startsWith("http://") ||
     u.startsWith("https://") ||
     u.startsWith("mailto:") ||
     u.startsWith("tel:") ||
     u.startsWith("data:") ||
+    u.startsWith("blob:") ||
     u.startsWith("javascript:")
   );
 }
@@ -51,6 +53,57 @@ function fileExists(p) {
   } catch {
     return false;
   }
+}
+
+function isInsideRepo(targetAbs) {
+  const relative = path.relative(REPO_ROOT, targetAbs);
+  return relative === "" || (!relative.startsWith("..") && !path.isAbsolute(relative));
+}
+
+function resolveLocalTarget(raw, sourceDir, sourceHtmlPath) {
+  const cleaned = stripHashAndQuery(raw);
+  if (!cleaned) return sourceHtmlPath;
+
+  let decoded;
+  try {
+    decoded = decodeURIComponent(cleaned);
+  } catch {
+    return null;
+  }
+
+  const baseTarget = decoded.startsWith("/")
+    ? path.resolve(REPO_ROOT, decoded.slice(1))
+    : path.resolve(sourceDir, decoded);
+
+  if (!isInsideRepo(baseTarget)) return null;
+
+  const candidates = [];
+  if (decoded === "/" || decoded.endsWith("/")) {
+    candidates.push(path.join(baseTarget, "index.html"));
+  } else {
+    candidates.push(baseTarget);
+    if (!path.extname(baseTarget)) {
+      candidates.push(`${baseTarget}.html`, path.join(baseTarget, "index.html"));
+    }
+  }
+
+  return candidates.find(fileExists) || null;
+}
+
+function getFragment(raw) {
+  const hashIndex = raw.indexOf("#");
+  if (hashIndex === -1) return "";
+  try {
+    return decodeURIComponent(raw.slice(hashIndex + 1));
+  } catch {
+    return raw.slice(hashIndex + 1);
+  }
+}
+
+function hasAnchor(html, fragment) {
+  if (!fragment || fragment.startsWith(":~:")) return true;
+  const escaped = fragment.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`\\b(?:id|name)\\s*=\\s*["']${escaped}["']`, "i").test(html);
 }
 
 function checkHtmlFile(htmlPathAbs) {
@@ -104,33 +157,28 @@ function checkHtmlFile(htmlPathAbs) {
   while ((m = attrRe.exec(html)) !== null) {
     const raw = m[1].trim();
     if (!raw) continue;
-    if (raw.startsWith("#")) continue;
     if (isExternalUrl(raw)) continue;
 
-    const cleaned = stripHashAndQuery(raw);
-    if (!cleaned) continue;
-
-    // If it ends with '/', treat it like a directory and skip (static site, no router).
-    if (cleaned.endsWith("/")) continue;
-
-    const targetAbs = cleaned.startsWith("/")
-      ? path.join(REPO_ROOT, cleaned.slice(1))
-      : path.resolve(dir, cleaned);
-
-    // If the reference points at a directory, we don't know what to expect; skip.
-    try {
-      const st = fs.statSync(targetAbs);
-      if (st.isDirectory()) continue;
-    } catch {
-      // fallthrough to report as missing file
-    }
-
-    if (!fileExists(targetAbs)) {
+    const targetAbs = resolveLocalTarget(raw, dir, htmlPathAbs);
+    if (!targetAbs) {
       issues.push({
         type: "missing",
         file: rel,
         detail: `Missing target: ${raw}`,
       });
+      continue;
+    }
+
+    const fragment = getFragment(raw);
+    if (fragment && targetAbs.toLowerCase().endsWith(".html")) {
+      const targetHtml = fs.readFileSync(targetAbs, "utf8");
+      if (!hasAnchor(targetHtml, fragment)) {
+        issues.push({
+          type: "missing-anchor",
+          file: rel,
+          detail: `Missing anchor in ${path.relative(REPO_ROOT, targetAbs)}: #${fragment}`,
+        });
+      }
     }
   }
 

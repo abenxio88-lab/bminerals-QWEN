@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env node
+#!/usr/bin/env node
 // Simple image conversion script using sharp
 // Converts images in images/hero to WebP and AVIF
 

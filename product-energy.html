@@ -31,14 +31,8 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
   <link rel="manifest" href="/images/favicon/site.webmanifest">
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-55KSGPLX2R"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-55KSGPLX2R');
-  </script>
+  <!-- Privacy-first analytics consent -->
+  <script src="/js/analytics-consent.js"></script>
 </head>
 <body class="products-page product-detail-page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -56,7 +50,7 @@
     </div>
     <div class="navbar__mobile-menu" role="navigation" aria-label="Mobile navigation"><a href="/" class="navbar__link">Home</a><button class="navbar__link navbar__dropdown-trigger navbar__dropdown-trigger--mobile" aria-haspopup="true" aria-expanded="false">Products<svg class="navbar__dropdown-arrow" width="12" height="12"><use href="images/icons.svg#icon-chevron-down"></use></svg></button><div class="navbar__dropdown-menu navbar__dropdown-menu--mobile"></div><a href="/projects" class="navbar__link">Projects</a><a href="/investors" class="navbar__link">Investors</a><a href="/our-mines" class="navbar__link">Our Mines</a><a href="/logistics" class="navbar__link">Logistics</a><a href="/blogs" class="navbar__link">Blogs</a><a href="/about" class="navbar__link">About Us</a><a href="/contact" class="navbar__link">Contact</a></div>
   </header>
-  <div class="search-console" role="dialog" aria-labelledby="search-title"><div class="search-console__container"><div class="search-console__header"><span class="search-console__icon" aria-hidden="true"></span><input type="text" class="search-console__input" placeholder="Search products, pages, articles..." autocomplete="off"><button class="search-console__close" aria-label="Close search">×</button></div><div class="search-console__results"></div></div></div>
+  <div class="search-console" role="dialog" aria-label="Site search"><div class="search-console__container"><div class="search-console__header"><span class="search-console__icon" aria-hidden="true"></span><input type="text" class="search-console__input" aria-label="Search products, pages, and articles" placeholder="Search products, pages, articles..." autocomplete="off"><button class="search-console__close" aria-label="Close search">×</button></div><div class="search-console__results"></div></div></div>
   <main id="main-content">
     <section class="detail-hero"><div class="detail-hero__media detail-hero__media--energy-products"><picture><source type="image/avif" srcset="/images/coal-640.avif 640w, /images/coal-960.avif 960w, /images/coal-1400.avif 1400w" sizes="(max-width: 768px) 100vw, 48vw"><source srcset="images/coal.webp" type="image/webp"><img src="images/coal.avif" alt="Sorange-Degari coal sample" width="1448" height="1086" loading="eager" fetchpriority="high" decoding="async"></picture></div><div class="detail-hero__content"><span class="zigzag__overline">Energy Minerals</span><h1 class="detail-hero__title">Coal field sourcing</h1><p>Coal sourcing is field-led. GCV, ash, sulphur, moisture and fixed carbon must be confirmed through laboratory report for each lot.</p></div></section>
     <section class="detail-category" id="energy-minerals">
@@ -104,22 +98,22 @@
             <div class="footer__social-links">
               <a href="/contact" class="footer__social-link" aria-label="Contact Balochistan Minerals">
                 <svg width="20" height="20" aria-hidden="true" focusable="false">
-                  <use href="images/icons.svg#icon-facebook"></use>
+                  <use href="images/icons.svg#icon-email"></use>
                 </svg>
               </a>
               <a href="/blogs" class="footer__social-link" aria-label="Balochistan Minerals insights">
                 <svg width="20" height="20" aria-hidden="true" focusable="false">
-                  <use href="images/icons.svg#icon-youtube"></use>
+                  <use href="images/icons.svg#icon-document"></use>
                 </svg>
               </a>
               <a href="/projects" class="footer__social-link" aria-label="Balochistan Minerals projects">
                 <svg width="20" height="20" aria-hidden="true" focusable="false">
-                  <use href="images/icons.svg#icon-instagram"></use>
+                  <use href="images/icons.svg#icon-mine"></use>
                 </svg>
               </a>
               <a href="/about" class="footer__social-link" aria-label="About Balochistan Minerals">
                 <svg width="20" height="20" aria-hidden="true" focusable="false">
-                  <use href="images/icons.svg#icon-linkedin"></use>
+                  <use href="images/icons.svg#icon-story"></use>
                 </svg>
               </a>
             </div>
@@ -175,6 +169,6 @@
       </div>
     </div>
   </footer>
-  <script type="module" src="js/main.js?v=mineral-image-frame-20260714" defer></script>
+  <script type="module" src="js/main.js?v=3eb4c59ee6e9" defer></script>
 </body>
 </html>

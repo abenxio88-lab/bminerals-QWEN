@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -72,23 +73,25 @@ function listHtmlFiles(directory) {
   });
 }
 
-const requiredVersion = 'mineral-image-frame-20260714';
+const requiredMainVersion = crypto.createHash('sha256').update(main).digest('hex').slice(0, 12);
 for (const htmlFile of listHtmlFiles(root)) {
   const html = fs.readFileSync(htmlFile, 'utf8');
   const mainReferences = html.match(/(?:\.\.\/)?js\/main\.js(?:\?[^"']*)?/g) || [];
   for (const reference of mainReferences) {
-    assert(reference.includes(`v=${requiredVersion}`), `${path.relative(root, htmlFile)} has a stale main.js reference.`);
+    const version = reference.match(/[?&]v=([^&"']+)/)?.[1];
+    assert(version === requiredMainVersion, `${path.relative(root, htmlFile)} has a stale main.js reference; expected v=${requiredMainVersion}.`);
   }
 }
 
+const requiredModalVersion = 'mineral-image-frame-20260714';
 const homepage = read('index.html');
-assert(homepage.includes(`js/minerals-tabs.js?v=${requiredVersion}`), 'Homepage mineral modal script is not cache-busted.');
+assert(homepage.includes(`js/minerals-tabs.js?v=${requiredModalVersion}`), 'Homepage mineral modal script is not cache-busted.');
 assert(
   homepage.includes('home-cinematic-motion.css?v=homepage-mobile-paint-20260714'),
   'Homepage modal CSS is not cache-busted.'
 );
 
 const stonesPage = read('product-stones.html');
-assert(stonesPage.includes(`type="module" src="js/stone-gallery.js?v=${requiredVersion}"`), 'Stone gallery must load as a cache-busted module.');
+assert(stonesPage.includes(`type="module" src="js/stone-gallery.js?v=${requiredModalVersion}"`), 'Stone gallery must load as a cache-busted module.');
 
 console.log('Image modal safety checks passed.');

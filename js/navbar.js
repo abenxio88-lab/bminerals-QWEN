@@ -68,7 +68,7 @@ const detailDropdownMenus = {
     { title: 'Request Shipping Quote', detail: 'Freight and delivery inquiry', url: 'logistics.html#shipping-quote', code: 'Go', cta: true }
   ],
   'About Us': [
-    { title: 'Our Story', detail: 'Since 2008 in Balochistan', url: 'about.html', code: 'OS' },
+    { title: 'Our Story', detail: 'Since 2015 in Balochistan', url: 'about.html', code: 'OS' },
     { title: 'Leadership Team', detail: 'Industry veterans', url: 'about.html#leadership', code: 'LT' },
     { title: 'Vision & Mission', detail: 'Ethical mining excellence', url: 'about.html#vision', code: 'VM' },
     { title: 'Learn More About Us', detail: 'Company profile', url: 'about.html', code: 'All', cta: true }
