@@ -1,4 +1,4 @@
-import { highlightActiveLink, isMobile } from './utils.js';
+import { highlightActiveLink, isMobile } from './utils.js?v=ab7183b7cfe6';
 
 const productMenuItems = [
   { title: 'Copper', detail: '2% - 10% Cu lumps', url: 'product-metallic.html#copper', code: 'Cu', group: 'Metallic' },

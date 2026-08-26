@@ -154,16 +154,18 @@
     window.BMCookieConsent.openPreferences();
   });
 
-  if (!document.querySelector('link[href$="css/cookies-popup.css"]')) {
+  if (!document.getElementById('bm-cookie-styles')) {
     const stylesheet = document.createElement('link');
+    stylesheet.id = 'bm-cookie-styles';
     stylesheet.rel = 'stylesheet';
-    stylesheet.href = '/css/cookies-popup.css';
+    stylesheet.href = '/css/cookies-popup.css?v=ffb891aa41f5';
     document.head.appendChild(stylesheet);
   }
 
-  if (!document.querySelector('script[src$="js/cookies-popup.js"]')) {
+  if (!document.getElementById('bm-cookie-popup-script')) {
     const popupScript = document.createElement('script');
-    popupScript.src = '/js/cookies-popup.js';
+    popupScript.id = 'bm-cookie-popup-script';
+    popupScript.src = '/js/cookies-popup.js?v=552832218bb3';
     popupScript.defer = true;
     document.head.appendChild(popupScript);
   }

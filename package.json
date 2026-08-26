@@ -7,10 +7,11 @@
     "watch:css": "postcss src/styles/index.css -o output.css --watch",
     "dev": "npm run build:css",
     "check:js": "node scripts/check-js-syntax.js",
+    "check:assets": "node scripts/check-cache-versions.js",
     "check:css": "node scripts/check-css-sync.js",
     "check:site": "node scripts/check-site.js",
     "check:image-modals": "node scripts/check-image-modal-safety.js",
-    "check": "npm run check:js && npm run check:image-modals && npm run check:css && npm run check:site",
+    "check": "npm run check:js && npm run check:assets && npm run check:image-modals && npm run check:css && npm run check:site",
     "optimize:images": "node scripts/convert-images.js"
   },
   "keywords": [
