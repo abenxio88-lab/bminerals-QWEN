@@ -705,6 +705,20 @@
   flex-shrink: 0;
   max-height: 220px;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-gold-500) rgba(15, 23, 42, 0.1);
+}
+
+.navbar__dropdown-menu--mobile::-webkit-scrollbar {
+  width: 7px;
+}
+
+.navbar__dropdown-menu--mobile::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.1);
+}
+
+.navbar__dropdown-menu--mobile::-webkit-scrollbar-thumb {
+  background: var(--primary-gold-500);
 }
 
 .navbar__dropdown-menu--mobile .navbar__dropdown-item:hover {

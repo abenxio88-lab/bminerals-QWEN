@@ -886,6 +886,7 @@
   body.about-page .parallax-hero__text {
     margin-inline: auto;
     text-align: center;
+    text-align-last: center;
   }
 
   .zigzag-section {
