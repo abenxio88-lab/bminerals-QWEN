@@ -40,10 +40,6 @@
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
     rel="stylesheet">
 
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-
   <link rel="stylesheet" href="output.css?v=e831de1f247c">
   <link rel="stylesheet" href="css/pages/projects.css?v=project-category-center-20260711">
 
@@ -60,47 +56,364 @@
   </script>
   <style>
     #premium-map {
-      min-height: 560px;
+      min-height: 400px;
       width: 100%;
       z-index: 1;
     }
 
+    .footprint-map {
+      width: 100%;
+      max-width: none;
+      padding: 0.75rem;
+    }
+
+    #geographic-footprint {
+      height: 400px;
+      min-height: 400px;
+      width: 100%;
+      background: #09131d;
+      overflow: hidden;
+    }
+
+    .footprint-map__canvas {
+      height: 400px;
+      min-height: 400px;
+    }
+
+    .geo-footprint__svg {
+      display: block;
+      width: 100%;
+      height: 400px;
+      min-height: 400px;
+    }
+
+    .footprint-map__header {
+      max-width: none;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    .footprint-map__title {
+      font-size: clamp(1.15rem, 1.8vw, 1.55rem);
+    }
+
+    .footprint-map__summary {
+      font-size: 0.84rem;
+      line-height: 1.55;
+    }
+
+    .footprint-map__body {
+      grid-template-columns: minmax(150px, 180px) minmax(0, 1fr) minmax(250px, 300px);
+      gap: 0.75rem;
+      align-items: start;
+      justify-content: center;
+      max-width: none;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    .footprint-map__sites {
+      gap: 0.65rem;
+      grid-template-rows: repeat(4, minmax(0, 1fr));
+      height: 400px;
+    }
+
+    .footprint-site {
+      gap: 0.6rem;
+      align-items: center;
+      padding: 0.65rem 0.75rem;
+    }
+
+    .footprint-site__code {
+      width: 1.75rem;
+      height: 1.75rem;
+      font-size: 0.68rem;
+    }
+
+    .footprint-site h4 {
+      margin-bottom: 0.2rem;
+      font-size: 0.84rem;
+    }
+
+    .footprint-site p {
+      font-size: 0.67rem;
+      line-height: 1.35;
+    }
+
+    .footprint-map__metrics {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(4, minmax(0, 1fr));
+      height: 400px;
+      max-width: none;
+      margin: 0;
+      overflow: hidden;
+      background: rgba(7, 16, 24, 0.62);
+      border: 1px solid rgba(159, 178, 195, 0.16);
+      border-radius: 6px;
+    }
+
+    .footprint-map__metric {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 0.3rem;
+      min-width: 0;
+      padding: 0.75rem 0.9rem;
+    }
+
+    .footprint-map__metric + .footprint-map__metric {
+      border-top: 1px solid rgba(159, 178, 195, 0.14);
+    }
+
+    .footprint-map__metric dd {
+      margin: 0;
+      color: #e65c1a;
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .footprint-map__metric dt {
+      color: rgba(245, 240, 232, 0.62);
+      font-family: var(--font-ui);
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      line-height: 1.25;
+      text-transform: uppercase;
+    }
+
+    .geo-footprint__province {
+      fill: #142839;
+      stroke: rgba(203, 219, 230, 0.42);
+      stroke-width: 2;
+      filter: drop-shadow(0 20px 28px rgba(0, 0, 0, 0.34));
+    }
+
+    .geo-footprint__contour {
+      fill: none;
+      stroke: rgba(159, 178, 195, 0.16);
+      stroke-width: 1.5;
+    }
+
+    .geo-footprint__route {
+      fill: none;
+      stroke: rgba(230, 92, 26, 0.62);
+      stroke-dasharray: 7 12;
+      stroke-linecap: round;
+      stroke-width: 2;
+      animation: geoRouteFlow 6s linear infinite;
+    }
+
+    .geo-footprint__route--secondary {
+      stroke: rgba(159, 178, 195, 0.46);
+      animation-duration: 8s;
+    }
+
+    .geo-footprint__pulse {
+      fill: none;
+      stroke: rgba(230, 92, 26, 0.58);
+      stroke-width: 2;
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: geoSitePulse 2.8s ease-out infinite;
+    }
+
+    .geo-footprint__dot {
+      fill: #e65c1a;
+      stroke: #f8d7b1;
+      stroke-width: 3;
+      filter: drop-shadow(0 0 9px rgba(230, 92, 26, 0.75));
+    }
+
+    .geo-footprint__port {
+      fill: #f3b76e;
+      stroke: #09131d;
+      stroke-width: 4;
+    }
+
+    .geo-footprint__label {
+      fill: #f5f0e8;
+      font-family: var(--font-ui);
+      font-size: 13px;
+      font-weight: 700;
+      paint-order: stroke;
+      stroke: #09131d;
+      stroke-width: 4;
+    }
+
+    .geo-footprint__caption {
+      fill: rgba(245, 240, 232, 0.58);
+      font-family: var(--font-ui);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      paint-order: stroke;
+      stroke: #09131d;
+      stroke-width: 3;
+      text-transform: uppercase;
+    }
+
+    .geo-footprint__signal {
+      fill: #ffd08a;
+      filter: drop-shadow(0 0 8px rgba(255, 208, 138, 0.9));
+    }
+
+    .footprint-map__hud {
+      padding: 0.5rem 0.65rem;
+    }
+
+    .footprint-map__hud span {
+      font-size: 0.52rem;
+    }
+
+    .footprint-map__hud strong {
+      font-size: 0.86rem;
+    }
+
+    @keyframes geoRouteFlow {
+      to { stroke-dashoffset: -190; }
+    }
+
+    @keyframes geoSitePulse {
+      0% { opacity: 0.85; transform: scale(0.45); }
+      80%, 100% { opacity: 0; transform: scale(1.45); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .geo-footprint__route,
+      .geo-footprint__pulse {
+        animation: none;
+      }
+
+      .geo-footprint__signal {
+        display: none;
+      }
+    }
+
     @media (max-width: 768px) {
-      .footprint-map__header,
-      .footprint-map__summary,
-      .footprint-map__hud,
+      .footprint-map {
+        padding: 0.6rem;
+      }
+
+      .footprint-map__header {
+        grid-template-columns: 1fr;
+        gap: 0.7rem;
+        margin-bottom: 0.7rem;
+        padding: 0.3rem 0.15rem;
+      }
+
+      .footprint-map__title {
+        font-size: 1.12rem;
+        line-height: 1.18;
+      }
+
+      .footprint-map__summary {
+        max-width: 42ch;
+        font-size: 0.78rem;
+        line-height: 1.5;
+      }
+
+      .footprint-map__body {
+        grid-template-columns: 1fr;
+        gap: 0.65rem;
+      }
+
+      #geographic-footprint,
+      .geo-footprint__svg,
+      .footprint-map__canvas {
+        height: 280px;
+        min-height: 280px;
+      }
+
+      .footprint-map__metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: none;
+        height: auto;
+      }
+
+      .footprint-map__metric {
+        align-items: center;
+        min-height: 70px;
+        justify-content: center;
+        padding: 0.6rem 0.7rem;
+        text-align: center;
+      }
+
+      .footprint-map__metric dd {
+        font-size: 1.18rem;
+      }
+
+      .footprint-map__metric dt {
+        font-size: 0.54rem;
+      }
+
+      .footprint-map__metric + .footprint-map__metric {
+        border-top: 0;
+        border-left: 1px solid rgba(159, 178, 195, 0.14);
+      }
+
+      .footprint-map__metric:nth-child(3) {
+        border-left: 0;
+      }
+
+      .footprint-map__metric:nth-child(n + 3) {
+        border-top: 1px solid rgba(159, 178, 195, 0.14);
+      }
+
+      .footprint-map__sites {
+        grid-template-columns: 1fr;
+        grid-template-rows: none;
+        gap: 0.5rem;
+        height: auto;
+      }
+
       .footprint-site {
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 0.7rem;
+        align-items: center;
+        padding: 0.7rem;
+      }
+
+      .footprint-map__header,
+      .footprint-map__summary {
         text-align: center;
       }
 
       .footprint-map__header {
         flex-direction: column;
-        gap: 1.5rem;
       }
 
       .footprint-map__hud {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        left: 0;
-        right: 0;
+        display: none;
       }
 
       .footprint-map__summary {
         margin-left: auto;
         margin-right: auto;
-        max-width: 100%;
+        max-width: 42ch;
       }
 
       .footprint-site {
-        flex-direction: column;
-        align-items: center;
+        flex-direction: row;
+        text-align: left;
       }
 
       .footprint-site__code {
-        margin-bottom: 0.5rem;
+        margin-bottom: 0;
+      }
+
+      .footprint-site h4 {
+        margin-bottom: 0.15rem;
+      }
+
+      .footprint-site p {
+        font-size: 0.7rem;
       }
 
       /* Center section headers */
@@ -1038,8 +1351,72 @@
           </div>
 
           <div class="footprint-map__body">
+            <dl class="footprint-map__metrics" aria-label="Project portfolio statistics">
+              <div class="footprint-map__metric">
+                <dt>Active Projects</dt>
+                <dd>5</dd>
+              </div>
+              <div class="footprint-map__metric">
+                <dt>KM Coverage</dt>
+                <dd>800+</dd>
+              </div>
+              <div class="footprint-map__metric">
+                <dt>Workforce</dt>
+                <dd>200+</dd>
+              </div>
+              <div class="footprint-map__metric">
+                <dt>MT Annual Output</dt>
+                <dd>47K+</dd>
+              </div>
+            </dl>
+
             <div class="footprint-map__canvas">
-              <div id="premium-map" aria-label="Interactive map of Balochistan mining footprint"></div>
+              <div id="geographic-footprint" aria-label="Animated geographic map of Balochistan mining footprint">
+                <svg class="geo-footprint__svg" viewBox="300 70 900 570" role="img"
+                  aria-labelledby="geo-footprint-title geo-footprint-desc">
+                  <title id="geo-footprint-title">Balochistan mineral corridor map</title>
+                  <desc id="geo-footprint-desc">An enlarged Balochistan boundary showing Muslim Bagh, Dilband, Chagai
+                    and Washuk-Zhob with animated routes to Gwadar and Karachi ports.</desc>
+                  <defs>
+                    <pattern id="geoGrid" width="42" height="42" patternUnits="userSpaceOnUse">
+                      <path d="M42 0H0V42" fill="none" stroke="#9fb2c3" stroke-opacity="0.055" />
+                    </pattern>
+                    <path id="balochistanBoundary"
+                      d="M834.3 592L848 589.2L858.1 586.6L863.3 577.9L874 570L879.3 557.4L886.1 551L892.6 545L900.5 537.6L901 519.4L894.5 509.4L883.2 494.6L878.3 482.7L878.2 473.8L880.4 455.3L878.4 435.4L883.5 420L892 411.5L898.1 401L907.4 395.2L920.7 392.9L935.6 390L956.3 380.3L970.4 372.2L984.6 368.6L988 362L1004.7 358.4L1040.6 356.7L1066.6 354.2L1063.1 348.4L1072.3 342.7L1081.6 334.2L1076.1 328.3L1084.5 320L1094.5 309.9L1099.6 301L1091.1 297.6L1084.3 289.4L1084.1 284.3L1086.2 275.3L1091.1 271.2L1103.9 261.9L1111.5 251.2L1120.1 236.4L1116.9 230.2L1116.5 223.9L1120 217.7L1124.3 212.6L1123.9 202.8L1133.4 198.2L1138.9 192.1L1141.1 181.1L1141.6 157.6L1134.2 154.4L1124.7 159.9L1120.4 151.7L1116.3 147.3L1115.5 138.3L1118.5 129.7L1111.5 122.8L1106.5 118.1L1103.8 113.1L1092.6 115.4L1084.5 121.8L1064.3 121.9L1057.2 119.5L1044.6 129.9L1027.7 139.4L1009.7 133.8L994.2 124.6L976.3 129.5L965.1 124.5L958.3 131L939.8 137.3L928.6 143.5L913.1 144.4L912.9 151.6L929.8 153.3L923.5 159.8L902.3 165.4L873.5 165L860.2 158.7L838 169.5L816.8 183.1L809.3 191.5L805.4 201.1L801.7 212L805.8 230.2L798.7 238.9L805 248.4L801.1 256.8L733.2 270.9L683.5 276.1L631.7 279L596.6 283.3L561.3 281.8L485.5 287.2L409.6 273.7L353.7 261.7L346 269.7L371.5 291.6L382.3 307.5L395.7 324.6L422.9 345.6L448.3 352.1L472.6 357.4L486.9 366.5L498.9 376.8L499.3 393.4L503.6 418.4L498.9 431.8L527.7 432.4L545.2 439.8L535 457.8L522.2 474.2L497.7 474.3L468.1 477.9L451.6 487.6L446.7 500L433.9 494.7L418.2 499L410 515.5L408.2 529.2L398.4 535.6L396.1 551.9L401 570.2L407.4 576.6L402.6 582.8L415.6 579.6L434.4 575.2L442.4 568.8L452.7 573.3L453 579.4L461.2 577.1L461.6 570.9L473.2 567.4L490 569.5L511.2 569.5L528.5 568.5L539.9 571.3L559.1 572.6L566.4 563.9L589.5 562.3L606.6 563.5L627.3 566.3L645.9 571.4L657.1 570.6L658.8 576.7L661.8 572.2L671.6 565.4L693.7 567L713.3 564.4L736.7 563.2L752.6 564.9L774.5 562.3L796.6 558.5L811.7 559.9L818.1 559.5L807.9 555.7L795.9 556.5L789.1 554L808.2 550.5L823.1 556.1L829.9 569.3L840.6 579.4Z" />
+                    <clipPath id="balochistanClip"><use href="#balochistanBoundary" /></clipPath>
+                  </defs>
+
+                  <rect width="1200" height="680" fill="#09131d" />
+                  <rect width="1200" height="680" fill="url(#geoGrid)" />
+
+                  <use class="geo-footprint__province" href="#balochistanBoundary" />
+                  <g clip-path="url(#balochistanClip)">
+                    <path class="geo-footprint__contour" d="M320 218C472 169 615 178 742 223S972 283 1155 218" />
+                    <path class="geo-footprint__contour" d="M310 294C466 248 621 257 763 305S986 360 1155 303" />
+                    <path class="geo-footprint__contour" d="M320 375C478 323 618 343 759 392S986 449 1148 384" />
+                    <path class="geo-footprint__contour" d="M336 457C480 410 626 427 758 470S963 520 1117 465" />
+                    <path class="geo-footprint__contour" d="M375 523C514 485 650 497 776 531S938 562 1038 527" />
+                  </g>
+
+                  <path class="geo-footprint__route" d="M395 303C427 390 441 479 457 578" />
+                  <path class="geo-footprint__route geo-footprint__route--secondary" d="M395 303C568 380 733 482 862 596" />
+                  <path class="geo-footprint__route" d="M922 195C927 351 912 475 862 596" />
+                  <path class="geo-footprint__route geo-footprint__route--secondary" d="M809 316C851 405 873 496 862 596" />
+                  <path class="geo-footprint__route" d="M706 235C626 346 536 470 457 578" />
+
+                  <circle class="geo-footprint__signal" r="5"><animateMotion dur="5.5s" repeatCount="indefinite" path="M395 303C427 390 441 479 457 578" /></circle>
+                  <circle class="geo-footprint__signal" r="5"><animateMotion dur="6.5s" begin="-2s" repeatCount="indefinite" path="M922 195C927 351 912 475 862 596" /></circle>
+                  <circle class="geo-footprint__signal" r="5"><animateMotion dur="7s" begin="-4s" repeatCount="indefinite" path="M706 235C626 346 536 470 457 578" /></circle>
+
+                  <g transform="translate(395 303)"><circle class="geo-footprint__pulse" r="29" /><circle class="geo-footprint__dot" r="9" /><text class="geo-footprint__label" x="-20" y="-24">Chagai</text><text class="geo-footprint__caption" x="-20" y="-10">Copper-gold / exploration</text></g>
+                  <g transform="translate(922 195)"><circle class="geo-footprint__pulse" r="29" /><circle class="geo-footprint__dot" r="9" /><text class="geo-footprint__label" x="18" y="-18">Muslim Bagh</text><text class="geo-footprint__caption" x="18" y="-4">Chromite / production</text></g>
+                  <g transform="translate(809 316)"><circle class="geo-footprint__pulse" r="25" /><circle class="geo-footprint__dot" r="8" /><text class="geo-footprint__label" x="18" y="-15">Dilband</text><text class="geo-footprint__caption" x="18" y="-1">Iron ore / supply</text></g>
+                  <g transform="translate(706 235)"><circle class="geo-footprint__pulse" r="25" /><circle class="geo-footprint__dot" r="8" /><text class="geo-footprint__label" x="-18" y="-20" text-anchor="end">Washuk-Zhob</text><text class="geo-footprint__caption" x="-18" y="-6" text-anchor="end">Antimony / sourcing</text></g>
+
+                  <g transform="translate(457 578)"><path class="geo-footprint__port" d="M0 -12L12 0L0 12L-12 0Z" /><text class="geo-footprint__caption" x="0" y="30" text-anchor="middle">Gwadar Port</text></g>
+                  <g transform="translate(862 596)"><path class="geo-footprint__port" d="M0 -12L12 0L0 12L-12 0Z" /><text class="geo-footprint__caption" x="18" y="4">Karachi Port</text></g>
+                </svg>
+              </div>
               <div class="footprint-map__hud" aria-hidden="true">
                 <span>Mineral corridor scan</span>
                 <strong>Metallic footprint</strong>
@@ -1079,46 +1456,6 @@
           </div>
         </div>
 
-        <!-- Quick Stats -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;"
-          class="project-overview-stats reveal">
-          <div
-            style="padding: 2rem; background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-md); text-align: center;">
-            <div
-              style="font-family: var(--font-heading); font-size: var(--text-3xl); font-weight: 700; color: var(--primary-gold-500); margin-bottom: 0.5rem;">
-              5</div>
-            <div
-              style="font-size: var(--text-sm); font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">
-              Active Projects</div>
-          </div>
-          <div
-            style="padding: 2rem; background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-md); text-align: center;">
-            <div
-              style="font-family: var(--font-heading); font-size: var(--text-3xl); font-weight: 700; color: var(--navy-600); margin-bottom: 0.5rem;">
-              800+</div>
-            <div
-              style="font-size: var(--text-sm); font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">
-              KM Coverage</div>
-          </div>
-          <div
-            style="padding: 2rem; background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-md); text-align: center;">
-            <div
-              style="font-family: var(--font-heading); font-size: var(--text-3xl); font-weight: 700; color: var(--primary-gold-500); margin-bottom: 0.5rem;">
-              200+</div>
-            <div
-              style="font-size: var(--text-sm); font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">
-              Workforce</div>
-          </div>
-          <div
-            style="padding: 2rem; background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-md); text-align: center;">
-            <div
-              style="font-family: var(--font-heading); font-size: var(--text-3xl); font-weight: 700; color: var(--navy-600); margin-bottom: 0.5rem;">
-              47K+</div>
-            <div
-              style="font-size: var(--text-sm); font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">
-              MT Annual Output</div>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -2850,22 +3187,22 @@
             <div class="footer__social-links">
               <a href="/contact" class="footer__social-link" aria-label="Contact Balochistan Minerals">
                 <svg width="20" height="20" aria-hidden="true" focusable="false">
-                  <use href="images/icons.svg#icon-email"></use>
+                  <use href="images/icons.svg#icon-facebook"></use>
                 </svg>
               </a>
               <a href="/blogs" class="footer__social-link" aria-label="Balochistan Minerals insights">
                 <svg width="20" height="20" aria-hidden="true" focusable="false">
-                  <use href="images/icons.svg#icon-document"></use>
+                  <use href="images/icons.svg#icon-youtube"></use>
                 </svg>
               </a>
               <a href="/projects" class="footer__social-link" aria-label="Balochistan Minerals projects">
                 <svg width="20" height="20" aria-hidden="true" focusable="false">
-                  <use href="images/icons.svg#icon-mine"></use>
+                  <use href="images/icons.svg#icon-instagram"></use>
                 </svg>
               </a>
               <a href="/about" class="footer__social-link" aria-label="About Balochistan Minerals">
                 <svg width="20" height="20" aria-hidden="true" focusable="false">
-                  <use href="images/icons.svg#icon-story"></use>
+                  <use href="images/icons.svg#icon-linkedin"></use>
                 </svg>
               </a>
             </div>
@@ -2924,15 +3261,10 @@
   <!-- @SECTION: FOOTER END -->
 
 
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
   <!-- Animation & Interaction scripts -->
   <script defer src="vendor/gsap/gsap.min.js"></script>
   <script defer src="vendor/gsap/ScrollTrigger.min.js"></script>
   <script type="module" src="js/animations-premium.js" defer></script>
-  <script type="module" src="js/project-map.js?v=map-no-oval-20260501" defer></script>
   <script src="js/project-categories.js" defer></script>
   <script defer src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js" integrity="sha384-li4UtcFCH6QeUqR4JyV58/VgTprMuz9aauj+oWtew7V4Y7ZVjnvz5px9Y3UCG0Ea" crossorigin="anonymous"></script>
   <script type="module" src="js/main.js?v=d48f0a6cffd1" defer></script>
