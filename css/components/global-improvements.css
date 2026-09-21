@@ -134,3 +134,12 @@ a:focus-visible {
 .detail-hero__title {
   font-weight: 500 !important;
 }
+
+/* ============================================
+   DESKTOP VIEWPORT SCALING (95%)
+   ============================================ */
+@media (min-width: 1025px) {
+  body {
+    zoom: 0.95;
+  }
+}
