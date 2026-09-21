@@ -121,7 +121,8 @@ a:focus-visible {
    HERO TITLE TYPOGRAPHY REFINEMENT
    Main hero titles across all pages EXCEPT homepage:
    - Refined font-weight (500) across desktop and mobile
-   - Mobile font-size reduced slightly (1.38rem) on mobile (<= 768px)
+   - Mobile font-size reduced to 1.15rem on mobile only (<= 768px)
+   - Desktop font-size remains untouched.
    - Homepage hero (.hero__headline / .hero-headline) is strictly EXCLUDED and untouched.
    ============================================ */
 .parallax-hero__title,
@@ -154,8 +155,8 @@ a:focus-visible {
   #policy-title,
   .detail-hero h1,
   .detail-hero__title {
-    font-size: 1.38rem !important;
-    line-height: 1.15 !important;
+    font-size: 1.15rem !important;
+    line-height: 1.18 !important;
   }
 }
 
