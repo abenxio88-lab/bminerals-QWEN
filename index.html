@@ -128,6 +128,18 @@
     body.homepage .logistics-section {
       padding-top: 2rem !important;
     }
+
+    /* Refine section headings font-weight for desktop only (mobile <= 768px strictly untouched) */
+    @media (min-width: 769px) {
+      .mine-tours__title,
+      .esg-dashboard__title,
+      .testimonials__header .section-title,
+      .drone-cinematics__title,
+      .drone-cinematics__title .text-accent,
+      .cta-premium__title {
+        font-weight: 500 !important;
+      }
+    }
   </style>
 
   <!-- Preload hero image to improve LCP (prefer AVIF when available) -->
