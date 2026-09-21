@@ -65,7 +65,7 @@
 .sustainability-hero__title {
   font-family: var(--font-heading);
   font-size: clamp(1.6rem, 3.2vw, 2.125rem);
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1.15;
   letter-spacing: 0.03em;
   text-transform: uppercase;

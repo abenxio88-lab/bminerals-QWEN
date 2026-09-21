@@ -65,7 +65,7 @@
 .parallax-hero__title {
   font-family: var(--font-heading);
   font-size: var(--display-size);
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1.1;
   letter-spacing: 0.03em;
   text-transform: uppercase;
@@ -3826,7 +3826,7 @@
   font-family: var(--font-heading);
   font-size: clamp(1.55rem, 2.8vw, 2.125rem);
   line-height: 1.08;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   text-wrap: balance;
 }

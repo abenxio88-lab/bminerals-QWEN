@@ -116,3 +116,21 @@ a:focus-visible {
     gap: 0.375rem;
   }
 }
+
+/* ============================================
+   HERO TITLE TYPOGRAPHY REFINEMENT
+   Non-homepage hero titles: refined font-weight (500)
+   ============================================ */
+.parallax-hero__title,
+.mines-hero__title,
+.blog-hero__title,
+.contact-hero__title,
+.investors-hero__title,
+.logistics-hero__title,
+.sustainability-hero__title,
+.policy-hero h1,
+#policy-title,
+.detail-hero h1,
+.detail-hero__title {
+  font-weight: 500 !important;
+}
