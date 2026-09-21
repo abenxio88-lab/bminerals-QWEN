@@ -1,4 +1,4 @@
-import { highlightActiveLink, isMobile } from './utils.js?v=ab7183b7cfe6';
+import { highlightActiveLink, isMobile } from './utils.js?v=aa322057e3e3';
 
 const productMenuItems = [
   { title: 'Copper', detail: '2% - 10% Cu lumps', url: 'product-metallic.html#copper', code: 'Cu', group: 'Metallic' },
@@ -341,6 +341,13 @@ export function initNavbar() {
 
   // Highlight active link
   highlightActiveLink();
+
+  // Listen to hash changes so in-page anchor navigation updates active states
+  if (!window.__navbarHashHandler) {
+    window.__navbarHashHandler = () => highlightActiveLink();
+    window.addEventListener('hashchange', window.__navbarHashHandler, { passive: true });
+  }
+
 
   // Scroll effect (lightweight) - guard against duplicate listeners
   if (!window.__navbarScrollHandler) {
