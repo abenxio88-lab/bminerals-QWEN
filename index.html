@@ -129,23 +129,15 @@
       padding-top: 2rem !important;
     }
 
-    /* Refine section headings font-weight across desktop and mobile, with slightly reduced mobile font-size */
-    .mine-tours__title,
-    .esg-dashboard__title,
-    .testimonials__header .section-title,
-    .drone-cinematics__title,
-    .drone-cinematics__title .text-accent,
-    .cta-premium__title {
-      font-weight: 500 !important;
-    }
-
-    @media (max-width: 768px) {
+    /* Refine section headings font-weight for desktop only (mobile <= 768px strictly untouched) */
+    @media (min-width: 769px) {
       .mine-tours__title,
       .esg-dashboard__title,
       .testimonials__header .section-title,
       .drone-cinematics__title,
+      .drone-cinematics__title .text-accent,
       .cta-premium__title {
-        font-size: clamp(1.4rem, 6.8vw, 1.85rem) !important;
+        font-weight: 500 !important;
       }
     }
   </style>
@@ -160,7 +152,7 @@
     rel="stylesheet">
 
   <!-- Core CSS (Critical) -->
-  <link rel="stylesheet" href="output.css?v=fee98e328244">
+  <link rel="stylesheet" href="output.css?v=62a6ff6a6348">
   <link rel="stylesheet" href="css/components/our-mines.css">
   <link rel="stylesheet" href="css/components/mineral-atlas.css?v=fresh-scroll">
   <link rel="stylesheet" href="css/components/home-cinematic-motion.css?v=homepage-mobile-paint-20260714">

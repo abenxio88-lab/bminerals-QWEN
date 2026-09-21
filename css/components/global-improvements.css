@@ -119,8 +119,10 @@ a:focus-visible {
 
 /* ============================================
    HERO TITLE TYPOGRAPHY REFINEMENT
-   Non-homepage hero titles: refined font-weight (500) for desktop and mobile,
-   with slightly reduced mobile font-size (1.38rem via --display-size).
+   Main hero titles across all pages EXCEPT homepage:
+   - Refined font-weight (500) across desktop and mobile
+   - Mobile font-size reduced slightly (1.38rem) on mobile (<= 768px)
+   - Homepage hero (.hero__headline / .hero-headline) is strictly EXCLUDED and untouched.
    ============================================ */
 .parallax-hero__title,
 .mines-hero__title,
@@ -129,6 +131,8 @@ a:focus-visible {
 .investors-hero__title,
 .logistics-hero__title,
 .sustainability-hero__title,
+.projects-hero__title,
+.about-hero__title,
 .policy-hero h1,
 #policy-title,
 .detail-hero h1,
@@ -144,12 +148,14 @@ a:focus-visible {
   .investors-hero__title,
   .logistics-hero__title,
   .sustainability-hero__title,
+  .projects-hero__title,
+  .about-hero__title,
   .policy-hero h1,
   #policy-title,
   .detail-hero h1,
   .detail-hero__title {
-    font-size: var(--display-size) !important;
-    line-height: 1.12 !important;
+    font-size: 1.38rem !important;
+    line-height: 1.15 !important;
   }
 }
 

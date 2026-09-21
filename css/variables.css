@@ -134,8 +134,8 @@
 /* Mobile Overrides (The "User Preferred" Layout) */
 @media (max-width: 768px) {
   :root {
-    --display-size: 1.38rem;
-    /* 22px - Refined Hero Headline */
+    --display-size: 1.5rem;
+    /* 24px - Refined Hero Headline */
     --h1-size: 1.3rem;
     /* 20.8px (~21px) - Section Titles */
     --h2-size: 1.15rem;
