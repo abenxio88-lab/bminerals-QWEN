@@ -60,8 +60,7 @@ class BMChatbot {
 
   saveHistory() {
     try {
-      // Save last 25 messages to keep session clean
-      const trimmed = this.messages.slice(-25);
+      const trimmed = this.messages.slice(-20);
       sessionStorage.setItem(STORAGE_KEY, JSON.stringify(trimmed));
     } catch {
       // Ignore sessionStorage exceptions
@@ -78,13 +77,14 @@ class BMChatbot {
       <button type="button" class="bm-chat-launcher" aria-label="Open Balochistan Minerals AI Assistant" aria-haspopup="dialog">
         <div class="bm-chat-launcher__pill">
           <span class="bm-chat-launcher__pill-dot"></span>
-          <span>Ask AI • Mineral Sourcing</span>
+          <span>Ask AI • Mineral Desk</span>
         </div>
         <div class="bm-chat-launcher__btn">
-          <svg class="bm-chat-launcher__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M6 3h12l4 6-10 12L2 9z"></path>
-            <path d="M11 3v6l-4 3"></path>
-            <path d="M13 3v6l4 3"></path>
+          <svg class="bm-chat-launcher__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+            <circle cx="12" cy="12" r="1" fill="currentColor"></circle>
+            <circle cx="8" cy="12" r="1" fill="currentColor"></circle>
+            <circle cx="16" cy="12" r="1" fill="currentColor"></circle>
           </svg>
           <span class="bm-chat-launcher__badge"></span>
         </div>
@@ -98,37 +98,36 @@ class BMChatbot {
         <div class="bm-chat-header">
           <div class="bm-chat-header__brand">
             <div class="bm-chat-header__avatar" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M6 3h12l4 6-10 12L2 9z"></path>
-                <path d="M11 3v6l-4 3"></path>
-                <path d="M13 3v6l4 3"></path>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 2 8.5 12 15 22 8.5 12 2"></polygon>
+                <polyline points="2 15.5 12 22 22 15.5"></polyline>
+                <line x1="12" y1="2" x2="12" y2="15"></line>
               </svg>
               <span class="bm-chat-header__avatar-dot"></span>
             </div>
             <div class="bm-chat-header__meta">
               <h2 class="bm-chat-header__title">
                 Balochistan Minerals AI
-                <span class="bm-chat-header__title-tag">B2B</span>
               </h2>
               <span class="bm-chat-header__status">
                 <span class="bm-chat-header__status-pulse"></span>
-                Assay & Logistics Verified
+                Official Sourcing & Assay Desk
               </span>
             </div>
           </div>
           <div class="bm-chat-header__actions">
             <button type="button" class="bm-chat-btn-icon bm-chat-btn-reset" title="Restart conversation" aria-label="Reset conversation">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 12a9 9 0 0 1 15-6.7L21 8M21 3v5h-5M21 12a9 9 0 0 1-15 6.7L3 16M3 21v-5h5"></path>
               </svg>
             </button>
             <button type="button" class="bm-chat-btn-icon bm-chat-btn-minimize" title="Minimize" aria-label="Minimize chat">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
                 <line x1="5" y1="12" x2="19" y2="12"></line>
               </svg>
             </button>
             <button type="button" class="bm-chat-btn-icon bm-chat-btn-close" title="Close" aria-label="Close chat">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
               </svg>
@@ -144,16 +143,16 @@ class BMChatbot {
         <!-- Chat Footer & Input Form -->
         <div class="bm-chat-footer">
           <form class="bm-chat-form">
-            <textarea class="bm-chat-input" rows="1" placeholder="Ask about mineral specs, mines, logistics..." aria-label="Message"></textarea>
+            <textarea class="bm-chat-input" rows="1" placeholder="Inquire about barite, chromite, copper, ports..." aria-label="Message"></textarea>
             <button type="submit" class="bm-chat-send" aria-label="Send message" disabled>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="22" y1="2" x2="11" y2="13"></line>
                 <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
               </svg>
             </button>
           </form>
           <div class="bm-chat-disclaimer">
-            Official Balochistan Minerals (Pvt) Ltd B2B Desk • Certified Assay Support
+            Verified Assay Specifications • Port of Karachi & Qasim Export Support
           </div>
         </div>
 
@@ -221,7 +220,7 @@ class BMChatbot {
 
   autoResizeInput() {
     this.input.style.height = 'auto';
-    this.input.style.height = `${Math.min(this.input.scrollHeight, 90)}px`;
+    this.input.style.height = `${Math.min(this.input.scrollHeight, 84)}px`;
   }
 
   toggleOpen() {
@@ -245,7 +244,7 @@ class BMChatbot {
 
     setTimeout(() => {
       this.input.focus();
-    }, 200);
+    }, 180);
   }
 
   close() {
@@ -271,21 +270,25 @@ class BMChatbot {
       <div class="bm-chat-welcome">
         <div class="bm-chat-welcome__header">
           <div class="bm-chat-welcome__icon">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <path d="m9 12 2 2 4-4"></path>
             </svg>
           </div>
-          <h3 class="bm-chat-welcome__title">Welcome to Balochistan Minerals</h3>
+          <div>
+            <h3 class="bm-chat-welcome__title">Balochistan Minerals Sourcing</h3>
+            <span class="bm-chat-welcome__subtitle">Direct Export & Technical Intelligence</span>
+          </div>
         </div>
         <p class="bm-chat-welcome__text">
-          Sourcing export-ready mineral commodities from Pakistan? I can provide verified assay specifications, mine origin details, and commercial quotations.
+          Access verified lot assays, mine-to-port logistics schedules, and direct commercial quotations for Pakistan minerals.
         </p>
         <div class="bm-chat-chips">
-          <button type="button" class="bm-chat-chip bm-chat-chip--accent" data-query="Barite 4.2+ SG Specs">⚡ Barite 4.2+ SG</button>
-          <button type="button" class="bm-chat-chip" data-query="Chromite Ore Grades">⛏️ Chromite 42-52%</button>
-          <button type="button" class="bm-chat-chip" data-query="Chagai Copper Ore">🔬 Chagai Copper Ore</button>
-          <button type="button" class="bm-chat-chip" data-query="Mine-to-Port Logistics">🚢 Logistics & Ports</button>
-          <button type="button" class="bm-chat-chip" data-query="Request a Quote">📋 Request RFQ</button>
+          <button type="button" class="bm-chat-chip bm-chat-chip--accent" data-query="Barite 4.2+ SG">Barite 4.2+ SG</button>
+          <button type="button" class="bm-chat-chip" data-query="Chromite 42-52%">Chromite 42-52%</button>
+          <button type="button" class="bm-chat-chip" data-query="Chagai Copper">Chagai Copper</button>
+          <button type="button" class="bm-chat-chip" data-query="Logistics & Ports">Logistics & Ports</button>
+          <button type="button" class="bm-chat-chip" data-query="Request Quote">Request Quote (RFQ)</button>
         </div>
       </div>
     `;
@@ -329,8 +332,8 @@ class BMChatbot {
     // Show typing indicator
     this.showTyping();
 
-    // Natural assistant thinking delay
-    const delay = Math.min(800, Math.max(350, text.length * 15));
+    // Natural assistant thinking cadence
+    const delay = Math.min(650, Math.max(280, text.length * 10));
     setTimeout(() => {
       this.hideTyping();
       const responseData = findBestAnswer(text);
@@ -358,63 +361,81 @@ class BMChatbot {
     const el = document.createElement('div');
     el.className = 'bm-chat-msg bm-chat-msg--bot';
 
-    let contentHtml = this.formatMarkdown(data.text);
-
-    // Optional Thumbnail Media Card
-    let mediaHtml = '';
+    // 1. Compact Thumbnail Preview Card (Horizontal layout)
+    let thumbHtml = '';
     if (data.image) {
-      mediaHtml = `
-        <div class="bm-chat-media-card">
-          <img src="${this.escapeHtml(data.image)}" alt="${this.escapeHtml(data.title || 'Mineral Specimen')}" class="bm-chat-media-card__img" width="360" height="130" loading="lazy" decoding="async">
-          ${data.badge ? `<span class="bm-chat-media-card__badge">${this.escapeHtml(data.badge)}</span>` : ''}
+      thumbHtml = `
+        <div class="bm-chat-thumb-card">
+          <div class="bm-chat-thumb-card__media">
+            <img src="${this.escapeHtml(data.image)}" alt="${this.escapeHtml(data.title || 'Mineral Specimen')}" class="bm-chat-thumb-card__img" width="68" height="68" loading="lazy" decoding="async">
+          </div>
+          <div class="bm-chat-thumb-card__info">
+            <div class="bm-chat-thumb-card__tags">
+              ${data.badge ? `<span class="bm-chat-thumb-card__badge">${this.escapeHtml(data.badge)}</span>` : ''}
+              ${data.origin ? `<span class="bm-chat-thumb-card__origin">${this.escapeHtml(data.origin)}</span>` : ''}
+            </div>
+            <h4 class="bm-chat-thumb-card__title">${this.escapeHtml(data.title)}</h4>
+          </div>
         </div>
       `;
     }
 
-    // Optional RFQ Card
+    // 2. Concise Body Content
+    const contentHtml = this.formatMarkdown(data.text);
+
+    // 3. Redesigned, High-End RFQ Card
     let rfqHtml = '';
     if (data.showRfqCard) {
-      const defaultMineral = data.rfqData?.mineralName || 'Export Minerals';
-      const waUrl = buildWhatsAppRfqUrl({ mineral: defaultMineral, quantity: '5,000 MT', destinationPort: 'CIF Target Port' });
-      const emailUrl = buildEmailRfqUrl({ mineral: defaultMineral, quantity: '5,000 MT', destinationPort: 'CIF Target Port' });
+      const defaultMineral = data.rfqData?.mineralName || data.title || 'Export Minerals';
+      const waUrl = buildWhatsAppRfqUrl({ mineral: defaultMineral, quantity: '1,000 - 5,000 MT', destinationPort: 'CIF Target Port' });
+      const emailUrl = buildEmailRfqUrl({ mineral: defaultMineral, quantity: '1,000 - 5,000 MT', destinationPort: 'CIF Target Port' });
 
       rfqHtml = `
         <div class="bm-chat-rfq-card">
           <div class="bm-chat-rfq-card__header">
-            <h4 class="bm-chat-rfq-card__title">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <div class="bm-chat-rfq-card__title-group">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                 <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
               </svg>
-              Fast Commercial RFQ
-            </h4>
+              <span class="bm-chat-rfq-card__title">Direct Quotation Request</span>
+            </div>
             <span class="bm-chat-rfq-card__badge">${this.escapeHtml(defaultMineral.split(' ')[0])}</span>
           </div>
+
           <div class="bm-chat-rfq-card__grid">
             <div class="bm-chat-rfq-card__field">
               <label class="bm-chat-rfq-card__label">Quantity (MT)</label>
-              <input type="text" class="bm-chat-rfq-card__input bm-rfq-qty" value="1,000 - 5,000 MT">
+              <input type="text" class="bm-chat-rfq-card__input bm-rfq-qty" value="1,000 - 5,000 MT" placeholder="Tonnage required">
             </div>
             <div class="bm-chat-rfq-card__field">
               <label class="bm-chat-rfq-card__label">Destination Port</label>
-              <input type="text" class="bm-chat-rfq-card__input bm-rfq-port" placeholder="e.g. Tianjin, Houston">
+              <input type="text" class="bm-chat-rfq-card__input bm-rfq-port" placeholder="e.g. Tianjin, Houston, Jebel Ali">
             </div>
           </div>
+
           <div class="bm-chat-rfq-card__actions">
-            <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="bm-chat-rfq-card__btn bm-chat-rfq-card__btn--wa">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.41-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.34-.76-1.84-.2-.49-.4-.42-.56-.43h-.47c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.18-.47-.3z"/></svg>
-              WhatsApp RFQ
+            <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="bm-chat-rfq-btn bm-chat-rfq-btn--wa" style="color: #ffffff !important; text-decoration: none !important;">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.456 5.71 1.457h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+              </svg>
+              <span>WhatsApp RFQ</span>
             </a>
-            <a href="${emailUrl}" class="bm-chat-rfq-card__btn bm-chat-rfq-card__btn--email">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-              Email Desk
+            <a href="${emailUrl}" class="bm-chat-rfq-btn bm-chat-rfq-btn--email" style="color: #ffffff !important; text-decoration: none !important;">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+              </svg>
+              <span>Email Desk</span>
             </a>
           </div>
         </div>
       `;
     }
 
-    // Interactive Action Chips
+    // 4. Interactive Action Chips
     let chipsHtml = '';
     if (data.chips && data.chips.length > 0) {
       chipsHtml = `
@@ -426,21 +447,21 @@ class BMChatbot {
 
     el.innerHTML = `
       <div class="bm-chat-msg__bubble">
-        ${mediaHtml}
+        ${thumbHtml}
         ${contentHtml}
         ${rfqHtml}
         ${chipsHtml}
       </div>
-      <span class="bm-chat-msg__meta">${time} • AI Specialist</span>
+      <span class="bm-chat-msg__meta">${time} • Trade Specialist</span>
     `;
 
-    // Hook up dynamic inputs in the newly rendered RFQ card
+    // Hook up dynamic inputs in the RFQ card
     if (data.showRfqCard) {
-      const defaultMineral = data.rfqData?.mineralName || 'Export Minerals';
+      const defaultMineral = data.rfqData?.mineralName || data.title || 'Export Minerals';
       const qtyInput = el.querySelector('.bm-rfq-qty');
       const portInput = el.querySelector('.bm-rfq-port');
-      const waBtn = el.querySelector('.bm-chat-rfq-card__btn--wa');
-      const emailBtn = el.querySelector('.bm-chat-rfq-card__btn--email');
+      const waBtn = el.querySelector('.bm-chat-rfq-btn--wa');
+      const emailBtn = el.querySelector('.bm-chat-rfq-btn--email');
 
       const updateLinks = () => {
         const qty = qtyInput.value.trim() || 'Custom Order';
@@ -513,9 +534,6 @@ class BMChatbot {
     if (!markdown) return '';
     let html = this.escapeHtml(markdown);
 
-    // Headers
-    html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
-
     // Bold
     html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
@@ -533,14 +551,14 @@ class BMChatbot {
     });
 
     // Links [Text](URL)
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="bm-chat-doc-link">$1</a>');
 
     // Line breaks to paragraphs
     const paragraphs = html
       .split(/\n{2,}/)
       .filter(p => p.trim())
       .map(p => {
-        if (p.startsWith('<h3>') || p.startsWith('<ul>')) return p;
+        if (p.startsWith('<ul>')) return p;
         return `<p>${p.replace(/\n/g, '<br>')}</p>`;
       });
 
