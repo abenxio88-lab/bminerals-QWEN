@@ -6,6 +6,7 @@ import { initBorderBeam } from './border-beam.js';
 import { initTactileFeedback } from './tactile-feedback.js';
 import { initEarthTechCore } from './earth-tech-core.js';
 import { initSearchConsole } from './search-console.js';
+import { initChatbot } from './chatbot.js';
 import { createImageModalGuard } from './image-modal-guard.js?v=20260713';
 
 function isLocalDebug() {
@@ -193,6 +194,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // One failing module should never block the rest of the page boot sequence.
   runInit('initNavbar', initNavbar);
   runInit('initSearchConsole', initSearchConsole);
+  runInit('initChatbot', initChatbot);
   runInit('initScrollReveal', initScrollReveal);
   runInit('initDropdownMenus', initDropdownMenus);
   runInit('initHeroSlider', initHeroSlider);
