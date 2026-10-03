@@ -213,7 +213,22 @@ def main() -> int:
 
     # AST extraction: only for our JS (skip vendor/ and other excluded dirs).
     code_files = [p for p in js_files if not _is_excluded(p)]
-    ast = extract(code_files, cache_root=root) if code_files else {"nodes": [], "edges": [], "hyperedges": [], "input_tokens": 0, "output_tokens": 0}
+    try:
+        ast = extract(code_files, cache_root=root) if code_files else {"nodes": [], "edges": [], "hyperedges": [], "input_tokens": 0, "output_tokens": 0}
+    except Exception as e:
+        print(f"[graphify full] tree-sitter extraction fallback to cache: {e}")
+        cached_nodes = []
+        cached_edges = []
+        cache_dir = root / "graphify-out" / "cache"
+        if cache_dir.exists():
+            for cf in cache_dir.glob("*.json"):
+                try:
+                    d = json.loads(cf.read_text(encoding="utf-8"))
+                    cached_nodes.extend(d.get("nodes", []))
+                    cached_edges.extend(d.get("edges", []))
+                except Exception:
+                    pass
+        ast = {"nodes": cached_nodes, "edges": cached_edges, "hyperedges": [], "input_tokens": 0, "output_tokens": 0}
 
     # Deterministic semantic-ish extraction for HTML/CSS/asset connections.
     sem_nodes, sem_edges = _extract_static_links(root, html_files, css_files)
@@ -221,6 +236,16 @@ def main() -> int:
     # Merge: keep AST ids as-is, add our document/image nodes and edges.
     nodes = list(ast.get("nodes", []))
     edges = list(ast.get("edges", []))
+
+    # Normalize old absolute paths in cached nodes
+    root_str = str(root)
+    for n in nodes:
+        if isinstance(n, dict) and n.get("source_file"):
+            sf = n["source_file"]
+            if "bminerals-QWEN" in sf:
+                parts = sf.replace("\\", "/").split("bminerals-QWEN/", 1)
+                if len(parts) > 1:
+                    n["source_file"] = str(root / parts[1])
 
     existing_ids = {n.get("id") for n in nodes if isinstance(n, dict)}
     for n in sem_nodes.values():

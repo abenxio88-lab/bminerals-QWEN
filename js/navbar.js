@@ -1,4 +1,4 @@
-import { highlightActiveLink, isMobile } from './utils.js?v=ab7183b7cfe6';
+import { highlightActiveLink, isMobile } from './utils.js?v=aa322057e3e3';
 
 const productMenuItems = [
   { title: 'Copper', detail: '2% - 10% Cu lumps', url: 'product-metallic.html#copper', code: 'Cu', group: 'Metallic' },
@@ -89,6 +89,27 @@ function getProductsPathPrefix() {
   return window.location.pathname.includes('/blog/') ? '../' : '';
 }
 
+const productThumbnails = {
+  Copper: 'images/nav/thumb-copper.webp',
+  Chromite: 'images/nav/thumb-chromite.webp',
+  'Iron Ore': 'images/nav/thumb-iron-ore.webp',
+  Antimony: 'images/nav/thumb-antimony.webp',
+  Barite: 'images/nav/thumb-barite.webp',
+  Fluorite: 'images/nav/thumb-fluorite.webp',
+  Gypsum: 'images/nav/thumb-gypsum.webp',
+  Magnesite: 'images/nav/thumb-magnesite.webp',
+  'Phosphate Rock': 'images/nav/thumb-phosphate-rock.webp',
+  Bauxite: 'images/nav/thumb-bauxite.webp',
+  Marble: 'images/nav/thumb-marble.webp',
+  'White Marble': 'images/nav/thumb-white-marble.webp',
+  'Persian Silk Tundra Grey': 'images/nav/thumb-persian-silk.webp',
+  'Persian Silk Block': 'images/nav/thumb-persian-silk-block.webp',
+  'Pietra Grey Block': 'images/nav/thumb-pietra-grey-block.webp',
+  'Pietra Grey Slab': 'images/nav/thumb-pietra-grey-slab.webp',
+  'Silver Steam': 'images/nav/thumb-silver-steam.webp',
+  'Coal Fields': 'images/nav/thumb-coal.webp'
+};
+
 function buildProductDropdown({ mobile = false } = {}) {
   const prefix = getProductsPathPrefix();
   let currentGroup = '';
@@ -99,6 +120,13 @@ function buildProductDropdown({ mobile = false } = {}) {
       : '';
     currentGroup = item.group;
 
+    const thumbSrc = productThumbnails[item.title];
+    const thumbHtml = thumbSrc
+      ? `<span class="navbar__dropdown-item-thumb">
+          <img src="${prefix}${thumbSrc}" alt="${item.title}" width="${mobile ? '40' : '48'}" height="${mobile ? '28' : '34'}" loading="lazy">
+        </span>`
+      : '';
+
     return `${groupLabel}
       <a href="${prefix}${item.url}" class="navbar__dropdown-item" data-mineral="${item.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}">
         <span class="navbar__dropdown-item-icon navbar__dropdown-item-icon--text">${item.code}</span>
@@ -106,6 +134,7 @@ function buildProductDropdown({ mobile = false } = {}) {
           <strong>${item.title}</strong>
           <span>${item.detail}</span>
         </span>
+        ${thumbHtml}
       </a>`;
   }).join('');
 
@@ -118,7 +147,38 @@ function buildProductDropdown({ mobile = false } = {}) {
   return rows + cta;
 }
 
-function buildDetailDropdown(label) {
+const projectThumbnails = {
+  'Muslim Bagh': 'images/nav/thumb-muslim-bagh.webp',
+  Dilband: 'images/nav/thumb-dilband.webp',
+  Chagai: 'images/nav/thumb-chagai.webp',
+  'Washuk-Zhob': 'images/nav/thumb-washuk.webp',
+  'Khuzdar Barite': 'images/nav/thumb-khuzdar.webp',
+  Fluorspar: 'images/nav/thumb-fluorite.webp',
+  Gypsum: 'images/nav/thumb-gypsum.webp',
+  Magnesite: 'images/nav/thumb-magnesite.webp',
+  'Phosphate Rock': 'images/nav/thumb-phosphate-rock.webp',
+  Bauxite: 'images/nav/thumb-bauxite.webp',
+  Marble: 'images/nav/thumb-marble.webp',
+  'White Marble': 'images/nav/thumb-white-marble.webp',
+  'Persian Silk Tundra Grey': 'images/nav/thumb-persian-silk.webp',
+  'Persian Silk Block': 'images/nav/thumb-persian-silk-block.webp',
+  'Pietra Grey Block': 'images/nav/thumb-pietra-grey-block.webp',
+  'Pietra Grey Slab': 'images/nav/thumb-pietra-grey-slab.webp',
+  'Silver Steam': 'images/nav/thumb-silver-steam.webp',
+  'Sorange-Degari': 'images/nav/thumb-sorange.webp',
+  'Mach-Anjira': 'images/nav/thumb-mach.webp'
+};
+
+const ourMinesThumbnails = {
+  'Muslim Bagh': 'images/nav/thumb-muslim-bagh.webp',
+  'Khuzdar': 'images/nav/thumb-khuzdar.webp',
+  'Chagai': 'images/nav/thumb-chagai.webp',
+  'Kharan Iron Ore': 'images/nav/thumb-dilband.webp',
+  'Washuk Antimony': 'images/nav/thumb-washuk.webp',
+  'Lasbela Stone': 'images/nav/thumb-lasbela.webp'
+};
+
+function buildDetailDropdown(label, { mobile = false } = {}) {
   const items = detailDropdownMenus[label] || [];
   const prefix = getProductsPathPrefix();
   let currentGroup = '';
@@ -131,6 +191,23 @@ function buildDetailDropdown(label) {
       : '';
     currentGroup = item.group || currentGroup;
 
+    let thumbHtml = '';
+    if (!item.cta && label === 'Projects') {
+      const thumbSrc = projectThumbnails[item.title];
+      if (thumbSrc) {
+        thumbHtml = `<span class="navbar__dropdown-item-thumb">
+          <img src="${prefix}${thumbSrc}" alt="${item.title}" width="${mobile ? '40' : '48'}" height="${mobile ? '28' : '34'}" loading="lazy">
+        </span>`;
+      }
+    } else if (!item.cta && label === 'Our Mines') {
+      const thumbSrc = ourMinesThumbnails[item.title];
+      if (thumbSrc) {
+        thumbHtml = `<span class="navbar__dropdown-item-thumb">
+          <img src="${prefix}${thumbSrc}" alt="${item.title}" width="${mobile ? '40' : '48'}" height="${mobile ? '28' : '34'}" loading="lazy">
+        </span>`;
+      }
+    }
+
     return `${divider}${groupLabel}
       <a href="${prefix}${item.url}" class="navbar__dropdown-item${ctaClass}">
         <span class="navbar__dropdown-item-icon navbar__dropdown-item-icon--text">${item.code}</span>
@@ -138,6 +215,7 @@ function buildDetailDropdown(label) {
           <strong>${item.title}</strong>
           <span>${item.detail}</span>
         </span>
+        ${thumbHtml}
       </a>`;
   }).join('');
 }
@@ -214,7 +292,7 @@ function initDetailPageMenus() {
       const menu = trigger.nextElementSibling;
       if (!menu || !menu.classList.contains('navbar__dropdown-menu')) return;
 
-      menu.innerHTML = buildDetailDropdown(label);
+      menu.innerHTML = buildDetailDropdown(label, { mobile: true });
       prepareLongDropdown(label, menu);
     });
 
@@ -230,7 +308,7 @@ function initDetailPageMenus() {
 
       const menu = document.createElement('div');
       menu.className = 'navbar__dropdown-menu navbar__dropdown-menu--mobile';
-      menu.innerHTML = buildDetailDropdown(label);
+      menu.innerHTML = buildDetailDropdown(label, { mobile: true });
       prepareLongDropdown(label, menu);
 
       link.replaceWith(button, menu);
@@ -341,6 +419,13 @@ export function initNavbar() {
 
   // Highlight active link
   highlightActiveLink();
+
+  // Listen to hash changes so in-page anchor navigation updates active states
+  if (!window.__navbarHashHandler) {
+    window.__navbarHashHandler = () => highlightActiveLink();
+    window.addEventListener('hashchange', window.__navbarHashHandler, { passive: true });
+  }
+
 
   // Scroll effect (lightweight) - guard against duplicate listeners
   if (!window.__navbarScrollHandler) {

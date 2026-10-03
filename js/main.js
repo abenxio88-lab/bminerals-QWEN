@@ -1,4 +1,4 @@
-import { initNavbar } from './navbar.js?v=067eddc9565d';
+import { initNavbar } from './navbar.js?v=b1d3be2630a2';
 import { initScrollReveal } from './scroll-reveal.js';
 import { initDropdownMenus } from './dropdown.js';
 import { initHeroSlider } from './hero-slider.js?v=hero-ready-20260709';
