@@ -21,6 +21,11 @@ class BMChatbot {
     this.input = null;
     this.sendBtn = null;
     this.typingElement = null;
+    this.overlay = null;
+    this.savedScrollY = 0;
+    this.onVisualViewportChange = null;
+    this.onTouchMove = null;
+    this.onTouchStart = null;
 
     this.init();
   }
@@ -89,7 +94,10 @@ class BMChatbot {
         </div>
       </button>
 
-      <!-- Chat Modal Window -->
+      <!-- Outer Solid Backdrop Overlay (Layer 1) -->
+      <div class="bm-chat-overlay" aria-hidden="true"></div>
+
+      <!-- Chat Modal Window (Layer 2) -->
       <div class="bm-chat-window" role="dialog" aria-modal="true" aria-label="Balochistan Minerals AI Assistant"
            data-lenis-prevent data-lenis-prevent-wheel data-lenis-prevent-touch>
         
@@ -141,7 +149,7 @@ class BMChatbot {
         <!-- Chat Footer & Input Form -->
         <div class="bm-chat-footer">
           <form class="bm-chat-form">
-            <textarea class="bm-chat-input" rows="1" placeholder="Inquire about barite, chromite, copper, ports..." aria-label="Message"></textarea>
+            <textarea class="bm-chat-input" rows="1" placeholder="Inquire about barite, chromite, copper, ports..." aria-label="Message" autocomplete="off" autocorrect="off" autocapitalize="sentences" spellcheck="false"></textarea>
             <button type="submit" class="bm-chat-send" aria-label="Send message" disabled>
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="22" y1="2" x2="11" y2="13"></line>
@@ -158,6 +166,7 @@ class BMChatbot {
 
     this.container = root;
     this.launcher = root.querySelector('.bm-chat-launcher');
+    this.overlay = root.querySelector('.bm-chat-overlay');
     this.window = root.querySelector('.bm-chat-window');
     this.body = root.querySelector('.bm-chat-body');
     this.messagesContainer = root.querySelector('.bm-chat-messages-container');
@@ -168,6 +177,10 @@ class BMChatbot {
 
   bindEvents() {
     this.launcher.addEventListener('click', () => this.toggleOpen());
+
+    if (this.overlay) {
+      this.overlay.addEventListener('click', () => this.close());
+    }
 
     const closeBtn = this.container.querySelector('.bm-chat-btn-close');
     closeBtn.addEventListener('click', () => this.close());
@@ -263,27 +276,205 @@ class BMChatbot {
     this.isOpen = true;
     this.isMinimized = false;
     this.window.classList.remove('bm-chat-minimized');
+
+    // 1. Store scroll position before locking
+    this.savedScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+
+    // 2. Set architectural lock attributes on html and body
+    document.documentElement.setAttribute('data-assistant-open', 'true');
+    document.body.setAttribute('data-assistant-open', 'true');
     document.body.classList.add('bm-chat-open');
+
+    // 3. Pause Lenis smooth scrolling to eliminate background touch physics
+    if (window.__bmLenis && typeof window.__bmLenis.stop === 'function') {
+      window.__bmLenis.stop();
+    }
+
+    // 4. Bind visual viewport for dynamic height & top synchronization on mobile
+    this.bindVisualViewport();
+
+    // 5. Isolate touch events to eliminate background rubber-banding
+    this.bindTouchGuards();
+
     this.scrollToBottom();
 
     if (window.tactileFeedback) {
       window.tactileFeedback('light');
     }
 
+    // Focus input on desktop; on touch devices avoid auto-triggering keyboard immediately on open
     setTimeout(() => {
-      this.input.focus();
+      if (window.innerWidth > 768) {
+        this.input.focus();
+      }
     }, 180);
   }
 
   close() {
     this.isOpen = false;
+
+    // 1. Remove architectural lock attributes
+    document.documentElement.removeAttribute('data-assistant-open');
+    document.body.removeAttribute('data-assistant-open');
     document.body.classList.remove('bm-chat-open');
+
+    // 2. Unbind visual viewport listeners and reset coordinates
+    this.unbindVisualViewport();
+
+    // 3. Unbind touch guards
+    this.unbindTouchGuards();
+
+    // 4. Resume Lenis smooth scrolling
+    if (window.__bmLenis && typeof window.__bmLenis.start === 'function') {
+      window.__bmLenis.start();
+    }
+
+    // 5. Restore scroll position
+    window.scrollTo(0, this.savedScrollY);
+
     this.launcher.focus();
   }
 
   toggleMinimize() {
     this.isMinimized = !this.isMinimized;
     this.window.classList.toggle('bm-chat-minimized', this.isMinimized);
+
+    if (this.isMinimized) {
+      document.documentElement.removeAttribute('data-assistant-open');
+      document.body.removeAttribute('data-assistant-open');
+      if (window.__bmLenis && typeof window.__bmLenis.start === 'function') {
+        window.__bmLenis.start();
+      }
+      this.unbindVisualViewport();
+      this.unbindTouchGuards();
+    } else {
+      this.savedScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+      document.documentElement.setAttribute('data-assistant-open', 'true');
+      document.body.setAttribute('data-assistant-open', 'true');
+      if (window.__bmLenis && typeof window.__bmLenis.stop === 'function') {
+        window.__bmLenis.stop();
+      }
+      this.bindVisualViewport();
+      this.bindTouchGuards();
+      this.scrollToBottom();
+    }
+  }
+
+  bindVisualViewport() {
+    this.unbindVisualViewport();
+    if (typeof window === 'undefined') return;
+
+    this.onVisualViewportChange = () => {
+      this.updateVisualViewport();
+    };
+
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', this.onVisualViewportChange);
+      window.visualViewport.addEventListener('scroll', this.onVisualViewportChange);
+    }
+    window.addEventListener('resize', this.onVisualViewportChange);
+    window.addEventListener('orientationchange', this.onVisualViewportChange);
+
+    this.updateVisualViewport();
+  }
+
+  unbindVisualViewport() {
+    if (this.onVisualViewportChange) {
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener('resize', this.onVisualViewportChange);
+        window.visualViewport.removeEventListener('scroll', this.onVisualViewportChange);
+      }
+      window.removeEventListener('resize', this.onVisualViewportChange);
+      window.removeEventListener('orientationchange', this.onVisualViewportChange);
+      this.onVisualViewportChange = null;
+    }
+    this.resetMobileViewportStyles();
+  }
+
+  updateVisualViewport() {
+    if (!this.isOpen || this.isMinimized || window.innerWidth > 768) {
+      this.resetMobileViewportStyles();
+      return;
+    }
+
+    if (window.visualViewport) {
+      const vv = window.visualViewport;
+      // Precisely bind top and height to the visual viewport above virtual keyboard
+      this.window.style.top = `${vv.offsetTop}px`;
+      this.window.style.height = `${vv.height}px`;
+    } else {
+      this.window.style.top = '0px';
+      this.window.style.height = `${window.innerHeight}px`;
+    }
+  }
+
+  resetMobileViewportStyles() {
+    if (this.window) {
+      this.window.style.top = '';
+      this.window.style.height = '';
+    }
+  }
+
+  bindTouchGuards() {
+    this.unbindTouchGuards();
+    if (typeof document === 'undefined') return;
+
+    let startTouchY = 0;
+
+    this.onTouchStart = (e) => {
+      if (e.touches && e.touches.length === 1) {
+        startTouchY = e.touches[0].clientY;
+      }
+    };
+
+    this.onTouchMove = (e) => {
+      if (!this.isOpen || this.isMinimized || window.innerWidth > 768) return;
+
+      const scroller = e.target.closest('.bm-chat-body');
+      if (!scroller) {
+        // Touches on header, overlay, footer etc. must NEVER chain to window
+        e.preventDefault();
+        return;
+      }
+
+      // Check boundary conditions inside .bm-chat-body
+      if (scroller.scrollHeight <= scroller.clientHeight) {
+        e.preventDefault();
+        return;
+      }
+
+      if (e.touches && e.touches.length === 1) {
+        const currentY = e.touches[0].clientY;
+        const deltaY = currentY - startTouchY;
+        const isAtTop = scroller.scrollTop <= 0;
+        const isAtBottom = scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 1;
+
+        // Swiping down while at top boundary -> prevent rubber-banding
+        if (isAtTop && deltaY > 0) {
+          e.preventDefault();
+          return;
+        }
+        // Swiping up while at bottom boundary -> prevent rubber-banding
+        if (isAtBottom && deltaY < 0) {
+          e.preventDefault();
+          return;
+        }
+      }
+    };
+
+    document.addEventListener('touchstart', this.onTouchStart, { capture: true, passive: true });
+    document.addEventListener('touchmove', this.onTouchMove, { capture: true, passive: false });
+  }
+
+  unbindTouchGuards() {
+    if (this.onTouchMove) {
+      document.removeEventListener('touchmove', this.onTouchMove, { capture: true, passive: false });
+      this.onTouchMove = null;
+    }
+    if (this.onTouchStart) {
+      document.removeEventListener('touchstart', this.onTouchStart, true);
+      this.onTouchStart = null;
+    }
   }
 
   resetConversation() {
