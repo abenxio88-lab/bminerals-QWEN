@@ -222,7 +222,7 @@ body.bm-chat-modal-open {
 .bm-chat-header__title {
   font-family: var(--font-brand, 'Montserrat', sans-serif);
   font-size: 0.8125rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.02em;
   color: #FFFFFF;
   line-height: 1.2;
@@ -344,7 +344,7 @@ body.bm-chat-modal-open {
 .bm-chat-welcome__title {
   font-family: var(--font-brand, 'Montserrat', sans-serif);
   font-size: 0.78125rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #0F172A;
   margin: 0;
   line-height: 1.2;
@@ -433,9 +433,11 @@ body.bm-chat-modal-open {
   margin-bottom: 0;
 }
 
-.bm-chat-msg__bubble strong {
+.bm-chat-msg__bubble strong,
+.bm-chat-msg__bubble b {
   color: #0F172A;
-  font-weight: 600;
+  font-weight: 500 !important;
+  letter-spacing: 0.005em;
 }
 
 /* ==========================================================================
@@ -473,7 +475,7 @@ body.bm-chat-modal-open {
 .bm-chat-thumb-badge__title {
   font-family: var(--font-brand, 'Montserrat', sans-serif);
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #0F172A;
   margin: 0;
   line-height: 1.2;
@@ -608,7 +610,7 @@ body.bm-chat-modal-open {
 .bm-chat-rfq-card__title {
   font-family: var(--font-brand, 'Montserrat', sans-serif);
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #0F172A;
 }
 
