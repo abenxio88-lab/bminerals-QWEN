@@ -25,7 +25,8 @@ export const MINERAL_DATABASE = {
     badge: 'API 13A SG 4.20+',
     origin: 'Khuzdar, Balochistan',
     dialogue: 'We supply export-ready **API 13A Barite (SG 4.20+)** directly from our **Khuzdar** deposits, available in crude lumps and 200-mesh milled powder. High-purity 92–98% BaSO₄ chemical grades are also available.\n\nWould you like current FOB Karachi pricing or a pre-shipment assay certificate?',
-    url: 'product-industrial.html#barite'
+    url: 'product-industrial.html#barite',
+    urlLabel: 'View Barite API 13A Specifications'
   },
   chromite: {
     id: 'chromite',
@@ -35,7 +36,8 @@ export const MINERAL_DATABASE = {
     badge: '42% - 52% Cr2O3',
     origin: 'Muslim Bagh Belt',
     dialogue: 'We source high-grade **Chromite** from our active **Muslim Bagh** operations, offering **42%–52% Cr₂O₃** metallurgical lumps and concentrates with certified Cr:Fe ratios.\n\nWould you like to request current lot availability or receive an official quotation?',
-    url: 'product-metallic.html#chromite'
+    url: 'product-metallic.html#chromite',
+    urlLabel: 'View Metallurgical Chromite Specifications'
   },
   copper: {
     id: 'copper',
@@ -45,7 +47,8 @@ export const MINERAL_DATABASE = {
     badge: '2% - 10% Cu DSO',
     origin: 'Chagai Metallogenic Belt',
     dialogue: 'Our copper operations in the **Chagai metallogenic belt** supply **2%–10% Cu Direct Shipping Ore (DSO)** and lump ore for international smelters, verified with independent SGS assay certificates.\n\nWould you like to review recent lot assays or discuss target tonnage?',
-    url: 'product-metallic.html#copper'
+    url: 'product-metallic.html#copper',
+    urlLabel: 'View Chagai Copper Ore Specifications'
   },
   ironOre: {
     id: 'iron-ore',
@@ -55,7 +58,8 @@ export const MINERAL_DATABASE = {
     badge: 'Fe 40% - 62%',
     origin: 'Balochistan Deposits',
     dialogue: 'We export **Iron Ore (Fe 40%–62%)** in direct reduction lumps and beneficiated magnetite concentrate with low phosphorus and sulfur, shipped in bulk vessels or containers from Karachi ports.\n\nWould you like current specification sheets or port delivery terms?',
-    url: 'product-metallic.html#iron-ore'
+    url: 'product-metallic.html#iron-ore',
+    urlLabel: 'View Iron Ore Magnetite/Hematite Specs'
   },
   fluorite: {
     id: 'fluorite',
@@ -65,7 +69,8 @@ export const MINERAL_DATABASE = {
     badge: '50% - 90%+ CaF2',
     origin: 'Kalat Belt',
     dialogue: 'We supply metallurgical-grade **Fluorspar (50%–90%+ CaF₂)** from Kalat for steelmaking flux and industrial applications, available in sized lumps and gravel.\n\nWould you like to check current lot availability or request a quotation?',
-    url: 'product-industrial.html#fluorite'
+    url: 'product-industrial.html#fluorite',
+    urlLabel: 'View Fluorspar (CaF₂) Specifications'
   },
   antimony: {
     id: 'antimony',
@@ -75,7 +80,8 @@ export const MINERAL_DATABASE = {
     badge: 'Sb 4% - 58%',
     origin: 'Qila Abdullah',
     dialogue: 'We provide high-density **Stibnite / Antimony Ore (4%–58% Sb)** from Qila Abdullah, prepared in crystalline lumps and gravity-concentrated lots for industrial and battery alloys.\n\nWould you like assay details or export delivery schedules?',
-    url: 'product-metallic.html#antimony'
+    url: 'product-metallic.html#antimony',
+    urlLabel: 'View Antimony Stibnite Specifications'
   },
   gypsum: {
     id: 'gypsum',
@@ -85,7 +91,8 @@ export const MINERAL_DATABASE = {
     badge: '90% - 95% Purity',
     origin: 'Balochistan Beds',
     dialogue: 'We supply natural **90%–95% high-purity Gypsum** for Portland cement plants and construction plaster, shipped in break-bulk charter from Karachi ports.\n\nWould you like to discuss vessel chartering or lot specifications?',
-    url: 'product-industrial.html#gypsum'
+    url: 'product-industrial.html#gypsum',
+    urlLabel: 'View Industrial Gypsum Specifications'
   },
   magnesite: {
     id: 'magnesite',
@@ -95,7 +102,8 @@ export const MINERAL_DATABASE = {
     badge: 'Raw MgO 42-47%',
     origin: 'Muslim Bagh / Khuzdar',
     dialogue: 'Our ophiolite deposits yield **42%–47% raw MgO Magnesite** and calcined options for refractory brick linings and agricultural compounds.\n\nWould you like technical specifications or pricing details?',
-    url: 'product-industrial.html#magnesite'
+    url: 'product-industrial.html#magnesite',
+    urlLabel: 'View Magnesite Chemical Specifications'
   },
   phosphate: {
     id: 'phosphate-rock',
@@ -105,7 +113,8 @@ export const MINERAL_DATABASE = {
     badge: 'P2O5 Assay Lot',
     origin: 'Balochistan Basins',
     dialogue: 'We supply commercial rock phosphate feedstock (**22%–30% P₂O₅**) for single superphosphate (SSP) manufacturing and direct fertilizer blending.\n\nWould you like to discuss tonnage requirements or shipment terms?',
-    url: 'product-industrial.html#phosphate-rock'
+    url: 'product-industrial.html#phosphate-rock',
+    urlLabel: 'View Rock Phosphate Feedstock Specs'
   },
   bauxite: {
     id: 'bauxite',
@@ -115,7 +124,8 @@ export const MINERAL_DATABASE = {
     badge: 'Al2O3 45% - 62%',
     origin: 'Balochistan Belts',
     dialogue: 'We provide **45%–62% Al₂O₃ Bauxite** with controlled silica for refractory cement, abrasives manufacturing, and metallurgical refining.\n\nWould you like to request assay data or FOB pricing?',
-    url: 'product-industrial.html#bauxite'
+    url: 'product-industrial.html#bauxite',
+    urlLabel: 'View Alumina Bauxite Specifications'
   },
   stones: {
     id: 'stones',
@@ -125,7 +135,8 @@ export const MINERAL_DATABASE = {
     badge: 'Blocks & Slabs',
     origin: 'Balochistan Quarries',
     dialogue: 'We quarry and supply premium **Persian Silk Tundra Grey**, **Pietra Grey**, and white marble blocks and gangsaw slabs with seaworthy A-frame packaging.\n\nWould you like to view current quarry block inventory or slab photos?',
-    url: 'product-stones.html'
+    url: 'product-stones.html',
+    urlLabel: 'View Marble Slabs & Blocks Gallery'
   },
   coal: {
     id: 'coal',
@@ -135,7 +146,8 @@ export const MINERAL_DATABASE = {
     badge: '5,000 - 6,800 kcal',
     origin: 'Sorange-Degari & Mach',
     dialogue: 'We supply **5,000–6,800 kcal/kg industrial steam coal** from the Sorange-Degari and Mach fields for cement clinker kilns and industrial boilers.\n\nWould you like delivery terms for Karachi stockpile or rail rakes?',
-    url: 'product-energy.html'
+    url: 'product-energy.html',
+    urlLabel: 'View Industrial Steam Coal Specs'
   }
 };
 
@@ -146,6 +158,8 @@ export const FREQUENT_TOPICS = [
     title: 'Commercial Quotations & RFQ Desk',
     image: null,
     badge: 'Commercial Terms',
+    url: 'contact.html#inquiry-form',
+    urlLabel: 'Open Direct Commercial Inquiry Desk',
     answer: `Commercial pricing is determined by fresh lot assay, tonnage, and chosen Incoterm (**FOB Karachi**, **CFR**, or **CIF** destination port).
 
 • **Payment:** L/C at sight from prime international bank, or T/T with advance deposit.
@@ -160,6 +174,8 @@ export const FREQUENT_TOPICS = [
     title: 'Mine-to-Port Logistics & Gateways',
     image: 'images/baochistan-mineral-resources-480.avif',
     badge: 'Export Logistics',
+    url: 'logistics.html',
+    urlLabel: 'Explore Mine-to-Port Logistics & Ports',
     answer: `We operate integrated road, rail, and port stockyards directly serving Pakistan export hubs:
 
 • **Gateways:** Port of Karachi (KPT), Port Muhammad Bin Qasim (PQA), and Gwadar Deep Sea Port.
@@ -173,6 +189,8 @@ export const FREQUENT_TOPICS = [
     title: 'Assay Quality & Certification',
     image: null,
     badge: 'Certified Assay',
+    url: 'sustainability.html#governance',
+    urlLabel: 'Review Quality Control & Assay Protocols',
     answer: `Every mineral lot is sampled and verified by accredited third-party surveyors prior to export:
 
 • **Accredited Inspection:** **SGS Pakistan**, **Alfred H Knight (AHK)**, or buyer-nominated surveyors.
@@ -185,6 +203,8 @@ export const FREQUENT_TOPICS = [
     title: 'Laboratory Testing Specimens',
     image: null,
     badge: 'Courier Dispatch',
+    url: 'contact.html#inquiry-form',
+    urlLabel: 'Request Testing Samples via Courier',
     answer: `We provide genuine, representative mineral specimens (1 kg - 5 kg) for metallurgical testing and furnace evaluation:
 
 • **Dispatch:** Shipped via DHL / FedEx with preliminary assay slip.
@@ -197,6 +217,8 @@ export const FREQUENT_TOPICS = [
     title: 'Mining Belts & Operations',
     image: 'images/baochistan-mineral-resources-480.avif',
     badge: 'Mining Operations',
+    url: 'our-mines.html',
+    urlLabel: 'View Balochistan Mining Corridors',
     answer: `Our extraction networks span Balochistan’s richest geological belts:
 
 • **Muslim Bagh:** High-grade metallurgical chromite lumps & concentrate.
@@ -211,6 +233,8 @@ export const FREQUENT_TOPICS = [
     title: 'Direct Commercial Desk',
     image: null,
     badge: 'Contact Desk',
+    url: 'contact.html',
+    urlLabel: 'View Commercial Office & Contact Details',
     answer: `Connect directly with our commercial trading team:
 
 • **Email:** [sales@balochistanminerals.com](mailto:sales@balochistanminerals.com)
@@ -263,6 +287,7 @@ export function findBestAnswer(query) {
           origin: mineral.origin,
           text: `To prepare an official commercial quotation for **${mineral.name}**, please verify your required tonnage and destination port below:`,
           url: mineral.url,
+          urlLabel: mineral.urlLabel || `View Official ${mineral.name} Specifications`,
           showRfqCard: true,
           rfqData: {
             mineralName: mineral.title,
@@ -283,6 +308,7 @@ export function findBestAnswer(query) {
         origin: mineral.origin,
         text: mineral.dialogue,
         url: mineral.url,
+        urlLabel: mineral.urlLabel || `View Official ${mineral.name} Specifications`,
         showRfqCard: false,
         chips: [`Request ${mineral.title} Quote`, 'Logistics & Ports', 'Assay Quality', 'All Minerals']
       };
@@ -300,6 +326,8 @@ export function findBestAnswer(query) {
         text: topic.answer,
         image: topic.image || null,
         badge: topic.badge || null,
+        url: topic.url,
+        urlLabel: topic.urlLabel,
         showRfqCard: topic.topic === 'rfq_pricing',
         chips: topic.topic === 'rfq_pricing'
           ? ['Barite 4.2+ SG', 'Chromite 42-52%', 'Chagai Copper', 'Contact Desk']
@@ -317,6 +345,8 @@ export function findBestAnswer(query) {
 • **Key Minerals:** Barite (4.2+ SG), Chromite (42-52%), Copper (Chagai DSO), Iron Ore (40-62%), Fluorite, and Marble.
 • **Logistics:** Containerized & break-bulk vessel export via Karachi & Qasim ports.
 • **Quality:** Pre-shipment assay reports by SGS & Alfred H Knight.`,
+    url: 'products.html',
+    urlLabel: 'Browse Complete Mineral Catalog',
     chips: [
       'Barite 4.2+ SG',
       'Chromite 42-52%',
