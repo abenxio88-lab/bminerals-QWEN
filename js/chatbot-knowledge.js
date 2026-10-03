@@ -1,6 +1,6 @@
 /**
  * Balochistan Minerals - AI Chatbot Knowledge Base & NLP Engine
- * High-impact, concise B2B executive mineral specifications and logistics intelligence.
+ * Concise, conversational B2B executive mineral responses and trade intelligence.
  */
 
 export const COMPANY_INFO = {
@@ -21,212 +21,120 @@ export const MINERAL_DATABASE = {
     id: 'barite',
     name: 'Barite (BaSO4)',
     title: 'Barite / Baryte',
-    formula: 'Barium Sulfate',
-    category: 'Industrial Minerals',
     image: 'images/barite-card-480.avif',
     badge: 'API 13A SG 4.20+',
     origin: 'Khuzdar, Balochistan',
-    summary: 'High-density weighting agent for oil & gas drilling muds (API Spec 13A certified) and high-purity chemical filler applications.',
-    specs: [
-      { label: 'Drilling Grade', value: 'SG 4.20+ g/cm³ (API 13A)' },
-      { label: 'Chemical Grade', value: '92% - 98% BaSO4' },
-      { label: 'Forms Available', value: 'Crude Lumps & 200/325 Mesh' },
-      { label: 'Export Packing', value: '1.5 MT Jumbo Bags / Bulk' }
-    ],
+    dialogue: 'We supply export-ready **API 13A Barite (SG 4.20+)** directly from our **Khuzdar** deposits, available in crude lumps and 200-mesh milled powder. High-purity 92–98% BaSO₄ chemical grades are also available.\n\nWould you like current FOB Karachi pricing or a pre-shipment assay certificate?',
     url: 'product-industrial.html#barite'
   },
   chromite: {
     id: 'chromite',
     name: 'Chromite (FeCr2O4)',
     title: 'Chrome Ore & Concentrate',
-    formula: 'Chromite Ore',
-    category: 'Metallic Minerals',
     image: 'images/chromite-new-480.avif',
     badge: '42% - 52% Cr2O3',
     origin: 'Muslim Bagh Belt',
-    summary: 'High-grade metallurgical chrome lumps and concentrates for ferrochrome production, stainless steel, and refractory foundries.',
-    specs: [
-      { label: 'Metallurgical Lumps', value: '42% - 52% Cr2O3 (Cr:Fe 2.6:1+)' },
-      { label: 'Foundry / Medium', value: '32% - 40% Cr2O3' },
-      { label: 'Forms Available', value: 'Lumps (10-50mm) & Concentrate' },
-      { label: 'Export Packing', value: '20ft FCL (~27 MT) / Jumbo Bags' }
-    ],
+    dialogue: 'We source high-grade **Chromite** from our active **Muslim Bagh** operations, offering **42%–52% Cr₂O₃** metallurgical lumps and concentrates with certified Cr:Fe ratios.\n\nWould you like to request current lot availability or receive an official quotation?',
     url: 'product-metallic.html#chromite'
   },
   copper: {
     id: 'copper',
     name: 'Copper Ore (Cu)',
     title: 'Copper Ore & DSO',
-    formula: 'Direct Shipping Ore',
-    category: 'Metallic Minerals',
     image: 'images/copper-new-480.avif',
     badge: '2% - 10% Cu DSO',
     origin: 'Chagai Metallogenic Belt',
-    summary: 'Direct Shipping Ore (DSO) and lump ore extracted from the Tethyan belt in Chagai for international smelters and trading programs.',
-    specs: [
-      { label: 'Direct Shipping Ore', value: '3% - 10%+ Cu Lumps' },
-      { label: 'Medium Grade', value: '2% - 5% Cu Sourced Lots' },
-      { label: 'Forms Available', value: 'Run-of-mine & Sized Lumps' },
-      { label: 'Export Packing', value: 'Containerized Jumbo Bags / Bulk' }
-    ],
+    dialogue: 'Our copper operations in the **Chagai metallogenic belt** supply **2%–10% Cu Direct Shipping Ore (DSO)** and lump ore for international smelters, verified with independent SGS assay certificates.\n\nWould you like to review recent lot assays or discuss target tonnage?',
     url: 'product-metallic.html#copper'
   },
   ironOre: {
     id: 'iron-ore',
     name: 'Iron Ore (Fe)',
     title: 'Magnetite & Hematite',
-    formula: 'Fe2O3 / Fe3O4',
-    category: 'Metallic Minerals',
     image: 'images/iron-ore-new-480.avif',
     badge: 'Fe 40% - 62%',
     origin: 'Balochistan Deposits',
-    summary: 'Direct reduction lumps and beneficiated magnetite concentrate with controlled phosphorus and sulfur for steelmaking and cement works.',
-    specs: [
-      { label: 'Steel Mill Lumps', value: '50% - 58% Fe' },
-      { label: 'Concentrate Grade', value: '56% - 62%+ Fe (Low Gangue)' },
-      { label: 'Forms Available', value: 'Lumps (10-40mm) & Fines' },
-      { label: 'Export Packing', value: 'Break-Bulk Vessel & Containers' }
-    ],
+    dialogue: 'We export **Iron Ore (Fe 40%–62%)** in direct reduction lumps and beneficiated magnetite concentrate with low phosphorus and sulfur, shipped in bulk vessels or containers from Karachi ports.\n\nWould you like current specification sheets or port delivery terms?',
     url: 'product-metallic.html#iron-ore'
   },
   fluorite: {
     id: 'fluorite',
     name: 'Fluorite (CaF2)',
     title: 'Fluorspar',
-    formula: 'Calcium Fluoride',
-    category: 'Industrial Minerals',
     image: 'images/fluorite-480.avif',
     badge: '50% - 90%+ CaF2',
     origin: 'Kalat Belt',
-    summary: 'Essential fluxing material for electric arc steelmaking, ceramic glazes, glass manufacturing, and acid-grade chemical feedstock.',
-    specs: [
-      { label: 'Metallurgical Metspar', value: '60% - 85% CaF2' },
-      { label: 'High Grade / Acid', value: '85% - 92%+ CaF2' },
-      { label: 'Forms Available', value: 'Lumps (10-60mm) & Gravel' },
-      { label: 'Export Packing', value: '1.0 MT Jumbo Bags' }
-    ],
+    dialogue: 'We supply metallurgical-grade **Fluorspar (50%–90%+ CaF₂)** from Kalat for steelmaking flux and industrial applications, available in sized lumps and gravel.\n\nWould you like to check current lot availability or request a quotation?',
     url: 'product-industrial.html#fluorite'
   },
   antimony: {
     id: 'antimony',
     name: 'Antimony (Sb)',
     title: 'Stibnite Ore',
-    formula: 'Sb2S3',
-    category: 'Metallic Minerals',
     image: 'images/antimony-480.avif',
     badge: 'Sb 4% - 58%',
     origin: 'Qila Abdullah',
-    summary: 'High-density antimony sulfide ore utilized for flame retardants, solar glass clarification, lead-acid batteries, and strategic alloys.',
-    specs: [
-      { label: 'High Grade Lumps', value: '25% - 58% Sb' },
-      { label: 'Concentrate', value: '20% - 60% Sb Flotation' },
-      { label: 'Forms Available', value: 'Hand-sorted Lumps & Fines' },
-      { label: 'Export Packing', value: 'Sealed Jumbo Bags in 20ft FCL' }
-    ],
+    dialogue: 'We provide high-density **Stibnite / Antimony Ore (4%–58% Sb)** from Qila Abdullah, prepared in crystalline lumps and gravity-concentrated lots for industrial and battery alloys.\n\nWould you like assay details or export delivery schedules?',
     url: 'product-metallic.html#antimony'
   },
   gypsum: {
     id: 'gypsum',
     name: 'Gypsum (CaSO4·2H2O)',
     title: 'Natural Gypsum',
-    formula: 'Calcium Sulfate Dihydrate',
-    category: 'Industrial Minerals',
     image: 'images/gypsum-480.avif',
     badge: '90% - 95% Purity',
     origin: 'Balochistan Beds',
-    summary: 'Natural high-purity gypsum supplied as retarder for Portland cement plants, drywall board manufacturing, and agricultural soil conditioning.',
-    specs: [
-      { label: 'Purity Level', value: '90% - 95% CaSO4·2H2O' },
-      { label: 'Moisture', value: '< 1.5% Free Moisture' },
-      { label: 'Forms Available', value: 'Lumps (0-150mm) & Crushed' },
-      { label: 'Export Packing', value: 'Break-Bulk Vessel Charter' }
-    ],
+    dialogue: 'We supply natural **90%–95% high-purity Gypsum** for Portland cement plants and construction plaster, shipped in break-bulk charter from Karachi ports.\n\nWould you like to discuss vessel chartering or lot specifications?',
     url: 'product-industrial.html#gypsum'
   },
   magnesite: {
     id: 'magnesite',
     name: 'Magnesite (MgCO3)',
     title: 'Raw & Calcined Magnesite',
-    formula: 'Magnesium Carbonate',
-    category: 'Industrial Minerals',
     image: 'images/magnesite-480.avif',
     badge: 'Raw MgO 42-47%',
     origin: 'Muslim Bagh / Khuzdar',
-    summary: 'Refractory ore for steel converter linings, dead-burned magnesia (DBM), and caustic calcined compounds for agriculture.',
-    specs: [
-      { label: 'Raw Ore Grade', value: '42% - 47% MgO (88-96% MgCO3)' },
-      { label: 'Calcined Options', value: '85% - 90% Reactive MgO' },
-      { label: 'Forms Available', value: 'Dense Lumps & Briquettes' },
-      { label: 'Export Packing', value: '1.0 MT Jumbo Bags' }
-    ],
+    dialogue: 'Our ophiolite deposits yield **42%–47% raw MgO Magnesite** and calcined options for refractory brick linings and agricultural compounds.\n\nWould you like technical specifications or pricing details?',
     url: 'product-industrial.html#magnesite'
   },
   phosphate: {
     id: 'phosphate-rock',
     name: 'Phosphate Rock',
     title: 'Phosphate Feedstock',
-    formula: 'P2O5 Feedstock',
-    category: 'Industrial Minerals',
     image: 'images/phosphate-rock-480.avif',
     badge: 'P2O5 Assay Lot',
     origin: 'Balochistan Basins',
-    summary: 'Commercial rock phosphate feedstock for single superphosphate (SSP), phosphoric acid, and direct soil fertilizer blending.',
-    specs: [
-      { label: 'Assay Base', value: '22% - 30% P2O5 per Lot' },
-      { label: 'Forms Available', value: 'Crushed Rock & Screened Feed' },
-      { label: 'Export Packing', value: 'Bulk Vessel & Containers' }
-    ],
+    dialogue: 'We supply commercial rock phosphate feedstock (**22%–30% P₂O₅**) for single superphosphate (SSP) manufacturing and direct fertilizer blending.\n\nWould you like to discuss tonnage requirements or shipment terms?',
     url: 'product-industrial.html#phosphate-rock'
   },
   bauxite: {
     id: 'bauxite',
     name: 'Bauxite Ore',
     title: 'Alumina Bauxite',
-    formula: 'Al2O3·2H2O',
-    category: 'Industrial Minerals',
     image: 'images/bauxite-480.avif',
     badge: 'Al2O3 45% - 62%',
     origin: 'Balochistan Belts',
-    summary: 'Alumina-rich ore suited for refractory cement, abrasives manufacturing, metallurgical refining, and steel deoxidation.',
-    specs: [
-      { label: 'Alumina Content', value: '45% - 62% Al2O3' },
-      { label: 'Forms Available', value: 'Crude Lumps & Screened Ore' },
-      { label: 'Export Packing', value: 'Bulk Containerized / Jumbo Bags' }
-    ],
+    dialogue: 'We provide **45%–62% Al₂O₃ Bauxite** with controlled silica for refractory cement, abrasives manufacturing, and metallurgical refining.\n\nWould you like to request assay data or FOB pricing?',
     url: 'product-industrial.html#bauxite'
   },
   stones: {
     id: 'stones',
     name: 'Marble & Stone Slabs',
     title: 'Dimensional Stones',
-    formula: 'Persian Silk & Pietra Grey',
-    category: 'Dimensional Stones',
     image: 'images/silver-steam-white-marble-1-480.avif',
     badge: 'Blocks & Slabs',
     origin: 'Balochistan Quarries',
-    summary: 'Quarried dimensional stones including Persian Silk Tundra Grey, Pietra Grey, and Onyx for luxury architectural projects and slab export.',
-    specs: [
-      { label: 'Materials', value: 'Persian Silk, Pietra Grey, White Onyx' },
-      { label: 'Forms Available', value: 'Gangsaw Slabs (20/30mm) & Blocks' },
-      { label: 'Export Packing', value: 'Seaworthy Wooden A-Frames' }
-    ],
+    dialogue: 'We quarry and supply premium **Persian Silk Tundra Grey**, **Pietra Grey**, and white marble blocks and gangsaw slabs with seaworthy A-frame packaging.\n\nWould you like to view current quarry block inventory or slab photos?',
     url: 'product-stones.html'
   },
   coal: {
     id: 'coal',
     name: 'Industrial Coal',
     title: 'Sub-Bituminous Coal',
-    formula: 'Carbonaceous Energy',
-    category: 'Energy Minerals',
     image: 'images/coal-480.avif',
     badge: '5,000 - 6,800 kcal',
     origin: 'Sorange-Degari & Mach',
-    summary: 'High calorific industrial steam coal supplying cement clinker kilns, brick kilns, and industrial boilers.',
-    specs: [
-      { label: 'Calorific Value', value: '5,000 - 6,800 kcal/kg GCV' },
-      { label: 'Forms Available', value: 'ROM Lumps (0-200mm) & Screened' },
-      { label: 'Delivery', value: 'Karachi Port Stockpile & Bulk Rakes' }
-    ],
+    dialogue: 'We supply **5,000–6,800 kcal/kg industrial steam coal** from the Sorange-Degari and Mach fields for cement clinker kilns and industrial boilers.\n\nWould you like delivery terms for Karachi stockpile or rail rakes?',
     url: 'product-energy.html'
   }
 };
@@ -244,7 +152,7 @@ export const FREQUENT_TOPICS = [
 • **Minimum Order:** 1 FCL (~27 MT) for container trial orders; 5,000 - 45,000 MT for break-bulk charter.
 • **Inspection:** Independent SGS / Alfred H Knight assay certification prior to vessel loading.
 
-*Use the quick inquiry card below to submit your specifications directly to our commercial desk.*`
+*Please select your target tonnage below to generate a direct inquiry for our commercial desk.*`
   },
   {
     topic: 'logistics_shipping',
@@ -315,7 +223,7 @@ export const FREQUENT_TOPICS = [
 
 /**
  * Intelligent Intent Classifier & Matcher
- * Analyzes natural language input and builds concise, executive responses.
+ * Analyzes natural language input and builds concise, human-level trade responses.
  */
 export function findBestAnswer(query) {
   const clean = (query || '').toLowerCase().trim();
@@ -345,11 +253,27 @@ export function findBestAnswer(query) {
     const matchedMineral = aliases.some(alias => clean.includes(alias));
 
     if (matchedMineral) {
-      // Build concise spec bullet points
-      const specBullets = mineral.specs
-        .map(s => `• **${s.label}:** ${s.value}`)
-        .join('\n');
+      if (hasRfqIntent) {
+        return {
+          type: 'rfq_mineral',
+          mineral: mineral,
+          title: mineral.name,
+          image: mineral.image,
+          badge: mineral.badge,
+          origin: mineral.origin,
+          text: `To prepare an official commercial quotation for **${mineral.name}**, please verify your required tonnage and destination port below:`,
+          url: mineral.url,
+          showRfqCard: true,
+          rfqData: {
+            mineralName: mineral.title,
+            defaultGrade: mineral.badge,
+            url: mineral.url
+          },
+          chips: ['Logistics & Ports', 'Assay Certification', 'Talk to Sales Specialist']
+        };
+      }
 
+      // Natural, conversational B2B response (no bullet-point dump!)
       return {
         type: 'mineral_detail',
         mineral: mineral,
@@ -357,19 +281,10 @@ export function findBestAnswer(query) {
         image: mineral.image,
         badge: mineral.badge,
         origin: mineral.origin,
-        text: `${mineral.summary}
-
-${specBullets}
-
-[View Full Technical Details & Certificates →](${mineral.url})`,
+        text: mineral.dialogue,
         url: mineral.url,
-        showRfqCard: true,
-        rfqData: {
-          mineralName: mineral.title,
-          defaultGrade: mineral.badge,
-          url: mineral.url
-        },
-        chips: [`Quote for ${mineral.title}`, 'Logistics & Ports', 'Assay Certification', 'Contact Desk']
+        showRfqCard: false,
+        chips: [`Request ${mineral.title} Quote`, 'Logistics & Ports', 'Assay Quality', 'All Minerals']
       };
     }
   }

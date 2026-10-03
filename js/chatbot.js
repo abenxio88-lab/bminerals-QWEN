@@ -359,20 +359,15 @@ class BMChatbot {
     const el = document.createElement('div');
     el.className = 'bm-chat-msg bm-chat-msg--bot';
 
-    // 1. Compact Thumbnail Preview Card (Horizontal layout)
+    // 1. Compact Micro-Thumbnail Pill Badge
     let thumbHtml = '';
     if (data.image) {
       thumbHtml = `
-        <div class="bm-chat-thumb-card">
-          <div class="bm-chat-thumb-card__media">
-            <img src="${this.escapeHtml(data.image)}" alt="${this.escapeHtml(data.title || 'Mineral Specimen')}" class="bm-chat-thumb-card__img" width="68" height="68" loading="lazy" decoding="async">
-          </div>
-          <div class="bm-chat-thumb-card__info">
-            <div class="bm-chat-thumb-card__tags">
-              ${data.badge ? `<span class="bm-chat-thumb-card__badge">${this.escapeHtml(data.badge)}</span>` : ''}
-              ${data.origin ? `<span class="bm-chat-thumb-card__origin">${this.escapeHtml(data.origin)}</span>` : ''}
-            </div>
-            <h4 class="bm-chat-thumb-card__title">${this.escapeHtml(data.title)}</h4>
+        <div class="bm-chat-thumb-badge">
+          <img src="${this.escapeHtml(data.image)}" alt="${this.escapeHtml(data.title || 'Mineral Specimen')}" class="bm-chat-thumb-badge__img" width="44" height="44" loading="lazy" decoding="async">
+          <div class="bm-chat-thumb-badge__meta">
+            <strong class="bm-chat-thumb-badge__title">${this.escapeHtml(data.title)}</strong>
+            <span class="bm-chat-thumb-badge__sub">${this.escapeHtml(data.badge || '')}${data.origin ? ` • ${this.escapeHtml(data.origin)}` : ''}</span>
           </div>
         </div>
       `;
