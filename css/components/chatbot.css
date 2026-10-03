@@ -221,7 +221,7 @@ body.bm-chat-modal-open {
 
 .bm-chat-header__title {
   font-family: var(--font-brand, 'Montserrat', sans-serif);
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   color: #FFFFFF;
@@ -230,7 +230,7 @@ body.bm-chat-modal-open {
 }
 
 .bm-chat-header__status {
-  font-size: 0.65625rem;
+  font-size: 0.625rem;
   color: #CBD5E1;
   display: flex;
   align-items: center;
@@ -343,7 +343,7 @@ body.bm-chat-modal-open {
 
 .bm-chat-welcome__title {
   font-family: var(--font-brand, 'Montserrat', sans-serif);
-  font-size: 0.78125rem;
+  font-size: 0.71875rem;
   font-weight: 600;
   color: #0F172A;
   margin: 0;
@@ -351,7 +351,7 @@ body.bm-chat-modal-open {
 }
 
 .bm-chat-welcome__subtitle {
-  font-size: 0.625rem;
+  font-size: 0.59375rem;
   color: #64748B;
   font-weight: 500;
   display: block;
@@ -359,7 +359,7 @@ body.bm-chat-modal-open {
 }
 
 .bm-chat-welcome__text {
-  font-size: 0.71875rem;
+  font-size: 0.65625rem;
   color: #475569;
   line-height: 1.48;
   margin: 0 0 9px 0;
@@ -393,10 +393,10 @@ body.bm-chat-modal-open {
   border: 1px solid #E2E8F0;
   border-radius: 14px 14px 14px 3px;
   box-shadow: 0 1px 4px rgba(15, 23, 42, 0.04);
-  padding: 10px 12px;
-  font-size: 0.75rem;
-  line-height: 1.55;
-  max-width: 90%;
+  padding: 9px 11px;
+  font-size: 0.6875rem;
+  line-height: 1.5;
+  max-width: 92%;
 }
 
 /* User Bubble Styling - Compact pill on the right */
@@ -405,15 +405,15 @@ body.bm-chat-modal-open {
   color: #FFFFFF;
   border-radius: 14px 14px 3px 14px;
   box-shadow: 0 2px 6px rgba(10, 22, 40, 0.15);
-  padding: 6px 12px;
-  font-size: 0.75rem;
+  padding: 5px 11px;
+  font-size: 0.6875rem;
   line-height: 1.4;
   max-width: 78%;
   width: fit-content;
 }
 
 .bm-chat-msg__meta {
-  font-size: 0.59375rem;
+  font-size: 0.5625rem;
   color: #94A3B8;
   margin-top: 3px;
   padding: 0 3px;
@@ -447,18 +447,20 @@ body.bm-chat-modal-open {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #F1F5F9;
+  background: #FFFFFF;
   border: 1px solid #E2E8F0;
-  border-radius: 8px;
-  padding: 4px 8px 4px 4px;
-  margin-bottom: 8px;
+  border-left: 3px solid #D4AF37;
+  border-radius: 7px;
+  padding: 4px 8px 4px 5px;
+  margin-bottom: 7px;
   max-width: 100%;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
 }
 
 .bm-chat-thumb-badge__img {
-  width: 38px;
-  height: 38px;
-  border-radius: 6px;
+  width: 34px;
+  height: 34px;
+  border-radius: 5px;
   object-fit: cover;
   background: #0A1628;
   flex-shrink: 0;
@@ -474,7 +476,7 @@ body.bm-chat-modal-open {
 
 .bm-chat-thumb-badge__title {
   font-family: var(--font-brand, 'Montserrat', sans-serif);
-  font-size: 0.75rem;
+  font-size: 0.703125rem;
   font-weight: 600;
   color: #0F172A;
   margin: 0;
@@ -482,7 +484,7 @@ body.bm-chat-modal-open {
 }
 
 .bm-chat-thumb-badge__sub {
-  font-size: 0.625rem;
+  font-size: 0.59375rem;
   color: #64748B;
   font-weight: 500;
   white-space: nowrap;
@@ -494,7 +496,7 @@ body.bm-chat-modal-open {
    6. Direct Source Navigation Link Badge (Click to Jump Directly to Page/Section)
    ========================================================================== */
 .bm-chat-source {
-  margin-top: 8px;
+  margin-top: 7px;
   display: flex;
   align-items: center;
 }
@@ -508,10 +510,10 @@ body.bm-chat-modal-open {
   background: #F1F5F9 !important;
   border: 1px solid #CBD5E1 !important;
   color: #0F172A !important;
-  font-size: 0.6875rem !important;
+  font-size: 0.625rem !important;
   font-weight: 600 !important;
-  padding: 4px 9px !important;
-  border-radius: 6px !important;
+  padding: 3px 8px !important;
+  border-radius: 5px !important;
   text-decoration: none !important;
   transition: all 0.18s ease !important;
   box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04) !important;
@@ -544,18 +546,18 @@ body.bm-chat-modal-open {
 .bm-chat-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
-  margin-top: 8px;
+  gap: 4px;
+  margin-top: 7px;
 }
 
 .bm-chat-chip {
   background: #F1F5F9;
   color: #1E293B;
   border: 1px solid #CBD5E1;
-  font-size: 0.6875rem;
+  font-size: 0.625rem;
   font-weight: 500;
-  padding: 4px 9px;
-  border-radius: 6px;
+  padding: 3px 7px;
+  border-radius: 5px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -563,6 +565,19 @@ body.bm-chat-modal-open {
   transition: all 0.18s ease;
   outline: none;
   font-family: var(--font-body, 'Poppins', sans-serif);
+}
+
+.bm-chat-chip--thumb {
+  padding: 2px 7px 2px 3px;
+}
+
+.bm-chat-chip__img {
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: #0A1628;
 }
 
 .bm-chat-chip:hover {
@@ -575,6 +590,77 @@ body.bm-chat-modal-open {
 
 .bm-chat-chip:active {
   transform: translateY(0);
+}
+
+/* ==========================================================================
+   7.1 Product Mini-Showroom Grid (Interactive Product Cards in Chat)
+   ========================================================================== */
+.bm-chat-product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+  margin: 7px 0 4px 0;
+  width: 100%;
+}
+
+.bm-chat-product-card {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 6px;
+  padding: 4px 6px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.18s ease;
+  font-family: inherit;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.bm-chat-product-card:hover {
+  background: #FFFFFF;
+  border-color: #D4AF37;
+  box-shadow: 0 2px 8px rgba(10, 22, 40, 0.08);
+  transform: translateY(-1px);
+}
+
+.bm-chat-product-card__img {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: #0A1628;
+  border: 1px solid #CBD5E1;
+}
+
+.bm-chat-product-card__meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.bm-chat-product-card__name {
+  font-family: var(--font-brand, 'Montserrat', sans-serif);
+  font-size: 0.625rem;
+  font-weight: 600;
+  color: #0F172A;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+.bm-chat-product-card__grade {
+  font-size: 0.53125rem;
+  color: #64748B;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 1px;
 }
 
 /* ==========================================================================
@@ -609,7 +695,7 @@ body.bm-chat-modal-open {
 
 .bm-chat-rfq-card__title {
   font-family: var(--font-brand, 'Montserrat', sans-serif);
-  font-size: 0.75rem;
+  font-size: 0.703125rem;
   font-weight: 600;
   color: #0F172A;
 }
@@ -647,8 +733,8 @@ body.bm-chat-modal-open {
 
 .bm-chat-rfq-card__input {
   width: 100%;
-  padding: 5px 8px;
-  font-size: 0.6875rem;
+  padding: 4px 7px;
+  font-size: 0.625rem;
   background: #F8FAFC;
   border: 1px solid #CBD5E1;
   border-radius: 5px;
@@ -679,9 +765,9 @@ body.bm-chat-modal-open {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 6px !important;
-  padding: 7px 10px !important;
-  font-size: 0.71875rem !important;
+  gap: 5px !important;
+  padding: 6px 8px !important;
+  font-size: 0.65625rem !important;
   font-weight: 600 !important;
   border-radius: 6px !important;
   text-decoration: none !important;
@@ -778,8 +864,8 @@ body.bm-chat-modal-open {
   flex: 1;
   border: none;
   background: transparent;
-  padding: 5px 0;
-  font-size: 0.75rem;
+  padding: 4px 0;
+  font-size: 0.6875rem;
   line-height: 1.4;
   color: #0F172A;
   resize: none;
@@ -791,7 +877,7 @@ body.bm-chat-modal-open {
 
 .bm-chat-input::placeholder {
   color: #94A3B8;
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
 }
 
 .bm-chat-send {
@@ -825,14 +911,6 @@ body.bm-chat-modal-open {
   color: #94A3B8;
   cursor: not-allowed;
   opacity: 0.7;
-}
-
-.bm-chat-disclaimer {
-  font-size: 0.59375rem;
-  color: #94A3B8;
-  text-align: center;
-  margin-top: 5px;
-  line-height: 1.25;
 }
 
 /* ==========================================================================

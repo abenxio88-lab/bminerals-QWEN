@@ -149,9 +149,6 @@ class BMChatbot {
               </svg>
             </button>
           </form>
-          <div class="bm-chat-disclaimer">
-            Verified Assay Specifications • Port of Karachi & Qasim Export Support
-          </div>
         </div>
 
       </div>
@@ -208,6 +205,14 @@ class BMChatbot {
 
     // Delegate chip clicks and source links inside chat body
     this.body.addEventListener('click', (e) => {
+      // Direct product showroom card click
+      const productCard = e.target.closest('.bm-chat-product-card');
+      if (productCard) {
+        const query = productCard.getAttribute('data-query');
+        if (query) this.sendUserPrompt(query);
+        return;
+      }
+
       const chip = e.target.closest('.bm-chat-chip');
       if (chip) {
         const text = chip.getAttribute('data-query') || chip.textContent.trim();
@@ -307,11 +312,24 @@ class BMChatbot {
           Access verified lot assays, mine-to-port logistics schedules, and direct commercial quotations for Pakistan minerals.
         </p>
         <div class="bm-chat-chips">
-          <button type="button" class="bm-chat-chip" data-query="Barite 4.2+ SG">Barite 4.2+ SG</button>
-          <button type="button" class="bm-chat-chip" data-query="Chromite 42-52%">Chromite 42-52%</button>
-          <button type="button" class="bm-chat-chip" data-query="Chagai Copper">Chagai Copper</button>
-          <button type="button" class="bm-chat-chip" data-query="Logistics & Ports">Logistics & Ports</button>
-          <button type="button" class="bm-chat-chip" data-query="Request Quote">Request Quote (RFQ)</button>
+          <button type="button" class="bm-chat-chip bm-chat-chip--thumb" data-query="Barite 4.2+ SG">
+            <img src="images/barite-card-480.avif" alt="" class="bm-chat-chip__img" width="15" height="15" loading="lazy">
+            <span>Barite 4.2+ SG</span>
+          </button>
+          <button type="button" class="bm-chat-chip bm-chat-chip--thumb" data-query="Chromite 42-52%">
+            <img src="images/chromite-new-480.avif" alt="" class="bm-chat-chip__img" width="15" height="15" loading="lazy">
+            <span>Chromite 42-52%</span>
+          </button>
+          <button type="button" class="bm-chat-chip bm-chat-chip--thumb" data-query="Chagai Copper">
+            <img src="images/copper-new-480.avif" alt="" class="bm-chat-chip__img" width="15" height="15" loading="lazy">
+            <span>Chagai Copper</span>
+          </button>
+          <button type="button" class="bm-chat-chip" data-query="Logistics & Ports">
+            <span>Logistics & Ports</span>
+          </button>
+          <button type="button" class="bm-chat-chip" data-query="Request Quote">
+            <span>Request Quote</span>
+          </button>
         </div>
       </div>
     `;
@@ -384,12 +402,12 @@ class BMChatbot {
     const el = document.createElement('div');
     el.className = 'bm-chat-msg bm-chat-msg--bot';
 
-    // 1. Compact Micro-Thumbnail Pill Badge (38px tailored)
+    // 1. Compact Micro-Thumbnail Pill Badge (34px tailored)
     let thumbHtml = '';
     if (data.image) {
       thumbHtml = `
         <div class="bm-chat-thumb-badge">
-          <img src="${this.escapeHtml(data.image)}" alt="${this.escapeHtml(data.title || 'Mineral Specimen')}" class="bm-chat-thumb-badge__img" width="38" height="38" loading="lazy" decoding="async">
+          <img src="${this.escapeHtml(data.image)}" alt="${this.escapeHtml(data.title || 'Mineral Specimen')}" class="bm-chat-thumb-badge__img" width="34" height="34" loading="lazy" decoding="async">
           <div class="bm-chat-thumb-badge__meta">
             <strong class="bm-chat-thumb-badge__title">${this.escapeHtml(data.title)}</strong>
             <span class="bm-chat-thumb-badge__sub">${this.escapeHtml(data.badge || '')}${data.origin ? ` • ${this.escapeHtml(data.origin)}` : ''}</span>
@@ -401,7 +419,25 @@ class BMChatbot {
     // 2. Concise Body Content
     const contentHtml = this.formatMarkdown(data.text);
 
-    // 2.1 Direct Navigation Link to Page / Section (Requested by User)
+    // 2.1 Interactive Product Mini-Cards Grid (When products are shown)
+    let productGridHtml = '';
+    if (data.productsList && data.productsList.length > 0) {
+      productGridHtml = `
+        <div class="bm-chat-product-grid">
+          ${data.productsList.map(p => `
+            <button type="button" class="bm-chat-product-card" data-query="${this.escapeHtml(p.query || p.name)}" title="View ${this.escapeHtml(p.name)} specifications">
+              <img src="${this.escapeHtml(p.image)}" alt="${this.escapeHtml(p.name)}" class="bm-chat-product-card__img" width="32" height="32" loading="lazy" decoding="async">
+              <div class="bm-chat-product-card__meta">
+                <strong class="bm-chat-product-card__name">${this.escapeHtml(p.name)}</strong>
+                <span class="bm-chat-product-card__grade">${this.escapeHtml(p.grade)}</span>
+              </div>
+            </button>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    // 2.2 Direct Navigation Link to Page / Section (Requested by User)
     let sourceLinkHtml = '';
     if (data.url) {
       const linkLabel = data.urlLabel || `View ${data.title || 'Official'} Specifications & Section →`;
@@ -457,7 +493,7 @@ class BMChatbot {
               <svg viewBox="0 0 24 24" width="14" height="14" fill="#25D366" aria-hidden="true">
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.456 5.71 1.457h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
               </svg>
-              <span>WhatsApp RFQ</span>
+              <span>WhatsApp</span>
             </a>
             <a href="${emailUrl}" class="bm-chat-rfq-btn bm-chat-rfq-btn--email">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -476,7 +512,13 @@ class BMChatbot {
     if (data.chips && data.chips.length > 0) {
       chipsHtml = `
         <div class="bm-chat-chips">
-          ${data.chips.map(chip => `<button type="button" class="bm-chat-chip" data-query="${this.escapeHtml(chip)}">${this.escapeHtml(chip)}</button>`).join('')}
+          ${data.chips.map(chip => {
+            const thumb = this.getChipThumbnail(chip);
+            if (thumb) {
+              return `<button type="button" class="bm-chat-chip bm-chat-chip--thumb" data-query="${this.escapeHtml(chip)}"><img src="${this.escapeHtml(thumb)}" alt="" class="bm-chat-chip__img" width="14" height="14" loading="lazy"><span>${this.escapeHtml(chip)}</span></button>`;
+            }
+            return `<button type="button" class="bm-chat-chip" data-query="${this.escapeHtml(chip)}"><span>${this.escapeHtml(chip)}</span></button>`;
+          }).join('')}
         </div>
       `;
     }
@@ -485,6 +527,7 @@ class BMChatbot {
       <div class="bm-chat-msg__bubble">
         ${thumbHtml}
         ${contentHtml}
+        ${productGridHtml}
         ${sourceLinkHtml}
         ${rfqHtml}
         ${chipsHtml}
@@ -550,6 +593,21 @@ class BMChatbot {
     requestAnimationFrame(() => {
       this.body.scrollTop = this.body.scrollHeight;
     });
+  }
+
+  getChipThumbnail(chipText) {
+    if (!chipText) return null;
+    const lower = chipText.toLowerCase();
+    if (lower.includes('chromite') || lower.includes('chrome')) return 'images/chromite-new-480.avif';
+    if (lower.includes('barite') || lower.includes('baryte')) return 'images/barite-card-480.avif';
+    if (lower.includes('copper') || lower.includes('chagai')) return 'images/copper-new-480.avif';
+    if (lower.includes('iron')) return 'images/iron-ore-new-480.avif';
+    if (lower.includes('fluorite') || lower.includes('fluorspar')) return 'images/fluorite-480.avif';
+    if (lower.includes('marble') || lower.includes('stone')) return 'images/silver-steam-white-marble-1-480.avif';
+    if (lower.includes('antimony')) return 'images/antimony-480.avif';
+    if (lower.includes('gypsum')) return 'images/gypsum-480.avif';
+    if (lower.includes('coal')) return 'images/coal-480.avif';
+    return null;
   }
 
   formatTime() {

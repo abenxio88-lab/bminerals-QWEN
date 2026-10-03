@@ -340,14 +340,22 @@ export function findBestAnswer(query) {
       badge: 'Export Portfolios',
       url: 'products.html',
       urlLabel: 'View Complete Technical Catalog & Specifications',
-      text: `We quarry, process, and export three primary commodity portfolios directly from Balochistan:
+      text: `We quarry, process, and export three primary commodity portfolios directly from Balochistan concessions:
 
-• **Metallic Ores:** Metallurgical Chromite (42%–52% Cr₂O₃), Chagai Copper DSO (2%–10% Cu), Iron Ore (40%–62% Fe), and Antimony (4%–58% Sb).
-• **Industrial Minerals:** API 13A Barite (SG 4.20+), Fluorspar (50%–90%+ CaF₂), Gypsum (90%–95%), Magnesite (42%–47% MgO), Rock Phosphate (22%–30% P₂O₅), and Bauxite (45%–62% Al₂O₃).
-• **Dimensional Stones & Coal:** Persian Silk & Pietra Grey Marble slabs and blocks, and Industrial Steam Coal (5,000–6,800 kcal).
+• **Metallic Ores:** Metallurgical Chromite (42%–52%), Chagai Copper DSO (2%–10%), Iron Ore (40%–62%), and Antimony (4%–58%).
+• **Industrial Minerals:** API 13A Barite (SG 4.20+), Fluorspar (50%–90%+), Gypsum (90%–95%), Magnesite, Rock Phosphate, and Bauxite.
+• **Dimensional Stones & Coal:** Persian Silk & Pietra Grey Marble slabs and blocks, and Industrial Steam Coal.
 
-Which mineral or chemical specification are you sourcing for your operations?`,
-      chips: ['Chromite 42-52%', 'Barite 4.2+ SG', 'Chagai Copper', 'Fluorite CaF2', 'Request Quote (RFQ)']
+Tap any commodity below for assay specs, mine origin, or direct quotation:`,
+      productsList: [
+        { name: 'Chromite Ore', grade: '42% - 52% Cr₂O₃', image: 'images/chromite-new-480.avif', query: 'Chromite 42-52%' },
+        { name: 'Barite API 13A', grade: 'SG 4.20+ High Gravity', image: 'images/barite-card-480.avif', query: 'Barite 4.2+ SG' },
+        { name: 'Copper DSO', grade: '2% - 10% Cu Direct Ship', image: 'images/copper-new-480.avif', query: 'Chagai Copper' },
+        { name: 'Iron Ore', grade: 'Fe 40% - 62% Magnetite', image: 'images/iron-ore-new-480.avif', query: 'Iron Ore' },
+        { name: 'Fluorspar', grade: '50% - 90%+ CaF₂', image: 'images/fluorite-480.avif', query: 'Fluorite' },
+        { name: 'Marble Slabs', grade: 'Persian Silk & Pietra', image: 'images/silver-steam-white-marble-1-480.avif', query: 'Marble & Stone Slabs' }
+      ],
+      chips: ['Chromite 42-52%', 'Barite 4.2+ SG', 'Chagai Copper', 'Fluorite CaF2', 'Request Quote']
     };
   }
 
@@ -430,6 +438,12 @@ Which mineral or chemical specification are you sourcing for your operations?`,
     text: `We supply export-ready **Chromite (42%–52%)**, **API Barite (SG 4.20+)**, **Chagai Copper DSO**, **Iron Ore (Fe 40%–62%)**, **Fluorspar**, and **Marble** from Balochistan concessions.
 
 Please select a commodity below or tell us your required chemical grade, target tonnage, and destination port.`,
+    productsList: [
+      { name: 'Chromite Ore', grade: '42% - 52% Cr₂O₃', image: 'images/chromite-new-480.avif', query: 'Chromite 42-52%' },
+      { name: 'Barite API 13A', grade: 'SG 4.20+ High Gravity', image: 'images/barite-card-480.avif', query: 'Barite 4.2+ SG' },
+      { name: 'Copper DSO', grade: '2% - 10% Cu Direct Ship', image: 'images/copper-new-480.avif', query: 'Chagai Copper' },
+      { name: 'Iron Ore', grade: 'Fe 40% - 62% Magnetite', image: 'images/iron-ore-new-480.avif', query: 'Iron Ore' }
+    ],
     url: 'products.html',
     urlLabel: 'Browse Complete Mineral Catalog',
     chips: [
@@ -437,7 +451,7 @@ Please select a commodity below or tell us your required chemical grade, target 
       'Barite 4.2+ SG',
       'Chagai Copper',
       'Logistics & Ports',
-      'Request Quote (RFQ)'
+      'Request Quote'
     ]
   };
 }
