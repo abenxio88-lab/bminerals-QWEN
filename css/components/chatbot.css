@@ -350,6 +350,14 @@ body[data-assistant-open='true'] {
   background: #94A3B8;
 }
 
+/* Messages Stream Wrapper */
+.bm-chat-messages-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
 /* Welcome Card */
 .bm-chat-welcome {
   background: #FFFFFF;
@@ -357,6 +365,7 @@ body[data-assistant-open='true'] {
   border-radius: 11px;
   padding: 12px 13px;
   box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+  margin-bottom: 2px;
 }
 
 .bm-chat-welcome__header {
