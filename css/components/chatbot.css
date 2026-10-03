@@ -65,8 +65,8 @@ body.bm-chat-modal-open {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #10B981;
-  box-shadow: 0 0 8px #10B981;
+  background: #E65C1A;
+  box-shadow: 0 0 6px rgba(230, 92, 26, 0.7);
   animation: bmPulseDot 2s infinite ease-in-out;
 }
 
@@ -196,9 +196,9 @@ body.bm-chat-modal-open {
   position: relative;
   width: 36px;
   height: 36px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, rgba(230, 92, 26, 0.2), rgba(212, 175, 55, 0.15));
-  border: 1px solid rgba(230, 92, 26, 0.45);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -210,18 +210,6 @@ body.bm-chat-modal-open {
   width: 20px;
   height: 20px;
   stroke: #FFFFFF;
-}
-
-.bm-chat-header__avatar-dot {
-  position: absolute;
-  bottom: -2px;
-  right: -2px;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: #10B981;
-  border: 2px solid #07101E;
-  box-shadow: 0 0 6px #10B981;
 }
 
 .bm-chat-header__meta {
@@ -241,19 +229,21 @@ body.bm-chat-modal-open {
 
 .bm-chat-header__status {
   font-size: 0.7rem;
-  color: #94A3B8;
+  color: #CBD5E1;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   margin-top: 3px;
 }
 
-.bm-chat-header__status-pulse {
+.bm-chat-header__white-light {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: #10B981;
-  animation: bmPulseDot 2s infinite ease-in-out;
+  background: #FFFFFF;
+  box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.95);
+  display: inline-block;
+  flex-shrink: 0;
 }
 
 .bm-chat-header__actions {

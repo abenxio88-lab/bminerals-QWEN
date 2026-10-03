@@ -80,11 +80,10 @@ class BMChatbot {
           <span>Ask AI • Mineral Desk</span>
         </div>
         <div class="bm-chat-launcher__btn">
-          <svg class="bm-chat-launcher__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-            <circle cx="12" cy="12" r="1" fill="currentColor"></circle>
-            <circle cx="8" cy="12" r="1" fill="currentColor"></circle>
-            <circle cx="16" cy="12" r="1" fill="currentColor"></circle>
+          <svg class="bm-chat-launcher__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 3h12l4 6-10 12L2 9z"></path>
+            <path d="M11 3v6l-4 3"></path>
+            <path d="M13 3v6l4 3"></path>
           </svg>
           <span class="bm-chat-launcher__badge"></span>
         </div>
@@ -98,20 +97,19 @@ class BMChatbot {
         <div class="bm-chat-header">
           <div class="bm-chat-header__brand">
             <div class="bm-chat-header__avatar" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="12 2 2 8.5 12 15 22 8.5 12 2"></polygon>
-                <polyline points="2 15.5 12 22 22 15.5"></polyline>
-                <line x1="12" y1="2" x2="12" y2="15"></line>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 3h12l4 6-10 12L2 9z"></path>
+                <path d="M11 3v6l-4 3"></path>
+                <path d="M13 3v6l4 3"></path>
               </svg>
-              <span class="bm-chat-header__avatar-dot"></span>
             </div>
             <div class="bm-chat-header__meta">
               <h2 class="bm-chat-header__title">
                 Balochistan Minerals AI
               </h2>
               <span class="bm-chat-header__status">
-                <span class="bm-chat-header__status-pulse"></span>
-                Official Sourcing & Assay Desk
+                <span class="bm-chat-header__white-light"></span>
+                Assay &amp; Logistics Verified
               </span>
             </div>
           </div>
