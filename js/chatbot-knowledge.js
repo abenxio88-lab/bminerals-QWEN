@@ -242,6 +242,48 @@ export const FREQUENT_TOPICS = [
 • **Karachi Desk:** Export documentation & vessel logistics.
 • **Quetta Hub:** Mining site operations & stockyard inspection.
 • **Response Time:** Trade inquiries reviewed within 2 to 4 hours.`
+  },
+  {
+    topic: 'company_profile',
+    keywords: ['who are you', 'about company', 'company profile', 'balochistan minerals', 'who is balochistan minerals', 'about balochistan minerals', 'tell me about your company', 'what is your company', 'company information'],
+    title: 'Corporate Profile & Concessions',
+    image: 'images/baochistan-mineral-resources-480.avif',
+    badge: 'Corporate Profile',
+    url: 'about.html',
+    urlLabel: 'Explore Company Profile & Operations',
+    answer: `**Balochistan Minerals (Pvt) Ltd** is a SECP-registered commercial mining and mineral export enterprise in Pakistan:
+
+• **Concessions:** Active extraction across the Muslim Bagh ophiolite belt, Khuzdar barite deposits, and Chagai metallogenic arc.
+• **Infrastructure:** Regional operations hub in Quetta and export stockpile yards in Karachi serving international vessel charters.
+• **Assay Guarantee:** Independent pre-shipment testing by SGS and Alfred H Knight prior to vessel loading.`
+  },
+  {
+    topic: 'moq_capacity',
+    keywords: ['moq', 'minimum order', 'capacity', 'monthly capacity', 'minimum quantity', 'trial order', 'smallest order', 'how much can i buy'],
+    title: 'Supply Capacity & Order Sizes',
+    image: null,
+    badge: 'Supply Capacity',
+    url: 'contact.html#inquiry-form',
+    urlLabel: 'Submit Trial Order or Volume Inquiry',
+    answer: `We accommodate both furnace trial shipments and bulk commercial charters:
+
+• **Trial Orders (FCL):** Minimum order is **1 FCL (~27 MT)** in 20ft containers with heavy-duty jumbo bags for facility evaluation.
+• **Bulk Vessel Charters:** Break-bulk contracts from **5,000 MT to 45,000 MT** (Handymax / Supramax) from Karachi ports.
+• **Concession Volume:** Scalable extraction networks capable of supplying multi-thousand MT monthly schedules.`
+  },
+  {
+    topic: 'payment_terms',
+    keywords: ['payment', 'payment terms', 'incoterm', 'incoterms', 'lc', 'letter of credit', 'tt', 'telegraphic transfer', 'how to pay'],
+    title: 'Commercial Incoterms & Payment',
+    image: null,
+    badge: 'Trade Finance',
+    url: 'contact.html#inquiry-form',
+    urlLabel: 'Discuss Commercial Terms with Desk',
+    answer: `Our international export shipments operate under standard ICC Incoterms and secure commercial banking:
+
+• **Incoterms:** **FOB Karachi** (KPT / PQA), **CFR**, or **CIF** destination port worldwide.
+• **Payment Instruments:** Irrevocable Letter of Credit (L/C at sight) from a prime international bank, or T/T with advance deposit.
+• **Documentation:** Full COA, Certificate of Origin, Draft Survey Weight Slip, and clean On-Board Bill of Lading.`
   }
 ];
 
@@ -264,7 +306,52 @@ export function findBestAnswer(query) {
   const rfqTerms = ['quote', 'rfq', 'price', 'pricing', 'cost', 'buy', 'order', 'quotation', 'rate', 'how much', 'tonnage'];
   const hasRfqIntent = rfqTerms.some(term => clean.includes(term));
 
-  // Match specific mineral
+  // 2. Comprehensive Products / Catalog / Portfolio Intent
+  const catalogTerms = [
+    'what products do you have',
+    'what do you sell',
+    'what do you offer',
+    'what products',
+    'what minerals',
+    'what can i buy',
+    'what can you supply',
+    'available minerals',
+    'all minerals',
+    'all products',
+    'product list',
+    'minerals list',
+    'products list',
+    'catalog',
+    'catalogue',
+    'portfolio',
+    'offerings',
+    'commodities',
+    'products',
+    'minerals'
+  ];
+  const hasCatalogIntent = catalogTerms.some(term => clean === term || clean.includes(term));
+  const hasSpecificMineral = Object.keys(MINERAL_DATABASE).some(k => clean.includes(k) || (k === 'stones' && clean.includes('marble')) || (k === 'ironOre' && clean.includes('iron')));
+
+  if (hasCatalogIntent && !hasSpecificMineral && !hasRfqIntent) {
+    return {
+      type: 'catalog',
+      title: 'Balochistan Minerals Export Portfolios',
+      image: 'images/baochistan-mineral-resources-480.avif',
+      badge: 'Export Portfolios',
+      url: 'products.html',
+      urlLabel: 'View Complete Technical Catalog & Specifications',
+      text: `We quarry, process, and export three primary commodity portfolios directly from Balochistan:
+
+• **Metallic Ores:** Metallurgical Chromite (42%–52% Cr₂O₃), Chagai Copper DSO (2%–10% Cu), Iron Ore (40%–62% Fe), and Antimony (4%–58% Sb).
+• **Industrial Minerals:** API 13A Barite (SG 4.20+), Fluorspar (50%–90%+ CaF₂), Gypsum (90%–95%), Magnesite (42%–47% MgO), Rock Phosphate (22%–30% P₂O₅), and Bauxite (45%–62% Al₂O₃).
+• **Dimensional Stones & Coal:** Persian Silk & Pietra Grey Marble slabs and blocks, and Industrial Steam Coal (5,000–6,800 kcal).
+
+Which mineral or chemical specification are you sourcing for your operations?`,
+      chips: ['Chromite 42-52%', 'Barite 4.2+ SG', 'Chagai Copper', 'Fluorite CaF2', 'Request Quote (RFQ)']
+    };
+  }
+
+  // 3. Match specific mineral
   for (const [key, mineral] of Object.entries(MINERAL_DATABASE)) {
     const aliases = [mineral.id, mineral.name.toLowerCase(), key.toLowerCase()];
     if (key === 'ironOre') aliases.push('iron', 'iron ore', 'magnetite', 'hematite');
@@ -315,7 +402,7 @@ export function findBestAnswer(query) {
     }
   }
 
-  // 2. Check Frequent Topics
+  // 4. Check Frequent Topics
   for (const topic of FREQUENT_TOPICS) {
     const matchCount = topic.keywords.filter(kw => clean.includes(kw)).length;
     if (matchCount > 0) {
@@ -336,23 +423,21 @@ export function findBestAnswer(query) {
     }
   }
 
-  // 3. Fallback Smart Response
+  // 5. Courteous, Concise Fallback
   return {
     type: 'fallback',
-    title: 'Balochistan Minerals AI Specialist',
-    text: `I specialize in Pakistan mineral sourcing, certified assay specifications, and export logistics:
+    title: 'Balochistan Minerals Commercial Desk',
+    text: `We supply export-ready **Chromite (42%–52%)**, **API Barite (SG 4.20+)**, **Chagai Copper DSO**, **Iron Ore (Fe 40%–62%)**, **Fluorspar**, and **Marble** from Balochistan concessions.
 
-• **Key Minerals:** Barite (4.2+ SG), Chromite (42-52%), Copper (Chagai DSO), Iron Ore (40-62%), Fluorite, and Marble.
-• **Logistics:** Containerized & break-bulk vessel export via Karachi & Qasim ports.
-• **Quality:** Pre-shipment assay reports by SGS & Alfred H Knight.`,
+Please select a commodity below or tell us your required chemical grade, target tonnage, and destination port.`,
     url: 'products.html',
     urlLabel: 'Browse Complete Mineral Catalog',
     chips: [
-      'Barite 4.2+ SG',
       'Chromite 42-52%',
+      'Barite 4.2+ SG',
       'Chagai Copper',
       'Logistics & Ports',
-      'Request Quote'
+      'Request Quote (RFQ)'
     ]
   };
 }
