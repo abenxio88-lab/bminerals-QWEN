@@ -1,6 +1,6 @@
 /**
  * Balochistan Minerals - AI Chatbot Knowledge Base & NLP Engine
- * Authoritative technical data, mineral specifications, logistics, and company intelligence.
+ * Authoritative technical data, mineral specifications, logistics, images, and company intelligence.
  */
 
 export const COMPANY_INFO = {
@@ -29,6 +29,8 @@ export const MINERAL_DATABASE = {
     name: 'Barite / Baryte (Barium Sulfate)',
     formula: 'BaSO4',
     category: 'Industrial Minerals',
+    image: 'images/barite-card-480.avif',
+    badge: 'Khuzdar • API 13A SG 4.20+',
     overview: 'High-density mineral primarily supplied as weighting material for oil & gas drilling fluids (API Spec 13A compliant), as well as filler grades for paints, plastics, brake linings, and chemical compounds.',
     grades: [
       { grade: 'API Drilling Grade', spec: 'Specific Gravity 4.20+ g/cm³ (API 13A), BaSO4 > 90%, low soluble alkaline earth metals (< 250 ppm Ca).' },
@@ -46,6 +48,8 @@ export const MINERAL_DATABASE = {
     name: 'Chromite Ore & Concentrate',
     formula: 'FeCr2O4',
     category: 'Metallic Minerals',
+    image: 'images/chromite-new-480.avif',
+    badge: 'Muslim Bagh • 12-52% Cr2O3',
     overview: 'High-grade chrome ore sourced from the famous Muslim Bagh ophiolite belt. Essential for ferrochrome production, stainless steel alloys, metallurgical foundries, and refractory materials.',
     grades: [
       { grade: 'High Grade Metallurgical Lumps', spec: '42% - 52% Cr2O3, Cr:Fe ratio 2.6:1 to 3.2:1.' },
@@ -64,6 +68,8 @@ export const MINERAL_DATABASE = {
     name: 'Copper Ore & Direct Shipping Ore (DSO)',
     formula: 'Cu',
     category: 'Metallic Minerals',
+    image: 'images/copper-new-480.avif',
+    badge: 'Chagai Belt • 2-10% Cu DSO',
     overview: 'High-potential copper ore extracted from the Tethyan Metallogenic Belt in Chagai (along the Reko Diq and Saindak regional trends). Supplied as high-grade Direct Shipping Ore (DSO) for smelters and international trading programs.',
     grades: [
       { grade: 'Direct Shipping Ore (DSO)', spec: '3% - 10%+ Cu lumps (malachite, chrysocolla, azurite, chalcopyrite).' },
@@ -81,6 +87,8 @@ export const MINERAL_DATABASE = {
     name: 'Iron Ore (Magnetite & Hematite)',
     formula: 'Fe / Fe2O3 / Fe3O4',
     category: 'Metallic Minerals',
+    image: 'images/iron-ore-new-480.avif',
+    badge: 'Balochistan • Fe 40-62%',
     overview: 'Export-grade iron ore supplied to steel mills, pelletizing plants, and cement works. Both lump ore and milled concentrate available with low gangue and minimal deleterious elements.',
     grades: [
       { grade: 'Direct Reduction / Steel Mill Lumps', spec: '50% - 58% Fe lumps.' },
@@ -98,6 +106,8 @@ export const MINERAL_DATABASE = {
     name: 'Fluorite / Fluorspar (Calcium Fluoride)',
     formula: 'CaF2',
     category: 'Industrial Minerals',
+    image: 'images/fluorite-480.avif',
+    badge: 'Kalat Belt • 50-90%+ CaF2',
     overview: 'Supplied for steel fluxing, ceramic glazes, glass manufacturing, and hydrofluoric acid chemical manufacturing.',
     grades: [
       { grade: 'Metallurgical Grade (Metspar)', spec: '60% - 85% CaF2, low sulfur, sized lumps for electric arc furnaces.' },
@@ -115,6 +125,8 @@ export const MINERAL_DATABASE = {
     name: 'Antimony Ore (Stibnite)',
     formula: 'Sb2S3',
     category: 'Metallic Minerals',
+    image: 'images/antimony-480.avif',
+    badge: 'Qila Abdullah • Sb 4-58%',
     overview: 'High-density antimony sulfide ore used in flame retardants, lead-acid batteries, solar cell glass clarification, and strategic alloys.',
     grades: [
       { grade: 'High Grade Stibnite Lumps', spec: '25% - 58% Sb.' },
@@ -132,6 +144,8 @@ export const MINERAL_DATABASE = {
     name: 'Gypsum (Hydrated Calcium Sulfate)',
     formula: 'CaSO4·2H2O',
     category: 'Industrial Minerals',
+    image: 'images/gypsum-480.avif',
+    badge: 'Balochistan • 90-95% Purity',
     overview: 'High-purity natural gypsum required as setting retarder in Portland cement production, drywall plasterboards, agriculture soil amendment, and building plasters.',
     grades: [
       { grade: 'Cement & Plaster Grade', spec: '90% - 95% CaSO4·2H2O purity, high brightness, low moisture.' },
@@ -148,6 +162,8 @@ export const MINERAL_DATABASE = {
     name: 'Magnesite (Magnesium Carbonate)',
     formula: 'MgCO3',
     category: 'Industrial Minerals',
+    image: 'images/magnesite-480.avif',
+    badge: 'Ophiolite Zone • MgO 42-47%',
     overview: 'Sourced for refractory brick manufacturing, steel converters, caustic calcined magnesia (CCM), and agricultural animal feed formulations.',
     grades: [
       { grade: 'Raw Magnesite Ore', spec: '42% - 47% raw MgO (equivalent to 88% - 96% MgCO3).' },
@@ -164,6 +180,8 @@ export const MINERAL_DATABASE = {
     name: 'Phosphate Rock',
     formula: 'P2O5 Feedstock',
     category: 'Industrial Minerals',
+    image: 'images/phosphate-rock-480.avif',
+    badge: 'Balochistan • P2O5 Assay',
     overview: 'Feedstock for single superphosphate (SSP), phosphoric acid, direct soil application, and mineral fertilizer blending.',
     grades: [
       { grade: 'Fertilizer Grade', spec: 'P2O5 assay based per lot (typically 22% - 30% P2O5).' }
@@ -179,6 +197,8 @@ export const MINERAL_DATABASE = {
     name: 'Bauxite Ore',
     formula: 'Al2O3·2H2O',
     category: 'Industrial Minerals',
+    image: 'images/bauxite-480.avif',
+    badge: 'Balochistan • Al2O3 45-62%',
     overview: 'Alumina-rich ore suited for refractory cement, abrasive manufacturing, metallurgical alumina refining, and steel deoxidation.',
     grades: [
       { grade: 'Refractory / Alumina Grade', spec: '45% - 62% Al2O3, low reactive silica.' }
@@ -194,6 +214,8 @@ export const MINERAL_DATABASE = {
     name: 'Dimensional Stones & Marble',
     formula: 'Natural Stone',
     category: 'Dimensional Stones',
+    image: 'images/silver-steam-white-marble-1-480.avif',
+    badge: 'Persian Silk & Marble Slabs',
     overview: 'Quarried dimensional stones including Persian Silk Tundra Grey, Pietra Grey marble, White Marble, and Onyx for luxury architectural slabs, tiles, and block export.',
     grades: [
       { grade: 'Persian Silk / Tundra Grey', spec: 'Uniform soft-grey background with subtle white calcite veining. Gangsaw blocks and 20mm/30mm polished slabs.' },
@@ -211,6 +233,8 @@ export const MINERAL_DATABASE = {
     name: 'Coal (Sub-Bituminous Industrial Coal)',
     formula: 'Carbonaceous',
     category: 'Energy Minerals',
+    image: 'images/coal-480.avif',
+    badge: 'Sorange & Mach • 5,000-6,800 kcal',
     overview: 'High calorific industrial coal from Balochistan basins, serving cement clinker kilns, brick kilns, and industrial steam boilers.',
     grades: [
       { grade: 'Industrial Steam Coal', spec: 'Gross Calorific Value (GCV) 5,000 - 6,800 kcal/kg, low to moderate ash.' }
@@ -228,6 +252,8 @@ export const FREQUENT_TOPICS = [
     topic: 'rfq_pricing',
     keywords: ['price', 'pricing', 'quote', 'cost', 'rfq', 'rate', 'quotation', 'inquiry', 'buy', 'order', 'purchase', 'per ton', 'how much'],
     title: 'Commercial Quotations & RFQ Process',
+    image: null,
+    badge: null,
     answer: `Balochistan Minerals provides customized commercial quotations based on exact lot assays, tonnage, and chosen Incoterm (FOB Karachi, CFR, or CIF destination port).
 
 **Standard Commercial Terms:**
@@ -241,6 +267,8 @@ export const FREQUENT_TOPICS = [
     topic: 'logistics_shipping',
     keywords: ['logistics', 'shipping', 'port', 'karachi', 'qasim', 'gwadar', 'vessel', 'container', 'fob', 'cif', 'cfr', 'delivery', 'transport', 'incoterm', 'freight'],
     title: 'Mine-to-Port Logistics & Export Capabilities',
+    image: 'images/baochistan-mineral-resources-480.avif',
+    badge: 'Ports of Karachi, Qasim & Gwadar',
     answer: `We operate integrated logistics from Balochistan mine stockyards directly to Pakistan export gateways:
 
 • **Export Ports:**
@@ -256,6 +284,8 @@ export const FREQUENT_TOPICS = [
     topic: 'quality_assay',
     keywords: ['assay', 'coa', 'quality', 'sgs', 'inspection', 'lab', 'certificate', 'analysis', 'purity', 'ahk', 'testing', 'report'],
     title: 'Quality Assurance & Assay Certification',
+    image: null,
+    badge: null,
     answer: `Every mineral lot from Balochistan Minerals is tested and documented before export:
 
 • **Independent Assay Reports:** We work with **SGS Pakistan**, **Alfred H Knight (AHK)**, and **Inspectorate** to draw composite stockpile samples.
@@ -270,6 +300,8 @@ export const FREQUENT_TOPICS = [
     topic: 'samples',
     keywords: ['sample', 'specimen', 'trial', 'testing sample', 'courier', 'dhl'],
     title: 'Mineral Sampling & Laboratory Specimens',
+    image: null,
+    badge: null,
     answer: `We provide genuine, representative mineral specimens and pulverized lab samples for qualified international buyers and smelting engineers:
 
 • **Courier Dispatch:** 1 kg to 5 kg sealed samples dispatched via DHL / FedEx with preliminary lab assay certificate.
@@ -280,6 +312,8 @@ export const FREQUENT_TOPICS = [
     topic: 'mines_locations',
     keywords: ['mine', 'mines', 'origin', 'where', 'location', 'muslim bagh', 'khuzdar', 'chagai', 'quetta', 'karachi', 'balochistan'],
     title: 'Our Mine Operations & Belts in Balochistan',
+    image: 'images/baochistan-mineral-resources-480.avif',
+    badge: 'Muslim Bagh, Khuzdar & Chagai',
     answer: `Our operations and sourcing networks span Balochistan’s richest geological belts:
 
 • **Muslim Bagh & Khanozai (Chromite):** High Cr2O3 metallurgical chrome lumps and spiral sand concentrate.
@@ -294,6 +328,8 @@ All extraction operates with environmental oversight, local tribal community par
     topic: 'contact_office',
     keywords: ['contact', 'office', 'phone', 'email', 'address', 'whatsapp', 'reach', 'talk', 'human', 'representative', 'sales'],
     title: 'Direct Office & Executive Contact',
+    image: null,
+    badge: null,
     answer: `You can reach our commercial trading team directly:
 
 • **Commercial Email:** [sales@balochistanminerals.com](mailto:sales@balochistanminerals.com)
@@ -342,6 +378,8 @@ export function findBestAnswer(query) {
           mineral: mineral,
           title: `Commercial Quotation for ${mineral.name}`,
           text: `To prepare an official quotation for **${mineral.name}**, our commercial desk requires your target tonnage, destination port, and desired assay grade.`,
+          image: mineral.image,
+          badge: mineral.badge,
           showRfqCard: true,
           rfqData: {
             mineralName: mineral.name,
@@ -352,7 +390,7 @@ export function findBestAnswer(query) {
         };
       }
 
-      // Return comprehensive mineral technical overview
+      // Return comprehensive mineral technical overview with image
       let gradesSummary = mineral.grades.map(g => `• **${g.grade}:** ${g.spec}`).join('\n');
       let checklistSummary = mineral.buyerChecklist.map(c => `• ${c}`).join('\n');
 
@@ -360,6 +398,8 @@ export function findBestAnswer(query) {
         type: 'mineral_detail',
         mineral: mineral,
         title: `${mineral.name} (${mineral.formula})`,
+        image: mineral.image,
+        badge: mineral.badge,
         text: `### ${mineral.name} — Technical Export Overview
 *Category: ${mineral.category} | Origin: ${mineral.origin}*
 
@@ -395,6 +435,8 @@ ${checklistSummary}`,
         topicId: topic.topic,
         title: topic.title,
         text: topic.answer,
+        image: topic.image || null,
+        badge: topic.badge || null,
         showRfqCard: topic.topic === 'rfq_pricing',
         chips: topic.topic === 'rfq_pricing'
           ? ['Barite 4.2+ SG', 'Chromite 42-52%', 'Chagai Copper', 'Talk to Sales Specialist']

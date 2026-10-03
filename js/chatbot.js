@@ -360,6 +360,17 @@ class BMChatbot {
 
     let contentHtml = this.formatMarkdown(data.text);
 
+    // Optional Thumbnail Media Card
+    let mediaHtml = '';
+    if (data.image) {
+      mediaHtml = `
+        <div class="bm-chat-media-card">
+          <img src="${this.escapeHtml(data.image)}" alt="${this.escapeHtml(data.title || 'Mineral Specimen')}" class="bm-chat-media-card__img" width="360" height="130" loading="lazy" decoding="async">
+          ${data.badge ? `<span class="bm-chat-media-card__badge">${this.escapeHtml(data.badge)}</span>` : ''}
+        </div>
+      `;
+    }
+
     // Optional RFQ Card
     let rfqHtml = '';
     if (data.showRfqCard) {
@@ -415,6 +426,7 @@ class BMChatbot {
 
     el.innerHTML = `
       <div class="bm-chat-msg__bubble">
+        ${mediaHtml}
         ${contentHtml}
         ${rfqHtml}
         ${chipsHtml}
