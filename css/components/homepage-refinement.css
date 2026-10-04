@@ -332,20 +332,20 @@ body.homepage .hero__trust-item {
 body.homepage .hero__stats-panel {
   padding: clamp(1.35rem, 2.4vw, 2.1rem);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
-    rgba(10, 22, 40, 0.3);
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  background: rgba(255, 255, 255, 0.045);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   box-shadow:
-    0 28px 72px rgba(4, 10, 19, 0.38),
-    inset 0 1px 1px rgba(255, 255, 255, 0.12);
+    0 16px 40px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 body.homepage .hero__stats-panel-title {
   color: var(--home-accent-bright);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
 }
 
+body.homepage .hero__stats-panel::before,
 body.homepage .hero__stats-panel::after {
   display: none;
 }
@@ -356,6 +356,15 @@ body.homepage .panel-stat {
 
 body.homepage .panel-stat__number {
   font-variant-numeric: tabular-nums;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+body.homepage .panel-stat__label {
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
+}
+
+body.homepage .panel-stat__context {
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.7);
 }
 
 body.homepage .hero__cta {
