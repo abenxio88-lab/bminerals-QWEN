@@ -44,10 +44,9 @@
 
 .testimonials__marquee {
   display: flex;
-  gap: 2rem;
   width: max-content;
-  animation: marquee-scroll 40s linear infinite;
-  padding: 1.5rem;
+  animation: marquee-scroll 95s linear infinite;
+  padding: 1.5rem 0;
   will-change: transform;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -71,6 +70,7 @@
 
 .testimonial-card {
   width: 400px;
+  margin-right: 2rem;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
@@ -179,12 +179,12 @@
 @media (max-width: 768px) {
   .testimonial-card {
     width: 300px;
+    margin-right: 1.5rem;
     padding: 1.5rem;
   }
   
   .testimonials__marquee {
-    gap: 1.5rem;
-    animation: marquee-scroll 30s linear infinite !important;
+    animation: marquee-scroll 70s linear infinite !important;
   }
   
   .testimonials__marquee:hover {

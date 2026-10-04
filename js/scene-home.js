@@ -153,40 +153,6 @@ function initDataFreshnessFade() {
   window.addEventListener('load', requestUpdate);
 }
 
-function initCitableReveals() {
-  const items = document.querySelectorAll('.reveal');
-  if (!items.length) return;
-
-  items.forEach((item) => item.classList.add('revealed'));
-
-  if (!hasGsap || prefersReduced || mobileExtraMotion) {
-    return;
-  }
-
-  gsap.utils.toArray(items).forEach((el) => {
-    if (el.closest('.hero, .expertise, #minerals')) {
-      return;
-    }
-
-    gsap.from(
-      el,
-      {
-        y: 16,
-        opacity: 0,
-        duration: 0.55,
-        ease: 'power2.out',
-        immediateRender: false,
-        clearProps: 'transform,opacity,visibility,clipPath',
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 96%',
-          once: true
-        }
-      }
-    );
-  });
-}
-
 function buildOperationsScene() {
   // Keep the original process stepper visible; the generated pinned scene drifted from the site styling.
   return;
@@ -336,7 +302,6 @@ function init() {
   initHeroScene();
   initDataFreshnessFade();
   initHeroSnapshotStats();
-  initCitableReveals();
   buildOperationsScene();
   initStatsDashboard();
   initStatsEditorialOverlap();

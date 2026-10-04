@@ -71,7 +71,7 @@ body[data-assistant-open='true'] {
   background: #FFFFFF;
   color: #0A1628;
   font-size: 0.8125rem;
-  font-weight: 600;
+  font-weight: 500;
   padding: 7px 13px 7px 11px;
   border-radius: 9999px;
   box-shadow: 0 4px 18px rgba(10, 22, 40, 0.12), 0 0 0 1px rgba(204, 212, 218, 0.6);
@@ -134,9 +134,13 @@ body[data-assistant-open='true'] {
   border-radius: 50%;
 }
 
-/* Hide launcher when modal is open */
+/* Smooth launcher dissolve when modal is open */
 .bm-chat-open .bm-chat-launcher {
-  display: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(12px) scale(0.92);
+  transition: opacity 0.28s ease, transform 0.28s ease, visibility 0.28s;
 }
 
 /* ==========================================================================
@@ -153,7 +157,7 @@ body[data-assistant-open='true'] {
   z-index: 9995;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.28s ease, visibility 0.28s;
+  transition: opacity 0.36s ease, visibility 0.36s;
   pointer-events: none;
 }
 
@@ -177,23 +181,26 @@ body[data-assistant-open='true'] {
   z-index: 9999;
   background: #FFFFFF;
   border-radius: 16px;
-  box-shadow: 0 20px 48px -10px rgba(10, 22, 40, 0.28), 0 0 0 1px rgba(10, 22, 40, 0.08);
+  box-shadow: 0 24px 54px -12px rgba(10, 22, 40, 0.32), 0 0 0 1px rgba(10, 22, 40, 0.08);
   display: flex;
   flex-direction: column;
   overflow: hidden;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(18px) scale(0.97);
+  pointer-events: none;
+  will-change: transform, opacity;
+  transform: translateY(22px) scale(0.94);
   transform-origin: bottom right;
-  transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0.28s;
+  transition: opacity 0.38s cubic-bezier(0.2, 0.9, 0.3, 1),
+              transform 0.38s cubic-bezier(0.2, 0.9, 0.3, 1),
+              visibility 0.38s;
   font-family: var(--font-body, 'Poppins', sans-serif);
 }
 
 .bm-chat-open .bm-chat-window {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
   transform: translateY(0) scale(1);
 }
 
@@ -377,6 +384,7 @@ body[data-assistant-open='true'] {
   padding: 12px 13px;
   box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
   margin-bottom: 2px;
+  animation: bmChatMsgSlide 0.38s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .bm-chat-welcome__header {
@@ -428,7 +436,7 @@ body[data-assistant-open='true'] {
   display: flex;
   flex-direction: column;
   width: 100%;
-  animation: bmChatMsgSlide 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: bmChatMsgSlide 0.38s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .bm-chat-msg--bot {
@@ -606,6 +614,7 @@ body[data-assistant-open='true'] {
   flex-wrap: wrap;
   gap: 4px;
   margin-top: 7px;
+  animation: bmChatSubItemSlide 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
 }
 
 .bm-chat-chip {
@@ -659,6 +668,7 @@ body[data-assistant-open='true'] {
   gap: 5px;
   margin: 7px 0 4px 0;
   width: 100%;
+  animation: bmChatSubItemSlide 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
 }
 
 .bm-chat-product-card {
@@ -731,6 +741,7 @@ body[data-assistant-open='true'] {
   border-radius: 10px;
   padding: 10px 12px;
   box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+  animation: bmChatSubItemSlide 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
 }
 
 .bm-chat-rfq-card__header {
@@ -878,6 +889,7 @@ body[data-assistant-open='true'] {
   border-radius: 12px 12px 12px 3px;
   padding: 8px 12px;
   box-shadow: 0 1px 4px rgba(15, 23, 42, 0.04);
+  animation: bmChatMsgSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .bm-chat-typing__dot {
@@ -991,8 +1003,25 @@ body[data-assistant-open='true'] {
 }
 
 @keyframes bmChatMsgSlide {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes bmChatSubItemSlide {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ==========================================================================
@@ -1034,11 +1063,15 @@ body[data-assistant-open='true'] {
     border: none;
     box-shadow: none;
     z-index: 9999;
-    transform: none !important;
+    transform: translateY(16px);
+    transform-origin: center bottom;
+    transition: opacity 0.35s cubic-bezier(0.2, 0.9, 0.3, 1),
+                transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1),
+                visibility 0.35s;
   }
 
   .bm-chat-open .bm-chat-window {
-    transform: none !important;
+    transform: translateY(0) !important;
   }
 
   .bm-chat-header {

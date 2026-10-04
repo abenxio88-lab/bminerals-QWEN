@@ -42,13 +42,6 @@ body.homepage .stats-section {
   margin-inline: 0;
 }
 
-.reveal {
-  opacity: 1;
-  transform: none;
-  transition: clip-path 0.8s var(--ease-smooth), transform 0.8s var(--ease-smooth);
-  clip-path: inset(0 0 0 0);
-}
-
 .hero__headline,
 .hero__subheadline,
 .hero__proofline,
@@ -1024,17 +1017,6 @@ body.homepage .stats-section .metric-strip__item.glass-bento:focus-within {
 }
 
 @media (max-width: 768px) {
-  body.homepage .hero .reveal,
-  body.homepage .stats-section .reveal,
-  body.homepage .about-section .reveal,
-  body.homepage .expertise .reveal,
-  body.homepage #minerals .reveal {
-    opacity: 1 !important;
-    transform: none !important;
-    clip-path: inset(0 0 0 0) !important;
-    transition: none !important;
-  }
-
   body.homepage .hero__headline,
   body.homepage .hero__subheadline,
   body.homepage .hero__proofline,
