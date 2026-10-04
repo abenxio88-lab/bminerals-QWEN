@@ -54,11 +54,43 @@ class BMChatbot {
   }
 
   ensureStyles() {
-    if (document.getElementById(STYLESHEET_ID)) return;
+    const existingLink = document.getElementById(STYLESHEET_ID);
+    if (existingLink && existingLink.sheet) {
+      return;
+    }
+
+    if (!document.getElementById('bm-chatbot-guard-styles')) {
+      const guard = document.createElement('style');
+      guard.id = 'bm-chatbot-guard-styles';
+      guard.textContent = `
+        #bm-chatbot-root { display: none !important; }
+      `;
+      document.head.appendChild(guard);
+    }
+
+    const revealWhenReady = () => {
+      const guard = document.getElementById('bm-chatbot-guard-styles');
+      if (guard) guard.remove();
+      const root = document.getElementById('bm-chatbot-root');
+      if (root) root.style.display = '';
+    };
+
+    if (existingLink) {
+      existingLink.addEventListener('load', revealWhenReady);
+      setTimeout(revealWhenReady, 400);
+      return;
+    }
+
     const link = document.createElement('link');
     link.id = STYLESHEET_ID;
     link.rel = 'stylesheet';
     link.href = this.resolveAssetPath('css/components/chatbot.css');
+
+    link.addEventListener('load', revealWhenReady);
+    link.addEventListener('error', revealWhenReady);
+
+    setTimeout(revealWhenReady, 600);
+
     document.head.appendChild(link);
   }
 
@@ -91,7 +123,6 @@ class BMChatbot {
       <!-- Launcher Button -->
       <button type="button" class="bm-chat-launcher" aria-label="Open Balochistan Minerals AI Assistant" aria-haspopup="dialog">
         <div class="bm-chat-launcher__pill">
-          <span class="bm-chat-launcher__pill-dot"></span>
           <span>Ask AI • Mineral Desk</span>
         </div>
         <div class="bm-chat-launcher__btn">
@@ -100,7 +131,6 @@ class BMChatbot {
             <path d="M11 3v6l-4 3"></path>
             <path d="M13 3v6l4 3"></path>
           </svg>
-          <span class="bm-chat-launcher__badge"></span>
         </div>
       </button>
 

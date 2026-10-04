@@ -63,7 +63,7 @@ body[data-assistant-open='true'] {
   transform: translateY(1px) scale(0.98);
 }
 
-/* Floating Prompt Pill */
+/* Floating Prompt Pill (Appears 5s, disappears 15s smoothly) */
 .bm-chat-launcher__pill {
   display: flex;
   align-items: center;
@@ -72,27 +72,34 @@ body[data-assistant-open='true'] {
   color: #0A1628;
   font-size: 0.8125rem;
   font-weight: 500;
-  padding: 7px 13px 7px 11px;
+  padding: 7px 14px;
   border-radius: 9999px;
   box-shadow: 0 4px 18px rgba(10, 22, 40, 0.12), 0 0 0 1px rgba(204, 212, 218, 0.6);
-  border-left: 3px solid #D4AF37;
   letter-spacing: 0.01em;
   white-space: nowrap;
-  animation: bmChatPillPulse 6s ease-in-out infinite;
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateX(8px);
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+
+.bm-chat-launcher.is-visible .bm-chat-launcher__pill {
+  animation: bmChatPillCycle 20s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 .bm-chat-launcher:hover .bm-chat-launcher__pill {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateX(0) !important;
+  pointer-events: auto !important;
+  animation-play-state: paused;
   box-shadow: 0 6px 22px rgba(10, 22, 40, 0.18), 0 0 0 1px rgba(212, 175, 55, 0.4);
 }
 
-.bm-chat-launcher__pill-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #D4AF37;
-  box-shadow: 0 0 6px rgba(212, 175, 55, 0.85);
-  animation: bmPulseDot 2s infinite ease-in-out;
+.bm-chat-launcher__pill-dot,
+.bm-chat-launcher__badge {
+  display: none !important;
 }
 
 /* Main Circle Button */
@@ -123,16 +130,6 @@ body[data-assistant-open='true'] {
   stroke: #FFFFFF;
 }
 
-.bm-chat-launcher__badge {
-  position: absolute;
-  top: -1px;
-  right: -1px;
-  width: 10px;
-  height: 10px;
-  background: #D4AF37;
-  border: 2px solid #07101E;
-  border-radius: 50%;
-}
 
 /* Smooth launcher dissolve when modal is open */
 .bm-chat-open .bm-chat-launcher {
@@ -986,15 +983,37 @@ body[data-assistant-open='true'] {
 /* ==========================================================================
    11. Keyframe Animations
    ========================================================================== */
-@keyframes bmPulseDot {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
-  70% { transform: scale(1.05); box-shadow: 0 0 0 4px rgba(212, 175, 55, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
-}
-
-@keyframes bmChatPillPulse {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(-3px); }
+@keyframes bmChatPillCycle {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(8px);
+    pointer-events: none;
+  }
+  2% {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+  25% {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+  27% {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(8px);
+    pointer-events: none;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(8px);
+    pointer-events: none;
+  }
 }
 
 @keyframes bmChatBounce {
