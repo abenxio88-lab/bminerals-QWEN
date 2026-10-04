@@ -145,11 +145,11 @@
 .hero__cta {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.75rem;
+  gap: 0.4rem;
+  padding: 0.5rem 1.25rem;
   font-family: var(--font-ui);
-  font-weight: 600;
-  font-size: var(--text-sm);
+  font-weight: 500;
+  font-size: 0.8125rem;
   border-radius: var(--radius-md);
   border: none;
   cursor: pointer;

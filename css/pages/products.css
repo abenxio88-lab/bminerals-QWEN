@@ -575,7 +575,7 @@
   display: inline-block;
   font-family: var(--font-ui);
   font-size: 0.6875rem;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--primary-gold-400);
@@ -585,7 +585,7 @@
 .diagonal-section__title {
   font-family: var(--font-heading);
   font-size: var(--h1-size);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.2;
   letter-spacing: 0.02em;
   text-transform: uppercase;
@@ -1205,7 +1205,7 @@
   overflow: hidden;
   padding: 1.35rem;
   position: relative;
-  background: rgba(10, 22, 40, 0.58);
+  background: rgba(10, 22, 40, 0.32);
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-left: 4px solid rgba(242, 106, 33, 0.78);
   color: white;
@@ -1223,15 +1223,15 @@
 
 .category-strip__item::before {
   background: var(--category-image) center / cover;
-  opacity: 0.46;
+  opacity: 0.65;
   transform: scale(1.04);
   transition: transform 0.6s var(--ease-smooth), opacity 0.3s var(--ease-smooth);
 }
 
 .category-strip__item::after {
   background:
-    linear-gradient(180deg, rgba(10, 22, 40, 0.24), rgba(10, 22, 40, 0.76)),
-    linear-gradient(90deg, rgba(230, 92, 26, 0.2), transparent 54%);
+    linear-gradient(180deg, rgba(10, 22, 40, 0.08), rgba(10, 22, 40, 0.60)),
+    linear-gradient(90deg, rgba(230, 92, 26, 0.16), transparent 54%);
 }
 
 .category-strip__item:nth-child(1) {
@@ -1251,7 +1251,7 @@
 }
 
 .category-strip__item:nth-child(4)::before {
-  opacity: 0.62;
+  opacity: 0.70;
   background-position: center;
 }
 
@@ -1262,7 +1262,7 @@
 }
 
 .category-strip__item:hover::before {
-  opacity: 0.68;
+  opacity: 0.80;
   transform: scale(1.11);
 }
 
@@ -1271,11 +1271,11 @@
   width: fit-content;
   align-items: baseline;
   gap: 0.4rem;
-  padding-bottom: 0.45rem;
+  padding-bottom: 0.4rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.32);
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 3.8vw, 3.15rem);
-  line-height: 0.82;
+  font-size: clamp(1.75rem, 2.8vw, 2.35rem);
+  line-height: 0.9;
   color: #ffffff;
   font-variant-numeric: tabular-nums;
 }
@@ -4809,7 +4809,7 @@ body.is-stone-lightbox-open {
   color: var(--primary-gold-300);
   font-family: var(--font-ui);
   font-size: var(--text-xs);
-  font-weight: 800;
+  font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
@@ -4859,13 +4859,13 @@ body.is-stone-lightbox-open {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  min-height: 3.5rem;
-  padding: 0.9rem 1.15rem;
+  min-height: 2.85rem;
+  padding: 0.7rem 1.15rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
   font-family: var(--font-ui);
   font-size: var(--text-sm);
-  font-weight: 800;
+  font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;

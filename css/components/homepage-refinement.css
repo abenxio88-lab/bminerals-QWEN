@@ -331,11 +331,15 @@ body.homepage .hero__trust-item {
 
 body.homepage .hero__stats-panel {
   padding: clamp(1.35rem, 2.4vw, 2.1rem);
-  border: 1px solid rgba(232, 241, 248, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.026)),
-    rgba(6, 13, 23, 0.66);
-  box-shadow: 0 28px 72px rgba(4, 10, 19, 0.38);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
+    rgba(10, 22, 40, 0.3);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  box-shadow:
+    0 28px 72px rgba(4, 10, 19, 0.38),
+    inset 0 1px 1px rgba(255, 255, 255, 0.12);
 }
 
 body.homepage .hero__stats-panel-title {
@@ -1603,6 +1607,7 @@ body.homepage .cta-premium__overline {
   padding: 0 0 0.36rem;
   border-bottom: 1px solid rgba(242, 106, 33, 0.38);
   color: var(--home-accent-bright);
+  font-weight: 500;
   letter-spacing: 0.2em;
 }
 
@@ -1632,16 +1637,18 @@ body.homepage .cta-premium__buttons {
 }
 
 body.homepage .cta-premium__button {
-  min-width: 196px;
-  min-height: 50px;
+  min-width: 155px;
+  min-height: 38px;
   justify-content: center;
-  gap: 0.68rem;
-  padding: 0.86rem 1.22rem;
+  gap: 0.45rem;
+  padding: 0.48rem 1.15rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
   border: 1px solid rgba(197, 217, 232, 0.18);
   color: #FFFFFF;
   isolation: isolate;
   text-decoration: none;
-  letter-spacing: 0.095em;
+  letter-spacing: 0.08em;
   box-shadow:
     0 18px 44px rgba(3, 8, 15, 0.34),
     inset 0 1px 0 rgba(255, 255, 255, 0.07),
