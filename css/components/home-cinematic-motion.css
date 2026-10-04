@@ -79,9 +79,9 @@ body.homepage .stats-section {
 }
 
 #minerals .mineral-showcase__image {
-  background:
-    radial-gradient(circle at 22% 18%, rgba(230, 92, 26, 0.14), transparent 30%),
-    linear-gradient(135deg, #121a22 0%, #1b2733 54%, #0b1117 100%);
+  background-color: #121a22;
+  position: relative;
+  overflow: hidden;
 }
 
 #minerals .mineral-showcase__image::before {
@@ -89,34 +89,65 @@ body.homepage .stats-section {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background-image:
-    linear-gradient(180deg, rgba(10, 22, 40, 0.08), rgba(10, 22, 40, 0.2)),
-    var(--mineral-preview);
+  background-image: var(--mineral-preview);
   background-size: cover;
   background-position: center;
-  filter: saturate(0.95) contrast(1.02);
-  transform: scale(1.01);
+  background-repeat: no-repeat;
   pointer-events: none;
 }
 
 #minerals .mineral-showcase__image img {
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 1;
-  transition: opacity 0.22s var(--ease-smooth);
-}
-
-#minerals .mineral-showcase__image.is-changing img {
-  opacity: 0.01;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
 }
 
 #minerals .mineral-showcase__overlay,
 #minerals .mineral-showcase__media-caption,
 #minerals .mineral-showcase__arrow {
-  z-index: 2;
+  z-index: 3;
 }
 
 #minerals .mineral-showcase__arrow {
   z-index: 4;
+}
+
+#minerals .mineral-showcase__arrow svg {
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#minerals .mineral-showcase__arrow.is-reversed svg {
+  transform: rotate(180deg);
+}
+
+#minerals .mineral-showcase__title,
+#minerals .mineral-showcase__description,
+#minerals .mineral-showcase__stats {
+  transition: opacity 0.3s ease;
+}
+
+#minerals .mineral-showcase__content.is-transitioning .mineral-showcase__title,
+#minerals .mineral-showcase__content.is-transitioning .mineral-showcase__description,
+#minerals .mineral-showcase__content.is-transitioning .mineral-showcase__stats {
+  opacity: 0.45;
+}
+
+#minerals .mineral-showcase__actions {
+  opacity: 1 !important;
+}
+
+/* Stable height reservations - prevents card size from jumping during toggle */
+#minerals .mineral-showcase__description {
+  min-height: 5.5em;
+}
+
+#minerals .mineral-showcase--wide {
+  min-height: 400px;
 }
 
 #minerals .mineral-showcase__image[data-viewer-ready="true"] {

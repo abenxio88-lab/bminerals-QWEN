@@ -1569,8 +1569,37 @@
   transform: translateX(1px);
 }
 
-.metallic-card__image.is-changing img {
-  opacity: 0.55;
+.metallic-card__arrow svg,
+.mineral-showcase__arrow svg {
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.metallic-card__arrow.is-reversed svg,
+.mineral-showcase__arrow.is-reversed svg {
+  transform: rotate(180deg);
+}
+
+.metallic-card__content h3,
+.metallic-card__content p,
+.metallic-card__content .metallic-card__specs,
+.detail-profile__copy h3,
+.detail-profile__copy p,
+.detail-profile__copy .mineral-showcase__stats {
+  transition: opacity 0.3s ease;
+}
+
+.metallic-card__content.is-transitioning h3,
+.metallic-card__content.is-transitioning p,
+.metallic-card__content.is-transitioning .metallic-card__specs,
+.detail-profile__copy.is-transitioning h3,
+.detail-profile__copy.is-transitioning p,
+.detail-profile__copy.is-transitioning .mineral-showcase__stats {
+  opacity: 0.45;
+}
+
+.metallic-card__actions,
+.detail-profile__actions {
+  opacity: 1 !important;
 }
 
 /* ---------- CARD CONTENT ---------- */

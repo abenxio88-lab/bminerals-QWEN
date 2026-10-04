@@ -112,51 +112,107 @@ const productImageSets = {
   ]
 };
 
-function swapGalleryImage({ image, imageWrap, content, nextButton, view, updateContent }) {
-  const setPreview = () => {
-    const src = image.currentSrc || image.getAttribute('src') || image.src;
-    if (src) imageWrap.style.setProperty('--mineral-preview', `url("${String(src).replace(/"/g, '\\"')}")`);
-  };
+function setupTwoStateCrossfade({
+  imageWrap,
+  primaryImage,
+  views,
+  nextButton,
+  content,
+  onUpdateContent
+}) {
+  if (!imageWrap || !primaryImage || !views || views.length < 2) return;
 
-  const loadNextImage = () => {
-    const nextImage = new Image();
-    nextImage.decoding = 'async';
-    nextImage.src = view.image;
+  // 1. Position primary image as base layer
+  primaryImage.style.position = 'absolute';
+  primaryImage.style.inset = '0';
+  primaryImage.style.width = '100%';
+  primaryImage.style.height = '100%';
+  primaryImage.style.objectFit = 'cover';
+  primaryImage.style.objectPosition = 'center';
+  primaryImage.style.pointerEvents = 'none';
+  primaryImage.style.zIndex = '1';
+  primaryImage.style.opacity = '1';
+  primaryImage.style.transition = 'opacity 0.65s ease-in-out';
 
-    if (typeof nextImage.decode === 'function') {
-      return nextImage.decode().catch(() => {}).then(() => nextImage);
+  // 2. Pre-create and position secondary image
+  const secondaryImage = document.createElement('img');
+  secondaryImage.src = views[1].image;
+  secondaryImage.alt = views[1].alt;
+  secondaryImage.decoding = 'async';
+  secondaryImage.loading = 'eager';
+  if (primaryImage.getAttribute('width')) secondaryImage.setAttribute('width', primaryImage.getAttribute('width'));
+  if (primaryImage.getAttribute('height')) secondaryImage.setAttribute('height', primaryImage.getAttribute('height'));
+  secondaryImage.style.position = 'absolute';
+  secondaryImage.style.inset = '0';
+  secondaryImage.style.width = '100%';
+  secondaryImage.style.height = '100%';
+  secondaryImage.style.objectFit = 'cover';
+  secondaryImage.style.objectPosition = 'center';
+  secondaryImage.style.pointerEvents = 'none';
+  secondaryImage.style.zIndex = '1';
+  secondaryImage.style.opacity = '0';
+  secondaryImage.style.transition = 'opacity 0.65s ease-in-out';
+
+  primaryImage.insertAdjacentElement('afterend', secondaryImage);
+
+  imageWrap.style.position = 'relative';
+  imageWrap.style.overflow = 'hidden';
+
+  let activeIndex = 0;
+  let isAnimating = false;
+
+  const toggle = () => {
+    if (isAnimating) return;
+    isAnimating = true;
+
+    activeIndex = (activeIndex + 1) % views.length;
+    const view = views[activeIndex];
+
+    if (nextButton) {
+      nextButton.disabled = true;
+      nextButton.classList.toggle('is-reversed', activeIndex === 1);
+      if (view.nextLabel) nextButton.setAttribute('aria-label', view.nextLabel);
     }
 
-    return new Promise((resolve) => {
-      nextImage.onload = () => resolve(nextImage);
-      nextImage.onerror = () => resolve(nextImage);
-    });
-  };
-
-  setPreview();
-  imageWrap.classList.add('is-changing');
-  if (content) content.classList.add('is-changing');
-
-  nextButton.disabled = true;
-  nextButton.setAttribute('aria-label', view.nextLabel);
-
-  const finishSwap = (nextImage) => {
-    image.alt = view.alt;
-    image.src = nextImage.src;
-
-    if (typeof updateContent === 'function') {
-      updateContent();
+    if (content) {
+      content.classList.add('is-transitioning');
     }
 
-    setPreview();
-    window.requestAnimationFrame(() => {
-      imageWrap.classList.remove('is-changing');
-      if (content) content.classList.remove('is-changing');
-      nextButton.disabled = false;
-    });
+    // Direct GPU crossfade between the two dedicated layers
+    if (activeIndex === 1) {
+      primaryImage.style.opacity = '0';
+      secondaryImage.style.opacity = '1';
+    } else {
+      primaryImage.style.opacity = '1';
+      secondaryImage.style.opacity = '0';
+    }
+
+    // Midway through crossfade (~220ms), update content text and remove dimming
+    setTimeout(() => {
+      if (typeof onUpdateContent === 'function') {
+        onUpdateContent(view, activeIndex);
+      }
+      if (content) {
+        content.classList.remove('is-transitioning');
+      }
+    }, 220);
+
+    // Re-enable button once transition completes
+    setTimeout(() => {
+      if (nextButton) {
+        nextButton.disabled = false;
+      }
+      isAnimating = false;
+    }, 660);
   };
 
-  loadNextImage().then(finishSwap);
+  if (nextButton) {
+    nextButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      toggle();
+    });
+  }
 }
 
 // ============================================
@@ -765,20 +821,16 @@ function initProductsMetallicCardToggles() {
     const specElements = Array.from(card.querySelectorAll('.metallic-card__spec'));
 
     hasAnyToggle = true;
-    let activeIndex = 0;
     preloadImages(config.views);
 
-    const renderView = (index) => {
-      const view = config.views[index];
-      swapGalleryImage({
-        image,
-        imageWrap,
-        content,
-        nextButton,
-        view,
-        updateContent: () => {
+    setupTwoStateCrossfade({
+      imageWrap,
+      primaryImage: image,
+      views: config.views,
+      nextButton,
+      content,
+      onUpdateContent: (view) => {
         caption.textContent = view.caption;
-
         if (tag && view.tag) tag.textContent = view.tag;
         if (title && view.title) title.textContent = view.title;
         if (description && view.description) description.textContent = view.description;
@@ -794,15 +846,7 @@ function initProductsMetallicCardToggles() {
             }
           });
         }
-        }
-      });
-    };
-
-    nextButton.addEventListener('click', (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      activeIndex = (activeIndex + 1) % config.views.length;
-      renderView(activeIndex);
+      }
     });
   });
 
@@ -847,7 +891,7 @@ function initIronCardToggle() {
       alt: 'Iron ore concentrate sample',
       caption: 'Iron Concentrate',
       title: 'Iron Concentrate',
-      description: 'Iron concentrate is prepared through beneficiation for buyers requiring stronger Fe feed and cleaner sizing. Typical concentrate purity ranges from 50% - 62% Fe, with hematite or magnetite character confirmed by lot testing.',
+      description: 'Beneficiated iron concentrate is supplied for steel buyers requiring stronger Fe feed and cleaner sizing, with typical purity ranging from 50% - 62% Fe on confirmed lot assay.',
       stats: [
         ['50-62%', 'Fe Concentrate'],
         ['Assay', 'Lot Check']
@@ -856,18 +900,15 @@ function initIronCardToggle() {
     }
   ];
 
-  let activeIndex = 0;
   preloadImages(views);
 
-  const renderView = (index) => {
-    const view = views[index];
-    swapGalleryImage({
-      image,
-      imageWrap,
-      content,
-      nextButton,
-      view,
-      updateContent: () => {
+  setupTwoStateCrossfade({
+    imageWrap,
+    primaryImage: image,
+    views,
+    nextButton,
+    content,
+    onUpdateContent: (view) => {
       caption.textContent = view.caption;
       title.textContent = view.title;
       description.textContent = view.description;
@@ -876,13 +917,7 @@ function initIronCardToggle() {
         if (statValues[statIndex]) statValues[statIndex].textContent = value;
         if (statLabels[statIndex]) statLabels[statIndex].textContent = label;
       });
-      }
-    });
-  };
-
-  nextButton.addEventListener('click', () => {
-    activeIndex = (activeIndex + 1) % views.length;
-    renderView(activeIndex);
+    }
   });
 }
 
@@ -924,7 +959,7 @@ function initChromiteCardToggle() {
       alt: 'Chrome concentrate sample',
       caption: 'Chrome Concentrate',
       title: 'Chrome Concentrate',
-      description: 'Chrome concentrate is prepared as an upgraded chromite product for buyers needing stronger and more consistent Cr2O3 feed. Typical concentrate purity ranges from 32% - 52%, with final shipment terms confirmed by assay.',
+      description: 'Upgraded chrome concentrate is supplied for alloy and foundry buyers requiring higher, consistent Cr2O3 feed, with typical purity ranging from 32% - 52% on final shipment assay.',
       stats: [
         ['32-52%', 'Cr2O3 Concentrate'],
         ['Assay', 'Lot Check']
@@ -933,18 +968,15 @@ function initChromiteCardToggle() {
     }
   ];
 
-  let activeIndex = 0;
   preloadImages(views);
 
-  const renderView = (index) => {
-    const view = views[index];
-    swapGalleryImage({
-      image,
-      imageWrap,
-      content,
-      nextButton,
-      view,
-      updateContent: () => {
+  setupTwoStateCrossfade({
+    imageWrap,
+    primaryImage: image,
+    views,
+    nextButton,
+    content,
+    onUpdateContent: (view) => {
       caption.textContent = view.caption;
       title.textContent = view.title;
       description.textContent = view.description;
@@ -953,13 +985,7 @@ function initChromiteCardToggle() {
         if (statValues[statIndex]) statValues[statIndex].textContent = value;
         if (statLabels[statIndex]) statLabels[statIndex].textContent = label;
       });
-      }
-    });
-  };
-
-  nextButton.addEventListener('click', () => {
-    activeIndex = (activeIndex + 1) % views.length;
-    renderView(activeIndex);
+    }
   });
 }
 
@@ -1004,7 +1030,7 @@ function initAntimonyCardToggle() {
       alt: 'Antimony concentrate sample',
       caption: 'Antimony Concentrate',
       title: 'Antimony Concentrate',
-      description: 'Antimony concentrate is the upgraded product after sorting and processing, prepared for buyers who require stronger Sb content. Typical concentrate purity ranges from 20% - 60% Sb, subject to fresh lot testing.',
+      description: 'Upgraded antimony concentrate is supplied for buyers requiring stronger Sb feed and cleaner sizing, with typical purity ranging from 20% - 60% Sb on fresh lot assay.',
       stats: [
         ['20-60%', 'Sb Concentrate'],
         ['Upgraded', 'Form'],
@@ -1014,18 +1040,15 @@ function initAntimonyCardToggle() {
     }
   ];
 
-  let activeIndex = 0;
   preloadImages(views);
 
-  const renderView = (index) => {
-    const view = views[index];
-    swapGalleryImage({
-      image,
-      imageWrap,
-      content,
-      nextButton,
-      view,
-      updateContent: () => {
+  setupTwoStateCrossfade({
+    imageWrap,
+    primaryImage: image,
+    views,
+    nextButton,
+    content,
+    onUpdateContent: (view) => {
       caption.textContent = view.caption;
       title.textContent = view.title;
       description.textContent = view.description;
@@ -1034,13 +1057,7 @@ function initAntimonyCardToggle() {
         if (statValues[statIndex]) statValues[statIndex].textContent = value;
         if (statLabels[statIndex]) statLabels[statIndex].textContent = label;
       });
-      }
-    });
-  };
-
-  nextButton.addEventListener('click', () => {
-    activeIndex = (activeIndex + 1) % views.length;
-    renderView(activeIndex);
+    }
   });
 }
 
