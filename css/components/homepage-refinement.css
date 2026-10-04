@@ -289,18 +289,33 @@ body.homepage .hero__container {
 body.homepage .hero__content {
   align-items: flex-start;
   text-align: left;
-  padding-left: clamp(0.9rem, 2vw, 1.4rem);
-  border-left: 1px solid rgba(242, 106, 33, 0.42);
+  padding-left: clamp(1rem, 2.2vw, 1.5rem);
+  border-left: 2px solid transparent;
+  border-image: linear-gradient(180deg, #f26a21 0%, rgba(242, 106, 33, 0.4) 65%, transparent 100%) 1;
 }
 
 body.homepage .hero__overline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   width: fit-content;
-  padding: 0 0 0.45rem;
-  border: 0;
-  border-bottom: 1px solid rgba(212, 90, 21, 0.52);
-  background: transparent;
-  color: rgba(255, 208, 179, 0.94);
-  letter-spacing: 0.19em;
+  padding: 0.3rem 0.82rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: rgba(241, 245, 249, 0.88);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  margin-bottom: 0.9rem;
+}
+
+body.homepage .hero__overline::before {
+  display: none;
 }
 
 body.homepage .hero__headline {
@@ -320,30 +335,62 @@ body.homepage .hero__gradient-text {
 body.homepage .hero__subheadline--refined {
   max-width: 610px;
   text-align: left;
-  color: var(--home-authority-muted);
+  color: rgba(226, 232, 240, 0.88);
+  line-height: 1.65;
+  font-size: 0.95rem;
 }
 
-body.homepage .hero__proofline span,
-body.homepage .hero__trust-item {
-  border-color: var(--home-authority-line);
-  background: rgba(255, 255, 255, 0.052);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+body.homepage .hero__proofline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-block: 1.15rem 1.55rem;
+}
+
+body.homepage .hero__proofline span {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.68rem;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 999px;
+  color: rgba(203, 213, 225, 0.85);
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  box-shadow: none;
+  transition: all 0.22s var(--ease-smooth);
+}
+
+body.homepage .hero__proofline span:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
 }
 
 body.homepage .hero__stats-panel {
   padding: clamp(1.35rem, 2.4vw, 2.1rem);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1px solid rgba(255, 255, 255, 0.28);
   background: rgba(255, 255, 255, 0.055);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   box-shadow:
-    0 12px 32px rgba(0, 0, 0, 0.18),
+    0 16px 40px rgba(0, 0, 0, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.16);
 }
 
 body.homepage .hero__stats-panel-title {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   color: var(--home-accent-bright);
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 0.85rem;
 }
 
 body.homepage .hero__stats-panel::before,
@@ -352,7 +399,13 @@ body.homepage .hero__stats-panel::after {
 }
 
 body.homepage .panel-stat {
-  padding-block: 0.9rem;
+  padding-block: 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+body.homepage .panel-stat:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
 }
 
 body.homepage .panel-stat__number {
@@ -387,9 +440,29 @@ body.homepage .hero__cta:active {
 }
 
 body.homepage .hero__trust-strip {
-  border-color: rgba(232, 241, 248, 0.13);
-  background: rgba(8, 16, 25, 0.62);
-  box-shadow: 0 20px 54px rgba(4, 10, 19, 0.24);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(6, 13, 23, 0.45);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+body.homepage .hero__trust-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  border: none;
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(241, 245, 249, 0.85);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  transition: all 0.25s ease;
+}
+
+body.homepage .hero__trust-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
 }
 
 /* 2. Commodity ticker */
