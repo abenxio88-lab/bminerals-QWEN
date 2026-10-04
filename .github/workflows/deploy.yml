@@ -43,10 +43,8 @@ jobs:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-        run: node scripts/cleanup-ftp-temp.js || true
+        run: node scripts/cleanup-ftp-temp.js
 
-      # The FTP server occasionally stalls mid-transfer. A short per-attempt
-      # timeout plus retries recovers far faster than one long 10-minute wait.
       - name: FTP Deployment (attempt 1)
         id: ftp1
         continue-on-error: true
@@ -56,7 +54,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /
-          timeout: 120000
+          timeout: 180000
           log-level: standard
           exclude: |
             **/.git/**
@@ -79,13 +77,13 @@ jobs:
             update-navbar.js
             update-navbar.ps1
 
-      - name: Clean stranded FTP temporary files (before retry)
+      - name: Clean stranded FTP temporary files (before retry 2)
         if: steps.ftp1.outcome == 'failure'
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-        run: node scripts/cleanup-ftp-temp.js || true
+        run: node scripts/cleanup-ftp-temp.js
 
       - name: FTP Deployment (attempt 2)
         id: ftp2
@@ -97,7 +95,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /
-          timeout: 120000
+          timeout: 180000
           log-level: standard
           exclude: |
             **/.git/**
@@ -120,6 +118,14 @@ jobs:
             update-navbar.js
             update-navbar.ps1
 
+      - name: Clean stranded FTP temporary files (before retry 3)
+        if: steps.ftp1.outcome == 'failure' && steps.ftp2.outcome == 'failure'
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: node scripts/cleanup-ftp-temp.js
+
       - name: FTP Deployment (attempt 3)
         if: steps.ftp1.outcome == 'failure' && steps.ftp2.outcome == 'failure'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -128,7 +134,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /
-          timeout: 120000
+          timeout: 180000
           log-level: standard
           exclude: |
             **/.git/**
