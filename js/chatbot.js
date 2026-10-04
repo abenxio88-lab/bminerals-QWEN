@@ -35,6 +35,7 @@ class BMChatbot {
     this.loadHistory();
     this.render();
     this.bindEvents();
+    this.initScrollVisibility();
 
     if (this.messages.length === 0) {
       this.addWelcomeMessage();
@@ -259,6 +260,38 @@ class BMChatbot {
     });
   }
 
+  initScrollVisibility() {
+    if (!this.launcher) return;
+
+    const findHero = () => document.querySelector('.hero, .parallax-hero, .detail-hero, #hero, [class*="hero"]');
+
+    const updateVisibility = () => {
+      // If modal is open, launcher display is handled by .bm-chat-open
+      if (this.isOpen) return;
+
+      const hero = findHero();
+      if (hero) {
+        const rect = hero.getBoundingClientRect();
+        // Visible when hero has mostly scrolled past top of viewport
+        const isPastHero = rect.bottom <= 120;
+        this.launcher.classList.toggle('is-visible', isPastHero);
+        return;
+      }
+
+      // Fallback for pages without a hero section
+      const currentScroll = window.scrollY || document.documentElement.scrollTop || 0;
+      this.launcher.classList.toggle('is-visible', currentScroll > 250);
+    };
+
+    this.updateScrollVisibility = updateVisibility;
+
+    window.addEventListener('scroll', updateVisibility, { passive: true });
+    window.addEventListener('resize', updateVisibility, { passive: true });
+
+    // Initial check in case page loaded already scrolled
+    updateVisibility();
+  }
+
   autoResizeInput() {
     this.input.style.height = 'auto';
     this.input.style.height = `${Math.min(this.input.scrollHeight, 84)}px`;
@@ -331,6 +364,10 @@ class BMChatbot {
 
     // 5. Restore scroll position
     window.scrollTo(0, this.savedScrollY);
+
+    if (typeof this.updateScrollVisibility === 'function') {
+      this.updateScrollVisibility();
+    }
 
     this.launcher.focus();
   }

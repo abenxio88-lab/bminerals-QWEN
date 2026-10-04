@@ -40,15 +40,26 @@ body[data-assistant-open='true'] {
   padding: 0;
   outline: none;
   font-family: var(--font-body, 'Poppins', sans-serif);
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.32s ease, visibility 0.32s;
   -webkit-tap-highlight-color: transparent;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(14px);
 }
 
-.bm-chat-launcher:hover {
+.bm-chat-launcher.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.bm-chat-launcher.is-visible:hover {
   transform: translateY(-2px);
 }
 
-.bm-chat-launcher:active {
+.bm-chat-launcher.is-visible:active {
   transform: translateY(1px) scale(0.98);
 }
 
@@ -59,7 +70,7 @@ body[data-assistant-open='true'] {
   gap: 8px;
   background: #FFFFFF;
   color: #0A1628;
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 600;
   padding: 7px 13px 7px 11px;
   border-radius: 9999px;
@@ -259,7 +270,7 @@ body[data-assistant-open='true'] {
 
 .bm-chat-header__title {
   font-family: var(--font-brand, 'Montserrat', sans-serif);
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   color: #FFFFFF;
@@ -268,7 +279,7 @@ body[data-assistant-open='true'] {
 }
 
 .bm-chat-header__status {
-  font-size: 0.625rem;
+  font-size: 0.6875rem;
   color: #CBD5E1;
   display: flex;
   align-items: center;
@@ -390,7 +401,7 @@ body[data-assistant-open='true'] {
 
 .bm-chat-welcome__title {
   font-family: var(--font-brand, 'Montserrat', sans-serif);
-  font-size: 0.71875rem;
+  font-size: 0.78125rem;
   font-weight: 600;
   color: #0F172A;
   margin: 0;
@@ -398,7 +409,7 @@ body[data-assistant-open='true'] {
 }
 
 .bm-chat-welcome__subtitle {
-  font-size: 0.59375rem;
+  font-size: 0.65625rem;
   color: #64748B;
   font-weight: 500;
   display: block;
@@ -406,7 +417,7 @@ body[data-assistant-open='true'] {
 }
 
 .bm-chat-welcome__text {
-  font-size: 0.65625rem;
+  font-size: 0.71875rem;
   color: #475569;
   line-height: 1.48;
   margin: 0 0 9px 0;
@@ -440,8 +451,8 @@ body[data-assistant-open='true'] {
   border: 1px solid #E2E8F0;
   border-radius: 14px 14px 14px 3px;
   box-shadow: 0 1px 4px rgba(15, 23, 42, 0.04);
-  padding: 9px 11px;
-  font-size: 0.6875rem;
+  padding: 10px 12px;
+  font-size: 0.75rem;
   line-height: 1.5;
   max-width: 92%;
 }
@@ -452,15 +463,15 @@ body[data-assistant-open='true'] {
   color: #FFFFFF;
   border-radius: 14px 14px 3px 14px;
   box-shadow: 0 2px 6px rgba(10, 22, 40, 0.15);
-  padding: 5px 11px;
-  font-size: 0.6875rem;
+  padding: 6px 12px;
+  font-size: 0.75rem;
   line-height: 1.4;
   max-width: 78%;
   width: fit-content;
 }
 
 .bm-chat-msg__meta {
-  font-size: 0.5625rem;
+  font-size: 0.625rem;
   color: #94A3B8;
   margin-top: 3px;
   padding: 0 3px;
@@ -523,7 +534,7 @@ body[data-assistant-open='true'] {
 
 .bm-chat-thumb-badge__title {
   font-family: var(--font-brand, 'Montserrat', sans-serif);
-  font-size: 0.703125rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: #0F172A;
   margin: 0;
@@ -531,7 +542,7 @@ body[data-assistant-open='true'] {
 }
 
 .bm-chat-thumb-badge__sub {
-  font-size: 0.59375rem;
+  font-size: 0.65625rem;
   color: #64748B;
   font-weight: 500;
   white-space: nowrap;
@@ -557,7 +568,7 @@ body[data-assistant-open='true'] {
   background: #F1F5F9 !important;
   border: 1px solid #CBD5E1 !important;
   color: #0F172A !important;
-  font-size: 0.625rem !important;
+  font-size: 0.6875rem !important;
   font-weight: 600 !important;
   padding: 3px 8px !important;
   border-radius: 5px !important;
@@ -601,7 +612,7 @@ body[data-assistant-open='true'] {
   background: #F1F5F9;
   color: #1E293B;
   border: 1px solid #CBD5E1;
-  font-size: 0.625rem;
+  font-size: 0.6875rem;
   font-weight: 500;
   padding: 3px 7px;
   border-radius: 5px;
@@ -692,7 +703,7 @@ body[data-assistant-open='true'] {
 
 .bm-chat-product-card__name {
   font-family: var(--font-brand, 'Montserrat', sans-serif);
-  font-size: 0.625rem;
+  font-size: 0.6875rem;
   font-weight: 600;
   color: #0F172A;
   white-space: nowrap;
@@ -702,7 +713,7 @@ body[data-assistant-open='true'] {
 }
 
 .bm-chat-product-card__grade {
-  font-size: 0.53125rem;
+  font-size: 0.59375rem;
   color: #64748B;
   white-space: nowrap;
   overflow: hidden;
@@ -742,13 +753,13 @@ body[data-assistant-open='true'] {
 
 .bm-chat-rfq-card__title {
   font-family: var(--font-brand, 'Montserrat', sans-serif);
-  font-size: 0.703125rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: #0F172A;
 }
 
 .bm-chat-rfq-card__badge {
-  font-size: 0.59375rem;
+  font-size: 0.625rem;
   background: #0F1F3A;
   color: #D4AF37;
   padding: 2px 5px;
@@ -772,7 +783,7 @@ body[data-assistant-open='true'] {
 }
 
 .bm-chat-rfq-card__label {
-  font-size: 0.625rem;
+  font-size: 0.6875rem;
   font-weight: 600;
   color: #475569;
   margin: 0;
@@ -780,8 +791,8 @@ body[data-assistant-open='true'] {
 
 .bm-chat-rfq-card__input {
   width: 100%;
-  padding: 4px 7px;
-  font-size: 0.625rem;
+  padding: 5px 8px;
+  font-size: 0.6875rem;
   background: #F8FAFC;
   border: 1px solid #CBD5E1;
   border-radius: 5px;
@@ -813,8 +824,8 @@ body[data-assistant-open='true'] {
   align-items: center !important;
   justify-content: center !important;
   gap: 5px !important;
-  padding: 6px 8px !important;
-  font-size: 0.65625rem !important;
+  padding: 6px 9px !important;
+  font-size: 0.71875rem !important;
   font-weight: 600 !important;
   border-radius: 6px !important;
   text-decoration: none !important;
@@ -912,7 +923,7 @@ body[data-assistant-open='true'] {
   border: none;
   background: transparent;
   padding: 4px 0;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   line-height: 1.4;
   color: #0F172A;
   resize: none;
@@ -924,7 +935,7 @@ body[data-assistant-open='true'] {
 
 .bm-chat-input::placeholder {
   color: #94A3B8;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
 }
 
 .bm-chat-send {
