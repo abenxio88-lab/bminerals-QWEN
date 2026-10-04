@@ -44,12 +44,21 @@ class BMChatbot {
     }
   }
 
+  resolveAssetPath(assetPath) {
+    if (!assetPath) return '';
+    if (assetPath.startsWith('http://') || assetPath.startsWith('https://') || assetPath.startsWith('//')) {
+      return assetPath;
+    }
+    const isSubdir = window.location.pathname.includes('/blog/') || window.location.pathname.includes('/documents/');
+    return isSubdir ? `../${assetPath.replace(/^\//, '')}` : assetPath;
+  }
+
   ensureStyles() {
     if (document.getElementById(STYLESHEET_ID)) return;
     const link = document.createElement('link');
     link.id = STYLESHEET_ID;
     link.rel = 'stylesheet';
-    link.href = 'css/components/chatbot.css';
+    link.href = this.resolveAssetPath('css/components/chatbot.css');
     document.head.appendChild(link);
   }
 
@@ -541,15 +550,15 @@ class BMChatbot {
         </p>
         <div class="bm-chat-chips">
           <button type="button" class="bm-chat-chip bm-chat-chip--thumb" data-query="Barite 4.2+ SG">
-            <img src="images/barite-card-480.avif" alt="" class="bm-chat-chip__img" width="15" height="15" loading="lazy">
+            <img src="${this.resolveAssetPath('images/barite-card-480.avif')}" alt="" class="bm-chat-chip__img" width="15" height="15" loading="lazy">
             <span>Barite 4.2+ SG</span>
           </button>
           <button type="button" class="bm-chat-chip bm-chat-chip--thumb" data-query="Chromite 42-52%">
-            <img src="images/chromite-new-480.avif" alt="" class="bm-chat-chip__img" width="15" height="15" loading="lazy">
+            <img src="${this.resolveAssetPath('images/chromite-new-480.avif')}" alt="" class="bm-chat-chip__img" width="15" height="15" loading="lazy">
             <span>Chromite 42-52%</span>
           </button>
           <button type="button" class="bm-chat-chip bm-chat-chip--thumb" data-query="Chagai Copper">
-            <img src="images/copper-new-480.avif" alt="" class="bm-chat-chip__img" width="15" height="15" loading="lazy">
+            <img src="${this.resolveAssetPath('images/copper-new-480.avif')}" alt="" class="bm-chat-chip__img" width="15" height="15" loading="lazy">
             <span>Chagai Copper</span>
           </button>
           <button type="button" class="bm-chat-chip" data-query="Logistics & Ports">
@@ -635,7 +644,7 @@ class BMChatbot {
     if (data.image) {
       thumbHtml = `
         <div class="bm-chat-thumb-badge">
-          <img src="${this.escapeHtml(data.image)}" alt="${this.escapeHtml(data.title || 'Mineral Specimen')}" class="bm-chat-thumb-badge__img" width="34" height="34" loading="lazy" decoding="async">
+          <img src="${this.escapeHtml(this.resolveAssetPath(data.image))}" alt="${this.escapeHtml(data.title || 'Mineral Specimen')}" class="bm-chat-thumb-badge__img" width="34" height="34" loading="lazy" decoding="async">
           <div class="bm-chat-thumb-badge__meta">
             <strong class="bm-chat-thumb-badge__title">${this.escapeHtml(data.title)}</strong>
             <span class="bm-chat-thumb-badge__sub">${this.escapeHtml(data.badge || '')}${data.origin ? ` • ${this.escapeHtml(data.origin)}` : ''}</span>
@@ -654,7 +663,7 @@ class BMChatbot {
         <div class="bm-chat-product-grid">
           ${data.productsList.map(p => `
             <button type="button" class="bm-chat-product-card" data-query="${this.escapeHtml(p.query || p.name)}" title="View ${this.escapeHtml(p.name)} specifications">
-              <img src="${this.escapeHtml(p.image)}" alt="${this.escapeHtml(p.name)}" class="bm-chat-product-card__img" width="32" height="32" loading="lazy" decoding="async">
+              <img src="${this.escapeHtml(this.resolveAssetPath(p.image))}" alt="${this.escapeHtml(p.name)}" class="bm-chat-product-card__img" width="32" height="32" loading="lazy" decoding="async">
               <div class="bm-chat-product-card__meta">
                 <strong class="bm-chat-product-card__name">${this.escapeHtml(p.name)}</strong>
                 <span class="bm-chat-product-card__grade">${this.escapeHtml(p.grade)}</span>
@@ -671,7 +680,7 @@ class BMChatbot {
       const linkLabel = data.urlLabel || `View ${data.title || 'Official'} Specifications & Section →`;
       sourceLinkHtml = `
         <div class="bm-chat-source">
-          <a href="${this.escapeHtml(data.url)}" class="bm-chat-source__link" title="Navigate directly to page / section">
+          <a href="${this.escapeHtml(this.resolveAssetPath(data.url))}" class="bm-chat-source__link" title="Navigate directly to page / section">
             <svg class="bm-chat-source__icon" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
               <polyline points="15 3 21 3 21 9"></polyline>
@@ -826,16 +835,17 @@ class BMChatbot {
   getChipThumbnail(chipText) {
     if (!chipText) return null;
     const lower = chipText.toLowerCase();
-    if (lower.includes('chromite') || lower.includes('chrome')) return 'images/chromite-new-480.avif';
-    if (lower.includes('barite') || lower.includes('baryte')) return 'images/barite-card-480.avif';
-    if (lower.includes('copper') || lower.includes('chagai')) return 'images/copper-new-480.avif';
-    if (lower.includes('iron')) return 'images/iron-ore-new-480.avif';
-    if (lower.includes('fluorite') || lower.includes('fluorspar')) return 'images/fluorite-480.avif';
-    if (lower.includes('marble') || lower.includes('stone')) return 'images/silver-steam-white-marble-1-480.avif';
-    if (lower.includes('antimony')) return 'images/antimony-480.avif';
-    if (lower.includes('gypsum')) return 'images/gypsum-480.avif';
-    if (lower.includes('coal')) return 'images/coal-480.avif';
-    return null;
+    let img = null;
+    if (lower.includes('chromite') || lower.includes('chrome')) img = 'images/chromite-new-480.avif';
+    else if (lower.includes('barite') || lower.includes('baryte')) img = 'images/barite-card-480.avif';
+    else if (lower.includes('copper') || lower.includes('chagai')) img = 'images/copper-new-480.avif';
+    else if (lower.includes('iron')) img = 'images/iron-ore-new-480.avif';
+    else if (lower.includes('fluorite') || lower.includes('fluorspar')) img = 'images/fluorite-480.avif';
+    else if (lower.includes('marble') || lower.includes('stone')) img = 'images/silver-steam-white-marble-1-480.avif';
+    else if (lower.includes('antimony')) img = 'images/antimony-480.avif';
+    else if (lower.includes('gypsum')) img = 'images/gypsum-480.avif';
+    else if (lower.includes('coal')) img = 'images/coal-480.avif';
+    return img ? this.resolveAssetPath(img) : null;
   }
 
   formatTime() {

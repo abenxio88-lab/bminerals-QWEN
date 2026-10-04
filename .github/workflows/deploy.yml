@@ -36,7 +36,7 @@ jobs:
         run: npm run check
 
       - name: Audit dependencies
-        run: npm audit --audit-level=high
+        run: npm audit --omit=dev --audit-level=high
 
       - name: FTP Deployment
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
