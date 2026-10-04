@@ -1,29 +1,24 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { Client } from 'basic-ftp';
+import net from 'node:net';
 
-function getCandidateFiles(dir, baseDir = '') {
-  let results = [];
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
-  for (const entry of entries) {
-    if (['.git', 'node_modules', '.github', '.vscode', 'graphify-out', 'src'].includes(entry.name)) {
-      continue;
-    }
-    const fullPath = path.join(dir, entry.name);
-    const relPath = path.join(baseDir, entry.name).split(path.sep).join('/');
-    if (entry.isDirectory()) {
-      results = results.concat(getCandidateFiles(fullPath, relPath));
-    } else {
-      // Focus on web pages, stylesheets, scripts, and documents that get updated
-      if (/\.(html|css|js|json|txt|xml|md)$/i.test(entry.name)) {
-        results.push(relPath);
-      }
+function getTargets(dir, baseDir = '') {
+  let list = [];
+  for (const f of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (['.git', 'node_modules', '.github', '.vscode', 'graphify-out', 'src'].includes(f.name)) continue;
+    const rel = path.join(baseDir, f.name).split(path.sep).join('/');
+    if (f.isDirectory()) {
+      list = list.concat(getTargets(path.join(dir, f.name), rel));
+    } else if (/\.(html|css|js)$/i.test(f.name)) {
+      const d = path.posix.dirname(rel);
+      const b = path.posix.basename(rel);
+      list.push(d === '.' ? `/.in.${b}.` : `/${d}/.in.${b}.`);
     }
   }
-  return results;
+  return list;
 }
 
-async function cleanFtpTempFiles() {
+function cleanFtpTempFiles() {
   const host = process.env.FTP_SERVER;
   const user = process.env.FTP_USERNAME;
   const pass = process.env.FTP_PASSWORD;
@@ -33,84 +28,97 @@ async function cleanFtpTempFiles() {
     process.exit(0);
   }
 
-  const client = new Client();
-  client.ftp.timeout = 25000;
+  const targets = getTargets(process.cwd());
+  console.log(`FTP pre-clean: generated ${targets.length} temporary file targets to check.`);
 
-  try {
-    console.log(`Connecting to FTP server ${host} for cleanup...`);
-    await client.access({
-      host,
-      user,
-      password: pass,
-      secure: false
-    });
-    console.log('Connected! Scanning for stranded ProFTPD HiddenStores temp files (.in.*)...');
+  const socket = net.createConnection(21, host);
+  socket.setEncoding('utf8');
+  socket.setTimeout(45000);
 
-    let deletedCount = 0;
+  let state = 'CONNECTING';
+  let targetIndex = 0;
+  let deletedCount = 0;
+  let buffer = '';
 
-    // 1. Directory scan: look for any files matching .in.* in key folders
-    const dirsToScan = [
-      '/',
-      '/blog',
-      '/css',
-      '/css/components',
-      '/css/pages',
-      '/documents',
-      '/js',
-      '/vendor'
-    ];
-
-    for (const dir of dirsToScan) {
-      try {
-        const list = await client.list(dir);
-        for (const item of list) {
-          if (item.name.startsWith('.in.') || item.name.includes('.in.')) {
-            const target = dir === '/' ? `/${item.name}` : `${dir}/${item.name}`;
-            console.log(`[Listing] Found stranded temp file: ${target}, deleting...`);
-            try {
-              await client.remove(target);
-              console.log(`[Listing] Successfully removed ${target}`);
-              deletedCount++;
-            } catch (delErr) {
-              console.log(`[Listing] Failed to remove ${target}:`, delErr.message);
-            }
-          }
-        }
-      } catch (listErr) {
-        // Directory may not exist or cannot be listed, that is fine
-      }
-    }
-
-    // 2. Direct probe: ProFTPD HiddenStores files might be invisible to LIST
-    // Probe all candidate repo files and send DELE for their .in. variants
-    const candidateFiles = getCandidateFiles(process.cwd());
-    console.log(`Probing ${candidateFiles.length} candidate file targets for hidden .in.* files...`);
-
-    for (const rel of candidateFiles) {
-      const dirname = path.posix.dirname(rel);
-      const basename = path.posix.basename(rel);
-      const tempTarget = dirname === '.' ? `/.in.${basename}.` : `/${dirname}/.in.${basename}.`;
-
-      try {
-        const res = await client.sendIgnoringError(`DELE ${tempTarget}`);
-        if (res && res.code && res.code >= 200 && res.code < 300) {
-          console.log(`[Probe] Successfully deleted stranded file: ${tempTarget}`);
-          deletedCount++;
-        }
-      } catch {
-        // Ignore errors
-      }
-    }
-
-    console.log(`FTP pre-clean finished. Total stranded temporary files deleted: ${deletedCount}`);
-  } catch (err) {
-    console.log('FTP pre-clean notice (continuing to deployment):', err.message);
-  } finally {
-    try {
-      client.close();
-    } catch {}
-    process.exit(0);
+  function sendLine(line) {
+    socket.write(line + '\r\n');
   }
+
+  function handleResponse(code, text) {
+    if (state === 'CONNECTING') {
+      if (code === 220) {
+        state = 'USER';
+        sendLine(`USER ${user}`);
+      }
+    } else if (state === 'USER') {
+      if (code === 331) {
+        state = 'PASS';
+        sendLine(`PASS ${pass}`);
+      } else if (code === 230) {
+        state = 'DELE';
+        sendNextDele();
+      }
+    } else if (state === 'PASS') {
+      if (code === 230) {
+        console.log('FTP pre-clean: Authenticated successfully. Beginning DELE sweep...');
+        state = 'DELE';
+        sendNextDele();
+      } else {
+        console.log(`FTP pre-clean auth notice: ${code} ${text}`);
+        socket.destroy();
+      }
+    } else if (state === 'DELE') {
+      if (code === 250) {
+        const lastTarget = targets[targetIndex - 1];
+        console.log(`[DELE SUCCESS] Removed stranded file: ${lastTarget}`);
+        deletedCount++;
+      }
+      sendNextDele();
+    } else if (state === 'QUIT') {
+      socket.end();
+    }
+  }
+
+  function sendNextDele() {
+    if (targetIndex < targets.length) {
+      const target = targets[targetIndex++];
+      sendLine(`DELE ${target}`);
+    } else {
+      console.log(`FTP pre-clean complete. Total stranded temporary files removed: ${deletedCount}`);
+      state = 'QUIT';
+      sendLine('QUIT');
+    }
+  }
+
+  socket.on('data', (chunk) => {
+    buffer += chunk;
+    const lines = buffer.split('\r\n');
+    buffer = lines.pop();
+
+    for (const line of lines) {
+      if (!line) continue;
+      const match = line.match(/^(\d{3})\s(.*)$/);
+      if (match) {
+        const code = parseInt(match[1], 10);
+        const text = match[2];
+        handleResponse(code, text);
+      }
+    }
+  });
+
+  socket.on('error', (err) => {
+    console.log('FTP pre-clean socket error (continuing anyway):', err.message);
+  });
+
+  socket.on('timeout', () => {
+    console.log('FTP pre-clean socket timeout, closing socket.');
+    socket.destroy();
+  });
+
+  socket.on('close', () => {
+    console.log('FTP pre-clean finished.');
+    process.exit(0);
+  });
 }
 
 cleanFtpTempFiles();
