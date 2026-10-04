@@ -38,6 +38,13 @@ jobs:
       - name: Audit dependencies
         run: npm audit --omit=dev --audit-level=high
 
+      - name: Clean stranded FTP temporary files
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: node scripts/cleanup-ftp-temp.js || true
+
       - name: FTP Deployment
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
