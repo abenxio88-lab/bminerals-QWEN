@@ -4,7 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const ignoredDirectories = new Set(['.git', 'node_modules', 'graphify-out', 'backups', '_backups']);
+const ignoredDirectories = new Set(['.git', 'node_modules', 'graphify-out', 'backups', '_backups', 'backup-BM']);
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
 const normalizedHash = (file) => crypto
   .createHash('sha256')

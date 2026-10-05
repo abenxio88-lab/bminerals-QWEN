@@ -66,7 +66,7 @@ assert(main.includes('<div class="stone-lightbox__stage">') && main.indexOf('<bu
 assert(stones.includes('<div class="stone-lightbox__stage">') && stones.indexOf('<button class="stone-lightbox__close"') > stones.indexOf('<div class="stone-lightbox__stage">'), 'Stone gallery X must live inside the picture stage.');
 
 function listHtmlFiles(directory) {
-  const excludedDirectories = new Set(['.git', 'graphify-out', 'node_modules', 'backups', '_backups']);
+  const excludedDirectories = new Set(['.git', 'graphify-out', 'node_modules', 'backups', '_backups', 'backup-BM']);
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
     if (entry.isDirectory() && excludedDirectories.has(entry.name)) return [];
     const fullPath = path.join(directory, entry.name);

@@ -22,7 +22,7 @@ if (result.css !== committedOutput) {
 }
 
 function listHtmlFiles(directory) {
-  const excludedDirectories = new Set(['.git', 'graphify-out', 'node_modules']);
+  const excludedDirectories = new Set(['.git', 'graphify-out', 'node_modules', 'backup-BM', 'backups', '_backups']);
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
     if (entry.isDirectory() && excludedDirectories.has(entry.name)) return [];
     const fullPath = path.join(directory, entry.name);

@@ -8,6 +8,7 @@ const IGNORE_DIRS = new Set([
   "node_modules",
   "backups",
   "_backups",
+  "backup-BM",
   "graphify-out",
 ]);
 

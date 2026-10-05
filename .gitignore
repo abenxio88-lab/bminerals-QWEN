@@ -43,6 +43,8 @@ coverage.xml
 
 # Repo-local generated artifacts (do not commit)
 backups/
+_backups/
+backup-BM/
 graphify-out/
 
 # AI Workspaces & Browser Verification Caches

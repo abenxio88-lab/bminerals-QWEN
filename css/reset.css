@@ -36,6 +36,25 @@ html::-webkit-scrollbar-thumb:hover {
   background: var(--primary-gold-600);
 }
 
+/* Mobile & touch devices: suppress custom scrollbar to prevent visual overlap with fixed navbar */
+@media (max-width: 768px), (hover: none), (pointer: coarse) {
+  html,
+  body {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar,
+  html::-webkit-scrollbar-thumb,
+  body::-webkit-scrollbar-thumb {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+  }
+}
+
 body {
   overflow-x: hidden;
   font-family: var(--font-body);

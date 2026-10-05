@@ -3,7 +3,7 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 
 const root = process.cwd();
-const ignoredDirectories = new Set(['.git', 'node_modules', 'graphify-out', 'backups', '_backups']);
+const ignoredDirectories = new Set(['.git', 'node_modules', 'graphify-out', 'backups', '_backups', 'backup-BM']);
 
 function listJavaScriptFiles(directory) {
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
