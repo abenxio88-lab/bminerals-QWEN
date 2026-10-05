@@ -559,47 +559,116 @@ function createMediaModal() {
 
   modal.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') closeMediaModal();
-    if (event.key === 'ArrowLeft') showMediaItem(activeMediaIndex - 1);
-    if (event.key === 'ArrowRight') showMediaItem(activeMediaIndex + 1);
+    if (event.key === 'ArrowLeft') showMediaItem(activeMediaIndex - 1, -1);
+    if (event.key === 'ArrowRight') showMediaItem(activeMediaIndex + 1, 1);
   });
-  modal.querySelector('[data-media-prev]').addEventListener('click', () => showMediaItem(activeMediaIndex - 1));
-  modal.querySelector('[data-media-next]').addEventListener('click', () => showMediaItem(activeMediaIndex + 1));
+  modal.querySelector('[data-media-prev]').addEventListener('click', () => showMediaItem(activeMediaIndex - 1, -1));
+  modal.querySelector('[data-media-next]').addEventListener('click', () => showMediaItem(activeMediaIndex + 1, 1));
+
+  let touchStartX = 0;
+  let touchStartY = 0;
+  const stage = modal.querySelector('.mineral-media-modal__stage');
+
+  stage.addEventListener('touchstart', (event) => {
+    if (event.touches.length === 1) {
+      touchStartX = event.touches[0].clientX;
+      touchStartY = event.touches[0].clientY;
+    }
+  }, { passive: true });
+
+  stage.addEventListener('touchend', (event) => {
+    if (event.changedTouches.length === 1) {
+      const deltaX = event.changedTouches[0].clientX - touchStartX;
+      const deltaY = event.changedTouches[0].clientY - touchStartY;
+      if (Math.abs(deltaX) > 42 && Math.abs(deltaX) > Math.abs(deltaY) * 1.5) {
+        if (deltaX < 0) {
+          showMediaItem(activeMediaIndex + 1, 1);
+        } else {
+          showMediaItem(activeMediaIndex - 1, -1);
+        }
+      }
+    }
+  }, { passive: true });
 
   document.body.appendChild(modal);
   return modal;
 }
 
-function showMediaItem(index) {
-  if (!mediaModal || !activeMediaItems.length) return;
+let isMediaTransitioning = false;
+let mediaTransitionTimer = null;
 
-  activeMediaIndex = (index + activeMediaItems.length) % activeMediaItems.length;
-  const item = activeMediaItems[activeMediaIndex];
+function showMediaItem(index, direction = 0) {
+  if (!mediaModal || !activeMediaItems.length) return;
+  if (isMediaTransitioning) return;
+
+  const targetIndex = (index + activeMediaItems.length) % activeMediaItems.length;
+  if (direction !== 0 && targetIndex === activeMediaIndex) return;
+
+  const item = activeMediaItems[targetIndex];
   const imageElement = mediaModal.querySelector('[data-media-image]');
   const videoElement = mediaModal.querySelector('[data-media-video]');
   const isVideo = item.type === 'video';
 
-  videoElement.pause();
-  imageElement.hidden = isVideo;
-  videoElement.hidden = !isVideo;
-
-  if (isVideo) {
-    if (videoElement.getAttribute('src') !== item.src) {
-      videoElement.src = item.src;
-      videoElement.load();
+  const updateContent = () => {
+    activeMediaIndex = targetIndex;
+    videoElement.pause();
+    try {
+      videoElement.currentTime = 0;
+    } catch {
+      // Safe guard
     }
-  } else {
-    imageElement.src = item.src;
-    imageElement.alt = `${item.title} media preview`;
+
+    imageElement.hidden = isVideo;
+    videoElement.hidden = !isVideo;
+
+    if (isVideo) {
+      if (videoElement.getAttribute('src') !== item.src) {
+        videoElement.src = item.src;
+        videoElement.load();
+      }
+    } else {
+      imageElement.src = item.src;
+      imageElement.alt = `${item.title} media preview`;
+    }
+
+    mediaModal.querySelector('[data-media-title]').textContent = item.title;
+    mediaModal.querySelector('[data-media-description]').textContent = item.description;
+    mediaModal.querySelector('[data-media-count]').textContent =
+      `${String(activeMediaIndex + 1).padStart(2, '0')} / ${String(activeMediaItems.length).padStart(2, '0')}`;
+
+    const hasMultipleItems = activeMediaItems.length > 1;
+    mediaModal.querySelector('[data-media-prev]').hidden = !hasMultipleItems;
+    mediaModal.querySelector('[data-media-next]').hidden = !hasMultipleItems;
+  };
+
+  if (direction === 0) {
+    updateContent();
+    return;
   }
 
-  mediaModal.querySelector('[data-media-title]').textContent = item.title;
-  mediaModal.querySelector('[data-media-description]').textContent = item.description;
-  mediaModal.querySelector('[data-media-count]').textContent =
-    `${String(activeMediaIndex + 1).padStart(2, '0')} / ${String(activeMediaItems.length).padStart(2, '0')}`;
+  isMediaTransitioning = true;
+  if (mediaTransitionTimer) clearTimeout(mediaTransitionTimer);
 
-  const hasMultipleItems = activeMediaItems.length > 1;
-  mediaModal.querySelector('[data-media-prev]').hidden = !hasMultipleItems;
-  mediaModal.querySelector('[data-media-next]').hidden = !hasMultipleItems;
+  const isNext = direction > 0;
+  const exitClass = isNext ? 'is-transitioning-next' : 'is-transitioning-prev';
+  const enterClass = isNext ? 'is-entering-next' : 'is-entering-prev';
+
+  mediaModal.classList.add(exitClass);
+
+  mediaTransitionTimer = setTimeout(() => {
+    updateContent();
+
+    mediaModal.classList.remove(exitClass);
+    mediaModal.classList.add(enterClass);
+
+    void mediaModal.offsetWidth;
+
+    mediaModal.classList.remove(enterClass);
+
+    mediaTransitionTimer = setTimeout(() => {
+      isMediaTransitioning = false;
+    }, 240);
+  }, 140);
 }
 
 function openMediaModal({
@@ -615,12 +684,20 @@ function openMediaModal({
 
   activeMediaItems = items;
   activeMediaIndex = 0;
+
+  activeMediaItems.forEach((it) => {
+    if (it.type === 'image' && it.src) {
+      const preloadImg = new Image();
+      preloadImg.src = it.src;
+    }
+  });
+
   mediaModal.classList.toggle('mineral-media-modal--image-viewer', imageOnly);
   mediaModal.querySelector('.mineral-media-modal__meta span:first-child').textContent =
     imageOnly ? 'Product Image' : 'Media Gallery';
   mediaModal.querySelector('[data-media-section]').href = href || 'products.html';
   mediaModal.setAttribute('aria-label', `${title} media gallery`);
-  showMediaItem(0);
+  showMediaItem(0, 0);
 
   mediaModalGuard.open({
     modal: mediaModal,
@@ -632,6 +709,15 @@ function openMediaModal({
 
 function closeMediaModal() {
   if (!mediaModal?.classList.contains('is-open')) return;
+
+  if (mediaTransitionTimer) clearTimeout(mediaTransitionTimer);
+  isMediaTransitioning = false;
+  mediaModal.classList.remove(
+    'is-transitioning-next',
+    'is-transitioning-prev',
+    'is-entering-next',
+    'is-entering-prev'
+  );
 
   mediaModal.querySelector('[data-media-video]')?.pause();
   mediaModalGuard.close({ modal: mediaModal });

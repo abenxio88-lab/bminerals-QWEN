@@ -4411,6 +4411,62 @@ body.is-stone-lightbox-open {
   object-fit: contain;
   background: rgba(7, 15, 24, 0.88);
   box-shadow: 0 30px 70px rgba(3, 8, 15, 0.36);
+  transition: opacity 0.24s cubic-bezier(0.25, 1, 0.5, 1), transform 0.24s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity, transform;
+}
+
+.stone-lightbox__footer {
+  transition: opacity 0.2s cubic-bezier(0.25, 1, 0.5, 1), transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity, transform;
+}
+
+/* Stone Lightbox Smooth Transitions */
+.stone-lightbox.is-transitioning-next .stone-lightbox__image {
+  opacity: 0;
+  transform: translateX(-24px) scale(0.985);
+}
+
+.stone-lightbox.is-transitioning-prev .stone-lightbox__image {
+  opacity: 0;
+  transform: translateX(24px) scale(0.985);
+}
+
+.stone-lightbox.is-entering-next .stone-lightbox__image {
+  opacity: 0;
+  transform: translateX(24px) scale(0.985);
+  transition: none !important;
+}
+
+.stone-lightbox.is-entering-prev .stone-lightbox__image {
+  opacity: 0;
+  transform: translateX(-24px) scale(0.985);
+  transition: none !important;
+}
+
+.stone-lightbox.is-transitioning-next .stone-lightbox__footer,
+.stone-lightbox.is-transitioning-prev .stone-lightbox__footer {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+.stone-lightbox.is-entering-next .stone-lightbox__footer,
+.stone-lightbox.is-entering-prev .stone-lightbox__footer {
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stone-lightbox.is-transitioning-next .stone-lightbox__image,
+  .stone-lightbox.is-transitioning-prev .stone-lightbox__image,
+  .stone-lightbox.is-entering-next .stone-lightbox__image,
+  .stone-lightbox.is-entering-prev .stone-lightbox__image,
+  .stone-lightbox.is-transitioning-next .stone-lightbox__footer,
+  .stone-lightbox.is-transitioning-prev .stone-lightbox__footer,
+  .stone-lightbox.is-entering-next .stone-lightbox__footer,
+  .stone-lightbox.is-entering-prev .stone-lightbox__footer {
+    transform: none !important;
+  }
 }
 
 .stone-lightbox__close,

@@ -43,8 +43,8 @@ import { createImageModalGuard } from './image-modal-guard.js?v=20260713';
         event.stopPropagation();
         closeModal();
       }
-      if (event.target.closest('[data-stone-lightbox-prev]')) showModalImage(activeIndex - 1);
-      if (event.target.closest('[data-stone-lightbox-next]')) showModalImage(activeIndex + 1);
+      if (event.target.closest('[data-stone-lightbox-prev]')) showModalImage(activeIndex - 1, -1);
+      if (event.target.closest('[data-stone-lightbox-next]')) showModalImage(activeIndex + 1, 1);
     });
 
     element.querySelector('.stone-lightbox__backdrop').addEventListener('pointerup', (event) => {
@@ -62,29 +62,66 @@ import { createImageModalGuard } from './image-modal-guard.js?v=20260713';
 
     element.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') closeModal();
-      if (event.key === 'ArrowLeft') showModalImage(activeIndex - 1);
-      if (event.key === 'ArrowRight') showModalImage(activeIndex + 1);
+      if (event.key === 'ArrowLeft') showModalImage(activeIndex - 1, -1);
+      if (event.key === 'ArrowRight') showModalImage(activeIndex + 1, 1);
     });
 
     document.body.appendChild(element);
     return element;
   };
 
-  const showModalImage = (index) => {
+  let isTransitioning = false;
+  let transitionTimer = null;
+
+  const showModalImage = (index, direction = 0) => {
     if (!modal || !activeItems.length) return;
+    if (isTransitioning) return;
 
-    activeIndex = (index + activeItems.length) % activeItems.length;
+    const targetIndex = (index + activeItems.length) % activeItems.length;
+    if (direction !== 0 && targetIndex === activeIndex) return;
 
-    const item = activeItems[activeIndex];
+    const item = activeItems[targetIndex];
     const image = modal.querySelector('[data-stone-lightbox-image]');
     const count = modal.querySelector('[data-stone-lightbox-count]');
     const hasMultiple = activeItems.length > 1;
 
-    image.src = item.src;
-    image.alt = item.alt;
-    count.textContent = `${activeIndex + 1} / ${activeItems.length}`;
-    modal.querySelector('[data-stone-lightbox-prev]').hidden = !hasMultiple;
-    modal.querySelector('[data-stone-lightbox-next]').hidden = !hasMultiple;
+    const updateContent = () => {
+      activeIndex = targetIndex;
+      image.src = item.src;
+      image.alt = item.alt;
+      count.textContent = `${activeIndex + 1} / ${activeItems.length}`;
+      modal.querySelector('[data-stone-lightbox-prev]').hidden = !hasMultiple;
+      modal.querySelector('[data-stone-lightbox-next]').hidden = !hasMultiple;
+    };
+
+    if (direction === 0) {
+      updateContent();
+      return;
+    }
+
+    isTransitioning = true;
+    if (transitionTimer) clearTimeout(transitionTimer);
+
+    const isNext = direction > 0;
+    const exitClass = isNext ? 'is-transitioning-next' : 'is-transitioning-prev';
+    const enterClass = isNext ? 'is-entering-next' : 'is-entering-prev';
+
+    modal.classList.add(exitClass);
+
+    transitionTimer = setTimeout(() => {
+      updateContent();
+
+      modal.classList.remove(exitClass);
+      modal.classList.add(enterClass);
+
+      void modal.offsetWidth;
+
+      modal.classList.remove(enterClass);
+
+      transitionTimer = setTimeout(() => {
+        isTransitioning = false;
+      }, 240);
+    }, 140);
   };
 
   const openModal = ({ title, items, index, trigger, restoreFocus = false }) => {
@@ -94,8 +131,15 @@ import { createImageModalGuard } from './image-modal-guard.js?v=20260713';
     activeItems = items;
     activeIndex = index;
 
+    activeItems.forEach((it) => {
+      if (it.src) {
+        const preloadImg = new Image();
+        preloadImg.src = it.src;
+      }
+    });
+
     modal.querySelector('[data-stone-lightbox-title]').textContent = title || 'Stone gallery';
-    showModalImage(activeIndex);
+    showModalImage(activeIndex, 0);
 
     lightboxGuard.open({
       modal,
@@ -107,6 +151,14 @@ import { createImageModalGuard } from './image-modal-guard.js?v=20260713';
 
   const closeModal = () => {
     if (!modal?.classList.contains('is-open')) return;
+    if (transitionTimer) clearTimeout(transitionTimer);
+    isTransitioning = false;
+    modal.classList.remove(
+      'is-transitioning-next',
+      'is-transitioning-prev',
+      'is-entering-next',
+      'is-entering-prev'
+    );
     lightboxGuard.close({ modal });
   };
 
