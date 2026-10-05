@@ -54,7 +54,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /
-          timeout: 180000
+          timeout: 600000
           log-level: standard
           exclude: |
             **/.git/**
@@ -95,7 +95,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /
-          timeout: 180000
+          timeout: 600000
           log-level: standard
           exclude: |
             **/.git/**
@@ -134,7 +134,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /
-          timeout: 180000
+          timeout: 600000
           log-level: standard
           exclude: |
             **/.git/**

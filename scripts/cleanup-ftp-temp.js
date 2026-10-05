@@ -2,20 +2,65 @@ import fs from 'node:fs';
 import path from 'node:path';
 import net from 'node:net';
 
+const excludedDirs = new Set([
+  '.git',
+  '.github',
+  '.vscode',
+  'node_modules',
+  'graphify-out',
+  'scripts',
+  'src',
+  'backups',
+  '_backups',
+  'backup-BM',
+  'B Minerals',
+  '?Originals?'
+]);
+
+const excludedFiles = new Set([
+  'package.json',
+  'package-lock.json',
+  'postcss.config.js',
+  'tailwind.config.js',
+  '.lighthouserc.json',
+  'production-audit-plan.txt',
+  'update-navbar.js',
+  'update-navbar.ps1'
+]);
+
 function getTargets(dir, baseDir = '') {
-  let list = [];
-  for (const f of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (['.git', 'node_modules', '.github', '.vscode', 'graphify-out', 'src'].includes(f.name)) continue;
-    const rel = path.join(baseDir, f.name).split(path.sep).join('/');
-    if (f.isDirectory()) {
-      list = list.concat(getTargets(path.join(dir, f.name), rel));
-    } else if (/\.(html|css|js)$/i.test(f.name)) {
-      const d = path.posix.dirname(rel);
-      const b = path.posix.basename(rel);
-      list.push(d === '.' ? `/.in.${b}.` : `/${d}/.in.${b}.`);
+  const entries = [];
+
+  function collect(currentDir, relDir = '') {
+    for (const f of fs.readdirSync(currentDir, { withFileTypes: true })) {
+      if (excludedDirs.has(f.name)) continue;
+      const rel = path.join(relDir, f.name).split(path.sep).join('/');
+      const fullPath = path.join(currentDir, f.name);
+      if (f.isDirectory()) {
+        collect(fullPath, rel);
+      } else {
+        if (f.name.endsWith('.md')) continue;
+        if (excludedFiles.has(f.name)) continue;
+        if (relDir === '' && f.name.endsWith('.png')) continue;
+
+        const d = path.posix.dirname(rel);
+        const b = path.posix.basename(rel);
+        const target = d === '.' ? `/.in.${b}.` : `/${d}/.in.${b}.`;
+
+        let mtime = 0;
+        try {
+          mtime = fs.statSync(fullPath).mtimeMs;
+        } catch {
+          // ignore stat errors
+        }
+        entries.push({ target, mtime });
+      }
     }
   }
-  return list;
+
+  collect(dir);
+  entries.sort((a, b) => b.mtime - a.mtime);
+  return entries.map(e => e.target);
 }
 
 function cleanFtpTempFiles() {
@@ -33,7 +78,7 @@ function cleanFtpTempFiles() {
 
   const socket = net.createConnection(21, host);
   socket.setEncoding('utf8');
-  socket.setTimeout(45000);
+  socket.setTimeout(60000);
 
   let state = 'CONNECTING';
   let targetIndex = 0;
@@ -97,10 +142,10 @@ function cleanFtpTempFiles() {
 
     for (const line of lines) {
       if (!line) continue;
-      const match = line.match(/^(\d{3})\s(.*)$/);
+      const match = line.match(/^(\d{3})(?:\s+(.*))?$/);
       if (match) {
         const code = parseInt(match[1], 10);
-        const text = match[2];
+        const text = match[2] || '';
         handleResponse(code, text);
       }
     }
