@@ -208,15 +208,6 @@
   z-index: 0;
 }
 
-.metric-strip__media::after,
-.stats-section__editorial-media::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to right, #FFFFFF 0%, rgba(255, 255, 255, 0.96) 50%, rgba(255, 255, 255, 0.3) 78%, transparent 100%);
-  pointer-events: none;
-}
-
 .metric-strip__image,
 .stats-section__editorial-image {
   position: absolute;

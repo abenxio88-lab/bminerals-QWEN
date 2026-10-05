@@ -110,7 +110,6 @@
   margin-bottom: 1.25rem;
   text-transform: uppercase;
   letter-spacing: 0.02em;
-  max-width: 60%;
 }
 
 .about__story-text {
@@ -118,7 +117,6 @@
   color: var(--text-secondary);
   line-height: 1.8;
   margin-bottom: 2.5rem;
-  max-width: 60%;
 }
 
 .about__story-text:not(:last-of-type) {
@@ -127,10 +125,9 @@
 
 .about__story-stats {
   display: flex;
-  gap: 2.5rem;
+  gap: 3rem;
   padding-top: 2rem;
   border-top: 1px solid var(--border-light);
-  max-width: 64%;
 }
 
 .about__story-stat {
@@ -197,14 +194,12 @@
   margin-bottom: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.02em;
-  max-width: 60%;
 }
 
 .about__mv-card-text {
   font-size: var(--text-sm);
   color: var(--text-secondary);
   line-height: 1.8;
-  max-width: 60%;
 }
 
 /* Card media containers & images */
@@ -218,35 +213,26 @@
   z-index: 0;
 }
 
-.about__story-media::after,
-.about__mv-card-media::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to right, #FFFFFF 0%, rgba(255, 255, 255, 0.96) 52%, rgba(255, 255, 255, 0.25) 78%, transparent 100%);
-  pointer-events: none;
-}
-
 .about__story-image,
 .about__mv-card-image {
   position: absolute;
   right: 0;
   top: 0;
   bottom: 0;
-  width: 44%;
+  width: 48%;
   max-width: 320px;
   height: 100%;
   object-fit: cover;
   object-position: center right;
-  opacity: 0.72;
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.25) 30%, rgba(0, 0, 0, 0.9) 85%);
-  mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.25) 30%, rgba(0, 0, 0, 0.9) 85%);
+  opacity: 0.82;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 30%, rgba(0, 0, 0, 0.95) 85%);
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 30%, rgba(0, 0, 0, 0.95) 85%);
   transition: opacity 0.4s var(--ease-smooth), transform 0.5s var(--ease-smooth);
 }
 
 .about__story-card:hover .about__story-image,
 .about__mv-card:hover .about__mv-card-image {
-  opacity: 0.88;
+  opacity: 0.95;
   transform: scale(1.03);
 }
 
@@ -518,24 +504,11 @@
     align-items: center;
   }
 
-  .about__story-title,
-  .about__story-text,
-  .about__story-stats,
-  .about__mv-card-title,
-  .about__mv-card-text {
-    max-width: 100%;
-  }
-
   .about__story-image,
   .about__mv-card-image {
     width: 44%;
-    opacity: 0.22;
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.85) 100%);
-    mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.85) 100%);
-  }
-
-  .about__story-media::after,
-  .about__mv-card-media::after {
-    background: linear-gradient(to right, #FFFFFF 25%, rgba(255, 255, 255, 0.9) 70%, transparent 100%);
+    opacity: 0.45;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+    mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
   }
 }
