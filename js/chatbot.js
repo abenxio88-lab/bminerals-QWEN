@@ -162,14 +162,17 @@ class BMChatbot {
             </div>
           </div>
           <div class="bm-chat-header__actions">
+            <a href="https://wa.me/923348888104?text=Hello%20Balochistan%20Minerals%2C%20I%20would%20like%20to%20discuss%20mineral%20sourcing%20and%20export%20availability."
+               target="_blank" rel="noopener noreferrer"
+               class="bm-chat-btn-icon bm-chat-btn-whatsapp"
+               title="Chat on WhatsApp" aria-label="Chat on WhatsApp">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
+                <path d="M20.52 3.49A11.86 11.86 0 0 0 12.06 0C5.48 0 .13 5.35.13 11.93c0 2.1.55 4.15 1.59 5.96L0 24l6.29-1.65a11.9 11.9 0 0 0 5.77 1.47h.01c6.58 0 11.93-5.35 11.93-11.93 0-3.19-1.24-6.19-3.48-8.4Zm-8.46 18.31h-.01a9.9 9.9 0 0 1-5.05-1.38l-.36-.21-3.73.98 1-3.64-.24-.37a9.88 9.88 0 0 1-1.52-5.24C2.15 6.48 6.61 2.02 12.07 2.02c2.64 0 5.11 1.03 6.98 2.9a9.8 9.8 0 0 1 2.89 6.98c0 5.46-4.45 9.9-9.88 9.9Zm5.43-7.42c-.3-.15-1.77-.87-2.05-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.48-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.08-.79.37-.27.3-1.04 1.02-1.04 2.49 0 1.47 1.07 2.9 1.22 3.1.15.2 2.1 3.21 5.09 4.5.71.31 1.27.49 1.7.63.72.23 1.37.2 1.89.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.29.17-1.42-.07-.12-.27-.2-.57-.35Z"/>
+              </svg>
+            </a>
             <button type="button" class="bm-chat-btn-icon bm-chat-btn-reset" title="Restart conversation" aria-label="Reset conversation">
               <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M3 12a9 9 0 0 1 15-6.7L21 8M21 3v5h-5M21 12a9 9 0 0 1-15 6.7L3 16M3 21v-5h5"></path>
-              </svg>
-            </button>
-            <button type="button" class="bm-chat-btn-icon bm-chat-btn-minimize" title="Minimize" aria-label="Minimize chat">
-              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
               </svg>
             </button>
             <button type="button" class="bm-chat-btn-icon bm-chat-btn-close" title="Close" aria-label="Close chat">
@@ -213,6 +216,7 @@ class BMChatbot {
     this.input = root.querySelector('.bm-chat-input');
     this.sendBtn = root.querySelector('.bm-chat-send');
     this.form = root.querySelector('.bm-chat-form');
+    this.whatsappBtn = root.querySelector('.bm-chat-btn-whatsapp');
   }
 
   bindEvents() {
@@ -220,13 +224,22 @@ class BMChatbot {
 
     if (this.overlay) {
       this.overlay.addEventListener('click', () => this.close());
+      this.overlay.addEventListener('wheel', (e) => e.preventDefault(), { passive: false });
     }
 
     const closeBtn = this.container.querySelector('.bm-chat-btn-close');
     closeBtn.addEventListener('click', () => this.close());
 
     const minimizeBtn = this.container.querySelector('.bm-chat-btn-minimize');
-    minimizeBtn.addEventListener('click', () => this.toggleMinimize());
+    if (minimizeBtn) {
+      minimizeBtn.addEventListener('click', () => this.toggleMinimize());
+    }
+
+    if (this.whatsappBtn) {
+      this.whatsappBtn.addEventListener('animationend', () => {
+        this.whatsappBtn.classList.remove('is-blinking');
+      });
+    }
 
     const resetBtn = this.container.querySelector('.bm-chat-btn-reset');
     resetBtn.addEventListener('click', () => this.resetConversation());
@@ -352,9 +365,11 @@ class BMChatbot {
     // 1. Store scroll position before locking
     this.savedScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
 
-    // 2. Set architectural lock attributes on html and body
-    document.documentElement.setAttribute('data-assistant-open', 'true');
-    document.body.setAttribute('data-assistant-open', 'true');
+    // 2. Set architectural lock attributes on html and body (mobile only)
+    if (window.innerWidth <= 768) {
+      document.documentElement.setAttribute('data-assistant-open', 'true');
+      document.body.setAttribute('data-assistant-open', 'true');
+    }
     document.body.classList.add('bm-chat-open');
 
     // 3. Pause Lenis smooth scrolling to eliminate background touch physics
@@ -374,6 +389,13 @@ class BMChatbot {
       window.tactileFeedback('light');
     }
 
+    // 6. Blink WhatsApp icon twice with green highlight
+    if (this.whatsappBtn) {
+      this.whatsappBtn.classList.remove('is-blinking');
+      void this.whatsappBtn.offsetWidth;
+      this.whatsappBtn.classList.add('is-blinking');
+    }
+
     // Focus input on desktop; on touch devices avoid auto-triggering keyboard immediately on open
     setTimeout(() => {
       if (window.innerWidth > 768) {
@@ -384,6 +406,11 @@ class BMChatbot {
 
   close() {
     this.isOpen = false;
+
+    // Reset WhatsApp icon blinking animation if closed mid-animation
+    if (this.whatsappBtn) {
+      this.whatsappBtn.classList.remove('is-blinking');
+    }
 
     // 1. Remove architectural lock attributes
     document.documentElement.removeAttribute('data-assistant-open');

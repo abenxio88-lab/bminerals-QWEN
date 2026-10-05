@@ -27,11 +27,11 @@ const detailDropdownMenus = {
     { title: 'Dilband', detail: 'Iron ore steel feedstock', url: 'projects.html#dilband', code: 'Fe', group: 'Metallic' },
     { title: 'Chagai', detail: 'Copper-gold exploration', url: 'projects.html#chagai', code: 'Cu', group: 'Metallic' },
     { title: 'Washuk-Zhob', detail: 'Antimony specialty metal', url: 'projects.html#antimony', code: 'Sb', group: 'Metallic' },
-    { title: 'Khuzdar Barite', detail: 'Industrial barite processing', url: 'projects.html#industrial-barite', code: 'Ba', group: 'Industrial' },
+    { title: 'Khuzdar Barite', detail: 'Industrial Barite mining', url: 'projects.html#industrial-barite', code: 'Ba', group: 'Industrial' },
     { title: 'Fluorspar', detail: 'Metallurgical and ceramic feed', url: 'projects.html#industrial-fluorspar', code: 'Ca', group: 'Industrial' },
     { title: 'Gypsum', detail: 'Cement and plaster markets', url: 'projects.html#industrial-gypsum', code: 'Gy', group: 'Industrial' },
     { title: 'Magnesite', detail: 'Refractory minerals', url: 'projects.html#industrial-magnesite', code: 'Mg', group: 'Industrial' },
-    { title: 'Phosphate Rock', detail: 'Fertilizer and chemical feed', url: 'projects.html#industrial-phosphate-rock', code: 'P', group: 'Industrial' },
+    { title: 'Phosphate Rock', detail: 'Fertilizer and Chemical', url: 'projects.html#industrial-phosphate-rock', code: 'P', group: 'Industrial' },
     { title: 'Bauxite', detail: 'Refractory and alumina buyers', url: 'projects.html#industrial-bauxite', code: 'Al', group: 'Industrial' },
     { title: 'Marble', detail: 'Blocks, slabs and tiles', url: 'projects.html#stone-marble', code: 'Mr', group: 'Stone' },
     { title: 'White Marble', detail: 'Premium block selection', url: 'projects.html#stone-white-marble', code: 'Wm', group: 'Stone' },
@@ -454,6 +454,7 @@ export function initNavbar() {
 
       mobileMenu.querySelectorAll('.navbar__dropdown-menu.open').forEach(menu => {
         menu.classList.remove('open');
+        if (menu.scrollTop !== 0) menu.scrollTop = 0;
       });
     };
 

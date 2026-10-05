@@ -11,7 +11,7 @@ html {
   scroll-padding-top: calc(var(--navbar-height) + 1.5rem);
   -webkit-text-size-adjust: 100%;
   scrollbar-width: thin;
-  scrollbar-color: rgba(148, 163, 184, 0.4) transparent;
+  scrollbar-color: var(--primary-gold-400) var(--bg-primary);
 }
 
 main [id] {
@@ -19,20 +19,21 @@ main [id] {
 }
 
 html::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 html::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--bg-primary);
 }
 
 html::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.4);
-  border-radius: 9999px;
+  background: var(--primary-gold-500);
+  border-radius: 0;
+  border: 2px solid var(--bg-primary);
 }
 
 html::-webkit-scrollbar-thumb:hover {
-  background: rgba(100, 116, 139, 0.65);
+  background: var(--primary-gold-600);
 }
 
 body {

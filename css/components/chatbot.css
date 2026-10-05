@@ -4,19 +4,19 @@
  */
 
 /* ==========================================================================
-   Document Lock when AI Assistant is open
+   Document Lock when AI Assistant is open (Mobile only)
    ========================================================================== */
-html[data-assistant-open='true'],
-body[data-assistant-open='true'] {
-  overflow: hidden !important;
-  height: 100% !important;
-  position: fixed !important;
-  width: 100% !important;
-  touch-action: none !important;
-  overscroll-behavior: none !important;
-}
-
 @media (max-width: 768px) {
+  html[data-assistant-open='true'],
+  body[data-assistant-open='true'] {
+    overflow: hidden !important;
+    height: 100% !important;
+    position: fixed !important;
+    width: 100% !important;
+    touch-action: none !important;
+    overscroll-behavior: none !important;
+  }
+
   /* Completely unpaint background page elements on mobile so nothing can bleed or scroll */
   body[data-assistant-open='true'] > :not(#bm-chatbot-root) {
     display: none !important;
@@ -321,12 +321,46 @@ body[data-assistant-open='true'] {
   padding: 0;
   transition: all 0.18s ease;
   outline: none;
+  text-decoration: none;
 }
 
 .bm-chat-btn-icon:hover {
   background: rgba(255, 255, 255, 0.14);
   color: #FFFFFF;
   border-color: rgba(255, 255, 255, 0.2);
+}
+
+.bm-chat-btn-icon.bm-chat-btn-whatsapp:hover {
+  background: rgba(37, 211, 102, 0.14);
+  color: #25D366;
+  border-color: rgba(37, 211, 102, 0.35);
+}
+
+.bm-chat-btn-icon.bm-chat-btn-whatsapp.is-blinking {
+  animation: bm-whatsapp-blink 0.9s ease-in-out 0.25s 2;
+}
+
+@keyframes bm-whatsapp-blink {
+  0%, 100% {
+    background: rgba(255, 255, 255, 0.05);
+    color: #94A3B8;
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: none;
+    transform: scale(1);
+  }
+  45%, 55% {
+    background: rgba(37, 211, 102, 0.25);
+    color: #25D366;
+    border-color: rgba(37, 211, 102, 0.65);
+    box-shadow: 0 0 12px rgba(37, 211, 102, 0.5), 0 0 3px rgba(37, 211, 102, 0.85);
+    transform: scale(1.1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bm-chat-btn-icon.bm-chat-btn-whatsapp.is-blinking {
+    animation: none;
+  }
 }
 
 .bm-chat-btn-icon:focus-visible {
