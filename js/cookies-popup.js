@@ -122,10 +122,12 @@
       // Commit the hidden state before revealing the dialog so the transition
       // remains smooth even when animation frames are throttled in a background tab.
       void popup.offsetHeight;
-      window.setTimeout(() => {
+      requestAnimationFrame(() => {
         popup.classList.add('bm-cookies-show');
+      });
+      window.setTimeout(() => {
         popup.querySelector('.bm-cookies-container')?.focus({ preventScroll: true });
-      }, 24);
+      }, 1150);
     }
 
     attachEventListeners() {

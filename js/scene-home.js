@@ -67,47 +67,17 @@ function initHomepageScroll() {
   return lenis;
 }
 
-function animateCounterValue(el, options = {}) {
-  if (!el || el.dataset.sceneCounted === 'true') return;
+function animateCounterValue(el) {
+  if (!el) return;
   const target = Number(el.getAttribute('data-target') || 0);
   const suffix = el.getAttribute('data-suffix') || '';
-  const delay = options.delay || 0;
-
-  el.dataset.sceneCounted = 'true';
-
-  if (!hasGsap || prefersReduced || options.skipAnimation) {
+  if (target) {
     el.textContent = `${target.toLocaleString()}${suffix}`;
-    return;
   }
-
-  gsap.fromTo(
-    el,
-    { innerText: 0 },
-    {
-      innerText: target,
-      delay,
-      duration: options.duration || 1.7,
-      snap: { innerText: 1 },
-      ease: 'power2.out',
-      onUpdate: () => {
-        const n = Math.round(Number(el.innerText));
-        el.textContent = `${n.toLocaleString()}${suffix}`;
-      },
-      onComplete: () => {
-        el.textContent = `${target.toLocaleString()}${suffix}`;
-      }
-    }
-  );
 }
 
 function initHeroSnapshotStats() {
-  document
-    .querySelectorAll('.hero__stats-panel .panel-stat__number[data-target]')
-    .forEach((el, index) => animateCounterValue(el, {
-      delay: 0.55 + index * 0.08,
-      duration: 1.45,
-      skipAnimation: mobileExtraMotion
-    }));
+  // Keep stat numbers static without counting animation
 }
 
 function initHeroScene() {
@@ -119,7 +89,7 @@ function initHeroScene() {
 function initDataFreshnessFade() {
   const banner = document.querySelector('.data-freshness');
   const hero = document.querySelector('.hero');
-  if (!banner || !hero || window.innerWidth <= 768) return;
+  if (!banner || !hero) return;
 
   let ticking = false;
 
@@ -269,26 +239,7 @@ function initStatsDashboard() {
   if (!section) return;
   window.__counterAnimationInitialized = true;
   window.__sceneHomeCounterManaged = true;
-
-  if (mobileExtraMotion) {
-    section.querySelectorAll('.metric-strip__number[data-target]').forEach((el) => {
-      animateCounterValue(el, { skipAnimation: true });
-    });
-    return;
-  }
-
-  if (hasGsap && !prefersReduced) {
-    ScrollTrigger.create({
-      trigger: section,
-      start: 'top center',
-      once: true,
-      onEnter: () => {
-        section.querySelectorAll('.metric-strip__number[data-target]').forEach(animateCounterValue);
-      }
-    });
-  } else {
-    section.querySelectorAll('.metric-strip__number[data-target]').forEach(animateCounterValue);
-  }
+  // Numbers remain static as requested
 }
 
 function initStatsEditorialOverlap() {

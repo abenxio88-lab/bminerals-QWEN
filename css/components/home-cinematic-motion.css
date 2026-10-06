@@ -1112,12 +1112,8 @@ body.homepage .stats-section .metric-strip__item.glass-bento:focus-within {
     z-index: 1 !important;
   }
 
-  body.homepage .stats-section .metric-strip__item,
-  body.homepage .stats-section .metric-strip__item::before,
-  body.homepage .stats-section .metric-strip__item.glass-bento,
-  body.homepage .stats-section .metric-strip__item.glass-bento:hover {
-    transition: none !important;
-    transform: none !important;
+  body.homepage .stats-section .metric-strip__item {
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
   }
 
   body.homepage .stats-section .border-beam {

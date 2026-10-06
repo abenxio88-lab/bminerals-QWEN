@@ -158,14 +158,14 @@
     const stylesheet = document.createElement('link');
     stylesheet.id = 'bm-cookie-styles';
     stylesheet.rel = 'stylesheet';
-    stylesheet.href = '/css/cookies-popup.css?v=ffb891aa41f5';
+    stylesheet.href = '/css/cookies-popup.css?v=e3d94bb4faa7';
     document.head.appendChild(stylesheet);
   }
 
   if (!document.getElementById('bm-cookie-popup-script')) {
     const popupScript = document.createElement('script');
     popupScript.id = 'bm-cookie-popup-script';
-    popupScript.src = '/js/cookies-popup.js?v=552832218bb3';
+    popupScript.src = '/js/cookies-popup.js?v=45ab67ddfdc1';
     popupScript.defer = true;
     document.head.appendChild(popupScript);
   }
