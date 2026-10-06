@@ -304,12 +304,54 @@
   padding: 2.5rem 2rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .b2b-card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-lg);
   border-color: var(--primary-gold-400);
+}
+
+.b2b-card > *:not(.b2b-card__media) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Vibrant media container inside B2B card */
+.b2b-card__media {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.b2b-card__image {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 52%;
+  max-height: 190px;
+  object-fit: cover;
+  object-position: center bottom;
+  opacity: 0.88;
+  filter: saturate(1.08) contrast(1.02);
+  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.94) 55%, rgba(0, 0, 0, 0.35) 85%, transparent 100%);
+  mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.94) 55%, rgba(0, 0, 0, 0.35) 85%, transparent 100%);
+  transition: opacity 0.4s var(--ease-smooth), transform 0.5s var(--ease-smooth);
+}
+
+@media (min-width: 769px) {
+  .b2b-card:hover .b2b-card__image {
+    opacity: 0.98;
+    transform: scale(1.05);
+  }
 }
 
 .b2b-card__icon {
@@ -346,18 +388,28 @@
 
 .b2b-card__features {
   list-style: none;
-  padding: 0;
+  padding: 0.65rem 0.85rem;
   margin: 0;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
 }
 
 .b2b-card__features li {
   font-size: 0.825rem;
   color: var(--text-secondary);
-  padding: 0.4rem 0;
-  border-top: 1px solid var(--border-light);
+  padding: 0.35rem 0;
+  border-top: 1px solid rgba(226, 232, 240, 0.7);
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.b2b-card__features li:first-child {
+  border-top: none;
 }
 
 .b2b-card__features li::before {
@@ -371,17 +423,29 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 1.5rem;
+  margin-top: 1.25rem;
+  padding: 0.45rem 1rem;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(212, 90, 21, 0.25);
+  border-radius: var(--radius-sm);
   font-family: var(--font-ui);
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--primary-gold-500);
   text-decoration: none;
-  transition: gap 0.3s ease;
+  width: fit-content;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+  transition: all 0.3s ease;
 }
 
 .b2b-card__cta:hover {
+  background: var(--primary-gold-500);
+  color: #ffffff;
+  border-color: var(--primary-gold-500);
   gap: 0.8rem;
+  box-shadow: 0 4px 14px rgba(212, 90, 21, 0.25);
 }
 
 
