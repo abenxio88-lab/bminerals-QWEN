@@ -1,8 +1,14 @@
-.lenis.lenis-smooth {
+html,
+body,
+.lenis,
+.lenis.lenis-smooth,
+.lenis-enhanced {
   scroll-behavior: auto !important;
 }
 
-.lenis.lenis-smooth [data-lenis-prevent] {
+.lenis.lenis-smooth [data-lenis-prevent],
+.lenis-enhanced [data-lenis-prevent],
+[data-lenis-prevent] {
   overscroll-behavior: contain;
 }
 

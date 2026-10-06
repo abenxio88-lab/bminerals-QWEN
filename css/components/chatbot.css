@@ -36,9 +36,10 @@
   gap: 10px;
   cursor: pointer;
   background: none;
-  border: none;
+  border: none !important;
+  box-shadow: none !important;
   padding: 0;
-  outline: none;
+  outline: none !important;
   font-family: var(--font-body, 'Poppins', sans-serif);
   transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.32s ease, visibility 0.32s;
   -webkit-tap-highlight-color: transparent;
@@ -61,6 +62,12 @@
 
 .bm-chat-launcher.is-visible:active {
   transform: translateY(1px) scale(0.98);
+}
+
+.bm-chat-launcher:focus,
+.bm-chat-launcher:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 /* Floating Prompt Pill (Appears 5s, disappears 15s smoothly) */
@@ -110,7 +117,7 @@
   border-radius: 50%;
   background: linear-gradient(135deg, #07101E 0%, #0F1F38 100%);
   border: 1.5px solid rgba(212, 175, 55, 0.4);
-  box-shadow: 0 10px 24px -4px rgba(10, 22, 40, 0.4), 0 0 14px rgba(212, 175, 55, 0.15);
+  box-shadow: 0 0 14px rgba(212, 175, 55, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -120,8 +127,14 @@
 
 .bm-chat-launcher:hover .bm-chat-launcher__btn {
   border-color: #D4AF37;
-  box-shadow: 0 12px 28px -4px rgba(10, 22, 40, 0.5), 0 0 20px rgba(212, 175, 55, 0.3);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.45);
   transform: scale(1.04);
+}
+
+.bm-chat-launcher__btn:focus,
+.bm-chat-launcher__btn:focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 18px rgba(212, 175, 55, 0.5) !important;
 }
 
 .bm-chat-launcher__icon {
@@ -1093,6 +1106,7 @@
   .bm-chat-launcher__btn {
     width: 48px;
     height: 48px;
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
   }
 
   .bm-chat-overlay {

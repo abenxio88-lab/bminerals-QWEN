@@ -158,7 +158,7 @@
     const stylesheet = document.createElement('link');
     stylesheet.id = 'bm-cookie-styles';
     stylesheet.rel = 'stylesheet';
-    stylesheet.href = '/css/cookies-popup.css?v=e3d94bb4faa7';
+    stylesheet.href = '/css/cookies-popup.css?v=3558791cc410';
     document.head.appendChild(stylesheet);
   }
 

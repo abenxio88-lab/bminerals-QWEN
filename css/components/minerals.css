@@ -380,6 +380,10 @@
     text-align: center;
   }
 
+  .showcase-stat__value {
+    font-size: 1.05rem;
+  }
+
   .mineral-showcase__title {
     font-size: var(--h2-size) !important;
   }
@@ -399,7 +403,7 @@
   }
 
   .showcase-stat__value {
-    font-size: 1.04rem;
+    font-size: 0.98rem;
   }
 
   .mineral-showcase__wide .mineral-showcase__image {

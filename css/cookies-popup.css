@@ -1,416 +1,833 @@
-/**
- * Cookies Popup Premium Styling
- * Super nice white background with professional design
- */
-
-html.bm-cookies-modal-open,
-body.bm-cookies-modal-open {
-  overflow: hidden;
-}
-
-#bm-cookies-popup {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  z-index: 9999;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  pointer-events: none;
-}
-
-#bm-cookies-popup.bm-cookies-show {
-  bottom: 0;
-  pointer-events: auto;
-}
-
-.bm-cookies-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.28);
-  backdrop-filter: blur(3px);
-  opacity: 0;
-  transition: opacity 0.65s ease;
-  pointer-events: none;
-}
-
-#bm-cookies-popup.bm-cookies-show .bm-cookies-overlay {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.bm-cookies-container {
-  position: relative;
-  width: 100%;
-  max-width: 450px;
-  margin: 0;
-  pointer-events: auto;
-  opacity: 0;
-  transform: translate3d(0, calc(100% + 28px), 0);
-  overscroll-behavior: contain;
-  touch-action: pan-y;
-  transition:
-    transform 1.05s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.75s ease;
-  will-change: transform, opacity;
-}
-
-.bm-cookies-container:focus,
-.bm-cookies-container:focus-visible {
-  outline: none;
-}
-
-#bm-cookies-popup.bm-cookies-show .bm-cookies-container {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-}
-
-.bm-cookies-content {
-  background: white;
-  border-radius: 0 !important;
-  margin: 1.5rem;
-  box-shadow: 0 28px 80px rgba(15, 23, 42, 0.18);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  max-height: 85vh;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  overscroll-behavior: contain;
-  touch-action: pan-y;
-}
-
-.bm-cookies-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-.bm-cookies-header h2 {
-  font-size: 1.05rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  color: #0f1f3a;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-}
-
-.bm-cookies-close {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #6b7280;
-  padding: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  border-radius: 0 !important;
-}
-
-.bm-cookies-close:hover {
-  background: rgba(0, 0, 0, 0.04);
-  color: #1f2937;
-}
-
-.bm-cookies-body {
-  padding: 1.5rem;
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
-  touch-action: pan-y;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(15, 31, 58, 0.24) transparent;
-}
-
-.bm-cookies-title {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #0f1f3a;
-  margin: 0 0 0.75rem 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-}
-
-.bm-cookies-description {
-  font-size: 0.9rem;
-  color: #6b7280;
-  line-height: 1.6;
-  margin: 0 0 1.5rem 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-}
-
-.bm-cookies-types {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.bm-cookie-type {
-  background: #f9fafb;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 0 !important;
-  padding: 1rem;
-  transition: all 0.3s ease;
-}
-
-.bm-cookie-type:hover {
-  background: #f3f4f6;
-  border-color: rgba(0, 0, 0, 0.08);
-}
-
-.bm-cookie-type-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  margin-bottom: 0.5rem;
-}
-
-.bm-cookie-type input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  margin-top: 0.2rem;
-  cursor: pointer;
-  accent-color: #CC5500;
-}
-
-.bm-cookie-type input[type="checkbox"]:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-.bm-cookie-type-header label {
-  cursor: pointer;
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.bm-cookie-type-header strong {
-  color: #1f2937;
-  font-size: 0.95rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-}
-
-.bm-cookie-type-badge {
-  display: inline-block;
-  background: rgba(204, 85, 0, 0.1);
-  color: #CC5500;
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0 !important;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.bm-cookie-type-description {
-  font-size: 0.85rem;
-  color: #9ca3af;
-  margin: 0;
-  line-height: 1.5;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-}
-
-.bm-cookies-legal {
-  font-size: 0.8rem;
-  color: #9ca3af;
-  margin: 0;
-  line-height: 1.5;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-}
-
-.bm-cookies-legal a {
-  color: #CC5500;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s ease;
-}
-
-.bm-cookies-legal a:hover {
-  color: #B8550D;
-  text-decoration: underline;
-}
-
-.bm-cookies-footer {
-  display: flex;
-  gap: 1rem;
-  padding: 1.5rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
-  background: #fafafa;
-  flex-wrap: wrap;
-}
-
-.bm-cookies-btn {
-  padding: 0.75rem 1.25rem;
-  border: none;
-  border-radius: 0 !important;
-  font-size: 0.88rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-  flex: 1;
-  min-width: 120px;
-}
-
-.bm-cookies-btn-primary {
-  background: linear-gradient(135deg, #D97536 0%, #CC5500 100%);
-  color: white;
-  box-shadow: 0 4px 12px rgba(204, 85, 0, 0.3);
-}
-
-.bm-cookies-btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(204, 85, 0, 0.4);
-  background: linear-gradient(135deg, #CC5500 0%, #B8550D 100%);
-}
-
-.bm-cookies-btn-primary:active {
-  transform: translateY(0);
-}
-
-.bm-cookies-btn-secondary {
-  background: white;
-  color: #1f2937;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  font-size: 0.82rem;
-  font-weight: 600;
-}
-
-#bm-cookies-popup .bm-cookies-btn:focus-visible,
-#bm-cookies-popup .bm-cookies-close:focus-visible,
-#bm-cookies-popup .bm-cookie-type input:focus-visible {
-  outline: 2px solid #0f1f3a;
-  outline-offset: 2px;
-}
-
-.bm-cookies-btn-secondary:hover {
-  background: #f9fafb;
-  border-color: rgba(0, 0, 0, 0.16);
-  color: #0f1f3a;
-}
-
-/* Scrollbar styling for cookie types */
-.bm-cookies-body::-webkit-scrollbar {
-  width: 3px;
-}
-
-.bm-cookies-body::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.bm-cookies-body::-webkit-scrollbar-thumb {
-  background: rgba(15, 31, 58, 0.24);
-  border-radius: 0;
-}
-
-.bm-cookies-body::-webkit-scrollbar-thumb:hover {
-  background: rgba(15, 31, 58, 0.38);
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 640px) {
-  #bm-cookies-popup {
-    justify-content: center;
-  }
-
-  .bm-cookies-container {
-    max-width: 100%;
-    box-sizing: border-box;
-    padding: 0 0.65rem max(0.65rem, env(safe-area-inset-bottom));
-    transform: translate3d(0, calc(100% + 24px), 0);
-    transition:
-      transform 1.15s cubic-bezier(0.16, 1, 0.3, 1),
-      opacity 0.8s ease;
-    will-change: transform, opacity;
-  }
-
-  .bm-cookies-content {
-    width: 100%;
-    height: auto;
-    margin: 0;
-    border-radius: 0 !important;
-    max-height: min(78svh, 620px);
-    box-shadow: 0 24px 70px rgba(15, 23, 42, 0.24);
-  }
-
-  .bm-cookies-header h2 {
-    font-size: 1rem;
-    font-weight: 600;
-  }
-
-  .bm-cookies-footer {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 0.6rem;
-  }
-
-  .bm-cookies-btn {
-    width: 100%;
-    min-width: 0;
-    min-height: 44px;
-    padding: 0.68rem 0.5rem;
-    font-size: 0.78rem;
-    line-height: 1.2;
-    white-space: nowrap;
-  }
-
-  .bm-cookies-btn-primary {
-    grid-column: 1 / -1;
-    font-size: 0.84rem;
-  }
-
-  .bm-cookies-body {
-    padding: 1rem 1.1rem;
-  }
-
-  .bm-cookies-header {
-    padding: 1rem 1.1rem;
-  }
-
-  .bm-cookies-footer {
-    padding: 0.9rem 1.1rem;
-  }
-
-  .bm-cookies-description {
-    margin-bottom: 1rem;
-    font-size: 0.84rem;
-    line-height: 1.55;
-  }
-
-  .bm-cookies-types {
-    gap: 0.65rem;
-    margin-bottom: 1rem;
-  }
-
-  .bm-cookie-type {
-    padding: 0.8rem;
-  }
-
-  .bm-cookie-type-description {
-    font-size: 0.79rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .bm-cookies-overlay,
-  .bm-cookies-container,
-  .bm-cookies-btn,
-  .bm-cookies-close {
-    transition: none !important;
-  }
-}
-
-/* Print styles */
-@media print {
-  #bm-cookies-popup {
-    display: none !important;
-  }
-}
+/**
+
+ * Cookies Popup Premium Styling
+
+ * Super nice white background with professional design
+
+ */
+
+
+
+html.bm-cookies-modal-open,
+
+body.bm-cookies-modal-open {
+
+  overflow: hidden;
+
+}
+
+
+
+#bm-cookies-popup {
+
+  position: fixed;
+
+  bottom: 0;
+
+  right: 0;
+
+  left: 0;
+
+  z-index: 9999;
+
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content: flex-end;
+
+  pointer-events: none;
+
+}
+
+
+
+#bm-cookies-popup.bm-cookies-show {
+
+  bottom: 0;
+
+  pointer-events: auto;
+
+}
+
+
+
+.bm-cookies-overlay {
+
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(15, 23, 42, 0.28);
+
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+
+  opacity: 0;
+
+  transition: opacity 0.65s ease;
+
+  pointer-events: none;
+
+}
+
+
+
+#bm-cookies-popup.bm-cookies-show .bm-cookies-overlay {
+
+  opacity: 1;
+
+  pointer-events: auto;
+
+}
+
+
+
+.bm-cookies-container {
+
+  position: relative;
+
+  width: 100%;
+
+  max-width: 450px;
+
+  margin: 0;
+
+  pointer-events: auto;
+
+  opacity: 0;
+
+  transform: translate3d(0, calc(100% + 28px), 0);
+
+  overscroll-behavior: contain;
+
+  touch-action: pan-y;
+
+  transition:
+
+    transform 1.05s cubic-bezier(0.16, 1, 0.3, 1),
+
+    opacity 0.75s ease;
+
+  will-change: transform, opacity;
+
+}
+
+
+
+.bm-cookies-container:focus,
+
+.bm-cookies-container:focus-visible {
+
+  outline: none;
+
+}
+
+
+
+#bm-cookies-popup.bm-cookies-show .bm-cookies-container {
+
+  opacity: 1;
+
+  transform: translate3d(0, 0, 0);
+
+}
+
+
+
+.bm-cookies-content {
+
+  background: white;
+
+  border-radius: 0 !important;
+
+  margin: 1.5rem;
+
+  box-shadow: 0 28px 80px rgba(15, 23, 42, 0.18);
+
+  overflow: hidden;
+
+  display: flex;
+
+  flex-direction: column;
+
+  max-height: 85vh;
+
+  border: 1px solid rgba(0, 0, 0, 0.06);
+
+  overscroll-behavior: contain;
+
+  touch-action: pan-y;
+
+}
+
+
+
+.bm-cookies-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 1.5rem;
+
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+
+}
+
+
+
+.bm-cookies-header h2 {
+
+  font-size: 1.05rem;
+
+  font-weight: 600;
+
+  letter-spacing: 0.01em;
+
+  color: #0f1f3a;
+
+  margin: 0;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+
+}
+
+
+
+.bm-cookies-close {
+
+  background: none;
+
+  border: none;
+
+  cursor: pointer;
+
+  color: #6b7280;
+
+  padding: 0.5rem;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  transition: all 0.3s ease;
+
+  border-radius: 0 !important;
+
+}
+
+
+
+.bm-cookies-close:hover {
+
+  background: rgba(0, 0, 0, 0.04);
+
+  color: #1f2937;
+
+}
+
+
+
+.bm-cookies-body {
+
+  padding: 1.5rem;
+
+  flex: 1;
+
+  overflow-y: auto;
+
+  overflow-x: hidden;
+
+  scroll-behavior: smooth;
+
+  -webkit-overflow-scrolling: touch;
+
+  overscroll-behavior: contain;
+
+  touch-action: pan-y;
+
+  scrollbar-width: thin;
+
+  scrollbar-color: rgba(15, 31, 58, 0.24) transparent;
+
+}
+
+
+
+.bm-cookies-title {
+
+  font-size: 1rem;
+
+  font-weight: 600;
+
+  color: #0f1f3a;
+
+  margin: 0 0 0.75rem 0;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+
+}
+
+
+
+.bm-cookies-description {
+
+  font-size: 0.9rem;
+
+  color: #6b7280;
+
+  line-height: 1.6;
+
+  margin: 0 0 1.5rem 0;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+
+}
+
+
+
+.bm-cookies-types {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 1rem;
+
+  margin-bottom: 1.5rem;
+
+}
+
+
+
+.bm-cookie-type {
+
+  background: #f9fafb;
+
+  border: 1px solid rgba(0, 0, 0, 0.06);
+
+  border-radius: 0 !important;
+
+  padding: 1rem;
+
+  transition: all 0.3s ease;
+
+}
+
+
+
+.bm-cookie-type:hover {
+
+  background: #f3f4f6;
+
+  border-color: rgba(0, 0, 0, 0.08);
+
+}
+
+
+
+.bm-cookie-type-header {
+
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 0.75rem;
+
+  margin-bottom: 0.5rem;
+
+}
+
+
+
+.bm-cookie-type input[type="checkbox"] {
+
+  width: 18px;
+
+  height: 18px;
+
+  margin-top: 0.2rem;
+
+  cursor: pointer;
+
+  accent-color: #CC5500;
+
+}
+
+
+
+.bm-cookie-type input[type="checkbox"]:disabled {
+
+  cursor: not-allowed;
+
+  opacity: 0.6;
+
+}
+
+
+
+.bm-cookie-type-header label {
+
+  cursor: pointer;
+
+  flex: 1;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.5rem;
+
+}
+
+
+
+.bm-cookie-type-header strong {
+
+  color: #1f2937;
+
+  font-size: 0.95rem;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+
+}
+
+
+
+.bm-cookie-type-badge {
+
+  display: inline-block;
+
+  background: rgba(204, 85, 0, 0.1);
+
+  color: #CC5500;
+
+  font-size: 0.75rem;
+
+  font-weight: 600;
+
+  padding: 0.25rem 0.5rem;
+
+  border-radius: 0 !important;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.5px;
+
+}
+
+
+
+.bm-cookie-type-description {
+
+  font-size: 0.85rem;
+
+  color: #9ca3af;
+
+  margin: 0;
+
+  line-height: 1.5;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+
+}
+
+
+
+.bm-cookies-legal {
+
+  font-size: 0.8rem;
+
+  color: #9ca3af;
+
+  margin: 0;
+
+  line-height: 1.5;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+
+}
+
+
+
+.bm-cookies-legal a {
+
+  color: #CC5500;
+
+  text-decoration: none;
+
+  font-weight: 600;
+
+  transition: color 0.3s ease;
+
+}
+
+
+
+.bm-cookies-legal a:hover {
+
+  color: #B8550D;
+
+  text-decoration: underline;
+
+}
+
+
+
+.bm-cookies-footer {
+
+  display: flex;
+
+  gap: 1rem;
+
+  padding: 1.5rem;
+
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+
+  background: #fafafa;
+
+  flex-wrap: wrap;
+
+}
+
+
+
+.bm-cookies-btn {
+
+  padding: 0.75rem 1.25rem;
+
+  border: none;
+
+  border-radius: 0 !important;
+
+  font-size: 0.88rem;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+
+  flex: 1;
+
+  min-width: 120px;
+
+}
+
+
+
+.bm-cookies-btn-primary {
+
+  background: linear-gradient(135deg, #D97536 0%, #CC5500 100%);
+
+  color: white;
+
+  box-shadow: 0 4px 12px rgba(204, 85, 0, 0.3);
+
+}
+
+
+
+.bm-cookies-btn-primary:hover {
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 6px 16px rgba(204, 85, 0, 0.4);
+
+  background: linear-gradient(135deg, #CC5500 0%, #B8550D 100%);
+
+}
+
+
+
+.bm-cookies-btn-primary:active {
+
+  transform: translateY(0);
+
+}
+
+
+
+.bm-cookies-btn-secondary {
+
+  background: white;
+
+  color: #1f2937;
+
+  border: 1px solid rgba(0, 0, 0, 0.12);
+
+  font-size: 0.82rem;
+
+  font-weight: 600;
+
+}
+
+
+
+#bm-cookies-popup .bm-cookies-btn:focus-visible,
+
+#bm-cookies-popup .bm-cookies-close:focus-visible,
+
+#bm-cookies-popup .bm-cookie-type input:focus-visible {
+
+  outline: 2px solid #0f1f3a;
+
+  outline-offset: 2px;
+
+}
+
+
+
+.bm-cookies-btn-secondary:hover {
+
+  background: #f9fafb;
+
+  border-color: rgba(0, 0, 0, 0.16);
+
+  color: #0f1f3a;
+
+}
+
+
+
+/* Scrollbar styling for cookie types */
+
+.bm-cookies-body::-webkit-scrollbar {
+
+  width: 3px;
+
+}
+
+
+
+.bm-cookies-body::-webkit-scrollbar-track {
+
+  background: transparent;
+
+}
+
+
+
+.bm-cookies-body::-webkit-scrollbar-thumb {
+
+  background: rgba(15, 31, 58, 0.24);
+
+  border-radius: 0;
+
+}
+
+
+
+.bm-cookies-body::-webkit-scrollbar-thumb:hover {
+
+  background: rgba(15, 31, 58, 0.38);
+
+}
+
+
+
+/* Mobile Responsiveness */
+
+@media (max-width: 640px) {
+
+  #bm-cookies-popup {
+
+    justify-content: center;
+
+  }
+
+
+
+  .bm-cookies-container {
+
+    max-width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 0 0.65rem max(0.65rem, env(safe-area-inset-bottom));
+
+    transform: translate3d(0, calc(100% + 24px), 0);
+
+    transition:
+
+      transform 1.15s cubic-bezier(0.16, 1, 0.3, 1),
+
+      opacity 0.8s ease;
+
+    will-change: transform, opacity;
+
+  }
+
+
+
+  .bm-cookies-content {
+
+    width: 100%;
+
+    height: auto;
+
+    margin: 0;
+
+    border-radius: 0 !important;
+
+    max-height: min(78svh, 620px);
+
+    box-shadow: 0 24px 70px rgba(15, 23, 42, 0.24);
+
+  }
+
+
+
+  .bm-cookies-header h2 {
+
+    font-size: 1rem;
+
+    font-weight: 600;
+
+  }
+
+
+
+  .bm-cookies-footer {
+
+    display: grid;
+
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+
+    gap: 0.6rem;
+
+  }
+
+
+
+  .bm-cookies-btn {
+
+    width: 100%;
+
+    min-width: 0;
+
+    min-height: 44px;
+
+    padding: 0.68rem 0.5rem;
+
+    font-size: 0.78rem;
+
+    line-height: 1.2;
+
+    white-space: nowrap;
+
+  }
+
+
+
+  .bm-cookies-btn-primary {
+
+    grid-column: 1 / -1;
+
+    font-size: 0.84rem;
+
+  }
+
+
+
+  .bm-cookies-body {
+
+    padding: 1rem 1.1rem;
+
+  }
+
+
+
+  .bm-cookies-header {
+
+    padding: 1rem 1.1rem;
+
+  }
+
+
+
+  .bm-cookies-footer {
+
+    padding: 0.9rem 1.1rem;
+
+  }
+
+
+
+  .bm-cookies-description {
+
+    margin-bottom: 1rem;
+
+    font-size: 0.84rem;
+
+    line-height: 1.55;
+
+  }
+
+
+
+  .bm-cookies-types {
+
+    gap: 0.65rem;
+
+    margin-bottom: 1rem;
+
+  }
+
+
+
+  .bm-cookie-type {
+
+    padding: 0.8rem;
+
+  }
+
+
+
+  .bm-cookie-type-description {
+
+    font-size: 0.79rem;
+
+  }
+
+}
+
+
+
+@media (prefers-reduced-motion: reduce) {
+
+  .bm-cookies-overlay,
+
+  .bm-cookies-container,
+
+  .bm-cookies-btn,
+
+  .bm-cookies-close {
+
+    transition: none !important;
+
+  }
+
+}
+
+
+
+/* Print styles */
+
+@media print {
+
+  #bm-cookies-popup {
+
+    display: none !important;
+
+  }
+
+}
+

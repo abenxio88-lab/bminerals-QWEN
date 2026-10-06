@@ -90,7 +90,7 @@ const requiredModalVersion = 'mineral-image-frame-20260714';
 const homepage = read('index.html');
 assert(homepage.includes(`js/minerals-tabs.js?v=${requiredModalVersion}`), 'Homepage mineral modal script is not cache-busted.');
 assert(
-  homepage.includes('home-cinematic-motion.css?v=homepage-mobile-paint-20260714'),
+  homepage.includes('home-cinematic-motion.css?v=homepage-mobile-motion-20261006'),
   'Homepage modal CSS is not cache-busted.'
 );
 

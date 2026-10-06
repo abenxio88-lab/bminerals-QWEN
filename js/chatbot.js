@@ -84,7 +84,7 @@ class BMChatbot {
     const link = document.createElement('link');
     link.id = STYLESHEET_ID;
     link.rel = 'stylesheet';
-    link.href = this.resolveAssetPath('css/components/chatbot.css');
+    link.href = this.resolveAssetPath('css/components/chatbot.css?v=20261006b');
 
     link.addEventListener('load', revealWhenReady);
     link.addEventListener('error', revealWhenReady);

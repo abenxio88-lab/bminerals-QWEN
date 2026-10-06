@@ -65,9 +65,9 @@ export function initSearchConsole() {
     { id: 'blog-10', title: 'Vision Zero Workplace Safety', description: 'Safety practices and HSE', url: 'blog/vision-zero-workplace-accidents.html', category: 'Articles', icon: 'AR' },
 
     // Investor Resources
-    { id: 'annual-report', title: 'Annual Report 2025', description: 'Financial statements & performance', url: 'documents/annual-report-2025.html', category: 'Resources', icon: 'FY' },
-    { id: 'esg-report', title: 'ESG Sustainability Report', description: 'Environmental & social governance', url: 'documents/esg-sustainability-report.html', category: 'Resources', icon: 'ESG' },
-    { id: 'hse-policy', title: 'HSE Policy', description: 'Health, Safety & Environment', url: 'documents/hse-policy-performance.html', category: 'Resources', icon: 'HSE' },
+    { id: 'annual-report', title: 'Annual Report 2025', description: 'Financial statements & performance', url: 'investors.html', category: 'Resources', icon: 'FY' },
+    { id: 'esg-report', title: 'ESG Sustainability Report', description: 'Environmental & social governance', url: 'sustainability.html', category: 'Resources', icon: 'ESG' },
+    { id: 'hse-policy', title: 'HSE Policy', description: 'Health, Safety & Environment', url: 'sustainability.html', category: 'Resources', icon: 'HSE' },
   ];
 
   function escapeHtml(value) {

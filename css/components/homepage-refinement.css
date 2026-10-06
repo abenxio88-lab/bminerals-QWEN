@@ -1074,6 +1074,8 @@ body.homepage .step-card--active {
   background:
     linear-gradient(180deg, #FFFFFF, #F9FBFC);
   box-shadow: 0 22px 54px rgba(15, 31, 58, 0.08);
+  position: relative;
+  overflow: hidden;
 }
 
 body.homepage .step-card--active {
@@ -2241,12 +2243,9 @@ body.homepage .homepage-whatsapp:focus-visible {
     display: none !important;
   }
 
-  body.homepage .stats-section .metric-strip__item,
-  body.homepage .stats-section .metric-strip__item::before,
-  body.homepage .stats-section .metric-strip__item.glass-bento,
+  /* Keep cards smooth on touch; only neutralise sticky hover lift. */
   body.homepage .stats-section .metric-strip__item.glass-bento:hover {
-    transition: none !important;
-    transform: none !important;
+    transform: none;
   }
 
   body.homepage .hero__cta-group {

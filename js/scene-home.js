@@ -13,9 +13,9 @@ function initHomepageScroll() {
   window.__homepageLenisResizeSync = null;
 
   const lenis = new window.Lenis({
-    lerp: 0.08,
-    duration: 1.15,
-    wheelMultiplier: 0.88,
+    lerp: 0.1,
+    duration: 1.1,
+    wheelMultiplier: 1.0,
     smoothWheel: true,
     smoothTouch: false,
     prevent: (node) => Boolean(node.closest?.('[data-lenis-prevent], .mineral-media-modal, .mineral-report-modal, .stone-lightbox'))
@@ -33,7 +33,7 @@ function initHomepageScroll() {
     gsap.ticker.add((time) => {
       lenis.raf(time * 1000);
     });
-    gsap.ticker.lagSmoothing(0);
+    gsap.ticker.lagSmoothing(500, 33);
   } else {
     function raf(time) {
       lenis.raf(time);
@@ -166,6 +166,8 @@ function buildOperationsScene() {
     const title = stepCard.querySelector('.step-card__title')?.textContent?.trim() || `Step ${index + 1}`;
     const step = stepCard.querySelector('.step-card__step')?.textContent?.trim() || `Step 0${index + 1}`;
     const desc = stepCard.querySelector('.step-card__description')?.textContent?.trim() || '';
+    const media = stepCard.querySelector('.step-card__media');
+    const mediaHtml = media ? media.outerHTML : '';
     const label = document.createElement('button');
     label.className = `ops-scene__label ${index === 0 ? 'is-active' : ''}`;
     label.type = 'button';
@@ -175,6 +177,7 @@ function buildOperationsScene() {
     const card = document.createElement('article');
     card.className = `ops-scene__step ${index === 0 ? 'is-active' : ''}`;
     card.innerHTML = `
+      ${mediaHtml}
       <span class="ops-scene__step-no">${step}</span>
       <h3 class="ops-scene__step-title">${title}</h3>
       <p class="ops-scene__step-copy">${desc}</p>

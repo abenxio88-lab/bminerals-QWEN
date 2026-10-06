@@ -1,5 +1,5 @@
 import { initNavbar } from './navbar.js?v=d306c43a03c4';
-import { initScrollReveal } from './scroll-reveal.js';
+import { initScrollReveal } from './scroll-reveal.js?v=20261006';
 import { initDropdownMenus } from './dropdown.js';
 import { initHeroSlider } from './hero-slider.js?v=hero-ready-20260709';
 import { initBorderBeam } from './border-beam.js';
@@ -1242,9 +1242,9 @@ function initSmoothScrolling() {
 
   if (hasLenis && !prefersReducedMotion) {
     lenis = new window.Lenis({
-      lerp: 0.08,
-      duration: 1.12,
-      wheelMultiplier: 0.9,
+      lerp: 0.1,
+      duration: 1.1,
+      wheelMultiplier: 1.0,
       smoothWheel: true,
       smoothTouch: false
     });
@@ -1258,7 +1258,7 @@ function initSmoothScrolling() {
       window.gsap.ticker.add((time) => {
         lenis.raf(time * 1000);
       });
-      window.gsap.ticker.lagSmoothing(0);
+      window.gsap.ticker.lagSmoothing(500, 33);
     } else {
       const raf = (time) => {
         lenis.raf(time);
