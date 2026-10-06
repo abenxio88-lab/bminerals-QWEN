@@ -355,19 +355,20 @@
 }
 
 .b2b-card__icon {
-  width: 56px;
-  height: 56px;
-  background: var(--primary-gold-50);
-  display: flex;
+  width: auto;
+  height: auto;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   color: var(--primary-gold-500);
 }
 
 .b2b-card__icon svg {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
 }
 
 .b2b-card__title {
