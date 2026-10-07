@@ -2,11 +2,45 @@
    DOCUMENTS / REPORTS CENTER
    ============================================ */
 .documents {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding: var(--section-padding-y) var(--section-padding-x);
-  background: var(--bg-primary);
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 50%, #f8fafc 100%);
+  border-top: 1px solid rgba(30, 58, 95, 0.08);
+  border-bottom: 1px solid rgba(30, 58, 95, 0.08);
+}
+
+/* Faded black-and-white report pages stack on section flanks */
+.documents::before,
+.documents::after {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  width: 460px;
+  height: 560px;
+  background: url("images/backgrounds/document-stack.svg") center / contain no-repeat;
+  opacity: 0.22;
+  filter: grayscale(100%);
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0.6) 45%, transparent 85%);
+  mask-image: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0.6) 45%, transparent 85%);
+}
+
+.documents::before {
+  left: -150px;
+  top: 4%;
+}
+
+.documents::after {
+  right: -150px;
+  bottom: 2%;
+  transform: scaleX(-1) rotate(4deg);
 }
 
 .documents__container {
+  position: relative;
+  z-index: 1;
   max-width: var(--max-width);
   margin: 0 auto;
 }
@@ -31,13 +65,16 @@
 }
 
 .document-card {
+  position: relative;
   display: flex;
   align-items: flex-start;
   gap: 1.25rem;
   padding: 1.75rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  background: #ffffff;
+  border: 1px solid rgba(30, 58, 95, 0.16);
+  border-top: 3px solid var(--navy-700);
   border-radius: var(--radius-lg);
+  box-shadow: 0 10px 28px rgba(15, 31, 58, 0.07);
   text-decoration: none;
   color: inherit;
   transition: border-color 0.3s var(--ease-smooth), box-shadow 0.3s var(--ease-smooth);
@@ -45,7 +82,8 @@
 
 .document-card:hover {
   border-color: var(--navy-300);
-  box-shadow: var(--shadow-md);
+  border-top-color: #d45a15;
+  box-shadow: 0 16px 36px rgba(15, 31, 58, 0.13);
 }
 
 .document-card__icon {
@@ -97,6 +135,23 @@
 }
 
 @media (max-width: 768px) {
+  .documents::before,
+  .documents::after {
+    width: 280px;
+    height: 340px;
+    opacity: 0.14;
+  }
+
+  .documents::before {
+    left: -130px;
+    top: 1%;
+  }
+
+  .documents::after {
+    right: -130px;
+    bottom: 1%;
+  }
+
   .documents__grid {
     grid-template-columns: 1fr;
     gap: 1rem;

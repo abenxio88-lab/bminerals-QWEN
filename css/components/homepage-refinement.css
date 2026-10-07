@@ -375,23 +375,27 @@ body.homepage .hero__proofline span:hover {
 
 body.homepage .hero__stats-panel {
   padding: clamp(1.35rem, 2.4vw, 2.1rem);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-top: 1px solid rgba(255, 255, 255, 0.28);
-  background: rgba(255, 255, 255, 0.055);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-top: 1px solid rgba(255, 255, 255, 0.38);
+  background: linear-gradient(
+    135deg,
+    rgba(8, 16, 28, 0.78) 0%,
+    rgba(10, 20, 34, 0.68) 100%
+  );
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
   box-shadow:
-    0 16px 40px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    0 16px 40px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 body.homepage .hero__stats-panel-title {
   font-size: 0.6875rem;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--home-accent-bright);
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
   margin-bottom: 0.85rem;
 }
 
@@ -402,7 +406,7 @@ body.homepage .hero__stats-panel::after {
 
 body.homepage .panel-stat {
   padding-block: 0.85rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 body.homepage .panel-stat:last-child {
@@ -412,17 +416,19 @@ body.homepage .panel-stat:last-child {
 
 body.homepage .panel-stat__number {
   font-size: clamp(1rem, 1.35vw, 1.18rem);
-  font-weight: 400;
+  font-weight: 500;
   font-variant-numeric: tabular-nums;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
 }
 
 body.homepage .panel-stat__label {
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
 }
 
 body.homepage .panel-stat__context {
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 0.82);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
 }
 
 body.homepage .hero__cta {
