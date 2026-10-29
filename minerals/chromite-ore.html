@@ -43,60 +43,154 @@
   <!-- Privacy-first analytics consent -->
   <script src="/js/analytics-consent.js?v=5b038118331e"></script>
   
-  <!-- Schema.org Product & Breadcrumbs -->
+  <!-- Schema.org Product, Breadcrumbs & FAQPage Rich Snippets -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Product",
-        "name": "Muslim Bagh Chromite Ore & Concentrate",
-        "description": "Balochistan Minerals exports high-grade metallurgical chromite ore (42%-52% Cr2O3) and concentrate directly from Muslim Bagh and Khuzdar. SGS certified, FOB Karachi/Gwadar.",
-        "category": "Metallic Minerals",
-        "image": "https://balochistanminerals.com/images/chromite-new.webp",
-        "offers": {
-          "@type": "AggregateOffer",
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Product",
+      "name": "Muslim Bagh Chromite Ore & Concentrate",
+      "description": "Balochistan Minerals exports high-grade metallurgical chromite ore (42%-52% Cr2O3) and concentrate directly from Muslim Bagh and Khuzdar. SGS certified, FOB Karachi/Gwadar.",
+      "sku": "chromite-ore",
+      "mpn": "2610.00.00",
+      "category": "Metallic Minerals",
+      "image": "https://balochistanminerals.com/images/chromite-new.webp",
+      "countryOfOrigin": {
+        "@type": "Country",
+        "name": "Pakistan"
+      },
+      "brand": {
+        "@type": "Organization",
+        "name": "Balochistan Minerals",
+        "url": "https://balochistanminerals.com"
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "USD",
+        "price": "0",
+        "lowPrice": "0",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
           "priceCurrency": "USD",
-          "price": "Call for quote",
-          "availability": "https://schema.org/InStock"
+          "priceType": "https://schema.org/InvoicePrice"
         },
-        "brand": {
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition",
+        "eligibleTransactionVolume": {
+          "@type": "PriceSpecification",
+          "name": "Minimum Order Quantity",
+          "description": "100 MT (Containerized) / 3,000 MT (Bulk Vessel)"
+        },
+        "seller": {
           "@type": "Organization",
           "name": "Balochistan Minerals",
           "url": "https://balochistanminerals.com"
         }
       },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://balochistanminerals.com/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Products",
-            "item": "https://balochistanminerals.com/products"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Metallic Minerals",
-            "item": "https://balochistanminerals.com/product-metallic"
-          },
-          {
-            "@type": "ListItem",
-            "position": 4,
-            "name": "Muslim Bagh Chromite Ore & Concentrate",
-            "item": "https://balochistanminerals.com/minerals/chromite-ore"
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Cr2O3 Purity",
+          "value": "42% - 52%"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Cr:Fe Ratio",
+          "value": "2.8:1 – 3.2:1"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Monthly Capacity",
+          "value": "12,000 MT"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Export Ports",
+          "value": "Karachi / Gwadar"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Mining Provenance",
+          "value": "Muslim Bagh & Khuzdar Mining Belts, Balochistan"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "HS Code",
+          "value": "2610.00.00"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Incoterms Available",
+          "value": "FOB Karachi / CFR Main Ports / CIF Global"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Standard Payment Terms",
+          "value": "Irrevocable LC at Sight / TT Advance"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://balochistanminerals.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Products",
+          "item": "https://balochistanminerals.com/products"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Metallic Minerals",
+          "item": "https://balochistanminerals.com/product-metallic"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Muslim Bagh Chromite Ore & Concentrate",
+          "item": "https://balochistanminerals.com/minerals/chromite-ore"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the certified grade and purity of Balochistan Minerals' Chromite Ore?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our Muslim Bagh Chromite Ore & Concentrate originates from active concessions in Muslim Bagh & Khuzdar Mining Belts, Balochistan. Typical certified specifications include: Cr2O3 Purity: 42% - 52%, Cr:Fe Ratio: 2.8:1 – 3.2:1, Monthly Capacity: 12,000 MT, Export Ports: Karachi / Gwadar. Official Certificate of Analysis (COA) is verified by independent international surveyors prior to vessel loading."
           }
-        ]
-      }
-    ]
-  }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the minimum order quantities (MOQ) and shipping terms for Chromite Ore?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Minimum order quantity is 100 MT (Containerized) / 3,000 MT (Bulk Vessel). Standard delivery Incoterms include FOB Karachi / CFR Main Ports / CIF Global. Accepted commercial payment terms are Irrevocable LC at Sight / TT Advance."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is Chromite Ore sized and packaged for export?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Physical sizing and distribution: Lumpy fraction: 10 mm – 300 mm (85% min within range). Fine/concentrate fraction: 0 mm – 3 mm for sintering/pelletizing. Moisture content: 1.5% max (dry basis). Bulk density: 4.10 – 4.50 g/cm³. Packaging options include 1 to 2 MT heavy-duty jumbo bags with HDPE inner liners or direct bulk vessel loading under strict moisture control protocols."
+          }
+        }
+      ]
+    }
+  ]
+}
   </script>
 </head>
 <body class="mineral-spec-page">

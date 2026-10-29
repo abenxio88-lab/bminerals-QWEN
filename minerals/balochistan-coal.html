@@ -43,60 +43,154 @@
   <!-- Privacy-first analytics consent -->
   <script src="/js/analytics-consent.js?v=5b038118331e"></script>
   
-  <!-- Schema.org Product & Breadcrumbs -->
+  <!-- Schema.org Product, Breadcrumbs & FAQPage Rich Snippets -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Product",
-        "name": "Mach & Dukki Steam Coal (5,500 – 7,200 kcal/kg)",
-        "description": "Supplying high-calorific sub-bituminous steam coal (5,500-7,200 kcal/kg) from Mach, Degari, and Dukki coalfields. Ideal for cement kilns, brickworks, and thermal power.",
-        "category": "Energy Minerals",
-        "image": "https://balochistanminerals.com/images/Mach-Anjira-coal4.webp",
-        "offers": {
-          "@type": "AggregateOffer",
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Product",
+      "name": "Mach & Dukki Steam Coal (5,500 – 7,200 kcal/kg)",
+      "description": "Supplying high-calorific sub-bituminous steam coal (5,500-7,200 kcal/kg) from Mach, Degari, and Dukki coalfields. Ideal for cement kilns, brickworks, and thermal power.",
+      "sku": "balochistan-coal",
+      "mpn": "2701.12.00",
+      "category": "Energy Minerals",
+      "image": "https://balochistanminerals.com/images/Mach-Anjira-coal4.webp",
+      "countryOfOrigin": {
+        "@type": "Country",
+        "name": "Pakistan"
+      },
+      "brand": {
+        "@type": "Organization",
+        "name": "Balochistan Minerals",
+        "url": "https://balochistanminerals.com"
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "USD",
+        "price": "0",
+        "lowPrice": "0",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
           "priceCurrency": "USD",
-          "price": "Call for quote",
-          "availability": "https://schema.org/InStock"
+          "priceType": "https://schema.org/InvoicePrice"
         },
-        "brand": {
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition",
+        "eligibleTransactionVolume": {
+          "@type": "PriceSpecification",
+          "name": "Minimum Order Quantity",
+          "description": "200 MT (Trucking) / 3,000 MT (Bulk Vessel / Rail)"
+        },
+        "seller": {
           "@type": "Organization",
           "name": "Balochistan Minerals",
           "url": "https://balochistanminerals.com"
         }
       },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://balochistanminerals.com/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Products",
-            "item": "https://balochistanminerals.com/products"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Energy Minerals",
-            "item": "https://balochistanminerals.com/product-energy"
-          },
-          {
-            "@type": "ListItem",
-            "position": 4,
-            "name": "Mach & Dukki Steam Coal (5,500 – 7,200 kcal/kg)",
-            "item": "https://balochistanminerals.com/minerals/balochistan-coal"
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Calorific Value (GCV)",
+          "value": "5,500 - 7,200 kcal/kg"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Low Inherent Ash",
+          "value": "6.0% - 12.0%"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Volatile Matter",
+          "value": "35% - 42%"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Monthly Production",
+          "value": "40,000 MT"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Mining Provenance",
+          "value": "Mach, Degari, Sor Range & Dukki Coalfields, Balochistan"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "HS Code",
+          "value": "2701.12.00"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Incoterms Available",
+          "value": "FOB Karachi / Ex-Mine / FOR Railway Staging"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Standard Payment Terms",
+          "value": "Irrevocable LC at Sight / TT Advance"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://balochistanminerals.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Products",
+          "item": "https://balochistanminerals.com/products"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Energy Minerals",
+          "item": "https://balochistanminerals.com/product-energy"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Mach & Dukki Steam Coal (5,500 – 7,200 kcal/kg)",
+          "item": "https://balochistanminerals.com/minerals/balochistan-coal"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the certified grade and purity of Balochistan Minerals' Coal?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our Mach & Dukki Steam Coal (5,500 – 7,200 kcal/kg) originates from active concessions in Mach, Degari, Sor Range & Dukki Coalfields, Balochistan. Typical certified specifications include: Calorific Value (GCV): 5,500 - 7,200 kcal/kg, Low Inherent Ash: 6.0% - 12.0%, Volatile Matter: 35% - 42%, Monthly Production: 40,000 MT. Official Certificate of Analysis (COA) is verified by independent international surveyors prior to vessel loading."
           }
-        ]
-      }
-    ]
-  }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the minimum order quantities (MOQ) and shipping terms for Coal?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Minimum order quantity is 200 MT (Trucking) / 3,000 MT (Bulk Vessel / Rail). Standard delivery Incoterms include FOB Karachi / Ex-Mine / FOR Railway Staging. Accepted commercial payment terms are Irrevocable LC at Sight / TT Advance."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is Coal sized and packaged for export?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Physical sizing and distribution: ROM (Run-of-Mine): 0 mm – 150 mm. Screened Lump / Steam Coal: 50 mm – 100 mm. Nut Coal: 20 mm – 50 mm. Slack Coal: 0 mm – 20 mm for automated stoker boilers. Packaging options include 1 to 2 MT heavy-duty jumbo bags with HDPE inner liners or direct bulk vessel loading under strict moisture control protocols."
+          }
+        }
+      ]
+    }
+  ]
+}
   </script>
 </head>
 <body class="mineral-spec-page">

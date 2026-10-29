@@ -43,60 +43,154 @@
   <!-- Privacy-first analytics consent -->
   <script src="/js/analytics-consent.js?v=5b038118331e"></script>
   
-  <!-- Schema.org Product & Breadcrumbs -->
+  <!-- Schema.org Product, Breadcrumbs & FAQPage Rich Snippets -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Product",
-        "name": "Iranian Marble Blocks & Slabs (Silver Steam & Pietra Grey)",
-        "description": "Direct importer & exporter of Iranian dimension marble: Silver Steam White, Pietra Grey, and Persian Silk blocks and slabs via the Taftan trade corridor. FOB Karachi.",
-        "category": "Dimension Stones",
-        "image": "https://balochistanminerals.com/images/silver-steam-white-marble-3.webp",
-        "offers": {
-          "@type": "AggregateOffer",
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Product",
+      "name": "Iranian Marble Blocks & Slabs (Silver Steam & Pietra Grey)",
+      "description": "Direct importer & exporter of Iranian dimension marble: Silver Steam White, Pietra Grey, and Persian Silk blocks and slabs via the Taftan trade corridor. FOB Karachi.",
+      "sku": "iranian-marble",
+      "mpn": "2515.12.00",
+      "category": "Dimension Stones",
+      "image": "https://balochistanminerals.com/images/silver-steam-white-marble-3.webp",
+      "countryOfOrigin": {
+        "@type": "Country",
+        "name": "Pakistan"
+      },
+      "brand": {
+        "@type": "Organization",
+        "name": "Balochistan Minerals",
+        "url": "https://balochistanminerals.com"
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "USD",
+        "price": "0",
+        "lowPrice": "0",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
           "priceCurrency": "USD",
-          "price": "Call for quote",
-          "availability": "https://schema.org/InStock"
+          "priceType": "https://schema.org/InvoicePrice"
         },
-        "brand": {
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition",
+        "eligibleTransactionVolume": {
+          "@type": "PriceSpecification",
+          "name": "Minimum Order Quantity",
+          "description": "25 MT (1 x 20ft Container) / Gangsaw Slabs"
+        },
+        "seller": {
           "@type": "Organization",
           "name": "Balochistan Minerals",
           "url": "https://balochistanminerals.com"
         }
       },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://balochistanminerals.com/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Products",
-            "item": "https://balochistanminerals.com/products"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Dimension Stones",
-            "item": "https://balochistanminerals.com/product-stones"
-          },
-          {
-            "@type": "ListItem",
-            "position": 4,
-            "name": "Iranian Marble Blocks & Slabs (Silver Steam & Pietra Grey)",
-            "item": "https://balochistanminerals.com/minerals/iranian-marble"
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Compressive Strength",
+          "value": "115 - 145 MPa"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Water Absorption",
+          "value": "< 0.15%"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Popular Selections",
+          "value": "Silver Steam & Pietra Grey"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Corridor Advantage",
+          "value": "Taftan Direct Route"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Mining Provenance",
+          "value": "Direct Quarry Import via Taftan Border Corridor to Karachi Hub"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "HS Code",
+          "value": "2515.12.00"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Incoterms Available",
+          "value": "FOB Karachi / CFR Global Destination Ports"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Standard Payment Terms",
+          "value": "Irrevocable LC at Sight / TT"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://balochistanminerals.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Products",
+          "item": "https://balochistanminerals.com/products"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Dimension Stones",
+          "item": "https://balochistanminerals.com/product-stones"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Iranian Marble Blocks & Slabs (Silver Steam & Pietra Grey)",
+          "item": "https://balochistanminerals.com/minerals/iranian-marble"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the certified grade and purity of Balochistan Minerals' Iranian Marble?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our Iranian Marble Blocks & Slabs (Silver Steam & Pietra Grey) originates from active concessions in Direct Quarry Import via Taftan Border Corridor to Karachi Hub. Typical certified specifications include: Compressive Strength: 115 - 145 MPa, Water Absorption: < 0.15%, Popular Selections: Silver Steam & Pietra Grey, Corridor Advantage: Taftan Direct Route. Official Certificate of Analysis (COA) is verified by independent international surveyors prior to vessel loading."
           }
-        ]
-      }
-    ]
-  }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the minimum order quantities (MOQ) and shipping terms for Iranian Marble?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Minimum order quantity is 25 MT (1 x 20ft Container) / Gangsaw Slabs. Standard delivery Incoterms include FOB Karachi / CFR Global Destination Ports. Accepted commercial payment terms are Irrevocable LC at Sight / TT."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is Iranian Marble sized and packaged for export?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Physical sizing and distribution: Gangsaw Quarry Blocks: 5 MT – 20 MT. Slabs: 18 mm, 20 mm, and 30 mm thickness, polished, honed, or leathered finishes (dimensions up to 300 cm x 180 cm). Cut-to-Size Panels. Packaging options include 1 to 2 MT heavy-duty jumbo bags with HDPE inner liners or direct bulk vessel loading under strict moisture control protocols."
+          }
+        }
+      ]
+    }
+  ]
+}
   </script>
 </head>
 <body class="mineral-spec-page">

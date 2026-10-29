@@ -43,60 +43,154 @@
   <!-- Privacy-first analytics consent -->
   <script src="/js/analytics-consent.js?v=5b038118331e"></script>
   
-  <!-- Schema.org Product & Breadcrumbs -->
+  <!-- Schema.org Product, Breadcrumbs & FAQPage Rich Snippets -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Product",
-        "name": "Washuk & Zhob Antimony Ore (Stibnite Lumps)",
-        "description": "Source critical non-Chinese antimony stibnite ore (35%-58% Sb) from Washuk and Zhob, Balochistan. Low arsenic, SGS certified, packed in 20ft FCL for Western & Asian smelters.",
-        "category": "Metallic Minerals",
-        "image": "https://balochistanminerals.com/images/antimony.avif",
-        "offers": {
-          "@type": "AggregateOffer",
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Product",
+      "name": "Washuk & Zhob Antimony Ore (Stibnite Lumps)",
+      "description": "Source critical non-Chinese antimony stibnite ore (35%-58% Sb) from Washuk and Zhob, Balochistan. Low arsenic, SGS certified, packed in 20ft FCL for Western & Asian smelters.",
+      "sku": "antimony-ore",
+      "mpn": "2617.10.00",
+      "category": "Metallic Minerals",
+      "image": "https://balochistanminerals.com/images/antimony.avif",
+      "countryOfOrigin": {
+        "@type": "Country",
+        "name": "Pakistan"
+      },
+      "brand": {
+        "@type": "Organization",
+        "name": "Balochistan Minerals",
+        "url": "https://balochistanminerals.com"
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "USD",
+        "price": "0",
+        "lowPrice": "0",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
           "priceCurrency": "USD",
-          "price": "Call for quote",
-          "availability": "https://schema.org/InStock"
+          "priceType": "https://schema.org/InvoicePrice"
         },
-        "brand": {
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition",
+        "eligibleTransactionVolume": {
+          "@type": "PriceSpecification",
+          "name": "Minimum Order Quantity",
+          "description": "25 MT (1 FCL) / 100 MT Lots"
+        },
+        "seller": {
           "@type": "Organization",
           "name": "Balochistan Minerals",
           "url": "https://balochistanminerals.com"
         }
       },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://balochistanminerals.com/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Products",
-            "item": "https://balochistanminerals.com/products"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Metallic Minerals",
-            "item": "https://balochistanminerals.com/product-metallic"
-          },
-          {
-            "@type": "ListItem",
-            "position": 4,
-            "name": "Washuk & Zhob Antimony Ore (Stibnite Lumps)",
-            "item": "https://balochistanminerals.com/minerals/antimony-ore"
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Antimony Metal (Sb)",
+          "value": "35% - 58%"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Low Arsenic",
+          "value": "< 0.25% As"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Strategic Supply",
+          "value": "Non-China Origin"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Packaging",
+          "value": "Steel Drums / Jumbo Bags"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Mining Provenance",
+          "value": "Washuk, Zhob & Qila Abdullah Belts, Balochistan"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "HS Code",
+          "value": "2617.10.00"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Incoterms Available",
+          "value": "FOB Karachi / CFR Global Smelter Ports"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Standard Payment Terms",
+          "value": "Irrevocable LC at Sight / TT"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://balochistanminerals.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Products",
+          "item": "https://balochistanminerals.com/products"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Metallic Minerals",
+          "item": "https://balochistanminerals.com/product-metallic"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Washuk & Zhob Antimony Ore (Stibnite Lumps)",
+          "item": "https://balochistanminerals.com/minerals/antimony-ore"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the certified grade and purity of Balochistan Minerals' Antimony Ore?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our Washuk & Zhob Antimony Ore (Stibnite Lumps) originates from active concessions in Washuk, Zhob & Qila Abdullah Belts, Balochistan. Typical certified specifications include: Antimony Metal (Sb): 35% - 58%, Low Arsenic: < 0.25% As, Strategic Supply: Non-China Origin, Packaging: Steel Drums / Jumbo Bags. Official Certificate of Analysis (COA) is verified by independent international surveyors prior to vessel loading."
           }
-        ]
-      }
-    ]
-  }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the minimum order quantities (MOQ) and shipping terms for Antimony Ore?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Minimum order quantity is 25 MT (1 FCL) / 100 MT Lots. Standard delivery Incoterms include FOB Karachi / CFR Global Smelter Ports. Accepted commercial payment terms are Irrevocable LC at Sight / TT."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is Antimony Ore sized and packaged for export?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Physical sizing and distribution: Hand-cobbed lumps: 10 mm – 120 mm. Granular fines: 0 mm – 10 mm. Washed and hand-selected under rigorous metallurgical quality controls. Packaging options include 1 to 2 MT heavy-duty jumbo bags with HDPE inner liners or direct bulk vessel loading under strict moisture control protocols."
+          }
+        }
+      ]
+    }
+  ]
+}
   </script>
 </head>
 <body class="mineral-spec-page">

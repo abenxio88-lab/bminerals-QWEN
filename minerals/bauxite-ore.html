@@ -43,60 +43,154 @@
   <!-- Privacy-first analytics consent -->
   <script src="/js/analytics-consent.js?v=5b038118331e"></script>
   
-  <!-- Schema.org Product & Breadcrumbs -->
+  <!-- Schema.org Product, Breadcrumbs & FAQPage Rich Snippets -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Product",
-        "name": "Balochistan Refractory & Metallurgical Bauxite",
-        "description": "Supplying refractory and metallurgical grade bauxite (Al2O3 45%-58%) from Lasbela and Makran deposits. Low reactive silica, ideal for high-alumina cements and refractories.",
-        "category": "Industrial Minerals",
-        "image": "https://balochistanminerals.com/images/bauxite.avif",
-        "offers": {
-          "@type": "AggregateOffer",
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Product",
+      "name": "Balochistan Refractory & Metallurgical Bauxite",
+      "description": "Supplying refractory and metallurgical grade bauxite (Al2O3 45%-58%) from Lasbela and Makran deposits. Low reactive silica, ideal for high-alumina cements and refractories.",
+      "sku": "bauxite-ore",
+      "mpn": "2606.00.00",
+      "category": "Industrial Minerals",
+      "image": "https://balochistanminerals.com/images/bauxite.avif",
+      "countryOfOrigin": {
+        "@type": "Country",
+        "name": "Pakistan"
+      },
+      "brand": {
+        "@type": "Organization",
+        "name": "Balochistan Minerals",
+        "url": "https://balochistanminerals.com"
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "USD",
+        "price": "0",
+        "lowPrice": "0",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
           "priceCurrency": "USD",
-          "price": "Call for quote",
-          "availability": "https://schema.org/InStock"
+          "priceType": "https://schema.org/InvoicePrice"
         },
-        "brand": {
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition",
+        "eligibleTransactionVolume": {
+          "@type": "PriceSpecification",
+          "name": "Minimum Order Quantity",
+          "description": "500 MT (Containerized) / 10,000 MT (Bulk Vessel)"
+        },
+        "seller": {
           "@type": "Organization",
           "name": "Balochistan Minerals",
           "url": "https://balochistanminerals.com"
         }
       },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://balochistanminerals.com/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Products",
-            "item": "https://balochistanminerals.com/products"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Industrial Minerals",
-            "item": "https://balochistanminerals.com/product-industrial"
-          },
-          {
-            "@type": "ListItem",
-            "position": 4,
-            "name": "Balochistan Refractory & Metallurgical Bauxite",
-            "item": "https://balochistanminerals.com/minerals/bauxite-ore"
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Alumina (Al2O3)",
+          "value": "45% - 58%"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Reactive Silica",
+          "value": "< 5.0% SiO2"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Monthly Supply",
+          "value": "15,000 MT"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Proximity to Sea",
+          "value": "Under 100 km"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Mining Provenance",
+          "value": "Lasbela District & Makran Range, Balochistan"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "HS Code",
+          "value": "2606.00.00"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Incoterms Available",
+          "value": "FOB Karachi / CFR Global Smelters & Kilns"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Standard Payment Terms",
+          "value": "Irrevocable LC at Sight / TT"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://balochistanminerals.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Products",
+          "item": "https://balochistanminerals.com/products"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Industrial Minerals",
+          "item": "https://balochistanminerals.com/product-industrial"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Balochistan Refractory & Metallurgical Bauxite",
+          "item": "https://balochistanminerals.com/minerals/bauxite-ore"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the certified grade and purity of Balochistan Minerals' Bauxite Ore?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our Balochistan Refractory & Metallurgical Bauxite originates from active concessions in Lasbela District & Makran Range, Balochistan. Typical certified specifications include: Alumina (Al2O3): 45% - 58%, Reactive Silica: < 5.0% SiO2, Monthly Supply: 15,000 MT, Proximity to Sea: Under 100 km. Official Certificate of Analysis (COA) is verified by independent international surveyors prior to vessel loading."
           }
-        ]
-      }
-    ]
-  }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the minimum order quantities (MOQ) and shipping terms for Bauxite Ore?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Minimum order quantity is 500 MT (Containerized) / 10,000 MT (Bulk Vessel). Standard delivery Incoterms include FOB Karachi / CFR Global Smelters & Kilns. Accepted commercial payment terms are Irrevocable LC at Sight / TT."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is Bauxite Ore sized and packaged for export?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Physical sizing and distribution: Run-of-Mine Lumps: 0 mm – 150 mm. Screened Fractions: 10 mm – 50 mm for rotary calcining kilns. Packaging options include 1 to 2 MT heavy-duty jumbo bags with HDPE inner liners or direct bulk vessel loading under strict moisture control protocols."
+          }
+        }
+      ]
+    }
+  ]
+}
   </script>
 </head>
 <body class="mineral-spec-page">

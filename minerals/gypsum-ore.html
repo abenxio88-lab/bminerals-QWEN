@@ -43,60 +43,154 @@
   <!-- Privacy-first analytics consent -->
   <script src="/js/analytics-consent.js?v=5b038118331e"></script>
   
-  <!-- Schema.org Product & Breadcrumbs -->
+  <!-- Schema.org Product, Breadcrumbs & FAQPage Rich Snippets -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Product",
-        "name": "Spintangi Natural Gypsum Lumps (CaSO₄·2H₂O 90%+)",
-        "description": "Balochistan Minerals exports high-purity natural gypsum rock and lumps (90%+ CaSO4) from Spintangi. Ideal set-retarder for Portland cement and plaster manufacturing.",
-        "category": "Industrial Minerals",
-        "image": "https://balochistanminerals.com/images/gypsum.avif",
-        "offers": {
-          "@type": "AggregateOffer",
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Product",
+      "name": "Spintangi Natural Gypsum Lumps (CaSO₄·2H₂O 90%+)",
+      "description": "Balochistan Minerals exports high-purity natural gypsum rock and lumps (90%+ CaSO4) from Spintangi. Ideal set-retarder for Portland cement and plaster manufacturing.",
+      "sku": "gypsum-ore",
+      "mpn": "2520.10.00",
+      "category": "Industrial Minerals",
+      "image": "https://balochistanminerals.com/images/gypsum.avif",
+      "countryOfOrigin": {
+        "@type": "Country",
+        "name": "Pakistan"
+      },
+      "brand": {
+        "@type": "Organization",
+        "name": "Balochistan Minerals",
+        "url": "https://balochistanminerals.com"
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "USD",
+        "price": "0",
+        "lowPrice": "0",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
           "priceCurrency": "USD",
-          "price": "Call for quote",
-          "availability": "https://schema.org/InStock"
+          "priceType": "https://schema.org/InvoicePrice"
         },
-        "brand": {
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition",
+        "eligibleTransactionVolume": {
+          "@type": "PriceSpecification",
+          "name": "Minimum Order Quantity",
+          "description": "1,000 MT (Containerized) / 10,000 MT (Bulk Vessel)"
+        },
+        "seller": {
           "@type": "Organization",
           "name": "Balochistan Minerals",
           "url": "https://balochistanminerals.com"
         }
       },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://balochistanminerals.com/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Products",
-            "item": "https://balochistanminerals.com/products"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Industrial Minerals",
-            "item": "https://balochistanminerals.com/product-industrial"
-          },
-          {
-            "@type": "ListItem",
-            "position": 4,
-            "name": "Spintangi Natural Gypsum Lumps (CaSO₄·2H₂O 90%+)",
-            "item": "https://balochistanminerals.com/minerals/gypsum-ore"
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Gypsum Purity",
+          "value": "88% - 94%"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Sulfur Trioxide (SO3)",
+          "value": "41% - 44%"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Monthly Capacity",
+          "value": "30,000 MT"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Supply Versatility",
+          "value": "Bulk & Containers"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Mining Provenance",
+          "value": "Spintangi & Sibi Geological Belts, Balochistan"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "HS Code",
+          "value": "2520.10.00"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Incoterms Available",
+          "value": "FOB Karachi / CFR Indian Ocean & East Africa"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Standard Payment Terms",
+          "value": "Irrevocable LC at Sight / TT"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://balochistanminerals.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Products",
+          "item": "https://balochistanminerals.com/products"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Industrial Minerals",
+          "item": "https://balochistanminerals.com/product-industrial"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Spintangi Natural Gypsum Lumps (CaSO₄·2H₂O 90%+)",
+          "item": "https://balochistanminerals.com/minerals/gypsum-ore"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the certified grade and purity of Balochistan Minerals' Gypsum Ore?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our Spintangi Natural Gypsum Lumps (CaSO₄·2H₂O 90%+) originates from active concessions in Spintangi & Sibi Geological Belts, Balochistan. Typical certified specifications include: Gypsum Purity: 88% - 94%, Sulfur Trioxide (SO3): 41% - 44%, Monthly Capacity: 30,000 MT, Supply Versatility: Bulk & Containers. Official Certificate of Analysis (COA) is verified by independent international surveyors prior to vessel loading."
           }
-        ]
-      }
-    ]
-  }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the minimum order quantities (MOQ) and shipping terms for Gypsum Ore?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Minimum order quantity is 1,000 MT (Containerized) / 10,000 MT (Bulk Vessel). Standard delivery Incoterms include FOB Karachi / CFR Indian Ocean & East Africa. Accepted commercial payment terms are Irrevocable LC at Sight / TT."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is Gypsum Ore sized and packaged for export?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Physical sizing and distribution: Crushed Lumps: 10 mm – 150 mm (primary sizing for cement clinker co-grinding). Finely Ground Powder: 100 mesh and 200 mesh for agricultural gypsum soil conditioners. Packaging options include 1 to 2 MT heavy-duty jumbo bags with HDPE inner liners or direct bulk vessel loading under strict moisture control protocols."
+          }
+        }
+      ]
+    }
+  ]
+}
   </script>
 </head>
 <body class="mineral-spec-page">

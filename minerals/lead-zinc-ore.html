@@ -43,60 +43,154 @@
   <!-- Privacy-first analytics consent -->
   <script src="/js/analytics-consent.js?v=5b038118331e"></script>
   
-  <!-- Schema.org Product & Breadcrumbs -->
+  <!-- Schema.org Product, Breadcrumbs & FAQPage Rich Snippets -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Product",
-        "name": "Duddar Lead & Zinc Flotation Concentrates",
-        "description": "Balochistan Minerals supplies high-purity zinc concentrate (55%-62% Zn) and lead concentrate (60% Pb) sourced from the world-class Duddar deposit. High silver credits.",
-        "category": "Metallic Minerals",
-        "image": "https://balochistanminerals.com/images/lead-zinc.webp",
-        "offers": {
-          "@type": "AggregateOffer",
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Product",
+      "name": "Duddar Lead & Zinc Flotation Concentrates",
+      "description": "Balochistan Minerals supplies high-purity zinc concentrate (55%-62% Zn) and lead concentrate (60% Pb) sourced from the world-class Duddar deposit. High silver credits.",
+      "sku": "lead-zinc-ore",
+      "mpn": "2608.00.00",
+      "category": "Metallic Minerals",
+      "image": "https://balochistanminerals.com/images/lead-zinc.webp",
+      "countryOfOrigin": {
+        "@type": "Country",
+        "name": "Pakistan"
+      },
+      "brand": {
+        "@type": "Organization",
+        "name": "Balochistan Minerals",
+        "url": "https://balochistanminerals.com"
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "USD",
+        "price": "0",
+        "lowPrice": "0",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
           "priceCurrency": "USD",
-          "price": "Call for quote",
-          "availability": "https://schema.org/InStock"
+          "priceType": "https://schema.org/InvoicePrice"
         },
-        "brand": {
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition",
+        "eligibleTransactionVolume": {
+          "@type": "PriceSpecification",
+          "name": "Minimum Order Quantity",
+          "description": "100 MT (Containerized) / 3,000 MT (Vessel)"
+        },
+        "seller": {
           "@type": "Organization",
           "name": "Balochistan Minerals",
           "url": "https://balochistanminerals.com"
         }
       },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://balochistanminerals.com/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Products",
-            "item": "https://balochistanminerals.com/products"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Metallic Minerals",
-            "item": "https://balochistanminerals.com/product-metallic"
-          },
-          {
-            "@type": "ListItem",
-            "position": 4,
-            "name": "Duddar Lead & Zinc Flotation Concentrates",
-            "item": "https://balochistanminerals.com/minerals/lead-zinc-ore"
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Zinc Grade (Zn)",
+          "value": "55% - 62%"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Lead Grade (Pb)",
+          "value": "58% - 64%"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Silver Credit (Ag)",
+          "value": "80 - 250 g/t"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Deposit Model",
+          "value": "SEDEX Mineralization"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Mining Provenance",
+          "value": "Duddar & Lasbela Metallurgical Belt, Balochistan"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "HS Code",
+          "value": "2608.00.00"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Incoterms Available",
+          "value": "FOB Karachi / CFR Global Smelters"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Standard Payment Terms",
+          "value": "Irrevocable LC at Sight / TT"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://balochistanminerals.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Products",
+          "item": "https://balochistanminerals.com/products"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Metallic Minerals",
+          "item": "https://balochistanminerals.com/product-metallic"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Duddar Lead & Zinc Flotation Concentrates",
+          "item": "https://balochistanminerals.com/minerals/lead-zinc-ore"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the certified grade and purity of Balochistan Minerals' Lead & Zinc?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our Duddar Lead & Zinc Flotation Concentrates originates from active concessions in Duddar & Lasbela Metallurgical Belt, Balochistan. Typical certified specifications include: Zinc Grade (Zn): 55% - 62%, Lead Grade (Pb): 58% - 64%, Silver Credit (Ag): 80 - 250 g/t, Deposit Model: SEDEX Mineralization. Official Certificate of Analysis (COA) is verified by independent international surveyors prior to vessel loading."
           }
-        ]
-      }
-    ]
-  }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the minimum order quantities (MOQ) and shipping terms for Lead & Zinc?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Minimum order quantity is 100 MT (Containerized) / 3,000 MT (Vessel). Standard delivery Incoterms include FOB Karachi / CFR Global Smelters. Accepted commercial payment terms are Irrevocable LC at Sight / TT."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is Lead & Zinc sized and packaged for export?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Physical sizing and distribution: Fine flotation concentrate powder: 85% passing 200 mesh (74 microns) filter cake shipped under IMO Transportable Moisture Limit (TML) safety certification. Packaging options include 1 to 2 MT heavy-duty jumbo bags with HDPE inner liners or direct bulk vessel loading under strict moisture control protocols."
+          }
+        }
+      ]
+    }
+  ]
+}
   </script>
 </head>
 <body class="mineral-spec-page">

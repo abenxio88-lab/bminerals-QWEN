@@ -43,60 +43,154 @@
   <!-- Privacy-first analytics consent -->
   <script src="/js/analytics-consent.js?v=5b038118331e"></script>
   
-  <!-- Schema.org Product & Breadcrumbs -->
+  <!-- Schema.org Product, Breadcrumbs & FAQPage Rich Snippets -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Product",
-        "name": "Dilband & Chagai Iron Ore (Hematite & Magnetite)",
-        "description": "Supplying high-grade hematite and magnetite iron ore (Fe 45%-64%) from Dilband and Chagai deposits. Low phosphorus, optimal Fe:SiO2 ratio for blast furnaces and DRI.",
-        "category": "Metallic Minerals",
-        "image": "https://balochistanminerals.com/images/iron-ore-new.webp",
-        "offers": {
-          "@type": "AggregateOffer",
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Product",
+      "name": "Dilband & Chagai Iron Ore (Hematite & Magnetite)",
+      "description": "Supplying high-grade hematite and magnetite iron ore (Fe 45%-64%) from Dilband and Chagai deposits. Low phosphorus, optimal Fe:SiO2 ratio for blast furnaces and DRI.",
+      "sku": "iron-ore",
+      "mpn": "2601.11.00",
+      "category": "Metallic Minerals",
+      "image": "https://balochistanminerals.com/images/iron-ore-new.webp",
+      "countryOfOrigin": {
+        "@type": "Country",
+        "name": "Pakistan"
+      },
+      "brand": {
+        "@type": "Organization",
+        "name": "Balochistan Minerals",
+        "url": "https://balochistanminerals.com"
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "USD",
+        "price": "0",
+        "lowPrice": "0",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
           "priceCurrency": "USD",
-          "price": "Call for quote",
-          "availability": "https://schema.org/InStock"
+          "priceType": "https://schema.org/InvoicePrice"
         },
-        "brand": {
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition",
+        "eligibleTransactionVolume": {
+          "@type": "PriceSpecification",
+          "name": "Minimum Order Quantity",
+          "description": "500 MT (Containerized) / 15,000 MT (Supramax Vessel)"
+        },
+        "seller": {
           "@type": "Organization",
           "name": "Balochistan Minerals",
           "url": "https://balochistanminerals.com"
         }
       },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://balochistanminerals.com/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Products",
-            "item": "https://balochistanminerals.com/products"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Metallic Minerals",
-            "item": "https://balochistanminerals.com/product-metallic"
-          },
-          {
-            "@type": "ListItem",
-            "position": 4,
-            "name": "Dilband & Chagai Iron Ore (Hematite & Magnetite)",
-            "item": "https://balochistanminerals.com/minerals/iron-ore"
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Total Iron (Fe)",
+          "value": "50% - 64%"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Low Phosphorus",
+          "value": "< 0.08% P"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Deposit Scale",
+          "value": "200M+ MT Reserves"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Shipping Corridors",
+          "value": "Karachi & Gwadar"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Mining Provenance",
+          "value": "Dilband (Mastung District) & Chagai Belts, Balochistan"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "HS Code",
+          "value": "2601.11.00"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Incoterms Available",
+          "value": "FOB Karachi / CFR Main Asian Ports"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Standard Payment Terms",
+          "value": "Irrevocable LC at Sight / TT"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://balochistanminerals.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Products",
+          "item": "https://balochistanminerals.com/products"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Metallic Minerals",
+          "item": "https://balochistanminerals.com/product-metallic"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Dilband & Chagai Iron Ore (Hematite & Magnetite)",
+          "item": "https://balochistanminerals.com/minerals/iron-ore"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the certified grade and purity of Balochistan Minerals' Iron Ore?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our Dilband & Chagai Iron Ore (Hematite & Magnetite) originates from active concessions in Dilband (Mastung District) & Chagai Belts, Balochistan. Typical certified specifications include: Total Iron (Fe): 50% - 64%, Low Phosphorus: < 0.08% P, Deposit Scale: 200M+ MT Reserves, Shipping Corridors: Karachi & Gwadar. Official Certificate of Analysis (COA) is verified by independent international surveyors prior to vessel loading."
           }
-        ]
-      }
-    ]
-  }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the minimum order quantities (MOQ) and shipping terms for Iron Ore?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Minimum order quantity is 500 MT (Containerized) / 15,000 MT (Supramax Vessel). Standard delivery Incoterms include FOB Karachi / CFR Main Asian Ports. Accepted commercial payment terms are Irrevocable LC at Sight / TT."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is Iron Ore sized and packaged for export?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Physical sizing and distribution: Lump Ore: 10 mm – 40 mm (90% min within range) for direct blast furnace feed. Fines: 0 mm – 10 mm for sinter and pellet plant blending. Packaging options include 1 to 2 MT heavy-duty jumbo bags with HDPE inner liners or direct bulk vessel loading under strict moisture control protocols."
+          }
+        }
+      ]
+    }
+  ]
+}
   </script>
 </head>
 <body class="mineral-spec-page">

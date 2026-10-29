@@ -43,60 +43,154 @@
   <!-- Privacy-first analytics consent -->
   <script src="/js/analytics-consent.js?v=5b038118331e"></script>
   
-  <!-- Schema.org Product & Breadcrumbs -->
+  <!-- Schema.org Product, Breadcrumbs & FAQPage Rich Snippets -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Product",
-        "name": "Khuzdar API 13A Drilling Barite (4.20+ SG)",
-        "description": "Supplying certified API Spec 13A drilling barite (4.20+ Specific Gravity) from Gunga & Khuzdar deposits. High BaSO4 purity for deep oil & gas drilling muds. FOB Karachi.",
-        "category": "Industrial Minerals",
-        "image": "https://balochistanminerals.com/images/barite-card.jpg",
-        "offers": {
-          "@type": "AggregateOffer",
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Product",
+      "name": "Khuzdar API 13A Drilling Barite (4.20+ SG)",
+      "description": "Supplying certified API Spec 13A drilling barite (4.20+ Specific Gravity) from Gunga & Khuzdar deposits. High BaSO4 purity for deep oil & gas drilling muds. FOB Karachi.",
+      "sku": "drilling-barite",
+      "mpn": "2511.10.00",
+      "category": "Industrial Minerals",
+      "image": "https://balochistanminerals.com/images/barite-card.jpg",
+      "countryOfOrigin": {
+        "@type": "Country",
+        "name": "Pakistan"
+      },
+      "brand": {
+        "@type": "Organization",
+        "name": "Balochistan Minerals",
+        "url": "https://balochistanminerals.com"
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "USD",
+        "price": "0",
+        "lowPrice": "0",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
           "priceCurrency": "USD",
-          "price": "Call for quote",
-          "availability": "https://schema.org/InStock"
+          "priceType": "https://schema.org/InvoicePrice"
         },
-        "brand": {
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition",
+        "eligibleTransactionVolume": {
+          "@type": "PriceSpecification",
+          "name": "Minimum Order Quantity",
+          "description": "250 MT (Jumbo Bags) / 5,000 MT (Bulk Vessel)"
+        },
+        "seller": {
           "@type": "Organization",
           "name": "Balochistan Minerals",
           "url": "https://balochistanminerals.com"
         }
       },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://balochistanminerals.com/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Products",
-            "item": "https://balochistanminerals.com/products"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Industrial Minerals",
-            "item": "https://balochistanminerals.com/product-industrial"
-          },
-          {
-            "@type": "ListItem",
-            "position": 4,
-            "name": "Khuzdar API 13A Drilling Barite (4.20+ SG)",
-            "item": "https://balochistanminerals.com/minerals/drilling-barite"
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Specific Gravity",
+          "value": "4.20 - 4.35 g/cm³"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "BaSO4 Content",
+          "value": "92% - 96%"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Monthly Capacity",
+          "value": "25,000 MT"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Export Corridors",
+          "value": "Karachi / Gwadar"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Mining Provenance",
+          "value": "Khuzdar District (Gunga-Shekran Belt), Balochistan"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "HS Code",
+          "value": "2511.10.00"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Incoterms Available",
+          "value": "FOB Karachi / CFR Middle East & North Sea"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Standard Payment Terms",
+          "value": "Irrevocable LC at Sight / TT"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://balochistanminerals.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Products",
+          "item": "https://balochistanminerals.com/products"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Industrial Minerals",
+          "item": "https://balochistanminerals.com/product-industrial"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Khuzdar API 13A Drilling Barite (4.20+ SG)",
+          "item": "https://balochistanminerals.com/minerals/drilling-barite"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the certified grade and purity of Balochistan Minerals' Drilling Barite?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our Khuzdar API 13A Drilling Barite (4.20+ SG) originates from active concessions in Khuzdar District (Gunga-Shekran Belt), Balochistan. Typical certified specifications include: Specific Gravity: 4.20 - 4.35 g/cm³, BaSO4 Content: 92% - 96%, Monthly Capacity: 25,000 MT, Export Corridors: Karachi / Gwadar. Official Certificate of Analysis (COA) is verified by independent international surveyors prior to vessel loading."
           }
-        ]
-      }
-    ]
-  }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the minimum order quantities (MOQ) and shipping terms for Drilling Barite?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Minimum order quantity is 250 MT (Jumbo Bags) / 5,000 MT (Bulk Vessel). Standard delivery Incoterms include FOB Karachi / CFR Middle East & North Sea. Accepted commercial payment terms are Irrevocable LC at Sight / TT."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is Drilling Barite sized and packaged for export?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Physical sizing and distribution: Crude Lump Barite: 0 mm – 200 mm for export grinding mills. Milled Fine Powder: 200 mesh and 325 mesh (D97 < 75 microns) with hydrophobic packaging for offshore rig supply. Packaging options include 1 to 2 MT heavy-duty jumbo bags with HDPE inner liners or direct bulk vessel loading under strict moisture control protocols."
+          }
+        }
+      ]
+    }
+  ]
+}
   </script>
 </head>
 <body class="mineral-spec-page">
