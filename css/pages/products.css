@@ -185,11 +185,12 @@
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--primary-gold-400);
+  color: var(--primary-gold-600, #d45a15);
   margin-bottom: 0.75rem;
-  padding: 0.4rem 1rem;
-  background: rgba(230, 92, 26, 0.1);
-  border: 1px solid rgba(230, 92, 26, 0.3);
+  padding: 0.35rem 1rem;
+  background: transparent !important;
+  border: 1px solid rgba(212, 90, 21, 0.35);
+  border-radius: 999px;
 }
 
 .zigzag__title {
@@ -1097,10 +1098,16 @@
 .products-catalog {
   position: relative;
   overflow: hidden;
-  background:
-    linear-gradient(135deg, rgba(10, 22, 40, 0.96), rgba(15, 31, 58, 0.94)),
-    url('../../images/hero/body/products-cts.webp') center / cover;
-  color: white;
+  background: #ffffff;
+  color: var(--text-primary);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.products-catalog .zigzag__overline {
+  color: var(--primary-gold-600, #d45a15);
+  background: transparent !important;
+  border: 1px solid rgba(212, 90, 21, 0.35);
+  border-radius: 999px;
 }
 
 .products-catalog::before {
@@ -1155,7 +1162,7 @@
 }
 
 .products-catalog__title {
-  color: white;
+  color: var(--navy-900);
 }
 
 .products-catalog__lead,
@@ -1171,7 +1178,7 @@
 }
 
 .products-catalog__lead {
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--text-secondary);
   margin-top: 0.85rem;
   text-align: justify;
   text-align-last: left;
@@ -1205,9 +1212,11 @@
   overflow: hidden;
   padding: 1.35rem;
   position: relative;
-  background: rgba(10, 22, 40, 0.32);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-left: 4px solid rgba(242, 106, 33, 0.78);
+  background: rgba(10, 22, 40, 0.42);
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-left: 4px solid var(--primary-gold-500, #e65c1a);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
   color: white;
   text-decoration: none;
   transition: transform 0.3s var(--ease-smooth), border-color 0.3s var(--ease-smooth), box-shadow 0.3s var(--ease-smooth);
@@ -1257,8 +1266,8 @@
 
 .category-strip__item:hover {
   transform: translateY(-4px);
-  border-color: rgba(242, 106, 33, 0.52);
-  box-shadow: 0 24px 70px rgba(3, 8, 15, 0.36);
+  border-color: rgba(242, 106, 33, 0.6);
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.16);
 }
 
 .category-strip__item:hover::before {
@@ -1383,10 +1392,10 @@
   font-weight: 800;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--primary-gold-500);
-  background: var(--primary-gold-50);
-  border: 1px solid rgba(230, 92, 26, 0.15);
-  border-radius: 2px;
+  color: var(--primary-gold-600, #d45a15);
+  background: transparent !important;
+  border: 1px solid rgba(212, 90, 21, 0.35);
+  border-radius: 999px;
 }
 
 .metallic-showcase__title {
@@ -1901,10 +1910,11 @@
   display: inline-block;
   gap: initial;
   margin-bottom: 1rem;
-  padding: 0.4rem 1.15rem;
-  color: rgba(242, 106, 33, 0.95);
-  background: rgba(242, 106, 33, 0.1);
-  border: 1px solid rgba(242, 106, 33, 0.28);
+  padding: 0.35rem 1rem;
+  color: var(--primary-gold-600, #d45a15);
+  background: transparent !important;
+  border: 1px solid rgba(212, 90, 21, 0.35);
+  border-radius: 999px;
   font-family: var(--font-ui);
   font-size: 0.68rem;
   font-weight: 800;
@@ -2372,15 +2382,16 @@
 .industrial-showcase__overline {
   display: inline-block;
   margin-bottom: 1rem;
-  padding: 0.4rem 1.15rem;
+  padding: 0.35rem 1rem;
   font-family: var(--font-ui);
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(242, 106, 33, 0.95);
-  background: rgba(242, 106, 33, 0.1);
-  border: 1px solid rgba(242, 106, 33, 0.28);
+  color: var(--primary-gold-600, #d45a15);
+  background: transparent !important;
+  border: 1px solid rgba(212, 90, 21, 0.35);
+  border-radius: 999px;
 }
 
 .industrial-showcase__title {
@@ -2916,6 +2927,11 @@
 .product-category--dark .product-category__title,
 .product-category--dark .product-category__copy {
   color: white;
+}
+
+.product-category--dark .zigzag__overline {
+  color: var(--primary-gold-400);
+  border-color: rgba(242, 106, 33, 0.4);
 }
 
 .product-category--dark .product-category__copy {
