@@ -1,21 +1,22 @@
 /* ==========================================================================
    MINERAL SPECIFICATION PAGES - BALOCHISTAN MINERALS
-   Clean, authentic corporate design matching balochistanminerals.com
+   High-end B2B trade layout matching balochistanminerals.com design system
    ========================================================================== */
 
-/* Main Page Container */
 body.mineral-spec-page {
   background-color: #f8fafc;
   color: var(--text-primary, #2F3A40);
   font-family: var(--font-body, 'Poppins', sans-serif);
+  -webkit-font-smoothing: antialiased;
 }
 
-/* 1. HERO - Matching .detail-hero across the website */
+/* 1. HERO SECTION */
 .spec-hero {
   background: var(--navy-900, #0F1F3A);
   color: #ffffff;
-  padding: calc(var(--navbar-height, 72px) + 2rem) 1.5rem 3rem;
+  padding: calc(var(--navbar-height, 72px) + 1.25rem) 1.5rem 2.5rem;
   border-bottom: 3px solid var(--primary-gold-500, #E65C1A);
+  position: relative;
 }
 
 .spec-hero__container {
@@ -23,84 +24,114 @@ body.mineral-spec-page {
   margin: 0 auto;
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
-  gap: 3rem;
+  gap: 2.25rem;
   align-items: center;
 }
 
+/* Compact, Subtle Breadcrumbs (Single line, normal font-weight) */
 .spec-hero__breadcrumb {
-  font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 1rem;
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 0.65rem;
+  font-family: var(--font-ui, 'Montserrat', sans-serif);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .spec-hero__breadcrumb a {
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.75);
   text-decoration: none;
-  transition: color 0.2s;
+  font-weight: 400;
+  transition: color 0.2s ease;
 }
 
 .spec-hero__breadcrumb a:hover {
   color: var(--primary-gold-400, #F26A21);
 }
 
-.spec-hero__breadcrumb span {
-  color: var(--primary-gold-400, #F26A21);
+.spec-hero__breadcrumb span.sep {
+  margin: 0 0.35rem;
+  color: rgba(255, 255, 255, 0.35);
+  font-weight: 300;
 }
 
-.spec-hero__badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
+.spec-hero__breadcrumb span.current {
+  color: var(--primary-gold-400, #F26A21);
+  font-weight: 500;
+}
+
+/* Understated Micro-Kicker (Clean overline, no exclamation/warning triangle) */
+.spec-hero__kicker {
+  display: inline-block;
   font-family: var(--font-ui, 'Montserrat', sans-serif);
-  font-size: 0.72rem;
-  font-weight: 700;
+  font-size: 0.6875rem;
+  font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--primary-gold-400, #F26A21);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.45rem;
 }
 
+/* Refined H1 Title (Medium weight 500, restrained sizing) */
 .spec-hero__title {
   font-family: var(--font-heading, 'Oswald', sans-serif);
-  font-size: clamp(1.6rem, 2.5vw, 2.125rem);
-  font-weight: 600;
-  line-height: 1.12;
+  font-size: clamp(1.4rem, 2.1vw, 1.85rem);
+  font-weight: 500;
+  line-height: 1.18;
   text-transform: uppercase;
   color: #ffffff;
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.65rem;
+  letter-spacing: 0.02em;
 }
 
 .spec-hero__subtitle {
-  font-size: 0.95rem;
-  line-height: 1.65;
-  color: rgba(255, 255, 255, 0.82);
-  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 1.15rem;
   max-width: 620px;
 }
 
-.spec-hero__tags {
+/* Streamlined Inline Trust Indicators */
+.spec-hero__trust-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1.75rem;
+  align-items: center;
+  gap: 0.35rem 0.75rem;
+  margin-bottom: 1.35rem;
+  padding: 0;
+  list-style: none;
 }
 
-.spec-hero__tag {
+.spec-hero__trust-item {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.3rem 0.65rem;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 2px;
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.9);
+  gap: 0.3rem;
+  font-size: 0.74rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-ui, 'Montserrat', sans-serif);
 }
 
+.spec-hero__trust-icon {
+  color: #25D366;
+  font-size: 0.8rem;
+  line-height: 1;
+}
+
+.spec-hero__trust-dot {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.75rem;
+}
+
+/* Refined Compact Buttons */
 .spec-hero__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.85rem;
+  gap: 0.65rem;
   align-items: center;
 }
 
@@ -108,113 +139,144 @@ body.mineral-spec-page {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.4rem;
+  gap: 0.45rem;
+  padding: 0.45rem 1rem;
   background: var(--primary-gold-500, #E65C1A);
   color: #ffffff;
   font-family: var(--font-ui, 'Montserrat', sans-serif);
-  font-weight: 700;
-  font-size: 0.85rem;
+  font-weight: 600;
+  font-size: 0.76rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   text-decoration: none;
-  border-radius: 2px;
+  border-radius: 3px;
+  border: 1px solid var(--primary-gold-500, #E65C1A);
   transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 
 .spec-btn-primary:hover {
   background: var(--primary-gold-600, #D45A15);
+  border-color: var(--primary-gold-600, #D45A15);
   color: #ffffff;
 }
 
+/* White WhatsApp Button with Green Text & Icon */
 .spec-btn-whatsapp {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.4rem;
-  background: #25D366;
-  color: #ffffff;
+  gap: 0.45rem;
+  padding: 0.45rem 1rem;
+  background: #ffffff;
+  border: 1px solid rgba(37, 211, 102, 0.85);
+  color: #075E54;
   font-family: var(--font-ui, 'Montserrat', sans-serif);
-  font-weight: 700;
-  font-size: 0.85rem;
+  font-weight: 600;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   text-decoration: none;
-  border-radius: 2px;
+  border-radius: 3px;
   transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .spec-btn-whatsapp:hover {
-  background: #1eb956;
+  background: #f0fdf4;
+  border-color: #128C7E;
+  color: #054c44;
+}
+
+.spec-btn-whatsapp svg {
+  fill: #25D366;
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
 }
 
 .spec-btn-secondary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.65rem 1.2rem;
+  gap: 0.4rem;
+  padding: 0.38rem 0.85rem;
   background: #ffffff;
-  border: 1px solid var(--border, #CCD4DA);
+  border: 1px solid var(--border-light, #CCD4DA);
   color: var(--navy-900, #0F1F3A);
   font-family: var(--font-ui, 'Montserrat', sans-serif);
   font-weight: 600;
-  font-size: 0.82rem;
+  font-size: 0.74rem;
   text-decoration: none;
-  border-radius: 2px;
+  border-radius: 3px;
   transition: all 0.2s ease;
 }
 
 .spec-btn-secondary:hover {
   background: #f1f5f9;
   border-color: var(--primary-gold-500, #E65C1A);
+  color: var(--primary-gold-600, #D45A15);
 }
 
-/* Hero Media Box */
+/* Specimen Gallery Card (Refined, no harsh borders) */
 .spec-hero__visual {
   position: relative;
-  background: #000;
+  background: #0f1f3a;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: var(--shadow-md, 0 20px 40px rgba(30, 58, 95, 0.12));
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+  border-radius: 6px;
   overflow: hidden;
-  border-radius: 2px;
 }
 
 .spec-hero__visual img {
   width: 100%;
-  height: 320px;
+  height: 290px;
   object-fit: cover;
   display: block;
 }
 
 .spec-hero__visual-badge {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 0.75rem 1rem;
-  background: rgba(10, 22, 40, 0.9);
+  padding: 0.6rem 0.85rem;
+  background: rgba(10, 22, 40, 0.94);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  gap: 0.5rem;
 }
 
 .spec-hero__visual-title {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .spec-hero__visual-sub {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--primary-gold-400, #F26A21);
+  margin-top: 0.1rem;
 }
 
-/* 2. EXECUTIVE METRICS STRIP */
+.spec-hero__visual-tag {
+  font-family: var(--font-ui, 'Montserrat', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  background: var(--primary-gold-500, #E65C1A);
+  color: #ffffff;
+  padding: 0.2rem 0.55rem;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+/* 2. EXECUTIVE METRICS STRIP (Refined B2B KPI Cards) */
 .spec-metrics {
   background: #ffffff;
-  border-bottom: 1px solid var(--border-light, #E5EAEE);
-  padding: 1.75rem 1.5rem;
+  border-bottom: 1px solid var(--border-light, #E2E8F0);
+  padding: 1.35rem 1.5rem;
 }
 
 .spec-metrics__grid {
@@ -222,24 +284,35 @@ body.mineral-spec-page {
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1.25rem;
+  gap: 1.15rem;
 }
 
 .spec-metric-card {
-  background: #f8fafc;
-  border: 1px solid var(--border-light, #E5EAEE);
-  border-left: 3px solid var(--primary-gold-500, #E65C1A);
-  padding: 1rem 1.25rem;
+  background: #ffffff;
+  border: 1px solid var(--border-light, #E2E8F0);
+  border-top: 3px solid var(--primary-gold-500, #E65C1A);
+  padding: 1rem 1.15rem;
+  border-radius: 4px;
+  text-align: left;
+  box-shadow: 0 2px 6px rgba(15, 31, 58, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.spec-metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(15, 31, 58, 0.07);
 }
 
 .spec-metric-card__label {
   font-family: var(--font-ui, 'Montserrat', sans-serif);
-  font-size: 0.7rem;
-  font-weight: 700;
+  font-size: 0.6875rem;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--text-secondary, #4A5660);
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.35rem;
 }
 
 .spec-metric-card__val {
@@ -248,93 +321,137 @@ body.mineral-spec-page {
   font-weight: 600;
   color: var(--navy-900, #0F1F3A);
   line-height: 1.2;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.25rem;
+  letter-spacing: 0.02em;
 }
 
 .spec-metric-card__desc {
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   color: var(--text-muted, #62707A);
-  line-height: 1.4;
+  line-height: 1.45;
+  margin-top: auto;
 }
 
 /* 3. MAIN CONTENT LAYOUT */
 .spec-content {
   max-width: var(--max-width, 1400px);
   margin: 0 auto;
-  padding: 3rem 1.5rem;
+  padding: 2.5rem 1.5rem;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 340px;
-  gap: 2.5rem;
+  grid-template-columns: minmax(0, 1fr) 330px;
+  gap: 2.25rem;
 }
 
 .spec-section-header {
-  margin-bottom: 2rem;
+  margin-bottom: 1.75rem;
+  text-align: left;
 }
 
 .spec-section-kicker {
   font-family: var(--font-ui, 'Montserrat', sans-serif);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.16em;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--primary-gold-500, #E65C1A);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.35rem;
   display: block;
 }
 
+/* Desktop Main Section Headings: Prominent, authoritative, executive scale */
+body.mineral-spec-page .spec-section-title,
+body.mineral-spec-page main h2.spec-section-title,
+main h2.spec-section-title,
 .spec-section-title {
   font-family: var(--font-heading, 'Oswald', sans-serif);
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--navy-900, #0F1F3A);
-  text-transform: uppercase;
-  margin-bottom: 0.6rem;
-  line-height: 1.2;
+  font-size: 1.55rem !important;
+  font-weight: 500 !important;
+  color: var(--navy-900, #0F1F3A) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.03em !important;
+  margin-bottom: 0.5rem !important;
+  line-height: 1.25 !important;
+  text-align: left;
 }
 
 .spec-section-intro {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   line-height: 1.65;
   color: var(--text-secondary, #4A5660);
+  text-align: left;
 }
 
-/* 4. TECHNICAL ASSAY TABLE - Clean corporate layout */
+/* 4. TECHNICAL ASSAY TABLE */
+.spec-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.spec-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-color: var(--primary-gold-500, #E65C1A);
+  color: var(--primary-gold-600, #D45A15);
+  font-size: 0.75rem;
+  font-family: var(--font-ui, 'Montserrat', sans-serif);
+  font-weight: 600;
+  padding: 0.4rem 0.85rem;
+  border-radius: 3px;
+  background: #ffffff;
+  border: 1px solid var(--border-light, #CCD4DA);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.spec-download-btn:hover {
+  background: #fdfaf6;
+  border-color: var(--primary-gold-500, #E65C1A);
+  color: var(--primary-gold-600, #D45A15);
+}
+
 .spec-table-wrap {
   background: #ffffff;
-  border: 1px solid var(--border, #CCD4DA);
-  border-radius: 2px;
+  border: 1px solid var(--border-light, #E2E8F0);
+  border-radius: 4px;
   overflow-x: auto;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .spec-table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  font-size: 0.875rem;
+  font-size: 0.84rem;
 }
 
 .spec-table th {
   background: var(--navy-900, #0F1F3A);
   color: #ffffff;
   font-family: var(--font-ui, 'Montserrat', sans-serif);
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  font-size: 0.75rem;
-  padding: 0.85rem 1rem;
+  font-size: 0.72rem;
+  padding: 0.7rem 0.9rem;
   border: none;
+  text-align: left;
 }
 
 .spec-table td {
-  padding: 0.8rem 1rem;
+  padding: 0.7rem 0.9rem;
   border-bottom: 1px solid var(--border-light, #E5EAEE);
   color: var(--text-primary, #2F3A40);
+  text-align: left;
 }
 
 .spec-table tbody tr:nth-child(even) td {
-  background: #fcfdfe;
+  background: #fbfcfd;
 }
 
 .spec-table tbody tr:hover td {
@@ -344,136 +461,211 @@ body.mineral-spec-page {
 .spec-table__highlight {
   font-weight: 600;
   color: var(--navy-900, #0F1F3A);
+  text-align: left;
 }
 
-/* 5. APPLICATION CARDS */
-.spec-app-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.25rem;
-  margin-bottom: 2.5rem;
-}
-
-.spec-app-card {
+/* 5. STRUCTURED PHYSICAL SIZING BOX (Orange accent borders on both sides) */
+.spec-sizing-box {
   background: #ffffff;
-  border: 1px solid var(--border-light, #E5EAEE);
-  border-top: 2px solid var(--navy-700, #1E3A5F);
-  padding: 1.25rem;
+  border: 1px solid var(--border-light, #E2E8F0);
+  border-left: 3px solid var(--primary-gold-500, #E65C1A);
+  border-right: 3px solid var(--primary-gold-500, #E65C1A);
+  border-radius: 4px;
+  padding: 1.15rem 1.35rem;
+  box-shadow: 0 1px 4px rgba(15, 31, 58, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
 }
 
-.spec-app-card__title {
-  font-family: var(--font-heading, 'Oswald', sans-serif);
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--navy-900, #0F1F3A);
-  text-transform: uppercase;
-  margin-bottom: 0.4rem;
-}
-
-.spec-app-card__text {
-  font-size: 0.875rem;
+.spec-sizing-item {
+  font-size: 0.84rem;
   line-height: 1.55;
   color: var(--text-secondary, #4A5660);
 }
 
-/* 6. LOGISTICS FLOW */
+.spec-sizing-label {
+  color: var(--navy-900, #0F1F3A);
+  font-weight: 600;
+  margin-right: 0.35rem;
+  font-family: var(--font-ui, 'Montserrat', sans-serif);
+  font-size: 0.8rem;
+}
+
+.spec-sizing-val {
+  color: var(--text-secondary, #4A5660);
+}
+
+/* 6. APPLICATION CARDS */
+.spec-app-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.15rem;
+  margin-bottom: 2.25rem;
+}
+
+.spec-app-card {
+  background: #ffffff;
+  border: 1px solid var(--border-light, #E2E8F0);
+  border-top: 2px solid var(--navy-700, #1E3A5F);
+  padding: 1.15rem;
+  border-radius: 3px;
+  text-align: left;
+}
+
+.spec-app-card__title {
+  font-family: var(--font-ui, 'Montserrat', sans-serif);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--navy-900, #0F1F3A);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.3rem;
+  line-height: 1.35;
+}
+
+.spec-app-card__text {
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--text-secondary, #4A5660);
+}
+
+/* 7. LOGISTICS FLOW & OPERATIONAL PHOTO */
 .spec-logistics-box {
   background: #ffffff;
-  border: 1px solid var(--border-light, #E5EAEE);
-  padding: 1.75rem;
-  margin-bottom: 2.5rem;
+  border: 1px solid var(--border-light, #E2E8F0);
+  padding: 1.5rem;
+  margin-bottom: 2.25rem;
+  border-radius: 4px;
+  text-align: left;
 }
 
 .spec-logistics-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
-  margin-top: 1.25rem;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 .spec-logistics-item {
-  padding: 1rem;
+  padding: 0.85rem;
   background: #f8fafc;
   border-left: 3px solid var(--primary-gold-500, #E65C1A);
+  border-radius: 2px;
+  text-align: left;
 }
 
 .spec-logistics-item__title {
-  font-size: 0.875rem;
-  font-weight: 700;
+  font-family: var(--font-ui, 'Montserrat', sans-serif);
+  font-size: 0.78rem;
+  font-weight: 600;
   color: var(--navy-900, #0F1F3A);
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.25rem;
 }
 
 .spec-logistics-item__desc {
-  font-size: 0.8125rem;
+  font-size: 0.77rem;
   color: var(--text-secondary, #4A5660);
-  line-height: 1.5;
+  line-height: 1.45;
 }
 
-/* 7. SIDEBAR (Commercial RFQ Card) */
+.spec-logistics-photo {
+  margin-top: 1.35rem;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--border-light, #E2E8F0);
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.spec-logistics-photo img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  display: block;
+}
+
+.spec-logistics-photo__caption {
+  padding: 0.55rem 0.85rem;
+  font-size: 0.74rem;
+  color: var(--text-secondary, #4A5660);
+  background: #f8fafc;
+  border-top: 1px solid var(--border-light, #E2E8F0);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+/* 8. SIDEBAR (Commercial RFQ Card) */
 .spec-sidebar {
   position: relative;
 }
 
 .spec-sidebar__sticky {
   position: sticky;
-  top: calc(var(--navbar-height, 72px) + 1.5rem);
+  top: calc(var(--navbar-height, 72px) + 1.25rem);
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 .spec-rfq-card {
   background: #ffffff;
-  border: 1px solid var(--border, #CCD4DA);
-  border-top: 4px solid var(--primary-gold-500, #E65C1A);
-  padding: 1.5rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-light, #E2E8F0);
+  border-top: 3px solid var(--primary-gold-500, #E65C1A);
+  padding: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border-radius: 3px;
+  text-align: left;
 }
 
 .spec-rfq-card__badge {
   font-family: var(--font-ui, 'Montserrat', sans-serif);
   font-size: 0.6875rem;
-  font-weight: 800;
+  font-weight: 500;
   text-transform: uppercase;
   color: var(--primary-gold-500, #E65C1A);
   letter-spacing: 0.12em;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.25rem;
   display: block;
 }
 
 .spec-rfq-card__title {
   font-family: var(--font-heading, 'Oswald', sans-serif);
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: 1.05rem;
+  font-weight: 500;
   color: var(--navy-900, #0F1F3A);
   text-transform: uppercase;
-  margin-bottom: 0.6rem;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.35rem;
 }
 
 .spec-rfq-card__text {
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: var(--text-secondary, #4A5660);
   line-height: 1.5;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 .spec-sidebar-links {
   background: #ffffff;
-  border: 1px solid var(--border-light, #E5EAEE);
-  padding: 1.25rem;
+  border: 1px solid var(--border-light, #E2E8F0);
+  padding: 1.15rem;
+  border-radius: 3px;
+  text-align: left;
 }
 
 .spec-sidebar-links__title {
   font-family: var(--font-ui, 'Montserrat', sans-serif);
-  font-size: 0.75rem;
-  font-weight: 700;
+  font-size: 0.7rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   color: var(--navy-900, #0F1F3A);
-  margin-bottom: 0.75rem;
-  border-bottom: 2px solid var(--border-light, #E5EAEE);
-  padding-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-light, #E5EAEE);
+  padding-bottom: 0.3rem;
 }
 
 .spec-sidebar-links__list {
@@ -482,19 +674,20 @@ body.mineral-spec-page {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.45rem;
 }
 
 .spec-sidebar-links__list a {
   color: var(--text-primary, #2F3A40);
   text-decoration: none;
-  font-size: 0.8125rem;
+  font-size: 0.8rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.45rem 0.6rem;
+  padding: 0.4rem 0.55rem;
   background: #f8fafc;
   border: 1px solid var(--border-light, #E5EAEE);
+  border-radius: 2px;
   transition: all 0.2s;
 }
 
@@ -504,38 +697,211 @@ body.mineral-spec-page {
   color: var(--primary-gold-600, #D45A15);
 }
 
-/* RESPONSIVE */
+/* ==========================================================================
+   RESPONSIVE DESIGN SYSTEM
+   ========================================================================== */
 @media (max-width: 992px) {
   .spec-hero__container {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.75rem;
   }
   .spec-hero__visual {
     max-width: 480px;
+    margin: 0 auto;
   }
   .spec-metrics__grid {
     grid-template-columns: repeat(2, 1fr);
   }
   .spec-content {
     grid-template-columns: 1fr;
+    gap: 2rem;
   }
   .spec-sidebar__sticky {
     position: static;
   }
 }
 
-@media (max-width: 600px) {
-  .spec-metrics__grid {
-    grid-template-columns: 1fr;
+@media (max-width: 768px) {
+  /* Intentional centering for hero headers, breadcrumb, kicker & buttons on mobile */
+  .spec-hero__content {
+    text-align: center;
   }
+
+  .spec-hero__breadcrumb {
+    font-size: 0.6875rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .spec-hero__kicker {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .spec-hero__title {
+    font-size: 1.45rem;
+    line-height: 1.22;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .spec-hero__subtitle {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 0.84rem;
+    line-height: 1.55;
+  }
+
+  .spec-hero__trust-list {
+    justify-content: center;
+  }
+
+  .spec-hero__actions {
+    justify-content: center;
+  }
+
+  /* Metric cards: Centered, balanced 2x2 presentation on mobile */
+  .spec-metrics {
+    padding: 1rem 0.75rem;
+  }
+
+  .spec-metrics__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.65rem;
+  }
+
+  .spec-metric-card {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem 0.55rem;
+  }
+
+  .spec-metric-card__label {
+    font-size: 0.625rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .spec-metric-card__val {
+    font-size: 1.15rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .spec-metric-card__desc {
+    font-size: 0.6875rem;
+    line-height: 1.35;
+  }
+
+  /* Section headers & overlines: Centered on mobile */
+  .spec-section-header {
+    text-align: center;
+    margin-bottom: 1.25rem;
+  }
+
+  .spec-section-kicker {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Mobile section headings: locked with !important to defeat any global h2 rules */
+  body.mineral-spec-page main h2.spec-section-title,
+  body.mineral-spec-page .spec-section-title,
+  main h2.spec-section-title,
+  .spec-section-title {
+    font-size: 1.25rem !important;
+    line-height: 1.28 !important;
+    font-weight: 500 !important;
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    letter-spacing: 0.02em !important;
+  }
+
+  .spec-section-intro {
+    text-align: left;
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+
+  /* Laboratory Testing: Header and Download SGS Report centered on mobile */
+  .spec-table-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.65rem;
+  }
+
+  .spec-table-header > div {
+    text-align: center;
+    width: 100%;
+  }
+
+  .spec-download-btn {
+    margin: 0.25rem auto 0 auto;
+    display: inline-flex;
+    justify-content: center;
+  }
+
+  .spec-sizing-box {
+    padding: 1rem 1.15rem;
+  }
+
+  .spec-app-card__title {
+    font-size: 0.75rem;
+  }
+
+  .spec-logistics-item__title {
+    font-size: 0.75rem;
+  }
+
+  .spec-rfq-card__title {
+    font-size: 0.98rem;
+  }
+
   .spec-app-grid {
     grid-template-columns: 1fr;
   }
+
+  .spec-app-card {
+    text-align: left;
+  }
+
   .spec-logistics-grid {
     grid-template-columns: 1fr;
   }
+
+  .spec-logistics-box,
+  .spec-logistics-item {
+    text-align: left;
+  }
+
+  .spec-rfq-card {
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  body.mineral-spec-page main h2.spec-section-title,
+  body.mineral-spec-page .spec-section-title,
+  main h2.spec-section-title,
+  .spec-section-title {
+    font-size: 1.15rem !important;
+    line-height: 1.28 !important;
+    text-align: center !important;
+  }
+
+  .spec-metrics__grid {
+    grid-template-columns: 1fr;
+  }
+
   .spec-hero__actions {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .spec-btn-primary,
+  .spec-btn-whatsapp {
+    width: 100%;
   }
 }

@@ -86,7 +86,8 @@ const dropdownParentLinks = {
 };
 
 function getProductsPathPrefix() {
-  return window.location.pathname.includes('/blog/') ? '../' : '';
+  const p = window.location.pathname;
+  return (p.includes('/blog/') || p.includes('/minerals/') || p.includes('/documents/')) ? '../' : '';
 }
 
 const productThumbnails = {
@@ -226,8 +227,9 @@ function createChevronSvg() {
   svg.setAttribute('width', '12');
   svg.setAttribute('height', '12');
 
+  const prefix = getProductsPathPrefix();
   const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
-  use.setAttribute('href', 'images/icons.svg#icon-chevron-down');
+  use.setAttribute('href', `${prefix}images/icons.svg#icon-chevron-down`);
   svg.appendChild(use);
 
   return svg;
@@ -354,7 +356,8 @@ function splitMobileDropdownTriggers() {
     row.className = 'navbar__mobile-dropdown-head';
 
     const link = document.createElement('a');
-    link.href = href;
+    const prefix = getProductsPathPrefix();
+    link.href = `${prefix}${href}`;
     link.className = 'navbar__link navbar__mobile-parent-link';
     link.textContent = label;
 

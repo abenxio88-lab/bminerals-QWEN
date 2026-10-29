@@ -39,7 +39,7 @@
   }
 
   main h1:not([class*="hero"]):not(.hero-headline):not(.bm-hill-brand-text),
-  main h2:not([class*="hero"]):not(.bm-hill-brand-text) {
+  main h2:not([class*="hero"]):not(.bm-hill-brand-text):not(.spec-section-title):not([class*="spec-"]) {
     font-size: var(--mobile-content-heading-size);
     line-height: var(--mobile-content-heading-line);
   }
