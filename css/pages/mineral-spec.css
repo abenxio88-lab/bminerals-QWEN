@@ -1,0 +1,541 @@
+/* ==========================================================================
+   MINERAL SPECIFICATION PAGES - BALOCHISTAN MINERALS
+   Clean, authentic corporate design matching balochistanminerals.com
+   ========================================================================== */
+
+/* Main Page Container */
+body.mineral-spec-page {
+  background-color: #f8fafc;
+  color: var(--text-primary, #2F3A40);
+  font-family: var(--font-body, 'Poppins', sans-serif);
+}
+
+/* 1. HERO - Matching .detail-hero across the website */
+.spec-hero {
+  background: var(--navy-900, #0F1F3A);
+  color: #ffffff;
+  padding: calc(var(--navbar-height, 72px) + 2rem) 1.5rem 3rem;
+  border-bottom: 3px solid var(--primary-gold-500, #E65C1A);
+}
+
+.spec-hero__container {
+  max-width: var(--max-width, 1400px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  gap: 3rem;
+  align-items: center;
+}
+
+.spec-hero__breadcrumb {
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1rem;
+}
+
+.spec-hero__breadcrumb a {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.spec-hero__breadcrumb a:hover {
+  color: var(--primary-gold-400, #F26A21);
+}
+
+.spec-hero__breadcrumb span {
+  color: var(--primary-gold-400, #F26A21);
+}
+
+.spec-hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-ui, 'Montserrat', sans-serif);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--primary-gold-400, #F26A21);
+  margin-bottom: 0.75rem;
+}
+
+.spec-hero__title {
+  font-family: var(--font-heading, 'Oswald', sans-serif);
+  font-size: clamp(1.6rem, 2.5vw, 2.125rem);
+  font-weight: 600;
+  line-height: 1.12;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-bottom: 0.85rem;
+}
+
+.spec-hero__subtitle {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.82);
+  margin-bottom: 1.5rem;
+  max-width: 620px;
+}
+
+.spec-hero__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.spec-hero__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.65rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.spec-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  align-items: center;
+}
+
+.spec-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.4rem;
+  background: var(--primary-gold-500, #E65C1A);
+  color: #ffffff;
+  font-family: var(--font-ui, 'Montserrat', sans-serif);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+}
+
+.spec-btn-primary:hover {
+  background: var(--primary-gold-600, #D45A15);
+  color: #ffffff;
+}
+
+.spec-btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.4rem;
+  background: #25D366;
+  color: #ffffff;
+  font-family: var(--font-ui, 'Montserrat', sans-serif);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+}
+
+.spec-btn-whatsapp:hover {
+  background: #1eb956;
+}
+
+.spec-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.2rem;
+  background: #ffffff;
+  border: 1px solid var(--border, #CCD4DA);
+  color: var(--navy-900, #0F1F3A);
+  font-family: var(--font-ui, 'Montserrat', sans-serif);
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+}
+
+.spec-btn-secondary:hover {
+  background: #f1f5f9;
+  border-color: var(--primary-gold-500, #E65C1A);
+}
+
+/* Hero Media Box */
+.spec-hero__visual {
+  position: relative;
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: var(--shadow-md, 0 20px 40px rgba(30, 58, 95, 0.12));
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.spec-hero__visual img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  display: block;
+}
+
+.spec-hero__visual-badge {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.75rem 1rem;
+  background: rgba(10, 22, 40, 0.9);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.spec-hero__visual-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.spec-hero__visual-sub {
+  font-size: 0.75rem;
+  color: var(--primary-gold-400, #F26A21);
+}
+
+/* 2. EXECUTIVE METRICS STRIP */
+.spec-metrics {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border-light, #E5EAEE);
+  padding: 1.75rem 1.5rem;
+}
+
+.spec-metrics__grid {
+  max-width: var(--max-width, 1400px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+.spec-metric-card {
+  background: #f8fafc;
+  border: 1px solid var(--border-light, #E5EAEE);
+  border-left: 3px solid var(--primary-gold-500, #E65C1A);
+  padding: 1rem 1.25rem;
+}
+
+.spec-metric-card__label {
+  font-family: var(--font-ui, 'Montserrat', sans-serif);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary, #4A5660);
+  margin-bottom: 0.25rem;
+}
+
+.spec-metric-card__val {
+  font-family: var(--font-heading, 'Oswald', sans-serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--navy-900, #0F1F3A);
+  line-height: 1.2;
+  margin-bottom: 0.2rem;
+}
+
+.spec-metric-card__desc {
+  font-size: 0.78rem;
+  color: var(--text-muted, #62707A);
+  line-height: 1.4;
+}
+
+/* 3. MAIN CONTENT LAYOUT */
+.spec-content {
+  max-width: var(--max-width, 1400px);
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 2.5rem;
+}
+
+.spec-section-header {
+  margin-bottom: 2rem;
+}
+
+.spec-section-kicker {
+  font-family: var(--font-ui, 'Montserrat', sans-serif);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary-gold-500, #E65C1A);
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+.spec-section-title {
+  font-family: var(--font-heading, 'Oswald', sans-serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--navy-900, #0F1F3A);
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+  line-height: 1.2;
+}
+
+.spec-section-intro {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--text-secondary, #4A5660);
+}
+
+/* 4. TECHNICAL ASSAY TABLE - Clean corporate layout */
+.spec-table-wrap {
+  background: #ffffff;
+  border: 1px solid var(--border, #CCD4DA);
+  border-radius: 2px;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.875rem;
+}
+
+.spec-table th {
+  background: var(--navy-900, #0F1F3A);
+  color: #ffffff;
+  font-family: var(--font-ui, 'Montserrat', sans-serif);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.75rem;
+  padding: 0.85rem 1rem;
+  border: none;
+}
+
+.spec-table td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid var(--border-light, #E5EAEE);
+  color: var(--text-primary, #2F3A40);
+}
+
+.spec-table tbody tr:nth-child(even) td {
+  background: #fcfdfe;
+}
+
+.spec-table tbody tr:hover td {
+  background: #f1f5f9;
+}
+
+.spec-table__highlight {
+  font-weight: 600;
+  color: var(--navy-900, #0F1F3A);
+}
+
+/* 5. APPLICATION CARDS */
+.spec-app-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.spec-app-card {
+  background: #ffffff;
+  border: 1px solid var(--border-light, #E5EAEE);
+  border-top: 2px solid var(--navy-700, #1E3A5F);
+  padding: 1.25rem;
+}
+
+.spec-app-card__title {
+  font-family: var(--font-heading, 'Oswald', sans-serif);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--navy-900, #0F1F3A);
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.spec-app-card__text {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--text-secondary, #4A5660);
+}
+
+/* 6. LOGISTICS FLOW */
+.spec-logistics-box {
+  background: #ffffff;
+  border: 1px solid var(--border-light, #E5EAEE);
+  padding: 1.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.spec-logistics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.spec-logistics-item {
+  padding: 1rem;
+  background: #f8fafc;
+  border-left: 3px solid var(--primary-gold-500, #E65C1A);
+}
+
+.spec-logistics-item__title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--navy-900, #0F1F3A);
+  margin-bottom: 0.35rem;
+}
+
+.spec-logistics-item__desc {
+  font-size: 0.8125rem;
+  color: var(--text-secondary, #4A5660);
+  line-height: 1.5;
+}
+
+/* 7. SIDEBAR (Commercial RFQ Card) */
+.spec-sidebar {
+  position: relative;
+}
+
+.spec-sidebar__sticky {
+  position: sticky;
+  top: calc(var(--navbar-height, 72px) + 1.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.spec-rfq-card {
+  background: #ffffff;
+  border: 1px solid var(--border, #CCD4DA);
+  border-top: 4px solid var(--primary-gold-500, #E65C1A);
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.spec-rfq-card__badge {
+  font-family: var(--font-ui, 'Montserrat', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--primary-gold-500, #E65C1A);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.35rem;
+  display: block;
+}
+
+.spec-rfq-card__title {
+  font-family: var(--font-heading, 'Oswald', sans-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--navy-900, #0F1F3A);
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+.spec-rfq-card__text {
+  font-size: 0.82rem;
+  color: var(--text-secondary, #4A5660);
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+
+.spec-sidebar-links {
+  background: #ffffff;
+  border: 1px solid var(--border-light, #E5EAEE);
+  padding: 1.25rem;
+}
+
+.spec-sidebar-links__title {
+  font-family: var(--font-ui, 'Montserrat', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--navy-900, #0F1F3A);
+  margin-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border-light, #E5EAEE);
+  padding-bottom: 0.4rem;
+}
+
+.spec-sidebar-links__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.spec-sidebar-links__list a {
+  color: var(--text-primary, #2F3A40);
+  text-decoration: none;
+  font-size: 0.8125rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.45rem 0.6rem;
+  background: #f8fafc;
+  border: 1px solid var(--border-light, #E5EAEE);
+  transition: all 0.2s;
+}
+
+.spec-sidebar-links__list a:hover {
+  background: #ffffff;
+  border-color: var(--primary-gold-500, #E65C1A);
+  color: var(--primary-gold-600, #D45A15);
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+  .spec-hero__container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .spec-hero__visual {
+    max-width: 480px;
+  }
+  .spec-metrics__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .spec-content {
+    grid-template-columns: 1fr;
+  }
+  .spec-sidebar__sticky {
+    position: static;
+  }
+}
+
+@media (max-width: 600px) {
+  .spec-metrics__grid {
+    grid-template-columns: 1fr;
+  }
+  .spec-app-grid {
+    grid-template-columns: 1fr;
+  }
+  .spec-logistics-grid {
+    grid-template-columns: 1fr;
+  }
+  .spec-hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

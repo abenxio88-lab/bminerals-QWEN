@@ -49,7 +49,7 @@ class BMChatbot {
     if (assetPath.startsWith('http://') || assetPath.startsWith('https://') || assetPath.startsWith('//')) {
       return assetPath;
     }
-    const isSubdir = window.location.pathname.includes('/blog/') || window.location.pathname.includes('/documents/');
+    const isSubdir = window.location.pathname.includes('/blog/') || window.location.pathname.includes('/documents/') || window.location.pathname.includes('/minerals/');
     return isSubdir ? `../${assetPath.replace(/^\//, '')}` : assetPath;
   }
 
