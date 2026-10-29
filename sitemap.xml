@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://balochistanminerals.com/</loc>
-    <lastmod>2026-07-05</lastmod>
+    <lastmod>2026-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -108,23 +108,41 @@
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
-  <url>
+    <url>
     <loc>https://balochistanminerals.com/documents/annual-report-2025</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
-  <url>
+    <url>
     <loc>https://balochistanminerals.com/documents/environmental-impact-assessment</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
-  <url>
+    <url>
     <loc>https://balochistanminerals.com/documents/esg-sustainability-report</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
-  <url>
+    <url>
     <loc>https://balochistanminerals.com/documents/hse-policy-performance</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
-  <url>
+    <url>
     <loc>https://balochistanminerals.com/documents/jorc-resource-statement</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
-  <url>
+    <url>
     <loc>https://balochistanminerals.com/documents/q3-2025-financial-results</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://balochistanminerals.com/blog/sustainable-mining-balochistan</loc>
