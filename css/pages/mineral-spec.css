@@ -340,22 +340,31 @@ body.mineral-spec-page {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 330px;
   gap: 2.25rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.spec-main-col {
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
 }
 
 .spec-section-header {
-  margin-bottom: 1.75rem;
-  text-align: left;
+  margin-bottom: 1.85rem;
+  text-align: center;
 }
 
 .spec-section-kicker {
   font-family: var(--font-ui, 'Montserrat', sans-serif);
   font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--primary-gold-500, #E65C1A);
+  color: var(--primary-gold-600, #D45A15);
   margin-bottom: 0.35rem;
   display: block;
+  text-align: center;
 }
 
 /* Desktop Main Section Headings: Prominent, authoritative, executive scale */
@@ -371,24 +380,34 @@ main h2.spec-section-title,
   letter-spacing: 0.03em !important;
   margin-bottom: 0.5rem !important;
   line-height: 1.25 !important;
-  text-align: left;
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 .spec-section-intro {
-  font-size: 0.9rem;
-  line-height: 1.65;
+  font-size: 0.92rem;
+  line-height: 1.75;
   color: var(--text-secondary, #4A5660);
-  text-align: left;
+  text-align: center;
+  max-width: 820px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* 4. TECHNICAL ASSAY TABLE */
 .spec-table-header {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-  gap: 1rem;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 1.25rem;
+  gap: 0.65rem;
+}
+
+.spec-table-header > div {
+  text-align: center;
+  width: 100%;
 }
 
 .spec-download-btn {
@@ -406,6 +425,7 @@ main h2.spec-section-title,
   border: 1px solid var(--border-light, #CCD4DA);
   text-decoration: none;
   transition: all 0.2s ease;
+  margin: 0.15rem auto 0 auto;
 }
 
 .spec-download-btn:hover {
@@ -417,10 +437,42 @@ main h2.spec-section-title,
 .spec-table-wrap {
   background: #ffffff;
   border: 1px solid var(--border-light, #E2E8F0);
-  border-radius: 4px;
+  border-radius: 6px;
   overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pan-y;
+  overscroll-behavior-x: contain;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
   margin-bottom: 1.25rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-gold-500, #E65C1A) #F1F5F9;
+}
+
+.spec-table-wrap::-webkit-scrollbar {
+  height: 6px;
+}
+
+.spec-table-wrap::-webkit-scrollbar-track {
+  background: #F1F5F9;
+  border-radius: 3px;
+}
+
+.spec-table-wrap::-webkit-scrollbar-thumb {
+  background: var(--primary-gold-500, #E65C1A);
+  border-radius: 3px;
+}
+
+/* Footnote beneath assay table */
+.spec-table-wrap + p,
+section[aria-labelledby="assay-table-title"] > p {
+  text-align: center !important;
+  max-width: 820px;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 .spec-table {
@@ -464,7 +516,7 @@ main h2.spec-section-title,
   text-align: left;
 }
 
-/* 5. STRUCTURED PHYSICAL SIZING BOX (Orange accent borders on both sides) */
+/* 5. STRUCTURED PHYSICAL SIZING BOX (Centered) */
 .spec-sizing-box {
   background: #ffffff;
   border: 1px solid var(--border-light, #E2E8F0);
@@ -476,12 +528,14 @@ main h2.spec-section-title,
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
+  text-align: center;
 }
 
 .spec-sizing-item {
   font-size: 0.84rem;
   line-height: 1.55;
   color: var(--text-secondary, #4A5660);
+  text-align: center;
 }
 
 .spec-sizing-label {
@@ -496,7 +550,7 @@ main h2.spec-section-title,
   color: var(--text-secondary, #4A5660);
 }
 
-/* 6. APPLICATION CARDS */
+/* 6. APPLICATION CARDS (Centered) */
 .spec-app-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -510,7 +564,7 @@ main h2.spec-section-title,
   border-top: 2px solid var(--navy-700, #1E3A5F);
   padding: 1.15rem;
   border-radius: 3px;
-  text-align: left;
+  text-align: center;
 }
 
 .spec-app-card__title {
@@ -522,22 +576,24 @@ main h2.spec-section-title,
   letter-spacing: 0.03em;
   margin-bottom: 0.3rem;
   line-height: 1.35;
+  text-align: center;
 }
 
 .spec-app-card__text {
   font-size: 0.84rem;
   line-height: 1.55;
   color: var(--text-secondary, #4A5660);
+  text-align: center;
 }
 
-/* 7. LOGISTICS FLOW & OPERATIONAL PHOTO */
+/* 7. LOGISTICS FLOW & OPERATIONAL PHOTO (Centered) */
 .spec-logistics-box {
   background: #ffffff;
   border: 1px solid var(--border-light, #E2E8F0);
   padding: 1.5rem;
   margin-bottom: 2.25rem;
   border-radius: 4px;
-  text-align: left;
+  text-align: center;
 }
 
 .spec-logistics-grid {
@@ -552,7 +608,7 @@ main h2.spec-section-title,
   background: #f8fafc;
   border-left: 3px solid var(--primary-gold-500, #E65C1A);
   border-radius: 2px;
-  text-align: left;
+  text-align: center;
 }
 
 .spec-logistics-item__title {
@@ -561,12 +617,14 @@ main h2.spec-section-title,
   font-weight: 600;
   color: var(--navy-900, #0F1F3A);
   margin-bottom: 0.25rem;
+  text-align: center;
 }
 
 .spec-logistics-item__desc {
   font-size: 0.77rem;
   color: var(--text-secondary, #4A5660);
   line-height: 1.45;
+  text-align: center;
 }
 
 .spec-logistics-photo {
@@ -593,11 +651,35 @@ main h2.spec-section-title,
   border-top: 1px solid var(--border-light, #E2E8F0);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-align: center;
 }
 
-/* 8. SIDEBAR (Commercial RFQ Card) */
+/* Technical Guide Banner (Centered) */
+.spec-guide-banner,
+.spec-main-col > div:has(.spec-btn-secondary) {
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+}
+
+.spec-guide-banner > div,
+.spec-main-col > div:has(.spec-btn-secondary) > div {
+  text-align: center !important;
+  width: 100% !important;
+}
+
+.spec-guide-banner .spec-btn-secondary,
+.spec-main-col > div:has(.spec-btn-secondary) .spec-btn-secondary {
+  margin: 0.5rem auto 0 auto !important;
+  display: inline-flex !important;
+  text-align: center !important;
+}
+
+/* 8. SIDEBAR (Commercial RFQ Card - Centered) */
 .spec-sidebar {
   position: relative;
 }
@@ -617,7 +699,7 @@ main h2.spec-section-title,
   padding: 1.25rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   border-radius: 3px;
-  text-align: left;
+  text-align: center;
 }
 
 .spec-rfq-card__badge {
@@ -627,8 +709,9 @@ main h2.spec-section-title,
   text-transform: uppercase;
   color: var(--primary-gold-500, #E65C1A);
   letter-spacing: 0.12em;
-  margin-bottom: 0.25rem;
-  display: block;
+  margin: 0 auto 0.35rem auto;
+  display: table;
+  text-align: center;
 }
 
 .spec-rfq-card__title {
@@ -639,13 +722,32 @@ main h2.spec-section-title,
   text-transform: uppercase;
   letter-spacing: 0.03em;
   margin-bottom: 0.35rem;
+  text-align: center;
 }
 
-.spec-rfq-card__text {
+.spec-rfq-card__text,
+.spec-rfq-card p {
   font-size: 0.8rem;
   color: var(--text-secondary, #4A5660);
   line-height: 1.5;
   margin-bottom: 1rem;
+  text-align: center;
+}
+
+.spec-rfq-card > div {
+  text-align: center;
+}
+
+.spec-rfq-card > div > div {
+  text-align: center;
+}
+
+.spec-rfq-card .spec-btn-primary,
+.spec-rfq-card .spec-btn-whatsapp {
+  text-align: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .spec-sidebar-links {
@@ -653,7 +755,7 @@ main h2.spec-section-title,
   border: 1px solid var(--border-light, #E2E8F0);
   padding: 1.15rem;
   border-radius: 3px;
-  text-align: left;
+  text-align: center;
 }
 
 .spec-sidebar-links__title {
@@ -666,6 +768,7 @@ main h2.spec-section-title,
   margin-bottom: 0.5rem;
   border-bottom: 1px solid var(--border-light, #E5EAEE);
   padding-bottom: 0.3rem;
+  text-align: center;
 }
 
 .spec-sidebar-links__list {
@@ -713,8 +816,10 @@ main h2.spec-section-title,
     grid-template-columns: repeat(2, 1fr);
   }
   .spec-content {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 2rem;
+    width: 100%;
+    max-width: 100%;
   }
   .spec-sidebar__sticky {
     position: static;
@@ -818,10 +923,78 @@ main h2.spec-section-title,
     letter-spacing: 0.02em !important;
   }
 
+  .spec-content {
+    padding: 1.75rem 1rem;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+    box-sizing: border-box;
+  }
+
   .spec-section-intro {
-    text-align: left;
-    font-size: 0.85rem;
-    line-height: 1.6;
+    text-align: center;
+    font-size: 0.88rem;
+    line-height: 1.65;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .spec-table-header::after {
+    content: "Swipe table to view all 4 columns \2192";
+    display: inline-block;
+    font-family: var(--font-ui, 'Montserrat', sans-serif);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--primary-gold-600, #D45A15);
+    background: rgba(230, 92, 26, 0.08);
+    border: 1px dashed rgba(230, 92, 26, 0.35);
+    padding: 0.3rem 0.85rem;
+    border-radius: 999px;
+    margin: 0.35rem auto 0 auto;
+    text-align: center;
+  }
+
+  .spec-table-wrap {
+    margin-bottom: 2rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .spec-table {
+    width: 100%;
+    min-width: 350px;
+    font-size: 0.74rem;
+    table-layout: auto;
+  }
+
+  .spec-table th,
+  .spec-table td {
+    padding: 0.5rem 0.4rem;
+    line-height: 1.35;
+    white-space: normal;
+  }
+
+  .spec-table th {
+    font-size: 0.62rem;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+    padding: 0.55rem 0.4rem;
+    vertical-align: bottom;
+  }
+
+  .spec-table th:first-child,
+  .spec-table td:first-child {
+    padding-left: 0.55rem;
+  }
+
+  .spec-table th:last-child,
+  .spec-table td:last-child {
+    padding-right: 0.55rem;
   }
 
   /* Laboratory Testing: Header and Download SGS Report centered on mobile */
@@ -864,7 +1037,7 @@ main h2.spec-section-title,
   }
 
   .spec-app-card {
-    text-align: left;
+    text-align: center;
   }
 
   .spec-logistics-grid {
@@ -873,15 +1046,19 @@ main h2.spec-section-title,
 
   .spec-logistics-box,
   .spec-logistics-item {
-    text-align: left;
+    text-align: center;
   }
 
   .spec-rfq-card {
-    text-align: left;
+    text-align: center;
   }
 }
 
 @media (max-width: 480px) {
+  .spec-content {
+    padding: 1.25rem 0.75rem;
+  }
+
   body.mineral-spec-page main h2.spec-section-title,
   body.mineral-spec-page .spec-section-title,
   main h2.spec-section-title,
@@ -903,5 +1080,30 @@ main h2.spec-section-title,
   .spec-btn-primary,
   .spec-btn-whatsapp {
     width: 100%;
+  }
+
+  .spec-table {
+    min-width: 330px;
+    font-size: 0.70rem;
+  }
+
+  .spec-table th,
+  .spec-table td {
+    padding: 0.45rem 0.32rem;
+  }
+
+  .spec-table th {
+    font-size: 0.58rem;
+    line-height: 1.18;
+  }
+
+  .spec-table th:first-child,
+  .spec-table td:first-child {
+    padding-left: 0.45rem;
+  }
+
+  .spec-table th:last-child,
+  .spec-table td:last-child {
+    padding-right: 0.45rem;
   }
 }

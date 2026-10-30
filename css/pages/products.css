@@ -185,11 +185,11 @@
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--primary-gold-600, #d45a15);
+  color: var(--primary-gold-400, #F26A21);
   margin-bottom: 0.75rem;
   padding: 0.35rem 1rem;
   background: transparent !important;
-  border: 1px solid rgba(212, 90, 21, 0.35);
+  border: 1px solid rgba(242, 106, 33, 0.45);
   border-radius: 999px;
 }
 
@@ -489,11 +489,11 @@
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--primary-gold-400);
+  color: var(--primary-gold-400, #F26A21);
   margin-bottom: 0.75rem;
   padding: 0.3rem 0.75rem;
-  background: rgba(230, 92, 26, 0.1);
-  border: 1px solid rgba(230, 92, 26, 0.3);
+  background: transparent !important;
+  border: 1px solid rgba(242, 106, 33, 0.45);
 }
 
 .item-title {
@@ -1104,9 +1104,9 @@
 }
 
 .products-catalog .zigzag__overline {
-  color: var(--primary-gold-600, #d45a15);
+  color: var(--primary-gold-400, #F26A21);
   background: transparent !important;
-  border: 1px solid rgba(212, 90, 21, 0.35);
+  border: 1px solid rgba(242, 106, 33, 0.45);
   border-radius: 999px;
 }
 
@@ -1198,133 +1198,157 @@
 .category-strip {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
+  gap: 1.25rem;
+}
+
+@media (max-width: 1024px) {
+  .category-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .category-strip {
+    grid-template-columns: 1fr;
+  }
 }
 
 .category-strip__item {
-  --category-image: url('../../images/copper-new.webp');
-  display: grid;
-  min-height: 255px;
-  grid-template-rows: auto 1fr auto;
-  align-items: start;
-  gap: 1rem;
-  isolation: isolate;
-  overflow: hidden;
-  padding: 1.35rem;
   position: relative;
-  background: rgba(10, 22, 40, 0.42);
-  border: 1px solid rgba(15, 23, 42, 0.12);
-  border-left: 4px solid var(--primary-gold-500, #e65c1a);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 255px;
+  padding: 1.35rem;
   border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
-  color: white;
+  overflow: hidden;
+  isolation: isolate;
+  background: #0b1526;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-left: 4px solid var(--primary-gold-500, #e65c1a);
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
+  color: #ffffff;
   text-decoration: none;
-  transition: transform 0.3s var(--ease-smooth), border-color 0.3s var(--ease-smooth), box-shadow 0.3s var(--ease-smooth);
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.32s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform, box-shadow;
 }
 
-.category-strip__item::before,
-.category-strip__item::after {
-  content: "";
+/* Background image slideshow container */
+.category-strip__slides {
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
 }
 
-.category-strip__item::before {
-  background: var(--category-image) center / cover;
-  opacity: 0.65;
-  transform: scale(1.04);
-  transition: transform 0.6s var(--ease-smooth), opacity 0.3s var(--ease-smooth);
-}
-
-.category-strip__item::after {
-  background:
-    linear-gradient(180deg, rgba(10, 22, 40, 0.08), rgba(10, 22, 40, 0.60)),
-    linear-gradient(90deg, rgba(230, 92, 26, 0.16), transparent 54%);
-}
-
-.category-strip__item:nth-child(1) {
-  --category-image: url('../../images/chromite-new.webp');
-}
-
-.category-strip__item:nth-child(2) {
-  --category-image: url('../../images/barite-card.jpg');
-}
-
-.category-strip__item:nth-child(3) {
-  --category-image: url('../../images/marble.avif');
-}
-
-.category-strip__item:nth-child(4) {
-  --category-image: url('../../images/coal.avif');
-}
-
-.category-strip__item:nth-child(4)::before {
-  opacity: 0.70;
+.category-strip__slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transform: scale(1.02);
+  transition: opacity 1.6s cubic-bezier(0.4, 0, 0.2, 1), transform 9s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity, transform;
 }
 
+.category-strip__slide.is-active {
+  opacity: 1;
+  transform: scale(1.05);
+  z-index: 2;
+}
+
+/* Light, subtle shade: mineral images stay bright and vivid */
+.category-strip__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(10, 22, 40, 0.02) 0%, rgba(10, 22, 40, 0.12) 42%, rgba(10, 22, 40, 0.52) 100%),
+    linear-gradient(90deg, rgba(230, 92, 26, 0.08) 0%, transparent 45%);
+}
+
+/* Hover States: Smooth, effortless elevation with NO jerk, NO gradient swap, and NO black border */
 .category-strip__item:hover {
-  transform: translateY(-4px);
-  border-color: rgba(242, 106, 33, 0.6);
-  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.16);
-}
-
-.category-strip__item:hover::before {
-  opacity: 0.80;
-  transform: scale(1.11);
+  transform: translate3d(0, -3px, 0);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.14);
 }
 
 .category-strip__count {
+  position: relative;
+  z-index: 3;
   display: inline-flex;
   width: fit-content;
   align-items: baseline;
   gap: 0.4rem;
   padding-bottom: 0.4rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.32);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.38);
   font-family: var(--font-heading);
   font-size: clamp(1.75rem, 2.8vw, 2.35rem);
   line-height: 0.9;
   color: #ffffff;
   font-variant-numeric: tabular-nums;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
 }
 
 .category-strip__count::after {
   content: "minerals";
   font-family: var(--font-ui);
   font-size: 0.68rem;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 0.14em;
   line-height: 1;
   text-transform: uppercase;
-  color: rgba(255, 211, 181, 0.94);
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Grouped Title & Description Content: Collapses excess empty space */
+.category-strip__content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-top: auto;
 }
 
 .category-strip__item strong {
   display: block;
-  align-self: end;
+  margin: 0;
   font-family: var(--font-heading);
-  font-size: clamp(1.18rem, 2vw, 1.55rem);
-  font-weight: 600;
-  line-height: 1.08;
-  letter-spacing: 0.02em;
+  font-size: clamp(1.08rem, 1.7vw, 1.38rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: 0.025em;
   text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
 }
 
+.category-strip__desc,
 .category-strip__item span:last-child {
   display: block;
-  margin-top: 0.75rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.16);
-  color: rgba(255, 255, 255, 0.84);
+  margin-top: 0.25rem;
+  padding-top: 0.45rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.28);
+  color: rgba(255, 255, 255, 0.92);
   font-size: var(--text-sm);
-  line-height: 1.55;
+  line-height: 1.45;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.75);
 }
 
+.category-strip__desc::before,
 .category-strip__item span:last-child::before {
   content: "Includes: ";
-  color: rgba(255, 211, 181, 0.96);
-  font-weight: 700;
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 600;
 }
 
 .trade-specs {
