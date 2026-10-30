@@ -724,3 +724,58 @@ function closeMediaModal() {
 }
 
 enhanceMineralCards();
+
+function initCardThumbnailCycle() {
+  const cards = document.querySelectorAll('.mineral-category-card');
+  if (!cards.length) return;
+
+  // Preload all thumbnail images for instant, buttery transitions
+  document.querySelectorAll('.mineral-category-card__thumb-img').forEach((img) => {
+    const src = img.getAttribute('src');
+    if (src) {
+      const preload = new Image();
+      preload.src = src;
+    }
+  });
+
+  const cycleThumbnails = () => {
+    if (document.hidden) return;
+
+    cards.forEach((card) => {
+      const thumb = card.querySelector('.mineral-category-card__thumb');
+      if (!thumb) return;
+
+      const images = Array.from(thumb.querySelectorAll('.mineral-category-card__thumb-img'));
+      if (images.length <= 1) return;
+
+      let currentIndex = images.findIndex((img) => img.classList.contains('is-active'));
+      if (currentIndex === -1) currentIndex = 0;
+
+      const nextIndex = (currentIndex + 1) % images.length;
+      const currentImg = images[currentIndex];
+      const nextImg = images[nextIndex];
+
+      images.forEach((img) => img.classList.remove('is-previous'));
+      currentImg.classList.remove('is-active');
+      currentImg.classList.add('is-previous');
+
+      nextImg.classList.add('is-active');
+
+      window.setTimeout(() => {
+        currentImg.classList.remove('is-previous');
+      }, 1250);
+    });
+  };
+
+  // Run cycle unconditionally on all devices (mobile & desktop)
+  window.setInterval(cycleThumbnails, 3000);
+
+  // Resume cycle immediately when returning to tab/app on mobile
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) {
+      cycleThumbnails();
+    }
+  });
+}
+
+initCardThumbnailCycle();
