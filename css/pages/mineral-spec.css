@@ -12,7 +12,10 @@ body.mineral-spec-page {
 
 /* 1. HERO SECTION - CLEAN WHITE THEME */
 .spec-hero {
-  background: #ffffff;
+  background-color: #ffffff;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: var(--text-primary, #2F3A40);
   padding: calc(var(--navbar-height, 72px) + 1.25rem) 1.5rem 2.5rem;
   border-bottom: 1px solid var(--border-light, #E2E8F0);
