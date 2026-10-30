@@ -19,16 +19,27 @@ export function initPremiumAnimations() {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  // 1. Smooth Staggered Reveals for Hero Text
-  const heroTitle = document.querySelector('.hero__title');
-  const heroSubtitle = document.querySelector('.hero__subtitle');
-  const heroButtons = document.querySelector('.hero__buttons');
+  // 1. Smooth Staggered Reveals for Hero Text (Homepage & Mineral Pages)
+  const heroKicker = document.querySelector('.spec-hero__kicker');
+  const heroTitle = document.querySelector('.hero__title, .spec-hero__title');
+  const heroSubtitle = document.querySelector('.hero__subtitle, .spec-hero__subtitle');
+  const heroButtons = document.querySelector('.hero__buttons, .spec-hero__actions');
+  const specCard = document.querySelector('.spec-hero__card');
+
+  if (heroKicker) {
+    gsap.from(heroKicker, {
+      y: 20,
+      opacity: 0,
+      duration: 0.9,
+      ease: "power4.out"
+    });
+  }
 
   if (heroTitle) {
     gsap.from(heroTitle, {
-      y: 50,
+      y: 45,
       opacity: 0,
-      duration: 1.2,
+      duration: 1.1,
       ease: "power4.out"
     });
   }
@@ -37,8 +48,8 @@ export function initPremiumAnimations() {
     gsap.from(heroSubtitle, {
       y: 30,
       opacity: 0,
-      duration: 1.2,
-      delay: 0.3,
+      duration: 1.1,
+      delay: 0.25,
       ease: "power4.out"
     });
   }
@@ -48,8 +59,19 @@ export function initPremiumAnimations() {
       y: 20,
       opacity: 0,
       duration: 1,
-      delay: 0.6,
+      delay: 0.5,
       ease: "power4.out"
+    });
+  }
+
+  if (specCard) {
+    gsap.from(specCard, {
+      y: 40,
+      scale: 0.96,
+      opacity: 0,
+      duration: 1.2,
+      delay: 0.2,
+      ease: "power3.out"
     });
   }
 
