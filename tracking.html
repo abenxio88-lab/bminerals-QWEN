@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maritime Export Cargo Tracking | Balochistan Minerals</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="output.css">
+  <style>
+    :root {
+      --brand-navy: #0F172A;
+      --brand-slate: #1E293B;
+      --brand-gold: #B48C36;
+      --brand-gold-subtle: #F8F5EE;
+      --brand-border: #E2E8F0;
+      --brand-canvas: #F8FAFC;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--brand-canvas);
+      color: var(--brand-navy);
+      margin: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, h4, h5, h6, .brand-font {
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: -0.015em;
+    }
+    .tracking-hero {
+      background: linear-gradient(135deg, #0A1628, #1E293B);
+      color: #FFFFFF;
+      padding: 70px 20px 80px;
+      text-align: center;
+      position: relative;
+    }
+    .tracking-card {
+      background: #FFFFFF;
+      border: 1px solid var(--brand-border);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+      padding: 36px;
+      max-width: 820px;
+      margin: -45px auto 60px;
+      position: relative;
+      z-index: 10;
+    }
+    .search-input-group {
+      border: 1px solid #CBD5E1;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .btn-track {
+      background: var(--brand-navy);
+      color: #FFFFFF;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      border: none;
+      padding: 13px 28px;
+      transition: background 0.15s ease;
+    }
+    .btn-track:hover {
+      background: #1E293B;
+      color: #FFFFFF;
+    }
+    .milestone-badge-live {
+      background: var(--brand-navy);
+      color: #FFFFFF;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 6px;
+      letter-spacing: 0.02em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Hero -->
+  <section class="tracking-hero">
+    <div class="container">
+      <a href="./" title="Balochistan Minerals">
+        <img src="images/new-logo.png" alt="Balochistan Minerals" style="max-height: 48px; margin-bottom: 20px;" onerror="this.style.display='none'">
+      </a>
+      <h1 class="display-6 fw-bold mb-2">Maritime Export Cargo Tracker</h1>
+      <p class="text-white-50 max-w-lg mx-auto small">Verify real-time shipment manifest & vessel departure from Port Muhammad Bin Qasim & Karachi Port Trust (KPT).</p>
+    </div>
+  </section>
+
+  <!-- Tracking Search & Results Card -->
+  <div class="container">
+    <div class="tracking-card">
+      <form id="trackingForm" onsubmit="event.preventDefault(); trackConsignment();">
+        <label for="trackingCode" class="form-label fw-bold small text-muted text-uppercase" style="letter-spacing: 0.05em;">Enter Export Tracking Code / B/L Reference</label>
+        <div class="input-group search-input-group mb-3">
+          <input type="text" id="trackingCode" class="form-control form-control-lg border-0 ps-3" placeholder="e.g. BM-EXP-2026-081" required autofocus value="BM-EXP-2026-081">
+          <button type="submit" class="btn btn-track">Track Consignment</button>
+        </div>
+        <div class="small text-muted">Active manifest sample: <code>BM-EXP-2026-081</code></div>
+      </form>
+
+      <!-- Results Container -->
+      <div id="trackingResult" class="mt-4 pt-4 border-top" style="display: none;"></div>
+    </div>
+  </div>
+
+  <footer class="text-center py-4 text-muted small">
+    © 2026 Balochistan Minerals (Pvt) Ltd • Commercial Export Desk: <a href="https://wa.me/923348888104" class="text-success fw-bold text-decoration-none">WhatsApp Direct (+92 334 8888104)</a>
+  </footer>
+
+  <script>
+    async function trackConsignment() {
+      const code = document.getElementById('trackingCode').value.trim();
+      const container = document.getElementById('trackingResult');
+      
+      container.style.display = 'block';
+      container.innerHTML = '<div class="text-center py-4"><div class="spinner-border text-dark" role="status"></div><div class="small text-muted mt-2">Accessing Port Logistics Manifest...</div></div>';
+
+      try {
+        const res = await fetch('api/public-content.php?type=track&code=' + encodeURIComponent(code));
+        const data = await res.json();
+
+        if (data.success && data.shipment) {
+          const s = data.shipment;
+          container.innerHTML = `
+            <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+              <div>
+                <span class="badge bg-light text-dark border font-monospace me-2">${s.tracking_code}</span>
+                <h4 class="fw-bold mb-0 mt-1 brand-font" style="color: var(--brand-navy);">${s.commodity} (${s.tonnage})</h4>
+                <div class="text-muted small">${s.company_name} • Port of Discharge: ${s.port_of_discharge}</div>
+              </div>
+              <div class="text-md-end">
+                <span class="milestone-badge-live">
+                  ● Milestone: ${s.status_stage}
+                </span>
+                <div class="text-muted small mt-1">Manifest Update: ${s.updated_at}</div>
+              </div>
+            </div>
+
+            <div class="row g-3 p-3 bg-light rounded-2 mb-4">
+              <div class="col-6 col-md-3">
+                <div class="text-muted small">Port of Loading:</div>
+                <div class="fw-bold small">${s.port_of_loading}</div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="text-muted small">Vessel Name:</div>
+                <div class="fw-bold small">${s.vessel_name || 'Vessel Pending Nomination'}</div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="text-muted small">Bill of Lading:</div>
+                <div class="fw-bold font-monospace small">${s.bill_of_lading || 'Draft in Review'}</div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="text-muted small">Commercial Inspection:</div>
+                <div class="fw-bold text-success small">SGS / AHK Verified</div>
+              </div>
+            </div>
+
+            <div class="p-3 border rounded-2 mb-4">
+              <div class="fw-bold small mb-1" style="color: var(--brand-navy);">Export Desk Consignment Log:</div>
+              <div class="small text-muted">${s.notes || 'Materials safely stacked at Port terminal. SGS assay sampling verified.'}</div>
+            </div>
+
+            <div class="text-center pt-2">
+              <a href="https://wa.me/923348888104?text=${encodeURIComponent('Hello Balochistan Minerals, I am inquiring regarding consignment tracking: ' + s.tracking_code)}" target="_blank" class="btn btn-sm btn-success px-4 py-2 fw-semibold" style="background: #15803D;">
+                <i class="bi bi-whatsapp me-1"></i> Contact Export Desk via WhatsApp (+92 334 8888104)
+              </a>
+            </div>
+          `;
+        } else {
+          container.innerHTML = `
+            <div class="alert alert-warning text-center py-4 mb-0 border">
+              <i class="bi bi-exclamation-circle-fill fs-2 d-block mb-2 text-warning"></i>
+              <div class="fw-bold">${data.error || 'No consignment found matching tracking code.'}</div>
+              <div class="small text-muted mt-1">Please confirm your tracking reference with your export contract officer.</div>
+            </div>
+          `;
+        }
+      } catch (err) {
+        container.innerHTML = '<div class="alert alert-danger text-center">Unable to load tracking details. Please contact support on WhatsApp.</div>';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      trackConsignment();
+    });
+  </script>
+</body>
+</html>
