@@ -118,7 +118,7 @@ if (!function_exists('renderInquiryRow')) {
 
                   <?php if (!empty($row['source']) && $row['source'] === 'Direct Email Modal'): ?>
                     <span class="badge bg-light text-dark fw-medium" style="font-size: 0.68rem; padding: 3px 8px; border: none !important; box-shadow: none !important;">
-                      <i class="bi bi-chat-left-dots text-warning me-1"></i>Direct Desk
+                      <i class="bi bi-chat-left-dots text-warning me-1"></i>Direct Message
                     </span>
                   <?php endif; ?>
 
