@@ -413,36 +413,36 @@ if ($pdo !== null) {
     <!-- MAIN AREA -->
     <div class="app-main">
       <header class="top-bar">
-        <div class="d-flex align-items-center gap-2.5">
+        <div class="topbar-left">
           <button type="button" id="sidebarToggle" class="btn-sidebar-toggle" title="Toggle Sidebar (Ctrl + B)">
             <i class="bi bi-layout-sidebar-inset"></i>
           </button>
-          <div>
-            <h1 class="h5 mb-0 fw-bold brand-font" style="color: var(--navy-900);">Indicative Mineral Spot Pricing</h1>
-            <div class="small text-muted">Manage FOB Karachi export prices in USD ($) and Pakistani Rupees (₨) per 1 Ton.</div>
+          <div class="topbar-title-wrap">
+            <h1 class="topbar-title">Indicative Mineral Spot Pricing</h1>
+            <div class="topbar-subtitle">FOB Karachi Port Export Benchmarks & FX Conversion</div>
           </div>
         </div>
 
-        <div class="d-flex align-items-center gap-2 flex-wrap">
+        <div class="topbar-right">
           <!-- USD to PKR Rate Pill -->
-          <div class="rate-badge d-flex align-items-center gap-2 shadow-sm">
-            <span class="text-muted small fw-semibold"><i class="bi bi-currency-exchange text-warning"></i> USD / PKR:</span>
-            <span class="fw-bold font-monospace text-dark">₨ <?= number_format($usdPkrRate, 2) ?></span>
-            <button type="button" class="btn btn-sm btn-link p-0 text-decoration-none small text-primary fw-semibold" data-bs-toggle="modal" data-bs-target="#rateModal" title="Edit Exchange Rate">
+          <div class="pill-status d-flex align-items-center gap-2 shadow-sm" style="background: #FFFFFF;">
+            <span class="text-muted fw-semibold" style="font-size: 0.74rem;"><i class="bi bi-currency-exchange text-warning me-1"></i>USD / PKR:</span>
+            <span class="fw-bold font-monospace text-dark" style="font-size: 0.8rem;">₨ <?= number_format($usdPkrRate, 2) ?></span>
+            <button type="button" class="btn btn-sm btn-link p-0 text-decoration-none text-primary fw-semibold" style="font-size: 0.72rem;" data-bs-toggle="modal" data-bs-target="#rateModal" title="Edit Exchange Rate">
               <i class="bi bi-pencil-square"></i> Change
             </button>
           </div>
 
           <!-- Currency View Toggle -->
-          <div class="btn-group btn-group-sm shadow-sm" role="group">
-            <button type="button" class="btn btn-outline-secondary btn-view-toggle active" id="btnViewBoth" onclick="setCurrencyView('both')">USD + PKR</button>
-            <button type="button" class="btn btn-outline-secondary btn-view-toggle" id="btnViewUsd" onclick="setCurrencyView('usd')">USD Only</button>
-            <button type="button" class="btn btn-outline-secondary btn-view-toggle" id="btnViewPkr" onclick="setCurrencyView('pkr')">PKR Only</button>
+          <div class="btn-group btn-group-sm" role="group">
+            <button type="button" class="btn btn-outline-secondary btn-view-toggle active" id="btnViewBoth" onclick="setCurrencyView('both')" style="font-size: 0.76rem;">USD + PKR</button>
+            <button type="button" class="btn btn-outline-secondary btn-view-toggle" id="btnViewUsd" onclick="setCurrencyView('usd')" style="font-size: 0.76rem;">USD</button>
+            <button type="button" class="btn btn-outline-secondary btn-view-toggle" id="btnViewPkr" onclick="setCurrencyView('pkr')" style="font-size: 0.76rem;">PKR</button>
           </div>
 
           <!-- Add Mineral Button -->
-          <button type="button" class="btn fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#priceModal0" style="background: #E65C1A; border: 1px solid #D45A15; color: #FFFFFF !important; padding: 7px 18px; border-radius: 6px; font-size: 0.84rem;">
-            <i class="bi bi-plus-lg me-1"></i> Add Mineral Grade
+          <button type="button" class="btn btn-sm btn-dark d-flex align-items-center gap-1.5 fw-bold px-3 py-1.5 shadow-sm text-white" data-bs-toggle="modal" data-bs-target="#priceModal0" style="border-radius: 8px; background: #0F172A; font-size: 0.78rem;">
+            <i class="bi bi-plus-lg"></i> <span>Add Mineral Grade</span>
           </button>
         </div>
       </header>

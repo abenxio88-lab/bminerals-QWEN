@@ -349,18 +349,24 @@ if ($pdo !== null) {
     <!-- MAIN AREA -->
     <div class="app-main">
       <header class="top-bar">
-        <div class="d-flex align-items-center gap-2.5">
+        <div class="topbar-left">
           <button type="button" id="sidebarToggle" class="btn-sidebar-toggle" title="Toggle Sidebar (Ctrl + B)">
             <i class="bi bi-layout-sidebar-inset"></i>
           </button>
-          <div>
-            <h1 class="h5 mb-0 fw-bold brand-font" style="color: var(--brand-navy);">Stockpiles & Export Cargo Logistics</h1>
-            <div class="small text-muted">Monitor available metric tons at Port Qasim, KPT, and regional Balochistan extraction sites.</div>
+          <div class="topbar-title-wrap">
+            <h1 class="topbar-title">Stockpiles & Export Cargo Logistics</h1>
+            <div class="topbar-subtitle">Port Qasim, KPT Terminals & Regional Extraction Yards</div>
           </div>
         </div>
-        <button type="button" class="btn fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#stockModal0" style="background: #E65C1A; border: 1px solid #D45A15; color: #FFFFFF !important; padding: 7px 18px; border-radius: 6px; font-size: 0.84rem;">
-          <i class="bi bi-plus-lg me-1"></i> Log Stockpile Lot
-        </button>
+        <div class="topbar-right">
+          <div class="pill-status d-none d-md-inline-flex" title="Port Logistics Active">
+            <span class="status-dot dot-green"></span>
+            <span>Port Logistics Active</span>
+          </div>
+          <button type="button" class="btn btn-sm btn-dark d-flex align-items-center gap-1.5 fw-bold px-3 py-1.5 shadow-sm text-white" data-bs-toggle="modal" data-bs-target="#stockModal0" style="border-radius: 8px; background: #0F172A; font-size: 0.78rem;">
+            <i class="bi bi-plus-lg"></i> <span>Log Stockpile Lot</span>
+          </button>
+        </div>
       </header>
 
       <main class="content-canvas">

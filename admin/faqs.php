@@ -304,18 +304,20 @@ if ($pdo !== null) {
     <!-- MAIN AREA -->
     <div class="app-main">
       <header class="top-bar">
-        <div class="d-flex align-items-center gap-2.5">
+        <div class="topbar-left">
           <button type="button" id="sidebarToggle" class="btn-sidebar-toggle" title="Toggle Sidebar (Ctrl + B)">
             <i class="bi bi-layout-sidebar-inset"></i>
           </button>
-          <div>
-            <h1 class="h5 mb-0 fw-bold brand-font" style="color: var(--navy-900);">Dynamic Buyer FAQs & Policies</h1>
-            <div class="small text-muted">Manage answers to frequent shipping, inspection, and payment inquiries.</div>
+          <div class="topbar-title-wrap">
+            <h1 class="topbar-title">Dynamic Buyer FAQs & Policies</h1>
+            <div class="topbar-subtitle">Shipping Terms, Inspection Protocols & Payment FAQs</div>
           </div>
         </div>
-        <button type="button" class="btn fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#faqModal0" style="background: #E65C1A; border: 1px solid #D45A15; color: #FFFFFF !important; padding: 7px 18px; border-radius: 6px; font-size: 0.84rem;">
-          <i class="bi bi-plus-lg me-1"></i> Add New FAQ
-        </button>
+        <div class="topbar-right">
+          <button type="button" class="btn btn-sm btn-dark d-flex align-items-center gap-1.5 fw-bold px-3 py-1.5 shadow-sm text-white" data-bs-toggle="modal" data-bs-target="#faqModal0" style="border-radius: 8px; background: #0F172A; font-size: 0.78rem;">
+            <i class="bi bi-plus-lg"></i> <span>Add New FAQ</span>
+          </button>
+        </div>
       </header>
 
       <main class="content-canvas">

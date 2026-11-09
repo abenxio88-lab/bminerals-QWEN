@@ -220,9 +220,11 @@ if ($pdo !== null) {
     .stat-strip-val {
       font-family: 'Montserrat', sans-serif;
       font-size: 1.35rem;
-      font-weight: 800;
+      font-weight: 600;
       color: var(--brand-navy);
-      line-height: 1;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
     }
     .stat-strip-label {
       font-size: 0.68rem;
@@ -374,28 +376,29 @@ if ($pdo !== null) {
     <!-- 2. MAIN WORKSPACE CANVAS -->
     <div class="app-main">
       <header class="top-bar">
-        <div class="d-flex align-items-center gap-2.5">
+        <div class="topbar-left">
           <button type="button" id="sidebarToggle" class="btn-sidebar-toggle" title="Toggle Sidebar (Ctrl + B)">
             <i class="bi bi-layout-sidebar-inset"></i>
           </button>
-          <span class="radar-pulse"></span>
-          <div>
-            <h5 class="fw-bold brand-font mb-0" style="color: var(--brand-navy);">
-              Live Visitor Radar & Global Demand Tracker
-            </h5>
-            <div class="text-muted small">Real-time surveillance of foreign buyers browsing stockpiles, pricing, and chemical assays.</div>
+          <div class="topbar-title-wrap">
+            <h1 class="topbar-title">Live Visitor Radar & Global Demand Tracker</h1>
+            <div class="topbar-subtitle">Real-Time Surveillance of International Buyer Sessions</div>
           </div>
         </div>
-        <div class="d-flex align-items-center gap-2">
+        <div class="topbar-right">
+          <div class="pill-status d-none d-md-inline-flex" title="Live Surveillance Active">
+            <span class="radar-pulse me-1"></span>
+            <span>Radar Active</span>
+          </div>
           <form method="POST" action="radar.php" class="d-inline">
             <input type="hidden" name="action" value="simulate_ping">
             <input type="hidden" name="csrf_token" value="<?= getCsrfToken() ?>">
-            <button type="submit" class="btn btn-sm btn-outline-dark d-flex align-items-center gap-1.5 fw-semibold px-3 py-1.5" style="border-radius: 6px;">
-              <i class="bi bi-send-plus"></i> Simulate Live Visitor Ping
+            <button type="submit" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1.5 fw-semibold px-2.5 py-1.5 text-dark" style="border-radius: 8px; font-size: 0.78rem; background: #FFFFFF;">
+              <i class="bi bi-send-plus text-primary"></i> <span>Simulate Ping</span>
             </button>
           </form>
-          <a href="radar.php" class="btn btn-sm btn-dark d-flex align-items-center gap-1.5 fw-bold px-3 py-1.5" style="border-radius: 6px; background: #0F172A;">
-            <i class="bi bi-arrow-clockwise"></i> Refresh Feed
+          <a href="radar.php" class="btn btn-sm btn-dark d-flex align-items-center gap-1.5 fw-bold px-3 py-1.5 shadow-sm text-white" style="border-radius: 8px; background: #0F172A; font-size: 0.78rem;">
+            <i class="bi bi-arrow-clockwise"></i> <span>Refresh Feed</span>
           </a>
         </div>
       </header>

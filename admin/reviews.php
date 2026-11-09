@@ -220,19 +220,21 @@ if ($pdo !== null) {
     <!-- MAIN AREA -->
     <div class="app-main">
       <header class="top-bar">
-        <div class="d-flex align-items-center gap-2.5">
+        <div class="topbar-left">
           <button type="button" id="sidebarToggle" class="btn-sidebar-toggle" title="Toggle Sidebar (Ctrl + B)">
             <i class="bi bi-layout-sidebar-inset"></i>
           </button>
-          <div>
-            <h1 class="h5 mb-0 fw-bold brand-font" style="color: var(--navy-900);">Customer Reviews Moderation</h1>
-            <div class="small text-muted">Approve or reject client testimonials before they display on the public website.</div>
+          <div class="topbar-title-wrap">
+            <h1 class="topbar-title">Customer Reviews Moderation</h1>
+            <div class="topbar-subtitle">Buyer Testimonial Verification & Verification Moderation</div>
           </div>
         </div>
-        <div class="d-flex gap-2">
-          <a href="reviews.php" class="btn btn-sm <?= empty($filterStatus) ? 'btn-dark' : 'btn-outline-secondary' ?>">All</a>
-          <a href="reviews.php?status=Pending" class="btn btn-sm <?= $filterStatus === 'Pending' ? 'btn-warning' : 'btn-outline-secondary' ?>">Pending (<?= $pendingReviews ?>)</a>
-          <a href="reviews.php?status=Approved" class="btn btn-sm <?= $filterStatus === 'Approved' ? 'btn-success' : 'btn-outline-secondary' ?>">Approved</a>
+        <div class="topbar-right">
+          <div class="btn-group btn-group-sm" role="group">
+            <a href="reviews.php" class="btn <?= empty($filterStatus) ? 'btn-dark text-white fw-bold' : 'btn-outline-secondary text-dark' ?>" style="font-size: 0.78rem;">All</a>
+            <a href="reviews.php?status=Pending" class="btn <?= $filterStatus === 'Pending' ? 'btn-warning fw-bold' : 'btn-outline-secondary text-dark' ?>" style="font-size: 0.78rem;">Pending (<?= $pendingReviews ?>)</a>
+            <a href="reviews.php?status=Approved" class="btn <?= $filterStatus === 'Approved' ? 'btn-success text-white fw-bold' : 'btn-outline-secondary text-dark' ?>" style="font-size: 0.78rem;">Approved</a>
+          </div>
         </div>
       </header>
 

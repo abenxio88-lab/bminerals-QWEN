@@ -302,9 +302,11 @@ if ($pdo !== null) {
     .stat-strip-val {
       font-family: 'Montserrat', sans-serif;
       font-size: 1.35rem;
-      font-weight: 800;
+      font-weight: 600;
       color: var(--brand-navy);
-      line-height: 1;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
     }
     .stat-strip-label {
       font-size: 0.68rem;
@@ -547,23 +549,25 @@ if ($pdo !== null) {
     <!-- 2. MAIN WORKSPACE CANVAS -->
     <div class="app-main">
       <header class="top-bar">
-        <div class="d-flex align-items-center gap-2.5">
+        <div class="topbar-left">
           <button type="button" id="sidebarToggle" class="btn-sidebar-toggle" title="Toggle Sidebar (Ctrl + B)">
             <i class="bi bi-layout-sidebar-inset"></i>
           </button>
-          <div>
-            <h5 class="fw-bold brand-font mb-0" style="color: var(--brand-navy);">
-              <i class="bi bi-bullseye me-2 text-warning"></i>Global Buyer Prospector & Outbound Directory
-            </h5>
-            <div class="text-muted small">Targeted directory of verified international smelters, refineries, and trading houses with 1-click outreach.</div>
+          <div class="topbar-title-wrap">
+            <h1 class="topbar-title">Global Buyer Prospector & Outbound Directory</h1>
+            <div class="topbar-subtitle">Verified Smelters, Refineries & International Trading Houses</div>
           </div>
         </div>
-        <div class="d-flex align-items-center gap-2">
-          <a href="prospects.php?action=export_csv" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1.5 fw-semibold px-3 py-1.5" style="border-radius: 6px;">
-            <i class="bi bi-file-earmark-spreadsheet"></i> Export CSV
+        <div class="topbar-right">
+          <div class="pill-status d-none d-xl-inline-flex" title="Active Importers in Directory">
+            <span class="status-dot dot-green"></span>
+            <span><?= $totalCount ?> Verified Importers</span>
+          </div>
+          <a href="prospects.php?action=export_csv" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1.5 fw-semibold px-3 py-1.5 text-dark" style="border-radius: 8px; font-size: 0.78rem; background: #FFFFFF;">
+            <i class="bi bi-file-earmark-spreadsheet"></i> <span>Export CSV</span>
           </a>
-          <button type="button" class="btn btn-sm btn-dark d-flex align-items-center gap-1.5 fw-bold px-3 py-1.5" style="border-radius: 6px; background: #0F172A;" data-bs-toggle="modal" data-bs-target="#addProspectModal">
-            <i class="bi bi-plus-lg"></i> Add New Buyer
+          <button type="button" class="btn btn-sm btn-dark d-flex align-items-center gap-1.5 fw-bold px-3 py-1.5 shadow-sm text-white" style="border-radius: 8px; background: #0F172A; font-size: 0.78rem;" data-bs-toggle="modal" data-bs-target="#addProspectModal">
+            <i class="bi bi-plus-lg"></i> <span>Add New Buyer</span>
           </button>
         </div>
       </header>
