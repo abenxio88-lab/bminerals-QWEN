@@ -497,69 +497,110 @@ if ($pdo !== null) {
       border-radius: 4px;
     }
 
-    /* Action Buttons */
+    /* Action Buttons (Flat, Zero Shade, Neutral Elegant Line Effect) */
     .btn-action-email {
-      background: #0F172A;
-      color: #FFFFFF !important;
+      background: #FFFFFF !important;
+      color: #0F172A !important;
       font-family: 'Montserrat', sans-serif;
-      font-size: 0.76rem;
-      font-weight: 700;
-      padding: 6px 12px;
-      border-radius: 4px;
-      border: 1px solid #0F172A;
+      font-size: 0.74rem;
+      font-weight: 600;
+      height: 32px;
+      padding: 0 12px;
+      border-radius: 6px;
+      border: 1px solid #CBD5E1 !important;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       text-decoration: none;
+      box-shadow: none !important;
       transition: all 0.15s ease;
       cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-action-email i {
+      color: #475569 !important;
+      font-size: 0.85rem;
+      line-height: 1;
+      transition: color 0.15s ease;
     }
 
     .btn-action-email:hover {
-      background: #1E293B;
-      color: #FFFFFF;
+      background: #F8FAFC !important;
+      color: #0F172A !important;
+      border-color: #0F172A !important;
+      box-shadow: none !important;
+    }
+
+    .btn-action-email:hover i {
+      color: #0F172A !important;
     }
 
     .btn-action-wa {
       background: #15803D;
       color: #FFFFFF !important;
       font-family: 'Montserrat', sans-serif;
-      font-size: 0.76rem;
-      font-weight: 700;
-      padding: 6px 12px;
-      border-radius: 4px;
-      border: none;
+      font-size: 0.74rem;
+      font-weight: 600;
+      height: 32px;
+      padding: 0 12px;
+      border-radius: 6px;
+      border: 1px solid #15803D;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       text-decoration: none;
-      transition: background 0.15s ease;
+      box-shadow: none !important;
+      transition: all 0.15s ease;
+      white-space: nowrap;
     }
 
     .btn-action-wa:hover {
       background: #166534;
+      border-color: #166534;
+      box-shadow: none !important;
     }
 
     .btn-action-quote {
-      background: #FFFFFF;
-      color: var(--brand-navy) !important;
+      background: #FFFFFF !important;
+      color: #0F172A !important;
       font-family: 'Montserrat', sans-serif;
-      font-size: 0.76rem;
-      font-weight: 700;
-      padding: 6px 11px;
-      border-radius: 4px;
-      border: 1px solid #CBD5E1;
+      font-size: 0.74rem;
+      font-weight: 600;
+      height: 32px;
+      padding: 0 11px;
+      border-radius: 6px;
+      border: 1px solid #CBD5E1 !important;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       text-decoration: none;
+      box-shadow: none !important;
       transition: all 0.15s ease;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .btn-action-quote i {
+      color: #475569 !important;
+      font-size: 0.88rem;
+      line-height: 1;
+      transition: color 0.15s ease;
     }
 
     .btn-action-quote:hover {
-      background: var(--brand-navy);
-      color: #FFFFFF !important;
-      border-color: var(--brand-navy);
+      background: #F8FAFC !important;
+      color: #0F172A !important;
+      border-color: #0F172A !important;
+      box-shadow: none !important;
+    }
+
+    .btn-action-quote:hover i {
+      color: #0F172A !important;
+    }
+
+    .btn-action-quote:active {
+      box-shadow: none !important;
     }
 
     /* Buyer Direct Email & Message Snippet Styles */
@@ -801,8 +842,8 @@ if ($pdo !== null) {
               </select>
             </div>
             <div class="col-12 col-md-2 d-flex gap-1.5">
-              <button type="submit" class="btn btn-sm btn-dark w-100 py-1.5 fw-bold" style="background: var(--brand-navy); font-size: 0.8rem; border-radius: 6px;">
-                <i class="bi bi-funnel-fill me-1"></i> Filter
+              <button type="submit" class="btn-filter-action">
+                <i class="bi bi-funnel"></i> <span>Filter</span>
               </button>
               <?php if (!empty($searchQuery) || !empty($filterStatus) || !empty($filterMineral)): ?>
                 <a href="dashboard.php" class="btn btn-sm btn-outline-secondary py-1.5 px-2.5" title="Reset Filters"><i class="bi bi-arrow-counterclockwise"></i></a>

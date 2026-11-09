@@ -310,18 +310,28 @@ if ($pdo !== null) {
       align-items: center !important;
       gap: 6px !important;
       cursor: pointer !important;
+      box-shadow: none !important;
     }
-    .btn-save-action:hover { background: #1E293B !important; }
+    .btn-save-action:hover {
+      background: #1E293B !important;
+      box-shadow: none !important;
+    }
 
     .btn-cancel-action {
       background: #FFFFFF !important;
       color: #475569 !important;
       border: 1.5px solid #CBD5E1 !important;
       padding: 7px 16px !important;
-      font-weight: 600 !important;
-      font-size: 0.82rem !important;
       border-radius: 6px !important;
+      font-size: 0.82rem !important;
       cursor: pointer !important;
+      box-shadow: none !important;
+    }
+    .btn-cancel-action:hover {
+      background: #F8FAFC !important;
+      color: #0F172A !important;
+      border-color: #0F172A !important;
+      box-shadow: none !important;
     }
 
     .modal-dialog.modal-lg { max-width: 820px; }

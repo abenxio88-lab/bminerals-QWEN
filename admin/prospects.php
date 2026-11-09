@@ -397,23 +397,63 @@ if ($pdo !== null) {
     .btn-action-wa:hover { background: #166534; }
 
     .btn-action-email {
-      background: #0F172A;
-      color: #FFFFFF !important;
+      background: #FFFFFF !important;
+      color: #0F172A !important;
       font-family: 'Montserrat', sans-serif;
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       font-weight: 600;
       height: 32px;
       padding: 0 12px;
       border-radius: 6px;
-      border: 1px solid #0F172A;
+      border: 1px solid #CBD5E1 !important;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       cursor: pointer;
+      text-decoration: none;
+      box-shadow: none !important;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .btn-action-email i {
+      color: #475569 !important;
+      font-size: 0.85rem;
+      line-height: 1;
+      transition: color 0.15s ease;
+    }
+    .btn-action-email:hover {
+      background: #F8FAFC !important;
+      color: #0F172A !important;
+      border-color: #0F172A !important;
+      box-shadow: none !important;
+    }
+    .btn-action-email:hover i {
+      color: #0F172A !important;
+    }
+
+    .btn-action-wa {
+      background: #15803D;
+      color: #FFFFFF !important;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.74rem;
+      font-weight: 600;
+      height: 32px;
+      padding: 0 12px;
+      border-radius: 6px;
+      border: 1px solid #15803D;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      box-shadow: none !important;
       transition: background 0.15s ease;
       white-space: nowrap;
     }
-    .btn-action-email:hover { background: #1E293B; }
+    .btn-action-wa:hover {
+      background: #166534;
+      border-color: #166534;
+      box-shadow: none !important;
+    }
 
     .btn-save-action {
       background: #0F172A !important;
@@ -632,7 +672,9 @@ if ($pdo !== null) {
               </select>
             </div>
             <div class="col-md-2 d-flex gap-1">
-              <button type="submit" class="btn btn-sm btn-dark w-100 fw-bold" style="background: #0F172A;">Filter</button>
+              <button type="submit" class="btn-filter-action">
+                <i class="bi bi-funnel"></i> <span>Filter</span>
+              </button>
               <?php if (!empty($filterMineral) || !empty($filterCountry) || !empty($searchQuery)): ?>
                 <a href="prospects.php" class="btn btn-sm btn-outline-secondary" title="Reset Filters"><i class="bi bi-x-lg"></i></a>
               <?php endif; ?>

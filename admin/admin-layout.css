@@ -403,7 +403,7 @@ body.sidebar-open .sidebar-backdrop {
   font-weight: 600 !important;
 }
 
-/* Executive High-Quality Topbar Action Buttons */
+/* Executive High-Quality Topbar Action Buttons (Flat, Crisp Line Borders, Zero Shade) */
 .btn-topbar-action {
   background: #FFFFFF;
   border: 1px solid #CBD5E1;
@@ -418,24 +418,22 @@ body.sidebar-open .sidebar-backdrop {
   align-items: center;
   gap: 8px;
   text-decoration: none;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
-  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: none !important;
+  transition: all 0.15s ease;
   cursor: pointer;
   white-space: nowrap;
 }
 
 .btn-topbar-action:hover {
   background: #F8FAFC;
-  border-color: #94A3B8;
+  border-color: #0F172A;
   color: #0F172A !important;
-  box-shadow: 0 2px 5px rgba(15, 23, 42, 0.08);
-  transform: translateY(-0.5px);
+  box-shadow: none !important;
 }
 
 .btn-topbar-action:active {
   background: #F1F5F9;
-  transform: translateY(0);
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  box-shadow: none !important;
 }
 
 .btn-topbar-action i {
@@ -449,10 +447,10 @@ body.sidebar-open .sidebar-backdrop {
   color: #0F172A;
 }
 
-/* Primary Executive Topbar Button */
+/* Primary Executive Topbar CTA */
 .btn-topbar-primary {
-  background: #0F172A;
-  border: 1px solid #0F172A;
+  background: #0F172A !important;
+  border: 1px solid #0F172A !important;
   color: #FFFFFF !important;
   font-family: 'Montserrat', sans-serif;
   font-size: 0.78rem;
@@ -464,28 +462,71 @@ body.sidebar-open .sidebar-backdrop {
   align-items: center;
   gap: 8px;
   text-decoration: none;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12), 0 1px 2px rgba(15, 23, 42, 0.08);
-  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: none !important;
+  transition: all 0.15s ease;
   cursor: pointer;
   white-space: nowrap;
 }
 
 .btn-topbar-primary:hover {
-  background: #1E293B;
-  border-color: #1E293B;
+  background: #1E293B !important;
+  border-color: #1E293B !important;
   color: #FFFFFF !important;
-  box-shadow: 0 3px 6px rgba(15, 23, 42, 0.16);
-  transform: translateY(-0.5px);
+  box-shadow: none !important;
 }
 
 .btn-topbar-primary:active {
-  transform: translateY(0);
+  box-shadow: none !important;
 }
 
 .btn-topbar-primary i {
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 0.92rem;
+  color: #FFFFFF;
+  font-size: 0.88rem;
   line-height: 1;
+}
+
+/* Toolbar Filter Action Button */
+.btn-filter-action {
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  border: 1px solid #CBD5E1 !important;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: none !important;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  white-space: nowrap;
+  width: 100%;
+  text-decoration: none;
+}
+
+.btn-filter-action i {
+  color: #64748B;
+  font-size: 0.82rem;
+  transition: color 0.15s ease;
+}
+
+.btn-filter-action:hover {
+  background: #F8FAFC !important;
+  border-color: #0F172A !important;
+  color: #0F172A !important;
+  box-shadow: none !important;
+}
+
+.btn-filter-action:hover i {
+  color: #0F172A;
+}
+
+.btn-filter-action:active {
+  box-shadow: none !important;
 }
 
 .content-canvas {
@@ -827,8 +868,9 @@ body.sidebar-open .sidebar-backdrop {
 }
 .status-Closed::before, .status-Archived::before { background: #94A3B8; }
 
-/* Modal Action Buttons */
-.btn-save-action {
+/* Modal Primary Action Buttons (Flat, Zero Shade) */
+.btn-save-action,
+.btn-modal-primary {
   background: #0F172A !important;
   color: #FFFFFF !important;
   border: 1px solid #0F172A !important;
@@ -842,10 +884,121 @@ body.sidebar-open .sidebar-backdrop {
   align-items: center;
   gap: 6px;
   cursor: pointer;
+  box-shadow: none !important;
 }
-.btn-save-action:hover {
+.btn-save-action:hover,
+.btn-modal-primary:hover {
   background: #1E293B !important;
+  border-color: #1E293B !important;
   color: #FFFFFF !important;
+  box-shadow: none !important;
+}
+.btn-save-action:active,
+.btn-modal-primary:active {
+  box-shadow: none !important;
+}
+
+/* Official Quote Generator Action Button (Clean Neutral Line, Zero Shade, Zero Red Fill) */
+.btn-action-quote,
+.btn-quote-action {
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
+  height: 32px;
+  padding: 0 11px;
+  border-radius: 6px;
+  border: 1px solid #CBD5E1 !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  box-shadow: none !important;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.btn-action-quote i,
+.btn-quote-action i {
+  color: #475569 !important;
+  font-size: 0.88rem;
+  line-height: 1;
+  transition: color 0.15s ease;
+}
+.btn-action-quote:hover,
+.btn-quote-action:hover {
+  background: #F8FAFC !important;
+  color: #0F172A !important;
+  border-color: #0F172A !important;
+  box-shadow: none !important;
+}
+.btn-action-quote:hover i,
+.btn-quote-action:hover i {
+  color: #0F172A !important;
+}
+.btn-action-quote:active,
+.btn-quote-action:active {
+  box-shadow: none !important;
+}
+
+/* Official Email Pitch / Reply Action Button (Clean Neutral Line, Zero Shade, Zero Blue) */
+.btn-action-email {
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 6px;
+  border: 1px solid #CBD5E1 !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: none !important;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.btn-action-email i {
+  color: #475569 !important;
+  font-size: 0.85rem;
+  line-height: 1;
+  transition: color 0.15s ease;
+}
+.btn-action-email:hover {
+  background: #F8FAFC !important;
+  color: #0F172A !important;
+  border-color: #0F172A !important;
+  box-shadow: none !important;
+}
+.btn-action-email:hover i {
+  color: #0F172A !important;
+}
+.btn-action-email:active {
+  box-shadow: none !important;
+}
+
+/* Table Edit Button (Zero Shade) */
+.btn-table-edit {
+  background: #FFFFFF;
+  color: #334155;
+  border: 1px solid #CBD5E1;
+  border-radius: 5px;
+  padding: 4px 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 600;
+  transition: all 0.15s ease;
+  box-shadow: none !important;
+}
+.btn-table-edit:hover {
+  background: #F8FAFC !important;
+  color: #0F172A !important;
+  border-color: #0F172A !important;
+  box-shadow: none !important;
 }
 
 .btn-cancel-action {
@@ -1034,8 +1187,8 @@ body.sidebar-open .sidebar-backdrop {
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12), 0 1px 2px rgba(15, 23, 42, 0.08);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: none !important;
+  transition: all 0.15s ease;
   white-space: nowrap;
 }
 
@@ -1043,21 +1196,26 @@ body.sidebar-open .sidebar-backdrop {
   background: #1E293B !important;
   border-color: #1E293B !important;
   color: #FFFFFF !important;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
-  transform: translateY(-1px);
+  box-shadow: none !important;
 }
 
 .btn-send-dispatch:active {
-  transform: translateY(0);
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.1);
+  box-shadow: none !important;
 }
 
 .btn-send-dispatch i {
-  color: rgba(255, 255, 255, 0.9);
+  color: #FFFFFF;
   font-size: 0.88rem;
   transition: transform 0.15s ease;
 }
 
 .btn-send-dispatch:hover i {
-  transform: translateX(3px);
+  transform: translateX(2px);
+}
+
+/* Eliminate all button shades across portal */
+.btn-dark,
+button.btn-dark,
+a.btn-dark {
+  box-shadow: none !important;
 }

@@ -146,12 +146,13 @@ if ($pdo !== null) {
       display: inline-flex !important;
       align-items: center !important;
       gap: 6px !important;
-      box-shadow: 0 2px 6px rgba(15,23,42,0.2) !important;
+      box-shadow: none !important;
       cursor: pointer !important;
     }
     .btn-save-action:hover {
       background: #1E293B !important;
       border-color: #1E293B !important;
+      box-shadow: none !important;
     }
     .btn-cancel-action {
       background: #FFFFFF !important;
