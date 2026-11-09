@@ -303,15 +303,45 @@ if ($matchedUnlisted !== null) {
 }
 
 // ------------------------------------------
+// 0.4 Dedicated Mining Projects & Concessions Intent
+// ------------------------------------------
+$isProjectsIntent = false;
+if (preg_match('/\b(project|projects|concessions?|mining\s+assets?|mines?|mining\s+sites?|extraction\s+sites?|footprint|where\s+do\s+you\s+mine)\b/i', $clean)) {
+    $isProjectsIntent = true;
+}
+
+if ($isProjectsIntent) {
+    echo json_encode([
+        'success' => true,
+        'type' => 'projects',
+        'title' => 'Balochistan Minerals Active Mining Projects',
+        'image' => 'images/hero/projects-page-hero2.avif',
+        'badge' => 'Active Mining Concessions',
+        'url' => 'projects.html',
+        'urlLabel' => 'Explore All Mining Projects & Site Operations',
+        'text' => "**Balochistan Minerals (Pvt) Ltd** operates, extracts, and manages commercial concessions across four primary commodity corridors in Balochistan:\n\n• **Muslim Bagh Chromite Project (Zhob Belt):** High-grade metallurgical chromite extraction (42%–52% Cr₂O₃) with active open-pit and underground adits, dedicated sorting stockyards, and direct transit to Karachi port terminals.\n• **Khuzdar Barite Project (Shekran/Gunga):** Premium API 13A high-gravity drilling barite (SG 4.20+ g/cm³) supplying both domestic oilfield operators and export break-bulk vessel shipments.\n• **Chagai Copper Asset (Tethyan Belt):** Direct shipping copper ore (DSO 2%–10% Cu) and exploration concessions within the globally renowned Tethyan metallogenic arc.\n• **Dilband & Mastung Iron Ore Project:** High-reserve extraction operations producing 40%–62% Fe magnetite and hematite for domestic foundries and international smelting works.\n• **Dimension Stone & Marble Quarries:** Dimensional quarrying across Lasbela, Khuzdar, and Loralai for natural marble (Persian Silk, Pietra Grey, Silver Steam).\n• **Degari & Mach Energy Assets:** Sub-bituminous industrial steam coal extraction supplying regional energy and manufacturing requirements.\n\n*Select an operational mineral project below for extraction specs or explore our complete project map:*",
+        'productsList' => [
+            ['name' => 'Muslim Bagh Chromite', 'grade' => 'Zhob Belt • 42%–52% Cr₂O₃', 'image' => 'images/chromite-new-480.avif', 'query' => 'Chromite 42-52%'],
+            ['name' => 'Khuzdar Barite', 'grade' => 'Khuzdar Belt • SG 4.20+', 'image' => 'images/barite-card-480.avif', 'query' => 'Barite 4.2+ SG'],
+            ['name' => 'Chagai Copper DSO', 'grade' => 'Tethyan Arc • 2%–10% Cu', 'image' => 'images/copper-new-480.avif', 'query' => 'Chagai Copper'],
+            ['name' => 'Dilband Iron Ore', 'grade' => 'Mastung • Fe 40%–62%', 'image' => 'images/iron-ore-new-480.avif', 'query' => 'Iron Ore']
+        ],
+        'chips' => ['Explore Projects Page', 'Muslim Bagh Chromite', 'Khuzdar Barite', 'Chagai Copper', 'Live Spot Prices', 'Contact Marketing Department']
+    ]);
+    exit;
+}
+
+// ------------------------------------------
 // 0.5 Comprehensive Concession Portfolio / Catalog Intent
 // ------------------------------------------
+$cleanWithoutCompany = preg_replace('/\bbalochistan\s+minerals\b/i', '', $clean);
 $isCatalogIntent = false;
-if (preg_match('/\b(other|available|all)\s+(m[ie]nerals?|products?|commodit\w+)\b/i', $clean) ||
-    preg_match('/\b(what|which)\b.*\b(m[ie]nerals?|products?|commodit\w+)\b/i', $clean) ||
-    preg_match('/\b(show|list|tell|view|see)\b.*\b(m[ie]nerals?|products?|commodit\w+)\b/i', $clean) ||
-    preg_match('/\bwhat\s+(else\s+)?do\s+you\s+(have|hvae|sell|offer|supply|export)\b/i', $clean) ||
-    preg_match('/\b(your|our)\s+(m[ie]nerals?|products?|commodit\w+)\b/i', $clean) ||
-    preg_match('/\b(catalog|catalogue|portfolio|product\s+list|m[ie]nerals?\s+list|offerings)\b/i', $clean)) {
+if (preg_match('/\b(other|available|all)\s+(m[ie]nerals?|products?|commodit\w+)\b/i', $cleanWithoutCompany) ||
+    preg_match('/\b(what|which)\b.*\b(m[ie]nerals?|products?|commodit\w+)\b/i', $cleanWithoutCompany) ||
+    preg_match('/\b(show|list|tell|view|see)\b.*\b(m[ie]nerals?|products?|commodit\w+)\b/i', $cleanWithoutCompany) ||
+    preg_match('/\bwhat\s+(else\s+)?do\s+you\s+(have|hvae|sell|offer|supply|export)\b/i', $cleanWithoutCompany) ||
+    preg_match('/\b(your|our)\s+(m[ie]nerals?|products?|commodit\w+)\b/i', $cleanWithoutCompany) ||
+    preg_match('/\b(catalog|catalogue|portfolio|product\s+list|m[ie]nerals?\s+list|offerings)\b/i', $cleanWithoutCompany)) {
     $isCatalogIntent = true;
 }
 

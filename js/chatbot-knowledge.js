@@ -392,7 +392,39 @@ export function findBestAnswer(query) {
     };
   }
 
-  // 1. Direct RFQ / Quote Intent
+  const cleanWithoutCompany = clean.replace(/\bbalochistan\s+minerals\b/gi, '').trim();
+
+  // 1. Dedicated Mining Projects & Concessions Intent
+  const hasProjectsIntent = /\b(project|projects|concessions?|mining\s+assets?|mines?|mining\s+sites?|extraction\s+sites?|footprint|where\s+do\s+you\s+mine)\b/i.test(clean);
+  if (hasProjectsIntent) {
+    return {
+      type: 'projects',
+      title: 'Balochistan Minerals Active Mining Projects',
+      image: 'images/hero/projects-page-hero2.avif',
+      badge: 'Active Mining Concessions',
+      url: 'projects.html',
+      urlLabel: 'Explore All Mining Projects & Site Operations',
+      text: `**Balochistan Minerals (Pvt) Ltd** operates, extracts, and manages commercial concessions across four primary commodity corridors in Balochistan:
+
+• **Muslim Bagh Chromite Project (Zhob Belt):** High-grade metallurgical chromite extraction (42%–52% Cr₂O₃) with active open-pit and underground adits, dedicated sorting stockyards, and direct transit to Karachi port terminals.
+• **Khuzdar Barite Project (Shekran/Gunga):** Premium API 13A high-gravity drilling barite (SG 4.20+ g/cm³) supplying both domestic oilfield operators and export break-bulk vessel shipments.
+• **Chagai Copper Asset (Tethyan Belt):** Direct shipping copper ore (DSO 2%–10% Cu) and exploration concessions within the globally renowned Tethyan metallogenic arc.
+• **Dilband & Mastung Iron Ore Project:** High-reserve extraction operations producing 40%–62% Fe magnetite and hematite for domestic foundries and international smelting works.
+• **Dimension Stone & Marble Quarries:** Dimensional quarrying across Lasbela, Khuzdar, and Loralai for natural marble (Persian Silk, Pietra Grey, Silver Steam).
+• **Degari & Mach Energy Assets:** Sub-bituminous industrial steam coal extraction supplying regional energy and manufacturing requirements.
+
+*Select an operational mineral project below for extraction specs or explore our complete project map:*`,
+      productsList: [
+        { name: 'Muslim Bagh Chromite', grade: 'Zhob Belt • 42%–52% Cr₂O₃', image: 'images/chromite-new-480.avif', query: 'Chromite 42-52%' },
+        { name: 'Khuzdar Barite', grade: 'Khuzdar Belt • SG 4.20+', image: 'images/barite-card-480.avif', query: 'Barite 4.2+ SG' },
+        { name: 'Chagai Copper DSO', grade: 'Tethyan Arc • 2%–10% Cu', image: 'images/copper-new-480.avif', query: 'Chagai Copper' },
+        { name: 'Dilband Iron Ore', grade: 'Mastung • Fe 40%–62%', image: 'images/iron-ore-new-480.avif', query: 'Iron Ore' }
+      ],
+      chips: ['Explore Projects Page', 'Muslim Bagh Chromite', 'Khuzdar Barite', 'Chagai Copper', 'Live Spot Prices', 'Contact Marketing Department']
+    };
+  }
+
+  // 1.5 Direct RFQ / Quote Intent
   const rfqTerms = ['quote', 'rfq', 'price', 'pricing', 'cost', 'buy', 'order', 'quotation', 'rate', 'how much', 'tonnage'];
   const hasRfqIntent = rfqTerms.some(term => clean.includes(term));
 
@@ -427,7 +459,7 @@ export function findBestAnswer(query) {
     'products',
     'minerals'
   ];
-  const hasCatalogIntent = catalogTerms.some(term => clean === term || clean.includes(term)) ||
+  const hasCatalogIntent = catalogTerms.some(term => clean === term || cleanWithoutCompany.includes(term)) ||
     /\b(other|available|all)\s+(minerals?|products?|commodit\w+)\b/i.test(clean) ||
     /\bwhat\s+(other\s+)?(minerals?|products?|commodit\w+)\b/i.test(clean) ||
     /\bwhat\s+(else\s+)?do\s+you\s+(have|hvae|sell|offer|supply|export)\b/i.test(clean);

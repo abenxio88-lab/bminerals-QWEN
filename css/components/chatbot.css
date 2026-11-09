@@ -632,12 +632,12 @@
 
 .bm-chat-source__link:hover,
 .bm-chat-msg__bubble a.bm-chat-source__link:hover {
-  background: #0A1628 !important;
+  background: #E65C1A !important;
   color: #FFFFFF !important;
-  border-color: #0A1628 !important;
+  border-color: #E65C1A !important;
   text-decoration: none !important;
   transform: translateY(-1px) !important;
-  box-shadow: 0 3px 8px rgba(10, 22, 40, 0.15) !important;
+  box-shadow: 0 4px 12px rgba(230, 92, 26, 0.3) !important;
 }
 
 .bm-chat-source__icon {
@@ -647,7 +647,7 @@
 }
 
 .bm-chat-source__link:hover .bm-chat-source__icon {
-  stroke: #D4AF37 !important;
+  stroke: #FFFFFF !important;
 }
 
 /* ==========================================================================
@@ -692,11 +692,11 @@
 }
 
 .bm-chat-chip:hover {
-  background: #0A1628;
-  color: #FFFFFF;
-  border-color: #0A1628;
+  background: #E65C1A !important;
+  color: #FFFFFF !important;
+  border-color: #E65C1A !important;
   transform: translateY(-1px);
-  box-shadow: 0 2px 6px rgba(10, 22, 40, 0.14);
+  box-shadow: 0 3px 8px rgba(230, 92, 26, 0.25);
 }
 
 .bm-chat-chip:active {
@@ -732,9 +732,9 @@
 }
 
 .bm-chat-product-card:hover {
-  background: #FFFFFF;
-  border-color: #D4AF37;
-  box-shadow: 0 2px 8px rgba(10, 22, 40, 0.08);
+  background: #FFFBF5;
+  border-color: #E65C1A;
+  box-shadow: 0 3px 10px rgba(230, 92, 26, 0.15);
   transform: translateY(-1px);
 }
 
@@ -1000,8 +1000,8 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: #0A1628;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #E65C1A;
+  border: none;
   color: #FFFFFF;
   display: flex;
   align-items: center;
@@ -1013,9 +1013,9 @@
 }
 
 .bm-chat-send:hover:not(:disabled) {
-  background: #162A4A;
+  background: #C2410C;
   transform: translateY(-1px);
-  box-shadow: 0 3px 8px rgba(10, 22, 40, 0.25);
+  box-shadow: 0 3px 10px rgba(230, 92, 26, 0.35);
 }
 
 .bm-chat-send:active:not(:disabled) {
