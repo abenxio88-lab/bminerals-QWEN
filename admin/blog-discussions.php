@@ -264,13 +264,6 @@ if ($pdo !== null) {
 
       <main class="content-canvas">
 
-        <?php if (!empty($flashMessage)): ?>
-          <div class="alert alert-<?= $flashType ?> alert-dismissible fade show shadow-sm py-2 px-3 small mb-3" role="alert">
-            <?= htmlspecialchars($flashMessage) ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-          </div>
-        <?php endif; ?>
-
         <!-- Metric Strip -->
         <div class="row g-2.5 g-md-3 mb-3">
           <div class="col-6 col-lg-3">
@@ -581,6 +574,30 @@ if ($pdo !== null) {
       </main>
     </div>
   </div>
+
+  <?php if (!empty($flashMessage)): ?>
+  <div class="live-toast-container" id="flashToastContainer">
+    <div class="live-toast" id="flashToast">
+      <div class="live-toast-icon" style="background: <?= $flashType === 'danger' ? '#EF4444' : ($flashType === 'warning' ? '#F59E0B' : '#10B981') ?>;">
+        <i class="bi <?= $flashType === 'danger' ? 'bi-x-circle-fill' : ($flashType === 'warning' ? 'bi-trash-fill' : 'bi-check2-circle') ?>"></i>
+      </div>
+      <div class="live-toast-body">
+        <div class="live-toast-title"><?= $flashType === 'danger' ? 'Notice' : ($flashType === 'warning' ? 'Record Deleted' : 'Action Completed') ?></div>
+        <div class="live-toast-text"><?= htmlspecialchars($flashMessage) ?></div>
+      </div>
+      <button type="button" class="live-toast-close" onclick="this.closest('.live-toast').remove()">&times;</button>
+    </div>
+  </div>
+  <script>
+    setTimeout(function() {
+      const ft = document.getElementById('flashToast');
+      if (ft) {
+        ft.classList.add('hiding');
+        setTimeout(() => ft.remove(), 350);
+      }
+    }, 3200);
+  </script>
+  <?php endif; ?>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="admin-layout.js"></script>
