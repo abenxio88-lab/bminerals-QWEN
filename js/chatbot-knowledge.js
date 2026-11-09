@@ -394,6 +394,29 @@ export function findBestAnswer(query) {
 
   const cleanWithoutCompany = clean.replace(/\bbalochistan\s+minerals\b/gi, '').trim();
 
+  // 0. Courteous B2B Greeting Intent (Never trigger fallback on "hi" or "hello")
+  const isGreeting = /^(hi|hello|hey|hy|helo|hlo|greetings|hola|howdy|salam|slam|assalam|asalam|assalam\s*o?\s*alaikum|asalaam\s*alaikum|good\s*(morning|afternoon|evening|day))(\s+(there|team|sir|madam|friend|bm|balochistan|balochistan\s+minerals|all|everyone|how\s+are\s+you|how\s+r\s+u))?[\s!\.,\?]*$/i.test(clean);
+  if (isGreeting) {
+    return {
+      type: 'greeting',
+      title: 'Balochistan Minerals Marketing & Export Department',
+      image: 'images/baochistan-mineral-resources-480.avif',
+      badge: 'Direct Concession Owners',
+      text: `Hello! Welcome to **Balochistan Minerals (Pvt) Ltd**.
+
+We are active concession owners and direct exporters of **Chromite (42%–52%)**, **API 13A Barite (SG 4.20+)**, **Chagai Copper DSO (2%–10%)**, **Iron Ore (Fe 40%–62%)**, **Fluorspar**, and **Marble** from Balochistan.
+
+How can our Marketing & Export Department assist your procurement today? You can select a commodity below for assay specs and live FOB Karachi spot rates, or tell us your required specifications:`,
+      productsList: [
+        { name: 'Chromite Ore', grade: '42% - 52% Cr₂O₃', image: 'images/chromite-new-480.avif', query: 'Chromite 42-52%' },
+        { name: 'Barite API 13A', grade: 'SG 4.20+ High Gravity', image: 'images/barite-card-480.avif', query: 'Barite 4.2+ SG' },
+        { name: 'Copper DSO', grade: '2% - 10% Cu Direct Ship', image: 'images/copper-new-480.avif', query: 'Chagai Copper' },
+        { name: 'Iron Ore', grade: 'Fe 40% - 62% Magnetite', image: 'images/iron-ore-new-480.avif', query: 'Iron Ore' }
+      ],
+      chips: ['Chromite 42-52%', 'Barite 4.2+ SG', 'Chagai Copper', 'Live Spot Prices', 'Active Mining Projects', 'Request Quote']
+    };
+  }
+
   // 1. Dedicated Mining Projects & Concessions Intent
   const hasProjectsIntent = /\b(project|projects|concessions?|mining\s+assets?|mines?|mining\s+sites?|extraction\s+sites?|footprint|where\s+do\s+you\s+mine)\b/i.test(clean);
   if (hasProjectsIntent) {

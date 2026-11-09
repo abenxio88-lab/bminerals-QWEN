@@ -497,16 +497,26 @@
 }
 
 /* Bot Bubble Styling */
+.bm-chat-msg--bot {
+  align-items: stretch;
+  width: 100%;
+}
+
 .bm-chat-msg--bot .bm-chat-msg__bubble {
   background: #FFFFFF;
   color: #1E293B;
   border: 1px solid #E2E8F0;
   border-radius: 14px 14px 14px 3px;
   box-shadow: 0 1px 4px rgba(15, 23, 42, 0.04);
-  padding: 10px 12px;
-  font-size: 0.75rem;
-  line-height: 1.5;
-  max-width: 92%;
+  padding: 11px 13px;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 /* User Bubble Styling - Compact pill on the right */
@@ -515,11 +525,14 @@
   color: #FFFFFF;
   border-radius: 14px 14px 3px 14px;
   box-shadow: 0 2px 6px rgba(10, 22, 40, 0.15);
-  padding: 6px 12px;
-  font-size: 0.75rem;
-  line-height: 1.4;
-  max-width: 78%;
+  padding: 7px 13px;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  max-width: 82%;
   width: fit-content;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .bm-chat-msg__meta {
@@ -606,9 +619,12 @@
    6. Direct Source Navigation Link Badge (Click to Jump Directly to Page/Section)
    ========================================================================== */
 .bm-chat-source {
-  margin-top: 7px;
+  margin-top: 8px;
   display: flex;
   align-items: center;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .bm-chat-source__link,
@@ -620,9 +636,14 @@
   background: #F1F5F9 !important;
   border: 1px solid #CBD5E1 !important;
   color: #0F172A !important;
-  font-size: 0.6875rem !important;
+  font-size: 0.72rem !important;
   font-weight: 600 !important;
-  padding: 3px 8px !important;
+  padding: 4px 8px !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
   border-radius: 5px !important;
   text-decoration: none !important;
   transition: all 0.18s ease !important;
@@ -657,7 +678,10 @@
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
-  margin-top: 7px;
+  margin-top: 8px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   animation: bmChatSubItemSlide 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
 }
 
@@ -665,9 +689,9 @@
   background: #F1F5F9;
   color: #1E293B;
   border: 1px solid #CBD5E1;
-  font-size: 0.6875rem;
+  font-size: 0.72rem;
   font-weight: 500;
-  padding: 3px 7px;
+  padding: 3px 8px;
   border-radius: 5px;
   cursor: pointer;
   display: inline-flex;
@@ -676,6 +700,8 @@
   transition: all 0.18s ease;
   outline: none;
   font-family: var(--font-body, 'Poppins', sans-serif);
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .bm-chat-chip--thumb {
@@ -708,27 +734,33 @@
    ========================================================================== */
 .bm-chat-product-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 5px;
-  margin: 7px 0 4px 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  margin: 8px 0 5px 0;
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
   animation: bmChatSubItemSlide 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
 }
 
 .bm-chat-product-card {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 6px;
   background: #F8FAFC;
   border: 1px solid #E2E8F0;
   border-radius: 6px;
-  padding: 4px 6px;
+  padding: 5px 6px;
   cursor: pointer;
   text-align: left;
   transition: all 0.18s ease;
   font-family: inherit;
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .bm-chat-product-card:hover {
@@ -757,22 +789,24 @@
 
 .bm-chat-product-card__name {
   font-family: var(--font-brand, 'Montserrat', sans-serif);
-  font-size: 0.6875rem;
+  font-size: 0.72rem;
   font-weight: 600;
   color: #0F172A;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.2;
+  line-height: 1.25;
+  max-width: 100%;
 }
 
 .bm-chat-product-card__grade {
-  font-size: 0.59375rem;
+  font-size: 0.625rem;
   color: #64748B;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   margin-top: 1px;
+  max-width: 100%;
 }
 
 /* ==========================================================================
@@ -971,9 +1005,9 @@
 }
 
 .bm-chat-form:focus-within {
-  border-color: #0A1628;
+  border-color: #E65C1A;
   background: #FFFFFF;
-  box-shadow: 0 0 0 2px rgba(10, 22, 40, 0.08);
+  box-shadow: 0 0 0 2px rgba(230, 92, 26, 0.12);
 }
 
 .bm-chat-input {
@@ -981,8 +1015,8 @@
   border: none;
   background: transparent;
   padding: 4px 0;
-  font-size: 0.75rem;
-  line-height: 1.4;
+  font-size: 0.8125rem;
+  line-height: 1.45;
   color: #0F172A;
   resize: none;
   outline: none;
@@ -993,7 +1027,7 @@
 
 .bm-chat-input::placeholder {
   color: #94A3B8;
-  font-size: 0.75rem;
+  font-size: 0.79rem;
 }
 
 .bm-chat-send {
