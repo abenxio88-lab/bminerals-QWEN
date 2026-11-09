@@ -1016,9 +1016,9 @@ if ($pdo !== null) {
                           </button>
                         </div>
 
-                        <!-- Email Reply Modal (Executive 2-Column Split View) -->
+                        <!-- Email Reply Modal (Executive Stretchable & Resizable Split View) -->
                         <div class="modal fade text-start" id="replyModal<?= $row['id'] ?>" tabindex="-1" aria-hidden="true">
-                          <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 860px;">
+                          <div class="modal-dialog modal-dialog-centered modal-dialog-resizable" style="max-width: 1040px;">
                             <div class="modal-content">
                               <form method="POST" action="dashboard.php">
                                 <input type="hidden" name="action" value="send_reply">
@@ -1027,10 +1027,10 @@ if ($pdo !== null) {
 
                                 <div class="modal-header py-2.5 px-3">
                                   <div class="d-flex align-items-center gap-2">
-                                    <span class="badge" style="background: rgba(230,92,26,0.12); color: #E65C1A; font-weight: 700; font-size: 0.72rem; padding: 4px 8px;">
-                                      <i class="bi bi-reply-fill me-1"></i> RFQ #<?= $row['id'] ?>
+                                    <span class="badge-rfq-mild">
+                                      <i class="bi bi-reply-fill"></i> RFQ #<?= $row['id'] ?>
                                     </span>
-                                    <h6 class="modal-title fw-bold brand-font mb-0" style="color: var(--brand-navy); font-size: 0.96rem;">
+                                    <h6 class="modal-title fw-bold brand-font mb-0" style="color: var(--brand-navy); font-size: 0.98rem;">
                                       Reply to <?= htmlspecialchars($row['buyer_name']) ?> <span class="text-muted fw-normal fs-6">(<?= htmlspecialchars($row['company_name'] ?: 'Buyer') ?>)</span>
                                     </h6>
                                   </div>
@@ -1309,8 +1309,8 @@ Web: https://balochistanminerals.com</textarea>
 
                 <div class="modal-header py-2.5 px-3">
                   <div class="d-flex align-items-center gap-2">
-                    <span class="badge" style="background: rgba(230,92,26,0.12); color: #E65C1A; font-weight: 700; font-size: 0.72rem; padding: 4px 8px;">
-                      <i class="bi bi-gear-fill me-1"></i> SERVER CONFIG
+                    <span class="badge-rfq-mild">
+                      <i class="bi bi-gear-fill"></i> SERVER CONFIG
                     </span>
                     <h6 class="modal-title fw-bold brand-font mb-0" style="color: var(--brand-navy); font-size: 0.95rem;">
                       Hostinger Corporate Mailbox Settings

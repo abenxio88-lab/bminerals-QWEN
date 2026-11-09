@@ -628,16 +628,21 @@ if ($pdo !== null) {
 
   <!-- Modal: Compose Fresh Outbound Trade Offer -->
   <div class="modal fade" id="newOfferModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-resizable" style="max-width: 960px;">
       <div class="modal-content">
         <form method="POST" action="email-desk.php">
           <input type="hidden" name="action" value="compose_outbound_email">
           <input type="hidden" name="csrf_token" value="<?= getCsrfToken() ?>">
 
           <div class="modal-header py-2.5 px-3">
-            <h6 class="modal-title fw-bold brand-font" style="color: var(--brand-navy);">
-              <i class="bi bi-pencil-square me-2 text-warning"></i>Compose B2B Commodity Export Offer
-            </h6>
+            <div class="d-flex align-items-center gap-2">
+              <span class="badge-rfq-mild">
+                <i class="bi bi-pencil-square"></i> B2B OFFER
+              </span>
+              <h6 class="modal-title fw-bold brand-font mb-0" style="color: var(--brand-navy); font-size: 0.98rem;">
+                Compose B2B Commodity Export Offer
+              </h6>
+            </div>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
 
@@ -729,8 +734,8 @@ Web: https://balochistanminerals.com</textarea>
 
           <div class="modal-header py-2.5 px-3">
             <div class="d-flex align-items-center gap-2">
-              <span class="badge" style="background: rgba(230,92,26,0.12); color: #E65C1A; font-weight: 700; font-size: 0.72rem; padding: 4px 8px;">
-                <i class="bi bi-gear-fill me-1"></i> HOSTINGER SMTP
+              <span class="badge-rfq-mild">
+                <i class="bi bi-gear-fill"></i> HOSTINGER SMTP
               </span>
               <h6 class="modal-title fw-bold brand-font mb-0" style="color: var(--brand-navy); font-size: 0.95rem;">
                 Hostinger Corporate Mailbox Credentials
