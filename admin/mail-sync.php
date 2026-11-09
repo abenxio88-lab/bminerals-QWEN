@@ -1,7 +1,9 @@
 <?php
 /**
- * Balochistan Minerals - Inbound Corporate Mailbox Sync Engine
- * Fetches unread inquiries sent to sales@ and info@ on Hostinger and ingests them into the Trade Desk Lead Engine.
+ * Balochistan Minerals - Two-Way Hostinger Mailbox Sync Engine
+ * 1. Ingests unread incoming inquiries from Hostinger INBOX into Trade Desk.
+ * 2. Scans Hostinger INBOX.Sent folder to automatically detect replies sent from mail.hostinger.com
+ *    and transitions the corresponding inquiry status from "New" to "Contacted".
  */
 
 header('Content-Type: application/json; charset=utf-8');
@@ -66,7 +68,56 @@ if ($action === 'simulate') {
 }
 
 // ==========================================
-// 2. LIVE IMAP MAILBOX SYNC ENGINE
+// 1.1 SIMULATE HOSTINGER WEBMAIL SENT SYNC
+// Tests flipping "New" inquiries to "Contacted" when team replies via webmail
+// ==========================================
+if ($action === 'simulate_sent_sync') {
+    try {
+        // Find most recent "New" inquiry
+        $stmt = $pdo->query("SELECT id, buyer_name, email, mineral_type FROM inquiries WHERE status = 'New' ORDER BY id DESC LIMIT 1");
+        $target = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$target) {
+            echo json_encode([
+                'success' => true,
+                'synced_count' => 0,
+                'message' => 'All inquiries have already been contacted. No pending "New" inquiries found to sync.'
+            ]);
+            exit;
+        }
+
+        // Simulate reply from team member on Hostinger Webmail
+        $simSubject = "Re: Commercial Export Quotation for " . $target['mineral_type'];
+        $simBody = "Dear " . $target['buyer_name'] . ",\n\nThank you for reaching out to Balochistan Minerals. We have verified stock available at our Karachi Port Trust yard.\n\nPlease find our preliminary technical assay sheet attached.\n\nBest regards,\nCommercial Trading Desk\nBalochistan Minerals (Pvt) Ltd";
+        $simMsgId = '<webmail-' . uniqid() . '@balochistanminerals.com>';
+
+        // 1. Insert into email_messages
+        $logStmt = $pdo->prepare("INSERT INTO email_messages 
+            (inquiry_id, direction, from_email, to_email, subject, body_text, status, message_id) 
+            VALUES (?, 'outbound', 'sales@balochistanminerals.com', ?, ?, ?, 'Sent', ?)");
+        $logStmt->execute([$target['id'], $target['email'], $simSubject, $simBody, $simMsgId]);
+
+        // 2. Transition inquiry status from "New" to "Contacted"
+        $note = "[" . date('M d, Y H:i') . "] Replied via Hostinger Webmail (mail.hostinger.com) to " . $target['email'] . "\nSubject: " . $simSubject . "\n-------------------\n";
+        $upStmt = $pdo->prepare("UPDATE inquiries SET status = 'Contacted', internal_notes = CONCAT(?, COALESCE(internal_notes, '')) WHERE id = ?");
+        $upStmt->execute([$note, $target['id']]);
+
+        echo json_encode([
+            'success' => true,
+            'synced_count' => 1,
+            'inquiry_id' => $target['id'],
+            'buyer' => $target['buyer_name'],
+            'message' => "Hostinger Sent Mail Sync: Detected outgoing reply to " . $target['buyer_name'] . " (" . $target['email'] . "). Inquiry #" . $target['id'] . " automatically transitioned to [Contacted]!"
+        ]);
+        exit;
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+        exit;
+    }
+}
+
+// ==========================================
+// 2. LIVE TWO-WAY HOSTINGER IMAP SYNC ENGINE
 // Connects to mail.balochistanminerals.com
 // ==========================================
 
@@ -76,7 +127,7 @@ if (!function_exists('imap_open')) {
         'success' => false,
         'warning' => 'PHP IMAP extension is not enabled in local PHP. In production on Hostinger, standard IMAP extension is enabled.',
         'synced_count' => 0,
-        'info' => 'Use the "Simulate Inbound Test Email" button to test local ingestion flow.'
+        'info' => 'Use "Simulate Inbound Test Email" or "Simulate Hostinger Sent Sync" to verify workflow locally.'
     ]);
     exit;
 }
@@ -97,97 +148,141 @@ if (empty($mailPass)) {
     exit;
 }
 
-$mailbox = "{" . $mailHost . ":" . $mailPort . "/imap/ssl/novalidate-cert}INBOX";
+$syncedInbound = 0;
+$syncedSent = 0;
 
-$imapStream = @imap_open($mailbox, $mailUser, $mailPass);
-if (!$imapStream) {
-    echo json_encode([
-        'success' => false,
-        'error' => 'Could not connect to Hostinger IMAP server: ' . imap_last_error()
-    ]);
-    exit;
+// ------------------------------------------
+// PASS 1: SCAN INBOX (Incoming Inquiries)
+// ------------------------------------------
+$inboxPath = "{" . $mailHost . ":" . $mailPort . "/imap/ssl/novalidate-cert}INBOX";
+$inboxStream = @imap_open($inboxPath, $mailUser, $mailPass);
+
+if ($inboxStream) {
+    $unreadEmails = imap_search($inboxStream, 'UNSEEN');
+    if ($unreadEmails) {
+        $mineralKeywords = [
+            'chromite'  => 'Chromite Ore',
+            'barite'    => 'Barite',
+            'iron'      => 'Iron Ore',
+            'copper'    => 'Copper Ore',
+            'antimony'  => 'Antimony',
+            'stibnite'  => 'Antimony',
+            'fluor'     => 'Fluorspar',
+            'magnesite' => 'Magnesite',
+            'bauxite'   => 'Bauxite Ore',
+            'manganese' => 'Manganese Ore',
+            'lead'      => 'Lead & Zinc Ore',
+            'zinc'      => 'Lead & Zinc Ore',
+            'onyx'      => 'Onyx Stone',
+            'granite'   => 'Granite Stone',
+            'marble'    => 'Marble (Balochistan & Iranian)',
+            'coal'      => 'Balochistan Coal',
+            'gypsum'    => 'Gypsum Ore'
+        ];
+
+        foreach ($unreadEmails as $emailNumber) {
+            $overview = imap_fetch_overview($inboxStream, $emailNumber, 0);
+            $header   = imap_headerinfo($inboxStream, $emailNumber);
+            $body     = imap_fetchbody($inboxStream, $emailNumber, 1);
+
+            $fromEmail = $header->from[0]->mailbox . '@' . $header->from[0]->host;
+            $fromName  = isset($header->from[0]->personal) ? imap_utf8($header->from[0]->personal) : $header->from[0]->mailbox;
+            $subject   = isset($overview[0]->subject) ? imap_utf8($overview[0]->subject) : 'Inbound Inquiry';
+            $msgId     = isset($header->message_id) ? trim($header->message_id) : ('<msg-' . $emailNumber . '-' . time() . '>');
+
+            // Check if already synced
+            $chk = $pdo->prepare("SELECT id FROM inquiries WHERE email_message_id = ?");
+            $chk->execute([$msgId]);
+            if ($chk->fetch()) {
+                continue;
+            }
+
+            // Detect mineral
+            $detectedMineral = 'General Mineral';
+            $fullTextLower = strtolower($subject . ' ' . $body);
+            foreach ($mineralKeywords as $kw => $minName) {
+                if (strpos($fullTextLower, $kw) !== false) {
+                    $detectedMineral = $minName;
+                    break;
+                }
+            }
+
+            $cleanBody = strip_tags($body);
+            $fullMessage = "Subject: " . $subject . "\n\n" . trim($cleanBody);
+
+            $stmt = $pdo->prepare("INSERT INTO inquiries 
+                (buyer_name, email, inquiry_type, source, email_message_id, mineral_type, message, status) 
+                VALUES (?, ?, 'Email Inbound', ?, ?, ?, ?, 'New')");
+            $stmt->execute([$fromName, $fromEmail, $mailUser, $msgId, $detectedMineral, $fullMessage]);
+            $syncedInbound++;
+        }
+    }
+    imap_close($inboxStream);
 }
 
-// Search for unread emails
-$emails = imap_search($imapStream, 'UNSEEN');
-$syncedCount = 0;
+// ------------------------------------------
+// PASS 2: SCAN INBOX.Sent (Sent Outbound Mailbox)
+// Automatically detects replies sent from Hostinger Webmail
+// ------------------------------------------
+$sentFolderNames = ['INBOX.Sent', 'Sent', 'Sent Items', 'INBOX/Sent'];
+$sentStream = false;
 
-if ($emails) {
-    // Known mineral keywords to auto-tag
-    $mineralKeywords = [
-        'chromite'  => 'Chromite Ore',
-        'barite'    => 'Barite',
-        'iron'      => 'Iron Ore',
-        'copper'    => 'Copper Ore',
-        'antimony'  => 'Antimony',
-        'stibnite'  => 'Antimony',
-        'fluor'     => 'Fluorspar',
-        'magnesite' => 'Magnesite',
-        'bauxite'   => 'Bauxite Ore',
-        'manganese' => 'Manganese Ore',
-        'lead'      => 'Lead & Zinc Ore',
-        'zinc'      => 'Lead & Zinc Ore',
-        'onyx'      => 'Onyx Stone',
-        'granite'   => 'Granite Stone',
-        'marble'    => 'Marble (Balochistan & Iranian)',
-        'coal'      => 'Balochistan Coal',
-        'gypsum'    => 'Gypsum Ore'
-    ];
-
-    foreach ($emails as $emailNumber) {
-        $overview = imap_fetch_overview($imapStream, $emailNumber, 0);
-        $header = imap_headerinfo($imapStream, $emailNumber);
-        $body = imap_fetchbody($imapStream, $emailNumber, 1);
-
-        $fromEmail = $header->from[0]->mailbox . '@' . $header->from[0]->host;
-        $fromName  = isset($header->from[0]->personal) ? imap_utf8($header->from[0]->personal) : $header->from[0]->mailbox;
-        $subject   = isset($overview[0]->subject) ? imap_utf8($overview[0]->subject) : 'Inbound Inquiry';
-        $msgId     = isset($header->message_id) ? trim($header->message_id) : ('<msg-' . $emailNumber . '-' . time() . '>');
-
-        // Check if already synced
-        $chk = $pdo->prepare("SELECT id FROM inquiries WHERE email_message_id = ?");
-        $chk->execute([$msgId]);
-        if ($chk->fetch()) {
-            continue;
-        }
-
-        // Detect mineral
-        $detectedMineral = 'General Mineral';
-        $fullTextLower = strtolower($subject . ' ' . $body);
-        foreach ($mineralKeywords as $kw => $minName) {
-            if (strpos($fullTextLower, $kw) !== false) {
-                $detectedMineral = $minName;
-                break;
-            }
-        }
-
-        // Clean plain text body
-        $cleanBody = strip_tags($body);
-        $fullMessage = "Subject: " . $subject . "\n\n" . trim($cleanBody);
-
-        $stmt = $pdo->prepare("INSERT INTO inquiries 
-            (buyer_name, email, inquiry_type, source, email_message_id, mineral_type, message, status) 
-            VALUES (?, ?, 'Email Inbound', ?, ?, ?, ?, 'New')");
-        
-        $stmt->execute([
-            $fromName,
-            $fromEmail,
-            $mailUser,
-            $msgId,
-            $detectedMineral,
-            $fullMessage
-        ]);
-
-        $syncedCount++;
+foreach ($sentFolderNames as $folder) {
+    $sentPath = "{" . $mailHost . ":" . $mailPort . "/imap/ssl/novalidate-cert}" . $folder;
+    $sentStream = @imap_open($sentPath, $mailUser, $mailPass);
+    if ($sentStream) {
+        break;
     }
 }
 
-imap_close($imapStream);
+if ($sentStream) {
+    // Check emails sent within the last 14 days
+    $sinceDate = date("j-M-Y", strtotime("-14 days"));
+    $recentSent = imap_search($sentStream, 'SINCE "' . $sinceDate . '"');
+
+    if ($recentSent) {
+        foreach ($recentSent as $sentMsgNo) {
+            $header = imap_headerinfo($sentStream, $sentMsgNo);
+            if (empty($header->to)) continue;
+
+            $toEmail = strtolower($header->to[0]->mailbox . '@' . $header->to[0]->host);
+            $msgId   = isset($header->message_id) ? trim($header->message_id) : '';
+            $subject = isset($header->subject) ? imap_utf8($header->subject) : 'Export Reply';
+            $sentDate = isset($header->date) ? date('M d, Y H:i', strtotime($header->date)) : date('M d, Y H:i');
+
+            // Find matching open inquiry in database
+            $matchStmt = $pdo->prepare("SELECT id, status, buyer_name FROM inquiries WHERE LOWER(email) = ? ORDER BY id DESC LIMIT 1");
+            $matchStmt->execute([$toEmail]);
+            $inquiry = $matchStmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($inquiry) {
+                // If status was 'New', flip to 'Contacted'
+                if ($inquiry['status'] === 'New') {
+                    $note = "[" . $sentDate . "] Replied via Hostinger Webmail to " . $toEmail . "\nSubject: " . $subject . "\n-------------------\n";
+                    $up = $pdo->prepare("UPDATE inquiries SET status = 'Contacted', internal_notes = CONCAT(?, COALESCE(internal_notes, '')) WHERE id = ?");
+                    $up->execute([$note, $inquiry['id']]);
+                    $syncedSent++;
+
+                    // Also archive into email_messages if not already recorded
+                    $chkMsg = $pdo->prepare("SELECT id FROM email_messages WHERE message_id = ?");
+                    $chkMsg->execute([$msgId]);
+                    if (!$chkMsg->fetch()) {
+                        $log = $pdo->prepare("INSERT INTO email_messages 
+                            (inquiry_id, direction, from_email, to_email, subject, body_text, status, message_id) 
+                            VALUES (?, 'outbound', ?, ?, ?, ?, 'Sent', ?)");
+                        $body = imap_fetchbody($sentStream, $sentMsgNo, 1);
+                        $log->execute([$inquiry['id'], $mailUser, $toEmail, $subject, strip_tags($body), $msgId]);
+                    }
+                }
+            }
+        }
+    }
+    imap_close($sentStream);
+}
 
 echo json_encode([
     'success' => true,
-    'synced_count' => $syncedCount,
-    'message' => $syncedCount > 0 
-        ? "Successfully synced {$syncedCount} new inbound emails into Trade Desk." 
-        : "Mailbox is up to date. No new unread inquiries."
+    'synced_inbound' => $syncedInbound,
+    'synced_sent' => $syncedSent,
+    'message' => "Hostinger Two-Way Sync Complete: {$syncedInbound} new inbound leads ingested; {$syncedSent} external replies synchronized to [Contacted]."
 ]);

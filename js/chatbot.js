@@ -667,11 +667,27 @@ class BMChatbot {
     // Show typing indicator
     this.showTyping();
 
-    // Natural assistant thinking cadence
+    // Natural assistant thinking cadence (Live MySQL Database + NLP Cache)
     const delay = Math.min(650, Math.max(280, text.length * 10));
-    setTimeout(() => {
+    setTimeout(async () => {
+      let responseData = null;
+      try {
+        const res = await fetch(this.resolveAssetPath('api/chatbot.php'), {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'query', query: text, page: window.location.pathname })
+        });
+        const json = await res.json();
+        if (json && json.success && !json.fallback) {
+          responseData = json;
+        }
+      } catch (err) {}
+
+      if (!responseData) {
+        responseData = findBestAnswer(text);
+      }
+
       this.hideTyping();
-      const responseData = findBestAnswer(text);
       const botTime = this.formatTime();
       this.renderBotMessage(responseData, botTime);
       this.messages.push({ role: 'bot', data: responseData, time: botTime });

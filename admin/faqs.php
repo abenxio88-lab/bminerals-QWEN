@@ -233,6 +233,12 @@ if ($pdo !== null) {
           <span class="badge bg-success font-monospace" style="font-size: 0.65rem;">LIVE</span>
         </a>
 
+        <div class="sidebar-section-title">Trade Analytics & Intelligence</div>
+        <a href="analytics.php" class="sidebar-link">
+          <div><i class="bi bi-graph-up-arrow"></i> Trade Intelligence</div>
+          <span class="badge bg-primary font-monospace" style="font-size: 0.65rem;">PROJECTIONS</span>
+        </a>
+
         <div class="sidebar-section-title">Logistics & Trade Operations</div>
         <a href="stockpiles.php" class="sidebar-link">
           <div><i class="bi bi-boxes"></i> Stockpiles & Shipments</div>
