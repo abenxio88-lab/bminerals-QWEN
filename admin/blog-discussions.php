@@ -456,57 +456,57 @@ if ($pdo !== null) {
                       <!-- Status Badge -->
                       <td>
                         <?php if ($disc['status'] === 'Approved'): ?>
-                          <span class="badge bg-success-subtle text-success border border-success-subtle fw-semibold px-2 py-1" style="border-radius: 9999px; font-size: 0.72rem;">
-                            <i class="bi bi-check2-circle me-1"></i> Approved
+                          <span class="badge-mod-approved">
+                            Approved
                           </span>
                         <?php elseif ($disc['status'] === 'Pending'): ?>
-                          <span class="badge bg-warning-subtle text-warning border border-warning-subtle fw-semibold px-2 py-1" style="border-radius: 9999px; font-size: 0.72rem; color: #B45309 !important;">
-                            <i class="bi bi-hourglass-split me-1"></i> Pending
+                          <span class="badge-mod-pending">
+                            Pending Review
                           </span>
                         <?php else: ?>
-                          <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle fw-semibold px-2 py-1" style="border-radius: 9999px; font-size: 0.72rem;">
-                            Rejected
+                          <span class="badge-mod-rejected">
+                            Archived
                           </span>
                         <?php endif; ?>
                       </td>
 
                       <!-- Actions -->
                       <td class="text-end">
-                        <div class="d-inline-flex gap-1.5 flex-wrap justify-content-end">
+                        <div class="d-inline-flex gap-1.5 align-items-center justify-content-end">
                           <?php if ($disc['status'] !== 'Approved'): ?>
-                            <form method="POST" action="blog-discussions.php" class="d-inline">
+                            <form method="POST" action="blog-discussions.php" class="d-inline m-0">
                               <input type="hidden" name="action" value="set_status">
                               <input type="hidden" name="discussion_id" value="<?= $disc['id'] ?>">
                               <input type="hidden" name="status" value="Approved">
                               <input type="hidden" name="csrf_token" value="<?= getCsrfToken() ?>">
-                              <button type="submit" class="btn btn-sm btn-outline-success py-1 px-2" title="Approve & Publish to Article">
-                                <i class="bi bi-check-lg"></i> Approve
+                              <button type="submit" class="btn-mod-approve" title="Approve & Publish to Article">
+                                <i class="bi bi-check2"></i> Approve
                               </button>
                             </form>
                           <?php endif; ?>
 
-                          <button type="button" class="btn btn-sm btn-outline-primary py-1 px-2" data-bs-toggle="modal" data-bs-target="#replyDiscModal<?= $disc['id'] ?>" title="Write Official Desk Answer">
+                          <button type="button" class="btn-mod-reply" data-bs-toggle="modal" data-bs-target="#replyDiscModal<?= $disc['id'] ?>" title="Write Official Desk Answer">
                             <i class="bi bi-reply-fill"></i> Reply
                           </button>
 
                           <?php if ($disc['status'] !== 'Rejected'): ?>
-                            <form method="POST" action="blog-discussions.php" class="d-inline">
+                            <form method="POST" action="blog-discussions.php" class="d-inline m-0">
                               <input type="hidden" name="action" value="set_status">
                               <input type="hidden" name="discussion_id" value="<?= $disc['id'] ?>">
                               <input type="hidden" name="status" value="Rejected">
                               <input type="hidden" name="csrf_token" value="<?= getCsrfToken() ?>">
-                              <button type="submit" class="btn btn-sm btn-outline-secondary py-1 px-2" title="Reject / Hide">
-                                <i class="bi bi-x-circle"></i>
+                              <button type="submit" class="btn-mod-icon" title="Reject / Archive">
+                                <i class="bi bi-eye-slash"></i>
                               </button>
                             </form>
                           <?php endif; ?>
 
-                          <form method="POST" action="blog-discussions.php" class="d-inline" onsubmit="return confirm('Permanently delete this discussion?');">
+                          <form method="POST" action="blog-discussions.php" class="d-inline m-0" onsubmit="return confirm('Permanently delete this discussion?');">
                             <input type="hidden" name="action" value="delete_discussion">
                             <input type="hidden" name="discussion_id" value="<?= $disc['id'] ?>">
                             <input type="hidden" name="csrf_token" value="<?= getCsrfToken() ?>">
-                            <button type="submit" class="btn btn-sm btn-outline-danger py-1 px-2" title="Delete permanently">
-                              <i class="bi bi-trash"></i>
+                            <button type="submit" class="btn-mod-icon btn-mod-delete" title="Delete permanently">
+                              <i class="bi bi-trash3"></i>
                             </button>
                           </form>
                         </div>

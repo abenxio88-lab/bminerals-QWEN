@@ -263,46 +263,49 @@ if ($pdo !== null) {
                       <td style="max-width: 320px;"><div class="small"><?= nl2br(htmlspecialchars($rev['review_text'])) ?></div></td>
                       <td>
                         <?php if ($rev['status'] === 'Approved'): ?>
-                          <span class="status-badge-active"><i class="bi bi-check-circle me-1"></i> Approved (Live)</span>
+                          <span class="badge-mod-approved">Approved</span>
                         <?php elseif ($rev['status'] === 'Pending'): ?>
-                          <span style="background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; font-weight: 700; font-size: 0.72rem; padding: 3px 8px; border-radius: 4px; display: inline-block;"><i class="bi bi-clock me-1"></i> Pending Review</span>
+                          <span class="badge-mod-pending">Pending Review</span>
                         <?php else: ?>
-                          <span class="status-badge-hidden">Rejected</span>
+                          <span class="badge-mod-rejected">Rejected</span>
                         <?php endif; ?>
                       </td>
                       <td class="small text-muted"><?= date('M d, Y', strtotime($rev['created_at'])) ?></td>
                       <td class="text-end">
-                        <div class="d-inline-flex gap-1">
+                        <div class="d-inline-flex gap-1.5 align-items-center justify-content-end">
                           <?php if ($rev['status'] !== 'Approved'): ?>
-                            <form method="POST" action="reviews.php">
+                            <form method="POST" action="reviews.php" class="d-inline m-0">
                               <input type="hidden" name="action" value="set_status">
                               <input type="hidden" name="status" value="Approved">
                               <input type="hidden" name="review_id" value="<?= $rev['id'] ?>">
                               <input type="hidden" name="csrf_token" value="<?= getCsrfToken() ?>">
-                              <button type="submit" class="btn btn-sm btn-success" title="Approve and make public">
-                                <i class="bi bi-check-lg"></i> Approve
+                              <button type="submit" class="btn-mod-approve" title="Approve and make public">
+                                <i class="bi bi-check2"></i> Approve
                               </button>
                             </form>
                           <?php endif; ?>
 
                           <?php if ($rev['status'] !== 'Rejected'): ?>
-                            <form method="POST" action="reviews.php">
+                            <form method="POST" action="reviews.php" class="d-inline m-0">
                               <input type="hidden" name="action" value="set_status">
                               <input type="hidden" name="status" value="Rejected">
                               <input type="hidden" name="review_id" value="<?= $rev['id'] ?>">
                               <input type="hidden" name="csrf_token" value="<?= getCsrfToken() ?>">
-                              <button type="submit" class="btn btn-sm btn-outline-secondary" title="Reject / Hide from site">
-                                <i class="bi bi-x-lg"></i>
+                              <button type="submit" class="btn-mod-icon" title="Reject / Hide from site">
+                                <i class="bi bi-eye-slash"></i>
                               </button>
                             </form>
                           <?php endif; ?>
 
-                          <form method="POST" action="reviews.php" onsubmit="return confirm('Delete this review permanently?');">
+                          <form method="POST" action="reviews.php" class="d-inline m-0" onsubmit="return confirm('Delete this review permanently?');">
                             <input type="hidden" name="action" value="delete_review">
                             <input type="hidden" name="review_id" value="<?= $rev['id'] ?>">
                             <input type="hidden" name="csrf_token" value="<?= getCsrfToken() ?>">
-                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete">
-                              <i class="bi bi-trash"></i>
+                            <button type="submit" class="btn-mod-icon btn-mod-delete" title="Delete">
+                              <i class="bi bi-trash3"></i>
+                            </button>
+                          </form>
+                        </div>
                             </button>
                           </form>
                         </div>

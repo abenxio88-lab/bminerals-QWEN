@@ -196,6 +196,57 @@ if (empty($clean)) {
     exit;
 }
 
+// Silent Ingestion: Log buyer queries into chatbot_queries for market demand discovery & blog topics
+if ($pdo !== null && strlen($clean) >= 3) {
+    try {
+        $detectedMineral = 'General Inquiries';
+        $mineralKeywords = [
+            'chromite' => 'Chromite Ore',
+            'chrome' => 'Chromite Ore',
+            'barite' => 'Barite API 13A',
+            'baryte' => 'Barite API 13A',
+            'copper' => 'Copper Ore DSO',
+            'iron' => 'Iron Ore',
+            'magnetite' => 'Iron Ore',
+            'hematite' => 'Iron Ore',
+            'lithium' => 'Lithium Ore',
+            'spodumene' => 'Lithium Ore',
+            'talc' => 'Talc / Soapstone',
+            'soapstone' => 'Talc / Soapstone',
+            'antimony' => 'Antimony Stibnite',
+            'stibnite' => 'Antimony Stibnite',
+            'manganese' => 'Manganese Ore',
+            'fluorite' => 'Fluorspar (CaF2)',
+            'fluorspar' => 'Fluorspar (CaF2)',
+            'coal' => 'Steam Coal',
+            'marble' => 'Marble & Onyx',
+            'onyx' => 'Marble & Onyx',
+            'granite' => 'Granite Blocks',
+            'quartz' => 'Silica Quartz',
+            'silica' => 'Silica Quartz',
+            'gypsum' => 'Gypsum',
+            'bauxite' => 'Bauxite',
+            'lead' => 'Lead-Zinc Ore',
+            'zinc' => 'Lead-Zinc Ore',
+            'magnesite' => 'Magnesite'
+        ];
+        foreach ($mineralKeywords as $kw => $mName) {
+            if (str_contains($clean, $kw)) {
+                $detectedMineral = $mName;
+                break;
+            }
+        }
+
+        $ip = $_SERVER['REMOTE_ADDR'] ?? '';
+        $buyerCountry = 'International';
+        if (!empty($_SERVER['HTTP_CF_IPCOUNTRY'])) {
+            $buyerCountry = normalizeCountryName($_SERVER['HTTP_CF_IPCOUNTRY']);
+        }
+        $logStmt = $pdo->prepare("INSERT INTO chatbot_queries (query_text, detected_mineral, buyer_country, page_origin, ip_address) VALUES (?, ?, ?, ?, ?)");
+        $logStmt->execute([$query, $detectedMineral, $buyerCountry, $page, $ip]);
+    } catch (Exception $e) {}
+}
+
 // ------------------------------------------
 // A. Real-Time Spot Price Intent
 // ------------------------------------------

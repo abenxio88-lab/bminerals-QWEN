@@ -2033,6 +2033,171 @@ a.btn-dark {
   color: #F8FAFC;
 }
 
+/* ==========================================================================
+   EXECUTIVE MODERATION DESK CONTROLS (Zero Cheap Colors, Luxury SaaS)
+   ========================================================================== */
+.btn-mod-approve {
+  background: #0F172A !important;
+  color: #FFFFFF !important;
+  border: 1px solid #0F172A !important;
+  border-radius: 6px;
+  height: 31px;
+  padding: 0 13px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5.5px;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08) !important;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.btn-mod-approve i {
+  color: #34D399 !important;
+  font-size: 0.88rem;
+  line-height: 1;
+}
+.btn-mod-approve:hover {
+  background: #1E293B !important;
+  border-color: #1E293B !important;
+  color: #FFFFFF !important;
+}
+
+.btn-mod-reply {
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  border: 1px solid #CBD5E1 !important;
+  border-radius: 6px;
+  height: 31px;
+  padding: 0 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: all 0.15s ease;
+  box-shadow: none !important;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.btn-mod-reply i {
+  color: #64748B !important;
+  font-size: 0.84rem;
+  line-height: 1;
+  transition: color 0.15s ease;
+}
+.btn-mod-reply:hover {
+  background: #F8FAFC !important;
+  color: #0F172A !important;
+  border-color: #0F172A !important;
+}
+.btn-mod-reply:hover i {
+  color: #0F172A !important;
+}
+
+.btn-mod-icon {
+  background: #FFFFFF !important;
+  color: #64748B !important;
+  border: 1px solid #CBD5E1 !important;
+  border-radius: 6px;
+  height: 31px;
+  width: 32px;
+  padding: 0;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  box-shadow: none !important;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-mod-icon:hover {
+  background: #F8FAFC !important;
+  color: #0F172A !important;
+  border-color: #0F172A !important;
+}
+.btn-mod-icon.btn-mod-delete:hover {
+  background: #FEF2F2 !important;
+  color: #DC2626 !important;
+  border-color: #FECACA !important;
+}
+
+/* Luxury Status Badges (Matching Deal Velocity Quality) */
+.badge-mod-pending,
+.badge-mod-approved,
+.badge-mod-rejected {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 0.63rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+  padding: 3px 9px !important;
+  border-radius: 9999px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5.5px !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03) !important;
+  white-space: nowrap !important;
+  line-height: 1.25 !important;
+  user-select: none !important;
+}
+
+.badge-mod-pending {
+  background: #FFFBEB !important;
+  color: #B45309 !important;
+  border: 1px solid rgba(217, 119, 6, 0.24) !important;
+}
+.badge-mod-pending::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #F59E0B !important;
+  box-shadow: 0 0 0 1.5px rgba(245, 158, 11, 0.2) !important;
+  flex-shrink: 0;
+}
+
+.badge-mod-approved {
+  background: #F0FDF4 !important;
+  color: #15803D !important;
+  border: 1px solid rgba(22, 163, 74, 0.24) !important;
+}
+.badge-mod-approved::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #16A34A !important;
+  box-shadow: 0 0 0 1.5px rgba(22, 163, 74, 0.2) !important;
+  flex-shrink: 0;
+}
+
+.badge-mod-rejected {
+  background: #F8FAFC !important;
+  color: #64748B !important;
+  border: 1px solid rgba(148, 163, 184, 0.25) !important;
+}
+.badge-mod-rejected::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #94A3B8 !important;
+  flex-shrink: 0;
+}
+
+
 
 
 

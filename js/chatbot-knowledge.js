@@ -148,6 +148,61 @@ export const MINERAL_DATABASE = {
     dialogue: 'We supply **5,000–6,800 kcal/kg industrial steam coal** from the Sorange-Degari and Mach fields for cement clinker kilns and industrial boilers.\n\nWould you like delivery terms for Karachi stockpile or rail rakes?',
     url: 'product-energy.html',
     urlLabel: 'View Industrial Steam Coal Specs'
+  },
+  lithium: {
+    id: 'lithium',
+    name: 'Lithium Ore (Li2O)',
+    title: 'Spodumene & Lepidolite',
+    image: 'images/baochistan-mineral-resources-480.avif',
+    badge: '2.5% - 6.0% Li2O',
+    origin: 'Regional Pegmatite Belts',
+    dialogue: 'We facilitate export-grade **Lithium Ore (Spodumene & Lepidolite, 2.5%–6.0% Li₂O)** sourced from pegmatite deposits in Pakistan for international smelters and battery-grade processors. All lots are verified with certified ICP-OES assay slips.\n\nWould you like target chemical assays or to discuss FCL trial container availability?',
+    url: 'contact.html#inquiry-form',
+    urlLabel: 'Request Lithium Sourcing & Specifications'
+  },
+  talc: {
+    id: 'talc',
+    name: 'Talc / Soapstone',
+    title: 'Industrial & Cosmetic Talc',
+    image: 'images/baochistan-mineral-resources-480.avif',
+    badge: '92% - 98% Whiteness',
+    origin: 'Sherani & Zhob District',
+    dialogue: 'We supply high-purity **Talc / Soapstone (92%–98% brightness, low iron < 0.5% Fe₂O₃)** available in crude lumps and micronized powder (325-mesh to 1250-mesh) for paper, polymers, ceramics, and cosmetics.\n\nWould you like mesh sizing specs or FOB Karachi spot rates?',
+    url: 'contact.html#inquiry-form',
+    urlLabel: 'Request Industrial Talc Specifications'
+  },
+  manganese: {
+    id: 'manganese',
+    name: 'Manganese Ore (Mn)',
+    title: 'Metallurgical Manganese',
+    image: 'images/baochistan-mineral-resources-480.avif',
+    badge: '32% - 48% Mn Lumps',
+    origin: 'Lasbela & Khuzdar Belts',
+    dialogue: 'We export **32%–48% Mn Metallurgical Manganese Ore** in hard lumpy form with controlled phosphorus and silica for ferromanganese and silicomanganese smelters, shipped from Karachi and Port Qasim.\n\nWould you like to review recent lot assays or check port stockpiles?',
+    url: 'contact.html#inquiry-form',
+    urlLabel: 'Request Manganese Ore Specifications'
+  },
+  quartz: {
+    id: 'quartz',
+    name: 'Silica Quartz (SiO2)',
+    title: 'High-Purity Quartz',
+    image: 'images/baochistan-mineral-resources-480.avif',
+    badge: '99.2%+ SiO2 High Purity',
+    origin: 'Loralai & Regional Veins',
+    dialogue: 'We provide **99.2%+ SiO₂ White Silica Quartz** with low ferric oxide (< 0.05% Fe₂O₃) in lumps and silica sand for glass manufacturing, silicon metal, and engineered stone.\n\nWould you like chemical assay reports or trial container quotes?',
+    url: 'contact.html#inquiry-form',
+    urlLabel: 'Request Silica Quartz Specifications'
+  },
+  leadZinc: {
+    id: 'lead-zinc',
+    name: 'Lead-Zinc Ore (Pb-Zn)',
+    title: 'Lead & Zinc Concentrates',
+    image: 'images/baochistan-mineral-resources-480.avif',
+    badge: 'High-Density Galena & Sphalerite',
+    origin: 'Lasbela-Khuzdar Metallogenic Belt',
+    dialogue: 'We source high-density **Lead-Zinc sulfide ores (Galena & Sphalerite)** from the rich Lasbela-Khuzdar mineralized corridor for international smelting and refining operations.\n\nWould you like to discuss target lot specifications or SGS assay parameters?',
+    url: 'contact.html#inquiry-form',
+    urlLabel: 'Request Lead-Zinc Ore Specifications'
   }
 };
 
@@ -368,6 +423,11 @@ Tap any commodity below for assay specs, mine origin, or direct quotation:`,
     if (key === 'chromite') aliases.push('chrome', 'cr2o3');
     if (key === 'copper') aliases.push('cu', 'malachite', 'chalcopyrite');
     if (key === 'barite') aliases.push('baryte', 'baso4', 'drilling mud');
+    if (key === 'lithium') aliases.push('spodumene', 'lepidolite', 'li2o', 'battery mineral');
+    if (key === 'talc') aliases.push('soapstone', 'steatite', 'talcum', '325 mesh');
+    if (key === 'manganese') aliases.push('mn', 'ferromanganese', 'silicomanganese');
+    if (key === 'quartz') aliases.push('silica', 'silicon', 'sio2', 'quartz lumps');
+    if (key === 'leadZinc') aliases.push('lead', 'zinc', 'galena', 'sphalerite', 'pb', 'zn');
 
     const matchedMineral = aliases.some(alias => clean.includes(alias));
 
