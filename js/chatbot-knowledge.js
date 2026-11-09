@@ -148,63 +148,98 @@ export const MINERAL_DATABASE = {
     dialogue: 'We supply **5,000–6,800 kcal/kg industrial steam coal** from the Sorange-Degari and Mach fields for cement clinker kilns and industrial boilers.\n\nWould you like delivery terms for Karachi stockpile or rail rakes?',
     url: 'product-energy.html',
     urlLabel: 'View Industrial Steam Coal Specs'
-  },
-  lithium: {
-    id: 'lithium',
-    name: 'Lithium Ore (Li2O)',
-    title: 'Spodumene & Lepidolite',
-    image: 'images/baochistan-mineral-resources-480.avif',
-    badge: '2.5% - 6.0% Li2O',
-    origin: 'Regional Pegmatite Belts',
-    dialogue: 'We facilitate export-grade **Lithium Ore (Spodumene & Lepidolite, 2.5%–6.0% Li₂O)** sourced from pegmatite deposits in Pakistan for international smelters and battery-grade processors. All lots are verified with certified ICP-OES assay slips.\n\nWould you like target chemical assays or to discuss FCL trial container availability?',
-    url: 'contact.html#inquiry-form',
-    urlLabel: 'Request Lithium Sourcing & Specifications'
-  },
-  talc: {
-    id: 'talc',
-    name: 'Talc / Soapstone',
-    title: 'Industrial & Cosmetic Talc',
-    image: 'images/baochistan-mineral-resources-480.avif',
-    badge: '92% - 98% Whiteness',
-    origin: 'Sherani & Zhob District',
-    dialogue: 'We supply high-purity **Talc / Soapstone (92%–98% brightness, low iron < 0.5% Fe₂O₃)** available in crude lumps and micronized powder (325-mesh to 1250-mesh) for paper, polymers, ceramics, and cosmetics.\n\nWould you like mesh sizing specs or FOB Karachi spot rates?',
-    url: 'contact.html#inquiry-form',
-    urlLabel: 'Request Industrial Talc Specifications'
-  },
-  manganese: {
-    id: 'manganese',
-    name: 'Manganese Ore (Mn)',
-    title: 'Metallurgical Manganese',
-    image: 'images/baochistan-mineral-resources-480.avif',
-    badge: '32% - 48% Mn Lumps',
-    origin: 'Lasbela & Khuzdar Belts',
-    dialogue: 'We export **32%–48% Mn Metallurgical Manganese Ore** in hard lumpy form with controlled phosphorus and silica for ferromanganese and silicomanganese smelters, shipped from Karachi and Port Qasim.\n\nWould you like to review recent lot assays or check port stockpiles?',
-    url: 'contact.html#inquiry-form',
-    urlLabel: 'Request Manganese Ore Specifications'
-  },
-  quartz: {
-    id: 'quartz',
-    name: 'Silica Quartz (SiO2)',
-    title: 'High-Purity Quartz',
-    image: 'images/baochistan-mineral-resources-480.avif',
-    badge: '99.2%+ SiO2 High Purity',
-    origin: 'Loralai & Regional Veins',
-    dialogue: 'We provide **99.2%+ SiO₂ White Silica Quartz** with low ferric oxide (< 0.05% Fe₂O₃) in lumps and silica sand for glass manufacturing, silicon metal, and engineered stone.\n\nWould you like chemical assay reports or trial container quotes?',
-    url: 'contact.html#inquiry-form',
-    urlLabel: 'Request Silica Quartz Specifications'
-  },
-  leadZinc: {
-    id: 'lead-zinc',
-    name: 'Lead-Zinc Ore (Pb-Zn)',
-    title: 'Lead & Zinc Concentrates',
-    image: 'images/baochistan-mineral-resources-480.avif',
-    badge: 'High-Density Galena & Sphalerite',
-    origin: 'Lasbela-Khuzdar Metallogenic Belt',
-    dialogue: 'We source high-density **Lead-Zinc sulfide ores (Galena & Sphalerite)** from the rich Lasbela-Khuzdar mineralized corridor for international smelting and refining operations.\n\nWould you like to discuss target lot specifications or SGS assay parameters?',
-    url: 'contact.html#inquiry-form',
-    urlLabel: 'Request Lead-Zinc Ore Specifications'
   }
 };
+
+/**
+ * Unlisted & Custom Sourcing Minerals Registry
+ * Transparent handling: Clarifies active concession focus, avoids false claims,
+ * and pivots to custom sourcing / core commodities.
+ */
+export const UNLISTED_MINERALS = {
+  lithium: {
+    name: 'Lithium Ore (Spodumene / Lepidolite)',
+    aliases: ['lithium', 'spodumene', 'lepidolite', 'petalite', 'li2o', 'battery mineral', 'lithium carbonate'],
+    pakistanContext: 'Hard-rock spodumene and lepidolite pegmatites occur in northern Pakistan and regional belts, but are not in regular commercial mine production in Balochistan.'
+  },
+  talc: {
+    name: 'Talc / Soapstone',
+    aliases: ['talc', 'soapstone', 'steatite', 'talcum', '325 mesh'],
+    pakistanContext: 'High-whiteness talc deposits occur in Sherani and KPK, sourced on client-specific quarry procurement orders.'
+  },
+  manganese: {
+    name: 'Manganese Ore (Mn)',
+    aliases: ['manganese', 'mn ore', 'ferromanganese', 'silicomanganese', 'pyrolusite'],
+    pakistanContext: 'Lumpy manganese occurrences in Lasbela and Waziristan are evaluated on custom smelter contract terms.'
+  },
+  quartz: {
+    name: 'Silica Quartz (SiO2)',
+    aliases: ['quartz', 'silica', 'silicon', 'sio2', 'silica sand', 'quartz lumps'],
+    pakistanContext: 'High-purity white quartz vein occurrences across Loralai are procured per custom sizing orders.'
+  },
+  leadZinc: {
+    name: 'Lead-Zinc Ore (Pb-Zn)',
+    aliases: ['lead', 'zinc', 'galena', 'sphalerite', 'pb-zn', 'zinc ore', 'lead ore'],
+    pakistanContext: 'Sulfide occurrences along the Lasbela-Khuzdar corridor are evaluated on custom contract sourcing.'
+  },
+  bauxite: {
+    name: 'Bauxite Ore (Al2O3)',
+    aliases: ['bauxite', 'alumina ore'],
+    pakistanContext: 'Alumina bauxite is evaluated per custom industrial cement/refractory procurement contract.'
+  },
+  phosphate: {
+    name: 'Phosphate Rock',
+    aliases: ['phosphate', 'rock phosphate', 'p2o5'],
+    pakistanContext: 'SSP fertilizer feedstock is evaluated per seasonal bulk allocations.'
+  },
+  cobalt: {
+    name: 'Cobalt Ore',
+    aliases: ['cobalt'],
+    pakistanContext: 'Cobalt is not in active commercial production in Balochistan.'
+  },
+  nickel: {
+    name: 'Nickel Ore',
+    aliases: ['nickel'],
+    pakistanContext: 'Nickel is not in active commercial extraction in Balochistan.'
+  },
+  gold: {
+    name: 'Gold / Precious Metals',
+    aliases: ['gold', 'gold ore', 'silver ore'],
+    pakistanContext: 'Porphyry copper-gold deposits (such as Reko Diq) are state-regulated megaprojects and not open to merchant spot trading.'
+  },
+  rareEarths: {
+    name: 'Rare Earth Elements (REE)',
+    aliases: ['rare earth', 'rare earths', 'ree', 'neodymium'],
+    pakistanContext: 'Carbonatite occurrences are in exploratory phases and not in merchant export stock.'
+  }
+};
+
+/**
+ * Build Transparent Pivot Response for Unlisted Minerals
+ */
+export function buildUnlistedMineralResponse(mineralObj, rawTerm) {
+  const mineralName = mineralObj ? mineralObj.name : rawTerm;
+  return {
+    type: 'unlisted_mineral',
+    title: mineralName + ' — Concession Scope & Sourcing',
+    badge: 'Custom Sourcing Evaluation',
+    image: 'images/baochistan-mineral-resources-480.avif',
+    text: '**Balochistan Minerals (Pvt) Ltd** does not directly mine or hold **' + mineralName + '** in our active export inventory.\n\nOur direct extraction concessions and ready port stockpiles are focused strictly on:\n• **Metallurgical Chromite (42%–52% Cr₂O₃)** — Muslim Bagh Belt\n• **API 13A High-Gravity Barite (SG 4.20+)** — Khuzdar Concessions\n• **Chagai Copper DSO (2%–10% Cu)** — Smelter Feedstock\n• **Iron Ore (Fe 40%–62% Magnetite/Hematite)**\n• **Fluorspar (50%–90%+ CaF₂)** & **Dimensional Marble**\n\n**Custom Procurement Desk:**\n' + (mineralObj && mineralObj.pakistanContext ? mineralObj.pakistanContext + ' ' : '') + 'If your plant or processing facility requires verified supply from Pakistani deposits on a custom contract basis, our Commercial Desk can evaluate your target specification upon receiving your required grade and tonnage.',
+    productsList: [
+      { name: 'Chromite Ore', grade: '42% - 52% Cr₂O₃', image: 'images/chromite-new-480.avif', query: 'Chromite 42-52%' },
+      { name: 'Barite API 13A', grade: 'SG 4.20+ High Gravity', image: 'images/barite-card-480.avif', query: 'Barite 4.2+ SG' },
+      { name: 'Copper DSO', grade: '2% - 10% Cu Direct Ship', image: 'images/copper-new-480.avif', query: 'Chagai Copper' },
+      { name: 'Iron Ore', grade: 'Fe 40% - 62% Magnetite', image: 'images/iron-ore-new-480.avif', query: 'Iron Ore' }
+    ],
+    showRfqCard: true,
+    rfqData: {
+      mineralName: 'Custom Sourcing: ' + mineralName,
+      defaultGrade: 'Custom Chemical Assay Required',
+      url: 'contact.html#inquiry-form'
+    },
+    chips: ['Browse Active Concessions', 'Request Custom Sourcing', 'Live Spot Prices', 'Talk to Commercial Desk']
+  };
+}
 
 export const FREQUENT_TOPICS = [
   {
@@ -414,6 +449,14 @@ Tap any commodity below for assay specs, mine origin, or direct quotation:`,
     };
   }
 
+  // 2.5 Check Unlisted Minerals & Honest Pivot (Lithium, Talc, Manganese, Quartz, etc.)
+  for (const [key, unlisted] of Object.entries(UNLISTED_MINERALS)) {
+    const isMatched = unlisted.aliases.some(alias => clean.includes(alias));
+    if (isMatched) {
+      return buildUnlistedMineralResponse(unlisted, unlisted.name);
+    }
+  }
+
   // 3. Match specific mineral
   for (const [key, mineral] of Object.entries(MINERAL_DATABASE)) {
     const aliases = [mineral.id, mineral.name.toLowerCase(), key.toLowerCase()];
@@ -423,12 +466,7 @@ Tap any commodity below for assay specs, mine origin, or direct quotation:`,
     if (key === 'chromite') aliases.push('chrome', 'cr2o3');
     if (key === 'copper') aliases.push('cu', 'malachite', 'chalcopyrite');
     if (key === 'barite') aliases.push('baryte', 'baso4', 'drilling mud');
-    if (key === 'lithium') aliases.push('spodumene', 'lepidolite', 'li2o', 'battery mineral');
-    if (key === 'talc') aliases.push('soapstone', 'steatite', 'talcum', '325 mesh');
-    if (key === 'manganese') aliases.push('mn', 'ferromanganese', 'silicomanganese');
-    if (key === 'quartz') aliases.push('silica', 'silicon', 'sio2', 'quartz lumps');
-    if (key === 'leadZinc') aliases.push('lead', 'zinc', 'galena', 'sphalerite', 'pb', 'zn');
-
+                    
     const matchedMineral = aliases.some(alias => clean.includes(alias));
 
     if (matchedMineral) {
@@ -495,9 +533,7 @@ Tap any commodity below for assay specs, mine origin, or direct quotation:`,
   return {
     type: 'fallback',
     title: 'Balochistan Minerals Commercial Desk',
-    text: `We supply export-ready **Chromite (42%–52%)**, **API Barite (SG 4.20+)**, **Chagai Copper DSO**, **Iron Ore (Fe 40%–62%)**, **Fluorspar**, and **Marble** from Balochistan concessions.
-
-Please select a commodity below or tell us your required chemical grade, target tonnage, and destination port.`,
+    text: `Our digital assistant does not have verified assay logs or official schedules on file for that specific inquiry.\n\nBalochistan Minerals is an active concession owner and direct exporter of **Metallurgical Chromite (42%–52%)**, **API 13A Barite (SG 4.20+)**, **Chagai Copper DSO (2%–10%)**, **Iron Ore (Fe 40%–62%)**, **Fluorspar**, and **Marble** from Balochistan.\n\nFor specialized assay certifications (SGS/AHK), custom port vessel scheduling (KPT / Port Qasim / Gwadar), or trial container allocations, our Karachi Commercial Desk will be pleased to assist you directly.`,
     productsList: [
       { name: 'Chromite Ore', grade: '42% - 52% Cr₂O₃', image: 'images/chromite-new-480.avif', query: 'Chromite 42-52%' },
       { name: 'Barite API 13A', grade: 'SG 4.20+ High Gravity', image: 'images/barite-card-480.avif', query: 'Barite 4.2+ SG' },

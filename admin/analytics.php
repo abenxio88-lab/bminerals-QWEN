@@ -97,9 +97,31 @@ if ($pdo !== null) {
 
     // Total Prospects Count
     $prospectsCount = (int)$pdo->query("SELECT COUNT(*) FROM buyer_prospects")->fetchColumn();
+
+    // 2. Chatbot Search Telemetry & Unlisted Demand Intelligence
+    $totalSearches = 0;
+    $unlistedSearches = 0;
+    $unlistedSignals = [];
+    $searchTelemetry = [];
+    try {
+        $totalSearches = (int)$pdo->query("SELECT COUNT(*) FROM chatbot_queries")->fetchColumn();
+        $unlistedSearches = (int)$pdo->query("SELECT COUNT(*) FROM chatbot_queries WHERE is_unlisted = 1")->fetchColumn();
+
+        // Top unlisted minerals requested by foreign buyers
+        $unlistedStmt = $pdo->query("SELECT detected_mineral, COUNT(*) as hit_count, MAX(created_at) as last_seen FROM chatbot_queries WHERE is_unlisted = 1 AND detected_mineral != 'General Inquiries' GROUP BY detected_mineral ORDER BY hit_count DESC LIMIT 6");
+        $unlistedSignals = $unlistedStmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Recent live query feed
+        $recentStmt = $pdo->query("SELECT query_text, detected_mineral, is_unlisted, buyer_country, created_at FROM chatbot_queries ORDER BY id DESC LIMIT 10");
+        $searchTelemetry = $recentStmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {}
 } else {
     $prospectsCount = 0;
     $readyStocks = [];
+    $totalSearches = 0;
+    $unlistedSearches = 0;
+    $unlistedSignals = [];
+    $searchTelemetry = [];
 }
 
 // Key Conversion Rates
@@ -527,6 +549,102 @@ $conversionRate = $totalInquiries > 0 ? round((($statusCounts['Contract Signed']
                   </tbody>
                 </table>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Buyer Search Telemetry & Unlisted Demand Sensor -->
+        <div class="row g-3 mt-1">
+          <div class="col-12">
+            <div class="chart-panel">
+              <div class="chart-panel-header d-flex align-items-center justify-content-between">
+                <div class="chart-panel-title">
+                  <i class="bi bi-radar text-danger"></i>
+                  <span>Buyer Search Telemetry & Unlisted Demand Sensor</span>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                  <span class="badge bg-light text-secondary border font-monospace" style="font-size: 0.70rem;"><?= $totalSearches ?> Total In-Chat Inquiries</span>
+                  <span class="badge bg-danger-subtle text-danger border border-danger-subtle font-monospace" style="font-size: 0.70rem;"><?= $unlistedSearches ?> Unlisted Requests</span>
+                </div>
+              </div>
+
+              <div class="row g-3 p-3 pt-2">
+                <!-- Left: Unlisted Mineral Demand Signals (Blog & Procurement Ideas) -->
+                <div class="col-12 col-lg-5">
+                  <div class="p-3 bg-light rounded-3 border h-100">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                      <h6 class="fw-bold mb-0 text-dark" style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em;">
+                        <i class="bi bi-lightbulb text-warning me-1"></i> Unlisted Demand Signals
+                      </h6>
+                      <span class="text-muted" style="font-size: 0.68rem;">Blog & sourcing radar</span>
+                    </div>
+
+                    <?php if (empty($unlistedSignals)): ?>
+                      <div class="text-muted small py-3 text-center">No unlisted mineral queries logged yet.</div>
+                    <?php else: ?>
+                      <div class="d-flex flex-column gap-2">
+                        <?php foreach ($unlistedSignals as $sig): ?>
+                          <div class="d-flex align-items-center justify-content-between p-2 bg-white rounded border" style="font-size: 0.76rem;">
+                            <div class="d-flex align-items-center gap-2">
+                              <span class="status-dot dot-orange"></span>
+                              <strong class="text-dark"><?= htmlspecialchars($sig['detected_mineral']) ?></strong>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                              <span class="badge bg-dark font-monospace" style="font-size: 0.68rem;"><?= $sig['hit_count'] ?> requests</span>
+                              <span class="text-muted" style="font-size: 0.68rem;"><?= date('M d', strtotime($sig['last_seen'])) ?></span>
+                            </div>
+                          </div>
+                        <?php endforeach; ?>
+                      </div>
+                    <?php endif; ?>
+                  </div>
+                </div>
+
+                <!-- Right: Recent Live Query Stream -->
+                <div class="col-12 col-lg-7">
+                  <div class="table-responsive">
+                    <table class="table table-sm table-clean mb-0" style="font-size: 0.76rem;">
+                      <thead>
+                        <tr>
+                          <th>Buyer Query</th>
+                          <th>Classification</th>
+                          <th>Origin</th>
+                          <th class="text-end">Time</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php if (empty($searchTelemetry)): ?>
+                          <tr>
+                            <td colspan="4" class="text-center text-muted py-3">No live buyer searches recorded yet.</td>
+                          </tr>
+                        <?php else: ?>
+                          <?php foreach ($searchTelemetry as $st): ?>
+                            <tr>
+                              <td class="text-dark" style="max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="<?= htmlspecialchars($st['query_text']) ?>">
+                                <?= htmlspecialchars($st['query_text']) ?>
+                              </td>
+                              <td>
+                                <?php if ($st['is_unlisted']): ?>
+                                  <span class="badge bg-danger-subtle text-danger border border-danger-subtle" style="font-size: 0.68rem;">Custom Sourcing</span>
+                                <?php else: ?>
+                                  <span class="badge bg-success-subtle text-success border border-success-subtle" style="font-size: 0.68rem;">Core Concession</span>
+                                <?php endif; ?>
+                              </td>
+                              <td class="text-muted">
+                                <?= htmlspecialchars($st['buyer_country']) ?>
+                              </td>
+                              <td class="text-end text-muted font-monospace" style="font-size: 0.70rem;">
+                                <?= date('M d, H:i', strtotime($st['created_at'])) ?>
+                              </td>
+                            </tr>
+                          <?php endforeach; ?>
+                        <?php endif; ?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>

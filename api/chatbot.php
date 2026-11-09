@@ -101,13 +101,13 @@ if ($action === 'init') {
         exit;
     }
 
-    // Default High-Level Executive Greeting
+    // Default High-Level Executive Greeting (Upfront Portfolio Clarity)
     echo json_encode([
         'success' => true,
         'type' => 'greeting',
-        'title' => 'Balochistan Minerals Export Desk',
-        'text' => "Welcome to **Balochistan Minerals (Pvt) Ltd**. We quarry, process, and export certified mineral commodities directly from Balochistan concessions through Karachi Port Trust (KPT), Port Qasim, and Gwadar.\n\nSelect a priority commodity or ask about live FOB spot pricing, ready stockpiles, or port assay terms:",
-        'chips' => ['Chromite 42-52%', 'Barite 4.2+ SG', 'Chagai Copper', 'Live Spot Prices', 'Stockpiles Ready', 'Request Quote']
+        'title' => 'Balochistan Minerals Concession Desk',
+        'text' => "Welcome to **Balochistan Minerals (Pvt) Ltd**. We are active concession owners and direct exporters of **Chromite (42%–52%)**, **API 13A Barite (SG 4.20+)**, **Chagai Copper DSO (2%–10%)**, **Iron Ore (40%–62%)**, **Fluorspar**, **Antimony**, and **Marble** from Balochistan.\n\nAre you looking for specs and live spot rates on our active mining concessions, or inquiring about custom mineral sourcing in Pakistan?",
+        'chips' => ['Chromite 42-52%', 'Barite 4.2+ SG', 'Chagai Copper', 'Live Spot Prices', 'Ready Stockpiles', 'Custom Sourcing']
     ]);
     exit;
 }
@@ -196,55 +196,110 @@ if (empty($clean)) {
     exit;
 }
 
+// Define Unlisted Minerals & Honest Pivot Registry
+$unlistedMinerals = [
+    'lithium' => ['name' => 'Lithium Ore (Spodumene / Lepidolite)', 'context' => 'Hard-rock spodumene and lepidolite pegmatites occur in northern Pakistan and regional belts, but are not in regular commercial mine production in Balochistan.'],
+    'spodumene' => ['name' => 'Lithium Spodumene', 'context' => 'Hard-rock spodumene pegmatites require specialized site extraction and custom laboratory assay validation.'],
+    'lepidolite' => ['name' => 'Lithium Lepidolite', 'context' => 'Lithium mica pegmatites are evaluated per client custom procurement contracts.'],
+    'talc' => ['name' => 'Talc / Soapstone', 'context' => 'High-whiteness deposits occur in Sherani and KPK, sourced on client-specific quarry procurement orders.'],
+    'soapstone' => ['name' => 'Talc / Soapstone', 'context' => 'High-whiteness deposits occur in Sherani and KPK, sourced on client-specific quarry procurement orders.'],
+    'manganese' => ['name' => 'Manganese Ore (Mn)', 'context' => 'Lumpy manganese occurrences in Lasbela and Waziristan are evaluated on custom smelter contract terms.'],
+    'quartz' => ['name' => 'Silica Quartz (SiO2)', 'context' => 'High-purity white quartz vein occurrences across Loralai are procured per custom sizing orders.'],
+    'silica' => ['name' => 'Silica Quartz (SiO2)', 'context' => 'High-purity white quartz vein occurrences across Loralai are procured per custom sizing orders.'],
+    'lead' => ['name' => 'Lead-Zinc Sulfide Ore', 'context' => 'Galena deposits along the Lasbela-Khuzdar corridor are evaluated on custom contract terms.'],
+    'zinc' => ['name' => 'Lead-Zinc Sulfide Ore', 'context' => 'Sphalerite deposits along the Lasbela-Khuzdar corridor are evaluated on custom contract terms.'],
+    'bauxite' => ['name' => 'Bauxite Ore (Al2O3)', 'context' => 'Alumina bauxite is evaluated per custom industrial cement/refractory procurement contract.'],
+    'phosphate' => ['name' => 'Phosphate Rock', 'context' => 'SSP fertilizer feedstock is evaluated per seasonal bulk allocations.'],
+    'cobalt' => ['name' => 'Cobalt Ore', 'context' => 'Cobalt is not in active commercial production in Balochistan.'],
+    'nickel' => ['name' => 'Nickel Ore', 'context' => 'Nickel is not in active commercial extraction in Balochistan.'],
+    'gold' => ['name' => 'Gold / Precious Metals', 'context' => 'Porphyry copper-gold deposits (such as Reko Diq) are state-regulated megaprojects and not open to merchant spot trading.'],
+    'rare earth' => ['name' => 'Rare Earth Elements (REE)', 'context' => 'Carbonatite occurrences are in exploratory phases and not in merchant export stock.']
+];
+
+$matchedUnlisted = null;
+foreach ($unlistedMinerals as $kw => $info) {
+    if (str_contains($clean, $kw)) {
+        $matchedUnlisted = $info;
+        break;
+    }
+}
+
+// Core active mineral keywords
+$coreMineralKeywords = [
+    'chromite' => 'Chromite Ore',
+    'chrome' => 'Chromite Ore',
+    'barite' => 'Barite API 13A',
+    'baryte' => 'Barite API 13A',
+    'copper' => 'Copper Ore DSO',
+    'iron' => 'Iron Ore',
+    'magnetite' => 'Iron Ore',
+    'hematite' => 'Iron Ore',
+    'antimony' => 'Antimony Stibnite',
+    'stibnite' => 'Antimony Stibnite',
+    'fluorite' => 'Fluorspar (CaF2)',
+    'fluorspar' => 'Fluorspar (CaF2)',
+    'coal' => 'Steam Coal',
+    'marble' => 'Marble & Onyx',
+    'onyx' => 'Marble & Onyx',
+    'granite' => 'Granite Blocks',
+    'gypsum' => 'Gypsum',
+    'magnesite' => 'Magnesite'
+];
+
+$detectedMineral = 'General Inquiries';
+$isUnlisted = 0;
+
+if ($matchedUnlisted !== null) {
+    $detectedMineral = $matchedUnlisted['name'];
+    $isUnlisted = 1;
+} else {
+    foreach ($coreMineralKeywords as $kw => $mName) {
+        if (str_contains($clean, $kw)) {
+            $detectedMineral = $mName;
+            break;
+        }
+    }
+}
+
 // Silent Ingestion: Log buyer queries into chatbot_queries for market demand discovery & blog topics
 if ($pdo !== null && strlen($clean) >= 3) {
     try {
-        $detectedMineral = 'General Inquiries';
-        $mineralKeywords = [
-            'chromite' => 'Chromite Ore',
-            'chrome' => 'Chromite Ore',
-            'barite' => 'Barite API 13A',
-            'baryte' => 'Barite API 13A',
-            'copper' => 'Copper Ore DSO',
-            'iron' => 'Iron Ore',
-            'magnetite' => 'Iron Ore',
-            'hematite' => 'Iron Ore',
-            'lithium' => 'Lithium Ore',
-            'spodumene' => 'Lithium Ore',
-            'talc' => 'Talc / Soapstone',
-            'soapstone' => 'Talc / Soapstone',
-            'antimony' => 'Antimony Stibnite',
-            'stibnite' => 'Antimony Stibnite',
-            'manganese' => 'Manganese Ore',
-            'fluorite' => 'Fluorspar (CaF2)',
-            'fluorspar' => 'Fluorspar (CaF2)',
-            'coal' => 'Steam Coal',
-            'marble' => 'Marble & Onyx',
-            'onyx' => 'Marble & Onyx',
-            'granite' => 'Granite Blocks',
-            'quartz' => 'Silica Quartz',
-            'silica' => 'Silica Quartz',
-            'gypsum' => 'Gypsum',
-            'bauxite' => 'Bauxite',
-            'lead' => 'Lead-Zinc Ore',
-            'zinc' => 'Lead-Zinc Ore',
-            'magnesite' => 'Magnesite'
-        ];
-        foreach ($mineralKeywords as $kw => $mName) {
-            if (str_contains($clean, $kw)) {
-                $detectedMineral = $mName;
-                break;
-            }
-        }
-
         $ip = $_SERVER['REMOTE_ADDR'] ?? '';
         $buyerCountry = 'International';
         if (!empty($_SERVER['HTTP_CF_IPCOUNTRY'])) {
             $buyerCountry = normalizeCountryName($_SERVER['HTTP_CF_IPCOUNTRY']);
         }
-        $logStmt = $pdo->prepare("INSERT INTO chatbot_queries (query_text, detected_mineral, buyer_country, page_origin, ip_address) VALUES (?, ?, ?, ?, ?)");
-        $logStmt->execute([$query, $detectedMineral, $buyerCountry, $page, $ip]);
+        $logStmt = $pdo->prepare("INSERT INTO chatbot_queries (query_text, detected_mineral, is_unlisted, buyer_country, page_origin, ip_address) VALUES (?, ?, ?, ?, ?, ?)");
+        $logStmt->execute([$query, $detectedMineral, $isUnlisted, $buyerCountry, $page, $ip]);
     } catch (Exception $e) {}
+}
+
+// ------------------------------------------
+// 0. Unlisted Mineral Honest Pivot (No false promises!)
+// ------------------------------------------
+if ($matchedUnlisted !== null) {
+    echo json_encode([
+        'success' => true,
+        'type' => 'unlisted_mineral',
+        'title' => $matchedUnlisted['name'] . ' — Concession Scope & Sourcing',
+        'badge' => 'Custom Sourcing Evaluation',
+        'image' => 'images/baochistan-mineral-resources-480.avif',
+        'text' => "**Balochistan Minerals (Pvt) Ltd** does not directly mine or hold **" . $matchedUnlisted['name'] . "** in our active export inventory.\n\nOur direct extraction concessions and ready port stockpiles are focused strictly on:\n• **Metallurgical Chromite (42%–52% Cr₂O₃)** — Muslim Bagh Belt\n• **API 13A High-Gravity Barite (SG 4.20+)** — Khuzdar Concessions\n• **Chagai Copper DSO (2%–10% Cu)** — Smelter Feedstock\n• **Iron Ore (Fe 40%–62% Magnetite/Hematite)**\n• **Fluorspar (50%–90%+ CaF₂)** & **Dimensional Marble**\n\n**Custom Procurement Desk:**\n" . $matchedUnlisted['context'] . " If your plant or processing facility requires verified supply from Pakistani deposits on a custom contract basis, our Commercial Desk can evaluate your target specification upon receiving your required grade and tonnage.",
+        'productsList' => [
+            ['name' => 'Chromite Ore', 'grade' => '42% - 52% Cr₂O₃', 'image' => 'images/chromite-new-480.avif', 'query' => 'Chromite 42-52%'],
+            ['name' => 'Barite API 13A', 'grade' => 'SG 4.20+ High Gravity', 'image' => 'images/barite-card-480.avif', 'query' => 'Barite 4.2+ SG'],
+            ['name' => 'Copper DSO', 'grade' => '2% - 10% Cu Direct Ship', 'image' => 'images/copper-new-480.avif', 'query' => 'Chagai Copper'],
+            ['name' => 'Iron Ore', 'grade' => 'Fe 40% - 62% Magnetite', 'image' => 'images/iron-ore-new-480.avif', 'query' => 'Iron Ore']
+        ],
+        'showRfqCard' => true,
+        'rfqData' => [
+            'mineralName' => 'Custom Sourcing: ' . $matchedUnlisted['name'],
+            'defaultGrade' => 'Custom Chemical Assay Required',
+            'url' => 'contact.html#inquiry-form'
+        ],
+        'chips' => ['Browse Active Concessions', 'Request Custom Sourcing', 'Live Spot Prices', 'Talk to Commercial Desk']
+    ]);
+    exit;
 }
 
 // ------------------------------------------

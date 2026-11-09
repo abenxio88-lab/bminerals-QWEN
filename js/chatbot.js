@@ -599,30 +599,31 @@ class BMChatbot {
           </div>
           <div>
             <h3 class="bm-chat-welcome__title">Balochistan Minerals Desk</h3>
-            <span class="bm-chat-welcome__subtitle">Direct Export & Technical Intelligence</span>
+            <span class="bm-chat-welcome__subtitle">Active Concessions & Export Intelligence</span>
           </div>
         </div>
         <p class="bm-chat-welcome__text">
-          Access verified lot assays, mine-to-port logistics schedules, and direct commercial quotations for Pakistan minerals.
+          Welcome to <strong>Balochistan Minerals (Pvt) Ltd</strong>. We are active concession owners and direct exporters of <strong>Chromite (42%–52%)</strong>, <strong>API 13A Barite (SG 4.20+)</strong>, <strong>Chagai Copper DSO</strong>, <strong>Iron Ore</strong>, <strong>Fluorspar</strong>, and <strong>Marble</strong> from Balochistan.<br><br>
+          Are you looking for specs on our active mining concessions, or inquiring about custom sourcing in Pakistan?
         </p>
         <div class="bm-chat-chips">
-          <button type="button" class="bm-chat-chip bm-chat-chip--thumb" data-query="Barite 4.2+ SG">
-            <img src="${this.resolveAssetPath('images/barite-card-480.avif')}" alt="" class="bm-chat-chip__img" width="15" height="15" loading="lazy">
-            <span>Barite 4.2+ SG</span>
-          </button>
           <button type="button" class="bm-chat-chip bm-chat-chip--thumb" data-query="Chromite 42-52%">
             <img src="${this.resolveAssetPath('images/chromite-new-480.avif')}" alt="" class="bm-chat-chip__img" width="15" height="15" loading="lazy">
             <span>Chromite 42-52%</span>
+          </button>
+          <button type="button" class="bm-chat-chip bm-chat-chip--thumb" data-query="Barite 4.2+ SG">
+            <img src="${this.resolveAssetPath('images/barite-card-480.avif')}" alt="" class="bm-chat-chip__img" width="15" height="15" loading="lazy">
+            <span>Barite 4.2+ SG</span>
           </button>
           <button type="button" class="bm-chat-chip bm-chat-chip--thumb" data-query="Chagai Copper">
             <img src="${this.resolveAssetPath('images/copper-new-480.avif')}" alt="" class="bm-chat-chip__img" width="15" height="15" loading="lazy">
             <span>Chagai Copper</span>
           </button>
-          <button type="button" class="bm-chat-chip" data-query="Logistics & Ports">
-            <span>Logistics & Ports</span>
+          <button type="button" class="bm-chat-chip" data-query="Live Spot Prices">
+            <span>Live Spot Prices</span>
           </button>
-          <button type="button" class="bm-chat-chip" data-query="Request Quote">
-            <span>Request Quote</span>
+          <button type="button" class="bm-chat-chip" data-query="Custom Sourcing">
+            <span>Custom Sourcing</span>
           </button>
         </div>
       </div>
