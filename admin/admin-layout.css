@@ -1495,3 +1495,229 @@ button.btn-dark,
 a.btn-dark {
   box-shadow: none !important;
 }
+
+/* ==========================================================================
+   360° BUYER DOSSIER & CONVERSATION THREADING DRAWER
+   ========================================================================== */
+
+.btn-action-dossier {
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 6px;
+  border: 1px solid #CBD5E1 !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  box-shadow: none !important;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.btn-action-dossier:hover {
+  background: #0F172A !important;
+  color: #FFFFFF !important;
+  border-color: #0F172A !important;
+  box-shadow: none !important;
+}
+
+.dossier-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.45);
+  z-index: 1070;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.dossier-backdrop.active {
+  display: block;
+  opacity: 1;
+}
+
+.buyer-dossier-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 540px;
+  max-width: 95vw;
+  background: #FFFFFF;
+  z-index: 1075;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #CBD5E1;
+  box-shadow: none !important;
+  transform: translateX(100%);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.buyer-dossier-drawer.active {
+  transform: translateX(0);
+}
+
+.dossier-header {
+  padding: 16px 20px;
+  background: #FFFFFF;
+  border-bottom: 1px solid #E2E8F0;
+  flex-shrink: 0;
+}
+
+.dossier-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #0F172A;
+  color: #FFFFFF;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid #CBD5E1;
+}
+
+.dossier-body {
+  flex: 1;
+  overflow-y: auto;
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+}
+
+.dossier-thread-stream {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.thread-bubble {
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  box-shadow: none !important;
+  position: relative;
+}
+
+.thread-bubble-inbound {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  align-self: flex-start;
+  max-width: 92%;
+}
+
+.thread-bubble-outbound {
+  background: #F0FDF4;
+  border: 1px solid #DCFCE7;
+  align-self: flex-end;
+  max-width: 92%;
+}
+
+.thread-meta {
+  font-size: 0.69rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.thread-body {
+  color: #1E293B;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Micro Flag Chip inside Dossier Header (strictly constrained to 22x15px) */
+#dossierFlagChip,
+.dossier-flag-chip {
+  width: 22px !important;
+  height: 15px !important;
+  max-width: 22px !important;
+  max-height: 15px !important;
+  min-width: 22px !important;
+  min-height: 15px !important;
+  border-radius: 2px;
+  overflow: hidden;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #CBD5E1;
+  flex-shrink: 0;
+  vertical-align: middle;
+  margin: 0 4px;
+}
+
+#dossierFlagChip svg,
+.dossier-flag-chip svg {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 22px !important;
+  max-height: 15px !important;
+  display: block;
+  object-fit: cover;
+}
+
+/* Buyer Name Link & Avatar Dossier Affordance */
+.buyer-name-link {
+  color: var(--brand-navy) !important;
+  font-weight: 700;
+  font-size: 0.92rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.15s ease;
+  cursor: pointer;
+}
+
+.buyer-name-link:hover {
+  color: #2563EB !important;
+}
+
+.buyer-name-link i {
+  font-size: 0.85rem;
+  color: #94A3B8;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.buyer-name-link:hover i {
+  transform: translateX(3px);
+  color: #2563EB !important;
+}
+
+.buyer-avatar.cursor-pointer {
+  transition: all 0.15s ease;
+}
+
+.buyer-avatar.cursor-pointer:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 0 2px #2563EB !important;
+}
+
+.dossier-action-btn {
+  height: 34px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 600;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: none !important;
+  transition: all 0.15s ease;
+}
+
+

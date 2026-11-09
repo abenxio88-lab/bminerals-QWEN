@@ -111,7 +111,9 @@ if ($pdo !== null) {
     $totalProspects = (int)$pdo->query("SELECT COUNT(*) FROM buyer_prospects")->fetchColumn();
 
     $sql = "SELECT i.*, 
-            (SELECT COUNT(*) FROM email_messages em WHERE em.inquiry_id = i.id OR (em.to_email = i.email AND i.email != '')) AS email_count 
+            (SELECT COUNT(*) FROM email_messages em WHERE em.inquiry_id = i.id OR (em.to_email = i.email AND i.email != '') OR (em.from_email = i.email AND i.email != '')) AS email_count,
+            (SELECT em.direction FROM email_messages em WHERE em.inquiry_id = i.id OR (em.to_email = i.email AND i.email != '') OR (em.from_email = i.email AND i.email != '') ORDER BY em.sent_at DESC, em.id DESC LIMIT 1) AS last_email_dir,
+            (SELECT em.sent_at FROM email_messages em WHERE em.inquiry_id = i.id OR (em.to_email = i.email AND i.email != '') OR (em.from_email = i.email AND i.email != '') ORDER BY em.sent_at DESC, em.id DESC LIMIT 1) AS last_email_time
             FROM inquiries i WHERE 1=1";
     $params = [];
 
@@ -134,6 +136,48 @@ if ($pdo !== null) {
     $stmt = $pdo->prepare($sql);
     $stmt->execute($params);
     $inquiries = $stmt->fetchAll();
+}
+
+/**
+ * Compute Ball-in-Court Velocity Status for deal negotiations
+ */
+function getBallInCourtStatus($row) {
+    if (($row['status'] ?? '') === 'Contract Signed') {
+        return [
+            'code' => 'closed',
+            'label' => 'Contract Executed',
+            'badgeClass' => 'bg-success-subtle text-success border border-success-subtle',
+            'icon' => 'bi-check-circle-fill'
+        ];
+    }
+    $lastDir = $row['last_email_dir'] ?? null;
+    $lastTime = !empty($row['last_email_time']) ? strtotime($row['last_email_time']) : (!empty($row['created_at']) ? strtotime($row['created_at']) : time());
+    $daysDiff = (time() - $lastTime) / 86400;
+
+    if (empty($lastDir) || $lastDir === 'inbound') {
+        return [
+            'code' => 'desk_turn',
+            'label' => 'Desk Turn',
+            'badgeClass' => 'bg-danger-subtle text-danger border border-danger-subtle',
+            'icon' => 'bi-exclamation-circle-fill'
+        ];
+    } else {
+        if ($daysDiff >= 5) {
+            return [
+                'code' => 'stalled',
+                'label' => 'Stalled (' . floor($daysDiff) . 'd)',
+                'badgeClass' => 'bg-warning-subtle text-warning border border-warning-subtle',
+                'icon' => 'bi-hourglass-split'
+            ];
+        } else {
+            return [
+                'code' => 'buyer_turn',
+                'label' => 'Awaiting Buyer',
+                'badgeClass' => 'bg-primary-subtle text-primary border border-primary-subtle',
+                'icon' => 'bi-clock-history'
+            ];
+        }
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -951,14 +995,16 @@ if ($pdo !== null) {
                         ?>
                         <div class="d-flex align-items-start" style="gap: 14px;">
                           <div class="buyer-id-col">
-                            <div class="buyer-avatar" title="<?= htmlspecialchars($row['buyer_name']) ?>"><?= htmlspecialchars($initials) ?></div>
+                            <div class="buyer-avatar cursor-pointer" onclick="openBuyerDossier(<?= $row['id'] ?>)" title="Click to open <?= htmlspecialchars($row['buyer_name']) ?> Dossier & Thread" style="cursor: pointer;"><?= htmlspecialchars($initials) ?></div>
                             <div class="buyer-flag-chip" title="<?= htmlspecialchars($row['country'] ?: 'International') ?>" data-bs-toggle="tooltip">
                               <?= getCountryFlagSvg($row['country'] ?? '') ?>
                             </div>
                           </div>
                           <div style="min-width: 0; flex: 1;">
-                            <div class="fw-semibold" style="color: var(--brand-navy); font-size: 0.92rem; line-height: 1.3;">
-                              <?= htmlspecialchars($row['buyer_name']) ?>
+                            <div class="fw-semibold" style="line-height: 1.3;">
+                              <a href="javascript:void(0)" onclick="openBuyerDossier(<?= $row['id'] ?>)" class="buyer-name-link" title="Open 360° Buyer Dossier & Negotiation Thread">
+                                <?= htmlspecialchars($row['buyer_name']) ?> <i class="bi bi-chevron-right" style="font-size: 0.72rem;"></i>
+                              </a>
                             </div>
                             <div class="text-muted" style="font-size: 0.78rem; margin-top: 1px;">
                               <i class="bi bi-building me-1 text-secondary" style="font-size: 0.72rem;"></i><?= htmlspecialchars($row['company_name'] ?: 'Private Trader') ?>
@@ -976,7 +1022,7 @@ if ($pdo !== null) {
                               </div>
                             <?php endif; ?>
 
-                            <!-- Source & Mailbox Channel -->
+                            <!-- Source & Mailbox Channel & Velocity Tracker -->
                             <div class="mt-1.5 d-flex gap-1.5 flex-wrap align-items-center">
                               <span class="badge bg-light text-secondary border fw-medium" style="font-size: 0.68rem; padding: 3px 8px;">
                                 <i class="bi bi-inbox-fill text-primary me-1"></i><?= !empty($row['source']) && strpos($row['source'], '@') !== false ? htmlspecialchars($row['source']) : 'sales@balochistanminerals.com' ?>
@@ -989,10 +1035,15 @@ if ($pdo !== null) {
                               <?php endif; ?>
 
                               <?php if (!empty($row['email_count']) && (int)$row['email_count'] > 0): ?>
-                                <span class="badge bg-light text-primary border fw-semibold" style="font-size: 0.68rem; padding: 3px 8px;">
+                                <span class="badge bg-light text-primary border fw-semibold cursor-pointer" onclick="openBuyerDossier(<?= $row['id'] ?>)" style="font-size: 0.68rem; padding: 3px 8px; cursor: pointer;" title="Inspect <?= $row['email_count'] ?> Email Thread">
                                   <i class="bi bi-chat-dots me-1"></i><?= $row['email_count'] ?> Email<?= (int)$row['email_count'] > 1 ? 's' : '' ?>
                                 </span>
                               <?php endif; ?>
+
+                              <?php $bic = getBallInCourtStatus($row); ?>
+                              <span class="badge <?= $bic['badgeClass'] ?> fw-semibold cursor-pointer" onclick="openBuyerDossier(<?= $row['id'] ?>)" style="font-size: 0.68rem; padding: 3px 8px; cursor: pointer;" title="Deal Velocity: <?= $bic['label'] ?> - Click for 360° Dossier">
+                                <i class="bi <?= $bic['icon'] ?> me-1"></i><?= $bic['label'] ?>
+                              </span>
                             </div>
                           </div>
                         </div>
@@ -1063,7 +1114,7 @@ if ($pdo !== null) {
                             <i class="bi bi-file-earmark-pdf"></i> Quote
                           </a>
 
-                          <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editModal<?= $row['id'] ?>" title="Edit Dossier">
+                          <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editModal<?= $row['id'] ?>" title="Edit Lead">
                             <i class="bi bi-pencil"></i>
                           </button>
                         </div>
@@ -1534,7 +1585,345 @@ Web: https://balochistanminerals.com</textarea>
         }
       } catch(e) {}
     });
+
+    /* ============================================================
+       360° BUYER DOSSIER & CONVERSATION THREAD CONTROLLER
+       ============================================================ */
+    let currentDossierId = 0;
+
+    function escapeDossierHtml(text) {
+      if (!text) return '';
+      const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+      return String(text).replace(/[&<>"']/g, m => map[m]);
+    }
+
+    async function openBuyerDossier(inquiryId) {
+      currentDossierId = inquiryId;
+      const drawer = document.getElementById('buyerDossierDrawer');
+      const backdrop = document.getElementById('dossierBackdrop');
+      if (!drawer || !backdrop) return;
+
+      backdrop.classList.add('active');
+      drawer.classList.add('active');
+      drawer.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+
+      const threadStream = document.getElementById('dossierThreadStream');
+      threadStream.innerHTML = '<div class="p-4 text-center text-muted"><div class="spinner-border spinner-border-sm text-primary me-2"></div> Loading 360° buyer intelligence dossier...</div>';
+
+      try {
+        const res = await fetch('api-dossier.php?inquiry_id=' + inquiryId);
+        const data = await res.json();
+
+        if (!data.success) {
+          threadStream.innerHTML = '<div class="alert alert-danger small p-2">' + (data.error || 'Failed to load dossier') + '</div>';
+          return;
+        }
+
+        const inq = data.inquiry;
+        document.getElementById('dossierAvatar').textContent = inq.initials || 'BM';
+        document.getElementById('dossierBuyerName').textContent = inq.buyer_name;
+        document.getElementById('dossierCompany').textContent = inq.company_name;
+        document.getElementById('dossierFlagChip').innerHTML = data.flag_svg || '';
+        document.getElementById('dossierCountry').textContent = inq.country;
+
+        // Ball in court
+        const bic = data.ball_in_court;
+        const bicBadge = document.getElementById('dossierBicBadge');
+        bicBadge.className = 'badge ' + bic.badgeClass;
+        bicBadge.innerHTML = '<i class="bi ' + bic.icon + ' me-1"></i> ' + bic.label;
+        bicBadge.title = bic.sub || '';
+
+        // KPI cards
+        document.getElementById('dossierMineral').textContent = inq.mineral_type;
+        document.getElementById('dossierQty').textContent = inq.quantity;
+        document.getElementById('dossierDealVal').textContent = '$' + Number(inq.estimated_deal_usd || 0).toLocaleString();
+
+        // Quick links
+        document.getElementById('dossierWaBtn').href = inq.wa_url || '#';
+        document.getElementById('dossierQuoteBtn').href = 'generate-quote.php?id=' + inq.id;
+        document.getElementById('dossierStageText').textContent = inq.status;
+
+        // Composer inputs
+        document.getElementById('dossierInquiryId').value = inq.id;
+        document.getElementById('dossierBuyerEmail').value = inq.email;
+        document.getElementById('dossierBuyerEmailDisplay').textContent = inq.email || 'No email on file';
+        document.getElementById('dossierSubject').value = 'RE: Balochistan Minerals - ' + inq.mineral_type + ' Export Order';
+        document.getElementById('dossierBody').value = 'Dear ' + inq.buyer_name + ',\n\nThank you for reaching out regarding ' + inq.mineral_type + ' (' + inq.quantity + '). Balochistan Minerals (Pvt) Ltd has verified port stockpile allocations available.\n\nPlease find our commercial specifications attached for review.\n\nBest regards,\nExport Commercial Desk\nBalochistan Minerals (Pvt) Ltd\nWeb: https://balochistanminerals.com';
+
+        // Scratchpad notes
+        document.getElementById('dossierNotes').value = inq.internal_notes || '';
+        document.getElementById('dossierNotesFeedback').textContent = '';
+
+        // Render Messages Stream
+        document.getElementById('dossierMsgCount').textContent = data.message_count;
+        if (!data.messages || data.messages.length === 0) {
+          threadStream.innerHTML = '<div class="p-3 text-center text-muted small bg-light rounded border"><i class="bi bi-inbox text-secondary fs-4 d-block mb-1"></i>No prior email exchanges logged.<div class="mt-2 text-start p-2 bg-white rounded border font-monospace text-dark" style="font-size: 0.74rem;"><strong>Inquiry Lead Text:</strong><br>' + escapeDossierHtml(inq.message || 'Direct lead inquiry registered on trade portal.') + '</div></div>';
+        } else {
+          let html = '';
+          data.messages.forEach(m => {
+            const isInbound = m.direction === 'inbound';
+            const bubbleClass = isInbound ? 'thread-bubble-inbound' : 'thread-bubble-outbound';
+            const senderBadge = isInbound 
+              ? '<span class="text-primary"><i class="bi bi-arrow-down-left me-1"></i>Inbound: ' + escapeDossierHtml(m.from_email || inq.buyer_name) + '</span>'
+              : '<span class="text-success"><i class="bi bi-arrow-up-right me-1"></i>Desk Reply &bull; ' + escapeDossierHtml(m.from_email || 'Desk') + '</span>';
+
+            html += `
+              <div class="thread-bubble ${bubbleClass}">
+                <div class="thread-meta d-flex justify-content-between align-items-center">
+                  ${senderBadge}
+                  <span class="text-muted font-monospace" style="font-size: 0.68rem;">${m.sent_at}</span>
+                </div>
+                <div class="fw-bold text-dark small mb-1" style="font-size: 0.78rem;">${escapeDossierHtml(m.subject)}</div>
+                <div class="thread-body">${escapeDossierHtml(m.body_text)}</div>
+              </div>
+            `;
+          });
+          threadStream.innerHTML = html;
+        }
+      } catch (err) {
+        threadStream.innerHTML = '<div class="alert alert-danger small p-2">Error connecting to dossier API: ' + err.message + '</div>';
+      }
+    }
+
+    function closeBuyerDossier() {
+      const drawer = document.getElementById('buyerDossierDrawer');
+      const backdrop = document.getElementById('dossierBackdrop');
+      if (drawer) {
+        drawer.classList.remove('active');
+        drawer.setAttribute('aria-hidden', 'true');
+      }
+      if (backdrop) {
+        backdrop.classList.remove('active');
+      }
+      document.body.style.overflow = '';
+    }
+
+    async function saveDossierNotes() {
+      if (!currentDossierId) return;
+      const notes = document.getElementById('dossierNotes').value;
+      const feedback = document.getElementById('dossierNotesFeedback');
+      feedback.textContent = 'Saving...';
+      try {
+        const formData = new FormData();
+        formData.append('action', 'save_notes');
+        formData.append('inquiry_id', currentDossierId);
+        formData.append('notes', notes);
+
+        const res = await fetch('api-dossier.php', { method: 'POST', body: formData });
+        const data = await res.json();
+        if (data.success) {
+          feedback.innerHTML = '<span class="text-success"><i class="bi bi-check2"></i> Notes saved to dossier database.</span>';
+          setTimeout(() => { feedback.textContent = ''; }, 2500);
+        } else {
+          feedback.innerHTML = '<span class="text-danger">' + (data.error || 'Failed to save') + '</span>';
+        }
+      } catch(e) {
+        feedback.innerHTML = '<span class="text-danger">' + e.message + '</span>';
+      }
+    }
+
+    async function updateDossierStage(stage) {
+      if (!currentDossierId) return;
+      try {
+        const formData = new FormData();
+        formData.append('action', 'update_status');
+        formData.append('inquiry_id', currentDossierId);
+        formData.append('status', stage);
+
+        const res = await fetch('api-dossier.php', { method: 'POST', body: formData });
+        const data = await res.json();
+        if (data.success) {
+          document.getElementById('dossierStageText').textContent = stage;
+          // Refresh current dossier view
+          openBuyerDossier(currentDossierId);
+        }
+      } catch(e) {
+        alert('Error updating status: ' + e.message);
+      }
+    }
+
+    async function handleDossierReply(e) {
+      e.preventDefault();
+      if (!currentDossierId) return;
+      const sendBtn = document.getElementById('dossierSendBtn');
+      const alertEl = document.getElementById('dossierReplyAlert');
+      const toEmail = document.getElementById('dossierBuyerEmail').value;
+      const subject = document.getElementById('dossierSubject').value;
+      const body = document.getElementById('dossierBody').value;
+
+      if (!toEmail || !body) {
+        alert('Please provide recipient email and body text.');
+        return;
+      }
+
+      sendBtn.disabled = true;
+      sendBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Dispatching...';
+      alertEl.textContent = 'Relaying through Hostinger SMTP...';
+
+      try {
+        const formData = new FormData();
+        formData.append('action', 'send_reply');
+        formData.append('inquiry_id', currentDossierId);
+        formData.append('to_email', toEmail);
+        formData.append('subject', subject);
+        formData.append('body', body);
+
+        const res = await fetch('api-dossier.php', { method: 'POST', body: formData });
+        const data = await res.json();
+
+        if (data.success) {
+          alertEl.innerHTML = '<span class="text-success"><i class="bi bi-check-circle-fill"></i> Dispatched!</span>';
+          document.getElementById('dossierBody').value = '';
+          setTimeout(() => {
+            alertEl.textContent = '';
+            openBuyerDossier(currentDossierId);
+          }, 1200);
+        } else {
+          alertEl.innerHTML = '<span class="text-danger">' + (data.error || 'Send failed') + '</span>';
+        }
+      } catch(err) {
+        alertEl.innerHTML = '<span class="text-danger">' + err.message + '</span>';
+      } finally {
+        sendBtn.disabled = false;
+        sendBtn.innerHTML = '<i class="bi bi-send-fill"></i> Dispatch Reply';
+      }
+    }
   </script>
+
+  <!-- 360° Buyer Dossier Slide-Out Side Panel -->
+  <div id="dossierBackdrop" class="dossier-backdrop" onclick="closeBuyerDossier()"></div>
+  <aside id="buyerDossierDrawer" class="buyer-dossier-drawer" aria-label="Buyer Dossier" role="dialog" aria-hidden="true">
+    <!-- Drawer Header -->
+    <div class="dossier-header d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center gap-3" style="min-width: 0; flex: 1;">
+        <div class="dossier-avatar" id="dossierAvatar">BM</div>
+        <div style="min-width: 0; flex: 1;">
+          <h6 class="mb-0 fw-bold brand-font text-truncate" id="dossierBuyerName" style="color: #0F172A; font-size: 1.05rem;">Buyer Name</h6>
+          <div class="text-muted d-flex align-items-center gap-1.5 flex-wrap mt-0.5" style="font-size: 0.76rem;">
+            <span id="dossierCompany" class="text-truncate fw-semibold text-dark" style="max-width: 180px;">Company</span>
+            <span class="text-muted">&bull;</span>
+            <span id="dossierFlagChip" class="dossier-flag-chip"></span>
+            <span id="dossierCountry" class="text-secondary fw-medium">Country</span>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex align-items-center gap-2 flex-shrink-0 ms-2">
+        <span id="dossierBicBadge" class="badge" style="font-size: 0.72rem; padding: 5px 9px;">Desk Turn</span>
+        <button type="button" class="btn-close" onclick="closeBuyerDossier()" aria-label="Close" style="font-size: 0.8rem;"></button>
+      </div>
+    </div>
+
+    <!-- Drawer Body -->
+    <div class="dossier-body">
+      <!-- Section 1: Deal Intelligence KPI Cards -->
+      <div class="p-3 bg-light border-bottom">
+        <div class="row g-2 text-center">
+          <div class="col-4">
+            <div class="bg-white p-2 rounded border">
+              <div class="text-muted" style="font-size: 0.65rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.04em;">Mineral</div>
+              <div class="fw-bold text-truncate" id="dossierMineral" style="font-size: 0.82rem; color: #0F172A;">-</div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="bg-white p-2 rounded border">
+              <div class="text-muted" style="font-size: 0.65rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.04em;">Volume</div>
+              <div class="fw-bold font-monospace text-truncate" id="dossierQty" style="font-size: 0.82rem; color: #0F172A;">-</div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="bg-white p-2 rounded border">
+              <div class="text-muted" style="font-size: 0.65rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.04em;">Est. Deal</div>
+              <div class="fw-bold font-monospace text-truncate" id="dossierDealVal" style="font-size: 0.82rem; color: #15803D;">-</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Action Pill Bar -->
+        <div class="d-flex align-items-center gap-2 mt-2.5">
+          <a href="#" id="dossierWaBtn" target="_blank" class="btn btn-sm btn-success dossier-action-btn flex-fill">
+            <i class="bi bi-whatsapp"></i> WhatsApp
+          </a>
+          <a href="#" id="dossierQuoteBtn" target="_blank" class="btn btn-sm btn-outline-dark dossier-action-btn flex-fill" style="background: #FFFFFF; color: #0F172A; border-color: #CBD5E1;">
+            <i class="bi bi-file-earmark-pdf"></i> PDF Quote
+          </a>
+          <div class="dropdown flex-fill">
+            <button class="btn btn-sm btn-outline-secondary dropdown-toggle w-100 dossier-action-btn" type="button" data-bs-toggle="dropdown" style="background: #FFFFFF; color: #0F172A; border-color: #CBD5E1;">
+              <i class="bi bi-tag"></i> <span id="dossierStageText">Stage</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end shadow-none border" style="font-size: 0.78rem;">
+              <li><a class="dropdown-item" href="javascript:void(0)" onclick="updateDossierStage('New')"><i class="bi bi-sparkles text-primary me-1.5"></i> New</a></li>
+              <li><a class="dropdown-item" href="javascript:void(0)" onclick="updateDossierStage('Contacted')"><i class="bi bi-envelope text-info me-1.5"></i> Contacted</a></li>
+              <li><a class="dropdown-item" href="javascript:void(0)" onclick="updateDossierStage('Quoted')"><i class="bi bi-file-text text-secondary me-1.5"></i> Quoted</a></li>
+              <li><a class="dropdown-item" href="javascript:void(0)" onclick="updateDossierStage('Assay Sent')"><i class="bi bi-clipboard-check text-warning me-1.5"></i> Assay Sent</a></li>
+              <li><a class="dropdown-item" href="javascript:void(0)" onclick="updateDossierStage('Sample Sent')"><i class="bi bi-box-seam text-primary me-1.5"></i> Sample Sent</a></li>
+              <li><a class="dropdown-item text-success fw-bold" href="javascript:void(0)" onclick="updateDossierStage('Contract Signed')"><i class="bi bi-check-circle me-1.5"></i> Contract Signed</a></li>
+              <li><hr class="dropdown-divider my-1"></li>
+              <li><a class="dropdown-item text-danger" href="javascript:void(0)" onclick="updateDossierStage('Closed/Lost')"><i class="bi bi-x-circle me-1.5"></i> Closed / Lost</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+              <li><hr class="dropdown-divider my-1"></li>
+              <li><a class="dropdown-item text-danger" href="javascript:void(0)" onclick="updateDossierStage('Closed/Lost')"><i class="bi bi-x-circle me-1.5"></i> Closed / Lost</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Chronological Email Thread Stream -->
+      <div class="p-3">
+        <div class="d-flex align-items-center justify-content-between mb-2 pb-1 border-bottom">
+          <h6 class="mb-0 fw-bold brand-font" style="font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.05em; color: #475569;">
+            <i class="bi bi-chat-left-text me-1 text-primary"></i> Negotiation Thread (<span id="dossierMsgCount">0</span>)
+          </h6>
+          <span class="badge bg-light text-muted border font-monospace" id="dossierBuyerEmailDisplay" style="font-size: 0.68rem;"></span>
+        </div>
+
+        <div id="dossierThreadStream" class="dossier-thread-stream">
+          <!-- Populated via api-dossier.php -->
+        </div>
+      </div>
+
+      <!-- Section 3: Direct Reply via Hostinger SMTP -->
+      <div class="p-3 bg-light border-top">
+        <div class="fw-bold mb-2 brand-font d-flex align-items-center justify-content-between" style="font-size: 0.78rem; color: #0F172A;">
+          <span><i class="bi bi-reply-fill text-primary me-1"></i> Quick Reply via Hostinger SMTP</span>
+          <span class="badge bg-white text-secondary border font-monospace" style="font-size: 0.65rem;">sales@balochistanminerals.com</span>
+        </div>
+        <form id="dossierReplyForm" onsubmit="handleDossierReply(event)">
+          <input type="hidden" id="dossierInquiryId" value="">
+          <input type="hidden" id="dossierBuyerEmail" value="">
+          <div class="mb-2">
+            <input type="text" id="dossierSubject" class="form-control form-control-sm" placeholder="Subject line..." required style="font-size: 0.78rem; border-color: #CBD5E1; box-shadow: none !important;">
+          </div>
+          <div class="mb-2">
+            <textarea id="dossierBody" class="form-control form-control-sm font-monospace" rows="4" placeholder="Type commercial desk response here..." required style="font-size: 0.78rem; border-color: #CBD5E1; box-shadow: none !important;"></textarea>
+          </div>
+          <div class="d-flex justify-content-end align-items-center gap-2">
+            <span id="dossierReplyAlert" class="small text-muted" style="font-size: 0.72rem;"></span>
+            <button type="submit" id="dossierSendBtn" class="btn btn-sm btn-dark d-inline-flex align-items-center gap-1.5" style="font-size: 0.76rem; font-weight: 600; box-shadow: none !important;">
+              <i class="bi bi-send-fill"></i> Dispatch Reply
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Section 4: Private Desk Scratchpad Notes -->
+      <div class="p-3 border-top">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <label class="form-label fw-bold mb-0 brand-font" style="font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.05em; color: #475569;">
+            <i class="bi bi-journal-text text-warning me-1"></i> Private Desk Scratchpad
+          </label>
+          <button type="button" class="btn btn-sm btn-outline-secondary py-0.5 px-2" style="font-size: 0.70rem; box-shadow: none !important;" onclick="saveDossierNotes()">
+            <i class="bi bi-check2"></i> Save Notes
+          </button>
+        </div>
+        <textarea id="dossierNotes" class="form-control form-control-sm font-monospace" rows="3" placeholder="Private internal notes (payment terms, counter-offers, assay SGS checks)..." style="font-size: 0.76rem; background: #FFFDF5; border-color: #CBD5E1; box-shadow: none !important;"></textarea>
+        <div id="dossierNotesFeedback" class="small text-muted mt-1" style="font-size: 0.70rem;"></div>
+      </div>
+    </div>
+  </aside>
   <script src="admin-layout.js"></script>
 </body>
 </html>
