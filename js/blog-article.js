@@ -1,5 +1,4 @@
 (() => {
-  const progress = document.querySelector(".article-progress span");
   const article = document.querySelector(".article-content");
   const copyButtons = document.querySelectorAll("[data-copy-link]");
   const shareLinks = document.querySelectorAll("[data-share-service]");
@@ -8,13 +7,7 @@
   let copyStatus;
   let copyStatusTimer;
 
-  const updateProgress = () => {
-    if (!progress || !article) return;
-    const rect = article.getBoundingClientRect();
-    const distance = article.offsetHeight - window.innerHeight;
-    const read = Math.min(Math.max((window.innerHeight - rect.top) / Math.max(distance, 1), 0), 1);
-    progress.style.transform = `scaleX(${read})`;
-  };
+
 
   const shareUrlFor = (service) => {
     const url = encodeURIComponent(pageUrl);
@@ -114,9 +107,7 @@
     }, 2000);
   };
 
-  updateProgress();
-  window.addEventListener("scroll", updateProgress, { passive: true });
-  window.addEventListener("resize", updateProgress);
+
 
   shareLinks.forEach((link) => {
     link.href = shareUrlFor(link.dataset.shareService);
