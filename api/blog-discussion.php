@@ -9,6 +9,7 @@ header('X-Content-Type-Options: nosniff');
 header('Access-Control-Allow-Origin: *');
 
 require_once __DIR__ . '/../admin/db.php';
+require_once __DIR__ . '/../admin/flag-helper.php';
 
 $pdo = getDB();
 if (!$pdo) {
@@ -79,7 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $slug    = cleanInput($_POST['article_slug'] ?? '');
     $name    = cleanInput($_POST['author_name'] ?? '');
     $company = cleanInput($_POST['author_company'] ?? '');
-    $country = cleanInput($_POST['author_country'] ?? 'International');
+    $rawCountry = cleanInput($_POST['author_country'] ?? '');
+    $country = detectCountryName($rawCountry, $email ?: '', '', $company, $text);
     $rawEmail= trim($_POST['author_email'] ?? '');
     $email   = !empty($rawEmail) ? filter_var($rawEmail, FILTER_SANITIZE_EMAIL) : null;
     $text    = cleanInput($_POST['comment_text'] ?? '');

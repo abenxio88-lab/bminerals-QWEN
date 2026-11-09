@@ -153,13 +153,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $waText = "Hello " . $inquiry['buyer_name'] . ", this is Balochistan Minerals regarding your export inquiry for " . $inquiry['mineral_type'] . " (" . $inquiry['quantity'] . "). We have verified port stockpiles ready.";
     $waUrl = generateWhatsAppLink($inquiry['whatsapp'] ?? '', $waText);
 
+    $resolvedCountry = detectCountryName($inquiry['country'] ?? '', $inquiry['email'] ?? '', $inquiry['whatsapp'] ?? '', $inquiry['company_name'] ?? '', $inquiry['message'] ?? '');
+
     echo json_encode([
         'success' => true,
         'inquiry' => [
             'id' => (int)$inquiry['id'],
             'buyer_name' => $inquiry['buyer_name'],
             'company_name' => $inquiry['company_name'] ?: 'Private Commodity Trader',
-            'country' => $inquiry['country'] ?: 'International',
+            'country' => $resolvedCountry,
             'email' => $inquiry['email'],
             'whatsapp' => $inquiry['whatsapp'],
             'mineral_type' => $inquiry['mineral_type'],
@@ -174,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             'initials' => $initials,
             'wa_url' => $waUrl
         ],
-        'flag_svg' => getCountryFlagSvg($inquiry['country'] ?? ''),
+        'flag_svg' => getCountryFlagSvg($resolvedCountry, $inquiry['email'] ?? '', $inquiry['whatsapp'] ?? '', $inquiry['company_name'] ?? ''),
         'ball_in_court' => $ballInCourt,
         'message_count' => count($messages),
         'messages' => $messages

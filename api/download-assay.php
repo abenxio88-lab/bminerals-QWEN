@@ -8,6 +8,7 @@ header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
 
 require_once __DIR__ . '/../admin/db.php';
+require_once __DIR__ . '/../admin/flag-helper.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -25,7 +26,8 @@ $company  = cleanInput($_POST['company'] ?? '');
 $email    = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
 $phone    = cleanInput($_POST['whatsapp'] ?? $_POST['phone'] ?? '');
 $mineral  = cleanInput($_POST['mineral'] ?? 'Chromite Lumps');
-$country  = cleanInput($_POST['country'] ?? 'International');
+$rawCountry = cleanInput($_POST['country'] ?? '');
+$country  = detectCountryName($rawCountry, $email, $phone, $company);
 
 if (empty($name) || empty($phone)) {
     http_response_code(400);

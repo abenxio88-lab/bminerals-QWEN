@@ -1124,12 +1124,13 @@ function getBallInCourtStatus($row) {
                             if (strlen($initials) >= 2) break;
                           }
                           $initials = strtoupper($initials ?: 'BM');
+                          $resolvedCountry = detectCountryName($row['country'] ?? '', $row['email'] ?? '', $row['whatsapp'] ?? '', $row['company_name'] ?? '', $row['message'] ?? '');
                         ?>
                         <div class="d-flex align-items-start" style="gap: 14px;">
                           <div class="buyer-id-col">
                             <div class="buyer-avatar cursor-pointer" onclick="openBuyerDossier(<?= $row['id'] ?>)" title="Click to open <?= htmlspecialchars($row['buyer_name']) ?> Dossier & Thread" style="cursor: pointer;"><?= htmlspecialchars($initials) ?></div>
-                            <div class="buyer-flag-chip" title="<?= htmlspecialchars($row['country'] ?: 'International') ?>" data-bs-toggle="tooltip">
-                              <?= getCountryFlagSvg($row['country'] ?? '') ?>
+                            <div class="buyer-flag-chip" title="<?= htmlspecialchars($resolvedCountry) ?>" data-bs-toggle="tooltip">
+                              <?= getCountryFlagSvg($resolvedCountry, $row['email'] ?? '', $row['whatsapp'] ?? '', $row['company_name'] ?? '') ?>
                             </div>
                           </div>
                           <div style="min-width: 0; flex: 1;">
@@ -1284,7 +1285,7 @@ function getBallInCourtStatus($row) {
                                         <div class="d-flex justify-content-between align-items-start">
                                           <div>
                                             <div class="fw-bold text-dark" style="font-size: 0.88rem;"><?= htmlspecialchars($row['buyer_name']) ?></div>
-                                            <div class="small text-muted"><?= htmlspecialchars($row['company_name'] ?: 'Independent Buyer') ?> • <?= htmlspecialchars($row['country']) ?></div>
+                                            <div class="small text-muted"><?= htmlspecialchars($row['company_name'] ?: 'Independent Buyer') ?> • <?= htmlspecialchars($resolvedCountry) ?></div>
                                           </div>
                                           <span class="badge bg-white text-dark border font-monospace" style="font-size: 0.68rem;"><?= date('M d, Y', strtotime($row['created_at'])) ?></span>
                                         </div>
@@ -1448,7 +1449,7 @@ Web: https://balochistanminerals.com</textarea>
                                   <div class="row g-3 p-3 bg-light rounded-2 mb-3">
                                     <div class="col-md-6">
                                       <div class="text-muted small">Company / Country</div>
-                                      <div class="fw-bold"><?= htmlspecialchars($row['company_name'] ?: 'Private Trader') ?> (<?= htmlspecialchars($row['country']) ?>)</div>
+                                      <div class="fw-bold"><?= htmlspecialchars($row['company_name'] ?: 'Private Trader') ?> (<?= htmlspecialchars($resolvedCountry) ?>)</div>
                                       <div class="small text-muted"><i class="bi bi-envelope"></i> <?= htmlspecialchars($row['email']) ?></div>
                                       <div class="small text-muted"><i class="bi bi-whatsapp text-success"></i> <?= htmlspecialchars($row['whatsapp']) ?></div>
                                       <div class="small text-muted mt-2 p-2 bg-white rounded border">

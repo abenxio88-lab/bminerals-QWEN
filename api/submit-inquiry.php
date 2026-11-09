@@ -8,6 +8,7 @@ header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
 
 require_once __DIR__ . '/../admin/db.php';
+require_once __DIR__ . '/../admin/flag-helper.php';
 
 // Only accept POST requests
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -40,7 +41,8 @@ $mineral  = cleanInput($_POST['mineral'] ?? $_POST['mineral_type'] ?? 'General M
 $quantity = cleanInput($_POST['quantity'] ?? '');
 $port     = cleanInput($_POST['destination_port'] ?? 'FOB Karachi');
 $message  = cleanInput($_POST['message'] ?? '');
-$country  = cleanInput($_POST['country'] ?? 'International');
+$rawCountry = cleanInput($_POST['country'] ?? '');
+$country  = detectCountryName($rawCountry, $email, $phone, $company, $message);
 
 if (empty($name) || empty($email)) {
     http_response_code(400);

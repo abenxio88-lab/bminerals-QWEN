@@ -8,6 +8,7 @@
 
 header('Content-Type: application/json; charset=utf-8');
 require_once __DIR__ . '/db.php';
+require_once __DIR__ . '/flag-helper.php';
 require_once __DIR__ . '/auth.php';
 
 // Must be logged in to trigger sync
@@ -209,11 +210,12 @@ if ($inboxStream) {
 
             $cleanBody = strip_tags($body);
             $fullMessage = "Subject: " . $subject . "\n\n" . trim($cleanBody);
+            $detectedCountry = detectCountryName('', $fromEmail, '', $fromName, $fullMessage);
 
             $stmt = $pdo->prepare("INSERT INTO inquiries 
-                (buyer_name, email, inquiry_type, source, email_message_id, mineral_type, message, status) 
-                VALUES (?, ?, 'Email Inbound', ?, ?, ?, ?, 'New')");
-            $stmt->execute([$fromName, $fromEmail, $mailUser, $msgId, $detectedMineral, $fullMessage]);
+                (buyer_name, email, country, inquiry_type, source, email_message_id, mineral_type, message, status) 
+                VALUES (?, ?, ?, 'Email Inbound', ?, ?, ?, ?, 'New')");
+            $stmt->execute([$fromName, $fromEmail, $detectedCountry, $mailUser, $msgId, $detectedMineral, $fullMessage]);
             $syncedInbound++;
         }
     }
