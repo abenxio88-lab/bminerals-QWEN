@@ -381,14 +381,17 @@ if ($pdo !== null) {
       color: #FFFFFF !important;
       font-family: 'Montserrat', sans-serif;
       font-size: 0.76rem;
-      font-weight: 700;
-      padding: 5px 11px;
-      border-radius: 4px;
+      font-weight: 600;
+      height: 32px;
+      padding: 0 12px;
+      border-radius: 6px;
       border: none;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       text-decoration: none;
+      transition: background 0.15s ease;
+      white-space: nowrap;
     }
     .btn-action-wa:hover { background: #166534; }
 
@@ -397,14 +400,17 @@ if ($pdo !== null) {
       color: #FFFFFF !important;
       font-family: 'Montserrat', sans-serif;
       font-size: 0.76rem;
-      font-weight: 700;
-      padding: 5px 11px;
-      border-radius: 4px;
+      font-weight: 600;
+      height: 32px;
+      padding: 0 12px;
+      border-radius: 6px;
       border: 1px solid #0F172A;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       cursor: pointer;
+      transition: background 0.15s ease;
+      white-space: nowrap;
     }
     .btn-action-email:hover { background: #1E293B; }
 
@@ -660,7 +666,7 @@ if ($pdo !== null) {
                   <th>Buyer Profile & Demand</th>
                   <th>Direct Contact</th>
                   <th>Pipeline Stage</th>
-                  <th class="text-end" style="min-width: 175px;">1-Click Outreach</th>
+                  <th class="text-end" style="min-width: 235px;">1-Click Outreach</th>
                 </tr>
               </thead>
               <tbody>
@@ -753,20 +759,20 @@ if ($pdo !== null) {
 
                       <!-- 1-Click Outreach Buttons -->
                       <td class="text-end">
-                        <div class="d-flex align-items-center justify-content-end gap-1.5">
+                        <div class="d-inline-flex align-items-center justify-content-end" style="gap: 8px;">
                           <!-- 1-Click WhatsApp Pitch -->
                           <a href="<?= $waUrl ?>" target="_blank" class="btn-action-wa" title="Open pre-formatted WhatsApp trade offer">
-                            <i class="bi bi-whatsapp"></i> WhatsApp
+                            <i class="bi bi-whatsapp"></i> <span>WhatsApp</span>
                           </a>
 
                           <!-- 1-Click Email Pitch -->
                           <button type="button" class="btn-action-email" data-bs-toggle="modal" data-bs-target="#emailModal<?= $b['id'] ?>" title="Compose official B2B trade introduction email">
-                            <i class="bi bi-envelope-fill"></i> Pitch
+                            <i class="bi bi-send-fill"></i> <span>Pitch</span>
                           </button>
 
                           <!-- Edit Dossier -->
-                          <button type="button" class="btn btn-sm btn-outline-secondary p-1 px-2" data-bs-toggle="modal" data-bs-target="#editModal<?= $b['id'] ?>" title="Edit prospect details & notes">
-                            <i class="bi bi-pencil-square"></i>
+                          <button type="button" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center justify-content-center" style="width: 32px; height: 32px; border-radius: 6px; padding: 0;" data-bs-toggle="modal" data-bs-target="#editModal<?= $b['id'] ?>" title="Edit prospect details & notes">
+                            <i class="bi bi-pencil"></i>
                           </button>
                         </div>
                       </td>
@@ -774,17 +780,22 @@ if ($pdo !== null) {
 
                     <!-- Modal: 1-Click Email Outreach -->
                     <div class="modal fade" id="emailModal<?= $b['id'] ?>" tabindex="-1" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered modal-lg">
+                      <div class="modal-dialog modal-dialog-centered modal-dialog-resizable" style="max-width: 880px;">
                         <div class="modal-content">
                           <form method="POST" action="prospects.php">
                             <input type="hidden" name="action" value="send_prospect_email">
                             <input type="hidden" name="prospect_id" value="<?= $b['id'] ?>">
                             <input type="hidden" name="csrf_token" value="<?= getCsrfToken() ?>">
 
-                            <div class="modal-header">
-                              <h6 class="modal-title fw-bold brand-font" style="color: var(--brand-navy);">
-                                <i class="bi bi-send-fill text-warning me-2"></i>Outbound Commodity Pitch: <?= htmlspecialchars($b['company_name']) ?>
-                              </h6>
+                            <div class="modal-header py-2.5 px-3">
+                              <div class="d-flex align-items-center gap-2">
+                                <span class="badge-rfq-mild">
+                                  <i class="bi bi-send-fill"></i> PITCH
+                                </span>
+                                <h6 class="modal-title fw-bold brand-font mb-0" style="color: var(--brand-navy); font-size: 0.98rem;">
+                                  Outbound Commodity Pitch: <?= htmlspecialchars($b['company_name']) ?>
+                                </h6>
+                              </div>
                               <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
 
