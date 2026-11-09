@@ -192,8 +192,139 @@ function getBallInCourtStatus($row) {
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="admin-layout.css">
+  <link rel="stylesheet" href="admin-layout.css?v=<?= filemtime(__DIR__ . '/admin-layout.css') ?>">
   <style>
+    /* Sovereign Executive Deal Velocity Badges */
+    .badge-vel-desk {
+      background: #FAF5EB !important;
+      color: #633C04 !important;
+      border: 1px solid #D4B26F !important;
+      font-family: 'Montserrat', sans-serif !important;
+      font-weight: 700 !important;
+      font-size: 0.68rem !important;
+      letter-spacing: 0.04em !important;
+      text-transform: uppercase !important;
+      padding: 3px 9px !important;
+      border-radius: 4px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      box-shadow: none !important;
+      white-space: nowrap !important;
+    }
+    .badge-vel-desk::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #B48C36 !important;
+      flex-shrink: 0;
+    }
+    .badge-vel-buyer {
+      background: #F1F5F9 !important;
+      color: #1E293B !important;
+      border: 1px solid #CBD5E1 !important;
+      font-family: 'Montserrat', sans-serif !important;
+      font-weight: 600 !important;
+      font-size: 0.68rem !important;
+      letter-spacing: 0.04em !important;
+      text-transform: uppercase !important;
+      padding: 3px 9px !important;
+      border-radius: 4px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      box-shadow: none !important;
+      white-space: nowrap !important;
+    }
+    .badge-vel-buyer::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #475569 !important;
+      flex-shrink: 0;
+    }
+    .badge-vel-stalled {
+      background: #F8FAFC !important;
+      color: #475569 !important;
+      border: 1px solid #E2E8F0 !important;
+      font-family: 'Montserrat', sans-serif !important;
+      font-weight: 600 !important;
+      font-size: 0.68rem !important;
+      letter-spacing: 0.04em !important;
+      text-transform: uppercase !important;
+      padding: 3px 9px !important;
+      border-radius: 4px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      box-shadow: none !important;
+      white-space: nowrap !important;
+    }
+    .badge-vel-stalled::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #94A3B8 !important;
+      flex-shrink: 0;
+    }
+    .badge-vel-closed {
+      background: #F0FDF4 !important;
+      color: #14532D !important;
+      border: 1px solid #86EFAC !important;
+      font-family: 'Montserrat', sans-serif !important;
+      font-weight: 700 !important;
+      font-size: 0.68rem !important;
+      letter-spacing: 0.04em !important;
+      text-transform: uppercase !important;
+      padding: 3px 9px !important;
+      border-radius: 4px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      box-shadow: none !important;
+      white-space: nowrap !important;
+    }
+    .badge-vel-closed::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #16A34A !important;
+      flex-shrink: 0;
+    }
+    #dossierFlagChip, .dossier-flag-chip {
+      width: 18px !important;
+      height: 12px !important;
+      max-width: 18px !important;
+      max-height: 12px !important;
+      min-width: 18px !important;
+      min-height: 12px !important;
+      border-radius: 2px;
+      overflow: hidden;
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #CBD5E1;
+      flex-shrink: 0;
+      vertical-align: middle;
+      margin: 0 4px;
+    }
+    #dossierFlagChip svg, .dossier-flag-chip svg, .country-flag-svg {
+      width: 18px !important;
+      height: 12px !important;
+      max-width: 18px !important;
+      max-height: 12px !important;
+      display: block !important;
+      object-fit: cover !important;
+    }
+
     :root {
       --brand-navy: #0F172A;
       --brand-slate: #1E293B;
@@ -1800,11 +1931,11 @@ Web: https://balochistanminerals.com</textarea>
         <div class="dossier-avatar" id="dossierAvatar">BM</div>
         <div style="min-width: 0; flex: 1;">
           <h6 class="mb-0 fw-bold brand-font text-truncate" id="dossierBuyerName" style="color: #0F172A; font-size: 1.05rem;">Buyer Name</h6>
-          <div class="text-muted d-flex align-items-center gap-1.5 flex-wrap mt-0.5" style="font-size: 0.76rem;">
-            <span id="dossierCompany" class="text-truncate fw-semibold text-dark" style="max-width: 180px;">Company</span>
-            <span class="text-muted">&bull;</span>
-            <span id="dossierFlagChip" class="dossier-flag-chip"></span>
-            <span id="dossierCountry" class="text-secondary fw-medium">Country</span>
+          <div class="text-muted d-flex align-items-center gap-2 text-nowrap mt-0.5" style="font-size: 0.76rem; overflow: hidden;">
+            <span id="dossierCompany" class="text-truncate fw-semibold text-dark" style="max-width: 160px;">Company</span>
+            <span class="text-muted" style="font-size: 0.6rem;">&bull;</span>
+            <span id="dossierFlagChip" class="dossier-flag-chip" style="width: 18px; height: 12px; min-width: 18px; min-height: 12px; max-width: 18px; max-height: 12px; display: inline-flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #CBD5E1; border-radius: 2px; flex-shrink: 0;"></span>
+            <span id="dossierCountry" class="text-secondary fw-medium text-truncate" style="max-width: 120px;">Country</span>
           </div>
         </div>
       </div>
