@@ -451,32 +451,26 @@ if ($pdo !== null) {
     <!-- 2. MAIN WORKSPACE CANVAS -->
     <div class="app-main">
       <header class="top-bar">
-        <div class="d-flex align-items-center gap-2.5">
+        <div class="topbar-left">
           <button type="button" id="sidebarToggle" class="btn-sidebar-toggle" title="Toggle Sidebar (Ctrl + B)">
             <i class="bi bi-layout-sidebar-inset"></i>
           </button>
-          <div style="width: 34px; height: 34px; border-radius: 8px; background: rgba(230,92,26,0.12); border: 1px solid rgba(230,92,26,0.3); display: flex; align-items: center; justify-content: center; color: #E65C1A; flex-shrink: 0;">
-            <i class="bi bi-envelope-check-fill fs-5"></i>
-          </div>
-          <div>
-            <h5 class="fw-bold brand-font mb-0" style="color: var(--brand-navy); font-size: 1.02rem;">
-              Commercial Email Reply Desk & Outbox
-            </h5>
-            <div class="text-muted small">
-              Official corporate correspondence with smelters in China, trading houses in Dubai, and European refiners.
-            </div>
+          <div class="topbar-title-wrap">
+            <h1 class="topbar-title">Commercial Email Reply Desk & Outbox</h1>
+            <div class="topbar-subtitle">Hostinger Business Webmail & Trade Offer Dispatch</div>
           </div>
         </div>
 
-        <div class="d-flex align-items-center gap-2">
-          <span class="badge bg-light text-dark border font-monospace py-1.5 px-2.5" style="font-size: 0.72rem;">
-            <i class="bi bi-check-circle-fill text-success me-1"></i>Hostinger Relay Active
-          </span>
-          <button type="button" class="btn btn-sm btn-outline-dark d-flex align-items-center gap-1.5 fw-semibold px-2.5 py-1.5" style="border-radius: 6px; font-size: 0.78rem;" data-bs-toggle="modal" data-bs-target="#mailConfigModal">
-            <i class="bi bi-gear-fill text-warning"></i> Server Config
+        <div class="topbar-right">
+          <div class="pill-status d-none d-md-inline-flex" title="SMTP & IMAP Connected">
+            <span class="status-dot dot-green"></span>
+            <span>Hostinger Relay Active</span>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1.5 fw-semibold px-2.5 py-1.5 text-dark" style="border-radius: 8px; font-size: 0.78rem; background: #FFFFFF;" data-bs-toggle="modal" data-bs-target="#mailConfigModal">
+            <i class="bi bi-gear-fill text-warning"></i> <span>Server Config</span>
           </button>
-          <button type="button" class="btn btn-sm btn-dark d-flex align-items-center gap-1.5 fw-bold px-3 py-1.5" style="border-radius: 6px; background: #0F172A; font-size: 0.78rem;" data-bs-toggle="modal" data-bs-target="#newOfferModal">
-            <i class="bi bi-pencil-square"></i> Compose Trade Offer
+          <button type="button" class="btn btn-sm btn-dark d-flex align-items-center gap-1.5 fw-bold px-3 py-1.5 shadow-sm text-white" style="border-radius: 8px; background: #0F172A; font-size: 0.78rem;" data-bs-toggle="modal" data-bs-target="#newOfferModal">
+            <i class="bi bi-pencil-square"></i> <span>Compose Trade Offer</span>
           </button>
         </div>
       </header>
@@ -795,10 +789,10 @@ Web: https://balochistanminerals.com</textarea>
             </div>
           </div>
 
-          <div class="modal-footer d-flex justify-content-end gap-2 py-2 px-3">
-            <button type="button" class="btn-cancel-action" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn-save-action" style="background: #0F172A !important;">
-              Save Settings
+          <div class="modal-footer d-flex justify-content-end gap-2 py-2.5 px-3 bg-light border-top">
+            <button type="button" class="btn btn-sm btn-outline-secondary px-3 py-1.5" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-sm btn-dark px-3.5 py-1.5 fw-bold text-white shadow-sm" style="background: #0F172A; border-color: #0F172A; border-radius: 6px;">
+              <i class="bi bi-check2 me-1"></i> Save Mail Settings
             </button>
           </div>
         </form>

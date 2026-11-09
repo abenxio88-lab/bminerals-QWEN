@@ -355,10 +355,18 @@ body.sidebar-open .sidebar-backdrop {
 }
 
 .pill-clock {
-  background: #0F172A;
-  color: #FFFFFF;
-  border-color: #0F172A;
-  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  background: #FFFFFF;
+  color: #1E293B;
+  border: 1px solid #E2E8F0;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 500;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+}
+
+.pill-clock #livePktClock {
+  color: #0F172A !important;
+  font-weight: 600 !important;
 }
 
 .content-canvas {
@@ -432,11 +440,12 @@ body.sidebar-open .sidebar-backdrop {
 
 .metric-card-value {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1.85rem;
-  font-weight: 800;
+  font-size: 1.55rem;
+  font-weight: 600;
   color: var(--brand-navy);
-  line-height: 1;
+  line-height: 1.1;
   margin: 0;
+  letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
 }
 
@@ -613,21 +622,23 @@ body.sidebar-open .sidebar-backdrop {
   }
 }
 
-/* Buyer Avatar */
+/* Buyer Avatar - Soft, Circular, Elegant */
 .buyer-avatar {
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
-  background: #0F172A;
-  color: #FFFFFF;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #F1F5F9;
+  color: #334155;
+  border: 1px solid #E2E8F0;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-  font-size: 0.78rem;
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  font-size: 0.76rem;
+  letter-spacing: 0.02em;
   flex-shrink: 0;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
 }
 
 /* Status Badges */
@@ -696,3 +707,42 @@ body.sidebar-open .sidebar-backdrop {
   border: 1px solid #E2E8F0;
 }
 .status-Closed::before, .status-Archived::before { background: #94A3B8; }
+
+/* Modal Action Buttons */
+.btn-save-action {
+  background: #0F172A !important;
+  color: #FFFFFF !important;
+  border: 1px solid #0F172A !important;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+.btn-save-action:hover {
+  background: #1E293B !important;
+  color: #FFFFFF !important;
+}
+
+.btn-cancel-action {
+  background: #FFFFFF !important;
+  color: #475569 !important;
+  border: 1px solid #CBD5E1 !important;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+.btn-cancel-action:hover {
+  background: #F8FAFC !important;
+  color: #0F172A !important;
+  border-color: #94A3B8 !important;
+}

@@ -721,7 +721,7 @@ if ($pdo !== null) {
         </div>
 
         <div class="topbar-right">
-          <button type="button" class="btn btn-sm btn-outline-dark d-flex align-items-center gap-1.5 fw-semibold px-2.5 py-1.5" style="font-size: 0.78rem; border-radius: 8px;" data-bs-toggle="modal" data-bs-target="#mailConfigModal">
+          <button type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1.5 fw-semibold px-2.5 py-1.5 text-dark" style="font-size: 0.78rem; border-radius: 8px; background: #FFFFFF;" data-bs-toggle="modal" data-bs-target="#mailConfigModal">
             <i class="bi bi-gear-fill text-warning"></i> <span>Mail Settings</span>
           </button>
           <div class="pill-status d-none d-xl-inline-flex" title="Port Terminals Active">
@@ -731,8 +731,8 @@ if ($pdo !== null) {
           <div class="pill-status pill-clock" title="Official Pakistan Standard Time (PKT, UTC+5)">
             <span class="status-dot dot-green me-1"></span>
             <span class="d-none d-md-inline text-muted"><?= date('M d') ?> • </span>
-            <span id="livePktClock" class="fw-bold text-white"><?= date('h:i:s A') ?></span>
-            <span class="text-secondary ms-1">PKT</span>
+            <span id="livePktClock" class="fw-bold" style="color: #0F172A;"><?= date('h:i:s A') ?></span>
+            <span class="text-muted ms-1" style="font-size: 0.7rem;">PKT</span>
           </div>
         </div>
       </header>
@@ -929,55 +929,48 @@ if ($pdo !== null) {
                           }
                           $initials = strtoupper($initials ?: 'BM');
                         ?>
-                        <div class="d-flex align-items-start gap-2.5">
+                        <div class="d-flex align-items-start" style="gap: 16px;">
                           <div class="buyer-avatar" title="<?= htmlspecialchars($row['buyer_name']) ?>"><?= htmlspecialchars($initials) ?></div>
                           <div style="min-width: 0; flex: 1;">
-                            <div class="fw-bold" style="color: var(--brand-navy); font-size: 0.9rem;"><?= htmlspecialchars($row['buyer_name']) ?></div>
-                            <div class="text-muted small" style="font-size: 0.76rem;">
-                              <i class="bi bi-building me-1 text-secondary" style="font-size: 0.7rem;"></i><?= htmlspecialchars($row['company_name'] ?: 'Private Trader') ?>
+                            <div class="fw-semibold" style="color: var(--brand-navy); font-size: 0.92rem; line-height: 1.3;">
+                              <?= htmlspecialchars($row['buyer_name']) ?>
+                            </div>
+                            <div class="text-muted" style="font-size: 0.78rem; margin-top: 1px;">
+                              <i class="bi bi-building me-1 text-secondary" style="font-size: 0.72rem;"></i><?= htmlspecialchars($row['company_name'] ?: 'Private Trader') ?>
                             </div>
 
-                            <!-- Buyer Direct Email (Clickable + 1-Click Copy) -->
+                            <!-- Buyer Direct Email + Country -->
                             <?php if (!empty($row['email'])): ?>
                               <div class="d-flex align-items-center gap-1.5 mt-1">
                                 <a href="mailto:<?= htmlspecialchars($row['email']) ?>" class="buyer-email-link" title="Send direct email to <?= htmlspecialchars($row['email']) ?>">
-                                  <i class="bi bi-envelope-at me-1" style="color: #0284C7;"></i><?= htmlspecialchars($row['email']) ?>
+                                  <i class="bi bi-envelope me-1 text-secondary"></i><?= htmlspecialchars($row['email']) ?>
                                 </a>
                                 <button type="button" class="btn-copy-clip" onclick="copyToClipboard('<?= htmlspecialchars($row['email']) ?>', this)" title="Copy email address">
                                   <i class="bi bi-clipboard"></i>
                                 </button>
+                                <span class="text-muted mx-0.5">•</span>
+                                <span class="country-pill">
+                                  <?= htmlspecialchars($row['country'] ?? 'International') ?>
+                                </span>
                               </div>
                             <?php endif; ?>
 
-                            <div class="mt-1.5 d-flex gap-1 flex-wrap align-items-center">
-                              <span class="country-pill">
-                                <?= htmlspecialchars($row['country'] ?? 'International') ?>
+                            <!-- Source & Mailbox Channel -->
+                            <div class="mt-1.5 d-flex gap-1.5 flex-wrap align-items-center">
+                              <span class="badge bg-light text-secondary border fw-medium" style="font-size: 0.68rem; padding: 3px 8px;">
+                                <i class="bi bi-inbox-fill text-primary me-1"></i><?= !empty($row['source']) && strpos($row['source'], '@') !== false ? htmlspecialchars($row['source']) : 'sales@balochistanminerals.com' ?>
                               </span>
-                              <?php if (!empty($row['source'])): ?>
-                                <?php if (strpos($row['source'], '@') !== false || ($row['inquiry_type'] ?? '') === 'Email Inbound'): ?>
-                                  <span class="badge" style="background: #0F172A; color: #FFFFFF; font-size: 0.65rem; font-weight: 700; border: 1px solid #1E293B;"><i class="bi bi-envelope-fill me-1" style="color: #94A3B8;"></i> Inbound Email</span>
-                                <?php elseif ($row['source'] === 'Direct Email Modal'): ?>
-                                  <span class="badge" style="background: #1E293B; color: #F1F5F9; font-size: 0.65rem; font-weight: 700; border: 1px solid #334155;"><i class="bi bi-chat-left-dots-fill me-1" style="color: #D4AF37;"></i> Direct Desk</span>
-                                <?php else: ?>
-                                  <span class="badge" style="background: #334155; color: #FFFFFF; font-size: 0.65rem; font-weight: 600;"><i class="bi bi-globe me-1 text-light"></i> Web RFQ</span>
-                                <?php endif; ?>
+
+                              <?php if (!empty($row['source']) && $row['source'] === 'Direct Email Modal'): ?>
+                                <span class="badge bg-light text-dark border fw-medium" style="font-size: 0.68rem; padding: 3px 8px;">
+                                  <i class="bi bi-chat-left-dots text-warning me-1"></i>Direct Desk
+                                </span>
                               <?php endif; ?>
 
                               <?php if (!empty($row['email_count']) && (int)$row['email_count'] > 0): ?>
-                                <span class="badge" style="background: rgba(2,132,199,0.12); color: #0284C7; border: 1px solid rgba(2,132,199,0.25); font-size: 0.65rem; font-weight: 700;">
-                                  <i class="bi bi-chat-dots-fill me-1"></i><?= $row['email_count'] ?> Email<?= (int)$row['email_count'] > 1 ? 's' : '' ?>
+                                <span class="badge bg-light text-primary border fw-semibold" style="font-size: 0.68rem; padding: 3px 8px;">
+                                  <i class="bi bi-chat-dots me-1"></i><?= $row['email_count'] ?> Email<?= (int)$row['email_count'] > 1 ? 's' : '' ?>
                                 </span>
-                              <?php endif; ?>
-                            </div>
-
-                            <!-- Mailbox Destination Badge -->
-                            <div class="small font-monospace text-muted mt-1" style="font-size: 0.70rem;">
-                              <?php if (!empty($row['source']) && strpos($row['source'], '@') !== false): ?>
-                                <i class="bi bi-inbox-fill me-1" style="color: #0284C7;"></i>Landed in: <strong style="color: #0F172A;"><?= htmlspecialchars($row['source']) ?></strong>
-                              <?php elseif (!empty($row['source']) && $row['source'] === 'Direct Email Modal'): ?>
-                                <i class="bi bi-arrow-return-right me-1 text-warning"></i>To: <strong style="color: #0F172A;">sales@balochistanminerals.com</strong>
-                              <?php else: ?>
-                                <i class="bi bi-globe me-1 text-secondary"></i>Via: <strong><?= htmlspecialchars($row['source'] ?: 'Website Form') ?></strong>
                               <?php endif; ?>
                             </div>
                           </div>
@@ -1222,8 +1215,8 @@ Web: https://balochistanminerals.com</textarea>
                                     <i class="bi bi-shield-check text-success me-1"></i>Hostinger SMTP Relay Active
                                   </div>
                                   <div class="d-flex gap-2">
-                                    <button type="button" class="btn-cancel-action" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn-save-action" style="background: #0F172A !important;">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary px-3 py-1.5" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-sm btn-dark px-3.5 py-1.5 fw-bold text-white shadow-sm" style="background: #0F172A; border-color: #0F172A; border-radius: 6px;">
                                       <i class="bi bi-send-fill me-1"></i> Send Official Reply
                                     </button>
                                   </div>
@@ -1396,10 +1389,10 @@ Web: https://balochistanminerals.com</textarea>
                   </div>
                 </div>
 
-                <div class="modal-footer d-flex justify-content-end gap-2 py-2 px-3">
-                  <button type="button" class="btn-cancel-action" data-bs-dismiss="modal">Cancel</button>
-                  <button type="submit" class="btn-save-action" style="background: #0F172A !important;">
-                    Save Settings
+                <div class="modal-footer d-flex justify-content-end gap-2 py-2.5 px-3 bg-light border-top">
+                  <button type="button" class="btn btn-sm btn-outline-secondary px-3 py-1.5" data-bs-dismiss="modal">Cancel</button>
+                  <button type="submit" class="btn btn-sm btn-dark px-3.5 py-1.5 fw-bold text-white shadow-sm" style="background: #0F172A; border-color: #0F172A; border-radius: 6px;">
+                    <i class="bi bi-check2 me-1"></i> Save Mail Settings
                   </button>
                 </div>
               </form>
