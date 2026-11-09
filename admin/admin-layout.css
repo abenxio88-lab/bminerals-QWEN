@@ -529,6 +529,68 @@ body.sidebar-open .sidebar-backdrop {
   box-shadow: none !important;
 }
 
+/* Quick View Stage Filter Bar & Pills (Compact, Proper 6px Spacing, Zero Shade) */
+.quick-view-wrapper {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #E2E8F0;
+}
+
+.quick-view-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #64748B;
+  margin-right: 2px;
+  user-select: none;
+}
+
+.quick-view-label i {
+  font-size: 0.74rem;
+  color: #94A3B8;
+}
+
+.quick-filter-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 9px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.35;
+  border-radius: 12px;
+  text-decoration: none;
+  background: #FFFFFF;
+  color: #475569;
+  border: 1px solid #CBD5E1;
+  box-shadow: none !important;
+  transition: all 0.12s ease;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.quick-filter-pill:hover {
+  background: #F8FAFC;
+  border-color: #0F172A;
+  color: #0F172A;
+  box-shadow: none !important;
+  text-decoration: none;
+}
+
+.quick-filter-pill.active {
+  background: #0F172A !important;
+  border-color: #0F172A !important;
+  color: #FFFFFF !important;
+  box-shadow: none !important;
+}
+
 .content-canvas {
   padding: 20px 24px;
   flex: 1;

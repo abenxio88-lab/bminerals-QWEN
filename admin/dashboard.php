@@ -91,6 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pdo !== null) {
 $inquiries = [];
 $totalLeads = 0;
 $newLeads = 0;
+$contactedLeads = 0;
 $quotedLeads = 0;
 $closedLeads = 0;
 $pendingReviews = 0;
@@ -102,6 +103,7 @@ $searchQuery   = cleanInput($_GET['q'] ?? '');
 if ($pdo !== null) {
     $totalLeads     = (int)$pdo->query("SELECT COUNT(*) FROM inquiries")->fetchColumn();
     $newLeads       = (int)$pdo->query("SELECT COUNT(*) FROM inquiries WHERE status = 'New'")->fetchColumn();
+    $contactedLeads = (int)$pdo->query("SELECT COUNT(*) FROM inquiries WHERE status = 'Contacted'")->fetchColumn();
     $quotedLeads    = (int)$pdo->query("SELECT COUNT(*) FROM inquiries WHERE status IN ('Quoted', 'Assay Sent', 'Sample Sent')")->fetchColumn();
     $closedLeads    = (int)$pdo->query("SELECT COUNT(*) FROM inquiries WHERE status = 'Contract Signed'")->fetchColumn();
     $pendingReviews = (int)$pdo->query("SELECT COUNT(*) FROM reviews WHERE status = 'Pending'")->fetchColumn();
@@ -851,14 +853,14 @@ if ($pdo !== null) {
             </div>
           </form>
 
-          <!-- Quick Stage Filters -->
-          <div class="d-flex align-items-center gap-1.5 mt-2 pt-2 border-top flex-wrap" style="font-size: 0.74rem;">
-            <span class="text-muted small fw-semibold me-1"><i class="bi bi-tag-fill me-1"></i>Quick View:</span>
-            <a href="dashboard.php" class="badge rounded-pill text-decoration-none <?= empty($filterStatus) ? 'bg-dark text-white' : 'bg-light text-secondary border' ?> px-2.5 py-1">All (<?= $totalLeads ?>)</a>
-            <a href="dashboard.php?status=New" class="badge rounded-pill text-decoration-none <?= $filterStatus === 'New' ? 'bg-warning text-dark' : 'bg-light text-secondary border' ?> px-2.5 py-1">New (<?= $newLeads ?>)</a>
-            <a href="dashboard.php?status=Contacted" class="badge rounded-pill text-decoration-none <?= $filterStatus === 'Contacted' ? 'bg-primary text-white' : 'bg-light text-secondary border' ?> px-2.5 py-1">Contacted</a>
-            <a href="dashboard.php?status=Quoted" class="badge rounded-pill text-decoration-none <?= $filterStatus === 'Quoted' ? 'bg-info text-dark' : 'bg-light text-secondary border' ?> px-2.5 py-1">Quoted (<?= $quotedLeads ?>)</a>
-            <a href="dashboard.php?status=Contract+Signed" class="badge rounded-pill text-decoration-none <?= $filterStatus === 'Contract Signed' ? 'bg-success text-white' : 'bg-light text-secondary border' ?> px-2.5 py-1">Executed (<?= $closedLeads ?>)</a>
+          <!-- Quick Stage Filters (Compact, Proper Spacing, Zero Shade) -->
+          <div class="quick-view-wrapper">
+            <span class="quick-view-label"><i class="bi bi-tag-fill"></i> Quick View:</span>
+            <a href="dashboard.php" class="quick-filter-pill <?= empty($filterStatus) ? 'active' : '' ?>">All (<?= $totalLeads ?>)</a>
+            <a href="dashboard.php?status=New" class="quick-filter-pill <?= $filterStatus === 'New' ? 'active' : '' ?>">New (<?= $newLeads ?>)</a>
+            <a href="dashboard.php?status=Contacted" class="quick-filter-pill <?= $filterStatus === 'Contacted' ? 'active' : '' ?>">Contacted (<?= $contactedLeads ?>)</a>
+            <a href="dashboard.php?status=Quoted" class="quick-filter-pill <?= $filterStatus === 'Quoted' ? 'active' : '' ?>">Quoted (<?= $quotedLeads ?>)</a>
+            <a href="dashboard.php?status=Contract+Signed" class="quick-filter-pill <?= $filterStatus === 'Contract Signed' ? 'active' : '' ?>">Executed (<?= $closedLeads ?>)</a>
           </div>
         </div>
 

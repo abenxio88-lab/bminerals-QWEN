@@ -490,10 +490,10 @@ if ($pdo !== null) {
                   <input type="text" name="q" class="form-control" placeholder="Search email, buyer, subject..." value="<?= htmlspecialchars($searchQuery) ?>">
                 </div>
               </form>
-              <div class="d-flex gap-1">
-                <a href="email-desk.php" class="btn btn-xs btn-outline-secondary flex-grow-1 py-1 <?= empty($filterDirection) ? 'active bg-dark text-white' : '' ?>" style="font-size: 0.70rem;">All (<?= $totalMessages ?>)</a>
-                <a href="email-desk.php?direction=outbound" class="btn btn-xs btn-outline-secondary flex-grow-1 py-1 <?= $filterDirection === 'outbound' ? 'active bg-dark text-white' : '' ?>" style="font-size: 0.70rem;">Outbound (<?= $outboundCount ?>)</a>
-                <a href="email-desk.php?direction=inbound" class="btn btn-xs btn-outline-secondary flex-grow-1 py-1 <?= $filterDirection === 'inbound' ? 'active bg-dark text-white' : '' ?>" style="font-size: 0.70rem;">Inbound (<?= $inboundCount ?>)</a>
+              <div class="d-flex" style="gap: 6px;">
+                <a href="email-desk.php" class="btn btn-sm btn-outline-secondary flex-grow-1 py-1.5 <?= empty($filterDirection) ? 'active bg-dark text-white' : '' ?>" style="font-size: 0.74rem; font-weight: 600; border-radius: 6px; box-shadow: none !important;">All (<?= $totalMessages ?>)</a>
+                <a href="email-desk.php?direction=outbound" class="btn btn-sm btn-outline-secondary flex-grow-1 py-1.5 <?= $filterDirection === 'outbound' ? 'active bg-dark text-white' : '' ?>" style="font-size: 0.74rem; font-weight: 600; border-radius: 6px; box-shadow: none !important;">Outbound (<?= $outboundCount ?>)</a>
+                <a href="email-desk.php?direction=inbound" class="btn btn-sm btn-outline-secondary flex-grow-1 py-1.5 <?= $filterDirection === 'inbound' ? 'active bg-dark text-white' : '' ?>" style="font-size: 0.74rem; font-weight: 600; border-radius: 6px; box-shadow: none !important;">Inbound (<?= $inboundCount ?>)</a>
               </div>
             </div>
 
