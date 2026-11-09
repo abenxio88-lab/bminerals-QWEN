@@ -11,8 +11,9 @@ requireAuth();
 $user = getLoggedInUser();
 $pdo  = getDB();
 
-$flashMessage = '';
-$flashType    = 'success';
+$flashMessage = $_SESSION['bm_flash_msg'] ?? '';
+$flashType    = $_SESSION['bm_flash_type'] ?? 'success';
+unset($_SESSION['bm_flash_msg'], $_SESSION['bm_flash_type']);
 
 // Handle Moderation Actions
 if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && $pdo !== null) {
@@ -25,7 +26,8 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && $pdo !== null) {
             $newStatus = cleanInput($_POST['status'] ?? 'Pending');
             $stmt = $pdo->prepare('UPDATE blog_discussions SET status = ? WHERE id = ?');
             $stmt->execute([$newStatus, $discId]);
-            $flashMessage = "Discussion #$discId status updated to $newStatus.";
+            $_SESSION['bm_flash_msg'] = "Discussion #$discId status updated to $newStatus.";
+            $_SESSION['bm_flash_type'] = 'success';
         } elseif ($action === 'submit_reply') {
             $replyText = cleanInput($_POST['reply_text'] ?? '');
             $repliedBy = cleanInput($_POST['replied_by'] ?? 'Balochistan Minerals Technical Desk');
@@ -34,17 +36,22 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && $pdo !== null) {
             $newStatus = $approveAfterReply ? 'Approved' : 'Pending';
             $stmt = $pdo->prepare('UPDATE blog_discussions SET reply_text = ?, replied_by = ?, replied_at = NOW(), status = ? WHERE id = ?');
             $stmt->execute([$replyText, $repliedBy, $newStatus, $discId]);
-            $flashMessage = "Official response published to Discussion #$discId.";
+            $_SESSION['bm_flash_msg'] = "Official response published to Discussion #$discId.";
+            $_SESSION['bm_flash_type'] = 'success';
         } elseif ($action === 'delete_discussion') {
             $stmt = $pdo->prepare('DELETE FROM blog_discussions WHERE id = ?');
             $stmt->execute([$discId]);
-            $flashMessage = "Discussion #$discId permanently deleted.";
-            $flashType = 'warning';
+            $_SESSION['bm_flash_msg'] = "Discussion #$discId permanently deleted.";
+            $_SESSION['bm_flash_type'] = 'warning';
         }
     } else {
-        $flashMessage = 'Session expired. Please try again.';
-        $flashType = 'danger';
+        $_SESSION['bm_flash_msg'] = 'Session expired. Please try again.';
+        $_SESSION['bm_flash_type'] = 'danger';
     }
+
+    // Post/Redirect/Get: Redirect back to avoid browser form resubmission prompts on refresh
+    header('Location: ' . $_SERVER['REQUEST_URI']);
+    exit;
 }
 
 // Fetch Metrics & Discussions

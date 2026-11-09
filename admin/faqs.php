@@ -10,8 +10,9 @@ requireAuth();
 $user = getLoggedInUser();
 $pdo  = getDB();
 
-$flashMessage = '';
-$flashType    = 'success';
+$flashMessage = $_SESSION['bm_flash_msg'] ?? '';
+$flashType    = $_SESSION['bm_flash_type'] ?? 'success';
+unset($_SESSION['bm_flash_msg'], $_SESSION['bm_flash_type']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pdo !== null) {
     $action = $_POST['action'] ?? '';
@@ -28,23 +29,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pdo !== null) {
             if ($id > 0) {
                 $stmt = $pdo->prepare('UPDATE faqs SET category = ?, question = ?, answer = ?, is_active = ? WHERE id = ?');
                 $stmt->execute([$cat, $question, $answer, $isActive, $id]);
-                $flashMessage = 'FAQ updated successfully.';
+                $_SESSION['bm_flash_msg'] = 'FAQ updated successfully.';
+                $_SESSION['bm_flash_type'] = 'success';
             } else {
                 $stmt = $pdo->prepare('INSERT INTO faqs (category, question, answer, is_active) VALUES (?, ?, ?, ?)');
                 $stmt->execute([$cat, $question, $answer, $isActive]);
-                $flashMessage = 'New FAQ created successfully.';
+                $_SESSION['bm_flash_msg'] = 'New FAQ created successfully.';
+                $_SESSION['bm_flash_type'] = 'success';
             }
         } elseif ($action === 'delete_faq') {
             $id = (int)($_POST['faq_id'] ?? 0);
             $stmt = $pdo->prepare('DELETE FROM faqs WHERE id = ?');
             $stmt->execute([$id]);
-            $flashMessage = 'FAQ permanently deleted.';
-            $flashType = 'warning';
+            $_SESSION['bm_flash_msg'] = 'FAQ permanently deleted.';
+            $_SESSION['bm_flash_type'] = 'warning';
         }
     } else {
-        $flashMessage = 'Session expired. Please try again.';
-        $flashType = 'danger';
+        $_SESSION['bm_flash_msg'] = 'Session expired. Please try again.';
+        $_SESSION['bm_flash_type'] = 'danger';
     }
+
+    // Post/Redirect/Get: Prevent browser form resubmission dialog on page refresh
+    header('Location: ' . $_SERVER['REQUEST_URI']);
+    exit;
 }
 
 $faqs = [];

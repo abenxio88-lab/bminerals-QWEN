@@ -10,8 +10,9 @@ requireAuth();
 $user = getLoggedInUser();
 $pdo  = getDB();
 
-$flashMessage = '';
-$flashType    = 'success';
+$flashMessage = $_SESSION['bm_flash_msg'] ?? '';
+$flashType    = $_SESSION['bm_flash_type'] ?? 'success';
+unset($_SESSION['bm_flash_msg'], $_SESSION['bm_flash_type']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pdo !== null) {
     $action = $_POST['action'] ?? '';
@@ -23,17 +24,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pdo !== null) {
             $newStatus = cleanInput($_POST['status'] ?? 'Pending');
             $stmt = $pdo->prepare('UPDATE reviews SET status = ? WHERE id = ?');
             $stmt->execute([$newStatus, $revId]);
-            $flashMessage = "Review #$revId status updated to $newStatus.";
+            $_SESSION['bm_flash_msg'] = "Review #$revId status updated to $newStatus.";
+            $_SESSION['bm_flash_type'] = 'success';
         } elseif ($action === 'delete_review') {
             $stmt = $pdo->prepare('DELETE FROM reviews WHERE id = ?');
             $stmt->execute([$revId]);
-            $flashMessage = "Review #$revId permanently deleted.";
-            $flashType = 'warning';
+            $_SESSION['bm_flash_msg'] = "Review #$revId permanently deleted.";
+            $_SESSION['bm_flash_type'] = 'warning';
         }
     } else {
-        $flashMessage = 'Session expired. Please try again.';
-        $flashType = 'danger';
+        $_SESSION['bm_flash_msg'] = 'Session expired. Please try again.';
+        $_SESSION['bm_flash_type'] = 'danger';
     }
+
+    // Post/Redirect/Get: Prevent browser form resubmission dialog on page refresh
+    header('Location: ' . $_SERVER['REQUEST_URI']);
+    exit;
 }
 
 $reviews = [];

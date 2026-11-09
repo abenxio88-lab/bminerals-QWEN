@@ -13,8 +13,9 @@ requireAuth();
 $user = getLoggedInUser();
 $pdo  = getDB();
 
-$flashMessage = '';
-$flashType    = 'success';
+$flashMessage = $_SESSION['bm_flash_msg'] ?? '';
+$flashType    = $_SESSION['bm_flash_type'] ?? 'success';
+unset($_SESSION['bm_flash_msg'], $_SESSION['bm_flash_type']);
 
 // Handle quick updates (Status change, spot quote, internal notes, or delete)
 if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && $pdo !== null) {
@@ -30,7 +31,8 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && $pdo !== null) {
 
             $stmt = $pdo->prepare('UPDATE inquiries SET status = ?, spot_price_quoted = ?, internal_notes = ? WHERE id = ?');
             $stmt->execute([$status, $spotPrice, $notes, $id]);
-            $flashMessage = 'Inquiry #' . $id . ' updated successfully.';
+            $_SESSION['bm_flash_msg'] = 'Inquiry #' . $id . ' updated successfully.';
+            $_SESSION['bm_flash_type'] = 'success';
         } elseif ($action === 'send_reply') {
             $id          = (int)($_POST['inquiry_id'] ?? 0);
             $toEmail     = filter_var(trim($_POST['to_email'] ?? ''), FILTER_SANITIZE_EMAIL);
@@ -47,10 +49,11 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && $pdo !== null) {
             // Dispatch via Hostinger SMTP engine
             $sendRes = sendHostingerMail($toEmail, $subject, $replyBody, $fromEmail);
             if ($sendRes['success']) {
-                $flashMessage = 'Official email reply dispatched to ' . $toEmail . ' and logged to Buyer Dossier #' . $id . '.';
+                $_SESSION['bm_flash_msg'] = 'Official email reply dispatched to ' . $toEmail . ' and logged to Buyer Dossier #' . $id . '.';
+                $_SESSION['bm_flash_type'] = 'success';
             } else {
-                $flashMessage = 'Reply logged to Dossier #' . $id . ', but live SMTP reported: ' . $sendRes['error'];
-                $flashType = 'warning';
+                $_SESSION['bm_flash_msg'] = 'Reply logged to Dossier #' . $id . ', but live SMTP reported: ' . $sendRes['error'];
+                $_SESSION['bm_flash_type'] = 'warning';
             }
         } elseif ($action === 'save_mail_settings') {
             $smtpHost = cleanInput($_POST['smtp_host'] ?? 'smtp.hostinger.com');
@@ -62,7 +65,8 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && $pdo !== null) {
             $confContent = "<?php\ndefine('BM_SMTP_HOST', " . var_export($smtpHost, true) . ");\ndefine('BM_SMTP_PORT', " . var_export($smtpPort, true) . ");\ndefine('BM_SMTP_USER', " . var_export($smtpUser, true) . ");\ndefine('BM_SMTP_PASS', " . var_export($smtpPass, true) . ");\n";
             @file_put_contents(__DIR__ . '/mail-config.php', $confContent);
 
-            $flashMessage = 'Hostinger mail server configuration saved successfully.';
+            $_SESSION['bm_flash_msg'] = 'Hostinger mail server configuration saved successfully.';
+            $_SESSION['bm_flash_type'] = 'success';
         } elseif ($action === 'test_smtp') {
             $smtpHost = cleanInput($_POST['smtp_host'] ?? 'smtp.hostinger.com');
             $smtpPort = (int)($_POST['smtp_port'] ?? 465);
@@ -71,22 +75,27 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && $pdo !== null) {
 
             $testRes = testHostingerSmtp($smtpHost, $smtpPort, $smtpUser, $smtpPass);
             if ($testRes['success']) {
-                $flashMessage = '✓ ' . $testRes['message'];
+                $_SESSION['bm_flash_msg'] = '✓ ' . $testRes['message'];
+                $_SESSION['bm_flash_type'] = 'success';
             } else {
-                $flashMessage = 'SMTP Test Error: ' . $testRes['error'];
-                $flashType = 'danger';
+                $_SESSION['bm_flash_msg'] = 'SMTP Test Error: ' . $testRes['error'];
+                $_SESSION['bm_flash_type'] = 'danger';
             }
         } elseif ($action === 'delete_inquiry') {
             $id = (int)($_POST['inquiry_id'] ?? 0);
             $stmt = $pdo->prepare('DELETE FROM inquiries WHERE id = ?');
             $stmt->execute([$id]);
-            $flashMessage = 'Inquiry #' . $id . ' permanently deleted.';
-            $flashType = 'warning';
+            $_SESSION['bm_flash_msg'] = 'Inquiry #' . $id . ' permanently deleted.';
+            $_SESSION['bm_flash_type'] = 'warning';
         }
     } else {
-        $flashMessage = 'Session expired. Please try again.';
-        $flashType = 'danger';
+        $_SESSION['bm_flash_msg'] = 'Session expired. Please try again.';
+        $_SESSION['bm_flash_type'] = 'danger';
     }
+
+    // Post/Redirect/Get: Prevent browser form resubmission dialog on page refresh
+    header('Location: ' . $_SERVER['REQUEST_URI']);
+    exit;
 }
 
 // Fetch Metrics & Inquiries
