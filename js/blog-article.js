@@ -177,36 +177,42 @@
 
         <form id="articleQaForm">
           <input type="hidden" name="article_slug" value="${escapeQaHtml(slug)}">
-          <div style="display:none;"><input type="text" name="botcheck" tabindex="-1" autocomplete="off"></div>
+          <div style="display:none !important;" aria-hidden="true">
+            <input type="text" name="botcheck" tabindex="-1" autocomplete="off">
+            <input type="text" name="bot_verification_field" tabindex="-1" autocomplete="off">
+            <input type="hidden" name="form_time" id="articleQaFormTime" value="${Date.now()}">
+          </div>
 
           <div class="article-qa-grid">
             <div class="article-qa-field">
               <label>Your Full Name *</label>
-              <input type="text" name="author_name" class="article-qa-input" placeholder="e.g. Alexander Richter" required>
+              <input type="text" name="author_name" class="article-qa-input" placeholder="e.g. Alexander Richter" required maxlength="100">
             </div>
             <div class="article-qa-field">
-              <label>Corporate Email *</label>
-              <input type="email" name="author_email" class="article-qa-input" placeholder="e.g. procurement@company.com" required>
+              <label>Corporate Email <span style="font-size:0.65rem; color:#94A3B8; text-transform:none; font-weight:normal;">(Optional - for direct email reply)</span></label>
+              <input type="email" name="author_email" class="article-qa-input" placeholder="e.g. procurement@company.com" maxlength="150">
             </div>
             <div class="article-qa-field">
-              <label>Company (Optional)</label>
-              <input type="text" name="author_company" class="article-qa-input" placeholder="e.g. Euro-Alloy Smelters">
+              <label>Company <span style="font-size:0.65rem; color:#94A3B8; text-transform:none; font-weight:normal;">(Optional)</span></label>
+              <input type="text" name="author_company" class="article-qa-input" placeholder="e.g. Euro-Alloy Smelters" maxlength="100">
             </div>
             <div class="article-qa-field">
-              <label>Country (Optional)</label>
-              <input type="text" name="author_country" class="article-qa-input" placeholder="e.g. Germany, China, UAE">
+              <label>Country <span style="font-size:0.65rem; color:#94A3B8; text-transform:none; font-weight:normal;">(Optional)</span></label>
+              <input type="text" name="author_country" class="article-qa-input" placeholder="e.g. Germany, China, UAE" maxlength="80">
             </div>
           </div>
 
           <div class="article-qa-field" style="margin-bottom:0.75rem;">
             <label>Your Question or Review *</label>
-            <textarea name="comment_text" class="article-qa-textarea" rows="3" placeholder="Inquire about chemical grades, FOB Karachi rates, sampling procedures, or share your technical review..." required></textarea>
+            <textarea name="comment_text" class="article-qa-textarea" rows="3" placeholder="Inquire about chemical grades, FOB Karachi rates, sampling procedures, or share your technical review..." required maxlength="2500"></textarea>
           </div>
 
-          <button type="submit" id="articleQaSubmitBtn" class="article-qa-submit-btn">
-            <span>Submit to Export Desk</span>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-          </button>
+          <div class="article-qa-submit-wrap">
+            <button type="submit" id="articleQaSubmitBtn" class="article-qa-submit-btn">
+              <span>Submit to Export Desk</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+          </div>
           <div id="articleQaFeedback"></div>
         </form>
       </div>
@@ -248,15 +254,61 @@
       streamEl.innerHTML = '';
     }
 
-    // Form submit listener
+    // Form submit listener with anti-spam & double-click protection
     const form = document.getElementById('articleQaForm');
     const feedback = document.getElementById('articleQaFeedback');
     const submitBtn = document.getElementById('articleQaSubmitBtn');
+    let isSubmitting = false;
+    let cooldownTimer = null;
+
+    const startCooldown = (seconds) => {
+      let remaining = seconds;
+      submitBtn.disabled = true;
+      submitBtn.classList.add('is-cooldown');
+      
+      if (cooldownTimer) clearInterval(cooldownTimer);
+      submitBtn.innerHTML = `<span>Submitted (Wait ${remaining}s)</span>`;
+      
+      cooldownTimer = setInterval(() => {
+        remaining -= 1;
+        if (remaining <= 0) {
+          clearInterval(cooldownTimer);
+          submitBtn.disabled = false;
+          submitBtn.classList.remove('is-cooldown');
+          submitBtn.innerHTML = '<span>Submit to Export Desk</span> <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>';
+        } else {
+          submitBtn.innerHTML = `<span>Submitted (Wait ${remaining}s)</span>`;
+        }
+      }, 1000);
+    };
+
+    // Check if previous cooldown is still active
+    const savedCooldown = parseInt(localStorage.getItem('bm_qa_cooldown') || '0', 10);
+    const now = Date.now();
+    if (savedCooldown > now) {
+      startCooldown(Math.ceil((savedCooldown - now) / 1000));
+    }
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (isSubmitting) return;
+
+      // Rate limit check
+      const currentCooldown = parseInt(localStorage.getItem('bm_qa_cooldown') || '0', 10);
+      if (currentCooldown > Date.now()) {
+        const left = Math.ceil((currentCooldown - Date.now()) / 1000);
+        feedback.innerHTML = `<div class="article-qa-alert article-qa-alert-danger">Please wait ${left} seconds before submitting another question.</div>`;
+        return;
+      }
+
+      isSubmitting = true;
       submitBtn.disabled = true;
-      submitBtn.innerHTML = 'Transmitting to Desk...';
+      submitBtn.innerHTML = `
+        <svg class="article-qa-spinner" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-linecap="round"></circle>
+        </svg>
+        <span>Transmitting to Export Desk...</span>
+      `;
       feedback.innerHTML = '';
 
       const formData = new FormData(form);
@@ -264,16 +316,21 @@
         const resp = await fetch('/api/blog-discussion.php', { method: 'POST', body: formData });
         const res = await resp.json();
         if (res.success) {
-          feedback.innerHTML = `<div class="article-qa-alert article-qa-alert-success">✓ Question submitted to Balochistan Minerals Trade Desk. Our technical team will email you and publish approved guidance.</div>`;
+          feedback.innerHTML = `<div class="article-qa-alert article-qa-alert-success">✓ Question or review submitted to Balochistan Minerals Trade Desk. Our technical team will review and publish guidance.</div>`;
           form.reset();
+          localStorage.setItem('bm_qa_cooldown', Date.now() + 30000);
+          startCooldown(30);
         } else {
-          feedback.innerHTML = `<div class="article-qa-alert article-qa-alert-danger">${res.error || 'Submission failed'}</div>`;
+          feedback.innerHTML = `<div class="article-qa-alert article-qa-alert-danger">${escapeQaHtml(res.error || 'Submission failed')}</div>`;
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<span>Submit to Export Desk</span> <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>';
         }
       } catch(err) {
         feedback.innerHTML = `<div class="article-qa-alert article-qa-alert-danger">Connection error. Please connect directly via WhatsApp: +92 334 8888104</div>`;
-      } finally {
         submitBtn.disabled = false;
         submitBtn.innerHTML = '<span>Submit to Export Desk</span> <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>';
+      } finally {
+        isSubmitting = false;
       }
     });
   };

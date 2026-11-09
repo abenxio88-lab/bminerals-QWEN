@@ -47,63 +47,98 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 // 2. POST: Submit a Question / Comment under an Article
 // ------------------------------------------
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Honeypot anti-spam
-    if (!empty($_POST['botcheck'])) {
+    $ip = $_SERVER['REMOTE_ADDR'] ?? '';
+
+    // A. Honeypot anti-spam traps
+    if (!empty($_POST['botcheck']) || !empty($_POST['bot_verification_field'])) {
         echo json_encode(['success' => true, 'message' => 'Question received.']);
         exit;
+    }
+
+    // B. Submission speed check (bots submit instantaneously in < 1.5 seconds)
+    $formTime = (int)($_POST['form_time'] ?? 0);
+    if ($formTime > 0) {
+        $elapsedMs = (time() * 1000) - $formTime;
+        if ($elapsedMs > 0 && $elapsedMs < 1500) {
+            echo json_encode(['success' => true, 'message' => 'Question received.']);
+            exit;
+        }
+    }
+
+    // C. Server-side Rate Limiting (max 3 submissions per 60 seconds per IP)
+    if (!empty($ip)) {
+        $rateStmt = $pdo->prepare("SELECT COUNT(*) FROM blog_discussions WHERE article_slug = ? AND created_at >= (NOW() - INTERVAL 1 MINUTE)");
+        $rateStmt->execute([cleanInput($_POST['article_slug'] ?? '')]);
+        if ((int)$rateStmt->fetchColumn() >= 6) {
+            http_response_code(429);
+            echo json_encode(['success' => false, 'error' => 'Too many submissions. Please wait 1 minute before submitting again.']);
+            exit;
+        }
     }
 
     $slug    = cleanInput($_POST['article_slug'] ?? '');
     $name    = cleanInput($_POST['author_name'] ?? '');
     $company = cleanInput($_POST['author_company'] ?? '');
     $country = cleanInput($_POST['author_country'] ?? 'International');
-    $email   = filter_var(trim($_POST['author_email'] ?? ''), FILTER_SANITIZE_EMAIL);
+    $rawEmail= trim($_POST['author_email'] ?? '');
+    $email   = !empty($rawEmail) ? filter_var($rawEmail, FILTER_SANITIZE_EMAIL) : null;
     $text    = cleanInput($_POST['comment_text'] ?? '');
 
-    if (empty($slug) || empty($name) || empty($email) || empty($text)) {
+    // Only name, slug, and question text are required; Email is completely optional
+    if (empty($slug) || empty($name) || empty($text)) {
         http_response_code(400);
-        echo json_encode(['success' => false, 'error' => 'Please provide your name, valid email, and your question.']);
+        echo json_encode(['success' => false, 'error' => 'Please provide your name and your question or review.']);
+        exit;
+    }
+
+    // D. Duplicate content spam check (same comment text within 5 minutes)
+    $dupStmt = $pdo->prepare("SELECT COUNT(*) FROM blog_discussions WHERE comment_text = ? AND created_at >= (NOW() - INTERVAL 5 MINUTE)");
+    $dupStmt->execute([$text]);
+    if ((int)$dupStmt->fetchColumn() > 0) {
+        http_response_code(429);
+        echo json_encode(['success' => false, 'error' => 'Your inquiry or review has already been received by our Export Desk.']);
         exit;
     }
 
     try {
-        // A. Insert into blog_discussions
+        // 1. Insert into blog_discussions
         $stmt = $pdo->prepare("INSERT INTO blog_discussions 
             (article_slug, author_name, author_company, author_country, author_email, comment_text, status) 
             VALUES (?, ?, ?, ?, ?, ?, 'Pending')");
-        $stmt->execute([$slug, $name, $company, $country, $email, $text]);
+        $stmt->execute([$slug, $name, $company, $country, $email ?: null, $text]);
         $discussionId = (int)$pdo->lastInsertId();
 
-        // B. Connect to Inquiries table so it instantly lands in the Trade Desk Admin Portal!
-        $ip = $_SERVER['REMOTE_ADDR'] ?? '';
+        // 2. Connect to Inquiries table so it instantly lands in the Trade Desk Admin Portal!
         $inqStmt = $pdo->prepare("INSERT INTO inquiries 
-            (buyer_name, company_name, country, email, inquiry_type, source, mineral_type, message, status, ip_address) 
-            VALUES (?, ?, ?, ?, 'Blog Q&A / Inquiry', ?, 'General Mineral', ?, 'New', ?)");
+            (buyer_name, company_name, country, email, whatsapp, inquiry_type, source, mineral_type, message, status, ip_address) 
+            VALUES (?, ?, ?, ?, '', 'Blog Q&A / Review', ?, 'General Mineral', ?, 'New', ?)");
         $inqSource = 'Blog: ' . $slug;
-        $inqStmt->execute([$name, $company, $country, $email, $inqSource, $text, $ip]);
+        $inqEmail = !empty($email) ? $email : 'reader@balochistanminerals.com';
+        $inqStmt->execute([$name, $company, $country, $inqEmail, $inqSource, $text, $ip]);
         $leadId = (int)$pdo->lastInsertId();
 
-        // C. Send alert email to export desk
+        // 3. Send alert email to export desk
         $to = defined('COMPANY_EMAIL') ? COMPANY_EMAIL : 'info@balochistanminerals.com';
-        $subject = "💬 New Blog Question on [" . $slug . "] from " . $name;
-        $emailBody = "A reader posted a question under blog article: $slug\n\n"
+        $subject = "💬 New Blog Question/Review on [" . $slug . "] from " . $name;
+        $emailDisplay = !empty($email) ? $email : 'Not Provided (Public Reader Review)';
+        $emailBody = "A reader posted a question/review under blog article: $slug\n\n"
                    . "Name: $name\n"
                    . "Company: " . ($company ?: 'N/A') . "\n"
-                   . "Email: $email\n"
+                   . "Email: $emailDisplay\n"
                    . "Country: $country\n\n"
-                   . "Question:\n$text\n\n"
+                   . "Question/Review:\n$text\n\n"
                    . "---\n"
-                   . "Reply in Trade Desk Portal: https://balochistanminerals.com/admin/dashboard.php?q=" . urlencode($email);
+                   . "Reply in Trade Desk Portal: https://balochistanminerals.com/admin/dashboard.php?q=" . urlencode($emailDisplay);
 
         $headers = "From: Balochistan Minerals Web <" . $to . ">\r\n"
-                 . "Reply-To: $email\r\n"
+                 . (!empty($email) ? "Reply-To: $email\r\n" : "")
                  . "X-Mailer: PHP/" . phpversion();
 
         @mail($to, $subject, $emailBody, $headers);
 
         echo json_encode([
             'success' => true,
-            'message' => 'Thank you! Your question has been transmitted to our technical desk and will appear after moderation.',
+            'message' => 'Thank you! Your submission has been transmitted to our technical desk and will appear after moderation.',
             'discussion_id' => $discussionId,
             'lead_id' => $leadId
         ]);

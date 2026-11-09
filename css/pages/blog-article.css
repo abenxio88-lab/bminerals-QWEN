@@ -1039,37 +1039,49 @@
 }
 
 .article-qa-header {
-  margin-bottom: 1.15rem;
+  margin-bottom: 1.35rem;
+  text-align: center !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .article-qa-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  justify-content: center;
+  gap: 6px;
   font-family: 'Montserrat', sans-serif;
   font-size: 0.68rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   color: #1E293B;
-  margin-bottom: 0.35rem;
+  margin: 0 auto 0.4rem auto;
+  text-align: center !important;
 }
 
 .article-qa-title {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: #0F172A;
-  margin: 0 0 0.35rem;
+  margin: 0 auto 0.45rem auto;
   letter-spacing: -0.015em;
   line-height: 1.25;
+  text-align: center !important;
+  text-align-last: center !important;
 }
 
 .article-qa-subtitle {
   font-size: 0.82rem;
   color: #64748B;
-  margin: 0;
-  line-height: 1.5;
+  margin: 0 auto;
+  line-height: 1.55;
+  text-align: center !important;
+  text-align-last: center !important;
+  max-width: 580px;
 }
 
 .article-qa-stream {
@@ -1171,8 +1183,9 @@
   font-size: 0.95rem;
   font-weight: 700;
   color: #0F172A;
-  margin: 0 0 0.85rem;
+  margin: 0 0 1rem;
   letter-spacing: -0.01em;
+  text-align: center;
 }
 
 .article-qa-grid {
@@ -1235,25 +1248,35 @@
   min-height: 70px;
 }
 
+.article-qa-submit-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 0.85rem;
+}
+
 .article-qa-submit-btn {
   background: #0F172A;
   color: #FFFFFF;
   border: 1px solid #0F172A;
   font-family: 'Montserrat', sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.80rem;
   font-weight: 600;
-  padding: 8px 20px;
+  padding: 9px 26px;
   border-radius: 4px;
   cursor: pointer;
   box-shadow: none !important;
-  transition: all 0.15s ease;
+  transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  margin-top: 0.25rem;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 auto;
+  text-align: center;
 }
 
-.article-qa-submit-btn:hover {
+.article-qa-submit-btn:hover:not(:disabled) {
   background: #1E293B;
   border-color: #1E293B;
   color: #FFFFFF;
@@ -1262,13 +1285,34 @@
 .article-qa-submit-btn:disabled {
   opacity: 0.7;
   cursor: not-allowed;
+  pointer-events: none;
+}
+
+.article-qa-submit-btn.is-cooldown {
+  background: #475569;
+  border-color: #475569;
+  color: #F1F5F9;
+}
+
+.article-qa-spinner {
+  animation: qaSpinner 0.85s linear infinite;
+  display: inline-block;
+}
+
+@keyframes qaSpinner {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .article-qa-alert {
   font-size: 0.80rem;
-  padding: 8px 12px;
+  padding: 8px 14px;
   border-radius: 4px;
   margin-top: 0.75rem;
+  text-align: center;
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .article-qa-alert-success {
