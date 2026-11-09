@@ -165,24 +165,7 @@ if ($pdo !== null) {
       display: flex;
       flex-direction: column;
     }
-    .sidebar-header {
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--brand-border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .sidebar-logo { height: 32px; width: auto; object-fit: contain; }
-    .sidebar-badge {
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: #E65C1A;
-      color: #FFFFFF !important;
-      border: 1px solid #D45A15;
-    }
+
     .sidebar-nav { padding: 14px 12px; flex: 1; overflow-y: auto; }
     .sidebar-section-title {
       font-size: 0.65rem;
@@ -399,7 +382,7 @@ if ($pdo !== null) {
         </a>
         <a href="prospects.php" class="sidebar-link">
           <div><i class="bi bi-bullseye"></i> Buyer Directory</div>
-          <span class="badge font-monospace" style="background: rgba(230,92,26,0.15); color: #E65C1A; font-size: 0.7rem;"><?= $totalProspects ?></span>
+          <span class="badge bg-light text-secondary border font-monospace" style="font-size: 0.7rem;"><?= $totalProspects ?></span>
         </a>
         <a href="radar.php" class="sidebar-link">
           <div><i class="bi bi-broadcast-pin"></i> Live Visitor Radar</div>
@@ -725,9 +708,9 @@ Web: https://balochistanminerals.com</textarea>
             </div>
           </div>
 
-          <div class="modal-footer d-flex justify-content-end gap-2 py-2 px-3">
-            <button type="button" class="btn-cancel-action" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn-save-action" style="background: #E65C1A !important; border-color: #D45A15 !important;">
+          <div class="modal-footer d-flex justify-content-end gap-2 py-2.5 px-3 bg-light border-top">
+            <button type="button" class="btn btn-sm btn-outline-secondary px-3 py-1.5" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-sm btn-dark px-3.5 py-1.5 fw-bold text-white shadow-sm" style="background: #0F172A; border-color: #0F172A; border-radius: 6px;">
               <i class="bi bi-send-fill me-1"></i> Dispatch Trade Offer
             </button>
           </div>

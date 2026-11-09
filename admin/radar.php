@@ -115,24 +115,7 @@ if ($pdo !== null) {
       display: flex;
       flex-direction: column;
     }
-    .sidebar-header {
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--brand-border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .sidebar-logo { height: 32px; width: auto; object-fit: contain; }
-    .sidebar-badge {
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: #E65C1A;
-      color: #FFFFFF !important;
-      border: 1px solid #D45A15;
-    }
+
     .sidebar-nav { padding: 14px 12px; flex: 1; overflow-y: auto; }
     .sidebar-section-title {
       font-size: 0.65rem;

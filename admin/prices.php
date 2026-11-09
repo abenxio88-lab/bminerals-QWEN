@@ -288,38 +288,7 @@ if ($pdo !== null) {
       width: var(--sidebar-width); background: var(--brand-surface); border-right: 1px solid var(--brand-border);
       display: flex; flex-direction: column; position: fixed; top: 0; bottom: 0; left: 0; z-index: 1040;
     }
-    .sidebar-header {
-      padding: 22px 16px 18px;
-      border-bottom: 1px solid var(--brand-border);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
 
-    .sidebar-logo {
-      max-height: 48px;
-      width: auto;
-      margin: 0 auto 10px;
-      display: block;
-    }
-
-    .sidebar-badge {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 4px 12px;
-      border-radius: 20px;
-      background: #E65C1A;
-      color: #FFFFFF !important;
-      border: 1px solid #D45A15;
-      box-shadow: 0 2px 6px rgba(230, 92, 26, 0.3);
-      display: inline-block;
-      white-space: nowrap;
-    }
     .sidebar-nav { padding: 16px 12px; flex: 1; }
     .sidebar-section-title { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #94A3B8; padding: 12px 10px 6px; }
     .sidebar-link {
@@ -494,7 +463,7 @@ if ($pdo !== null) {
                         </div>
                         <!-- PKR Line -->
                         <div class="price-pkr-line mt-1">
-                          <span class="font-monospace fw-bold" style="color: #92400E; font-size: 0.84rem;">
+                          <span class="font-monospace fw-semibold" style="color: #0F172A; font-size: 0.84rem;">
                             ₨ <?= number_format($lowPkr) ?> - ₨ <?= number_format($highPkr) ?>
                           </span>
                           <span class="small text-muted font-monospace">PKR / <?= htmlspecialchars($pUnit) ?></span>
@@ -612,8 +581,8 @@ if ($pdo !== null) {
                                       <!-- Real-time PKR Live Preview -->
                                       <div class="p-2 rounded bg-white border">
                                         <div class="d-flex justify-content-between align-items-center">
-                                          <span class="fw-bold" style="color: #92400E; font-size: 0.67rem; letter-spacing: 0.03em;">
-                                            <i class="bi bi-arrow-left-right me-1"></i> PAK RUPEES (PKR):
+                                          <span class="fw-bold" style="color: #1E293B; font-size: 0.67rem; letter-spacing: 0.03em;">
+                                            <i class="bi bi-arrow-left-right me-1 text-primary"></i> PAK RUPEES (PKR):
                                           </span>
                                           <button type="button" class="btn btn-xs btn-outline-dark py-0 px-1.5" style="font-size: 0.66rem; border-radius: 4px;" onclick="togglePkrHelper(this)">
                                             <i class="bi bi-calculator me-1"></i> Enter in PKR
@@ -778,8 +747,8 @@ if ($pdo !== null) {
                           <!-- Real-time PKR Live Preview -->
                           <div class="p-2 rounded bg-white border">
                             <div class="d-flex justify-content-between align-items-center">
-                              <span class="fw-bold" style="color: #92400E; font-size: 0.67rem; letter-spacing: 0.03em;">
-                                <i class="bi bi-arrow-left-right me-1"></i> PAK RUPEES (PKR):
+                              <span class="fw-bold" style="color: #1E293B; font-size: 0.67rem; letter-spacing: 0.03em;">
+                                <i class="bi bi-arrow-left-right me-1 text-primary"></i> PAK RUPEES (PKR):
                               </span>
                               <button type="button" class="btn btn-xs btn-outline-dark py-0 px-1.5" style="font-size: 0.66rem; border-radius: 4px;" onclick="togglePkrHelper(this)">
                                 <i class="bi bi-calculator me-1"></i> Enter in PKR

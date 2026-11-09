@@ -197,38 +197,7 @@ if ($pdo !== null) {
       z-index: 1040;
     }
 
-    .sidebar-header {
-      padding: 22px 16px 18px;
-      border-bottom: 1px solid var(--brand-border);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
 
-    .sidebar-logo {
-      max-height: 48px;
-      width: auto;
-      margin: 0 auto 10px;
-      display: block;
-    }
-
-    .sidebar-badge {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 4px 12px;
-      border-radius: 20px;
-      background: #E65C1A;
-      color: #FFFFFF !important;
-      border: 1px solid #D45A15;
-      box-shadow: 0 2px 6px rgba(230, 92, 26, 0.3);
-      display: inline-block;
-      white-space: nowrap;
-    }
 
     .sidebar-nav {
       padding: 16px 12px;
@@ -657,7 +626,7 @@ if ($pdo !== null) {
         </a>
         <a href="prospects.php" class="sidebar-link">
           <div><i class="bi bi-bullseye"></i> Buyer Directory</div>
-          <span class="badge font-monospace" style="background: rgba(230,92,26,0.15); color: #E65C1A; font-size: 0.7rem;"><?= $totalProspects ?></span>
+          <span class="badge bg-light text-secondary border font-monospace" style="font-size: 0.7rem;"><?= $totalProspects ?></span>
         </a>
         <a href="radar.php" class="sidebar-link">
           <div><i class="bi bi-broadcast-pin"></i> Live Visitor Radar</div>

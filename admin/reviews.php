@@ -93,38 +93,7 @@ if ($pdo !== null) {
       width: var(--sidebar-width); background: var(--brand-surface); border-right: 1px solid var(--brand-border);
       display: flex; flex-direction: column; position: fixed; top: 0; bottom: 0; left: 0; z-index: 1040;
     }
-    .sidebar-header {
-      padding: 22px 16px 18px;
-      border-bottom: 1px solid var(--brand-border);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
 
-    .sidebar-logo {
-      max-height: 48px;
-      width: auto;
-      margin: 0 auto 10px;
-      display: block;
-    }
-
-    .sidebar-badge {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 4px 12px;
-      border-radius: 20px;
-      background: #E65C1A;
-      color: #FFFFFF !important;
-      border: 1px solid #D45A15;
-      box-shadow: 0 2px 6px rgba(230, 92, 26, 0.3);
-      display: inline-block;
-      white-space: nowrap;
-    }
     .sidebar-nav { padding: 16px 12px; flex: 1; }
     .sidebar-section-title { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #94A3B8; padding: 12px 10px 6px; }
     .sidebar-link {
