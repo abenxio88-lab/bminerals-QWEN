@@ -128,8 +128,9 @@ if ($pdo !== null) {
     $params = [];
 
     if (!empty($filterMineral)) {
-        $sql .= " AND target_mineral LIKE ?";
-        $params[] = '%' . $filterMineral . '%';
+        list($mClause, $mParams) = buildMineralFilterClause($filterMineral, 'target_mineral');
+        $sql .= $mClause;
+        $params = array_merge($params, $mParams);
     }
     if (!empty($filterCountry)) {
         $sql .= " AND country = ?";
@@ -613,14 +614,8 @@ if ($pdo !== null) {
               </div>
             </div>
             <div class="col-md-3">
-              <select name="mineral" class="form-select form-select-sm" onchange="this.form.submit()">
-                <option value="">All Commodities</option>
-                <option value="Chromite" <?= $filterMineral === 'Chromite' ? 'selected' : '' ?>>Chromite Ore</option>
-                <option value="Barite" <?= $filterMineral === 'Barite' ? 'selected' : '' ?>>Barite (Barytes)</option>
-                <option value="Antimony" <?= $filterMineral === 'Antimony' ? 'selected' : '' ?>>Antimony Ore</option>
-                <option value="Copper" <?= $filterMineral === 'Copper' ? 'selected' : '' ?>>Copper Ore</option>
-                <option value="Fluorite" <?= $filterMineral === 'Fluorite' ? 'selected' : '' ?>>Fluorite (Fluorspar)</option>
-                <option value="Iron Ore" <?= $filterMineral === 'Iron Ore' ? 'selected' : '' ?>>Iron Ore</option>
+              <select name="mineral" class="form-select form-select-sm" onchange="this.form.submit()" title="Filter by Commodity">
+                <?= renderCommodityOptions($filterMineral, true, 'All Commodities') ?>
               </select>
             </div>
             <div class="col-md-3">
@@ -917,7 +912,7 @@ Web: https://balochistanminerals.com</textarea>
                                   <div class="row g-2 mb-2">
                                     <div class="col-6">
                                       <label class="form-label">Target Mineral</label>
-                                      <input type="text" name="target_mineral" class="form-control form-control-sm" value="<?= htmlspecialchars($b['target_mineral']) ?>" required>
+                                      <input type="text" name="target_mineral" list="mineralList" class="form-control form-control-sm" value="<?= htmlspecialchars($b['target_mineral']) ?>" required>
                                     </div>
                                     <div class="col-6">
                                       <label class="form-label">Buyer Type</label>
@@ -1028,7 +1023,7 @@ Web: https://balochistanminerals.com</textarea>
                       <div class="row g-2 mb-2">
                         <div class="col-6">
                           <label class="form-label">Target Mineral</label>
-                          <input type="text" name="target_mineral" class="form-control form-control-sm" placeholder="e.g. Chromite Ore" required>
+                          <input type="text" name="target_mineral" list="mineralList" class="form-control form-control-sm" placeholder="e.g. Chromite Ore" required>
                         </div>
                         <div class="col-6">
                           <label class="form-label">Buyer Type</label>
@@ -1094,6 +1089,7 @@ Web: https://balochistanminerals.com</textarea>
       }
     }
   </script>
+  <?= renderCommodityDatalist('mineralList') ?>
   <script src="admin-layout.js"></script>
 </body>
 </html>

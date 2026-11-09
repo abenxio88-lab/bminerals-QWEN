@@ -96,3 +96,245 @@ function generateWhatsAppLink($buyerPhone, $message) {
 function cleanInput($data) {
     return htmlspecialchars(trim((string)$data), ENT_QUOTES, 'UTF-8');
 }
+
+/**
+ * Master catalog of all minerals and commodities produced and exported by Balochistan Minerals.
+ * Structured by commercial category for UI grouping, filtering, and reporting.
+ */
+function getCommodityCatalog() {
+    return [
+        'Metallic Ores & Concentrates' => [
+            'Chromite' => [
+                'name'    => 'Chromite Ore',
+                'badge'   => '40%-54% Cr2O3',
+                'aliases' => ['Chromite', 'Chrome'],
+                'category'=> 'metallic',
+            ],
+            'Antimony' => [
+                'name'    => 'Antimony Ore (Stibnite)',
+                'badge'   => '40%-65% Sb',
+                'aliases' => ['Antimony', 'Stibnite'],
+                'category'=> 'metallic',
+            ],
+            'Copper' => [
+                'name'    => 'Copper Ore',
+                'badge'   => '18%-32% Cu',
+                'aliases' => ['Copper', 'Cu '],
+                'category'=> 'metallic',
+            ],
+            'Iron' => [
+                'name'    => 'Iron Ore (Magnetite / Hematite)',
+                'badge'   => '60%-64% Fe Basis',
+                'aliases' => ['Iron', 'Magnetite', 'Hematite'],
+                'category'=> 'metallic',
+            ],
+            'Manganese' => [
+                'name'    => 'Manganese Ore',
+                'badge'   => '38%-48% Mn',
+                'aliases' => ['Manganese'],
+                'category'=> 'metallic',
+            ],
+            'Bauxite' => [
+                'name'    => 'Bauxite Ore',
+                'badge'   => '48%-56% Al2O3',
+                'aliases' => ['Bauxite'],
+                'category'=> 'metallic',
+            ],
+            'Lead-Zinc' => [
+                'name'    => 'Lead & Zinc Ore',
+                'badge'   => 'Galena & Sphalerite',
+                'aliases' => ['Lead', 'Zinc'],
+                'category'=> 'metallic',
+            ],
+        ],
+        'Industrial & Drilling Minerals' => [
+            'Barite' => [
+                'name'    => 'Barite (Barytes / Drilling API 13A)',
+                'badge'   => '4.10-4.25+ SG',
+                'aliases' => ['Barite', 'Baryte'],
+                'category'=> 'industrial',
+            ],
+            'Fluorite' => [
+                'name'    => 'Fluorite / Fluorspar',
+                'badge'   => '75%-97% CaF2',
+                'aliases' => ['Fluorite', 'Fluorspar', 'Fluor'],
+                'category'=> 'industrial',
+            ],
+            'Gypsum' => [
+                'name'    => 'Gypsum Ore',
+                'badge'   => '90%-96% CaSO4·2H2O',
+                'aliases' => ['Gypsum'],
+                'category'=> 'industrial',
+            ],
+            'Magnesite' => [
+                'name'    => 'Magnesite',
+                'badge'   => '45%-47% MgO',
+                'aliases' => ['Magnesite'],
+                'category'=> 'industrial',
+            ],
+        ],
+        'Energy Minerals & Solid Fuels' => [
+            'Coal' => [
+                'name'    => 'Balochistan Coal',
+                'badge'   => '5,500-6,800 kcal/kg Steam Coal',
+                'aliases' => ['Coal'],
+                'category'=> 'energy',
+            ],
+        ],
+        'Natural Stones & Dimensional Blocks' => [
+            'Marble' => [
+                'name'    => 'Marble (Balochistan & Iranian)',
+                'badge'   => 'Blocks & Slabs',
+                'aliases' => ['Marble', 'Silver Steam'],
+                'category'=> 'stone',
+            ],
+            'Onyx' => [
+                'name'    => 'Onyx Stone',
+                'badge'   => 'Dark & Multi-Green Onyx',
+                'aliases' => ['Onyx'],
+                'category'=> 'stone',
+            ],
+            'Granite' => [
+                'name'    => 'Granite Stone',
+                'badge'   => 'Dimensional Slabs',
+                'aliases' => ['Granite'],
+                'category'=> 'stone',
+            ],
+        ],
+    ];
+}
+
+/**
+ * Returns complete catalog merged with any custom mineral values found dynamically in DB.
+ */
+function getAllFilterableCommodities($pdo = null) {
+    $catalog = getCommodityCatalog();
+    if ($pdo === null) {
+        $pdo = getDB();
+    }
+    if (!$pdo) {
+        return $catalog;
+    }
+
+    try {
+        $knownAliases = [];
+        foreach ($catalog as $group => $items) {
+            foreach ($items as $key => $meta) {
+                foreach ($meta['aliases'] as $alias) {
+                    $knownAliases[] = strtolower($alias);
+                }
+            }
+        }
+
+        $extra = [];
+        $queries = [
+            "SELECT DISTINCT mineral_name FROM mineral_prices WHERE mineral_name IS NOT NULL AND mineral_name != ''",
+            "SELECT DISTINCT target_mineral FROM buyer_prospects WHERE target_mineral IS NOT NULL AND target_mineral != ''",
+            "SELECT DISTINCT mineral_name FROM stockpiles WHERE mineral_name IS NOT NULL AND mineral_name != ''",
+            "SELECT DISTINCT mineral_type FROM inquiries WHERE mineral_type IS NOT NULL AND mineral_type != '' AND mineral_type != 'General Mineral'"
+        ];
+
+        foreach ($queries as $q) {
+            $stmt = $pdo->query($q);
+            while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+                $val = trim($row[0]);
+                if (!empty($val)) {
+                    $extra[] = $val;
+                }
+            }
+        }
+
+        $custom = [];
+        foreach (array_unique($extra) as $item) {
+            $matched = false;
+            $low = strtolower($item);
+            foreach ($knownAliases as $alias) {
+                if (strpos($low, $alias) !== false) {
+                    $matched = true;
+                    break;
+                }
+            }
+            if (!$matched) {
+                $custom[$item] = [
+                    'name'    => $item,
+                    'badge'   => 'Custom Asset',
+                    'aliases' => [$item],
+                    'category'=> 'custom',
+                ];
+            }
+        }
+
+        if (!empty($custom)) {
+            $catalog['Additional Commercial Minerals'] = $custom;
+        }
+    } catch (Exception $e) {
+        // fail-soft
+    }
+
+    return $catalog;
+}
+
+/**
+ * Helper to build SQL WHERE clause and params for mineral filtering.
+ * Searches across all aliases (e.g. 'Fluorite' -> checks 'Fluorite', 'Fluorspar', 'Fluor').
+ */
+function buildMineralFilterClause($filterMineral, $column = 'mineral_type') {
+    if (empty($filterMineral)) {
+        return ['', []];
+    }
+    $catalog = getAllFilterableCommodities();
+    $aliases = [];
+    foreach ($catalog as $group => $items) {
+        if (isset($items[$filterMineral])) {
+            $aliases = $items[$filterMineral]['aliases'];
+            break;
+        }
+    }
+    if (empty($aliases)) {
+        $aliases = [$filterMineral];
+    }
+
+    $clauses = [];
+    $params = [];
+    foreach ($aliases as $alias) {
+        $clauses[] = "$column LIKE ?";
+        $params[] = "%" . $alias . "%";
+    }
+    return [" AND (" . implode(" OR ", $clauses) . ")", $params];
+}
+
+/**
+ * Render standard HTML <option> items grouped by category with badges.
+ */
+function renderCommodityOptions($selectedKey = '', $includeEmpty = true, $emptyLabel = 'All Commodities') {
+    $catalog = getAllFilterableCommodities();
+    $html = '';
+    if ($includeEmpty) {
+        $html .= '<option value="">' . htmlspecialchars($emptyLabel) . '</option>' . "\n";
+    }
+    foreach ($catalog as $group => $items) {
+        $html .= '  <optgroup label="' . htmlspecialchars($group) . '">' . "\n";
+        foreach ($items as $key => $meta) {
+            $sel = ($selectedKey === $key || $selectedKey === $meta['name']) ? ' selected' : '';
+            $badge = !empty($meta['badge']) ? ' (' . $meta['badge'] . ')' : '';
+            $html .= '    <option value="' . htmlspecialchars($key) . '"' . $sel . '>' . htmlspecialchars($meta['name'] . $badge) . '</option>' . "\n";
+        }
+        $html .= '  </optgroup>' . "\n";
+    }
+    return $html;
+}
+
+/**
+ * Render HTML <datalist> for instant autocomplete on text input fields.
+ */
+function renderCommodityDatalist($id = 'mineralList') {
+    $catalog = getAllFilterableCommodities();
+    $html = '<datalist id="' . htmlspecialchars($id) . '">' . "\n";
+    foreach ($catalog as $group => $items) {
+        foreach ($items as $key => $meta) {
+            $html .= '  <option value="' . htmlspecialchars($meta['name']) . '">' . "\n";
+        }
+    }
+    $html .= '</datalist>' . "\n";
+    return $html;
+}

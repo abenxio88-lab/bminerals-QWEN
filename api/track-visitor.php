@@ -71,8 +71,26 @@ if (empty($mineral)) {
         $mineral = 'Copper Ore';
     } elseif (strpos($lower, 'fluor') !== false) {
         $mineral = 'Fluorite (Fluorspar)';
-    } elseif (strpos($lower, 'iron') !== false) {
+    } elseif (strpos($lower, 'iron') !== false || strpos($lower, 'magnet') !== false || strpos($lower, 'hemat') !== false) {
         $mineral = 'Iron Ore';
+    } elseif (strpos($lower, 'bauxit') !== false) {
+        $mineral = 'Bauxite Ore';
+    } elseif (strpos($lower, 'mangan') !== false) {
+        $mineral = 'Manganese Ore';
+    } elseif (strpos($lower, 'lead') !== false || strpos($lower, 'zinc') !== false) {
+        $mineral = 'Lead & Zinc Ore';
+    } elseif (strpos($lower, 'gypsum') !== false) {
+        $mineral = 'Gypsum Ore';
+    } elseif (strpos($lower, 'magnes') !== false) {
+        $mineral = 'Magnesite';
+    } elseif (strpos($lower, 'coal') !== false) {
+        $mineral = 'Balochistan Coal';
+    } elseif (strpos($lower, 'onyx') !== false) {
+        $mineral = 'Onyx Stone';
+    } elseif (strpos($lower, 'granit') !== false) {
+        $mineral = 'Granite Stone';
+    } elseif (strpos($lower, 'marble') !== false || strpos($lower, 'stone') !== false) {
+        $mineral = 'Marble (Balochistan & Iranian)';
     } else {
         $mineral = 'General Exploration';
     }

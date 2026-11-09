@@ -419,7 +419,7 @@ if ($pdo !== null) {
                             <div class="modal-body">
                               <div class="mb-3">
                                 <label class="form-label small fw-semibold">Mineral Name</label>
-                                <input type="text" name="mineral_name" class="form-control form-control-sm" value="<?= htmlspecialchars($stk['mineral_name']) ?>" required>
+                                <input type="text" name="mineral_name" list="mineralList" class="form-control form-control-sm" value="<?= htmlspecialchars($stk['mineral_name']) ?>" required>
                               </div>
                               <div class="mb-3">
                                 <label class="form-label small fw-semibold">Location / Yard</label>
@@ -599,7 +599,7 @@ if ($pdo !== null) {
                 <div class="modal-body">
                   <div class="mb-3">
                     <label class="form-label small fw-semibold">Mineral / Material</label>
-                    <input type="text" name="mineral_name" class="form-control form-control-sm" placeholder="e.g. Chromite Lumps, Barite Powder" required>
+                    <input type="text" name="mineral_name" list="mineralList" class="form-control form-control-sm" placeholder="e.g. Chromite Lumps, Barite Powder" required>
                   </div>
                   <div class="mb-3">
                     <label class="form-label small fw-semibold">Yard / Location</label>
@@ -640,6 +640,7 @@ if ($pdo !== null) {
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <?= renderCommodityDatalist('mineralList') ?>
   <script src="admin-layout.js"></script>
 </body>
 </html>

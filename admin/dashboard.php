@@ -117,8 +117,9 @@ if ($pdo !== null) {
         $params[] = $filterStatus;
     }
     if (!empty($filterMineral)) {
-        $sql .= " AND i.mineral_type LIKE ?";
-        $params[] = "%" . $filterMineral . "%";
+        list($mClause, $mParams) = buildMineralFilterClause($filterMineral, 'i.mineral_type');
+        $sql .= $mClause;
+        $params = array_merge($params, $mParams);
     }
     if (!empty($searchQuery)) {
         $sql .= " AND (i.buyer_name LIKE ? OR i.company_name LIKE ? OR i.email LIKE ? OR i.whatsapp LIKE ? OR i.country LIKE ?)";
@@ -773,7 +774,7 @@ if ($pdo !== null) {
         <!-- Filter & Search Toolbar -->
         <div class="filter-toolbar">
           <form method="GET" action="dashboard.php" class="row g-2 align-items-center">
-            <div class="col-12 col-md-5">
+            <div class="col-12 col-md-4">
               <div class="input-group input-group-sm search-input-group">
                 <span class="input-group-text py-1.5"><i class="bi bi-search"></i></span>
                 <input type="text" name="q" class="form-control py-1.5" placeholder="Search buyer, company, country, WhatsApp..." value="<?= htmlspecialchars($searchQuery) ?>">
@@ -782,7 +783,7 @@ if ($pdo !== null) {
                 <?php endif; ?>
               </div>
             </div>
-            <div class="col-6 col-md-3">
+            <div class="col-6 col-md-2">
               <select name="status" class="form-select form-select-sm py-1.5" onchange="this.form.submit()">
                 <option value="">All Deal Stages</option>
                 <option value="New" <?= $filterStatus === 'New' ? 'selected' : '' ?>>New</option>
@@ -794,14 +795,9 @@ if ($pdo !== null) {
                 <option value="Closed" <?= $filterStatus === 'Closed' ? 'selected' : '' ?>>Closed</option>
               </select>
             </div>
-            <div class="col-6 col-md-2">
-              <select name="mineral" class="form-select form-select-sm py-1.5" onchange="this.form.submit()">
-                <option value="">All Commodities</option>
-                <option value="Chromite" <?= $filterMineral === 'Chromite' ? 'selected' : '' ?>>Chromite</option>
-                <option value="Barite" <?= $filterMineral === 'Barite' ? 'selected' : '' ?>>Barite</option>
-                <option value="Iron" <?= $filterMineral === 'Iron' ? 'selected' : '' ?>>Iron Ore</option>
-                <option value="Copper" <?= $filterMineral === 'Copper' ? 'selected' : '' ?>>Copper</option>
-                <option value="Marble" <?= $filterMineral === 'Marble' ? 'selected' : '' ?>>Marble</option>
+            <div class="col-6 col-md-4">
+              <select name="mineral" class="form-select form-select-sm py-1.5" onchange="this.form.submit()" title="Filter by Mineral or Commodity">
+                <?= renderCommodityOptions($filterMineral, true, 'All Commodities') ?>
               </select>
             </div>
             <div class="col-12 col-md-2 d-flex gap-1.5">

@@ -516,7 +516,7 @@ if ($pdo !== null) {
 
                                   <div class="mb-2">
                                     <label class="form-label mb-1">Mineral Name</label>
-                                    <input type="text" name="mineral_name" class="form-control form-control-sm" value="<?= htmlspecialchars($p['mineral_name']) ?>" required>
+                                    <input type="text" name="mineral_name" list="mineralList" class="form-control form-control-sm" value="<?= htmlspecialchars($p['mineral_name']) ?>" required>
                                   </div>
                                   <div class="mb-2">
                                     <label class="form-label mb-1">Grade Description</label>
@@ -682,7 +682,7 @@ if ($pdo !== null) {
 
                       <div class="mb-2">
                         <label class="form-label mb-1">Mineral Name</label>
-                        <input type="text" name="mineral_name" class="form-control form-control-sm" placeholder="e.g. Chromite, Iron Ore, Copper" required>
+                        <input type="text" name="mineral_name" list="mineralList" class="form-control form-control-sm" placeholder="e.g. Chromite, Iron Ore, Copper" required>
                       </div>
                       <div class="mb-2">
                         <label class="form-label mb-1">Grade Description</label>
@@ -941,6 +941,7 @@ if ($pdo !== null) {
       setCurrencyView(saved);
     });
   </script>
+  <?= renderCommodityDatalist('mineralList') ?>
   <script src="admin-layout.js"></script>
 </body>
 </html>

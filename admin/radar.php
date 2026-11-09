@@ -21,12 +21,17 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && $pdo !== null) {
     if (verifyCsrfToken($csrf)) {
         if ($action === 'simulate_ping') {
             $sims = [
-                ['114.242.25.10', 'China', 'Tianjin', '/products.html#chromite', 'Chromite Ore', 'Baidu Search'],
-                ['185.100.87.12', 'United Arab Emirates', 'Dubai', '/products.html#barite', 'Barite (Barytes)', 'Direct / Bookmark'],
-                ['133.200.41.90', 'Japan', 'Tokyo', '/products.html#antimony', 'Antimony Ore', 'Google Japan'],
-                ['94.200.15.77', 'Saudi Arabia', 'Jubail', '/products.html#fluorite', 'Fluorite (Fluorspar)', 'Google Saudi'],
-                ['80.150.12.33', 'Germany', 'Duisburg', '/products.html#chromite', 'Chromite Ore', 'Commodity Bulletin'],
-                ['14.192.11.45', 'South Korea', 'Pohang', '/products.html#iron-ore', 'Iron Ore', 'Naver']
+                ['114.242.25.10', 'China', 'Tianjin', '/minerals/chromite-ore', 'Chromite Ore', 'Baidu Search'],
+                ['185.100.87.12', 'United Arab Emirates', 'Dubai', '/minerals/drilling-barite', 'Barite (Barytes)', 'Direct / Bookmark'],
+                ['133.200.41.90', 'Japan', 'Tokyo', '/minerals/antimony-ore', 'Antimony Ore', 'Google Japan'],
+                ['94.200.15.77', 'Saudi Arabia', 'Jubail', '/minerals/fluorite-fluorspar', 'Fluorite (Fluorspar)', 'Google Saudi'],
+                ['80.150.12.33', 'Germany', 'Duisburg', '/minerals/chromite-ore', 'Chromite Ore', 'Commodity Bulletin'],
+                ['14.192.11.45', 'South Korea', 'Pohang', '/minerals/iron-ore', 'Iron Ore', 'Naver'],
+                ['185.120.44.18', 'United Arab Emirates', 'Abu Dhabi', '/minerals/bauxite-ore', 'Bauxite Ore', 'Direct / RFQ Link'],
+                ['103.21.58.90', 'India', 'Mumbai', '/minerals/manganese-ore', 'Manganese Ore', 'Google India'],
+                ['39.40.112.50', 'Pakistan', 'Karachi', '/minerals/balochistan-coal', 'Balochistan Coal', 'Cement Procurement Portal'],
+                ['195.175.25.60', 'Turkey', 'Istanbul', '/minerals/gypsum-ore', 'Gypsum Ore', 'Yandex'],
+                ['212.174.45.10', 'Spain', 'Novelda', '/minerals/balochistan-marble-onyx', 'Marble & Onyx', 'Direct Stone Buyer']
             ];
             $chosen = $sims[array_rand($sims)];
             $stmt = $pdo->prepare("INSERT INTO visitor_radar (ip_address, country, city, page_url, mineral_interest, referrer, user_agent) VALUES (?, ?, ?, ?, ?, ?, 'Mozilla/5.0 Commercial Browser Simulator')");

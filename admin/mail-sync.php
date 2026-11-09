@@ -115,16 +115,23 @@ $syncedCount = 0;
 if ($emails) {
     // Known mineral keywords to auto-tag
     $mineralKeywords = [
-        'chromite' => 'Chromite Ore',
-        'barite'   => 'Barite',
-        'iron'     => 'Iron Ore',
-        'copper'   => 'Copper Ore',
-        'antimony' => 'Antimony',
-        'fluor'    => 'Fluorspar',
-        'magnesite'=> 'Magnesite',
-        'marble'   => 'Silver Steam Marble',
-        'coal'     => 'Coal',
-        'gypsum'   => 'Gypsum'
+        'chromite'  => 'Chromite Ore',
+        'barite'    => 'Barite',
+        'iron'      => 'Iron Ore',
+        'copper'    => 'Copper Ore',
+        'antimony'  => 'Antimony',
+        'stibnite'  => 'Antimony',
+        'fluor'     => 'Fluorspar',
+        'magnesite' => 'Magnesite',
+        'bauxite'   => 'Bauxite Ore',
+        'manganese' => 'Manganese Ore',
+        'lead'      => 'Lead & Zinc Ore',
+        'zinc'      => 'Lead & Zinc Ore',
+        'onyx'      => 'Onyx Stone',
+        'granite'   => 'Granite Stone',
+        'marble'    => 'Marble (Balochistan & Iranian)',
+        'coal'      => 'Balochistan Coal',
+        'gypsum'    => 'Gypsum Ore'
     ];
 
     foreach ($emails as $emailNumber) {
