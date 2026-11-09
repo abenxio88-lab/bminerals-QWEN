@@ -129,12 +129,12 @@ $conversionRate = $totalInquiries > 0 ? round((($statusCounts['Contract Signed']
   <link rel="stylesheet" href="admin-layout.css?v=<?= filemtime(__DIR__ . '/admin-layout.css') ?>">
 
   <style>
-    /* Metric Projection Cards (Flat, Crisp Line Borders, Zero Shade) */
+    /* Metric Projection Cards (Flat, Crisp Line Borders, Zero Shade, Refined Sizing) */
     .metric-proj-card {
       background: #FFFFFF;
       border: 1px solid var(--brand-border);
       border-radius: var(--radius-md);
-      padding: 18px 20px;
+      padding: 13px 16px;
       box-shadow: none !important;
       position: relative;
       height: 100%;
@@ -147,10 +147,10 @@ $conversionRate = $totalInquiries > 0 ? round((($statusCounts['Contract Signed']
       border-color: #94A3B8;
     }
     .metric-proj-title {
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.07em;
       color: #64748B;
       display: flex;
       align-items: center;
@@ -158,15 +158,15 @@ $conversionRate = $totalInquiries > 0 ? round((($statusCounts['Contract Signed']
     }
     .metric-proj-val {
       font-family: 'Montserrat', sans-serif;
-      font-size: 1.75rem;
-      font-weight: 800;
-      color: var(--brand-navy);
+      font-size: 1.22rem;
+      font-weight: 700;
+      color: #0F172A;
       line-height: 1.15;
-      margin: 8px 0 4px;
-      letter-spacing: -0.02em;
+      margin: 5px 0 2px;
+      letter-spacing: -0.01em;
     }
     .metric-proj-sub {
-      font-size: 0.74rem;
+      font-size: 0.70rem;
       color: #64748B;
       display: flex;
       align-items: center;
@@ -176,18 +176,18 @@ $conversionRate = $totalInquiries > 0 ? round((($statusCounts['Contract Signed']
       color: #059669;
       background: #ECFDF5;
       border: 1px solid #A7F3D0;
-      padding: 1px 6px;
-      border-radius: 4px;
-      font-size: 0.68rem;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-size: 0.65rem;
       font-weight: 700;
     }
 
-    /* Chart Containers */
+    /* Chart Containers (Compact, Refined Heights) */
     .chart-panel {
       background: #FFFFFF;
       border: 1px solid var(--brand-border);
       border-radius: var(--radius-md);
-      padding: 20px;
+      padding: 13px 16px;
       box-shadow: none !important;
       height: 100%;
     }
@@ -195,17 +195,17 @@ $conversionRate = $totalInquiries > 0 ? round((($statusCounts['Contract Signed']
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 16px;
-      padding-bottom: 12px;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
       border-bottom: 1px solid #F1F5F9;
     }
     .chart-panel-title {
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       font-weight: 700;
       color: var(--brand-navy);
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
     }
 
     /* Range Pill Filter */
@@ -218,10 +218,10 @@ $conversionRate = $totalInquiries > 0 ? round((($statusCounts['Contract Signed']
     }
     .range-pill-item {
       font-family: 'Montserrat', sans-serif;
-      font-size: 0.72rem;
+      font-size: 0.70rem;
       font-weight: 600;
       color: #64748B;
-      padding: 4px 10px;
+      padding: 3px 8px;
       border-radius: 4px;
       text-decoration: none;
       transition: all 0.15s ease;
@@ -276,8 +276,8 @@ $conversionRate = $totalInquiries > 0 ? round((($statusCounts['Contract Signed']
 
         <div class="sidebar-section-title">Trade Analytics & Intelligence</div>
         <a href="analytics.php" class="sidebar-link active">
-          <div><i class="bi bi-graph-up-arrow"></i> Trade Intelligence</div>
-          <span class="badge bg-primary font-monospace" style="font-size: 0.65rem;">PROJECTIONS</span>
+          <div><i class="bi bi-graph-up"></i> Intelligence Hub</div>
+          <span class="badge-sidebar-intel">PROJ</span>
         </a>
 
         <div class="sidebar-section-title">Logistics & Trade Operations</div>
@@ -327,8 +327,8 @@ $conversionRate = $totalInquiries > 0 ? round((($statusCounts['Contract Signed']
             <i class="bi bi-layout-sidebar-inset"></i>
           </button>
           <div class="topbar-title-wrap">
-            <h1 class="topbar-title">Trade Intelligence & Pipeline Projections</h1>
-            <div class="topbar-subtitle">Balochistan Minerals (Pvt) Ltd • Executive Portfolio Analytics</div>
+            <h1 class="topbar-title">Intelligence Hub & Pipeline Projections</h1>
+            <div class="topbar-subtitle">Balochistan Minerals (Pvt) Ltd • Executive Trade Analytics</div>
           </div>
         </div>
 
@@ -432,7 +432,7 @@ $conversionRate = $totalInquiries > 0 ? round((($statusCounts['Contract Signed']
                 </div>
                 <span class="badge bg-light text-secondary border font-monospace" style="font-size: 0.70rem;"><?= $intervalLabel ?></span>
               </div>
-              <div style="height: 260px; position: relative;">
+              <div style="height: 185px; position: relative;">
                 <canvas id="commodityChart"></canvas>
               </div>
             </div>
@@ -448,7 +448,7 @@ $conversionRate = $totalInquiries > 0 ? round((($statusCounts['Contract Signed']
                 </div>
                 <span class="badge bg-light text-secondary border font-monospace" style="font-size: 0.70rem;">By Inquiry Volume</span>
               </div>
-              <div style="height: 260px; position: relative;">
+              <div style="height: 185px; position: relative;">
                 <canvas id="countryChart"></canvas>
               </div>
             </div>
@@ -467,7 +467,7 @@ $conversionRate = $totalInquiries > 0 ? round((($statusCounts['Contract Signed']
                 </div>
                 <span class="badge bg-light text-dark border font-monospace" style="font-size: 0.70rem;">Live Stage Health</span>
               </div>
-              <div style="height: 240px; position: relative;">
+              <div style="height: 180px; position: relative;">
                 <canvas id="funnelChart"></canvas>
               </div>
             </div>
@@ -567,18 +567,37 @@ $conversionRate = $totalInquiries > 0 ? round((($statusCounts['Contract Signed']
           legend: {
             position: 'right',
             labels: {
-              boxWidth: 12,
-              font: { family: "'Montserrat', sans-serif", size: 11, weight: '600' },
+              boxWidth: 9,
+              padding: 8,
+              font: { family: "'Montserrat', sans-serif", size: 10, weight: '600' },
               color: '#334155'
             }
           }
         },
-        cutout: '68%'
+        cutout: '72%'
       }
     });
 
-    // 2. Country Importers Horizontal Bar Chart
-    const countryCtx = document.getElementById('countryChart').getContext('2d');
+    // 2. Country Importers Horizontal Bar Chart (Different Professional Gradients)
+    const countryCanvas = document.getElementById('countryChart');
+    const countryCtx = countryCanvas.getContext('2d');
+
+    function makeHGradient(ctx, c1, c2) {
+      const g = ctx.createLinearGradient(0, 0, 260, 0);
+      g.addColorStop(0, c1);
+      g.addColorStop(1, c2);
+      return g;
+    }
+
+    const countryGradients = [
+      makeHGradient(countryCtx, '#0F172A', '#2563EB'), // Deep Navy to Executive Blue
+      makeHGradient(countryCtx, '#064E3B', '#10B981'), // Forest to Mineral Emerald
+      makeHGradient(countryCtx, '#7C2D12', '#F59E0B'), // Deep Bronze to Amber Gold
+      makeHGradient(countryCtx, '#881337', '#F43F5E'), // Burgundy to Rose Ruby
+      makeHGradient(countryCtx, '#3B0764', '#8B5CF6'), // Deep Purple to Violet
+      makeHGradient(countryCtx, '#1E293B', '#0284C7')  // Slate to Cyan Azure
+    ];
+
     new Chart(countryCtx, {
       type: 'bar',
       data: {
@@ -586,8 +605,10 @@ $conversionRate = $totalInquiries > 0 ? round((($statusCounts['Contract Signed']
         datasets: [{
           label: 'Inquiry Volume',
           data: <?= json_encode(array_slice(array_values($countryDemand), 0, 6)) ?>,
-          backgroundColor: '#0F172A',
-          borderRadius: 4
+          backgroundColor: countryGradients,
+          borderRadius: 4,
+          barThickness: 12,
+          maxBarThickness: 14
         }]
       },
       options: {
@@ -599,18 +620,18 @@ $conversionRate = $totalInquiries > 0 ? round((($statusCounts['Contract Signed']
         },
         scales: {
           x: {
-            grid: { color: '#F1F5F9' },
-            ticks: { font: { family: "'Montserrat', sans-serif", size: 10 } }
+            grid: { color: '#F8FAFC' },
+            ticks: { stepSize: 1, font: { family: "'Montserrat', sans-serif", size: 9 }, color: '#94A3B8' }
           },
           y: {
             grid: { display: false },
-            ticks: { font: { family: "'Montserrat', sans-serif", size: 11, weight: '600' }, color: '#1E293B' }
+            ticks: { font: { family: "'Montserrat', sans-serif", size: 10, weight: '600' }, color: '#1E293B' }
           }
         }
       }
     });
 
-    // 3. Pipeline Funnel Bar Chart
+    // 3. Pipeline Funnel Bar Chart (Compact, Crisp Vertical Bars)
     const funnelCtx = document.getElementById('funnelChart').getContext('2d');
     new Chart(funnelCtx, {
       type: 'bar',
@@ -624,7 +645,9 @@ $conversionRate = $totalInquiries > 0 ? round((($statusCounts['Contract Signed']
             <?= $statusCounts['Contract Signed'] ?>
           ],
           backgroundColor: ['#E65C1A', '#0284C7', '#D97706', '#059669'],
-          borderRadius: 4
+          borderRadius: 4,
+          barThickness: 22,
+          maxBarThickness: 26
         }]
       },
       options: {
@@ -636,12 +659,12 @@ $conversionRate = $totalInquiries > 0 ? round((($statusCounts['Contract Signed']
         scales: {
           y: {
             beginAtZero: true,
-            grid: { color: '#F1F5F9' },
-            ticks: { stepSize: 1, font: { family: "'Montserrat', sans-serif", size: 10 } }
+            grid: { color: '#F8FAFC' },
+            ticks: { stepSize: 1, font: { family: "'Montserrat', sans-serif", size: 9 }, color: '#94A3B8' }
           },
           x: {
             grid: { display: false },
-            ticks: { font: { family: "'Montserrat', sans-serif", size: 11, weight: '600' }, color: '#1E293B' }
+            ticks: { font: { family: "'Montserrat', sans-serif", size: 10, weight: '600' }, color: '#1E293B' }
           }
         }
       }

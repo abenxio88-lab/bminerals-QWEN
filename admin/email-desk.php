@@ -403,8 +403,8 @@ if ($pdo !== null) {
 
         <div class="sidebar-section-title">Trade Analytics & Intelligence</div>
         <a href="analytics.php" class="sidebar-link">
-          <div><i class="bi bi-graph-up-arrow"></i> Trade Intelligence</div>
-          <span class="badge bg-primary font-monospace" style="font-size: 0.65rem;">PROJECTIONS</span>
+          <div><i class="bi bi-graph-up"></i> Intelligence Hub</div>
+          <span class="badge-sidebar-intel">PROJ</span>
         </a>
 
         <div class="sidebar-section-title">Logistics & Trade Operations</div>
