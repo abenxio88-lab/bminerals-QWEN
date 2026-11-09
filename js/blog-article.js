@@ -146,8 +146,12 @@
   const initArticleDiscussions = async () => {
     const rawPath = window.location.pathname;
     const slug = rawPath.split('/').pop().replace(/\.html$/, '') || 'general';
-    const mainEl = document.querySelector('main') || document.querySelector('.article-shell');
-    if (!mainEl) return;
+    const targetEl = document.querySelector('article.article-content') 
+      || document.querySelector('.article-content') 
+      || document.querySelector('article')
+      || document.querySelector('.article-main')
+      || document.querySelector('main');
+    if (!targetEl) return;
 
     if (document.getElementById('articleQaSection')) return;
 
@@ -155,68 +159,65 @@
     qaSection.id = 'articleQaSection';
     qaSection.className = 'article-qa-section';
     qaSection.innerHTML = `
-      <div class="article-qa-shell">
-        <div class="article-qa-header">
-          <div class="article-qa-eyebrow">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-            Technical Q&A & Sourcing Discussion
+      <div class="article-qa-header">
+        <div class="article-qa-eyebrow">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          Direct Export Desk Discussion
+        </div>
+        <h3 class="article-qa-title">Questions &amp; Reader Reviews</h3>
+        <p class="article-qa-subtitle">Ask questions about assays, FOB logistics, or leave your review on this analysis. Direct replies are dispatched via email.</p>
+      </div>
+
+      <div id="articleQaStream" class="article-qa-stream">
+        <div style="font-size:0.80rem; color:#94A3B8; text-align:center; padding:0.75rem;">Loading discussions...</div>
+      </div>
+
+      <div class="article-qa-form-wrap">
+        <h4 class="article-qa-form-title">Leave a Question or Review</h4>
+
+        <form id="articleQaForm">
+          <input type="hidden" name="article_slug" value="${escapeQaHtml(slug)}">
+          <div style="display:none;"><input type="text" name="botcheck" tabindex="-1" autocomplete="off"></div>
+
+          <div class="article-qa-grid">
+            <div class="article-qa-field">
+              <label>Your Full Name *</label>
+              <input type="text" name="author_name" class="article-qa-input" placeholder="e.g. Alexander Richter" required>
+            </div>
+            <div class="article-qa-field">
+              <label>Corporate Email *</label>
+              <input type="email" name="author_email" class="article-qa-input" placeholder="e.g. procurement@company.com" required>
+            </div>
+            <div class="article-qa-field">
+              <label>Company (Optional)</label>
+              <input type="text" name="author_company" class="article-qa-input" placeholder="e.g. Euro-Alloy Smelters">
+            </div>
+            <div class="article-qa-field">
+              <label>Country (Optional)</label>
+              <input type="text" name="author_country" class="article-qa-input" placeholder="e.g. Germany, China, UAE">
+            </div>
           </div>
-          <h2 class="article-qa-title">Questions & Verified Sourcing Guidance</h2>
-          <p class="article-qa-subtitle">Ask questions regarding mineral specifications, port logistics, minimum order quantities (MOQ), and laboratory assays directly to our technical desk.</p>
-        </div>
 
-        <div id="articleQaStream" class="article-qa-stream">
-          <div style="font-size:0.82rem; color:#94A3B8; text-align:center; padding:1.5rem;">Loading technical discussions...</div>
-        </div>
+          <div class="article-qa-field" style="margin-bottom:0.75rem;">
+            <label>Your Question or Review *</label>
+            <textarea name="comment_text" class="article-qa-textarea" rows="3" placeholder="Inquire about chemical grades, FOB Karachi rates, sampling procedures, or share your technical review..." required></textarea>
+          </div>
 
-        <div class="article-qa-form-wrap">
-          <h3 class="article-qa-form-title">Ask a Technical or Sourcing Question</h3>
-          <p class="article-qa-form-intro">Your inquiry is routed directly to the Balochistan Minerals Commercial Export Desk. Questions are answered by email and published upon review.</p>
-
-          <form id="articleQaForm">
-            <input type="hidden" name="article_slug" value="${escapeQaHtml(slug)}">
-            <div style="display:none;"><input type="text" name="botcheck" tabindex="-1" autocomplete="off"></div>
-
-            <div class="article-qa-grid">
-              <div class="article-qa-field">
-                <label>Your Full Name *</label>
-                <input type="text" name="author_name" class="article-qa-input" placeholder="e.g. Alexander Richter" required>
-              </div>
-              <div class="article-qa-field">
-                <label>Corporate Email *</label>
-                <input type="email" name="author_email" class="article-qa-input" placeholder="e.g. procurement@company.com" required>
-              </div>
-              <div class="article-qa-field">
-                <label>Company Name</label>
-                <input type="text" name="author_company" class="article-qa-input" placeholder="e.g. Euro-Alloy Smelters">
-              </div>
-              <div class="article-qa-field">
-                <label>Country</label>
-                <input type="text" name="author_country" class="article-qa-input" placeholder="e.g. Germany, China, UAE">
-              </div>
-            </div>
-
-            <div class="article-qa-field" style="margin-bottom:1rem;">
-              <label>Your Question or Sourcing Requirement *</label>
-              <textarea name="comment_text" class="article-qa-textarea" rows="3" placeholder="Inquire about chemical grades, FOB Karachi rates, sampling procedures, or packing requirements..." required></textarea>
-            </div>
-
-            <button type="submit" id="articleQaSubmitBtn" class="article-qa-submit-btn">
-              <span>Submit Question to Export Desk</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-            </button>
-            <div id="articleQaFeedback"></div>
-          </form>
-        </div>
+          <button type="submit" id="articleQaSubmitBtn" class="article-qa-submit-btn">
+            <span>Submit to Export Desk</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+          </button>
+          <div id="articleQaFeedback"></div>
+        </form>
       </div>
     `;
 
-    mainEl.appendChild(qaSection);
+    targetEl.appendChild(qaSection);
 
     // Fetch existing Q&A
     const streamEl = document.getElementById('articleQaStream');
     try {
-      const res = await fetch(`../api/blog-discussion.php?slug=${encodeURIComponent(slug)}`);
+      const res = await fetch(`/api/blog-discussion.php?slug=${encodeURIComponent(slug)}`);
       const data = await res.json();
       if (data.success && data.discussions && data.discussions.length) {
         streamEl.innerHTML = data.discussions.map(d => `
@@ -241,7 +242,7 @@
           </div>
         `).join('');
       } else {
-        streamEl.innerHTML = `<div style="font-size:0.84rem; color:#64748B; text-align:center; padding:1.2rem; background:#F8FAFC; border-radius:6px; border:1px dashed #CBD5E1;">No questions published for this article yet. Be the first international trader or researcher to ask below!</div>`;
+        streamEl.innerHTML = `<div style="font-size:0.80rem; color:#64748B; text-align:center; padding:0.9rem; background:#F8FAFC; border-radius:6px; border:1px dashed #CBD5E1;">No questions published for this article yet. Be the first to ask below!</div>`;
       }
     } catch(err) {
       streamEl.innerHTML = '';
@@ -260,10 +261,10 @@
 
       const formData = new FormData(form);
       try {
-        const resp = await fetch('../api/blog-discussion.php', { method: 'POST', body: formData });
+        const resp = await fetch('/api/blog-discussion.php', { method: 'POST', body: formData });
         const res = await resp.json();
         if (res.success) {
-          feedback.innerHTML = `<div class="article-qa-alert article-qa-alert-success">✓ ${res.message}</div>`;
+          feedback.innerHTML = `<div class="article-qa-alert article-qa-alert-success">✓ Question submitted to Balochistan Minerals Trade Desk. Our technical team will email you and publish approved guidance.</div>`;
           form.reset();
         } else {
           feedback.innerHTML = `<div class="article-qa-alert article-qa-alert-danger">${res.error || 'Submission failed'}</div>`;
@@ -272,7 +273,7 @@
         feedback.innerHTML = `<div class="article-qa-alert article-qa-alert-danger">Connection error. Please connect directly via WhatsApp: +92 334 8888104</div>`;
       } finally {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = '<span>Submit Question to Export Desk</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>';
+        submitBtn.innerHTML = '<span>Submit to Export Desk</span> <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>';
       }
     });
   };
