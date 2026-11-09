@@ -759,13 +759,13 @@ if ($pdo !== null) {
           </div>
         <?php endif; ?>
 
-        <!-- Executive Metrics Strip -->
+        <!-- Executive Metrics Strip (Executive Neutral Styling, Zero Shade) -->
         <div class="row g-2.5 g-md-3 mb-3">
           <div class="col-6 col-lg-3">
             <div class="metric-card metric-leads">
               <div class="metric-card-top">
                 <span class="metric-card-label">Total Inbound Leads</span>
-                <div class="metric-card-icon"><i class="bi bi-inbox-fill"></i></div>
+                <div class="metric-card-icon"><i class="bi bi-building-check"></i></div>
               </div>
               <div class="metric-card-bottom">
                 <h3 class="metric-card-value"><?= $totalLeads ?></h3>
@@ -777,12 +777,12 @@ if ($pdo !== null) {
           <div class="col-6 col-lg-3">
             <div class="metric-card metric-action">
               <div class="metric-card-top">
-                <span class="metric-card-label" style="color: #B45309;">New Inquiries (Action)</span>
-                <div class="metric-card-icon"><i class="bi bi-lightning-charge-fill"></i></div>
+                <span class="metric-card-label">New Inquiries (Action)</span>
+                <div class="metric-card-icon"><i class="bi bi-send-check"></i></div>
               </div>
               <div class="metric-card-bottom">
                 <h3 class="metric-card-value"><?= $newLeads ?></h3>
-                <span class="metric-card-subtext d-none d-sm-inline" style="color: #B45309;">Needs Outreach</span>
+                <span class="metric-card-subtext d-none d-sm-inline">Needs Outreach</span>
               </div>
             </div>
           </div>
@@ -791,7 +791,7 @@ if ($pdo !== null) {
             <div class="metric-card metric-quotes">
               <div class="metric-card-top">
                 <span class="metric-card-label">Active Negotiations</span>
-                <div class="metric-card-icon"><i class="bi bi-chat-quote-fill"></i></div>
+                <div class="metric-card-icon"><i class="bi bi-chat-quote"></i></div>
               </div>
               <div class="metric-card-bottom">
                 <h3 class="metric-card-value"><?= $quotedLeads ?></h3>
@@ -804,7 +804,7 @@ if ($pdo !== null) {
             <div class="metric-card metric-contracts">
               <div class="metric-card-top">
                 <span class="metric-card-label">Contracts Executed</span>
-                <div class="metric-card-icon"><i class="bi bi-check-circle-fill"></i></div>
+                <div class="metric-card-icon"><i class="bi bi-award"></i></div>
               </div>
               <div class="metric-card-bottom">
                 <h3 class="metric-card-value"><?= $closedLeads ?></h3>
