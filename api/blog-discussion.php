@@ -81,10 +81,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name    = cleanInput($_POST['author_name'] ?? '');
     $company = cleanInput($_POST['author_company'] ?? '');
     $rawCountry = cleanInput($_POST['author_country'] ?? '');
-    $country = detectCountryName($rawCountry, $email ?: '', '', $company, $text);
     $rawEmail= trim($_POST['author_email'] ?? '');
     $email   = !empty($rawEmail) ? filter_var($rawEmail, FILTER_SANITIZE_EMAIL) : null;
     $text    = cleanInput($_POST['comment_text'] ?? '');
+    $country = detectCountryName($rawCountry, $email ?: '', '', $company, $text ?: '');
 
     // Only name, slug, and question text are required; Email is completely optional
     if (empty($slug) || empty($name) || empty($text)) {
@@ -103,46 +103,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     try {
-        // 1. Insert into blog_discussions
+        // 1. Insert strictly into blog_discussions (Dedicated Content Moderation Queue)
+        // Zero pollution of commercial inquiries, zero sales inbox email spam.
         $stmt = $pdo->prepare("INSERT INTO blog_discussions 
             (article_slug, author_name, author_company, author_country, author_email, comment_text, status) 
             VALUES (?, ?, ?, ?, ?, ?, 'Pending')");
         $stmt->execute([$slug, $name, $company, $country, $email ?: null, $text]);
         $discussionId = (int)$pdo->lastInsertId();
 
-        // 2. Connect to Inquiries table so it instantly lands in the Trade Desk Admin Portal!
-        $inqStmt = $pdo->prepare("INSERT INTO inquiries 
-            (buyer_name, company_name, country, email, whatsapp, inquiry_type, source, mineral_type, message, status, ip_address) 
-            VALUES (?, ?, ?, ?, '', 'Blog Q&A / Review', ?, 'General Mineral', ?, 'New', ?)");
-        $inqSource = 'Blog: ' . $slug;
-        $inqEmail = !empty($email) ? $email : '';
-        $inqStmt->execute([$name, $company, $country, $inqEmail, $inqSource, $text, $ip]);
-        $leadId = (int)$pdo->lastInsertId();
-
-        // 3. Send alert email to export desk
-        $to = defined('COMPANY_EMAIL') ? COMPANY_EMAIL : 'info@balochistanminerals.com';
-        $subject = "💬 New Blog Question/Review on [" . $slug . "] from " . $name;
-        $emailDisplay = !empty($email) ? $email : 'Not Provided (Public Reader Review)';
-        $emailBody = "A reader posted a question/review under blog article: $slug\n\n"
-                   . "Name: $name\n"
-                   . "Company: " . ($company ?: 'N/A') . "\n"
-                   . "Email: $emailDisplay\n"
-                   . "Country: $country\n\n"
-                   . "Question/Review:\n$text\n\n"
-                   . "---\n"
-                   . "Reply in Trade Desk Portal: https://balochistanminerals.com/admin/dashboard.php?q=" . urlencode($emailDisplay);
-
-        $headers = "From: Balochistan Minerals Web <" . $to . ">\r\n"
-                 . (!empty($email) ? "Reply-To: $email\r\n" : "")
-                 . "X-Mailer: PHP/" . phpversion();
-
-        @mail($to, $subject, $emailBody, $headers);
-
         echo json_encode([
             'success' => true,
-            'message' => 'Thank you! Your submission has been transmitted to our technical desk and will appear after moderation.',
-            'discussion_id' => $discussionId,
-            'lead_id' => $leadId
+            'message' => 'Thank you! Your question or review has been submitted for moderation.',
+            'discussion_id' => $discussionId
         ]);
         exit;
     } catch (Exception $e) {

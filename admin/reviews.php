@@ -44,6 +44,7 @@ $pendingReviews = 0;
 if ($pdo !== null) {
     $newLeads = (int)$pdo->query("SELECT COUNT(*) FROM inquiries WHERE status = 'New'")->fetchColumn();
     $pendingReviews = (int)$pdo->query("SELECT COUNT(*) FROM reviews WHERE status = 'Pending'")->fetchColumn();
+    $pendingDiscussions = (int)$pdo->query("SELECT COUNT(*) FROM blog_discussions WHERE status = 'Pending'")->fetchColumn();
     $totalProspects = (int)$pdo->query("SELECT COUNT(*) FROM buyer_prospects")->fetchColumn();
 
     $sql = "SELECT * FROM reviews WHERE 1=1";
@@ -163,11 +164,17 @@ if ($pdo !== null) {
           <div><i class="bi bi-cash-stack"></i> Mineral Spot Prices</div>
         </a>
 
-        <div class="sidebar-section-title">Buyer Engagement</div>
+        <div class="sidebar-section-title">Buyer Engagement & Content</div>
         <a href="reviews.php" class="sidebar-link active">
           <div><i class="bi bi-star-fill"></i> Customer Reviews</div>
           <?php if ($pendingReviews > 0): ?>
             <span class="badge bg-secondary font-monospace" style="font-size: 0.7rem;"><?= $pendingReviews ?></span>
+          <?php endif; ?>
+        </a>
+        <a href="blog-discussions.php" class="sidebar-link">
+          <div><i class="bi bi-chat-square-text-fill"></i> Blog Discussions</div>
+          <?php if (!empty($pendingDiscussions) && $pendingDiscussions > 0): ?>
+            <span class="badge bg-warning text-dark font-monospace" style="font-size: 0.7rem;"><?= $pendingDiscussions ?></span>
           <?php endif; ?>
         </a>
         <a href="faqs.php" class="sidebar-link">
