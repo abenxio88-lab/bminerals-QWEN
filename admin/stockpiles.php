@@ -259,8 +259,8 @@ if ($pdo !== null) {
           <img src="../images/new-logo.png" alt="Balochistan Minerals" class="sidebar-logo" onerror="this.style.display='none'">
           <span class="sidebar-badge">TRADE DESK PORTAL</span>
         </a>
-        <button type="button" id="sidebarCloseBtn" class="btn btn-sm btn-light border d-lg-none" aria-label="Close Sidebar" title="Close Sidebar">
-          <i class="bi bi-x-lg"></i>
+        <button type="button" id="sidebarCloseBtn" class="btn-sidebar-panel-toggle" aria-label="Toggle Sidebar" title="Collapse Sidebar (Ctrl + B)">
+          <i class="bi bi-layout-sidebar-inset"></i>
         </button>
       </div>
 

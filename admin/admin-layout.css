@@ -135,10 +135,39 @@ h1, h2, h3, h4, h5, h6, .brand-font {
   text-transform: uppercase !important;
 }
 
-.sidebar-header #sidebarCloseBtn {
+/* Sidebar Panel Toggle / Collapse Button (Inside Left Sidebar Header) */
+.sidebar-header #sidebarCloseBtn,
+.btn-sidebar-panel-toggle {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 12px;
+  right: 12px;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  background: #FFFFFF !important;
+  border: 1px solid var(--brand-border) !important;
+  color: #64748B !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.15s ease;
+  box-shadow: none !important;
+  z-index: 10;
+  font-size: 0.95rem;
+}
+
+.sidebar-header #sidebarCloseBtn:hover,
+.btn-sidebar-panel-toggle:hover {
+  background: #F1F5F9 !important;
+  border-color: #94A3B8 !important;
+  color: var(--brand-navy) !important;
+}
+
+.sidebar-header #sidebarCloseBtn i,
+.btn-sidebar-panel-toggle i {
+  line-height: 1;
 }
 
 .sidebar-nav {
@@ -341,7 +370,7 @@ body.sidebar-open .sidebar-backdrop {
   transition: all 0.15s ease;
   font-size: 1.1rem;
   flex-shrink: 0;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  box-shadow: none !important;
 }
 
 .btn-sidebar-toggle:hover {

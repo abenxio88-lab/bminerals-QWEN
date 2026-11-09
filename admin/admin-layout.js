@@ -38,19 +38,13 @@
       document.body.classList.remove('sidebar-open');
     }
 
-    if (toggleBtn) {
-      toggleBtn.addEventListener('click', (e) => {
+    // Bind all sidebar toggle / collapse buttons across topbar and sidebar panel
+    document.querySelectorAll('#sidebarToggle, #sidebarCloseBtn, .btn-sidebar-toggle, .btn-sidebar-panel-toggle').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
         e.preventDefault();
         toggleSidebar();
       });
-    }
-
-    if (closeBtn) {
-      closeBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        closeMobileSidebar();
-      });
-    }
+    });
 
     if (backdrop) {
       backdrop.addEventListener('click', closeMobileSidebar);
