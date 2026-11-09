@@ -163,11 +163,14 @@ if ($pdo !== null) {
       font-size: 0.84rem !important;
       border-radius: 6px !important;
       cursor: pointer !important;
+      box-shadow: none !important;
+      transition: all 0.15s ease;
     }
     .btn-cancel-action:hover {
-      background: #F1F5F9 !important;
+      background: #F8FAFC !important;
       color: #0F172A !important;
-      border-color: #94A3B8 !important;
+      border-color: #0F172A !important;
+      box-shadow: none !important;
     }
     .btn-delete-action {
       background: #FEF2F2 !important;
@@ -181,11 +184,14 @@ if ($pdo !== null) {
       align-items: center !important;
       gap: 6px !important;
       cursor: pointer !important;
+      box-shadow: none !important;
+      transition: all 0.15s ease;
     }
     .btn-delete-action:hover {
       background: #FEE2E2 !important;
       color: #991B1B !important;
       border-color: #F87171 !important;
+      box-shadow: none !important;
     }
     .app-wrapper { display: flex; min-height: 100vh; }
     .app-sidebar {
@@ -398,7 +404,7 @@ if ($pdo !== null) {
                       <td class="small text-muted"><?= date('M d, Y', strtotime($stk['last_survey_date'] ?? 'now')) ?></td>
                       <td class="text-end">
                         <button type="button" class="btn-table-edit" data-bs-toggle="modal" data-bs-target="#editStock<?= $stk['id'] ?>">
-                          <i class="bi bi-pencil-square me-1"></i> Edit
+                          <i class="bi bi-pencil-square"></i> <span>Edit</span>
                         </button>
                       </td>
                     </tr>
@@ -522,7 +528,7 @@ if ($pdo !== null) {
                     </td>
                     <td class="text-end">
                       <button type="button" class="btn-table-edit" data-bs-toggle="modal" data-bs-target="#editShip<?= $sh['id'] ?>">
-                        <i class="bi bi-pencil-square me-1"></i> Update
+                        <i class="bi bi-pencil-square"></i> <span>Update</span>
                       </button>
                     </td>
                   </tr>
@@ -627,7 +633,7 @@ if ($pdo !== null) {
 
                 <div class="modal-footer d-flex justify-content-end gap-2">
                   <button type="button" class="btn-cancel-action" data-bs-dismiss="modal">Cancel</button>
-                  <button type="submit" class="btn-save-action" style="background: #E65C1A !important; border-color: #D45A15 !important;">
+                  <button type="submit" class="btn-save-action">
                     <i class="bi bi-plus-lg me-1"></i> Create Stockpile
                   </button>
                 </div>

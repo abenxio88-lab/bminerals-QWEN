@@ -206,22 +206,6 @@ if ($pdo !== null) {
       color: #991B1B !important;
       border-color: #F87171 !important;
     }
-    .btn-table-edit {
-      background: #F1F5F9;
-      color: #0F172A;
-      border: 1px solid #CBD5E1;
-      padding: 5px 14px;
-      border-radius: 6px;
-      font-weight: 600;
-      font-size: 0.78rem;
-      transition: all 0.15s;
-    }
-    .btn-table-edit:hover {
-      background: #F8FAFC;
-      color: #0F172A;
-      border-color: #0F172A;
-      box-shadow: none !important;
-    }
     .status-badge-active {
       background: #ECFDF5;
       color: #047857;
