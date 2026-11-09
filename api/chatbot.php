@@ -303,6 +303,40 @@ if ($matchedUnlisted !== null) {
 }
 
 // ------------------------------------------
+// 0.5 Comprehensive Concession Portfolio / Catalog Intent
+// ------------------------------------------
+$isCatalogIntent = false;
+if (preg_match('/\b(other|available|all)\s+(minerals?|products?|commodit\w+)\b/i', $clean) ||
+    preg_match('/\bwhat\s+(other\s+)?(minerals?|products?|commodit\w+)\b/i', $clean) ||
+    preg_match('/\bwhat\s+(else\s+)?do\s+you\s+(have|hvae|sell|offer|supply|export)\b/i', $clean) ||
+    preg_match('/\b(catalog|catalogue|portfolio|product\s+list|minerals?\s+list|offerings)\b/i', $clean)) {
+    $isCatalogIntent = true;
+}
+
+if ($isCatalogIntent) {
+    echo json_encode([
+        'success' => true,
+        'type' => 'catalog',
+        'title' => 'Balochistan Minerals Concession Portfolios',
+        'image' => 'images/baochistan-mineral-resources-480.avif',
+        'badge' => 'Active Export Concessions',
+        'url' => 'products.html',
+        'urlLabel' => 'View Complete Technical Catalog & Specifications',
+        'text' => "**Balochistan Minerals (Pvt) Ltd** quarries, processes, and exports three primary commodity portfolios directly from Balochistan concessions:\n\n• **Metallic Ores:** Metallurgical Chromite (42%–52% Cr₂O₃), Chagai Copper DSO (2%–10% Cu), Iron Ore Magnetite/Hematite (Fe 40%–62%), and Antimony Stibnite (4%–58% Sb).\n• **Industrial Minerals:** API 13A High-Gravity Barite (SG 4.20+), Fluorspar (50%–90%+ CaF₂), and Natural Gypsum (90%–95%).\n• **Dimensional Stones & Coal:** Persian Silk & Pietra Grey Marble slabs and blocks, and Industrial Steam Coal.\n\n**Custom Procurement Desk:**\nFor unlisted mineral requirements from Pakistani deposits (such as Talc, Manganese, or Quartz), our Commercial Desk evaluates buyer specifications on a custom contract procurement basis.\n\nSelect any active commodity below for assay specs, port stockpile availability, and FOB spot pricing:",
+        'productsList' => [
+            ['name' => 'Chromite Ore', 'grade' => '42% - 52% Cr₂O₃', 'image' => 'images/chromite-new-480.avif', 'query' => 'Chromite 42-52%'],
+            ['name' => 'Barite API 13A', 'grade' => 'SG 4.20+ High Gravity', 'image' => 'images/barite-card-480.avif', 'query' => 'Barite 4.2+ SG'],
+            ['name' => 'Copper DSO', 'grade' => '2% - 10% Cu Direct Ship', 'image' => 'images/copper-new-480.avif', 'query' => 'Chagai Copper'],
+            ['name' => 'Iron Ore', 'grade' => 'Fe 40% - 62% Magnetite', 'image' => 'images/iron-ore-new-480.avif', 'query' => 'Iron Ore'],
+            ['name' => 'Fluorspar', 'grade' => '50% - 90%+ CaF₂', 'image' => 'images/fluorite-480.avif', 'query' => 'Fluorite CaF2'],
+            ['name' => 'Marble Slabs', 'grade' => 'Persian Silk & Pietra', 'image' => 'images/silver-steam-white-marble-1-480.avif', 'query' => 'Marble & Stone Slabs']
+        ],
+        'chips' => ['Chromite 42-52%', 'Barite 4.2+ SG', 'Chagai Copper', 'Live Spot Prices', 'Stockpiles Ready', 'Custom Sourcing']
+    ]);
+    exit;
+}
+
+// ------------------------------------------
 // A. Real-Time Spot Price Intent
 // ------------------------------------------
 $priceTerms = ['price', 'pricing', 'spot rate', 'spot price', 'cost', 'rate', 'how much', 'quote', 'quotation', 'usd/mt', 'usd per ton'];
@@ -420,17 +454,30 @@ if ($pdo !== null) {
         $stmt = $pdo->query('SELECT category, question, answer FROM faqs WHERE is_active = 1 ORDER BY sort_order ASC');
         $faqs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+        $stopWords = ['what', 'the', 'is', 'are', 'you', 'for', 'and', 'can', 'how', 'our', 'with', 'your', 'from', 'this', 'that', 'have', 'hvae', 'does', 'when', 'where', 'why', 'who', 'about', 'some', 'more', 'other', 'which', 'will', 'would', 'could', 'please', 'tell'];
+
         foreach ($faqs as $faq) {
-            $qClean = strtolower($faq['question']);
-            $keywords = preg_split('/[\s,\?]+/', $qClean);
-            $hitCount = 0;
-            foreach ($keywords as $kw) {
-                if (strlen($kw) >= 3 && str_contains($clean, $kw)) {
-                    $hitCount++;
+            $qClean = strtolower(trim($faq['question']));
+
+            // Direct full phrase match
+            if (str_contains($clean, $qClean) || (strlen($clean) >= 8 && str_contains($qClean, $clean))) {
+                $hitCount = 99;
+            } else {
+                $rawKeywords = preg_split('/[\s,\?!\(\)\/]+/', $qClean);
+                $meaningfulKeywords = array_filter($rawKeywords, function($w) use ($stopWords) {
+                    return strlen($w) >= 3 && !in_array($w, $stopWords);
+                });
+
+                $hitCount = 0;
+                foreach ($meaningfulKeywords as $kw) {
+                    if (preg_match('/\b' . preg_quote($kw, '/') . '\b/i', $clean)) {
+                        $hitCount++;
+                    }
                 }
             }
 
-            if ($hitCount >= 2 || str_contains($clean, $qClean)) {
+            $isAcronymMatch = (str_contains($clean, 'moq') && str_contains($qClean, 'moq'));
+            if ($hitCount >= 2 || $isAcronymMatch) {
                 echo json_encode([
                     'success' => true,
                     'type' => 'faq',

@@ -398,8 +398,16 @@ export function findBestAnswer(query) {
 
   // 2. Comprehensive Products / Catalog / Portfolio Intent
   const catalogTerms = [
-    'what products do you have',
+    'what other minerals do you have',
+    'what other minerals do you hvae',
+    'what other minerals',
+    'other minerals',
+    'what else do you have',
+    'what else do you sell',
+    'what else',
+    'what do you have',
     'what do you sell',
+    'what products do you have',
     'what do you offer',
     'what products',
     'what minerals',
@@ -419,7 +427,10 @@ export function findBestAnswer(query) {
     'products',
     'minerals'
   ];
-  const hasCatalogIntent = catalogTerms.some(term => clean === term || clean.includes(term));
+  const hasCatalogIntent = catalogTerms.some(term => clean === term || clean.includes(term)) ||
+    /\b(other|available|all)\s+(minerals?|products?|commodit\w+)\b/i.test(clean) ||
+    /\bwhat\s+(other\s+)?(minerals?|products?|commodit\w+)\b/i.test(clean) ||
+    /\bwhat\s+(else\s+)?do\s+you\s+(have|hvae|sell|offer|supply|export)\b/i.test(clean);
   const hasSpecificMineral = Object.keys(MINERAL_DATABASE).some(k => clean.includes(k) || (k === 'stones' && clean.includes('marble')) || (k === 'ironOre' && clean.includes('iron')));
 
   if (hasCatalogIntent && !hasSpecificMineral && !hasRfqIntent) {
