@@ -32,7 +32,7 @@
 
           <div style="margin-bottom:14px;">
             <label style="display:block; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:#CBD5E1; margin-bottom:5px;">Your Full Name *</label>
-            <input type="text" name="name" required placeholder="e.g. Johnathan Vance" style="width:100%; padding:9px 12px; background:#1E293B; border:1px solid rgba(255,255,255,0.12); border-radius:6px; color:#FFFFFF; font-size:0.88rem; box-sizing:border-box;">
+            <input type="text" name="name" required placeholder="e.g. John Doe" style="width:100%; padding:9px 12px; background:#1E293B; border:1px solid rgba(255,255,255,0.12); border-radius:6px; color:#FFFFFF; font-size:0.88rem; box-sizing:border-box;">
           </div>
 
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
@@ -48,7 +48,7 @@
 
           <div style="margin-bottom:14px;">
             <label style="display:block; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:#CBD5E1; margin-bottom:5px;">Company & Country</label>
-            <input type="text" name="company" placeholder="e.g. Pacific Metal Trading (Singapore)" style="width:100%; padding:9px 12px; background:#1E293B; border:1px solid rgba(255,255,255,0.12); border-radius:6px; color:#FFFFFF; font-size:0.88rem; box-sizing:border-box;">
+            <input type="text" name="company" placeholder="e.g. Acme Industrial Ltd (Singapore)" style="width:100%; padding:9px 12px; background:#1E293B; border:1px solid rgba(255,255,255,0.12); border-radius:6px; color:#FFFFFF; font-size:0.88rem; box-sizing:border-box;">
           </div>
 
           <div style="margin-bottom:16px;">

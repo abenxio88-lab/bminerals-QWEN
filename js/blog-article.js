@@ -177,19 +177,19 @@
           <div class="article-qa-grid">
             <div class="article-qa-field">
               <label>Your Full Name *</label>
-              <input type="text" name="author_name" class="article-qa-input" placeholder="e.g. Alexander Richter" required maxlength="100">
+              <input type="text" name="author_name" class="article-qa-input" placeholder="e.g. John Doe" required maxlength="100">
             </div>
             <div class="article-qa-field">
               <label>Corporate Email <span style="font-size:0.65rem; color:#94A3B8; text-transform:none; font-weight:normal;">(Optional - for direct email reply)</span></label>
-              <input type="email" name="author_email" class="article-qa-input" placeholder="e.g. procurement@company.com" maxlength="150">
+              <input type="email" name="author_email" class="article-qa-input" placeholder="e.g. name@company.com" maxlength="150">
             </div>
             <div class="article-qa-field">
               <label>Company <span style="font-size:0.65rem; color:#94A3B8; text-transform:none; font-weight:normal;">(Optional)</span></label>
-              <input type="text" name="author_company" class="article-qa-input" placeholder="e.g. Euro-Alloy Smelters" maxlength="100">
+              <input type="text" name="author_company" class="article-qa-input" placeholder="e.g. Acme Corp" maxlength="100">
             </div>
             <div class="article-qa-field">
               <label>Country <span style="font-size:0.65rem; color:#94A3B8; text-transform:none; font-weight:normal;">(Optional)</span></label>
-              <input type="text" name="author_country" class="article-qa-input" placeholder="e.g. Germany, China, UAE" maxlength="80">
+              <input type="text" name="author_country" class="article-qa-input" placeholder="e.g. United Kingdom, Singapore, UAE" maxlength="80">
             </div>
           </div>
 

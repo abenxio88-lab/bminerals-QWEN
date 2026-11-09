@@ -47,11 +47,11 @@
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
             <div>
               <label style="display:block; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:#CBD5E1; margin-bottom:4px;">Full Name *</label>
-              <input type="text" name="name" required placeholder="e.g. Dr. Pierre Dubois" style="width:100%; padding:9px 12px; background:#1E293B; border:1px solid rgba(255,255,255,0.15); border-radius:6px; color:#FFFFFF; font-size:0.86rem; box-sizing:border-box;">
+              <input type="text" name="name" required placeholder="e.g. John Doe" style="width:100%; padding:9px 12px; background:#1E293B; border:1px solid rgba(255,255,255,0.15); border-radius:6px; color:#FFFFFF; font-size:0.86rem; box-sizing:border-box;">
             </div>
             <div>
               <label style="display:block; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:#CBD5E1; margin-bottom:4px;">Company Name *</label>
-              <input type="text" name="company" required placeholder="e.g. Ruhr Rohstoff GmbH" style="width:100%; padding:9px 12px; background:#1E293B; border:1px solid rgba(255,255,255,0.15); border-radius:6px; color:#FFFFFF; font-size:0.86rem; box-sizing:border-box;">
+              <input type="text" name="company" required placeholder="e.g. Acme Industries Ltd" style="width:100%; padding:9px 12px; background:#1E293B; border:1px solid rgba(255,255,255,0.15); border-radius:6px; color:#FFFFFF; font-size:0.86rem; box-sizing:border-box;">
             </div>
           </div>
 
