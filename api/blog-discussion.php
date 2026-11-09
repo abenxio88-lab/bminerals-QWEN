@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             (buyer_name, company_name, country, email, whatsapp, inquiry_type, source, mineral_type, message, status, ip_address) 
             VALUES (?, ?, ?, ?, '', 'Blog Q&A / Review', ?, 'General Mineral', ?, 'New', ?)");
         $inqSource = 'Blog: ' . $slug;
-        $inqEmail = !empty($email) ? $email : 'reader@balochistanminerals.com';
+        $inqEmail = !empty($email) ? $email : '';
         $inqStmt->execute([$name, $company, $country, $inqEmail, $inqSource, $text, $ip]);
         $leadId = (int)$pdo->lastInsertId();
 
