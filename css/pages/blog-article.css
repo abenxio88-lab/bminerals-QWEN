@@ -1024,3 +1024,246 @@
 .article-table__link:hover {
   text-decoration: underline;
 }
+
+/* ==========================================================================
+   ARTICLE Q&A & TECHNICAL SOURCING DISCUSSION ENGINE
+   ========================================================================== */
+
+.article-qa-section {
+  max-width: var(--max-width, 1200px);
+  margin: 3.5rem auto 1rem;
+  padding: 0 1.5rem;
+}
+
+.article-qa-shell {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  box-shadow: none !important;
+}
+
+.article-qa-header {
+  border-bottom: 1px solid #E2E8F0;
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.article-qa-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #B48C36;
+  margin-bottom: 0.5rem;
+}
+
+.article-qa-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.015em;
+}
+
+.article-qa-subtitle {
+  font-size: 0.88rem;
+  color: #64748B;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.article-qa-stream {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.article-qa-card {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 1.25rem 1.4rem;
+  box-shadow: none !important;
+}
+
+.article-qa-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.65rem;
+  font-size: 0.78rem;
+}
+
+.article-qa-author {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.article-qa-author-sub {
+  color: #64748B;
+  font-weight: 500;
+  margin-left: 6px;
+}
+
+.article-qa-date {
+  font-size: 0.72rem;
+  color: #94A3B8;
+  font-family: monospace;
+}
+
+.article-qa-question {
+  color: #1E293B;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  margin: 0 0 1rem;
+}
+
+.article-qa-reply {
+  background: #FFFFFF;
+  border-left: 3px solid #0F172A;
+  border: 1px solid #CBD5E1;
+  border-left-width: 3px;
+  border-left-color: #B48C36;
+  border-radius: 6px;
+  padding: 1rem 1.15rem;
+  margin-top: 0.75rem;
+}
+
+.article-qa-reply-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 0.4rem;
+}
+
+.article-qa-reply-badge {
+  background: #0F172A;
+  color: #FFFFFF;
+  font-size: 0.65rem;
+  padding: 2px 7px;
+  border-radius: 3px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.article-qa-reply-text {
+  font-size: 0.84rem;
+  color: #334155;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.article-qa-form-wrap {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.article-qa-form-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0 0 0.4rem;
+}
+
+.article-qa-form-intro {
+  font-size: 0.82rem;
+  color: #64748B;
+  margin: 0 0 1.25rem;
+}
+
+.article-qa-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.9rem;
+  margin-bottom: 0.9rem;
+}
+
+.article-qa-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.article-qa-field label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.article-qa-input,
+.article-qa-textarea {
+  width: 100%;
+  padding: 8px 12px;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  font-size: 0.84rem;
+  color: #0F172A;
+  box-shadow: none !important;
+  font-family: inherit;
+  transition: border-color 0.15s ease;
+}
+
+.article-qa-input:focus,
+.article-qa-textarea:focus {
+  outline: none;
+  border-color: #0F172A;
+}
+
+.article-qa-submit-btn {
+  background: #0F172A;
+  color: #FFFFFF;
+  border: 1px solid #0F172A;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.80rem;
+  font-weight: 600;
+  padding: 9px 22px;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: none !important;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.article-qa-submit-btn:hover {
+  background: #1E293B;
+  border-color: #1E293B;
+}
+
+.article-qa-alert {
+  font-size: 0.82rem;
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-top: 1rem;
+}
+
+.article-qa-alert-success {
+  background: #F0FDF4;
+  color: #166534;
+  border: 1px solid #BBF7D0;
+}
+
+.article-qa-alert-danger {
+  background: #FEF2F2;
+  color: #991B1B;
+  border: 1px solid #FECACA;
+}
+

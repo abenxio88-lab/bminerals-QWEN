@@ -288,3 +288,24 @@ CREATE TABLE IF NOT EXISTS `email_messages` (
   INDEX `idx_direction` (`direction`),
   INDEX `idx_to_email` (`to_email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+-- Table structure for `blog_discussions` (Blog Reader Q&A & Technical Discussion Engine)
+-- --------------------------------------------------------
+CREATE TABLE IF NOT EXISTS `blog_discussions` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `article_slug` VARCHAR(150) NOT NULL,
+  `author_name` VARCHAR(100) NOT NULL,
+  `author_company` VARCHAR(100) NULL,
+  `author_country` VARCHAR(80) DEFAULT 'International',
+  `author_email` VARCHAR(150) NOT NULL,
+  `comment_text` TEXT NOT NULL,
+  `reply_text` TEXT NULL,
+  `replied_by` VARCHAR(100) DEFAULT 'Balochistan Minerals Technical Desk',
+  `replied_at` DATETIME NULL,
+  `status` ENUM('Pending', 'Approved', 'Rejected') DEFAULT 'Pending',
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  INDEX `idx_slug` (`article_slug`),
+  INDEX `idx_status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+

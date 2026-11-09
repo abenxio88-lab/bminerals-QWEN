@@ -400,35 +400,65 @@
   <script>
     document.addEventListener('DOMContentLoaded', async () => {
       try {
-        const res = await fetch('api/public-content.php?type=reviews');
+        const res = await fetch('api/public-content.php?type=all');
         if (!res.ok) return;
         const data = await res.json();
-        if (!data.success || !data.reviews || !data.reviews.length) return;
+        if (!data.success) return;
 
-        const marquee = document.querySelector('.testimonials__marquee');
-        if (!marquee) return;
+        // 1. Dynamic Customer Reviews Hydration
+        if (data.reviews && data.reviews.length) {
+          const marquee = document.querySelector('.testimonials__marquee');
+          if (marquee) {
+            data.reviews.forEach(r => {
+              const card = document.createElement('div');
+              card.className = 'testimonial-card';
+              const initials = r.reviewer_name ? r.reviewer_name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : 'BM';
+              card.innerHTML = `
+                <span class="testimonial-card__location">
+                  <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zM7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 2.88-2.88 7.19-5 9.88C9.92 16.07 7 11.85 7 9z" /><circle cx="12" cy="9" r="2.5" /></svg>
+                  ${r.country ? r.country.toUpperCase() : 'VERIFIED BUYER'}
+                </span>
+                <div class="testimonial-card__quote-mark">"</div>
+                <p class="testimonial-card__text">"${r.review_text}"</p>
+                <div class="testimonial-card__author">
+                  <div class="testimonial-card__avatar">${initials}</div>
+                  <div class="testimonial-card__info">
+                    <p class="testimonial-card__name">${r.reviewer_name}</p>
+                    <p class="testimonial-card__title">${r.company_name || 'Verified Client'}${r.product_reviewed ? ' · ' + r.product_reviewed : ''}</p>
+                  </div>
+                </div>
+              `;
+              marquee.prepend(card);
+            });
+          }
+        }
 
-        data.reviews.forEach(r => {
-          const card = document.createElement('div');
-          card.className = 'testimonial-card';
-          const initials = r.reviewer_name ? r.reviewer_name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : 'BM';
-          card.innerHTML = `
-            <span class="testimonial-card__location">
-              <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zM7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 2.88-2.88 7.19-5 9.88C9.92 16.07 7 11.85 7 9z" /><circle cx="12" cy="9" r="2.5" /></svg>
-              ${r.country ? r.country.toUpperCase() : 'VERIFIED BUYER'}
-            </span>
-            <div class="testimonial-card__quote-mark">"</div>
-            <p class="testimonial-card__text">"${r.review_text}"</p>
-            <div class="testimonial-card__author">
-              <div class="testimonial-card__avatar">${initials}</div>
-              <div class="testimonial-card__info">
-                <p class="testimonial-card__name">${r.reviewer_name}</p>
-                <p class="testimonial-card__title">${r.company_name || 'Verified Client'}${r.product_reviewed ? ' · ' + r.product_reviewed : ''}</p>
-              </div>
-            </div>
-          `;
-          marquee.prepend(card);
-        });
+        // 2. Dynamic Buyer FAQs Hydration (connected to admin/faqs.php)
+        if (data.faqs && data.faqs.length) {
+          const faqGrid = document.querySelector('.homepage-faq__grid');
+          if (faqGrid) {
+            let faqHtml = '';
+            data.faqs.forEach((f, idx) => {
+              const num = String(idx + 1).padStart(2, '0');
+              const isLast = idx === data.faqs.length - 1 ? ' homepage-faq__item--last' : '';
+              faqHtml += `
+                <article class="homepage-faq__item${isLast}">
+                  <div class="homepage-faq__item-number">${num}</div>
+                  <div class="homepage-faq__item-body">
+                    <div class="d-flex align-items-center gap-2 mb-1">
+                      <span style="font-size: 0.68rem; font-weight: 700; color: #b48c36; text-transform: uppercase; letter-spacing: 0.05em;">${f.category || 'General'}</span>
+                    </div>
+                    <h3 class="homepage-faq__question">${f.question}</h3>
+                    <ul class="homepage-faq__list${isLast ? ' homepage-faq__list--last' : ''}">
+                      <li>${f.answer}</li>
+                    </ul>
+                  </div>
+                </article>
+              `;
+            });
+            faqGrid.innerHTML = faqHtml;
+          }
+        }
       } catch (err) {}
     });
   </script>

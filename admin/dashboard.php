@@ -146,7 +146,7 @@ function getBallInCourtStatus($row) {
         return [
             'code' => 'closed',
             'label' => 'Contract Executed',
-            'badgeClass' => 'bg-success-subtle text-success border border-success-subtle',
+            'badgeClass' => 'badge-vel-closed',
             'icon' => 'bi-check-circle-fill'
         ];
     }
@@ -158,22 +158,22 @@ function getBallInCourtStatus($row) {
         return [
             'code' => 'desk_turn',
             'label' => 'Desk Turn',
-            'badgeClass' => 'bg-danger-subtle text-danger border border-danger-subtle',
-            'icon' => 'bi-exclamation-circle-fill'
+            'badgeClass' => 'badge-vel-desk',
+            'icon' => 'bi-arrow-return-right'
         ];
     } else {
         if ($daysDiff >= 5) {
             return [
                 'code' => 'stalled',
                 'label' => 'Stalled (' . floor($daysDiff) . 'd)',
-                'badgeClass' => 'bg-warning-subtle text-warning border border-warning-subtle',
+                'badgeClass' => 'badge-vel-stalled',
                 'icon' => 'bi-hourglass-split'
             ];
         } else {
             return [
                 'code' => 'buyer_turn',
                 'label' => 'Awaiting Buyer',
-                'badgeClass' => 'bg-primary-subtle text-primary border border-primary-subtle',
+                'badgeClass' => 'badge-vel-buyer',
                 'icon' => 'bi-clock-history'
             ];
         }
@@ -1041,8 +1041,8 @@ function getBallInCourtStatus($row) {
                               <?php endif; ?>
 
                               <?php $bic = getBallInCourtStatus($row); ?>
-                              <span class="badge <?= $bic['badgeClass'] ?> fw-semibold cursor-pointer" onclick="openBuyerDossier(<?= $row['id'] ?>)" style="font-size: 0.68rem; padding: 3px 8px; cursor: pointer;" title="Deal Velocity: <?= $bic['label'] ?> - Click for 360° Dossier">
-                                <i class="bi <?= $bic['icon'] ?> me-1"></i><?= $bic['label'] ?>
+                              <span class="<?= $bic['badgeClass'] ?> cursor-pointer" onclick="openBuyerDossier(<?= $row['id'] ?>)" title="Deal Velocity: <?= $bic['label'] ?> - Click for 360° Dossier">
+                                <?= $bic['label'] ?>
                               </span>
                             </div>
                           </div>
@@ -1630,8 +1630,8 @@ Web: https://balochistanminerals.com</textarea>
         // Ball in court
         const bic = data.ball_in_court;
         const bicBadge = document.getElementById('dossierBicBadge');
-        bicBadge.className = 'badge ' + bic.badgeClass;
-        bicBadge.innerHTML = '<i class="bi ' + bic.icon + ' me-1"></i> ' + bic.label;
+        bicBadge.className = bic.badgeClass;
+        bicBadge.textContent = bic.label;
         bicBadge.title = bic.sub || '';
 
         // KPI cards
@@ -1809,7 +1809,7 @@ Web: https://balochistanminerals.com</textarea>
         </div>
       </div>
       <div class="d-flex align-items-center gap-2 flex-shrink-0 ms-2">
-        <span id="dossierBicBadge" class="badge" style="font-size: 0.72rem; padding: 5px 9px;">Desk Turn</span>
+        <span id="dossierBicBadge" class="badge-vel-desk">Desk Turn</span>
         <button type="button" class="btn-close" onclick="closeBuyerDossier()" aria-label="Close" style="font-size: 0.8rem;"></button>
       </div>
     </div>

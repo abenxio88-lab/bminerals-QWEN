@@ -1720,4 +1720,118 @@ a.btn-dark {
   transition: all 0.15s ease;
 }
 
+/* ==========================================================================
+   SOVEREIGN EXECUTIVE DEAL VELOCITY BADGES (Ultra-Refined Luxury)
+   Replaces childish Bootstrap pastels with bespoke corporate status chips
+   ========================================================================== */
+
+.badge-vel-desk {
+  background: #FFF5F5 !important;
+  color: #881337 !important;
+  border: 1px solid #FECDD3 !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 0.69rem !important;
+  letter-spacing: 0.025em !important;
+  padding: 4px 10px !important;
+  border-radius: 5px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  box-shadow: none !important;
+  white-space: nowrap !important;
+}
+
+.badge-vel-desk::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #E11D48;
+  flex-shrink: 0;
+}
+
+.badge-vel-buyer {
+  background: #F8FAFC !important;
+  color: #1E293B !important;
+  border: 1px solid #CBD5E1 !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 0.69rem !important;
+  letter-spacing: 0.025em !important;
+  padding: 4px 10px !important;
+  border-radius: 5px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  box-shadow: none !important;
+  white-space: nowrap !important;
+}
+
+.badge-vel-buyer::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #64748B;
+  flex-shrink: 0;
+}
+
+.badge-vel-stalled {
+  background: #FFFBEB !important;
+  color: #78350F !important;
+  border: 1px solid #FDE68A !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 0.69rem !important;
+  letter-spacing: 0.025em !important;
+  padding: 4px 10px !important;
+  border-radius: 5px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  box-shadow: none !important;
+  white-space: nowrap !important;
+}
+
+.badge-vel-stalled::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #D97706;
+  flex-shrink: 0;
+}
+
+.badge-vel-closed {
+  background: #F0FDF4 !important;
+  color: #14532D !important;
+  border: 1px solid #BBF7D0 !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 0.69rem !important;
+  letter-spacing: 0.025em !important;
+  padding: 4px 10px !important;
+  border-radius: 5px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  box-shadow: none !important;
+  white-space: nowrap !important;
+}
+
+.badge-vel-closed::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10B981;
+  flex-shrink: 0;
+}
+
+
 

@@ -94,10 +94,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     $ballInCourt = [
         'code' => 'desk_turn',
-        'label' => 'Action: Desk Turn',
+        'label' => 'Desk Turn',
         'sub' => 'Buyer waiting for quotation / response',
-        'badgeClass' => 'bg-danger-subtle text-danger border border-danger-subtle',
-        'icon' => 'bi-exclamation-circle-fill'
+        'badgeClass' => 'badge-vel-desk',
+        'icon' => 'bi-arrow-return-right'
     ];
 
     if ($inquiry['status'] === 'Contract Signed') {
@@ -105,16 +105,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             'code' => 'closed',
             'label' => 'Contract Executed',
             'sub' => 'Export deal locked & finalized',
-            'badgeClass' => 'bg-success-subtle text-success border border-success-subtle',
+            'badgeClass' => 'badge-vel-closed',
             'icon' => 'bi-check-circle-fill'
         ];
     } elseif ($lastDir === 'outbound') {
         if ($daysDiff >= 5) {
             $ballInCourt = [
                 'code' => 'stalled',
-                'label' => 'Stalled (Follow-up)',
+                'label' => 'Stalled (' . floor($daysDiff) . 'd)',
                 'sub' => 'No activity for ' . floor($daysDiff) . ' days. Re-engage client.',
-                'badgeClass' => 'bg-warning-subtle text-warning border border-warning-subtle',
+                'badgeClass' => 'badge-vel-stalled',
                 'icon' => 'bi-hourglass-split'
             ];
         } else {
@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 'code' => 'buyer_turn',
                 'label' => 'Awaiting Buyer',
                 'sub' => 'Quote dispatched. Ball is in client court.',
-                'badgeClass' => 'bg-primary-subtle text-primary border border-primary-subtle',
+                'badgeClass' => 'badge-vel-buyer',
                 'icon' => 'bi-clock-history'
             ];
         }
