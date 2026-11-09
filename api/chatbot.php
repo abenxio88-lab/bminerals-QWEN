@@ -306,10 +306,12 @@ if ($matchedUnlisted !== null) {
 // 0.5 Comprehensive Concession Portfolio / Catalog Intent
 // ------------------------------------------
 $isCatalogIntent = false;
-if (preg_match('/\b(other|available|all)\s+(minerals?|products?|commodit\w+)\b/i', $clean) ||
-    preg_match('/\bwhat\s+(other\s+)?(minerals?|products?|commodit\w+)\b/i', $clean) ||
+if (preg_match('/\b(other|available|all)\s+(m[ie]nerals?|products?|commodit\w+)\b/i', $clean) ||
+    preg_match('/\b(what|which)\b.*\b(m[ie]nerals?|products?|commodit\w+)\b/i', $clean) ||
+    preg_match('/\b(show|list|tell|view|see)\b.*\b(m[ie]nerals?|products?|commodit\w+)\b/i', $clean) ||
     preg_match('/\bwhat\s+(else\s+)?do\s+you\s+(have|hvae|sell|offer|supply|export)\b/i', $clean) ||
-    preg_match('/\b(catalog|catalogue|portfolio|product\s+list|minerals?\s+list|offerings)\b/i', $clean)) {
+    preg_match('/\b(your|our)\s+(m[ie]nerals?|products?|commodit\w+)\b/i', $clean) ||
+    preg_match('/\b(catalog|catalogue|portfolio|product\s+list|m[ie]nerals?\s+list|offerings)\b/i', $clean)) {
     $isCatalogIntent = true;
 }
 
