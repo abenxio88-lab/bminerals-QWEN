@@ -438,18 +438,6 @@
   margin-bottom: 7px;
 }
 
-.bm-chat-welcome__icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 7px;
-  background: #0A1628;
-  color: #D4AF37;
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
 
 .bm-chat-welcome__title {
   font-family: var(--font-brand, 'Montserrat', sans-serif);
