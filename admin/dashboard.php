@@ -737,9 +737,9 @@ if ($pdo !== null) {
           <button type="button" class="btn-topbar-action" data-bs-toggle="modal" data-bs-target="#mailConfigModal">
             <i class="bi bi-gear"></i> <span>Mail Settings</span>
           </button>
-          <div class="pill-status d-none d-xl-inline-flex" title="Port Terminals Active">
+          <div class="pill-status d-none d-xl-inline-flex" title="Export Port Corridors Active: Gwadar Port, KPT & Port Qasim">
             <span class="status-dot dot-green"></span>
-            <span>Port Corridors: KPT & Port Qasim</span>
+            <span>Port Corridors: Gwadar, KPT & Port Qasim</span>
           </div>
           <div class="pill-status pill-clock" title="Official Pakistan Standard Time (PKT, UTC+5)">
             <span class="status-dot dot-green me-1"></span>
@@ -1450,9 +1450,9 @@ Web: https://balochistanminerals.com</textarea>
       if (!textarea) return;
 
       if (val === 'assay') {
-        textarea.value = "Dear Buyer,\n\nIn reference to your technical inquiry, we have verified that our current stockpiles conform to your purity requirements.\n\n• Chemical Assay: Sampled & verified by SGS Pakistan at KPT / Port Qasim\n• Certificate of Analysis (COA): Available upon final lot inspection and contract signing\n• Moisture & Sizing: Guaranteed export grade per contract terms\n\nPlease let us know if you require a formal sample dispatch or full chemical spec sheet.\n\nSincerely,\nTechnical & Quality Control Desk\nBalochistan Minerals (Pvt) Ltd\nWeb: https://balochistanminerals.com";
+        textarea.value = "Dear Buyer,\n\nIn reference to your technical inquiry, we have verified that our current stockpiles conform to your purity requirements.\n\n• Chemical Assay: Sampled & verified by SGS Pakistan at Gwadar Port / KPT / Port Qasim\n• Certificate of Analysis (COA): Available upon final lot inspection and contract signing\n• Moisture & Sizing: Guaranteed export grade per contract terms\n\nPlease let us know if you require a formal sample dispatch or full chemical spec sheet.\n\nSincerely,\nTechnical & Quality Control Desk\nBalochistan Minerals (Pvt) Ltd\nWeb: https://balochistanminerals.com";
       } else if (val === 'lc') {
-        textarea.value = "Dear Buyer,\n\nRegarding commercial payment terms for international export from Pakistan:\n\n• Payment Instrument: 100% Irrevocable Letter of Credit (L/C at Sight) or SBP-approved TT terms\n• Advising Bank: Habib Bank Limited (HBL) / Meezan Bank, Karachi Corporate Branch\n• Inspection: Final weight and quality certificate issued by SGS at port of loading\n• Shipping Terms: FOB Karachi or CIF designated discharge port (Incoterms 2020)\n\nPlease provide your corporate details and issuing bank name to initiate our formal draft contract.\n\nSincerely,\nCommercial Finance Desk\nBalochistan Minerals (Pvt) Ltd\nWeb: https://balochistanminerals.com";
+        textarea.value = "Dear Buyer,\n\nRegarding commercial payment terms for international export from Pakistan:\n\n• Payment Instrument: 100% Irrevocable Letter of Credit (L/C at Sight) or SBP-approved TT terms\n• Advising Bank: Habib Bank Limited (HBL) / Meezan Bank, Karachi Corporate Branch\n• Inspection: Final weight and quality certificate issued by SGS at port of loading\n• Shipping Terms: FOB Gwadar / Karachi (KPT / Port Qasim) or CIF designated discharge port (Incoterms 2020)\n\nPlease provide your corporate details and issuing bank name to initiate our formal draft contract.\n\nSincerely,\nCommercial Finance Desk\nBalochistan Minerals (Pvt) Ltd\nWeb: https://balochistanminerals.com";
       } else if (val === 'custom') {
         textarea.value = "Dear Buyer,\n\nThank you for reaching out to Balochistan Minerals (Pvt) Ltd.\n\n[Please enter your custom message here]\n\nBest regards,\nExport Commercial Desk\nBalochistan Minerals (Pvt) Ltd\nWeb: https://balochistanminerals.com";
       } else {

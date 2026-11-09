@@ -207,7 +207,7 @@ $waShareUrl = generateWhatsAppLink($inq['whatsapp'], $waShareMsg);
       </div>
       <div class="col-6 text-end">
         <div class="text-muted small text-uppercase fw-bold mb-1" style="font-size: 0.72rem; letter-spacing: 0.05em;">COMMERCIAL PARAMETERS:</div>
-        <div class="small">Delivery Terms: <strong><?= htmlspecialchars($inq['destination_port'] ?: 'FOB Karachi / Port Qasim (Incoterms 2020)') ?></strong></div>
+        <div class="small">Delivery Terms: <strong><?= htmlspecialchars($inq['destination_port'] ?: 'FOB Gwadar / Karachi (KPT / Port Qasim) - Incoterms 2020') ?></strong></div>
         <div class="small">Validity: <strong><?= $validDate ?> (7 Days Spot)</strong></div>
         <div class="small">Currency: <strong>USD ($) United States Dollars</strong></div>
         <div class="small">Export Desk: <strong>sales@balochistanminerals.com</strong></div>

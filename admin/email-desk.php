@@ -703,11 +703,11 @@ if ($pdo !== null) {
               <label class="form-label">Export Offer Letter Body</label>
               <textarea id="outboundBody" name="email_body" class="form-control form-control-sm font-monospace" rows="9" required style="font-size: 0.80rem; line-height: 1.45;">Dear Procurement Director,
 
-Balochistan Minerals (Pvt) Ltd is pleased to present our official commercial export quotation for prompt shipment out of Karachi Port Trust (KPT) / Port Qasim corridors:
+Balochistan Minerals (Pvt) Ltd is pleased to present our official commercial export quotation for prompt shipment out of Gwadar Port, Karachi Port Trust (KPT) & Port Qasim corridors:
 
 1. Commodity: High-Grade Lumpy Ore
 2. Concessions: Muslim Bagh / Khuzdar mining concessions, Balochistan
-3. Port Terms: FOB Karachi or CIF Asian/Middle Eastern Discharge Ports (Incoterms 2020)
+3. Port Terms: FOB Gwadar / Karachi (KPT / Port Qasim) or CIF Asian/Middle Eastern Discharge Ports (Incoterms 2020)
 4. Quality Verification: 100% Certified by SGS / Alfred H. Knight / PCSIR at load port
 5. Payment Mechanism: 100% Irrevocable Letter of Credit (L/C at Sight) compliant with State Bank of Pakistan foreign exchange regulations
 
@@ -817,11 +817,11 @@ Web: https://balochistanminerals.com</textarea>
       const mineral = opt.getAttribute('data-mineral') || 'High Grade Ore';
 
       document.getElementById('outboundToEmail').value = email;
-      document.getElementById('outboundSubject').value = "FOB Karachi Spot Offer: " + mineral + " for " + company;
+      document.getElementById('outboundSubject').value = "FOB Gwadar / Karachi Spot Offer: " + mineral + " for " + company;
       
       const body = `Dear ${contact} (${company}),\n\n` +
         `Balochistan Minerals (Pvt) Ltd connects directly to your verified commercial requirements for ${mineral}.\n\n` +
-        `We confirm available mine stockpiles ready for prompt FOB Karachi / Port Qasim shipment:\n\n` +
+        `We confirm available mine stockpiles ready for prompt FOB Gwadar / Karachi / Port Qasim shipment:\n\n` +
         `• Commodity: ${mineral}\n` +
         `• Inspection: 100% Verified by SGS / Alfred H. Knight at load port\n` +
         `• Payment: 100% Irrevocable Letter of Credit (L/C at Sight)\n\n` +

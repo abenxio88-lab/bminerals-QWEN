@@ -691,7 +691,7 @@ if ($pdo !== null) {
                 Commercial Buyer Register (<?= count($prospects) ?> Matching Targets)
               </span>
             </div>
-            <span class="small text-muted font-monospace">Verified FOB Karachi & Port Qasim Importers</span>
+            <span class="small text-muted font-monospace">Verified FOB Gwadar, KPT & Port Qasim Importers</span>
           </div>
 
           <div class="table-scroll-container">
@@ -722,7 +722,7 @@ if ($pdo !== null) {
                     $cleanWa = preg_replace('/[^0-9]/', '', $b['whatsapp']);
                     $waPitch = "Dear " . ($b['contact_person'] ?: 'Procurement Team') . " (" . $b['company_name'] . "),\n\n"
                       . "Balochistan Minerals (Pvt) Ltd connects directly to your demand for " . $b['target_mineral'] . " (" . ($b['target_grade'] ?: 'High Grade') . ").\n\n"
-                      . "We have active mine stockpiles ready for prompt FOB Karachi / Port Qasim shipment with recent SGS chemical assay certificates.\n\n"
+                      . "We have active mine stockpiles ready for prompt FOB Gwadar / Karachi (KPT / Port Qasim) shipment with recent SGS chemical assay certificates.\n\n"
                       . "Would you like us to dispatch our current specification assay sheet and indicative spot quote for your review?\n\n"
                       . "Best regards,\nBalochistan Minerals Commercial Export Desk\nWeb: https://balochistanminerals.com";
                     $waUrl = "https://wa.me/" . $cleanWa . "?text=" . urlencode($waPitch);

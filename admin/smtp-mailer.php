@@ -254,7 +254,7 @@ function buildCorporateEmailHtml($subject, $bodyText, $fromEmail) {
                 BALOCHISTAN MINERALS (PVT) LTD
               </div>
               <div style="font-size: 11px; color: #94A3B8; text-transform: uppercase; letter-spacing: 1px; margin-top: 3px;">
-                Commercial Export Desk • Karachi Port Trust & Port Qasim Corridors
+                Commercial Export Desk • Gwadar Port, KPT & Port Qasim Corridors
               </div>
             </td>
             <td align="right">

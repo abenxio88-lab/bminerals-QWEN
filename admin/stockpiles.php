@@ -331,7 +331,7 @@ if ($pdo !== null) {
           </button>
           <div class="topbar-title-wrap">
             <h1 class="topbar-title">Stockpiles & Export Cargo Logistics</h1>
-            <div class="topbar-subtitle">Port Qasim, KPT Terminals & Regional Extraction Yards</div>
+            <div class="topbar-subtitle">Gwadar Port, KPT & Port Qasim Terminals & Regional Mining Yards</div>
           </div>
         </div>
         <div class="topbar-right">
