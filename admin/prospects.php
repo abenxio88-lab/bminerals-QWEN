@@ -482,7 +482,7 @@ if ($pdo !== null) {
         </a>
         <a href="email-desk.php" class="sidebar-link">
           <div><i class="bi bi-envelope-paper-fill"></i> Email Reply Desk</div>
-          <span class="badge bg-primary font-monospace" style="font-size: 0.65rem;">HOSTINGER</span>
+          <span class="badge font-monospace" style="background: rgba(2,132,199,0.10); color: #0284C7; border: 1px solid rgba(2,132,199,0.22); font-size: 0.62rem; padding: 2px 7px; border-radius: 4px; letter-spacing: 0.04em;">HOSTINGER</span>
         </a>
         <a href="prospects.php" class="sidebar-link active">
           <div><i class="bi bi-bullseye"></i> Buyer Directory</div>

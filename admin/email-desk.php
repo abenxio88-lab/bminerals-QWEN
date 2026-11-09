@@ -378,7 +378,7 @@ if ($pdo !== null) {
         </a>
         <a href="email-desk.php" class="sidebar-link active">
           <div><i class="bi bi-envelope-paper-fill"></i> Email Reply Desk</div>
-          <span class="badge bg-primary font-monospace" style="font-size: 0.65rem;">HOSTINGER</span>
+          <span class="badge font-monospace" style="background: rgba(2,132,199,0.10); color: #0284C7; border: 1px solid rgba(2,132,199,0.22); font-size: 0.62rem; padding: 2px 7px; border-radius: 4px; letter-spacing: 0.04em;">HOSTINGER</span>
         </a>
         <a href="prospects.php" class="sidebar-link">
           <div><i class="bi bi-bullseye"></i> Buyer Directory</div>
@@ -581,7 +581,7 @@ if ($pdo !== null) {
                 <?php if (!empty($selectedMessage['attachments'])): ?>
                   <div class="mt-3 p-2.5 bg-white rounded border d-flex align-items-center justify-content-between">
                     <div class="d-flex align-items-center gap-2 small">
-                      <i class="bi bi-paperclip text-warning fs-5"></i>
+                      <i class="bi bi-paperclip text-secondary fs-5"></i>
                       <div>
                         <strong>Attached Trade Document:</strong> <?= htmlspecialchars($selectedMessage['attachments']) ?>
                       </div>
@@ -602,18 +602,25 @@ if ($pdo !== null) {
                   <input type="hidden" name="subject" value="Re: <?= htmlspecialchars($selectedMessage['subject']) ?>">
                   <input type="hidden" name="csrf_token" value="<?= getCsrfToken() ?>">
 
-                  <div class="d-flex justify-content-between align-items-center mb-1.5">
-                    <span class="fw-bold small brand-font" style="color: var(--brand-navy); font-size: 0.80rem;">
-                      <i class="bi bi-reply-fill text-warning me-1"></i> Quick Follow-up Dispatch to <?= htmlspecialchars($selectedMessage['direction'] === 'inbound' ? $selectedMessage['from_email'] : $selectedMessage['to_email']) ?>
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="fw-semibold text-dark" style="font-size: 0.78rem;">
+                      <i class="bi bi-reply me-1 text-secondary"></i> Quick Reply to <strong class="text-dark"><?= htmlspecialchars($selectedMessage['direction'] === 'inbound' ? $selectedMessage['from_email'] : $selectedMessage['to_email']) ?></strong>
                     </span>
-                    <span class="small text-muted font-monospace" style="font-size: 0.68rem;">From: sales@balochistanminerals.com</span>
+                    <span class="badge bg-light text-secondary border font-monospace" style="font-size: 0.67rem;">
+                      <i class="bi bi-shield-check text-success me-1"></i>From: sales@balochistanminerals.com
+                    </span>
                   </div>
 
-                  <div class="input-group input-group-sm">
-                    <textarea name="email_body" class="form-control font-monospace" rows="3" placeholder="Type quick follow-up terms, SGS assay confirmation, or FOB schedule..." required style="font-size: 0.80rem; line-height: 1.45;"></textarea>
-                    <button type="submit" class="btn btn-dark fw-bold px-3 d-flex align-items-center gap-1.5" style="background: #0F172A;">
-                      <i class="bi bi-send-fill"></i> Send Reply
-                    </button>
+                  <div class="reply-compose-box">
+                    <textarea name="email_body" class="form-control font-monospace reply-textarea" rows="3" placeholder="Type quick trade reply, SGS assay confirmation, or FOB delivery schedule..." required></textarea>
+                    <div class="reply-compose-footer d-flex justify-content-between align-items-center">
+                      <div class="text-muted small" style="font-size: 0.72rem;">
+                        <i class="bi bi-lightning-charge me-1 text-secondary"></i> Dispatches via Hostinger SMTP TLS Relay
+                      </div>
+                      <button type="submit" class="btn-send-dispatch">
+                        <i class="bi bi-send-fill"></i> <span>Send Reply</span>
+                      </button>
+                    </div>
                   </div>
                 </form>
               </div>

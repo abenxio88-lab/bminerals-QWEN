@@ -17,7 +17,7 @@
   --text-secondary: #475569;
   --text-muted: #64748B;
   --whatsapp-green: #15803D;
-  --sidebar-width: 260px;
+  --sidebar-width: 275px;
   --sidebar-collapsed-width: 0px;
   --topbar-height: 60px;
   --radius-sm: 6px;
@@ -153,11 +153,19 @@ h1, h2, h3, h4, h5, h6, .brand-font {
   border-radius: var(--radius-sm);
   color: #475569;
   font-family: 'Montserrat', sans-serif;
-  font-size: 0.82rem;
+  font-size: 0.80rem;
   font-weight: 600;
   text-decoration: none;
   margin-bottom: 2px;
   transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.sidebar-link > div {
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  min-width: 0;
 }
 
 .sidebar-link i {
@@ -165,6 +173,7 @@ h1, h2, h3, h4, h5, h6, .brand-font {
   margin-right: 10px;
   color: #64748B;
   transition: color 0.15s ease;
+  flex-shrink: 0;
 }
 
 .sidebar-link:hover {
@@ -191,12 +200,12 @@ h1, h2, h3, h4, h5, h6, .brand-font {
   top: 6px;
   bottom: 6px;
   width: 3.5px;
-  background: var(--brand-gold);
+  background: #0F172A;
   border-radius: 0 3px 3px 0;
 }
 
 .sidebar-link.active i {
-  color: var(--brand-gold);
+  color: #0F172A !important;
 }
 
 .sidebar-footer {
@@ -972,4 +981,83 @@ body.sidebar-open .sidebar-backdrop {
 .modal-dialog-resizable.modal-maximized .modal-body {
   overflow-y: auto;
   flex: 1;
+}
+
+/* ==========================================================================
+   EXECUTIVE EMAIL REPLY CONSOLE & SEND DISPATCH BUTTON
+   ========================================================================== */
+
+.reply-compose-box {
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 10px;
+  padding: 12px 14px 10px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reply-compose-box:focus-within {
+  border-color: #0F172A;
+  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08);
+}
+
+.reply-textarea {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  font-size: 0.82rem !important;
+  line-height: 1.5 !important;
+  resize: vertical;
+  min-height: 72px;
+  background: transparent !important;
+  color: #0F172A;
+}
+
+.reply-compose-footer {
+  border-top: 1px solid #F1F5F9;
+  margin-top: 8px;
+  padding-top: 8px;
+}
+
+.btn-send-dispatch {
+  background: #0F172A !important;
+  border: 1px solid #0F172A !important;
+  color: #FFFFFF !important;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  height: 36px;
+  padding: 0 20px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12), 0 1px 2px rgba(15, 23, 42, 0.08);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+.btn-send-dispatch:hover {
+  background: #1E293B !important;
+  border-color: #1E293B !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+  transform: translateY(-1px);
+}
+
+.btn-send-dispatch:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.1);
+}
+
+.btn-send-dispatch i {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.88rem;
+  transition: transform 0.15s ease;
+}
+
+.btn-send-dispatch:hover i {
+  transform: translateX(3px);
 }
