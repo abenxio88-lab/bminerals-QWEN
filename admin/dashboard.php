@@ -1073,15 +1073,11 @@ function getBallInCourtStatus($row) {
               <span class="table-scroll-hint" title="Use mouse wheel or drag horizontally to view all columns">
                 <i class="bi bi-arrows-expand-vertical"></i> Scroll ↔
               </span>
-              <!-- Real-Time Live Sync Indicator & Controls -->
-              <div class="live-sync-pill" id="liveSyncStatusBadge" onclick="checkLiveUpdates(true)" title="Active Real-Time Auto Sync (Checking every 15s) • Click to check now">
+              <!-- Real-Time Live Sync Indicator -->
+              <div class="live-sync-pill" id="liveSyncStatusBadge" onclick="checkLiveUpdates(true)" title="Real-Time Auto Sync Active • Click to refresh">
                 <span class="live-sync-dot"></span>
                 <span id="liveSyncStatusText">Live Sync Active</span>
-                <span class="live-sync-timer" id="liveSyncTimer">15s</span>
               </div>
-              <button type="button" class="btn-live-chime" id="btnToggleChime" onclick="toggleChimeAudio()" title="Toggle audio chime for new inbound RFQs">
-                <i class="bi bi-volume-up" id="chimeIcon"></i>
-              </button>
             </div>
             <div class="table-panel-actions">
               <button type="button" class="btn btn-sm btn-primary d-inline-flex align-items-center gap-1.5 fw-semibold px-3 py-1.5" style="border-radius: 6px;" id="btnSyncMail" onclick="syncCorporateMail(false)" title="Check Hostinger IMAP Inboxes (sales@ and info@)">
