@@ -449,10 +449,10 @@ if ($pdo !== null) {
             <span class="status-dot dot-green"></span>
             <span>Hostinger Relay Active</span>
           </div>
-          <button type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1.5 fw-semibold px-2.5 py-1.5 text-dark" style="border-radius: 8px; font-size: 0.78rem; background: #FFFFFF;" data-bs-toggle="modal" data-bs-target="#mailConfigModal">
-            <i class="bi bi-gear-fill text-warning"></i> <span>Server Config</span>
+          <button type="button" class="btn-topbar-action" data-bs-toggle="modal" data-bs-target="#mailConfigModal">
+            <i class="bi bi-gear"></i> <span>Server Config</span>
           </button>
-          <button type="button" class="btn btn-sm btn-dark d-flex align-items-center gap-1.5 fw-bold px-3 py-1.5 shadow-sm text-white" style="border-radius: 8px; background: #0F172A; font-size: 0.78rem;" data-bs-toggle="modal" data-bs-target="#newOfferModal">
+          <button type="button" class="btn-topbar-primary" data-bs-toggle="modal" data-bs-target="#newOfferModal">
             <i class="bi bi-pencil-square"></i> <span>Compose Trade Offer</span>
           </button>
         </div>

@@ -376,11 +376,11 @@ if ($pdo !== null) {
           <form method="POST" action="radar.php" class="d-inline">
             <input type="hidden" name="action" value="simulate_ping">
             <input type="hidden" name="csrf_token" value="<?= getCsrfToken() ?>">
-            <button type="submit" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1.5 fw-semibold px-2.5 py-1.5 text-dark" style="border-radius: 8px; font-size: 0.78rem; background: #FFFFFF;">
-              <i class="bi bi-send-plus text-primary"></i> <span>Simulate Ping</span>
+            <button type="submit" class="btn-topbar-action">
+              <i class="bi bi-send-plus"></i> <span>Simulate Ping</span>
             </button>
           </form>
-          <a href="radar.php" class="btn btn-sm btn-dark d-flex align-items-center gap-1.5 fw-bold px-3 py-1.5 shadow-sm text-white" style="border-radius: 8px; background: #0F172A; font-size: 0.78rem;">
+          <a href="radar.php" class="btn-topbar-primary">
             <i class="bi bi-arrow-clockwise"></i> <span>Refresh Feed</span>
           </a>
         </div>

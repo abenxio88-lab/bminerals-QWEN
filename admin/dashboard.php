@@ -690,8 +690,8 @@ if ($pdo !== null) {
         </div>
 
         <div class="topbar-right">
-          <button type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1.5 fw-semibold px-2.5 py-1.5 text-dark" style="font-size: 0.78rem; border-radius: 8px; background: #FFFFFF;" data-bs-toggle="modal" data-bs-target="#mailConfigModal">
-            <i class="bi bi-gear-fill text-warning"></i> <span>Mail Settings</span>
+          <button type="button" class="btn-topbar-action" data-bs-toggle="modal" data-bs-target="#mailConfigModal">
+            <i class="bi bi-gear"></i> <span>Mail Settings</span>
           </button>
           <div class="pill-status d-none d-xl-inline-flex" title="Port Terminals Active">
             <span class="status-dot dot-green"></span>

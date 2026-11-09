@@ -394,6 +394,91 @@ body.sidebar-open .sidebar-backdrop {
   font-weight: 600 !important;
 }
 
+/* Executive High-Quality Topbar Action Buttons */
+.btn-topbar-action {
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  color: #1E293B !important;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-topbar-action:hover {
+  background: #F8FAFC;
+  border-color: #94A3B8;
+  color: #0F172A !important;
+  box-shadow: 0 2px 5px rgba(15, 23, 42, 0.08);
+  transform: translateY(-0.5px);
+}
+
+.btn-topbar-action:active {
+  background: #F1F5F9;
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.btn-topbar-action i {
+  color: #64748B;
+  font-size: 0.92rem;
+  line-height: 1;
+  transition: color 0.15s ease;
+}
+
+.btn-topbar-action:hover i {
+  color: #0F172A;
+}
+
+/* Primary Executive Topbar Button */
+.btn-topbar-primary {
+  background: #0F172A;
+  border: 1px solid #0F172A;
+  color: #FFFFFF !important;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  height: 36px;
+  padding: 0 16px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12), 0 1px 2px rgba(15, 23, 42, 0.08);
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-topbar-primary:hover {
+  background: #1E293B;
+  border-color: #1E293B;
+  color: #FFFFFF !important;
+  box-shadow: 0 3px 6px rgba(15, 23, 42, 0.16);
+  transform: translateY(-0.5px);
+}
+
+.btn-topbar-primary:active {
+  transform: translateY(0);
+}
+
+.btn-topbar-primary i {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.92rem;
+  line-height: 1;
+}
+
 .content-canvas {
   padding: 20px 24px;
   flex: 1;

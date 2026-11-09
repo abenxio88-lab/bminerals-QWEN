@@ -395,7 +395,7 @@ if ($pdo !== null) {
         <div class="topbar-right">
           <!-- USD to PKR Rate Pill -->
           <div class="pill-status d-flex align-items-center gap-2 shadow-sm" style="background: #FFFFFF;">
-            <span class="text-muted fw-semibold" style="font-size: 0.74rem;"><i class="bi bi-currency-exchange text-warning me-1"></i>USD / PKR:</span>
+            <span class="text-muted fw-semibold" style="font-size: 0.74rem;"><i class="bi bi-currency-exchange text-secondary me-1"></i>USD / PKR:</span>
             <span class="fw-bold font-monospace text-dark" style="font-size: 0.8rem;">₨ <?= number_format($usdPkrRate, 2) ?></span>
             <button type="button" class="btn btn-sm btn-link p-0 text-decoration-none text-primary fw-semibold" style="font-size: 0.72rem;" data-bs-toggle="modal" data-bs-target="#rateModal" title="Edit Exchange Rate">
               <i class="bi bi-pencil-square"></i> Change
@@ -410,7 +410,7 @@ if ($pdo !== null) {
           </div>
 
           <!-- Add Mineral Button -->
-          <button type="button" class="btn btn-sm btn-dark d-flex align-items-center gap-1.5 fw-bold px-3 py-1.5 shadow-sm text-white" data-bs-toggle="modal" data-bs-target="#priceModal0" style="border-radius: 8px; background: #0F172A; font-size: 0.78rem;">
+          <button type="button" class="btn-topbar-primary" data-bs-toggle="modal" data-bs-target="#priceModal0">
             <i class="bi bi-plus-lg"></i> <span>Add Mineral Grade</span>
           </button>
         </div>

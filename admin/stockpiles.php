@@ -332,7 +332,7 @@ if ($pdo !== null) {
             <span class="status-dot dot-green"></span>
             <span>Port Logistics Active</span>
           </div>
-          <button type="button" class="btn btn-sm btn-dark d-flex align-items-center gap-1.5 fw-bold px-3 py-1.5 shadow-sm text-white" data-bs-toggle="modal" data-bs-target="#stockModal0" style="border-radius: 8px; background: #0F172A; font-size: 0.78rem;">
+          <button type="button" class="btn-topbar-primary" data-bs-toggle="modal" data-bs-target="#stockModal0">
             <i class="bi bi-plus-lg"></i> <span>Log Stockpile Lot</span>
           </button>
         </div>

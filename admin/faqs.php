@@ -283,7 +283,7 @@ if ($pdo !== null) {
           </div>
         </div>
         <div class="topbar-right">
-          <button type="button" class="btn btn-sm btn-dark d-flex align-items-center gap-1.5 fw-bold px-3 py-1.5 shadow-sm text-white" data-bs-toggle="modal" data-bs-target="#faqModal0" style="border-radius: 8px; background: #0F172A; font-size: 0.78rem;">
+          <button type="button" class="btn-topbar-primary" data-bs-toggle="modal" data-bs-target="#faqModal0">
             <i class="bi bi-plus-lg"></i> <span>Add New FAQ</span>
           </button>
         </div>

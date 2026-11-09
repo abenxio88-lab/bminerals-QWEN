@@ -552,10 +552,10 @@ if ($pdo !== null) {
             <span class="status-dot dot-green"></span>
             <span><?= $totalCount ?> Verified Importers</span>
           </div>
-          <a href="prospects.php?action=export_csv" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1.5 fw-semibold px-3 py-1.5 text-dark" style="border-radius: 8px; font-size: 0.78rem; background: #FFFFFF;">
+          <a href="prospects.php?action=export_csv" class="btn-topbar-action">
             <i class="bi bi-file-earmark-spreadsheet"></i> <span>Export CSV</span>
           </a>
-          <button type="button" class="btn btn-sm btn-dark d-flex align-items-center gap-1.5 fw-bold px-3 py-1.5 shadow-sm text-white" style="border-radius: 8px; background: #0F172A; font-size: 0.78rem;" data-bs-toggle="modal" data-bs-target="#addProspectModal">
+          <button type="button" class="btn-topbar-primary" data-bs-toggle="modal" data-bs-target="#addProspectModal">
             <i class="bi bi-plus-lg"></i> <span>Add New Buyer</span>
           </button>
         </div>
