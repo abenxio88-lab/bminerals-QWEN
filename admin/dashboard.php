@@ -312,7 +312,7 @@ function getBallInCourtStatus($row) {
       display: inline-flex !important;
       align-items: center;
       justify-content: center;
-      border: 1px solid #CBD5E1;
+      border: none !important;
       flex-shrink: 0;
       vertical-align: middle;
       margin: 0 4px;
@@ -1156,18 +1156,18 @@ function getBallInCourtStatus($row) {
 
                             <!-- Source & Mailbox Channel & Velocity Tracker -->
                             <div class="mt-1.5 d-flex gap-1.5 flex-wrap align-items-center">
-                              <span class="badge bg-light text-secondary border fw-medium" style="font-size: 0.68rem; padding: 3px 8px;">
+                              <span class="badge bg-light text-secondary fw-medium" style="font-size: 0.68rem; padding: 3px 8px; border: none !important; box-shadow: none !important;">
                                 <i class="bi bi-inbox-fill text-primary me-1"></i><?= !empty($row['source']) && strpos($row['source'], '@') !== false ? htmlspecialchars($row['source']) : 'sales@balochistanminerals.com' ?>
                               </span>
 
                               <?php if (!empty($row['source']) && $row['source'] === 'Direct Email Modal'): ?>
-                                <span class="badge bg-light text-dark border fw-medium" style="font-size: 0.68rem; padding: 3px 8px;">
+                                <span class="badge bg-light text-dark fw-medium" style="font-size: 0.68rem; padding: 3px 8px; border: none !important; box-shadow: none !important;">
                                   <i class="bi bi-chat-left-dots text-warning me-1"></i>Direct Desk
                                 </span>
                               <?php endif; ?>
 
                               <?php if (!empty($row['email_count']) && (int)$row['email_count'] > 0): ?>
-                                <span class="badge bg-light text-primary border fw-semibold cursor-pointer" onclick="openBuyerDossier(<?= $row['id'] ?>)" style="font-size: 0.68rem; padding: 3px 8px; cursor: pointer;" title="Inspect <?= $row['email_count'] ?> Email Thread">
+                                <span class="badge bg-light text-primary fw-semibold cursor-pointer" onclick="openBuyerDossier(<?= $row['id'] ?>)" style="font-size: 0.68rem; padding: 3px 8px; cursor: pointer; border: none !important; box-shadow: none !important;" title="Inspect <?= $row['email_count'] ?> Email Thread">
                                   <i class="bi bi-chat-dots me-1"></i><?= $row['email_count'] ?> Email<?= (int)$row['email_count'] > 1 ? 's' : '' ?>
                                 </span>
                               <?php endif; ?>
@@ -1935,7 +1935,7 @@ Web: https://balochistanminerals.com</textarea>
           <div class="text-muted d-flex align-items-center gap-2 text-nowrap mt-0.5" style="font-size: 0.76rem; overflow: hidden;">
             <span id="dossierCompany" class="text-truncate fw-semibold text-dark" style="max-width: 160px;">Company</span>
             <span class="text-muted" style="font-size: 0.6rem;">&bull;</span>
-            <span id="dossierFlagChip" class="dossier-flag-chip" style="width: 18px; height: 12px; min-width: 18px; min-height: 12px; max-width: 18px; max-height: 12px; display: inline-flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #CBD5E1; border-radius: 2px; flex-shrink: 0;"></span>
+            <span id="dossierFlagChip" class="dossier-flag-chip" style="width: 18px; height: 12px; min-width: 18px; min-height: 12px; max-width: 18px; max-height: 12px; display: inline-flex; align-items: center; justify-content: center; overflow: hidden; border: none !important; border-radius: 2px; flex-shrink: 0;"></span>
             <span id="dossierCountry" class="text-secondary fw-medium text-truncate" style="max-width: 120px;">Country</span>
           </div>
         </div>
@@ -2021,7 +2021,7 @@ Web: https://balochistanminerals.com</textarea>
       <div class="p-3 bg-light border-top">
         <div class="fw-bold mb-2 brand-font d-flex align-items-center justify-content-between" style="font-size: 0.78rem; color: #0F172A;">
           <span><i class="bi bi-reply-fill text-primary me-1"></i> Quick Reply via Hostinger SMTP</span>
-          <span class="badge bg-white text-secondary border font-monospace" style="font-size: 0.65rem;">sales@balochistanminerals.com</span>
+          <span class="badge bg-white text-secondary font-monospace" style="font-size: 0.65rem; border: none !important; box-shadow: none !important;">sales@balochistanminerals.com</span>
         </div>
         <form id="dossierReplyForm" onsubmit="handleDossierReply(event)">
           <input type="hidden" id="dossierInquiryId" value="">

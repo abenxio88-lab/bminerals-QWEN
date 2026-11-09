@@ -1036,7 +1036,7 @@ body.sidebar-open .sidebar-backdrop {
   height: 14px;
   border-radius: 3px;
   overflow: hidden;
-  border: 1px solid rgba(15, 23, 42, 0.2);
+  border: none !important;
   box-shadow: none !important;
   cursor: pointer;
   background: #FFFFFF;
@@ -1046,7 +1046,7 @@ body.sidebar-open .sidebar-backdrop {
 
 .buyer-flag-chip:hover {
   transform: scale(1.15);
-  border-color: #0F172A;
+  border: none !important;
 }
 
 .buyer-flag-chip svg,
@@ -1653,7 +1653,7 @@ a.btn-dark {
   display: inline-flex !important;
   align-items: center;
   justify-content: center;
-  border: 1px solid #CBD5E1;
+  border: none !important;
   flex-shrink: 0;
   vertical-align: middle;
   margin: 0 4px;
