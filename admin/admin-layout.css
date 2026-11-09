@@ -379,6 +379,13 @@ body.sidebar-open .sidebar-backdrop {
   color: var(--brand-navy);
 }
 
+/* Avoid duplicate buttons: Hide topbar toggle on desktop when sidebar is already open */
+@media (min-width: 1100px) {
+  body:not(.sidebar-collapsed) .topbar-left .btn-sidebar-toggle {
+    display: none !important;
+  }
+}
+
 .topbar-title-wrap {
   display: flex;
   flex-direction: column;
