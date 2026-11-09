@@ -31,7 +31,7 @@ if ($action === 'init') {
         echo json_encode([
             'success' => true,
             'type' => 'greeting',
-            'title' => 'Chromite Sourcing Desk',
+            'title' => 'Chromite Marketing & Sourcing',
             'image' => 'images/chromite-new-480.avif',
             'badge' => '42% - 52% Cr₂O₃',
             'origin' => 'Muslim Bagh Belt',
@@ -105,7 +105,7 @@ if ($action === 'init') {
     echo json_encode([
         'success' => true,
         'type' => 'greeting',
-        'title' => 'Balochistan Minerals Concession Desk',
+        'title' => 'Balochistan Minerals Marketing Department',
         'text' => "Welcome to **Balochistan Minerals (Pvt) Ltd**. We are active concession owners and direct exporters of **Chromite (42%–52%)**, **API 13A Barite (SG 4.20+)**, **Chagai Copper DSO (2%–10%)**, **Iron Ore (40%–62%)**, **Fluorspar**, **Antimony**, and **Marble** from Balochistan.\n\nAre you looking for specs and live spot rates on our active mining concessions, or inquiring about custom mineral sourcing in Pakistan?",
         'chips' => ['Chromite 42-52%', 'Barite 4.2+ SG', 'Chagai Copper', 'Live Spot Prices', 'Ready Stockpiles', 'Custom Sourcing']
     ]);
@@ -168,13 +168,13 @@ if ($action === 'submit_rfq') {
     @mail(COMPANY_EMAIL, $alertSubject, $alertBody, $headers);
 
     // Pre-filled WhatsApp link
-    $waText = "Hello Balochistan Minerals Export Desk, I have registered RFQ #" . ($leadId ?: 'New') . " for " . $mineral . " (" . $quantity . "). My email is " . $email . ". Please advise current lot availability.";
+    $waText = "Hello Balochistan Minerals Marketing Department, I have registered RFQ #" . ($leadId ?: 'New') . " for " . $mineral . " (" . $quantity . "). My email is " . $email . ". Please advise current lot availability.";
     $waUrl = "https://wa.me/923348888104?text=" . urlencode($waText);
 
     echo json_encode([
         'success' => true,
         'lead_id' => $leadId,
-        'text' => "✅ **RFQ Registered Successfully (Ref #BM-" . ($leadId ?: rand(100, 999)) . ")**\n\nThank you, **" . htmlspecialchars($name) . "**" . ($company ? " (" . htmlspecialchars($company) . ")" : "") . ". Your procurement inquiry for **" . htmlspecialchars($quantity) . "** of **" . htmlspecialchars($mineral) . "** has been logged into our Commercial Export Desk.\n\nOur trading desk will review your specifications and dispatch an official quotation to `" . htmlspecialchars($email) . "` within 2–4 business hours.",
+        'text' => "✅ **RFQ Registered Successfully (Ref #BM-" . ($leadId ?: rand(100, 999)) . ")**\n\nThank you, **" . htmlspecialchars($name) . "**" . ($company ? " (" . htmlspecialchars($company) . ")" : "") . ". Your procurement inquiry for **" . htmlspecialchars($quantity) . "** of **" . htmlspecialchars($mineral) . "** has been logged into our Marketing & Export Department.\n\nOur marketing director will review your specifications and dispatch an official quotation to `" . htmlspecialchars($email) . "` within 2–4 business hours.",
         'wa_url' => $waUrl,
         'chips' => ['Track via WhatsApp', 'Check Stockpiles', 'Mineral Spot Prices', 'Return to Catalog']
     ]);
@@ -284,7 +284,7 @@ if ($matchedUnlisted !== null) {
         'title' => $matchedUnlisted['name'] . ' — Concession Scope & Sourcing',
         'badge' => 'Custom Sourcing Evaluation',
         'image' => 'images/baochistan-mineral-resources-480.avif',
-        'text' => "**Balochistan Minerals (Pvt) Ltd** does not directly mine or hold **" . $matchedUnlisted['name'] . "** in our active export inventory.\n\nOur direct extraction concessions and ready port stockpiles are focused strictly on:\n• **Metallurgical Chromite (42%–52% Cr₂O₃)** — Muslim Bagh Belt\n• **API 13A High-Gravity Barite (SG 4.20+)** — Khuzdar Concessions\n• **Chagai Copper DSO (2%–10% Cu)** — Smelter Feedstock\n• **Iron Ore (Fe 40%–62% Magnetite/Hematite)**\n• **Fluorspar (50%–90%+ CaF₂)** & **Dimensional Marble**\n\n**Custom Procurement Desk:**\n" . $matchedUnlisted['context'] . " If your plant or processing facility requires verified supply from Pakistani deposits on a custom contract basis, our Commercial Desk can evaluate your target specification upon receiving your required grade and tonnage.",
+        'text' => "**Balochistan Minerals (Pvt) Ltd** does not directly mine or hold **" . $matchedUnlisted['name'] . "** in our active export inventory.\n\nOur direct extraction concessions and ready port stockpiles are focused strictly on:\n• **Metallurgical Chromite (42%–52% Cr₂O₃)** — Muslim Bagh Belt\n• **API 13A High-Gravity Barite (SG 4.20+)** — Khuzdar Concessions\n• **Chagai Copper DSO (2%–10% Cu)** — Smelter Feedstock\n• **Iron Ore (Fe 40%–62% Magnetite/Hematite)**\n• **Fluorspar (50%–90%+ CaF₂)** & **Dimensional Marble**\n\n**Custom Procurement & Sourcing:**\n" . $matchedUnlisted['context'] . " If your plant or processing facility requires verified supply from Pakistani deposits on a custom contract basis, our Marketing Department can evaluate your target specification upon receiving your required grade and tonnage.",
         'productsList' => [
             ['name' => 'Chromite Ore', 'grade' => '42% - 52% Cr₂O₃', 'image' => 'images/chromite-new-480.avif', 'query' => 'Chromite 42-52%'],
             ['name' => 'Barite API 13A', 'grade' => 'SG 4.20+ High Gravity', 'image' => 'images/barite-card-480.avif', 'query' => 'Barite 4.2+ SG'],
@@ -297,7 +297,7 @@ if ($matchedUnlisted !== null) {
             'defaultGrade' => 'Custom Chemical Assay Required',
             'url' => 'contact.html#inquiry-form'
         ],
-        'chips' => ['Browse Active Concessions', 'Request Custom Sourcing', 'Live Spot Prices', 'Talk to Commercial Desk']
+        'chips' => ['Browse Active Concessions', 'Request Custom Sourcing', 'Live Spot Prices', 'Contact Marketing Department']
     ]);
     exit;
 }
@@ -324,7 +324,7 @@ if ($isCatalogIntent) {
         'badge' => 'Active Export Concessions',
         'url' => 'products.html',
         'urlLabel' => 'View Complete Technical Catalog & Specifications',
-        'text' => "**Balochistan Minerals (Pvt) Ltd** quarries, processes, and exports three primary commodity portfolios directly from Balochistan concessions:\n\n• **Metallic Ores:** Metallurgical Chromite (42%–52% Cr₂O₃), Chagai Copper DSO (2%–10% Cu), Iron Ore Magnetite/Hematite (Fe 40%–62%), and Antimony Stibnite (4%–58% Sb).\n• **Industrial Minerals:** API 13A High-Gravity Barite (SG 4.20+), Fluorspar (50%–90%+ CaF₂), and Natural Gypsum (90%–95%).\n• **Dimensional Stones & Coal:** Persian Silk & Pietra Grey Marble slabs and blocks, and Industrial Steam Coal.\n\n**Custom Procurement Desk:**\nFor unlisted mineral requirements from Pakistani deposits (such as Talc, Manganese, or Quartz), our Commercial Desk evaluates buyer specifications on a custom contract procurement basis.\n\nSelect any active commodity below for assay specs, port stockpile availability, and FOB spot pricing:",
+        'text' => "**Balochistan Minerals (Pvt) Ltd** quarries, processes, and exports three primary commodity portfolios directly from Balochistan concessions:\n\n• **Metallic Ores:** Metallurgical Chromite (42%–52% Cr₂O₃), Chagai Copper DSO (2%–10% Cu), Iron Ore Magnetite/Hematite (Fe 40%–62%), and Antimony Stibnite (4%–58% Sb).\n• **Industrial Minerals:** API 13A High-Gravity Barite (SG 4.20+), Fluorspar (50%–90%+ CaF₂), and Natural Gypsum (90%–95%).\n• **Dimensional Stones & Coal:** Persian Silk & Pietra Grey Marble slabs and blocks, and Industrial Steam Coal.\n\n**Custom Procurement Desk:**\nFor unlisted mineral requirements from Pakistani deposits (such as Talc, Manganese, or Quartz), our Marketing Department evaluates buyer specifications on a custom contract procurement basis.\n\nSelect any active commodity below for assay specs, port stockpile availability, and FOB spot pricing:",
         'productsList' => [
             ['name' => 'Chromite Ore', 'grade' => '42% - 52% Cr₂O₃', 'image' => 'images/chromite-new-480.avif', 'query' => 'Chromite 42-52%'],
             ['name' => 'Barite API 13A', 'grade' => 'SG 4.20+ High Gravity', 'image' => 'images/barite-card-480.avif', 'query' => 'Barite 4.2+ SG'],

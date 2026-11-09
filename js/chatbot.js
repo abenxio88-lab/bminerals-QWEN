@@ -123,7 +123,7 @@ class BMChatbot {
       <!-- Launcher Button -->
       <button type="button" class="bm-chat-launcher" aria-label="Open Balochistan Minerals AI Assistant" aria-haspopup="dialog">
         <div class="bm-chat-launcher__pill">
-          <span>Ask AI • Mineral Desk</span>
+          <span>Ask AI • Marketing Division</span>
         </div>
         <div class="bm-chat-launcher__btn">
           <svg class="bm-chat-launcher__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -598,7 +598,7 @@ class BMChatbot {
             </svg>
           </div>
           <div>
-            <h3 class="bm-chat-welcome__title">Balochistan Minerals Desk</h3>
+            <h3 class="bm-chat-welcome__title">Balochistan Minerals Marketing Department</h3>
             <span class="bm-chat-welcome__subtitle">Active Concessions & Export Intelligence</span>
           </div>
         </div>
@@ -811,7 +811,7 @@ class BMChatbot {
                 <rect width="20" height="16" x="2" y="4" rx="2"></rect>
                 <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
               </svg>
-              <span>Email Desk</span>
+              <span>Email Department</span>
             </a>
           </div>
         </div>

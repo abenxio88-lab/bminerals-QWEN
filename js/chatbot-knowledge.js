@@ -9,7 +9,7 @@ export const COMPANY_INFO = {
   email: 'sales@balochistanminerals.com',
   phone: '+92 334 8888104',
   whatsappNumber: '923348888104',
-  headOffice: 'Karachi, Sindh, Pakistan (Commercial & Export Logistics Desk)',
+  headOffice: 'Karachi, Sindh, Pakistan (Marketing & Export Logistics Division)',
   regionalOffice: 'Quetta, Balochistan, Pakistan (Mining Operations Hub)',
   exportPorts: ['Port of Karachi (KPT)', 'Port Muhammad Bin Qasim (PQA)', 'Gwadar Deep Sea Port'],
   incoterms: ['FOB Karachi / Qasim', 'CFR Destination Port', 'CIF Destination Port'],
@@ -224,7 +224,7 @@ export function buildUnlistedMineralResponse(mineralObj, rawTerm) {
     title: mineralName + ' — Concession Scope & Sourcing',
     badge: 'Custom Sourcing Evaluation',
     image: 'images/baochistan-mineral-resources-480.avif',
-    text: '**Balochistan Minerals (Pvt) Ltd** does not directly mine or hold **' + mineralName + '** in our active export inventory.\n\nOur direct extraction concessions and ready port stockpiles are focused strictly on:\n• **Metallurgical Chromite (42%–52% Cr₂O₃)** — Muslim Bagh Belt\n• **API 13A High-Gravity Barite (SG 4.20+)** — Khuzdar Concessions\n• **Chagai Copper DSO (2%–10% Cu)** — Smelter Feedstock\n• **Iron Ore (Fe 40%–62% Magnetite/Hematite)**\n• **Fluorspar (50%–90%+ CaF₂)** & **Dimensional Marble**\n\n**Custom Procurement Desk:**\n' + (mineralObj && mineralObj.pakistanContext ? mineralObj.pakistanContext + ' ' : '') + 'If your plant or processing facility requires verified supply from Pakistani deposits on a custom contract basis, our Commercial Desk can evaluate your target specification upon receiving your required grade and tonnage.',
+    text: '**Balochistan Minerals (Pvt) Ltd** does not directly mine or hold **' + mineralName + '** in our active export inventory.\n\nOur direct extraction concessions and ready port stockpiles are focused strictly on:\n• **Metallurgical Chromite (42%–52% Cr₂O₃)** — Muslim Bagh Belt\n• **API 13A High-Gravity Barite (SG 4.20+)** — Khuzdar Concessions\n• **Chagai Copper DSO (2%–10% Cu)** — Smelter Feedstock\n• **Iron Ore (Fe 40%–62% Magnetite/Hematite)**\n• **Fluorspar (50%–90%+ CaF₂)** & **Dimensional Marble**\n\n**Custom Procurement & Sourcing:**\n' + (mineralObj && mineralObj.pakistanContext ? mineralObj.pakistanContext + ' ' : '') + 'If your plant or processing facility requires verified supply from Pakistani deposits on a custom contract basis, our Marketing Department can evaluate your target specification upon receiving your required grade and tonnage.',
     productsList: [
       { name: 'Chromite Ore', grade: '42% - 52% Cr₂O₃', image: 'images/chromite-new-480.avif', query: 'Chromite 42-52%' },
       { name: 'Barite API 13A', grade: 'SG 4.20+ High Gravity', image: 'images/barite-card-480.avif', query: 'Barite 4.2+ SG' },
@@ -237,7 +237,7 @@ export function buildUnlistedMineralResponse(mineralObj, rawTerm) {
       defaultGrade: 'Custom Chemical Assay Required',
       url: 'contact.html#inquiry-form'
     },
-    chips: ['Browse Active Concessions', 'Request Custom Sourcing', 'Live Spot Prices', 'Talk to Commercial Desk']
+    chips: ['Browse Active Concessions', 'Request Custom Sourcing', 'Live Spot Prices', 'Contact Marketing Department']
   };
 }
 
@@ -245,18 +245,18 @@ export const FREQUENT_TOPICS = [
   {
     topic: 'rfq_pricing',
     keywords: ['price', 'pricing', 'quote', 'cost', 'rfq', 'rate', 'quotation', 'inquiry', 'buy', 'order', 'purchase', 'per ton', 'how much'],
-    title: 'Commercial Quotations & RFQ Desk',
+    title: 'Commercial Quotations & RFQ Department',
     image: null,
     badge: 'Commercial Terms',
     url: 'contact.html#inquiry-form',
-    urlLabel: 'Open Direct Commercial Inquiry Desk',
+    urlLabel: 'Open Direct Marketing Inquiry',
     answer: `Commercial pricing is determined by fresh lot assay, tonnage, and chosen Incoterm (**FOB Karachi**, **CFR**, or **CIF** destination port).
 
 • **Payment:** L/C at sight from prime international bank, or T/T with advance deposit.
 • **Minimum Order:** 1 FCL (~27 MT) for container trial orders; 5,000 - 45,000 MT for break-bulk charter.
 • **Inspection:** Independent SGS / Alfred H Knight assay certification prior to vessel loading.
 
-*Please select your target tonnage below to generate a direct inquiry for our commercial desk.*`
+*Please select your target tonnage below to generate a direct inquiry for our marketing department.*`
   },
   {
     topic: 'logistics_shipping',
@@ -320,16 +320,16 @@ export const FREQUENT_TOPICS = [
   {
     topic: 'contact_office',
     keywords: ['contact', 'office', 'phone', 'email', 'address', 'whatsapp', 'reach', 'talk', 'human', 'representative', 'sales'],
-    title: 'Direct Commercial Desk',
+    title: 'Marketing & Commercial Department',
     image: null,
-    badge: 'Contact Desk',
+    badge: 'Marketing Department',
     url: 'contact.html',
     urlLabel: 'View Commercial Office & Contact Details',
     answer: `Connect directly with our commercial trading team:
 
 • **Email:** [sales@balochistanminerals.com](mailto:sales@balochistanminerals.com)
 • **Phone / WhatsApp:** [+92 334 8888104](https://wa.me/923348888104)
-• **Karachi Desk:** Export documentation & vessel logistics.
+• **Karachi Office:** Export documentation & vessel logistics.
 • **Quetta Hub:** Mining site operations & stockyard inspection.
 • **Response Time:** Trade inquiries reviewed within 2 to 4 hours.`
   },
@@ -368,7 +368,7 @@ export const FREQUENT_TOPICS = [
     image: null,
     badge: 'Trade Finance',
     url: 'contact.html#inquiry-form',
-    urlLabel: 'Discuss Commercial Terms with Desk',
+    urlLabel: 'Discuss Commercial Terms with Marketing Department',
     answer: `Our international export shipments operate under standard ICC Incoterms and secure commercial banking:
 
 • **Incoterms:** **FOB Karachi** (KPT / PQA), **CFR**, or **CIF** destination port worldwide.
@@ -534,7 +534,7 @@ Tap any commodity below for assay specs, mine origin, or direct quotation:`,
         urlLabel: topic.urlLabel,
         showRfqCard: topic.topic === 'rfq_pricing',
         chips: topic.topic === 'rfq_pricing'
-          ? ['Barite 4.2+ SG', 'Chromite 42-52%', 'Chagai Copper', 'Contact Desk']
+          ? ['Barite 4.2+ SG', 'Chromite 42-52%', 'Chagai Copper', 'Contact Marketing Department']
           : ['Request Quote', 'Logistics & Ports', 'Assay Quality', 'All Minerals']
       };
     }
@@ -543,8 +543,8 @@ Tap any commodity below for assay specs, mine origin, or direct quotation:`,
   // 5. Courteous, Concise Fallback
   return {
     type: 'fallback',
-    title: 'Balochistan Minerals Commercial Desk',
-    text: `Our digital assistant does not have verified assay logs or official schedules on file for that specific inquiry.\n\nBalochistan Minerals is an active concession owner and direct exporter of **Metallurgical Chromite (42%–52%)**, **API 13A Barite (SG 4.20+)**, **Chagai Copper DSO (2%–10%)**, **Iron Ore (Fe 40%–62%)**, **Fluorspar**, and **Marble** from Balochistan.\n\nFor specialized assay certifications (SGS/AHK), custom port vessel scheduling (KPT / Port Qasim / Gwadar), or trial container allocations, our Karachi Commercial Desk will be pleased to assist you directly.`,
+    title: 'Balochistan Minerals Marketing Department',
+    text: `Our digital assistant does not have verified assay logs or official schedules on file for that specific inquiry.\n\nBalochistan Minerals is an active concession owner and direct exporter of **Metallurgical Chromite (42%–52%)**, **API 13A Barite (SG 4.20+)**, **Chagai Copper DSO (2%–10%)**, **Iron Ore (Fe 40%–62%)**, **Fluorspar**, and **Marble** from Balochistan.\n\nFor specialized assay certifications (SGS/AHK), custom port vessel scheduling (KPT / Port Qasim / Gwadar), or trial container allocations, our Karachi Marketing & Export Department will be pleased to assist you directly.`,
     productsList: [
       { name: 'Chromite Ore', grade: '42% - 52% Cr₂O₃', image: 'images/chromite-new-480.avif', query: 'Chromite 42-52%' },
       { name: 'Barite API 13A', grade: 'SG 4.20+ High Gravity', image: 'images/barite-card-480.avif', query: 'Barite 4.2+ SG' },

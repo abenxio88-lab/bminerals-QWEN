@@ -102,7 +102,7 @@ $headers = "From: Balochistan Minerals Web <" . COMPANY_EMAIL . ">\r\n"
 // 6. Return JSON Response
 echo json_encode([
     'success'      => true,
-    'message'      => 'Your inquiry has been successfully transmitted to our Commercial Export Desk.',
+    'message'      => 'Your inquiry has been successfully transmitted to our Marketing & Export Department.',
     'lead_id'      => $leadId,
     'whatsapp_url' => $ownerWhatsAppUrl
 ]);
