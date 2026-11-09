@@ -195,108 +195,109 @@ function getBallInCourtStatus($row) {
   <link rel="stylesheet" href="admin-layout.css?v=<?= filemtime(__DIR__ . '/admin-layout.css') ?>">
   <style>
     /* Sovereign Executive Deal Velocity Badges */
-    .badge-vel-desk {
-      background: #FAF5EB !important;
-      color: #633C04 !important;
-      border: 1px solid #D4B26F !important;
-      font-family: 'Montserrat', sans-serif !important;
-      font-weight: 700 !important;
-      font-size: 0.68rem !important;
+    .badge-vel-desk,
+    .badge-vel-buyer,
+    .badge-vel-stalled,
+    .badge-vel-closed {
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif !important;
+      font-size: 0.63rem !important;
+      font-weight: 600 !important;
       letter-spacing: 0.04em !important;
       text-transform: uppercase !important;
-      padding: 3px 9px !important;
-      border-radius: 4px !important;
+      padding: 2.5px 8.5px !important;
+      border-radius: 9999px !important;
       display: inline-flex !important;
       align-items: center !important;
-      gap: 6px !important;
-      box-shadow: none !important;
+      gap: 5.5px !important;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03) !important;
       white-space: nowrap !important;
+      line-height: 1.25 !important;
+      cursor: pointer !important;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+      transition: all 0.15s ease !important;
+    }
+
+    /* Desk Turn - Action required by export desk (Cobalt / Royal Blue - zero brown, zero red) */
+    .badge-vel-desk {
+      background: #EFF6FF !important;
+      color: #1D4ED8 !important;
+      border: 1px solid rgba(29, 78, 216, 0.22) !important;
+    }
+    .badge-vel-desk:hover {
+      background: #DBEAFE !important;
+      border-color: rgba(29, 78, 216, 0.38) !important;
     }
     .badge-vel-desk::before {
       content: '';
       display: inline-block;
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
-      background: #B48C36 !important;
+      background: #2563EB !important;
+      box-shadow: 0 0 0 1.5px rgba(37, 99, 235, 0.2) !important;
       flex-shrink: 0;
     }
+
+    /* Awaiting Buyer - Ball in client court (Refined Linear/Stripe Violet) */
     .badge-vel-buyer {
-      background: #F1F5F9 !important;
-      color: #1E293B !important;
-      border: 1px solid #CBD5E1 !important;
-      font-family: 'Montserrat', sans-serif !important;
-      font-weight: 600 !important;
-      font-size: 0.68rem !important;
-      letter-spacing: 0.04em !important;
-      text-transform: uppercase !important;
-      padding: 3px 9px !important;
-      border-radius: 4px !important;
-      display: inline-flex !important;
-      align-items: center !important;
-      gap: 6px !important;
-      box-shadow: none !important;
-      white-space: nowrap !important;
+      background: #F5F3FF !important;
+      color: #6D28D9 !important;
+      border: 1px solid rgba(109, 40, 217, 0.2) !important;
+    }
+    .badge-vel-buyer:hover {
+      background: #EDE9FE !important;
+      border-color: rgba(109, 40, 217, 0.36) !important;
     }
     .badge-vel-buyer::before {
       content: '';
       display: inline-block;
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
-      background: #475569 !important;
+      background: #8B5CF6 !important;
+      box-shadow: 0 0 0 1.5px rgba(139, 92, 246, 0.2) !important;
       flex-shrink: 0;
     }
+
+    /* Stalled - Inactivity warning (Clean Cool Slate) */
     .badge-vel-stalled {
       background: #F8FAFC !important;
       color: #475569 !important;
-      border: 1px solid #E2E8F0 !important;
-      font-family: 'Montserrat', sans-serif !important;
-      font-weight: 600 !important;
-      font-size: 0.68rem !important;
-      letter-spacing: 0.04em !important;
-      text-transform: uppercase !important;
-      padding: 3px 9px !important;
-      border-radius: 4px !important;
-      display: inline-flex !important;
-      align-items: center !important;
-      gap: 6px !important;
-      box-shadow: none !important;
-      white-space: nowrap !important;
+      border: 1px solid rgba(148, 163, 184, 0.25) !important;
+    }
+    .badge-vel-stalled:hover {
+      background: #F1F5F9 !important;
+      border-color: rgba(148, 163, 184, 0.4) !important;
     }
     .badge-vel-stalled::before {
       content: '';
       display: inline-block;
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
       background: #94A3B8 !important;
       flex-shrink: 0;
     }
+
+    /* Closed - Executed Contract (Executive Emerald) */
     .badge-vel-closed {
       background: #F0FDF4 !important;
-      color: #14532D !important;
-      border: 1px solid #86EFAC !important;
-      font-family: 'Montserrat', sans-serif !important;
-      font-weight: 700 !important;
-      font-size: 0.68rem !important;
-      letter-spacing: 0.04em !important;
-      text-transform: uppercase !important;
-      padding: 3px 9px !important;
-      border-radius: 4px !important;
-      display: inline-flex !important;
-      align-items: center !important;
-      gap: 6px !important;
-      box-shadow: none !important;
-      white-space: nowrap !important;
+      color: #15803D !important;
+      border: 1px solid rgba(22, 163, 74, 0.24) !important;
+    }
+    .badge-vel-closed:hover {
+      background: #DCFCE7 !important;
+      border-color: rgba(22, 163, 74, 0.4) !important;
     }
     .badge-vel-closed::before {
       content: '';
       display: inline-block;
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
       background: #16A34A !important;
+      box-shadow: 0 0 0 1.5px rgba(22, 163, 74, 0.2) !important;
       flex-shrink: 0;
     }
     #dossierFlagChip, .dossier-flag-chip {
