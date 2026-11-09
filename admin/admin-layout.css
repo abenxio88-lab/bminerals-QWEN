@@ -111,9 +111,28 @@ h1, h2, h3, h4, h5, h6, .brand-font {
   background: #E65C1A !important;
   color: #FFFFFF !important;
   border: 1px solid #D45A15 !important;
-  box-shadow: 0 2px 6px rgba(230, 92, 26, 0.25);
+  box-shadow: none !important;
   display: inline-block;
   white-space: nowrap;
+}
+
+/* Sidebar Hostinger Micro-Badge (Compact, Zero Shade, Never Overlays Text) */
+.badge-sidebar-hostinger {
+  font-family: 'SF Mono', SFMono-Regular, Consolas, monospace !important;
+  font-size: 0.54rem !important;
+  font-weight: 700 !important;
+  padding: 1.5px 5px !important;
+  border-radius: 3px !important;
+  letter-spacing: 0.02em !important;
+  background: #F1F5F9 !important;
+  color: #475569 !important;
+  border: 1px solid #CBD5E1 !important;
+  line-height: 1.2 !important;
+  flex-shrink: 0 !important;
+  box-shadow: none !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  text-transform: uppercase !important;
 }
 
 .sidebar-header #sidebarCloseBtn {
@@ -149,6 +168,7 @@ h1, h2, h3, h4, h5, h6, .brand-font {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 6px;
   padding: 8.5px 12px;
   border-radius: var(--radius-sm);
   color: #475569;
@@ -388,19 +408,66 @@ body.sidebar-open .sidebar-backdrop {
   box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.2);
 }
 
+/* Fixed-Size Executive Live PKT Clock (Zero Jitter, Fixed Dimensions, Zero Shade, No Wrapping) */
 .pill-clock {
-  background: #FFFFFF;
-  color: #1E293B;
-  border: 1px solid #E2E8F0;
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.76rem;
-  font-weight: 500;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+  background: #FFFFFF !important;
+  color: #1E293B !important;
+  border: 1px solid #CBD5E1 !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 0.74rem !important;
+  font-weight: 500 !important;
+  width: 195px !important;
+  min-width: 195px !important;
+  max-width: 195px !important;
+  height: 32px !important;
+  padding: 0 10px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 5px !important;
+  border-radius: 20px !important;
+  flex-shrink: 0 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  box-shadow: none !important;
+  user-select: none;
+}
+
+.pill-clock .status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin: 0 !important;
+}
+
+.pill-clock .clock-date {
+  color: #64748B !important;
+  font-size: 0.74rem !important;
+  font-weight: 500 !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
 }
 
 .pill-clock #livePktClock {
   color: #0F172A !important;
+  font-family: 'SF Mono', SFMono-Regular, Consolas, 'Roboto Mono', monospace !important;
+  font-size: 0.74rem !important;
+  font-weight: 700 !important;
+  font-variant-numeric: tabular-nums !important;
+  letter-spacing: 0.01em !important;
+  white-space: nowrap !important;
+  display: inline-block !important;
+  flex-shrink: 0 !important;
+}
+
+.pill-clock .clock-tz {
+  color: #64748B !important;
+  font-size: 0.68rem !important;
   font-weight: 600 !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
 }
 
 /* Executive High-Quality Topbar Action Buttons (Flat, Crisp Line Borders, Zero Shade) */

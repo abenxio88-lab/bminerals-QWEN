@@ -149,7 +149,7 @@ if ($pdo !== null) {
       --brand-orange: #E65C1A;
       --text-dark: #0F172A;
       --text-muted: #64748B;
-      --sidebar-width: 255px;
+      --sidebar-width: 275px;
     }
     body { font-family: 'Poppins', sans-serif; font-size: 0.88rem; color: var(--text-dark); background-color: var(--brand-canvas); margin: 0; }
     h1, h2, h3, h4, h5, h6, .brand-font { font-family: 'Montserrat', sans-serif; letter-spacing: -0.015em; }
@@ -179,15 +179,17 @@ if ($pdo !== null) {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 6px;
       padding: 8px 12px;
       border-radius: 6px;
       color: #475569;
       font-family: 'Montserrat', sans-serif;
-      font-size: 0.82rem;
+      font-size: 0.80rem;
       font-weight: 600;
       text-decoration: none;
       margin-bottom: 2px;
       transition: all 0.15s ease;
+      white-space: nowrap;
     }
     .sidebar-link i { font-size: 1.05rem; margin-right: 10px; color: #64748B; }
     .sidebar-link:hover { background: #F1F5F9; color: var(--brand-navy); }
@@ -201,10 +203,10 @@ if ($pdo !== null) {
       content: '';
       position: absolute;
       left: -12px; top: 6px; bottom: 6px; width: 3.5px;
-      background: var(--brand-gold);
+      background: #0F172A;
       border-radius: 0 3px 3px 0;
     }
-    .sidebar-link.active i { color: var(--brand-gold); }
+    .sidebar-link.active i { color: #0F172A !important; }
     .sidebar-footer {
       padding: 14px 18px;
       border-top: 1px solid var(--brand-border);
@@ -387,8 +389,8 @@ if ($pdo !== null) {
           <?php endif; ?>
         </a>
         <a href="email-desk.php" class="sidebar-link active">
-          <div><i class="bi bi-envelope-paper-fill"></i> Email Reply Desk</div>
-          <span class="badge font-monospace" style="background: rgba(2,132,199,0.10); color: #0284C7; border: 1px solid rgba(2,132,199,0.22); font-size: 0.62rem; padding: 2px 7px; border-radius: 4px; letter-spacing: 0.04em;">HOSTINGER</span>
+          <div><i class="bi bi-envelope"></i> Email Reply Desk</div>
+          <span class="badge-sidebar-hostinger">HOSTINGER</span>
         </a>
         <a href="prospects.php" class="sidebar-link">
           <div><i class="bi bi-bullseye"></i> Buyer Directory</div>

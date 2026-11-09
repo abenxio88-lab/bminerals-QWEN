@@ -665,8 +665,8 @@ if ($pdo !== null) {
           <?php endif; ?>
         </a>
         <a href="email-desk.php" class="sidebar-link">
-          <div><i class="bi bi-envelope-paper-fill"></i> Email Reply Desk</div>
-          <span class="badge font-monospace" style="background: rgba(2,132,199,0.10); color: #0284C7; border: 1px solid rgba(2,132,199,0.22); font-size: 0.62rem; padding: 2px 7px; border-radius: 4px; letter-spacing: 0.04em;">HOSTINGER</span>
+          <div><i class="bi bi-envelope"></i> Email Reply Desk</div>
+          <span class="badge-sidebar-hostinger">HOSTINGER</span>
         </a>
         <a href="prospects.php" class="sidebar-link">
           <div><i class="bi bi-bullseye"></i> Buyer Directory</div>
@@ -742,10 +742,10 @@ if ($pdo !== null) {
             <span>Port Corridors: Gwadar, KPT & Port Qasim</span>
           </div>
           <div class="pill-status pill-clock" title="Official Pakistan Standard Time (PKT, UTC+5)">
-            <span class="status-dot dot-green me-1"></span>
-            <span class="d-none d-md-inline text-muted"><?= date('M d') ?> • </span>
-            <span id="livePktClock" class="fw-bold" style="color: #0F172A;"><?= date('h:i:s A') ?></span>
-            <span class="text-muted ms-1" style="font-size: 0.7rem;">PKT</span>
+            <span class="status-dot dot-green"></span>
+            <span class="clock-date"><?= date('M d') ?> •</span>
+            <span id="livePktClock"><?= date('h:i:s A') ?></span>
+            <span class="clock-tz">PKT</span>
           </div>
         </div>
       </header>
