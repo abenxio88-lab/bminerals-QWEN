@@ -6,6 +6,7 @@
 
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/smtp-mailer.php';
+require_once __DIR__ . '/flag-helper.php';
 requireAuth();
 
 $user = getLoggedInUser();
@@ -612,7 +613,12 @@ if ($pdo !== null) {
       font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
       font-size: 0.77rem;
       font-weight: 600;
-      word-break: break-all;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 280px;
+      display: inline-block;
+      vertical-align: middle;
       transition: color 0.15s ease;
     }
     .buyer-email-link:hover {
@@ -937,8 +943,13 @@ if ($pdo !== null) {
                           }
                           $initials = strtoupper($initials ?: 'BM');
                         ?>
-                        <div class="d-flex align-items-start" style="gap: 16px;">
-                          <div class="buyer-avatar" title="<?= htmlspecialchars($row['buyer_name']) ?>"><?= htmlspecialchars($initials) ?></div>
+                        <div class="d-flex align-items-start" style="gap: 14px;">
+                          <div class="buyer-id-col">
+                            <div class="buyer-avatar" title="<?= htmlspecialchars($row['buyer_name']) ?>"><?= htmlspecialchars($initials) ?></div>
+                            <div class="buyer-flag-chip" title="<?= htmlspecialchars($row['country'] ?: 'International') ?>" data-bs-toggle="tooltip">
+                              <?= getCountryFlagSvg($row['country'] ?? '') ?>
+                            </div>
+                          </div>
                           <div style="min-width: 0; flex: 1;">
                             <div class="fw-semibold" style="color: var(--brand-navy); font-size: 0.92rem; line-height: 1.3;">
                               <?= htmlspecialchars($row['buyer_name']) ?>
@@ -947,7 +958,7 @@ if ($pdo !== null) {
                               <i class="bi bi-building me-1 text-secondary" style="font-size: 0.72rem;"></i><?= htmlspecialchars($row['company_name'] ?: 'Private Trader') ?>
                             </div>
 
-                            <!-- Buyer Direct Email + Country -->
+                            <!-- Buyer Direct Email (Full Width, No Awkward Truncation) -->
                             <?php if (!empty($row['email'])): ?>
                               <div class="d-flex align-items-center gap-1.5 mt-1">
                                 <a href="mailto:<?= htmlspecialchars($row['email']) ?>" class="buyer-email-link" title="Send direct email to <?= htmlspecialchars($row['email']) ?>">
@@ -956,10 +967,6 @@ if ($pdo !== null) {
                                 <button type="button" class="btn-copy-clip" onclick="copyToClipboard('<?= htmlspecialchars($row['email']) ?>', this)" title="Copy email address">
                                   <i class="bi bi-clipboard"></i>
                                 </button>
-                                <span class="text-muted mx-0.5">•</span>
-                                <span class="country-pill">
-                                  <?= htmlspecialchars($row['country'] ?? 'International') ?>
-                                </span>
                               </div>
                             <?php endif; ?>
 

@@ -235,16 +235,31 @@
     });
   }
 
+  // Initialize Bootstrap Tooltips
+  function initTooltips() {
+    if (typeof bootstrap !== 'undefined' && bootstrap.Tooltip) {
+      document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach((el) => {
+        try {
+          if (!bootstrap.Tooltip.getInstance(el)) {
+            new bootstrap.Tooltip(el, { container: 'body' });
+          }
+        } catch (e) {}
+      });
+    }
+  }
+
   // Initialize once DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       initSidebar();
       initLiveClock();
       initResizableModals();
+      initTooltips();
     });
   } else {
     initSidebar();
     initLiveClock();
     initResizableModals();
+    initTooltips();
   }
 })();

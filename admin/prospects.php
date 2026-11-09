@@ -5,6 +5,7 @@
  */
 
 require_once __DIR__ . '/auth.php';
+require_once __DIR__ . '/flag-helper.php';
 requireAuth();
 
 $user = getLoggedInUser();
@@ -734,8 +735,9 @@ if ($pdo !== null) {
                           <?= htmlspecialchars($b['company_name']) ?>
                         </div>
                         <div class="d-flex align-items-center gap-1.5 mt-0.5">
-                          <span class="badge bg-light text-dark border" style="font-size: 0.70rem;">
-                            <i class="bi bi-geo-alt-fill text-danger me-1"></i><?= htmlspecialchars($b['country']) ?> (<?= htmlspecialchars($b['city']) ?>)
+                          <span class="badge bg-light text-dark border d-inline-flex align-items-center gap-1.5" style="font-size: 0.70rem;">
+                            <span class="buyer-flag-chip" style="width: 16px; height: 11px; border-radius: 2px;"><?= getCountryFlagSvg($b['country'] ?? '') ?></span>
+                            <?= htmlspecialchars($b['country']) ?> (<?= htmlspecialchars($b['city']) ?>)
                           </span>
                         </div>
                       </td>
