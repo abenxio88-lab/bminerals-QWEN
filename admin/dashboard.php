@@ -851,7 +851,7 @@ function getBallInCourtStatus($row) {
     <aside class="app-sidebar" id="appSidebar">
       <div class="sidebar-header">
         <a href="../" target="_blank" class="sidebar-logo-wrap" title="Balochistan Minerals - View Live Site">
-          <img src="../images/new-logo.png" alt="Balochistan Minerals" class="sidebar-logo" onerror="this.style.display='none'">
+          <picture style="display: contents;"><source media="(min-width: 769px)" srcset="../images/new-logo-dekstop.png" width="723" height="278"><img src="../images/new-logo.png" alt="Balochistan Minerals" class="sidebar-logo" onerror="this.style.display='none'"></picture>
           <span class="sidebar-badge">TRADE DESK PORTAL</span>
         </a>
         <button type="button" id="sidebarCloseBtn" class="btn-sidebar-panel-toggle" aria-label="Toggle Sidebar" title="Collapse Sidebar (Ctrl + B)">

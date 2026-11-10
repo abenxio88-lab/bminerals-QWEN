@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Executive Portal Login | Balochistan Minerals</title>
+  <title>Executive Operations Portal | Balochistan Minerals</title>
   <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon/favicon-32x32.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -82,13 +82,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     :root {
       --brand-navy: #0F172A;
       --brand-slate: #1E293B;
-      --brand-gold: #B48C36;
+      --brand-orange: #E65C1A;
       --brand-border: #E2E8F0;
       --bg-light: #F8FAFC;
     }
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: var(--bg-light);
+      background:
+        linear-gradient(rgba(10, 22, 40, 0.22), rgba(10, 22, 40, 0.28)),
+        url('../images/hero/golden-alpine-portal-bg.jpg') center center / cover no-repeat fixed;
+      background-color: #0A1628;
       color: var(--brand-navy);
       min-height: 100vh;
       display: flex;
@@ -100,8 +103,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     .login-card {
       background: #FFFFFF;
       border: 1px solid var(--brand-border);
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+      border-radius: 0;
+      box-shadow: 0 24px 60px rgba(10, 22, 40, 0.28);
       max-width: 420px;
       width: 100%;
       padding: 38px 34px;
@@ -112,13 +115,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       display: block;
       margin: 0 auto 16px;
     }
+    .brand-header {
+      text-align: center;
+      margin-bottom: 10px;
+    }
     .brand-title {
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
       color: var(--brand-navy);
       font-size: 1.25rem;
-      text-align: center;
-      margin-bottom: 4px;
+      display: inline-block;
+      margin: 0 auto;
+      padding-bottom: 10px;
+      border-bottom: 2.5px solid var(--brand-orange);
       letter-spacing: -0.01em;
     }
     .brand-subtitle {
@@ -138,14 +147,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     .form-control {
       border: 1px solid #CBD5E1;
-      border-radius: 6px;
+      border-radius: 0;
       padding: 10px 13px;
       font-size: 0.9rem;
       transition: all 0.15s ease;
     }
     .form-control:focus {
-      border-color: var(--brand-gold);
-      box-shadow: 0 0 0 3px rgba(180, 140, 54, 0.15);
+      border-color: var(--brand-navy);
+      box-shadow: none;
+      outline: none;
     }
     .btn-login {
       background: var(--brand-navy);
@@ -153,23 +163,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
       font-size: 0.88rem;
-      border: none;
-      border-radius: 6px;
-      padding: 11px;
+      letter-spacing: 0.02em;
+      border: 1px solid var(--brand-navy);
+      border-radius: 0;
+      padding: 12px;
       width: 100%;
       margin-top: 10px;
-      transition: all 0.15s ease;
+      transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
     }
-    .btn-login:hover {
-      background: var(--brand-slate);
+    .btn-login:hover,
+    .btn-login:focus-visible {
+      background: #F26A21;
+      border-color: #F26A21;
       color: #FFFFFF;
     }
-    .gold-bar {
-      height: 2px;
-      background: var(--brand-gold);
-      border-radius: 2px;
-      width: 44px;
-      margin: 0 auto 16px;
+    .btn-login:active {
+      background: #E65C1A !important;
+      border-color: #E65C1A !important;
+      color: #FFFFFF !important;
+    }
+    .alert {
+      border-radius: 0;
     }
     .back-link {
       font-size: 0.8rem;
@@ -188,11 +202,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   <div class="login-card">
     <a href="../" title="Return to Website">
-      <img src="../images/new-logo.png" alt="Balochistan Minerals" class="brand-logo" onerror="this.style.display='none'">
+      <picture style="display: contents;"><source media="(min-width: 769px)" srcset="../images/new-logo-dekstop.png" width="723" height="278"><img src="../images/new-logo.png" alt="Balochistan Minerals" class="brand-logo" onerror="this.style.display='none'"></picture>
     </a>
-    <h1 class="brand-title">Trade Desk Portal</h1>
-    <div class="gold-bar"></div>
-    <p class="brand-subtitle">Commercial Operations & Lead Management</p>
+    <div class="brand-header">
+      <h1 class="brand-title">Executive Operations Portal</h1>
+    </div>
+    <p class="brand-subtitle">Global Mineral Exports &amp; Trade Intelligence</p>
 
     <?php if (!empty($error)): ?>
       <div class="alert alert-danger py-2 px-3 mb-3 small" role="alert">
@@ -214,7 +229,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
 
       <button type="submit" class="btn btn-login">
-        Secure Sign In
+        Sign In
       </button>
     </form>
 

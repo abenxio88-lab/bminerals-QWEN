@@ -159,7 +159,7 @@ if ($pdo !== null) {
     <aside class="app-sidebar" id="appSidebar">
       <div class="sidebar-header">
         <a href="../" target="_blank" class="sidebar-logo-wrap" title="Balochistan Minerals">
-          <img src="../images/new-logo.png" alt="Balochistan Minerals" class="sidebar-logo" onerror="this.style.display='none'">
+          <picture style="display: contents;"><source media="(min-width: 769px)" srcset="../images/new-logo-dekstop.png" width="723" height="278"><img src="../images/new-logo.png" alt="Balochistan Minerals" class="sidebar-logo" onerror="this.style.display='none'"></picture>
           <span class="sidebar-badge">TRADE DESK PORTAL</span>
         </a>
         <button type="button" id="sidebarCloseBtn" class="btn-sidebar-panel-toggle" title="Collapse Sidebar (Ctrl + B)">
@@ -230,7 +230,7 @@ if ($pdo !== null) {
         <div class="d-flex align-items-center justify-content-between">
           <div>
             <div class="fw-bold small" style="color: var(--brand-navy);"><?= htmlspecialchars($user['full_name']) ?></div>
-            <div class="text-muted" style="font-size: 0.7rem;">Content Desk</div>
+            <div class="text-muted" style="font-size: 0.7rem;"><?= htmlspecialchars($user['role'] ?? 'Administrator') ?></div>
           </div>
           <a href="logout.php" class="btn btn-sm btn-outline-secondary p-1 px-2" title="Sign Out">
             <i class="bi bi-power"></i>
@@ -255,10 +255,12 @@ if ($pdo !== null) {
         </div>
 
         <div class="topbar-right">
-          <div class="pill-status" title="Isolated Content Moderation Desk">
-            <span class="status-dot dot-green"></span>
-            <span>Content Desk: Isolated from Sales Inbox</span>
-          </div>
+          <a href="../blogs.html" target="_blank" class="btn-topbar-action" title="Open Public Technical Insights">
+            <i class="bi bi-box-arrow-up-right"></i> <span>View Insights Blog</span>
+          </a>
+          <a href="blog-discussions.php" class="btn-topbar-action" title="Refresh Discussions">
+            <i class="bi bi-arrow-clockwise"></i> <span>Refresh</span>
+          </a>
         </div>
       </header>
 
