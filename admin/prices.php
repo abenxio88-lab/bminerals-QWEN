@@ -135,10 +135,19 @@ if ($pdo !== null) {
     .form-control, .form-select {
       border: 1.5px solid #CBD5E1;
       border-radius: 8px;
-      padding: 8px 12px;
       font-size: 0.88rem;
       color: #0F172A;
       font-weight: 500;
+    }
+    .form-control {
+      padding: 8px 12px;
+    }
+    .form-select {
+      padding: 8px 34px 8px 12px;
+    }
+    .form-select.form-select-sm {
+      padding: 5px 32px 5px 10px;
+      font-size: 0.80rem;
     }
     .form-control:focus, .form-select:focus {
       border-color: #E65C1A;
@@ -241,8 +250,17 @@ if ($pdo !== null) {
       border-color: #0F172A !important;
     }
 
+    .pricing-table-card {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      overflow: hidden;
+    }
     .table-scroll-container {
-      max-height: 560px;
+      flex: 1 1 auto;
+      min-height: 420px;
+      max-height: calc(100vh - 120px);
       overflow-y: auto;
       overflow-x: auto;
       position: relative;
@@ -287,9 +305,37 @@ if ($pdo !== null) {
     .sidebar-link.active::before { content: ''; position: absolute; left: -12px; top: 6px; bottom: 6px; width: 3.5px; background: var(--brand-gold); border-radius: 0 3px 3px 0; }
     .sidebar-link.active i { color: var(--brand-gold); }
     .sidebar-footer { padding: 14px 18px; border-top: 1px solid var(--brand-border); }
-    .app-main { margin-left: var(--sidebar-width); flex: 1; min-width: 0; }
-    .top-bar { background: var(--brand-surface); border-bottom: 1px solid var(--brand-border); padding: 14px 28px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 1030; }
-    .content-canvas { padding: 24px 28px; }
+    .app-main {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .top-bar { background: var(--brand-surface); border-bottom: 1px solid var(--brand-border); padding: 14px 28px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 1030; flex-shrink: 0; }
+    .content-canvas {
+      padding: 20px 28px 24px;
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+    @media (min-width: 992px) {
+      .app-main {
+        height: 100vh;
+        overflow: hidden;
+      }
+      .pricing-table-card {
+        flex: 1 1 0%;
+        min-height: 0;
+      }
+      .pricing-table-card .table-scroll-container {
+        flex: 1 1 0%;
+        min-height: 0;
+        max-height: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -416,7 +462,7 @@ if ($pdo !== null) {
           </div>
         <?php endif; ?>
 
-        <div class="card shadow-sm border-0 rounded-3">
+        <div class="card shadow-sm border-0 rounded-3 pricing-table-card">
           <div class="table-responsive table-scroll-container">
             <table class="table table-hover align-middle mb-0">
               <thead class="table-light">

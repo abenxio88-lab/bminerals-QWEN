@@ -358,10 +358,19 @@ if ($pdo !== null) {
     .form-control, .form-select {
       border: 1.5px solid #CBD5E1;
       border-radius: 8px;
-      padding: 7px 12px;
       font-size: 0.86rem;
       color: #0F172A;
       font-weight: 500;
+    }
+    .form-control {
+      padding: 7px 12px;
+    }
+    .form-select {
+      padding: 7px 34px 7px 12px;
+    }
+    .form-select.form-select-sm {
+      padding: 4px 32px 4px 10px;
+      font-size: 0.78rem;
     }
     .form-label {
       font-size: 0.70rem;
@@ -370,6 +379,86 @@ if ($pdo !== null) {
       letter-spacing: 0.05em;
       color: #475569;
       margin-bottom: 4px;
+    }
+
+    /* Quick Reply From Sender & Clean Attachment Bar */
+    .desk-from-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: nowrap;
+      max-width: 100%;
+    }
+    .desk-from-select {
+      width: auto;
+      min-width: 280px;
+      max-width: 100%;
+      height: 31px;
+      padding: 4px 34px 4px 11px !important;
+      font-size: 0.73rem !important;
+      line-height: 1.35;
+      background-position: right 10px center;
+      border-radius: 7px !important;
+      background-color: #FFFFFF;
+      cursor: pointer;
+    }
+    .desk-attach-bar {
+      margin-top: 10px;
+      padding: 8px 11px;
+      border: 1px dashed #CBD5E1;
+      border-radius: 8px;
+      background: #F8FAFC;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+    .desk-attach-bar.is-dragover {
+      border-color: #2563EB;
+      background: #EFF6FF;
+    }
+    .desk-attach-bar-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px 12px;
+      flex-wrap: wrap;
+    }
+    .desk-attach-trigger-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .btn-desk-attach {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 11px;
+      font-size: 0.73rem;
+      font-weight: 600;
+      color: #0F172A;
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      border-radius: 6px;
+      cursor: pointer;
+      line-height: 1.4;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+    .btn-desk-attach:hover {
+      background: #F1F5F9;
+      border-color: #94A3B8;
+    }
+    .desk-attach-hint {
+      font-size: 0.68rem;
+      color: #64748B;
+      line-height: 1.35;
+    }
+    @media (max-width: 575.98px) {
+      .desk-from-wrap {
+        width: 100%;
+      }
+      .desk-from-select {
+        min-width: 0;
+        flex: 1;
+      }
     }
   </style>
 </head>
@@ -670,12 +759,12 @@ if ($pdo !== null) {
                     $selectedSender = matchCorporateMailboxFromString($replyMailbox, 'sales@balochistanminerals.com');
                   ?>
                   <div class="d-flex justify-content-between align-items-center mb-2 gap-2 flex-wrap">
-                    <span class="fw-semibold text-dark" style="font-size: 0.78rem;">
+                    <span class="fw-semibold text-dark text-break" style="font-size: 0.78rem; min-width: 0;">
                       <i class="bi bi-reply me-1 text-secondary"></i> Quick Reply to <strong class="text-dark"><?= htmlspecialchars($selectedMessage['direction'] === 'inbound' ? $selectedMessage['from_email'] : $selectedMessage['to_email']) ?></strong>
                     </span>
-                    <div class="d-flex align-items-center gap-1.5">
-                      <span class="small text-muted fw-semibold" style="font-size: 0.7rem;">From:</span>
-                      <select name="from_email" class="form-select form-select-sm font-monospace fw-bold py-0.5" style="width: auto; font-size: 0.72rem;">
+                    <div class="desk-from-wrap">
+                      <label for="deskQuickReplyFrom" class="text-muted fw-semibold mb-0 text-nowrap" style="font-size: 0.72rem;">From:</label>
+                      <select id="deskQuickReplyFrom" name="from_email" class="form-select form-select-sm font-monospace fw-semibold desk-from-select">
                         <?php foreach (getCorporateMailboxOptions() as $mbMeta): ?>
                           <option value="<?= htmlspecialchars($mbMeta['user']) ?>" <?= $selectedSender === $mbMeta['user'] ? 'selected' : '' ?>><?= htmlspecialchars($mbMeta['user']) ?></option>
                         <?php endforeach; ?>
@@ -685,14 +774,22 @@ if ($pdo !== null) {
 
                   <div class="reply-compose-box">
                     <textarea name="email_body" class="form-control font-monospace reply-textarea" rows="3" placeholder="Type quick trade reply, SGS assay confirmation, or FOB delivery schedule..." required></textarea>
-                    <div class="d-flex align-items-center justify-content-between gap-2 px-2.5 py-1.5 border-top bg-light flex-wrap">
-                      <label class="d-inline-flex align-items-center gap-1.5 small fw-semibold text-dark mb-0" style="font-size: 0.72rem; cursor: pointer;">
-                        <i class="bi bi-paperclip text-primary"></i>
-                        <span>Attach Files:</span>
-                        <input type="file" name="attachments[]" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.txt,.jpg,.jpeg,.png,.gif,.webp,.zip" class="form-control form-control-sm" style="width: auto; max-width: 240px; font-size: 0.7rem;">
-                      </label>
-                      <span class="text-muted" style="font-size: 0.66rem;">Max 10 MB/file, 20 MB total</span>
+
+                    <div id="deskQuickReplyDropzone" class="desk-attach-bar">
+                      <input type="file" id="deskQuickReplyFilesInput" name="attachments[]" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.txt,.jpg,.jpeg,.png,.gif,.webp,.zip" class="d-none">
+                      <div class="desk-attach-bar-row">
+                        <div class="desk-attach-trigger-group">
+                          <button type="button" class="btn-desk-attach" onclick="document.getElementById('deskQuickReplyFilesInput').click()">
+                            <i class="bi bi-paperclip text-primary"></i>
+                            <span>Attach Files</span>
+                          </button>
+                          <span class="desk-attach-hint d-none d-sm-inline">or drop files here</span>
+                        </div>
+                        <span id="deskQuickReplyAttachMeta" class="desk-attach-hint">PDF, Word, Excel, Images, ZIP &bull; Max 10 MB/file, 20 MB total</span>
+                      </div>
+                      <div id="deskQuickReplyChips" class="dossier-attachment-chips"></div>
                     </div>
+
                     <div class="reply-compose-footer d-flex justify-content-between align-items-center">
                       <div class="text-muted small" style="font-size: 0.72rem;">
                         <i class="bi bi-lightning-charge me-1 text-secondary"></i> Dispatches via Hostinger SMTP TLS Relay
@@ -721,7 +818,7 @@ if ($pdo !== null) {
           <input type="hidden" name="action" value="compose_outbound_email">
           <input type="hidden" name="csrf_token" value="<?= getCsrfToken() ?>">
 
-          <div class="modal-header py-2.5 px-3">
+          <div class="modal-header py-2 px-3">
             <div class="d-flex align-items-center gap-2">
               <span class="badge-rfq-mild">
                 <i class="bi bi-pencil-square"></i> B2B OFFER
@@ -733,9 +830,9 @@ if ($pdo !== null) {
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
 
-          <div class="modal-body p-3.5">
+          <div class="modal-body p-3">
             <!-- Autocomplete Select from Verified Buyer Directory -->
-            <div class="mb-2.5 p-2 bg-light rounded border">
+            <div class="mb-2 p-2 bg-light rounded border">
               <label class="form-label mb-1" style="font-size: 0.68rem;">Quick Select from Verified Buyer Directory (China / Dubai / Global)</label>
               <select class="form-select form-select-sm" onchange="autoFillBuyerOffer(this)">
                 <option value="">-- Choose verified international buyer (optional) --</option>
@@ -794,22 +891,34 @@ Web: https://balochistanminerals.com</textarea>
 
             <div class="mb-2">
               <label class="form-label">Attach Trade Documents (PDF Quote, COA, Assay, Photos)</label>
-              <input type="file" name="attachments[]" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.txt,.jpg,.jpeg,.png,.gif,.webp,.zip" class="form-control form-control-sm">
-              <div class="form-text" style="font-size: 0.68rem;">Optional • Up to 10 files (Max 10 MB/file, 20 MB total)</div>
+              <div id="deskOfferDropzone" class="desk-attach-bar mt-0">
+                <input type="file" id="deskOfferFilesInput" name="attachments[]" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.txt,.jpg,.jpeg,.png,.gif,.webp,.zip" class="d-none">
+                <div class="desk-attach-bar-row">
+                  <div class="desk-attach-trigger-group">
+                    <button type="button" class="btn-desk-attach" onclick="document.getElementById('deskOfferFilesInput').click()">
+                      <i class="bi bi-paperclip text-primary"></i>
+                      <span>Attach Documents</span>
+                    </button>
+                    <span class="desk-attach-hint d-none d-sm-inline">or drop files here</span>
+                  </div>
+                  <span id="deskOfferAttachMeta" class="desk-attach-hint">Optional &bull; Up to 10 files (Max 10 MB/file, 20 MB total)</span>
+                </div>
+                <div id="deskOfferChips" class="dossier-attachment-chips"></div>
+              </div>
             </div>
 
             <div class="p-2 bg-light rounded border d-flex align-items-center justify-content-between">
               <div class="form-check mb-0">
-                <input type="checkbox" class="form-check-input me-1.5" checked id="chkAssay">
+                <input type="checkbox" class="form-check-input me-2" checked id="chkAssay">
                 <label class="form-check-label small text-muted" for="chkAssay">Include SGS & PCSIR Chemical Assay Reference Link</label>
               </div>
               <span class="small text-muted font-monospace" style="font-size: 0.68rem;">Hostinger SMTP TLS Relay</span>
             </div>
           </div>
 
-          <div class="modal-footer d-flex justify-content-end gap-2 py-2.5 px-3 bg-light border-top">
-            <button type="button" class="btn btn-sm btn-outline-secondary px-3 py-1.5" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-sm btn-dark px-3.5 py-1.5 fw-bold text-white shadow-sm" style="background: #0F172A; border-color: #0F172A; border-radius: 6px;">
+          <div class="modal-footer d-flex justify-content-end gap-2 py-2 px-3 bg-light border-top">
+            <button type="button" class="btn btn-sm btn-outline-secondary px-3 py-1" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-sm btn-dark px-3 py-1 fw-bold text-white shadow-sm" style="background: #0F172A; border-color: #0F172A; border-radius: 6px;">
               <i class="bi bi-send-fill me-1"></i> Dispatch Trade Offer
             </button>
           </div>
@@ -936,6 +1045,150 @@ Web: https://balochistanminerals.com</textarea>
         }
       }
     }
+
+    function escapeDeskHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function formatDeskFileSize(bytes) {
+      const b = Number(bytes) || 0;
+      if (b < 1024) return b + ' B';
+      if (b < 1048576) return Math.round(b / 1024) + ' KB';
+      return (b / 1048576).toFixed(1) + ' MB';
+    }
+
+    /**
+     * Reusable file-picker + drag/drop attachment controller backed by DataTransfer
+     * so native multipart form submission receives every selected file after edits/removals.
+     */
+    function initDeskAttachDropzone({ dropzoneId, inputId, chipsId, metaId, defaultMeta }) {
+      const dropzone = document.getElementById(dropzoneId);
+      const input = document.getElementById(inputId);
+      const chipsEl = document.getElementById(chipsId);
+      const metaEl = document.getElementById(metaId);
+      if (!dropzone || !input || !chipsEl) return;
+
+      let selectedFiles = [];
+
+      function syncInputFiles() {
+        if (typeof DataTransfer !== 'function') return;
+        const dt = new DataTransfer();
+        selectedFiles.forEach(file => dt.items.add(file));
+        input.files = dt.files;
+      }
+
+      function renderChips() {
+        if (!selectedFiles.length) {
+          chipsEl.innerHTML = '';
+          if (metaEl) metaEl.textContent = defaultMeta;
+          return;
+        }
+        let totalBytes = 0;
+        chipsEl.innerHTML = selectedFiles.map((file, idx) => {
+          totalBytes += file.size;
+          return `<span class="dossier-att-pill" title="${escapeDeskHtml(file.name)}">
+            <i class="bi bi-paperclip text-primary"></i>
+            <span class="dossier-att-name">${escapeDeskHtml(file.name)}</span>
+            <span class="text-muted font-monospace" style="font-size: 0.65rem;">(${formatDeskFileSize(file.size)})</span>
+            <button type="button" class="dossier-att-remove" data-remove-idx="${idx}" aria-label="Remove attachment">&times;</button>
+          </span>`;
+        }).join('');
+        if (metaEl) {
+          metaEl.textContent = `${selectedFiles.length} file(s) • ${formatDeskFileSize(totalBytes)} / 20 MB`;
+        }
+      }
+
+      function addFiles(fileList) {
+        if (!fileList || !fileList.length) return;
+        const maxPerFile = 10 * 1024 * 1024;
+        const maxTotal = 20 * 1024 * 1024;
+        let currentTotal = selectedFiles.reduce((acc, f) => acc + f.size, 0);
+        const errors = [];
+
+        Array.from(fileList).forEach(file => {
+          if (selectedFiles.length >= 10) {
+            errors.push('Maximum 10 attachments allowed per email.');
+            return;
+          }
+          if (file.size > maxPerFile) {
+            errors.push(`${file.name} exceeds 10 MB per-file limit.`);
+            return;
+          }
+          if (currentTotal + file.size > maxTotal) {
+            errors.push(`Adding ${file.name} exceeds 20 MB total limit.`);
+            return;
+          }
+          const dup = selectedFiles.some(x => x.name === file.name && x.size === file.size);
+          if (!dup) {
+            selectedFiles.push(file);
+            currentTotal += file.size;
+          }
+        });
+
+        if (errors.length && window.BMNotify) {
+          window.BMNotify.toast({ type: 'warning', title: 'Attachment Notice', message: errors[0] });
+        } else if (errors.length) {
+          alert(errors[0]);
+        }
+
+        syncInputFiles();
+        renderChips();
+      }
+
+      input.addEventListener('change', (ev) => {
+        const picked = Array.from(ev.target.files || []);
+        if (picked.length) addFiles(picked);
+      });
+
+      chipsEl.addEventListener('click', (ev) => {
+        const btn = ev.target.closest('[data-remove-idx]');
+        if (!btn) return;
+        const idx = Number(btn.getAttribute('data-remove-idx'));
+        if (!Number.isInteger(idx) || idx < 0 || idx >= selectedFiles.length) return;
+        selectedFiles.splice(idx, 1);
+        syncInputFiles();
+        renderChips();
+      });
+
+      ['dragenter', 'dragover'].forEach(evt => {
+        dropzone.addEventListener(evt, (e) => {
+          e.preventDefault();
+          dropzone.classList.add('is-dragover');
+        });
+      });
+      ['dragleave', 'drop'].forEach(evt => {
+        dropzone.addEventListener(evt, (e) => {
+          e.preventDefault();
+          dropzone.classList.remove('is-dragover');
+        });
+      });
+      dropzone.addEventListener('drop', (e) => {
+        if (e.dataTransfer && e.dataTransfer.files) {
+          addFiles(e.dataTransfer.files);
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initDeskAttachDropzone({
+        dropzoneId: 'deskQuickReplyDropzone',
+        inputId: 'deskQuickReplyFilesInput',
+        chipsId: 'deskQuickReplyChips',
+        metaId: 'deskQuickReplyAttachMeta',
+        defaultMeta: 'PDF, Word, Excel, Images, ZIP \u2022 Max 10 MB/file, 20 MB total'
+      });
+      initDeskAttachDropzone({
+        dropzoneId: 'deskOfferDropzone',
+        inputId: 'deskOfferFilesInput',
+        chipsId: 'deskOfferChips',
+        metaId: 'deskOfferAttachMeta',
+        defaultMeta: 'Optional \u2022 Up to 10 files (Max 10 MB/file, 20 MB total)'
+      });
+    });
   </script>
   <script src="admin-layout.js?v=<?= filemtime(__DIR__ . '/admin-layout.js') ?>"></script>
 </body>
