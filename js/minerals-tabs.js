@@ -88,13 +88,28 @@ function preloadPanelImages(category) {
   return Promise.all(pending);
 }
 
+// Map clean /minerals/* detail page routes to canonical showcase asset keys
+const specHrefAliases = {
+  'minerals/copper-ore': 'product-metallic.html#copper',
+  'minerals/chromite-ore': 'product-metallic.html#chromite',
+  'minerals/iron-ore': 'product-metallic.html#iron-ore',
+  'minerals/antimony-ore': 'product-metallic.html#antimony',
+  'minerals/bauxite-ore': 'product-industrial.html#bauxite',
+  'minerals/fluorite-fluorspar': 'product-industrial.html#fluorite',
+};
+
 function normalizeSpecHref(href = '') {
-  return href
+  const normalized = href
+    .trim()
     .replace(/^\/+/, '')
+    .replace(/\/+$/, '')
     .replace(/^product-metallic(?=#)/, 'product-metallic.html')
     .replace(/^product-industrial(?=#)/, 'product-industrial.html')
     .replace(/^product-stones(?=#)/, 'product-stones.html')
     .replace(/^product-energy(?=#)/, 'product-energy.html');
+
+  const cleanRoute = normalized.replace(/^minerals\/([^#?]+)\.html$/, 'minerals/$1');
+  return specHrefAliases[cleanRoute] || normalized;
 }
 
 const additionalMediaBySpecHref = {
