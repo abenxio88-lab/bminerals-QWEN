@@ -55,3 +55,7 @@ graphify-out/
 .trae/
 .windsurf/
 skills-lock.json
+
+# Server-only credentials (never commit)
+admin/db-config.php
+admin/mail-config.php

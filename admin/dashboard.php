@@ -1440,10 +1440,10 @@ function getBallInCourtStatus($row) {
       }
     });
 
-    async function syncCorporateMail(isSimulate) {
+    async function syncCorporateMail(isSimulate, silent = false) {
       const btn = document.getElementById('btnSyncMail');
       const originalText = btn ? btn.innerHTML : '';
-      if (btn) {
+      if (btn && !silent) {
         btn.disabled = true;
         btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Checking Mail...';
       }
@@ -1453,20 +1453,25 @@ function getBallInCourtStatus($row) {
         const res = await fetch(url);
         const data = await res.json();
 
+        const syncedTotal = Number(data.synced_count ?? ((data.synced_inbound || 0) + (data.synced_sent || 0)));
+
         if (data.success) {
-          if (data.synced_count > 0) {
+          if (syncedTotal > 0) {
             showLiveToast('Mail Sync Successful', data.message || 'New inbound messages ingested into pipeline.');
             await checkLiveUpdates(true);
-          } else {
-            showLiveToast('Mailbox Up to Date', data.message || (data.info ? data.info : 'Mailbox is up to date. No new unread messages.'));
+          } else if (!silent) {
+            const warnText = (data.warnings && data.warnings.length) ? ' (' + data.warnings.join('; ') + ')' : '';
+            showLiveToast('Mailbox Up to Date', (data.message || data.info || 'Mailbox is up to date. No new unread messages.') + warnText);
           }
-        } else {
+        } else if (!silent) {
           showLiveToast('Mail Sync Notice', data.warning || data.error || 'Unable to sync mailbox.');
         }
       } catch (err) {
-        showLiveToast('Sync Error', 'Failed to connect to mail sync service: ' + err.message);
+        if (!silent) {
+          showLiveToast('Sync Error', 'Failed to connect to mail sync service: ' + err.message);
+        }
       } finally {
-        if (btn) {
+        if (btn && !silent) {
           btn.disabled = false;
           btn.innerHTML = originalText;
         }
@@ -1542,6 +1547,12 @@ function getBallInCourtStatus($row) {
       try {
         updateChimeUi();
         startHeartbeatLoop();
+        setTimeout(() => { syncCorporateMail(false, true); }, 2500);
+        setInterval(() => {
+          if (document.visibilityState === 'visible') {
+            syncCorporateMail(false, true);
+          }
+        }, 60000);
         if (localStorage.getItem('bm_table_expanded') === '1') {
           const container = document.getElementById('rfqTableContainer');
           const btn = document.getElementById('btnToggleTableHeight');

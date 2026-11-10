@@ -24,24 +24,74 @@ if ($isLocal) {
 } else {
     // ==========================================
     // 🌐 HOSTINGER PRODUCTION CONFIGURATION
-    // (Replace with your Hostinger DB details when deploying live)
+    // Loaded from server-only db-config.php (outside public_html & Git)
     // ==========================================
-    define('DB_HOST', 'localhost');
-    define('DB_NAME', 'u123456_bm_db');
-    define('DB_USER', 'u123456_bm_user');
-    define('DB_PASS', 'YOUR_STRONG_HOSTINGER_PASSWORD');
+    $serverConfigPaths = [
+        dirname(__DIR__, 2) . '/db-config.php', // Recommended: /domains/<domain>/db-config.php
+        __DIR__ . '/db-config.php',             // Fallback: inside admin/ (excluded from Git & FTP)
+    ];
+    foreach ($serverConfigPaths as $configPath) {
+        if (is_file($configPath)) {
+            require_once $configPath;
+            break;
+        }
+    }
+    if (!defined('DB_HOST')) define('DB_HOST', 'localhost');
+    if (!defined('DB_NAME')) define('DB_NAME', '');
+    if (!defined('DB_USER')) define('DB_USER', '');
+    if (!defined('DB_PASS')) define('DB_PASS', '');
 }
 
 // ==========================================
 // 📬 CORPORATE INBOUND WEBMAIL CONFIGURATION
 // (Syncs emails sent to sales@ and info@ into Admin Portal)
 // ==========================================
-define('MAIL_IMAP_HOST', 'mail.balochistanminerals.com');
-define('MAIL_IMAP_PORT', 993);
-define('MAIL_IMAP_USER', 'sales@balochistanminerals.com');
-define('MAIL_IMAP_PASS', ''); // Set your Hostinger email account password here to enable live mail polling
+if (!defined('MAIL_IMAP_HOST')) define('MAIL_IMAP_HOST', 'imap.hostinger.com');
+if (!defined('MAIL_IMAP_PORT')) define('MAIL_IMAP_PORT', 993);
+if (!defined('MAIL_IMAP_USER')) define('MAIL_IMAP_USER', 'sales@balochistanminerals.com');
+if (!defined('MAIL_IMAP_PASS')) define('MAIL_IMAP_PASS', ''); // Defined in server-only db-config.php
+if (!defined('INFO_MAIL_USER')) define('INFO_MAIL_USER', 'info@balochistanminerals.com');
+if (!defined('INFO_MAIL_PASS')) define('INFO_MAIL_PASS', ''); // Defined in server-only db-config.php
 
-define('DB_CHARSET', 'utf8mb4');
+if (!defined('DB_CHARSET')) define('DB_CHARSET', 'utf8mb4');
+
+/**
+ * Returns configured corporate mailboxes (user => password) from secrets or mail-config.php.
+ */
+function getConfiguredMailboxes() {
+    $mailConfigFile = __DIR__ . '/mail-config.php';
+    if (is_file($mailConfigFile)) {
+        include_once $mailConfigFile;
+    }
+
+    $boxes = [];
+    $salesUser = defined('MAIL_IMAP_USER') ? MAIL_IMAP_USER : 'sales@balochistanminerals.com';
+    $infoUser  = defined('INFO_MAIL_USER') ? INFO_MAIL_USER : 'info@balochistanminerals.com';
+
+    $boxes[strtolower($salesUser)] = [
+        'user' => $salesUser,
+        'pass' => defined('MAIL_IMAP_PASS') ? MAIL_IMAP_PASS : '',
+    ];
+    $boxes[strtolower($infoUser)] = [
+        'user' => $infoUser,
+        'pass' => defined('INFO_MAIL_PASS') ? INFO_MAIL_PASS : '',
+    ];
+
+    if (defined('BM_SMTP_USER') && BM_SMTP_USER !== '') {
+        $smtpKey  = strtolower(BM_SMTP_USER);
+        $smtpPass = defined('BM_SMTP_PASS') && BM_SMTP_PASS !== ''
+            ? BM_SMTP_PASS
+            : ($_SESSION['bm_mail_pass'] ?? '');
+        if ($smtpPass !== '') {
+            $boxes[$smtpKey] = [
+                'user' => BM_SMTP_USER,
+                'pass' => $smtpPass,
+            ];
+        }
+    }
+
+    return $boxes;
+}
 
 // Company Global Details
 define('COMPANY_NAME', 'Balochistan Minerals (Pvt) Ltd');

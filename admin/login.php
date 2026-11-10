@@ -19,7 +19,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = trim($_POST['password'] ?? '');
     $token    = $_POST['csrf_token'] ?? '';
 
-    if (!verifyCsrfToken($token)) {
+    $lockUntil = (int)($_SESSION['bm_login_lock_until'] ?? 0);
+    if ($lockUntil > time()) {
+        $waitSecs = $lockUntil - time();
+        $error = 'Too many failed attempts. Please wait ' . ceil($waitSecs / 60) . ' minute(s) before trying again.';
+    } elseif (!verifyCsrfToken($token)) {
         $error = 'Security session expired. Please refresh and try again.';
     } elseif (empty($username) || empty($password)) {
         $error = 'Please enter both username and password.';
@@ -32,37 +36,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([$username]);
             $user = $stmt->fetch();
 
-            if ($user) {
-                $authenticated = false;
+            $authenticated = $user && password_verify($password, $user['password_hash']);
 
-                // 1. Standard secure bcrypt verification
-                if (password_verify($password, $user['password_hash'])) {
-                    $authenticated = true;
-                }
-                // 2. Initial setup password fallback ('Admin@BM2026') -> auto-upgrades to secure bcrypt!
-                elseif ($user['password_hash'] === 'Admin@BM2026' && $password === 'Admin@BM2026') {
-                    $authenticated = true;
-                    $secureHash = password_hash($password, PASSWORD_DEFAULT);
-                    $up = $pdo->prepare('UPDATE admin_users SET password_hash = ? WHERE id = ?');
-                    $up->execute([$secureHash, $user['id']]);
-                }
+            if ($authenticated) {
+                unset($_SESSION['bm_login_fails'], $_SESSION['bm_login_lock_until']);
+                session_regenerate_id(true);
 
-                if ($authenticated) {
-                    $_SESSION['bm_admin_id']    = $user['id'];
-                    $_SESSION['bm_admin_user']  = $user['username'];
-                    $_SESSION['bm_admin_name']  = $user['full_name'];
-                    $_SESSION['bm_admin_email'] = $user['email'];
-                    $_SESSION['bm_admin_role']  = $user['role'];
+                $_SESSION['bm_admin_id']    = $user['id'];
+                $_SESSION['bm_admin_user']  = $user['username'];
+                $_SESSION['bm_admin_name']  = $user['full_name'];
+                $_SESSION['bm_admin_email'] = $user['email'];
+                $_SESSION['bm_admin_role']  = $user['role'];
 
-                    // Update last login
-                    $pdo->prepare('UPDATE admin_users SET last_login = NOW() WHERE id = ?')->execute([$user['id']]);
+                // Update last login
+                $pdo->prepare('UPDATE admin_users SET last_login = NOW() WHERE id = ?')->execute([$user['id']]);
 
-                    header('Location: dashboard.php');
-                    exit;
-                } else {
-                    $error = 'Invalid username or password.';
-                }
+                header('Location: dashboard.php');
+                exit;
             } else {
+                $fails = (int)($_SESSION['bm_login_fails'] ?? 0) + 1;
+                $_SESSION['bm_login_fails'] = $fails;
+                if ($fails >= 5) {
+                    $_SESSION['bm_login_lock_until'] = time() + 300;
+                }
+                usleep(350000);
                 $error = 'Invalid username or password.';
             }
         }
@@ -208,7 +205,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <div class="mb-3">
         <label for="username" class="form-label">Username</label>
-        <input type="text" id="username" name="username" class="form-control" placeholder="admin" required autofocus value="<?= htmlspecialchars($_POST['username'] ?? '') ?>">
+        <input type="text" id="username" name="username" class="form-control" placeholder="Enter authorized username" autocomplete="username" required autofocus value="<?= htmlspecialchars($_POST['username'] ?? '') ?>">
       </div>
 
       <div class="mb-4">

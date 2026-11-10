@@ -62,6 +62,19 @@ if ($pdo !== null) {
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "New", ?)');
         $stmt->execute([$name, $company, $country, $email, $phone, $inqType, $source, $mineral, $quantity, $port, $message, $ip]);
         $leadId = (int)$pdo->lastInsertId();
+
+        // Mirror website direct-mailbox messages into Email Desk archive too
+        $targetBox = (strpos($recipient, '@balochistanminerals.com') !== false)
+            ? strtolower($recipient)
+            : 'sales@balochistanminerals.com';
+        if (strpos($source, '@balochistanminerals.com') !== false || stripos($inqType, 'Direct') !== false) {
+            $emStmt = $pdo->prepare('INSERT INTO email_messages 
+                (inquiry_id, direction, from_email, to_email, subject, body_text, status, message_id) 
+                VALUES (?, "inbound", ?, ?, ?, ?, "Received", ?)');
+            $emMsgId = '<web-' . ($leadId ?: uniqid()) . '@balochistanminerals.com>';
+            $emSubject = 'Website Inquiry: ' . $mineral . ($company ? ' (' . $company . ')' : '');
+            $emStmt->execute([$leadId, $email, $targetBox, $emSubject, $message ?: ('RFQ submitted for ' . $mineral), $emMsgId]);
+        }
     } catch (Exception $e) {
         // Fallback silently if DB error to prevent breaking user submission
         error_log("DB Inquiry Error: " . $e->getMessage());
@@ -78,8 +91,8 @@ $prefilledBuyerText = "Hello Balochistan Minerals, I have just submitted an RFQ 
 
 $ownerWhatsAppUrl = 'https://wa.me/' . $waDeskPhone . '?text=' . urlencode($prefilledBuyerText);
 
-// 5. Send Alert Email to Owner (Hostinger info@balochistanminerals.com)
-$to = COMPANY_EMAIL;
+// 5. Send Alert Email to Selected Corporate Mailbox (info@ or sales@)
+$to = (strpos($recipient, '@balochistanminerals.com') !== false) ? strtolower($recipient) : COMPANY_EMAIL;
 $subject = "🔥 New Website RFQ #" . ($leadId ?: 'Web') . ": " . $mineral . " from " . $name;
 $emailBody = "New Mineral Inquiry Received from BalochistanMinerals.com\n\n"
            . "Buyer Name: $name\n"

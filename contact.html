@@ -168,29 +168,48 @@
               if (isReviewMode) {
                 statusMessage.innerHTML = '<div style="color: #10b981; font-weight: 600; padding: 12px; background: #ecfdf5; border-radius: 8px; border: 1px solid #a7f3d0;">✓ Thank you! Your review has been submitted for moderation.</div>';
               } else {
-                statusMessage.innerHTML = `
-                  <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 16px; margin-top: 14px;">
-                    <div style="color: #15803d; font-weight: 700; font-size: 1.05rem; margin-bottom: 6px;">✓ Inquiry Transmitted to Commercial Export Desk</div>
-                    <p style="color: #4b5563; font-size: 0.9rem; margin-bottom: 12px;">Your requirements have been logged in our system. For immediate quotes and Certificate of Analysis (COA) verification, connect directly on WhatsApp:</p>
-                    <a href="${result.whatsapp_url}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: #ffffff; padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; text-decoration: none; box-shadow: 0 4px 12px rgba(37,211,102,0.3);">
-                      <span>💬 Chat on WhatsApp Direct (+92 334 8888104)</span>
-                    </a>
-                  </div>
-                `;
+                const box = document.createElement('div');
+                box.style.cssText = 'background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 16px; margin-top: 14px;';
+                const titleDiv = document.createElement('div');
+                titleDiv.style.cssText = 'color: #15803d; font-weight: 700; font-size: 1.05rem; margin-bottom: 6px;';
+                titleDiv.textContent = '✓ Inquiry Transmitted to Commercial Export Desk';
+                const descP = document.createElement('p');
+                descP.style.cssText = 'color: #4b5563; font-size: 0.9rem; margin-bottom: 12px;';
+                descP.textContent = 'Your requirements have been logged in our system. For immediate quotes and Certificate of Analysis (COA) verification, connect directly on WhatsApp:';
+                const waLink = document.createElement('a');
+                waLink.href = (typeof result.whatsapp_url === 'string' && result.whatsapp_url.startsWith('https://')) ? result.whatsapp_url : 'https://wa.me/923348888104';
+                waLink.target = '_blank';
+                waLink.rel = 'noopener noreferrer';
+                waLink.style.cssText = 'display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: #ffffff; padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; text-decoration: none; box-shadow: 0 4px 12px rgba(37,211,102,0.3);';
+                const waSpan = document.createElement('span');
+                waSpan.textContent = '💬 Chat on WhatsApp Direct (+92 334 8888104)';
+                waLink.appendChild(waSpan);
+                box.append(titleDiv, descP, waLink);
+                statusMessage.replaceChildren(box);
               }
               form.reset();
             } else {
-              statusMessage.innerHTML = '<div style="color: #ef4444; padding: 10px; background: #fef2f2; border-radius: 8px;">' + (result.error || 'Oops! Something went wrong. Please try again.') + '</div>';
+              const errDiv = document.createElement('div');
+              errDiv.style.cssText = 'color: #ef4444; padding: 10px; background: #fef2f2; border-radius: 8px;';
+              errDiv.textContent = result.error || 'Oops! Something went wrong. Please try again.';
+              statusMessage.replaceChildren(errDiv);
             }
           } catch (error) {
             // Fallback direct WhatsApp redirect if offline or network failure
             const waFallback = "https://wa.me/923348888104?text=" + encodeURIComponent("Hello Balochistan Minerals, I tried submitting an RFQ on your website.");
-            statusMessage.innerHTML = `
-              <div style="color: #15803d; padding: 12px; background: #f0fdf4; border-radius: 8px; border: 1px solid #bbf7d0;">
-                <p style="margin-bottom: 8px; font-weight: 600;">Message ready! Click below to send directly via WhatsApp:</p>
-                <a href="${waFallback}" target="_blank" style="color: #15803d; font-weight: 700; text-decoration: underline;">Open WhatsApp Directly →</a>
-              </div>
-            `;
+            const fbDiv = document.createElement('div');
+            fbDiv.style.cssText = 'color: #15803d; padding: 12px; background: #f0fdf4; border-radius: 8px; border: 1px solid #bbf7d0;';
+            const fbP = document.createElement('p');
+            fbP.style.cssText = 'margin-bottom: 8px; font-weight: 600;';
+            fbP.textContent = 'Message ready! Click below to send directly via WhatsApp:';
+            const fbLink = document.createElement('a');
+            fbLink.href = waFallback;
+            fbLink.target = '_blank';
+            fbLink.rel = 'noopener noreferrer';
+            fbLink.style.cssText = 'color: #15803d; font-weight: 700; text-decoration: underline;';
+            fbLink.textContent = 'Open WhatsApp Directly →';
+            fbDiv.append(fbP, fbLink);
+            statusMessage.replaceChildren(fbDiv);
           } finally {
             submitButton.disabled = false;
             submitButton.innerHTML = originalButtonText;

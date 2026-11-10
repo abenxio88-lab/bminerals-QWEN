@@ -38,6 +38,40 @@ jobs:
       - name: Audit dependencies
         run: npm audit --omit=dev --audit-level=high
 
+      - name: Generate production DB config from GitHub Secrets
+        env:
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASS: ${{ secrets.DB_PASS }}
+          MAIL_IMAP_PASS: ${{ secrets.MAIL_IMAP_PASS }}
+          INFO_MAIL_PASS: ${{ secrets.INFO_MAIL_PASS }}
+        run: |
+          node - << 'EOF'
+          const fs = require('fs');
+          const dbPass = process.env.DB_PASS || '';
+          if (!dbPass) {
+            console.error('::error::Missing DB_PASS secret in GitHub Repository Secrets (Settings -> Secrets and variables -> Actions).');
+            process.exit(1);
+          }
+          const esc = (v) => "'" + String(v).replace(/\\/g, '\\\\').replace(/'/g, "\\'") + "'";
+          const lines = [
+            '<?php',
+            "define('DB_HOST', " + esc(process.env.DB_HOST || 'localhost') + ');',
+            "define('DB_NAME', " + esc(process.env.DB_NAME || 'u284582092_bmdatabase') + ');',
+            "define('DB_USER', " + esc(process.env.DB_USER || 'u284582092_bmuser') + ');',
+            "define('DB_PASS', " + esc(dbPass) + ');',
+          ];
+          if (process.env.MAIL_IMAP_PASS) {
+            lines.push("define('MAIL_IMAP_PASS', " + esc(process.env.MAIL_IMAP_PASS) + ');');
+          }
+          if (process.env.INFO_MAIL_PASS) {
+            lines.push("define('INFO_MAIL_PASS', " + esc(process.env.INFO_MAIL_PASS) + ');');
+          }
+          fs.writeFileSync('admin/db-config.php', lines.join('\n') + '\n', 'utf8');
+          console.log('Generated admin/db-config.php for production deploy.');
+          EOF
+
       - name: Clean stranded FTP temporary files
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
@@ -60,17 +94,28 @@ jobs:
             **/.git/**
             **/.github/**
             **/.vscode/**
+            **/.agents/**
+            **/.claude/**
+            **/.qwen/**
+            **/.trae/**
+            **/.windsurf/**
+            **/.chrome-profile-verify/**
+            **/backups/**
+            **/_backups/**
+            **/backup-BM/**
             **/graphify-out/**
             **/node_modules/**
             **/scripts/**
             **/src/**
             **/?Originals?/**
             **/B Minerals/**
+            **/admin/mail-config.php
             **/package.json
             **/package-lock.json
             **/postcss.config.js
             **/tailwind.config.js
             **/*.md
+            **/*.sql
             **/.lighthouserc.json
             *.png
             production-audit-plan.txt
@@ -101,17 +146,28 @@ jobs:
             **/.git/**
             **/.github/**
             **/.vscode/**
+            **/.agents/**
+            **/.claude/**
+            **/.qwen/**
+            **/.trae/**
+            **/.windsurf/**
+            **/.chrome-profile-verify/**
+            **/backups/**
+            **/_backups/**
+            **/backup-BM/**
             **/graphify-out/**
             **/node_modules/**
             **/scripts/**
             **/src/**
             **/?Originals?/**
             **/B Minerals/**
+            **/admin/mail-config.php
             **/package.json
             **/package-lock.json
             **/postcss.config.js
             **/tailwind.config.js
             **/*.md
+            **/*.sql
             **/.lighthouserc.json
             *.png
             production-audit-plan.txt
@@ -140,17 +196,28 @@ jobs:
             **/.git/**
             **/.github/**
             **/.vscode/**
+            **/.agents/**
+            **/.claude/**
+            **/.qwen/**
+            **/.trae/**
+            **/.windsurf/**
+            **/.chrome-profile-verify/**
+            **/backups/**
+            **/_backups/**
+            **/backup-BM/**
             **/graphify-out/**
             **/node_modules/**
             **/scripts/**
             **/src/**
             **/?Originals?/**
             **/B Minerals/**
+            **/admin/mail-config.php
             **/package.json
             **/package-lock.json
             **/postcss.config.js
             **/tailwind.config.js
             **/*.md
+            **/*.sql
             **/.lighthouserc.json
             *.png
             production-audit-plan.txt

@@ -15,10 +15,9 @@ CREATE TABLE IF NOT EXISTS `admin_users` (
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Initial Seed Admin (Default Login: admin / Admin@BM2026)
--- Password will auto-rehash to secure bcrypt on first login
+-- Initial Seed Admin (Set a bcrypt password hash in admin_users before live login)
 INSERT INTO `admin_users` (`id`, `username`, `password_hash`, `full_name`, `email`, `role`)
-VALUES (1, 'admin', 'Admin@BM2026', 'Balochistan Minerals Admin', 'info@balochistanminerals.com', 'Owner')
+VALUES (1, 'bm_owner_setup', '$2y$12$DISABLED.HASH.PLACEHOLDER.CHANGE.VIA.DB.SETUP.ONLY', 'Balochistan Minerals Admin', 'info@balochistanminerals.com', 'Owner')
 ON DUPLICATE KEY UPDATE `username` = `username`;
 
 

@@ -60,13 +60,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Format messages for thread timeline
     $messages = [];
 
-    // If initial inquiry contains user message text, include it as turn #1
-    if (!empty($inquiry['message'])) {
+    // If initial inquiry contains user message text and isn't already mirrored in email_messages, include it as turn #1
+    $hasMirroredInitial = false;
+    $initialMsgId = trim($inquiry['email_message_id'] ?? '');
+    $initialTrimmed = trim($inquiry['message'] ?? '');
+    foreach ($rawMessages as $m) {
+        if ($initialMsgId !== '' && trim($m['message_id'] ?? '') === $initialMsgId) {
+            $hasMirroredInitial = true;
+            break;
+        }
+        if ($initialTrimmed !== '' && ($m['direction'] ?? '') === 'inbound' && strpos(trim($m['body_text'] ?? ''), $initialTrimmed) !== false) {
+            $hasMirroredInitial = true;
+            break;
+        }
+    }
+
+    if ($initialTrimmed !== '' && !$hasMirroredInitial) {
+        $sourceMailbox = (!empty($inquiry['source']) && strpos($inquiry['source'], '@') !== false)
+            ? $inquiry['source']
+            : 'sales@balochistanminerals.com';
         $messages[] = [
             'id' => 0,
             'direction' => 'inbound',
             'from_email' => $inquiry['email'] ?: 'Inbound Web Portal',
-            'to_email' => 'sales@balochistanminerals.com',
+            'to_email' => $sourceMailbox,
             'subject' => 'Web RFQ: ' . $inquiry['mineral_type'] . ' (' . ($inquiry['quantity'] ?: 'Export') . ')',
             'body_text' => $inquiry['message'],
             'sent_at' => date('M d, Y • h:i A', strtotime($inquiry['created_at'])),
@@ -234,9 +251,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $up = $pdo->prepare("UPDATE inquiries SET status = CASE WHEN status = 'New' THEN 'Contacted' ELSE status END, internal_notes = CONCAT(?, COALESCE(internal_notes, '')) WHERE id = ?");
         $up->execute([$logNote, $inquiryId]);
 
+        if (empty($res['success'])) {
+            echo json_encode([
+                'success' => false,
+                'error' => $res['error'] ?? 'SMTP delivery failed.',
+                'sent_at' => date('M d, Y • h:i A')
+            ]);
+            exit;
+        }
+
         echo json_encode([
             'success' => true,
-            'message' => 'Official reply dispatched via Hostinger SMTP relay.',
+            'message' => $res['message'] ?? 'Official reply dispatched via Hostinger SMTP relay.',
             'sent_at' => date('M d, Y • h:i A')
         ]);
         exit;

@@ -17,7 +17,8 @@ if (!defined('BM_SMTP_HOST')) define('BM_SMTP_HOST', 'smtp.hostinger.com');
 if (!defined('BM_SMTP_PORT')) define('BM_SMTP_PORT', 465); // 465 SSL, 587 TLS
 if (!defined('BM_SMTP_USER')) define('BM_SMTP_USER', 'sales@balochistanminerals.com');
 if (!defined('BM_SMTP_PASS')) {
-    $pass = $_SESSION['bm_mail_pass'] ?? '';
+    $sessionPass = $_SESSION['bm_mail_pass'] ?? '';
+    $pass = $sessionPass !== '' ? $sessionPass : (defined('MAIL_IMAP_PASS') ? MAIL_IMAP_PASS : '');
     define('BM_SMTP_PASS', $pass);
 }
 
@@ -36,11 +37,26 @@ if (!defined('BM_SMTP_PASS')) {
 function sendHostingerMail($toEmail, $subject, $bodyText, $fromEmail = null, $ccEmail = null, $attachments = [], $inquiryId = null) {
     $host = defined('BM_SMTP_HOST') ? BM_SMTP_HOST : 'smtp.hostinger.com';
     $port = defined('BM_SMTP_PORT') ? (int)BM_SMTP_PORT : 465;
-    $user = defined('BM_SMTP_USER') ? BM_SMTP_USER : 'sales@balochistanminerals.com';
-    $pass = defined('BM_SMTP_PASS') ? BM_SMTP_PASS : ($_SESSION['bm_mail_pass'] ?? '');
+    $defaultUser = defined('BM_SMTP_USER') ? BM_SMTP_USER : 'sales@balochistanminerals.com';
+    $defaultPass = defined('BM_SMTP_PASS') ? BM_SMTP_PASS : ($_SESSION['bm_mail_pass'] ?? '');
 
     if (empty($fromEmail)) {
-        $fromEmail = $user;
+        $fromEmail = $defaultUser;
+    }
+
+    // Match SMTP login credentials to the selected sender mailbox (sales@ or info@)
+    $mailboxes = function_exists('getConfiguredMailboxes') ? getConfiguredMailboxes() : [];
+    $fromKey   = strtolower(trim($fromEmail));
+    if (isset($mailboxes[$fromKey]) && $mailboxes[$fromKey]['pass'] !== '') {
+        $user = $mailboxes[$fromKey]['user'];
+        $pass = $mailboxes[$fromKey]['pass'];
+    } elseif ($fromKey === strtolower($defaultUser) && $defaultPass !== '') {
+        $user = $defaultUser;
+        $pass = $defaultPass;
+    } else {
+        // Selected sender mailbox password not configured: use default SMTP account if available only when sender matches
+        $user = $fromEmail;
+        $pass = '';
     }
     $fromName = 'Balochistan Minerals (Pvt) Ltd — Commercial Export Desk';
 

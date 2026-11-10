@@ -467,6 +467,9 @@ if ($pdo !== null) {
             <span class="status-dot dot-green"></span>
             <span>Hostinger Relay Active</span>
           </div>
+          <button type="button" id="btnDeskSyncMail" class="btn-topbar-action" onclick="syncDeskMailboxes()" title="Pull incoming & sent mail from sales@ and info@">
+            <i class="bi bi-arrow-repeat"></i> <span>Sync Mail</span>
+          </button>
           <button type="button" class="btn-topbar-action" data-bs-toggle="modal" data-bs-target="#mailConfigModal">
             <i class="bi bi-gear"></i> <span>Server Config</span>
           </button>
@@ -514,12 +517,21 @@ if ($pdo !== null) {
               <?php else: ?>
                 <?php foreach ($messages as $m): 
                   $isActive = ($selectedMessage && $selectedMessage['id'] == $m['id']);
+                  $corpMailbox = $m['direction'] === 'inbound' ? ($m['to_email'] ?? '') : ($m['from_email'] ?? '');
+                  $shortBox = stripos($corpMailbox, 'info@') !== false ? 'info@' : (stripos($corpMailbox, 'sales@') !== false ? 'sales@' : '');
                 ?>
                   <a href="email-desk.php?msg_id=<?= $m['id'] ?><?= !empty($filterDirection) ? '&direction=' . $filterDirection : '' ?>" class="mail-item <?= $isActive ? 'active' : '' ?>">
                     <div class="d-flex justify-content-between align-items-center mb-1">
-                      <span class="badge <?= $m['direction'] === 'outbound' ? 'bg-dark' : 'bg-success' ?> font-monospace" style="font-size: 0.65rem;">
-                        <?= $m['direction'] === 'outbound' ? 'OUTBOUND' : 'INBOUND' ?>
-                      </span>
+                      <div class="d-flex align-items-center gap-1">
+                        <span class="badge <?= $m['direction'] === 'outbound' ? 'bg-dark' : 'bg-success' ?> font-monospace" style="font-size: 0.65rem;">
+                          <?= $m['direction'] === 'outbound' ? 'OUTBOUND' : 'INBOUND' ?>
+                        </span>
+                        <?php if ($shortBox !== ''): ?>
+                          <span class="badge bg-light text-secondary border font-monospace" style="font-size: 0.62rem;">
+                            <?= htmlspecialchars($shortBox) ?>
+                          </span>
+                        <?php endif; ?>
+                      </div>
                       <span class="text-muted font-monospace" style="font-size: 0.68rem;">
                         <?= date('M d, H:i', strtotime($m['sent_at'])) ?>
                       </span>
@@ -620,13 +632,21 @@ if ($pdo !== null) {
                   <input type="hidden" name="subject" value="Re: <?= htmlspecialchars($selectedMessage['subject']) ?>">
                   <input type="hidden" name="csrf_token" value="<?= getCsrfToken() ?>">
 
-                  <div class="d-flex justify-content-between align-items-center mb-2">
+                  <?php
+                    $replyMailbox = $selectedMessage['direction'] === 'inbound' ? ($selectedMessage['to_email'] ?? '') : ($selectedMessage['from_email'] ?? '');
+                    $isInfoSelected = stripos($replyMailbox, 'info@') !== false;
+                  ?>
+                  <div class="d-flex justify-content-between align-items-center mb-2 gap-2 flex-wrap">
                     <span class="fw-semibold text-dark" style="font-size: 0.78rem;">
                       <i class="bi bi-reply me-1 text-secondary"></i> Quick Reply to <strong class="text-dark"><?= htmlspecialchars($selectedMessage['direction'] === 'inbound' ? $selectedMessage['from_email'] : $selectedMessage['to_email']) ?></strong>
                     </span>
-                    <span class="badge bg-light text-secondary border font-monospace" style="font-size: 0.67rem;">
-                      <i class="bi bi-shield-check text-success me-1"></i>From: sales@balochistanminerals.com
-                    </span>
+                    <div class="d-flex align-items-center gap-1.5">
+                      <span class="small text-muted fw-semibold" style="font-size: 0.7rem;">From:</span>
+                      <select name="from_email" class="form-select form-select-sm font-monospace fw-bold py-0.5" style="width: auto; font-size: 0.72rem;">
+                        <option value="sales@balochistanminerals.com" <?= !$isInfoSelected ? 'selected' : '' ?>>sales@balochistanminerals.com</option>
+                        <option value="info@balochistanminerals.com" <?= $isInfoSelected ? 'selected' : '' ?>>info@balochistanminerals.com</option>
+                      </select>
+                    </div>
                   </div>
 
                   <div class="reply-compose-box">
@@ -837,6 +857,32 @@ Web: https://balochistanminerals.com</textarea>
         `Sincerely,\nCommercial Export Operations Desk\nBalochistan Minerals (Pvt) Ltd\nWeb: https://balochistanminerals.com`;
 
       document.getElementById('outboundBody').value = body;
+    }
+
+    async function syncDeskMailboxes() {
+      const btn = document.getElementById('btnDeskSyncMail');
+      const orig = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> <span>Syncing...</span>';
+      }
+      try {
+        const res = await fetch('mail-sync.php?action=sync');
+        const data = await res.json();
+        const syncedTotal = Number(data.synced_count ?? ((data.synced_inbound || 0) + (data.synced_sent || 0)));
+        if (syncedTotal > 0) {
+          window.location.reload();
+        } else {
+          alert(data.message || data.info || 'All mailboxes are up to date.');
+        }
+      } catch (err) {
+        alert('Mail sync error: ' + err.message);
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = orig;
+        }
+      }
     }
   </script>
   <script src="admin-layout.js"></script>
