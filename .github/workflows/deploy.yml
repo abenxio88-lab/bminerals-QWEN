@@ -122,7 +122,8 @@ jobs:
             **/*.md
             **/*.sql
             **/.lighthouserc.json
-            *.png
+            product-metallic-navbar.png
+            products-mobile-industrial-audit.png
             production-audit-plan.txt
             update-navbar.js
             update-navbar.ps1
@@ -175,7 +176,8 @@ jobs:
             **/*.md
             **/*.sql
             **/.lighthouserc.json
-            *.png
+            product-metallic-navbar.png
+            products-mobile-industrial-audit.png
             production-audit-plan.txt
             update-navbar.js
             update-navbar.ps1
@@ -226,7 +228,8 @@ jobs:
             **/*.md
             **/*.sql
             **/.lighthouserc.json
-            *.png
+            product-metallic-navbar.png
+            products-mobile-industrial-audit.png
             production-audit-plan.txt
             update-navbar.js
             update-navbar.ps1
