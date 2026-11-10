@@ -44,7 +44,7 @@ if ($isLocal) {
 
 // ==========================================
 // 📬 CORPORATE INBOUND WEBMAIL CONFIGURATION
-// (Syncs emails sent to sales@ and info@ into Admin Portal)
+// (Syncs emails sent to sales@, info@ & support@ into Admin Portal)
 // ==========================================
 if (!defined('MAIL_IMAP_HOST')) define('MAIL_IMAP_HOST', 'imap.hostinger.com');
 if (!defined('MAIL_IMAP_PORT')) define('MAIL_IMAP_PORT', 993);
@@ -52,8 +52,53 @@ if (!defined('MAIL_IMAP_USER')) define('MAIL_IMAP_USER', 'sales@balochistanminer
 if (!defined('MAIL_IMAP_PASS')) define('MAIL_IMAP_PASS', ''); // Defined in server-only db-config.php
 if (!defined('INFO_MAIL_USER')) define('INFO_MAIL_USER', 'info@balochistanminerals.com');
 if (!defined('INFO_MAIL_PASS')) define('INFO_MAIL_PASS', ''); // Defined in server-only db-config.php
+if (!defined('SUPPORT_MAIL_USER')) define('SUPPORT_MAIL_USER', 'support@balochistanminerals.com');
+if (!defined('SUPPORT_MAIL_PASS')) define('SUPPORT_MAIL_PASS', ''); // Defined in server-only db-config.php
 
 if (!defined('DB_CHARSET')) define('DB_CHARSET', 'utf8mb4');
+
+/**
+ * Unified catalog of corporate Hostinger mailboxes supported in the Admin Trade Desk.
+ */
+function getCorporateMailboxOptions() {
+    $salesUser   = defined('MAIL_IMAP_USER') ? MAIL_IMAP_USER : 'sales@balochistanminerals.com';
+    $infoUser    = defined('INFO_MAIL_USER') ? INFO_MAIL_USER : 'info@balochistanminerals.com';
+    $supportUser = defined('SUPPORT_MAIL_USER') ? SUPPORT_MAIL_USER : 'support@balochistanminerals.com';
+
+    return [
+        strtolower($salesUser) => [
+            'user'  => $salesUser,
+            'short' => 'sales@',
+            'label' => $salesUser . ' (Export Desk)',
+            'pass'  => defined('MAIL_IMAP_PASS') ? MAIL_IMAP_PASS : '',
+        ],
+        strtolower($infoUser) => [
+            'user'  => $infoUser,
+            'short' => 'info@',
+            'label' => $infoUser . ' (General Operations)',
+            'pass'  => defined('INFO_MAIL_PASS') ? INFO_MAIL_PASS : '',
+        ],
+        strtolower($supportUser) => [
+            'user'  => $supportUser,
+            'short' => 'support@',
+            'label' => $supportUser . ' (Client Support)',
+            'pass'  => defined('SUPPORT_MAIL_PASS') ? SUPPORT_MAIL_PASS : '',
+        ],
+    ];
+}
+
+/**
+ * Matches a corporate mailbox address inside a source/header string, falling back cleanly.
+ */
+function matchCorporateMailboxFromString($haystack, $default = 'sales@balochistanminerals.com') {
+    $text = strtolower((string)$haystack);
+    foreach (getCorporateMailboxOptions() as $emailKey => $meta) {
+        if (strpos($text, $emailKey) !== false || strpos($text, $meta['short']) !== false) {
+            return $meta['user'];
+        }
+    }
+    return $default;
+}
 
 /**
  * Returns configured corporate mailboxes (user => password) from secrets or mail-config.php.
@@ -65,17 +110,12 @@ function getConfiguredMailboxes() {
     }
 
     $boxes = [];
-    $salesUser = defined('MAIL_IMAP_USER') ? MAIL_IMAP_USER : 'sales@balochistanminerals.com';
-    $infoUser  = defined('INFO_MAIL_USER') ? INFO_MAIL_USER : 'info@balochistanminerals.com';
-
-    $boxes[strtolower($salesUser)] = [
-        'user' => $salesUser,
-        'pass' => defined('MAIL_IMAP_PASS') ? MAIL_IMAP_PASS : '',
-    ];
-    $boxes[strtolower($infoUser)] = [
-        'user' => $infoUser,
-        'pass' => defined('INFO_MAIL_PASS') ? INFO_MAIL_PASS : '',
-    ];
+    foreach (getCorporateMailboxOptions() as $emailKey => $meta) {
+        $boxes[$emailKey] = [
+            'user' => $meta['user'],
+            'pass' => $meta['pass'],
+        ];
+    }
 
     if (defined('BM_SMTP_USER') && BM_SMTP_USER !== '') {
         $smtpKey  = strtolower(BM_SMTP_USER);

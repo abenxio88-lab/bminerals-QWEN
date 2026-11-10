@@ -527,7 +527,8 @@ if ($pdo !== null) {
                 <?php foreach ($messages as $m): 
                   $isActive = ($selectedMessage && $selectedMessage['id'] == $m['id']);
                   $corpMailbox = $m['direction'] === 'inbound' ? ($m['to_email'] ?? '') : ($m['from_email'] ?? '');
-                  $shortBox = stripos($corpMailbox, 'info@') !== false ? 'info@' : (stripos($corpMailbox, 'sales@') !== false ? 'sales@' : '');
+                  $matchedBox = matchCorporateMailboxFromString($corpMailbox, '');
+                  $shortBox = $matchedBox !== '' ? (explode('@', $matchedBox)[0] . '@') : '';
                 ?>
                   <a href="email-desk.php?msg_id=<?= $m['id'] ?><?= !empty($filterDirection) ? '&direction=' . $filterDirection : '' ?>" class="mail-item <?= $isActive ? 'active' : '' ?>">
                     <div class="d-flex justify-content-between align-items-center mb-1">
@@ -666,7 +667,7 @@ if ($pdo !== null) {
 
                   <?php
                     $replyMailbox = $selectedMessage['direction'] === 'inbound' ? ($selectedMessage['to_email'] ?? '') : ($selectedMessage['from_email'] ?? '');
-                    $isInfoSelected = stripos($replyMailbox, 'info@') !== false;
+                    $selectedSender = matchCorporateMailboxFromString($replyMailbox, 'sales@balochistanminerals.com');
                   ?>
                   <div class="d-flex justify-content-between align-items-center mb-2 gap-2 flex-wrap">
                     <span class="fw-semibold text-dark" style="font-size: 0.78rem;">
@@ -675,8 +676,9 @@ if ($pdo !== null) {
                     <div class="d-flex align-items-center gap-1.5">
                       <span class="small text-muted fw-semibold" style="font-size: 0.7rem;">From:</span>
                       <select name="from_email" class="form-select form-select-sm font-monospace fw-bold py-0.5" style="width: auto; font-size: 0.72rem;">
-                        <option value="sales@balochistanminerals.com" <?= !$isInfoSelected ? 'selected' : '' ?>>sales@balochistanminerals.com</option>
-                        <option value="info@balochistanminerals.com" <?= $isInfoSelected ? 'selected' : '' ?>>info@balochistanminerals.com</option>
+                        <?php foreach (getCorporateMailboxOptions() as $mbMeta): ?>
+                          <option value="<?= htmlspecialchars($mbMeta['user']) ?>" <?= $selectedSender === $mbMeta['user'] ? 'selected' : '' ?>><?= htmlspecialchars($mbMeta['user']) ?></option>
+                        <?php endforeach; ?>
                       </select>
                     </div>
                   </div>
@@ -752,8 +754,9 @@ if ($pdo !== null) {
               <div class="col-md-6">
                 <label class="form-label">From Corporate Mailbox</label>
                 <select name="from_email" class="form-select form-select-sm font-monospace fw-bold">
-                  <option value="sales@balochistanminerals.com" selected>sales@balochistanminerals.com (Export Desk)</option>
-                  <option value="info@balochistanminerals.com">info@balochistanminerals.com (General Operations)</option>
+                  <?php foreach (getCorporateMailboxOptions() as $mbMeta): ?>
+                    <option value="<?= htmlspecialchars($mbMeta['user']) ?>" <?= $mbMeta['short'] === 'sales@' ? 'selected' : '' ?>><?= htmlspecialchars($mbMeta['label']) ?></option>
+                  <?php endforeach; ?>
                 </select>
               </div>
               <div class="col-md-6">
@@ -913,7 +916,7 @@ Web: https://balochistanminerals.com</textarea>
         btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> <span>Syncing...</span>';
       }
       try {
-        const res = await fetch('mail-sync.php?action=sync');
+        const res = await fetch('mail-sync.php?action=sync&manual=1');
         const data = await res.json();
         const syncedTotal = Number(data.synced_count ?? ((data.synced_inbound || 0) + (data.synced_sent || 0)));
         if (window.BMNotify) window.BMNotify.refresh();

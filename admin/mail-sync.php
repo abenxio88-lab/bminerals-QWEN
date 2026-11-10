@@ -128,10 +128,50 @@ $mineralKeywords = [
 ];
 
 $sinceDate = date("j-M-Y", strtotime("-14 days"));
+$isManual  = isset($_GET['manual']) && $_GET['manual'] === '1';
+
+/**
+ * Prevents repeated background IMAP login storms when Hostinger blocks or rejects a mailbox.
+ */
+function getImapBackoffFile($mailUser) {
+    return sys_get_temp_dir() . '/bm_imap_backoff_' . md5(strtolower(trim((string)$mailUser))) . '.json';
+}
+
+function getImapBackoffState($mailUser) {
+    $file = getImapBackoffFile($mailUser);
+    if (!is_file($file)) return null;
+    $data = @json_decode((string)@file_get_contents($file), true);
+    if (!is_array($data) || empty($data['until'])) return null;
+    if ((int)$data['until'] <= time()) {
+        @unlink($file);
+        return null;
+    }
+    return $data;
+}
+
+function setImapBackoffState($mailUser, $seconds, $reason) {
+    $file = getImapBackoffFile($mailUser);
+    @file_put_contents($file, json_encode([
+        'until'  => time() + (int)$seconds,
+        'reason' => (string)$reason,
+    ]));
+}
+
+function clearImapBackoffState($mailUser) {
+    $file = getImapBackoffFile($mailUser);
+    if (is_file($file)) @unlink($file);
+}
 
 foreach ($activeBoxes as $box) {
     $mailUser = $box['user'];
     $mailPass = $box['pass'];
+
+    $backoff = getImapBackoffState($mailUser);
+    if ($backoff !== null && !$isManual) {
+        // Skip background auto-sync while mailbox is in cooldown so Hostinger does not extend IP/tuple lockout
+        continue;
+    }
+
     $syncedBoxLabels[] = $mailUser;
 
     // ------------------------------------------
@@ -143,132 +183,141 @@ foreach ($activeBoxes as $box) {
 
     if (!$inboxStream) {
         $lastErr = function_exists('imap_last_error') ? imap_last_error() : 'Connection failed';
+        if (function_exists('imap_errors')) @imap_errors();
+        if (function_exists('imap_alerts')) @imap_alerts();
         $errText = $lastErr ?: 'Unable to connect to IMAP INBOX';
-        $warnings[] = $mailUser . ': ' . $errText;
-        logAdminNotification($pdo, 'warning', 'mail_sync', "Mailbox Sync Issue ({$mailUser})", $errText, null, 'email-desk.php', 10);
-    } else {
-        $recentEmails = @imap_search($inboxStream, 'SINCE "' . $sinceDate . '"');
-        if ($recentEmails) {
-            // Process oldest -> newest so DB auto-increment IDs stay aligned with chronological arrival
-            sort($recentEmails, SORT_NUMERIC);
-            foreach ($recentEmails as $emailNumber) {
-                $overview = @imap_fetch_overview($inboxStream, $emailNumber, 0);
-                $header   = @imap_headerinfo($inboxStream, $emailNumber);
-                if (empty($header->from[0]->mailbox) || empty($header->from[0]->host)) {
-                    continue;
-                }
 
-                $fromEmail = strtolower(trim($header->from[0]->mailbox . '@' . $header->from[0]->host));
-                if (in_array($fromEmail, $ownAddresses, true) || preg_match('/^(mailer-daemon|postmaster)@/i', $fromEmail)) {
-                    continue;
-                }
-
-                $fromName  = !empty($header->from[0]->personal) ? decodeMimeHeaderText($header->from[0]->personal) : $header->from[0]->mailbox;
-                $subject   = !empty($overview[0]->subject) ? decodeMimeHeaderText($overview[0]->subject) : 'Inbound Inquiry';
-                $msgId     = !empty($header->message_id) ? trim($header->message_id) : ('<msg-' . md5($mailUser . '|' . $fromEmail . '|' . $subject . '|' . ($overview[0]->date ?? $emailNumber)) . '>');
-
-                // Strict deduplication across both inquiries and email_messages (with HTML/attachment backfill for legacy rows)
-                $chkInq = $pdo->prepare("SELECT id, message FROM inquiries WHERE email_message_id = ?");
-                $chkInq->execute([$msgId]);
-                $existingInqRow = $chkInq->fetch(PDO::FETCH_ASSOC);
-                $chkMsg = $pdo->prepare("SELECT id, body_html, attachments FROM email_messages WHERE message_id = ?");
-                $chkMsg->execute([$msgId]);
-                $existingMsgRow = $chkMsg->fetch(PDO::FETCH_ASSOC);
-
-                if ($existingInqRow || $existingMsgRow) {
-                    $needsHtmlBackfill = $existingMsgRow && (trim((string)($existingMsgRow['body_html'] ?? '')) === '' || empty($existingMsgRow['attachments']));
-                    if ($needsHtmlBackfill) {
-                        $parts = extractImapMessageParts($inboxStream, $emailNumber, true);
-                        $cleanBody = $parts['body_text'] !== '' ? $parts['body_text'] : '(No plain-text message body)';
-                        $attJson   = !empty($existingMsgRow['attachments'])
-                            ? $existingMsgRow['attachments']
-                            : encodeAttachmentsMeta($parts['attachments']);
-                        $newHtml   = trim((string)($existingMsgRow['body_html'] ?? '')) !== ''
-                            ? $existingMsgRow['body_html']
-                            : $parts['body_html'];
-
-                        $updMsg = $pdo->prepare("UPDATE email_messages SET body_text = ?, body_html = ?, attachments = ? WHERE id = ?");
-                        $updMsg->execute([$cleanBody, $newHtml, $attJson, (int)$existingMsgRow['id']]);
-                    }
-                    if ($existingInqRow && strpos((string)($existingInqRow['message'] ?? ''), '[cid:') !== false) {
-                        $cleanedLeadMsg = cleanEmailPlainText($existingInqRow['message']);
-                        $pdo->prepare("UPDATE inquiries SET message = ? WHERE id = ?")->execute([$cleanedLeadMsg, (int)$existingInqRow['id']]);
-                    }
-                    continue;
-                }
-
-                $parts     = extractImapMessageParts($inboxStream, $emailNumber, true);
-                $cleanBody = $parts['body_text'] !== '' ? $parts['body_text'] : '(No plain-text message body)';
-                $bodyHtml  = $parts['body_html'];
-                $attJson   = encodeAttachmentsMeta($parts['attachments']);
-
-                // Detect mineral
-                $detectedMineral = 'General Mineral';
-                $fullTextLower = strtolower($subject . ' ' . $cleanBody);
-                foreach ($mineralKeywords as $kw => $minName) {
-                    if (strpos($fullTextLower, $kw) !== false) {
-                        $detectedMineral = $minName;
-                        break;
-                    }
-                }
-
-                $fullMessage = "Subject: " . $subject . "\n\n" . $cleanBody;
-                $detectedCountry = detectCountryName('', $fromEmail, '', $fromName, $fullMessage);
-                $receivedAt = !empty($header->date) ? date('Y-m-d H:i:s', strtotime($header->date)) : date('Y-m-d H:i:s');
-
-                // Thread into existing buyer inquiry if email already exists, else create new inquiry
-                $existStmt = $pdo->prepare("SELECT id FROM inquiries WHERE LOWER(email) = ? ORDER BY id DESC LIMIT 1");
-                $existStmt->execute([$fromEmail]);
-                $existingLead = $existStmt->fetch(PDO::FETCH_ASSOC);
-
-                if ($existingLead) {
-                    $inquiryId = (int)$existingLead['id'];
-                    $note = "[" . date('M d, Y H:i', strtotime($receivedAt)) . "] Inbound reply received in " . $mailUser . "\nSubject: " . $subject . "\n-------------------\n";
-                    $upLead = $pdo->prepare("UPDATE inquiries SET internal_notes = CONCAT(?, COALESCE(internal_notes, '')) WHERE id = ?");
-                    $upLead->execute([$note, $inquiryId]);
-                } else {
-                    $stmt = $pdo->prepare("INSERT INTO inquiries 
-                        (buyer_name, email, country, inquiry_type, source, email_message_id, mineral_type, message, status, created_at) 
-                        VALUES (?, ?, ?, 'Email Inbound', ?, ?, ?, ?, 'New', ?)");
-                    $stmt->execute([$fromName, $fromEmail, $detectedCountry, $mailUser, $msgId, $detectedMineral, $fullMessage, $receivedAt]);
-                    $inquiryId = (int)$pdo->lastInsertId();
-                }
-
-                // Always archive into email_messages so Email Desk & 360° Dossier show rich HTML, CID images & attachments
-                $emStmt = $pdo->prepare("INSERT INTO email_messages
-                    (inquiry_id, direction, from_email, to_email, subject, body_text, body_html, attachments, status, message_id, sent_at)
-                    VALUES (?, 'inbound', ?, ?, ?, ?, ?, ?, 'Received', ?, ?)");
-                $emStmt->execute([$inquiryId, $fromEmail, $mailUser, substr($subject, 0, 250), $cleanBody, $bodyHtml, $attJson, $msgId, $receivedAt]);
-
-                logAdminNotification(
-                    $pdo,
-                    'info',
-                    'inbound_email',
-                    "New Email in {$mailUser}",
-                    "{$fromName} ({$fromEmail}) — {$subject}",
-                    $inquiryId,
-                    'dashboard.php',
-                    0,
-                    $receivedAt
-                );
-
-                $syncedInbound++;
-            }
+        // Back off for 15 minutes on auth failure / temporary blacklist and DO NOT hammer PASS 2 Sent folders
+        if (preg_match('/blacklisted|authenticate|login\s*failed|auth/i', $errText)) {
+            setImapBackoffState($mailUser, 900, $errText);
         }
-        imap_close($inboxStream);
+        $warnings[] = $mailUser . ': ' . $errText;
+        logAdminNotification($pdo, 'warning', 'mail_sync', "Mailbox Sync Issue ({$mailUser})", $errText, null, 'email-desk.php', 15);
+        continue;
+    }
+
+    clearImapBackoffState($mailUser);
+
+    $recentEmails = @imap_search($inboxStream, 'SINCE "' . $sinceDate . '"');
+    if ($recentEmails) {
+        // Process oldest -> newest so DB auto-increment IDs stay aligned with chronological arrival
+        sort($recentEmails, SORT_NUMERIC);
+        foreach ($recentEmails as $emailNumber) {
+            $overview = @imap_fetch_overview($inboxStream, $emailNumber, 0);
+            $header   = @imap_headerinfo($inboxStream, $emailNumber);
+            if (empty($header->from[0]->mailbox) || empty($header->from[0]->host)) {
+                continue;
+            }
+
+            $fromEmail = strtolower(trim($header->from[0]->mailbox . '@' . $header->from[0]->host));
+            if (in_array($fromEmail, $ownAddresses, true) || preg_match('/^(mailer-daemon|postmaster)@/i', $fromEmail)) {
+                continue;
+            }
+
+            $fromName  = !empty($header->from[0]->personal) ? decodeMimeHeaderText($header->from[0]->personal) : $header->from[0]->mailbox;
+            $subject   = !empty($overview[0]->subject) ? decodeMimeHeaderText($overview[0]->subject) : 'Inbound Inquiry';
+            $msgId     = !empty($header->message_id) ? trim($header->message_id) : ('<msg-' . md5($mailUser . '|' . $fromEmail . '|' . $subject . '|' . ($overview[0]->date ?? $emailNumber)) . '>');
+
+            // Strict deduplication across both inquiries and email_messages (with HTML/attachment backfill for legacy rows)
+            $chkInq = $pdo->prepare("SELECT id, message FROM inquiries WHERE email_message_id = ?");
+            $chkInq->execute([$msgId]);
+            $existingInqRow = $chkInq->fetch(PDO::FETCH_ASSOC);
+            $chkMsg = $pdo->prepare("SELECT id, body_html, attachments FROM email_messages WHERE message_id = ?");
+            $chkMsg->execute([$msgId]);
+            $existingMsgRow = $chkMsg->fetch(PDO::FETCH_ASSOC);
+
+            if ($existingInqRow || $existingMsgRow) {
+                $needsHtmlBackfill = $existingMsgRow && (trim((string)($existingMsgRow['body_html'] ?? '')) === '' || empty($existingMsgRow['attachments']));
+                if ($needsHtmlBackfill) {
+                    $parts = extractImapMessageParts($inboxStream, $emailNumber, true);
+                    $cleanBody = $parts['body_text'] !== '' ? $parts['body_text'] : '(No plain-text message body)';
+                    $attJson   = !empty($existingMsgRow['attachments'])
+                        ? $existingMsgRow['attachments']
+                        : encodeAttachmentsMeta($parts['attachments']);
+                    $newHtml   = trim((string)($existingMsgRow['body_html'] ?? '')) !== ''
+                        ? $existingMsgRow['body_html']
+                        : $parts['body_html'];
+
+                    $updMsg = $pdo->prepare("UPDATE email_messages SET body_text = ?, body_html = ?, attachments = ? WHERE id = ?");
+                    $updMsg->execute([$cleanBody, $newHtml, $attJson, (int)$existingMsgRow['id']]);
+                }
+                if ($existingInqRow && strpos((string)($existingInqRow['message'] ?? ''), '[cid:') !== false) {
+                    $cleanedLeadMsg = cleanEmailPlainText($existingInqRow['message']);
+                    $pdo->prepare("UPDATE inquiries SET message = ? WHERE id = ?")->execute([$cleanedLeadMsg, (int)$existingInqRow['id']]);
+                }
+                continue;
+            }
+
+            $parts     = extractImapMessageParts($inboxStream, $emailNumber, true);
+            $cleanBody = $parts['body_text'] !== '' ? $parts['body_text'] : '(No plain-text message body)';
+            $bodyHtml  = $parts['body_html'];
+            $attJson   = encodeAttachmentsMeta($parts['attachments']);
+
+            // Detect mineral
+            $detectedMineral = 'General Mineral';
+            $fullTextLower = strtolower($subject . ' ' . $cleanBody);
+            foreach ($mineralKeywords as $kw => $minName) {
+                if (strpos($fullTextLower, $kw) !== false) {
+                    $detectedMineral = $minName;
+                    break;
+                }
+            }
+
+            $fullMessage = "Subject: " . $subject . "\n\n" . $cleanBody;
+            $detectedCountry = detectCountryName('', $fromEmail, '', $fromName, $fullMessage);
+            $receivedAt = !empty($header->date) ? date('Y-m-d H:i:s', strtotime($header->date)) : date('Y-m-d H:i:s');
+
+            // Thread into existing buyer inquiry if email already exists, else create new inquiry
+            $existStmt = $pdo->prepare("SELECT id FROM inquiries WHERE LOWER(email) = ? ORDER BY id DESC LIMIT 1");
+            $existStmt->execute([$fromEmail]);
+            $existingLead = $existStmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($existingLead) {
+                $inquiryId = (int)$existingLead['id'];
+                $note = "[" . date('M d, Y H:i', strtotime($receivedAt)) . "] Inbound reply received in " . $mailUser . "\nSubject: " . $subject . "\n-------------------\n";
+                $upLead = $pdo->prepare("UPDATE inquiries SET internal_notes = CONCAT(?, COALESCE(internal_notes, '')) WHERE id = ?");
+                $upLead->execute([$note, $inquiryId]);
+            } else {
+                $stmt = $pdo->prepare("INSERT INTO inquiries 
+                    (buyer_name, email, country, inquiry_type, source, email_message_id, mineral_type, message, status, created_at) 
+                    VALUES (?, ?, ?, 'Email Inbound', ?, ?, ?, ?, 'New', ?)");
+                $stmt->execute([$fromName, $fromEmail, $detectedCountry, $mailUser, $msgId, $detectedMineral, $fullMessage, $receivedAt]);
+                $inquiryId = (int)$pdo->lastInsertId();
+            }
+
+            // Always archive into email_messages so Email Desk & 360° Dossier show rich HTML, CID images & attachments
+            $emStmt = $pdo->prepare("INSERT INTO email_messages
+                (inquiry_id, direction, from_email, to_email, subject, body_text, body_html, attachments, status, message_id, sent_at)
+                VALUES (?, 'inbound', ?, ?, ?, ?, ?, ?, 'Received', ?, ?)");
+            $emStmt->execute([$inquiryId, $fromEmail, $mailUser, substr($subject, 0, 250), $cleanBody, $bodyHtml, $attJson, $msgId, $receivedAt]);
+
+            logAdminNotification(
+                $pdo,
+                'info',
+                'inbound_email',
+                "New Email in {$mailUser}",
+                "{$fromName} ({$fromEmail}) — {$subject}",
+                $inquiryId,
+                'dashboard.php',
+                0,
+                $receivedAt
+            );
+
+            $syncedInbound++;
+        }
     }
 
     // ------------------------------------------
-    // PASS 2: SCAN INBOX.Sent (Sent Outbound Mailbox)
-    // Automatically detects replies sent from Hostinger Webmail
+    // PASS 2: SCAN INBOX.Sent (Sent Outbound Mailbox via imap_reopen on existing stream)
+    // Avoids extra TLS login attempts per cycle while detecting Webmail replies
     // ------------------------------------------
     $sentFolderNames = ['INBOX.Sent', 'Sent', 'Sent Items', 'INBOX/Sent'];
     $sentStream = false;
 
     foreach ($sentFolderNames as $folder) {
         $sentPath = "{" . $mailHost . ":" . $mailPort . "/imap/ssl/novalidate-cert}" . $folder;
-        $sentStream = @imap_open($sentPath, $mailUser, $mailPass);
-        if ($sentStream) {
+        if (@imap_reopen($inboxStream, $sentPath)) {
+            $sentStream = $inboxStream;
             break;
         }
     }
@@ -333,8 +382,11 @@ foreach ($activeBoxes as $box) {
                 }
             }
         }
-        imap_close($sentStream);
     }
+
+    @imap_close($inboxStream);
+    if (function_exists('imap_errors')) @imap_errors();
+    if (function_exists('imap_alerts')) @imap_alerts();
 }
 
 $totalSynced = $syncedInbound + $syncedSent;

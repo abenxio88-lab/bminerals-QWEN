@@ -305,8 +305,21 @@ if (!function_exists('renderInquiryRow')) {
                               <div class="col-6">
                                 <label class="form-label mb-1">From Mailbox</label>
                                 <select name="from_email" class="form-select form-select-sm font-monospace fw-bold">
-                                  <option value="sales@balochistanminerals.com" <?= (!empty($row['source']) && strpos($row['source'], 'info@') === false) ? 'selected' : '' ?>>sales@balochistanminerals.com</option>
-                                  <option value="info@balochistanminerals.com" <?= (!empty($row['source']) && strpos($row['source'], 'info@') !== false) ? 'selected' : '' ?>>info@balochistanminerals.com</option>
+                                  <?php
+                                    $rowMailbox = function_exists('matchCorporateMailboxFromString')
+                                        ? matchCorporateMailboxFromString($row['source'] ?? '', 'sales@balochistanminerals.com')
+                                        : 'sales@balochistanminerals.com';
+                                    $mbList = function_exists('getCorporateMailboxOptions')
+                                        ? getCorporateMailboxOptions()
+                                        : [
+                                            'sales@balochistanminerals.com' => ['user' => 'sales@balochistanminerals.com'],
+                                            'info@balochistanminerals.com' => ['user' => 'info@balochistanminerals.com'],
+                                            'support@balochistanminerals.com' => ['user' => 'support@balochistanminerals.com'],
+                                          ];
+                                    foreach ($mbList as $mbMeta):
+                                  ?>
+                                    <option value="<?= htmlspecialchars($mbMeta['user']) ?>" <?= $rowMailbox === $mbMeta['user'] ? 'selected' : '' ?>><?= htmlspecialchars($mbMeta['user']) ?></option>
+                                  <?php endforeach; ?>
                                 </select>
                               </div>
                               <div class="col-6">

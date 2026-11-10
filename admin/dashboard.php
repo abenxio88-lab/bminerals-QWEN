@@ -1464,7 +1464,7 @@ function getBallInCourtStatus($row) {
       }
 
       try {
-        const res = await fetch('mail-sync.php?action=sync');
+        const res = await fetch(silent ? 'mail-sync.php?action=sync' : 'mail-sync.php?action=sync&manual=1');
         const data = await res.json();
 
         const syncedTotal = Number(data.synced_count ?? ((data.synced_inbound || 0) + (data.synced_sent || 0)));
@@ -1911,9 +1911,12 @@ function getBallInCourtStatus($row) {
         document.getElementById('dossierBuyerEmailDisplay').textContent = inq.email || 'No email on file';
         const fromSel = document.getElementById('dossierFromEmail');
         if (fromSel) {
-          fromSel.value = (inq.source && inq.source.toLowerCase().includes('info@'))
-            ? 'info@balochistanminerals.com'
-            : 'sales@balochistanminerals.com';
+          const srcLower = (inq.source || '').toLowerCase();
+          const matchedOpt = Array.from(fromSel.options).find(opt => {
+            const val = opt.value.toLowerCase();
+            return val && srcLower.includes(val);
+          });
+          fromSel.value = matchedOpt ? matchedOpt.value : 'sales@balochistanminerals.com';
         }
         document.getElementById('dossierSubject').value = 'RE: Balochistan Minerals - ' + inq.mineral_type + ' Export Order';
         document.getElementById('dossierBody').value = 'Dear ' + inq.buyer_name + ',\n\nThank you for reaching out regarding ' + inq.mineral_type + ' (' + inq.quantity + '). Balochistan Minerals (Pvt) Ltd has verified port stockpile allocations available.\n\nPlease find our commercial specifications attached for review.\n\nBest regards,\nExport Commercial Desk\nBalochistan Minerals (Pvt) Ltd\nWeb: https://balochistanminerals.com';
@@ -2184,8 +2187,9 @@ function getBallInCourtStatus($row) {
         <div class="fw-bold mb-2 brand-font d-flex align-items-center justify-content-between gap-2 flex-wrap" style="font-size: 0.78rem; color: #0F172A;">
           <span><i class="bi bi-reply-fill text-primary me-1"></i> Quick Reply via Hostinger SMTP</span>
           <select id="dossierFromEmail" class="form-select form-select-sm font-monospace fw-bold py-0.5" style="width: auto; font-size: 0.68rem;">
-            <option value="sales@balochistanminerals.com">sales@balochistanminerals.com</option>
-            <option value="info@balochistanminerals.com">info@balochistanminerals.com</option>
+            <?php foreach (getCorporateMailboxOptions() as $mbMeta): ?>
+              <option value="<?= htmlspecialchars($mbMeta['user']) ?>"><?= htmlspecialchars($mbMeta['user']) ?></option>
+            <?php endforeach; ?>
           </select>
         </div>
         <form id="dossierReplyForm" onsubmit="handleDossierReply(event)">
