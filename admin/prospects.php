@@ -6,13 +6,27 @@
 
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/flag-helper.php';
+require_once __DIR__ . '/prospect-import-helper.php';
 requireAuth();
 
 $user = getLoggedInUser();
 $pdo  = getDB();
 
-$flashMessage = '';
-$flashType    = 'success';
+$flashMessage = $_SESSION['bm_prospects_flash'] ?? '';
+$flashType    = $_SESSION['bm_prospects_flash_type'] ?? 'success';
+unset($_SESSION['bm_prospects_flash'], $_SESSION['bm_prospects_flash_type']);
+
+// Handle Sample CSV Template Download
+if (isset($_GET['action']) && $_GET['action'] === 'download_template') {
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename="Balochistan_Minerals_Import_Template.csv"');
+    $out = fopen('php://output', 'w');
+    fwrite($out, "\xEF\xBB\xBF");
+    fputcsv($out, ['Company Name', 'Contact Person', 'Country', 'City', 'Email', 'Phone', 'WhatsApp', 'Target Mineral', 'Buyer Type', 'Annual Demand', 'Target Grade', 'Status', 'Notes']);
+    fputcsv($out, ['Anatolia Ferrochrome Smelters A.S.', 'Mr. Emre Kaya (Procurement Director)', 'Turkey', 'Antalya / Iskenderun', 'procurement@anatolia-chrome.tr', '+90 242 555 0140', '+905325550140', 'Chromite Ore', 'Smelter / Ferrochrome Producer', '35,000 MT / year', 'Cr2O3 46-48% Lumps (Low Silica)', 'Identified', 'Sample row - replace or add your buyers in Excel (.xlsx) or CSV']);
+    fclose($out);
+    exit;
+}
 
 // Handle CSV Export
 if (isset($_GET['action']) && $_GET['action'] === 'export_csv' && $pdo !== null) {
@@ -89,6 +103,21 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && $pdo !== null) {
 
             @mail($toEmail, $subject, $body, "From: Balochistan Minerals <" . $fromEmail . ">\r\nReply-To: " . $fromEmail);
             $flashMessage = 'Outbound trade email dispatched to ' . $toEmail . ' and status moved to "Outreach Sent".';
+        } elseif ($action === 'import_prospects') {
+            $importRes = importBuyerProspectsFromSpreadsheet(
+                $pdo,
+                $_FILES['import_file'] ?? [],
+                [
+                    'duplicate_mode' => $_POST['duplicate_mode'] ?? 'skip',
+                    'default_status' => $_POST['default_status'] ?? 'Identified',
+                ]
+            );
+            $_SESSION['bm_prospects_flash'] = !empty($importRes['success'])
+                ? $importRes['message']
+                : ($importRes['error'] ?? 'Import failed.');
+            $_SESSION['bm_prospects_flash_type'] = !empty($importRes['success']) ? 'success' : 'danger';
+            header('Location: prospects.php');
+            exit;
         } elseif ($action === 'delete_prospect') {
             $id = (int)($_POST['prospect_id'] ?? 0);
             $stmt = $pdo->prepare("DELETE FROM buyer_prospects WHERE id = ?");
@@ -673,6 +702,9 @@ if ($pdo !== null) {
             <span class="status-dot dot-green"></span>
             <span><?= $totalCount ?> Verified Importers</span>
           </div>
+          <button type="button" class="btn-topbar-action" data-bs-toggle="modal" data-bs-target="#importProspectsModal" title="Import Buyers from Excel (.xlsx) or CSV">
+            <i class="bi bi-file-earmark-arrow-up"></i> <span>Import Excel / CSV</span>
+          </button>
           <a href="prospects.php?action=export_csv" class="btn-topbar-action">
             <i class="bi bi-file-earmark-spreadsheet"></i> <span>Export CSV</span>
           </a>
@@ -776,13 +808,13 @@ if ($pdo !== null) {
 
           <div class="table-scroll-container" id="prospectsTableContainer">
             <table class="table-clean" id="prospectsDataGrid">
-              <colgroup>
-                <col style="width: 250px;">
-                <col style="width: 200px;">
-                <col style="width: 184px;">
-                <col style="width: auto;">
-                <col style="width: 114px;">
-                <col style="width: 198px;">
+              <colgroup id="prospectsColGroup">
+                <col data-col="company" style="width: 252px;">
+                <col data-col="mineral" style="width: 192px;">
+                <col data-col="profile" style="width: 184px;">
+                <col data-col="contact" style="width: 241px;">
+                <col data-col="stage" style="width: 114px;">
+                <col data-col="outreach" style="width: 198px;">
               </colgroup>
               <thead>
                 <tr>
@@ -1096,6 +1128,81 @@ Web: https://balochistanminerals.com</textarea>
           </div>
         </div>
 
+        <!-- Modal: Import Buyers from Excel (.xlsx) or CSV -->
+        <div class="modal fade" id="importProspectsModal" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" style="max-width: 620px;">
+            <div class="modal-content">
+              <form method="POST" action="prospects.php" enctype="multipart/form-data">
+                <input type="hidden" name="action" value="import_prospects">
+                <input type="hidden" name="csrf_token" value="<?= getCsrfToken() ?>">
+
+                <div class="modal-header py-2.5 px-3">
+                  <div class="d-flex align-items-center gap-2">
+                    <span class="badge-rfq-mild">
+                      <i class="bi bi-file-earmark-spreadsheet-fill"></i> BULK IMPORT
+                    </span>
+                    <h6 class="modal-title fw-bold brand-font mb-0" style="color: var(--brand-navy); font-size: 0.96rem;">
+                      Import Buyer Lists from Excel (.xlsx) or CSV
+                    </h6>
+                  </div>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body p-3.5">
+                  <div class="p-2.5 rounded bg-light border mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+                    <div class="small text-muted" style="font-size: 0.76rem;">
+                      Upload any spreadsheet exported from Excel, Google Sheets, or this directory&apos;s CSV export.
+                    </div>
+                    <a href="prospects.php?action=download_template" class="btn btn-sm btn-outline-dark fw-semibold py-1 px-2.5" style="font-size: 0.72rem; white-space: nowrap;">
+                      <i class="bi bi-download me-1"></i> Sample CSV Template
+                    </a>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Select Excel (.xlsx) or CSV File</label>
+                    <input type="file" name="import_file" accept=".xlsx,.csv" class="form-control form-control-sm" required>
+                    <div class="form-text" style="font-size: 0.69rem;">Supported: .xlsx (Excel Workbook) &amp; .csv • Up to 1,000 rows per batch (Max 5 MB)</div>
+                  </div>
+
+                  <div class="row g-2 mb-3">
+                    <div class="col-md-6">
+                      <label class="form-label">Duplicate Buyers Handling</label>
+                      <select name="duplicate_mode" class="form-select form-select-sm">
+                        <option value="skip" selected>Skip duplicates (match Email / Company)</option>
+                        <option value="update">Update existing matching buyers</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Default Pipeline Stage (if blank)</label>
+                      <select name="default_status" class="form-select form-select-sm">
+                        <option value="Identified" selected>Identified</option>
+                        <option value="Outreach Sent">Outreach Sent</option>
+                        <option value="Assay Shared">Assay Shared</option>
+                        <option value="Negotiating">Negotiating</option>
+                        <option value="Contract Executed">Contract Executed</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="p-2.5 rounded border bg-white">
+                    <div class="text-uppercase fw-bold text-muted mb-1" style="font-size: 0.65rem; letter-spacing: 0.05em;">Recognized Column Headers</div>
+                    <div class="small text-muted font-monospace" style="font-size: 0.70rem; line-height: 1.55;">
+                      Company Name, Contact Person, Country, City, Email, Phone, WhatsApp, Target Mineral, Buyer Type, Annual Demand, Target Grade, Status, Notes
+                    </div>
+                  </div>
+                </div>
+
+                <div class="modal-footer d-flex justify-content-end gap-2 py-2.5 px-3 bg-light border-top">
+                  <button type="button" class="btn-cancel-action" data-bs-dismiss="modal">Cancel</button>
+                  <button type="submit" class="btn-save-action">
+                    <i class="bi bi-cloud-arrow-up-fill me-1"></i> Upload &amp; Import Buyers
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
         <!-- Modal: Add New Buyer Prospect (Compact 2-Column) -->
         <div class="modal fade" id="addProspectModal" tabindex="-1" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -1220,6 +1327,67 @@ Web: https://balochistanminerals.com</textarea>
         setTimeout(() => { btn.innerHTML = orig; }, 1800);
       }
     }
+    function layoutProspectsGrid() {
+      const container = document.getElementById('prospectsTableContainer');
+      const table     = document.getElementById('prospectsDataGrid');
+      const colGroup  = document.getElementById('prospectsColGroup');
+      if (!container || !table || !colGroup) return;
+
+      const STAGE_W    = 114;
+      const OUTREACH_W = 198;
+      const FIXED_ACT  = STAGE_W + OUTREACH_W;
+      const specs = [
+        { col: 'company', min: 242, weight: 0.295 },
+        { col: 'mineral', min: 190, weight: 0.215 },
+        { col: 'profile', min: 182, weight: 0.200 },
+        { col: 'contact', min: 240, weight: 0.290 },
+      ];
+      const minsSum   = specs.reduce((acc, s) => acc + s.min, 0);
+      const MIN_TOTAL = minsSum + FIXED_ACT;
+
+      const available = Math.max(MIN_TOTAL, container.clientWidth);
+      const flexSpace = available - FIXED_ACT;
+      const extra     = Math.max(0, flexSpace - minsSum);
+      const allocated = {};
+
+      specs.forEach((s, idx) => {
+        if (idx === specs.length - 1) {
+          allocated[s.col] = flexSpace - Object.values(allocated).reduce((a, b) => a + b, 0);
+        } else {
+          allocated[s.col] = Math.round(s.min + (extra * s.weight));
+        }
+      });
+
+      const widths = {
+        company: allocated.company,
+        mineral: allocated.mineral,
+        profile: allocated.profile,
+        contact: allocated.contact,
+        stage: STAGE_W,
+        outreach: OUTREACH_W,
+      };
+
+      let totalSum = 0;
+      Object.entries(widths).forEach(([key, val]) => {
+        const el = colGroup.querySelector(`col[data-col="${key}"]`);
+        if (el) el.style.width = val + 'px';
+        totalSum += val;
+      });
+      table.style.width = totalSum + 'px';
+      table.style.minWidth = totalSum + 'px';
+    }
+
+    (function initProspectsGrid() {
+      layoutProspectsGrid();
+      const container = document.getElementById('prospectsTableContainer');
+      if (container && typeof ResizeObserver !== 'undefined') {
+        const ro = new ResizeObserver(() => layoutProspectsGrid());
+        ro.observe(container);
+      } else {
+        window.addEventListener('resize', layoutProspectsGrid);
+      }
+      document.addEventListener('DOMContentLoaded', layoutProspectsGrid);
+    })();
   </script>
   <?= renderCommodityDatalist('mineralList') ?>
   <script src="admin-layout.js?v=<?= filemtime(__DIR__ . '/admin-layout.js') ?>"></script>
