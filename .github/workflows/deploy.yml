@@ -110,6 +110,7 @@ jobs:
             **/?Originals?/**
             **/B Minerals/**
             **/admin/mail-config.php
+            **/admin/uploads/**
             **/package.json
             **/package-lock.json
             **/postcss.config.js
@@ -162,6 +163,7 @@ jobs:
             **/?Originals?/**
             **/B Minerals/**
             **/admin/mail-config.php
+            **/admin/uploads/**
             **/package.json
             **/package-lock.json
             **/postcss.config.js
@@ -212,6 +214,7 @@ jobs:
             **/?Originals?/**
             **/B Minerals/**
             **/admin/mail-config.php
+            **/admin/uploads/**
             **/package.json
             **/package-lock.json
             **/postcss.config.js

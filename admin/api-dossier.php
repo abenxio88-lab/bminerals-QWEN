@@ -11,6 +11,7 @@ require_once __DIR__ . '/db.php';
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/flag-helper.php';
 require_once __DIR__ . '/smtp-mailer.php';
+require_once __DIR__ . '/mail-helpers.php';
 
 if (!isLoggedIn()) {
     http_response_code(401);
@@ -79,26 +80,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $sourceMailbox = (!empty($inquiry['source']) && strpos($inquiry['source'], '@') !== false)
             ? $inquiry['source']
             : 'sales@balochistanminerals.com';
+        $cleanInit = cleanEmailPlainText($inquiry['message']);
         $messages[] = [
             'id' => 0,
             'direction' => 'inbound',
             'from_email' => $inquiry['email'] ?: 'Inbound Web Portal',
             'to_email' => $sourceMailbox,
             'subject' => 'Web RFQ: ' . $inquiry['mineral_type'] . ' (' . ($inquiry['quantity'] ?: 'Export') . ')',
-            'body_text' => $inquiry['message'],
+            'body_text' => $cleanInit,
+            'body_html' => buildRenderableEmailHtml(null, $inquiry['message'], 0, []),
+            'attachments' => [],
             'sent_at' => date('M d, Y • h:i A', strtotime($inquiry['created_at'])),
             'timestamp' => strtotime($inquiry['created_at'])
         ];
     }
 
     foreach ($rawMessages as $m) {
+        $msgIdInt = (int)$m['id'];
+        $attMeta  = decodeAttachmentsMeta($m['attachments'] ?? '');
         $messages[] = [
-            'id' => (int)$m['id'],
+            'id' => $msgIdInt,
             'direction' => $m['direction'] ?: 'outbound',
             'from_email' => $m['from_email'],
             'to_email' => $m['to_email'],
             'subject' => $m['subject'],
-            'body_text' => $m['body_text'],
+            'body_text' => cleanEmailPlainText($m['body_text'] ?? ''),
+            'body_html' => buildRenderableEmailHtml($m['body_html'] ?? null, $m['body_text'] ?? '', $msgIdInt, $attMeta),
+            'attachments' => formatPublicAttachmentsForMessage($msgIdInt, $m['attachments'] ?? ''),
             'sent_at' => date('M d, Y • h:i A', strtotime($m['sent_at'])),
             'timestamp' => strtotime($m['sent_at'])
         ];
@@ -188,7 +196,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             'spot_price_quoted' => $spotPrice,
             'estimated_deal_usd' => $estimatedDealUsd,
             'internal_notes' => $inquiry['internal_notes'] ?? '',
-            'message' => $inquiry['message'] ?? '',
+            'message' => cleanEmailPlainText($inquiry['message'] ?? ''),
+            'message_html' => buildRenderableEmailHtml(null, $inquiry['message'] ?? '', 0, []),
+            'source' => $inquiry['source'] ?? '',
             'created_at' => date('M d, Y • h:i A', strtotime($inquiry['created_at'])),
             'initials' => $initials,
             'wa_url' => $waUrl
@@ -231,7 +241,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // C. Send Direct Reply from Inside the Dossier
+    // C. Send Direct Reply from Inside the Dossier (with Optional Multipart File Attachments)
     if ($action === 'send_reply') {
         $toEmail = filter_var(trim($_POST['to_email'] ?? ''), FILTER_SANITIZE_EMAIL);
         $subject = cleanInput($_POST['subject'] ?? 'Export Inquiry Follow-up');
@@ -243,11 +253,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        // Dispatch via Hostinger SMTP
-        $res = sendHostingerMail($toEmail, $subject, $body, $fromEmail, null, [], $inquiryId);
+        $uploadRes = handleUploadedAttachments('attachments');
+        if (!empty($uploadRes['errors'])) {
+            echo json_encode(['success' => false, 'error' => implode(' ', $uploadRes['errors'])]);
+            exit;
+        }
+        $attachedFiles = $uploadRes['files'];
 
-        // Update inquiry status
-        $logNote = "[" . date('M d, Y H:i') . "] Dossier reply sent to " . $toEmail . ": " . $subject . "\n-------------------\n";
+        // Dispatch via Hostinger SMTP
+        $res = sendHostingerMail($toEmail, $subject, $body, $fromEmail, null, $attachedFiles, $inquiryId);
+
+        // Update inquiry status & internal timeline
+        $attNote = !empty($attachedFiles) ? (" [Attachments: " . implode(', ', array_column($attachedFiles, 'name')) . "]") : '';
+        $logNote = "[" . date('M d, Y H:i') . "] Dossier reply sent from " . $fromEmail . " to " . $toEmail . ": " . $subject . $attNote . "\n-------------------\n";
         $up = $pdo->prepare("UPDATE inquiries SET status = CASE WHEN status = 'New' THEN 'Contacted' ELSE status END, internal_notes = CONCAT(?, COALESCE(internal_notes, '')) WHERE id = ?");
         $up->execute([$logNote, $inquiryId]);
 
@@ -262,6 +280,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         echo json_encode([
             'success' => true,
+            'attachment_count' => count($attachedFiles),
+            'attachments' => $res['attachments'] ?? [],
             'message' => $res['message'] ?? 'Official reply dispatched via Hostinger SMTP relay.',
             'sent_at' => date('M d, Y • h:i A')
         ]);

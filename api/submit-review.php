@@ -42,6 +42,16 @@ if ($pdo !== null) {
         $stmt = $pdo->prepare('INSERT INTO reviews (reviewer_name, company_name, country, rating, product_reviewed, review_text, publish_consent, status) VALUES (?, ?, ?, ?, ?, ?, ?, "Pending")');
         $stmt->execute([$name, $company, $country, $rating, $product, $text, $consent]);
         $reviewId = (int)$pdo->lastInsertId();
+        logAdminNotification(
+            $pdo,
+            'info',
+            'review',
+            "New Client Review ({$rating}/5)",
+            "{$name}" . ($company ? " ({$company})" : '') . " reviewed {$product}",
+            null,
+            'reviews.php',
+            0
+        );
     } catch (Exception $e) {
         error_log("DB Review Error: " . $e->getMessage());
     }

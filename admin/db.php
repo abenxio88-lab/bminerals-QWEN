@@ -93,6 +93,78 @@ function getConfiguredMailboxes() {
     return $boxes;
 }
 
+/**
+ * Ensures the persistent admin_notifications table exists.
+ */
+function ensureNotificationsTable($pdo) {
+    static $ensured = false;
+    if ($ensured || !$pdo) return;
+    try {
+        $pdo->exec("CREATE TABLE IF NOT EXISTS `admin_notifications` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `type` ENUM('info', 'success', 'warning', 'error') NOT NULL DEFAULT 'info',
+            `category` VARCHAR(40) NOT NULL DEFAULT 'system',
+            `title` VARCHAR(180) NOT NULL,
+            `message` TEXT NOT NULL,
+            `inquiry_id` INT NULL,
+            `link_url` VARCHAR(255) NULL,
+            `is_read` TINYINT(1) NOT NULL DEFAULT 0,
+            `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            INDEX `idx_is_read` (`is_read`),
+            INDEX `idx_created_at` (`created_at`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+        $ensured = true;
+    } catch (Exception $e) {
+        error_log("Notification table ensure notice: " . $e->getMessage());
+    }
+}
+
+/**
+ * Persists an admin notification in MySQL so alerts/errors remain viewable in the Notification Center.
+ */
+function logAdminNotification($pdo, $type, $category, $title, $message, $inquiryId = null, $linkUrl = null, $dedupMinutes = 0, $createdAt = null) {
+    if (!$pdo) return false;
+    $allowed = ['info', 'success', 'warning', 'error'];
+    $safeType = in_array($type, $allowed, true) ? $type : 'info';
+    $safeCat  = substr((string)$category, 0, 40) ?: 'system';
+    $safeTitle = substr((string)$title, 0, 180) ?: 'Notification';
+    $safeMsg  = trim((string)$message);
+    if ($safeMsg === '') return false;
+
+    try {
+        ensureNotificationsTable($pdo);
+
+        if ((int)$dedupMinutes > 0) {
+            $chk = $pdo->prepare("SELECT id FROM admin_notifications
+                WHERE is_read = 0 AND category = ? AND title = ? AND message = ?
+                  AND created_at >= (NOW() - INTERVAL ? MINUTE)
+                ORDER BY id DESC LIMIT 1");
+            $chk->execute([$safeCat, $safeTitle, $safeMsg, (int)$dedupMinutes]);
+            $existingId = $chk->fetchColumn();
+            if ($existingId) {
+                $upd = $pdo->prepare("UPDATE admin_notifications SET created_at = NOW() WHERE id = ?");
+                $upd->execute([$existingId]);
+                return true;
+            }
+        }
+
+        if (!empty($createdAt)) {
+            $ins = $pdo->prepare("INSERT INTO admin_notifications (type, category, title, message, inquiry_id, link_url, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $ins->execute([$safeType, $safeCat, $safeTitle, $safeMsg, $inquiryId ?: null, $linkUrl ?: null, $createdAt]);
+        } else {
+            $ins = $pdo->prepare("INSERT INTO admin_notifications (type, category, title, message, inquiry_id, link_url) VALUES (?, ?, ?, ?, ?, ?)");
+            $ins->execute([$safeType, $safeCat, $safeTitle, $safeMsg, $inquiryId ?: null, $linkUrl ?: null]);
+        }
+
+        // Keep notification history lean (latest 150 records by timestamp)
+        $pdo->exec("DELETE FROM admin_notifications WHERE id NOT IN (SELECT id FROM (SELECT id FROM admin_notifications ORDER BY created_at DESC, id DESC LIMIT 150) AS keep_rows)");
+        return true;
+    } catch (Exception $e) {
+        error_log("logAdminNotification error: " . $e->getMessage());
+        return false;
+    }
+}
+
 // Company Global Details
 define('COMPANY_NAME', 'Balochistan Minerals (Pvt) Ltd');
 define('COMPANY_PHONE', '+923348888104');

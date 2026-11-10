@@ -10,6 +10,7 @@ header('Content-Type: application/json; charset=utf-8');
 require_once __DIR__ . '/db.php';
 require_once __DIR__ . '/flag-helper.php';
 require_once __DIR__ . '/auth.php';
+require_once __DIR__ . '/mail-helpers.php';
 
 // Must be logged in to trigger sync
 requireAuth();
@@ -20,121 +21,13 @@ if (!$pdo) {
     exit;
 }
 
-$action = cleanInput($_GET['action'] ?? 'sync');
-
-// ==========================================
-// 1. SIMULATION / TEST LEAD GENERATOR
-// Allows instant local testing without live IMAP connection
-// ==========================================
-if ($action === 'simulate') {
-    $testSenders = [
-        ['name' => 'Demo Trader', 'company' => 'Sample Trade Corp', 'email' => 'trader@example.com', 'country' => 'Germany', 'subject' => 'Inquiry for high-grade chromite lumps 46-48%', 'mineral' => 'Chromite Ore', 'body' => "Dear Balochistan Minerals Export Desk,\n\nWe are looking to secure 3,000 MT of refractory/metallurgical chromite lumps (46-48% Cr2O3 basis) for shipment to Hamburg/Rotterdam in Q2. Please advise current indicative FOB Karachi rates and latest SGS assay reports.\n\nBest regards,\nDemo Trader\nHead of Procurement"],
-        ['name' => 'Fahad Al-Mansouri', 'company' => 'Emirates Industrial Trading', 'email' => 'f.mansouri@emiratesind.ae', 'country' => 'UAE', 'subject' => 'Urgent: API 13A Barite supply for Jebel Ali', 'mineral' => 'Barite', 'body' => "Salam,\n\nWe require prompt delivery of 1,500 MT API grade barite powder (4.20 SG minimum) packaged in 1.5 MT big bags. Can you confirm port stock availability at KPT?\n\nThanks,\nFahad Al-Mansouri"],
-        ['name' => 'Kenji Tanaka', 'company' => 'Nippon Rare Earths & Minerals', 'email' => 'k.tanaka@nippon-rem.jp', 'country' => 'Japan', 'subject' => 'Antimony Stibnite 60%+ procurement from Balochistan', 'mineral' => 'Antimony', 'body' => "Dear Commercial Team,\n\nOur smelting operations in Chiba require steady lots of high-purity Stibnite lumps (min 60% Sb). Please send export specifications, MOQ, and payment terms against SBP regulations.\n\nSincerely,\nKenji Tanaka"]
-    ];
-
-    $picked = $testSenders[array_rand($testSenders)];
-    $targetMailboxes = ['sales@balochistanminerals.com', 'info@balochistanminerals.com'];
-    $assignedBox = $targetMailboxes[array_rand($targetMailboxes)];
-    $simMsgId = '<sim-' . uniqid() . '@' . parse_url($picked['email'], PHP_URL_HOST) . '>';
-
-    try {
-        $stmt = $pdo->prepare("INSERT INTO inquiries 
-            (buyer_name, company_name, country, email, whatsapp, inquiry_type, source, email_message_id, mineral_type, message, status) 
-            VALUES (?, ?, ?, ?, ?, 'Email Inbound', ?, ?, ?, ?, 'New')");
-        
-        $fullBody = "Subject: " . $picked['subject'] . "\n\n" . $picked['body'];
-        $stmt->execute([
-            $picked['name'],
-            $picked['company'],
-            $picked['country'],
-            $picked['email'],
-            '+' . rand(10000000000, 99999999999),
-            $assignedBox,
-            $simMsgId,
-            $picked['mineral'],
-            $fullBody
-        ]);
-        $newLeadId = (int)$pdo->lastInsertId();
-
-        $emStmt = $pdo->prepare("INSERT INTO email_messages
-            (inquiry_id, direction, from_email, to_email, subject, body_text, status, message_id)
-            VALUES (?, 'inbound', ?, ?, ?, ?, 'Received', ?)");
-        $emStmt->execute([$newLeadId, $picked['email'], $assignedBox, $picked['subject'], $picked['body'], $simMsgId]);
-
-        echo json_encode([
-            'success' => true,
-            'synced_count' => 1,
-            'message' => 'Inbound email from ' . $picked['name'] . ' landed into [' . $assignedBox . '] and ingested into Trade Desk.'
-        ]);
-        exit;
-    } catch (Exception $e) {
-        echo json_encode(['success' => false, 'error' => $e->getMessage()]);
-        exit;
-    }
-}
-
-// ==========================================
-// 1.1 SIMULATE HOSTINGER WEBMAIL SENT SYNC
-// Tests flipping "New" inquiries to "Contacted" when team replies via webmail
-// ==========================================
-if ($action === 'simulate_sent_sync') {
-    try {
-        // Find most recent "New" inquiry
-        $stmt = $pdo->query("SELECT id, buyer_name, email, mineral_type FROM inquiries WHERE status = 'New' ORDER BY id DESC LIMIT 1");
-        $target = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if (!$target) {
-            echo json_encode([
-                'success' => true,
-                'synced_count' => 0,
-                'message' => 'All inquiries have already been contacted. No pending "New" inquiries found to sync.'
-            ]);
-            exit;
-        }
-
-        // Simulate reply from team member on Hostinger Webmail
-        $simSubject = "Re: Commercial Export Quotation for " . $target['mineral_type'];
-        $simBody = "Dear " . $target['buyer_name'] . ",\n\nThank you for reaching out to Balochistan Minerals. We have verified stock available at our Karachi Port Trust yard.\n\nPlease find our preliminary technical assay sheet attached.\n\nBest regards,\nCommercial Trading Desk\nBalochistan Minerals (Pvt) Ltd";
-        $simMsgId = '<webmail-' . uniqid() . '@balochistanminerals.com>';
-
-        // 1. Insert into email_messages
-        $logStmt = $pdo->prepare("INSERT INTO email_messages 
-            (inquiry_id, direction, from_email, to_email, subject, body_text, status, message_id) 
-            VALUES (?, 'outbound', 'sales@balochistanminerals.com', ?, ?, ?, 'Sent', ?)");
-        $logStmt->execute([$target['id'], $target['email'], $simSubject, $simBody, $simMsgId]);
-
-        // 2. Transition inquiry status from "New" to "Contacted"
-        $note = "[" . date('M d, Y H:i') . "] Replied via Hostinger Webmail (mail.hostinger.com) to " . $target['email'] . "\nSubject: " . $simSubject . "\n-------------------\n";
-        $upStmt = $pdo->prepare("UPDATE inquiries SET status = 'Contacted', internal_notes = CONCAT(?, COALESCE(internal_notes, '')) WHERE id = ?");
-        $upStmt->execute([$note, $target['id']]);
-
-        echo json_encode([
-            'success' => true,
-            'synced_count' => 1,
-            'inquiry_id' => $target['id'],
-            'buyer' => $target['buyer_name'],
-            'message' => "Hostinger Sent Mail Sync: Detected outgoing reply to " . $target['buyer_name'] . " (" . $target['email'] . "). Inquiry #" . $target['id'] . " automatically transitioned to [Contacted]!"
-        ]);
-        exit;
-    } catch (Exception $e) {
-        echo json_encode(['success' => false, 'error' => $e->getMessage()]);
-        exit;
-    }
-}
-
-// ==========================================
-// 2. LIVE TWO-WAY HOSTINGER IMAP SYNC ENGINE
-// Connects to imap.hostinger.com
-// ==========================================
-
 // Check if PHP IMAP extension is installed
 if (!function_exists('imap_open')) {
     echo json_encode([
         'success' => false,
-        'warning' => 'PHP IMAP extension is not enabled in local PHP. In production on Hostinger, standard IMAP extension is enabled.',
+        'warning' => 'PHP IMAP extension is not enabled in local PHP. On Hostinger production, IMAP extension is enabled.',
         'synced_count' => 0,
-        'info' => 'Use "Simulate Inbound Test Email" or "Simulate Hostinger Sent Sync" to verify workflow locally.'
+        'info' => 'Configure PHP imap extension locally or sync directly from production Hostinger.'
     ]);
     exit;
 }
@@ -181,70 +74,6 @@ function decodeImapPartPayload($raw, $encoding, $params = []) {
     return $text;
 }
 
-/**
- * Recursively extracts plain text (preferred) or stripped HTML body from an IMAP message.
- */
-function extractPlainTextEmailBody($stream, $msgNo) {
-    $structure = @imap_fetchstructure($stream, $msgNo);
-    if (!$structure) {
-        return trim(strip_tags((string)@imap_body($stream, $msgNo, FT_PEEK)));
-    }
-
-    $plainParts = [];
-    $htmlParts  = [];
-
-    $walk = function ($part, $partNum) use (&$walk, $stream, $msgNo, &$plainParts, &$htmlParts) {
-        $subParts = isset($part->parts) && is_array($part->parts) ? $part->parts : [];
-        if (!empty($subParts)) {
-            foreach ($subParts as $idx => $sub) {
-                $prefix = $partNum === '' ? (string)($idx + 1) : ($partNum . '.' . ($idx + 1));
-                $walk($sub, $prefix);
-            }
-            return;
-        }
-
-        // Skip explicit attachments
-        $disposition = isset($part->disposition) ? strtolower((string)$part->disposition) : '';
-        if ($disposition === 'attachment') {
-            return;
-        }
-
-        $section = $partNum === '' ? '1' : $partNum;
-        $raw = @imap_fetchbody($stream, $msgNo, $section, FT_PEEK);
-        if ($raw === false || $raw === '') return;
-
-        $params = [];
-        if (!empty($part->parameters)) $params = array_merge($params, $part->parameters);
-        if (!empty($part->dparameters)) $params = array_merge($params, $part->dparameters);
-
-        $decoded = decodeImapPartPayload($raw, $part->encoding ?? 0, $params);
-        $subtype = strtoupper((string)($part->subtype ?? 'PLAIN'));
-
-        if ((int)($part->type ?? 0) === 0) {
-            if ($subtype === 'PLAIN') {
-                $plainParts[] = $decoded;
-            } elseif ($subtype === 'HTML') {
-                $htmlParts[] = $decoded;
-            }
-        }
-    };
-
-    $walk($structure, '');
-
-    if (!empty($plainParts)) {
-        return trim(implode("\n\n", $plainParts));
-    }
-    if (!empty($htmlParts)) {
-        $html = implode("\n\n", $htmlParts);
-        $html = preg_replace('/<(br|p|div|li|tr)\b[^>]*>/i', "\n", $html);
-        $text = html_entity_decode(strip_tags($html), ENT_QUOTES | ENT_HTML5, 'UTF-8');
-        $text = preg_replace("/\n{3,}/", "\n\n", $text);
-        return trim($text);
-    }
-
-    return trim(strip_tags((string)@imap_body($stream, $msgNo, FT_PEEK)));
-}
-
 // Hostinger Mail Settings (supports both sales@ and info@ mailboxes)
 $mailHost = defined('MAIL_IMAP_HOST') ? MAIL_IMAP_HOST : 'imap.hostinger.com';
 $mailPort = defined('MAIL_IMAP_PORT') ? MAIL_IMAP_PORT : 993;
@@ -265,8 +94,7 @@ if (empty($activeBoxes)) {
         'synced_count' => 0,
         'synced_inbound' => 0,
         'synced_sent' => 0,
-        'message' => 'Hostinger email password not yet saved. Configure MAIL_IMAP_PASS / INFO_MAIL_PASS secrets or Mail Settings.',
-        'info' => 'Simulated mode available.'
+        'message' => 'Hostinger email password not yet saved. Configure MAIL_IMAP_PASS / INFO_MAIL_PASS secrets or Mail Settings.'
     ]);
     exit;
 }
@@ -315,11 +143,14 @@ foreach ($activeBoxes as $box) {
 
     if (!$inboxStream) {
         $lastErr = function_exists('imap_last_error') ? imap_last_error() : 'Connection failed';
-        $warnings[] = $mailUser . ': ' . ($lastErr ?: 'Unable to connect to IMAP INBOX');
+        $errText = $lastErr ?: 'Unable to connect to IMAP INBOX';
+        $warnings[] = $mailUser . ': ' . $errText;
+        logAdminNotification($pdo, 'warning', 'mail_sync', "Mailbox Sync Issue ({$mailUser})", $errText, null, 'email-desk.php', 10);
     } else {
         $recentEmails = @imap_search($inboxStream, 'SINCE "' . $sinceDate . '"');
         if ($recentEmails) {
-            rsort($recentEmails);
+            // Process oldest -> newest so DB auto-increment IDs stay aligned with chronological arrival
+            sort($recentEmails, SORT_NUMERIC);
             foreach ($recentEmails as $emailNumber) {
                 $overview = @imap_fetch_overview($inboxStream, $emailNumber, 0);
                 $header   = @imap_headerinfo($inboxStream, $emailNumber);
@@ -336,19 +167,40 @@ foreach ($activeBoxes as $box) {
                 $subject   = !empty($overview[0]->subject) ? decodeMimeHeaderText($overview[0]->subject) : 'Inbound Inquiry';
                 $msgId     = !empty($header->message_id) ? trim($header->message_id) : ('<msg-' . md5($mailUser . '|' . $fromEmail . '|' . $subject . '|' . ($overview[0]->date ?? $emailNumber)) . '>');
 
-                // Strict deduplication across both inquiries and email_messages
-                $chkInq = $pdo->prepare("SELECT id FROM inquiries WHERE email_message_id = ?");
+                // Strict deduplication across both inquiries and email_messages (with HTML/attachment backfill for legacy rows)
+                $chkInq = $pdo->prepare("SELECT id, message FROM inquiries WHERE email_message_id = ?");
                 $chkInq->execute([$msgId]);
-                $chkMsg = $pdo->prepare("SELECT id FROM email_messages WHERE message_id = ?");
+                $existingInqRow = $chkInq->fetch(PDO::FETCH_ASSOC);
+                $chkMsg = $pdo->prepare("SELECT id, body_html, attachments FROM email_messages WHERE message_id = ?");
                 $chkMsg->execute([$msgId]);
-                if ($chkInq->fetch() || $chkMsg->fetch()) {
+                $existingMsgRow = $chkMsg->fetch(PDO::FETCH_ASSOC);
+
+                if ($existingInqRow || $existingMsgRow) {
+                    $needsHtmlBackfill = $existingMsgRow && (trim((string)($existingMsgRow['body_html'] ?? '')) === '' || empty($existingMsgRow['attachments']));
+                    if ($needsHtmlBackfill) {
+                        $parts = extractImapMessageParts($inboxStream, $emailNumber, true);
+                        $cleanBody = $parts['body_text'] !== '' ? $parts['body_text'] : '(No plain-text message body)';
+                        $attJson   = !empty($existingMsgRow['attachments'])
+                            ? $existingMsgRow['attachments']
+                            : encodeAttachmentsMeta($parts['attachments']);
+                        $newHtml   = trim((string)($existingMsgRow['body_html'] ?? '')) !== ''
+                            ? $existingMsgRow['body_html']
+                            : $parts['body_html'];
+
+                        $updMsg = $pdo->prepare("UPDATE email_messages SET body_text = ?, body_html = ?, attachments = ? WHERE id = ?");
+                        $updMsg->execute([$cleanBody, $newHtml, $attJson, (int)$existingMsgRow['id']]);
+                    }
+                    if ($existingInqRow && strpos((string)($existingInqRow['message'] ?? ''), '[cid:') !== false) {
+                        $cleanedLeadMsg = cleanEmailPlainText($existingInqRow['message']);
+                        $pdo->prepare("UPDATE inquiries SET message = ? WHERE id = ?")->execute([$cleanedLeadMsg, (int)$existingInqRow['id']]);
+                    }
                     continue;
                 }
 
-                $cleanBody = extractPlainTextEmailBody($inboxStream, $emailNumber);
-                if ($cleanBody === '') {
-                    $cleanBody = '(No plain-text message body)';
-                }
+                $parts     = extractImapMessageParts($inboxStream, $emailNumber, true);
+                $cleanBody = $parts['body_text'] !== '' ? $parts['body_text'] : '(No plain-text message body)';
+                $bodyHtml  = $parts['body_html'];
+                $attJson   = encodeAttachmentsMeta($parts['attachments']);
 
                 // Detect mineral
                 $detectedMineral = 'General Mineral';
@@ -382,11 +234,23 @@ foreach ($activeBoxes as $box) {
                     $inquiryId = (int)$pdo->lastInsertId();
                 }
 
-                // Always archive into email_messages so Email Desk & 360° Dossier show both sales@ and info@ threads
+                // Always archive into email_messages so Email Desk & 360° Dossier show rich HTML, CID images & attachments
                 $emStmt = $pdo->prepare("INSERT INTO email_messages
-                    (inquiry_id, direction, from_email, to_email, subject, body_text, status, message_id, sent_at)
-                    VALUES (?, 'inbound', ?, ?, ?, ?, 'Received', ?, ?)");
-                $emStmt->execute([$inquiryId, $fromEmail, $mailUser, substr($subject, 0, 250), $cleanBody, $msgId, $receivedAt]);
+                    (inquiry_id, direction, from_email, to_email, subject, body_text, body_html, attachments, status, message_id, sent_at)
+                    VALUES (?, 'inbound', ?, ?, ?, ?, ?, ?, 'Received', ?, ?)");
+                $emStmt->execute([$inquiryId, $fromEmail, $mailUser, substr($subject, 0, 250), $cleanBody, $bodyHtml, $attJson, $msgId, $receivedAt]);
+
+                logAdminNotification(
+                    $pdo,
+                    'info',
+                    'inbound_email',
+                    "New Email in {$mailUser}",
+                    "{$fromName} ({$fromEmail}) — {$subject}",
+                    $inquiryId,
+                    'dashboard.php',
+                    0,
+                    $receivedAt
+                );
 
                 $syncedInbound++;
             }
@@ -413,6 +277,7 @@ foreach ($activeBoxes as $box) {
         $recentSent = @imap_search($sentStream, 'SINCE "' . $sinceDate . '"');
 
         if ($recentSent) {
+            sort($recentSent, SORT_NUMERIC);
             foreach ($recentSent as $sentMsgNo) {
                 $header = @imap_headerinfo($sentStream, $sentMsgNo);
                 if (empty($header->to[0]->mailbox) || empty($header->to[0]->host)) continue;
@@ -430,9 +295,9 @@ foreach ($activeBoxes as $box) {
                 $inquiry = $matchStmt->fetch(PDO::FETCH_ASSOC);
 
                 if ($inquiry) {
-                    $chkMsg = $pdo->prepare("SELECT id FROM email_messages WHERE message_id = ?");
+                    $chkMsg = $pdo->prepare("SELECT id, body_html, attachments FROM email_messages WHERE message_id = ?");
                     $chkMsg->execute([$msgId]);
-                    $alreadyArchived = (bool)$chkMsg->fetch();
+                    $existingSentRow = $chkMsg->fetch(PDO::FETCH_ASSOC);
 
                     if ($inquiry['status'] === 'New') {
                         $note = "[" . $sentDate . "] Replied via Hostinger Webmail (" . $mailUser . ") to " . $toEmail . "\nSubject: " . $subject . "\n-------------------\n";
@@ -441,12 +306,29 @@ foreach ($activeBoxes as $box) {
                         $syncedSent++;
                     }
 
-                    if (!$alreadyArchived) {
-                        $cleanSentBody = extractPlainTextEmailBody($sentStream, $sentMsgNo);
+                    if (!$existingSentRow) {
+                        $sentParts = extractImapMessageParts($sentStream, $sentMsgNo, true);
                         $log = $pdo->prepare("INSERT INTO email_messages 
-                            (inquiry_id, direction, from_email, to_email, subject, body_text, status, message_id, sent_at) 
-                            VALUES (?, 'outbound', ?, ?, ?, ?, 'Sent', ?, ?)");
-                        $log->execute([$inquiry['id'], $mailUser, $toEmail, substr($subject, 0, 250), $cleanSentBody, $msgId, $sentAtSql]);
+                            (inquiry_id, direction, from_email, to_email, subject, body_text, body_html, attachments, status, message_id, sent_at) 
+                            VALUES (?, 'outbound', ?, ?, ?, ?, ?, ?, 'Sent', ?, ?)");
+                        $log->execute([
+                            $inquiry['id'],
+                            $mailUser,
+                            $toEmail,
+                            substr($subject, 0, 250),
+                            $sentParts['body_text'],
+                            $sentParts['body_html'],
+                            encodeAttachmentsMeta($sentParts['attachments']),
+                            $msgId,
+                            $sentAtSql
+                        ]);
+                    } elseif (trim((string)($existingSentRow['body_html'] ?? '')) === '') {
+                        $sentParts = extractImapMessageParts($sentStream, $sentMsgNo, true);
+                        $attJson   = !empty($existingSentRow['attachments'])
+                            ? $existingSentRow['attachments']
+                            : encodeAttachmentsMeta($sentParts['attachments']);
+                        $pdo->prepare("UPDATE email_messages SET body_text = ?, body_html = ?, attachments = ? WHERE id = ?")
+                            ->execute([$sentParts['body_text'], $sentParts['body_html'], $attJson, (int)$existingSentRow['id']]);
                     }
                 }
             }

@@ -6,6 +6,7 @@
 
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/smtp-mailer.php';
+require_once __DIR__ . '/mail-helpers.php';
 requireAuth();
 
 $user = getLoggedInUser();
@@ -28,12 +29,20 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && $pdo !== null) {
             $replyBody   = cleanInput($_POST['email_body'] ?? '');
             $inquiryId   = !empty($_POST['inquiry_id']) ? (int)$_POST['inquiry_id'] : null;
 
-            $sendRes = sendHostingerMail($toEmail, $subject, $replyBody, $fromEmail, $ccEmail, [], $inquiryId);
-            if ($sendRes['success']) {
-                $flashMessage = 'Official export email dispatched to ' . $toEmail . ' via Hostinger SMTP relay.';
+            $uploadRes = handleUploadedAttachments('attachments');
+            if (!empty($uploadRes['errors'])) {
+                $flashMessage = 'Email not sent: ' . implode(' ', $uploadRes['errors']);
+                $flashType = 'danger';
             } else {
-                $flashMessage = 'Email logged in outbox, but SMTP reported: ' . $sendRes['error'];
-                $flashType = 'warning';
+                $attachedFiles = $uploadRes['files'];
+                $sendRes = sendHostingerMail($toEmail, $subject, $replyBody, $fromEmail, $ccEmail, $attachedFiles, $inquiryId);
+                if ($sendRes['success']) {
+                    $attSuffix = !empty($attachedFiles) ? (' (' . count($attachedFiles) . ' attachment(s))') : '';
+                    $flashMessage = 'Official export email dispatched to ' . $toEmail . $attSuffix . ' via Hostinger SMTP relay.';
+                } else {
+                    $flashMessage = 'Email logged in outbox, but SMTP reported: ' . $sendRes['error'];
+                    $flashType = 'warning';
+                }
             }
         } elseif ($action === 'save_mail_settings') {
             $smtpHost = cleanInput($_POST['smtp_host'] ?? 'smtp.hostinger.com');
@@ -105,7 +114,7 @@ if ($pdo !== null) {
         $params[] = $term; $params[] = $term; $params[] = $term; $params[] = $term; $params[] = $term;
     }
 
-    $sql .= " ORDER BY m.sent_at DESC LIMIT 100";
+    $sql .= " ORDER BY m.sent_at DESC, m.id DESC LIMIT 100";
     $stmt = $pdo->prepare($sql);
     $stmt->execute($params);
     $messages = $stmt->fetchAll();
@@ -137,7 +146,7 @@ if ($pdo !== null) {
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="admin-layout.css">
+  <link rel="stylesheet" href="admin-layout.css?v=<?= filemtime(__DIR__ . '/admin-layout.css') ?>">
   <style>
     :root {
       --brand-navy: #0F172A;
@@ -149,7 +158,7 @@ if ($pdo !== null) {
       --brand-orange: #E65C1A;
       --text-dark: #0F172A;
       --text-muted: #64748B;
-      --sidebar-width: 275px;
+      --sidebar-width: 280px;
     }
     body { font-family: 'Poppins', sans-serif; font-size: 0.88rem; color: var(--text-dark); background-color: var(--brand-canvas); margin: 0; }
     h1, h2, h3, h4, h5, h6, .brand-font { font-family: 'Montserrat', sans-serif; letter-spacing: -0.015em; }
@@ -543,7 +552,7 @@ if ($pdo !== null) {
                       <?= htmlspecialchars($m['subject']) ?>
                     </div>
                     <div class="text-muted text-truncate mt-1" style="font-size: 0.72rem; color: #64748B;">
-                      <?= htmlspecialchars(substr($m['body_text'], 0, 75)) ?>...
+                      <?= htmlspecialchars(substr(cleanEmailPlainText($m['body_text'] ?? ''), 0, 75)) ?>...
                     </div>
                   </a>
                 <?php endforeach; ?>
@@ -604,28 +613,51 @@ if ($pdo !== null) {
 
               <!-- Message Body -->
               <div class="mail-pane-body">
-                <div class="p-3 bg-white rounded border font-monospace shadow-sm" style="font-size: 0.82rem; line-height: 1.6; white-space: pre-wrap; color: #1E293B;">
-<?= htmlspecialchars($selectedMessage['body_text']) ?>
+                <?php
+                  $selMsgId   = (int)$selectedMessage['id'];
+                  $selAttMeta = decodeAttachmentsMeta($selectedMessage['attachments'] ?? '');
+                  $selAttList = formatPublicAttachmentsForMessage($selMsgId, $selectedMessage['attachments'] ?? '');
+                  $selHtml    = buildRenderableEmailHtml($selectedMessage['body_html'] ?? null, $selectedMessage['body_text'] ?? '', $selMsgId, $selAttMeta);
+                ?>
+                <div class="p-3 bg-white rounded border shadow-sm thread-rich-body" style="font-size: 0.84rem; line-height: 1.65; color: #1E293B;">
+                  <?= $selHtml ?>
                 </div>
 
-                <?php if (!empty($selectedMessage['attachments'])): ?>
-                  <div class="mt-3 p-2.5 bg-white rounded border d-flex align-items-center justify-content-between">
-                    <div class="d-flex align-items-center gap-2 small">
-                      <i class="bi bi-paperclip text-secondary fs-5"></i>
-                      <div>
-                        <strong>Attached Trade Document:</strong> <?= htmlspecialchars($selectedMessage['attachments']) ?>
-                      </div>
+                <?php if (!empty($selAttList)): ?>
+                  <div class="mt-3 p-2.5 bg-white rounded border">
+                    <div class="small fw-bold text-uppercase text-muted mb-2" style="font-size: 0.68rem; letter-spacing: 0.05em;">
+                      <i class="bi bi-paperclip me-1 text-primary"></i> Attached Documents (<?= count($selAttList) ?>)
                     </div>
-                    <a href="documents/Balochistan_Minerals_Assay_Summary.html" target="_blank" class="btn btn-sm btn-outline-dark py-1 px-2.5" style="font-size: 0.75rem;">
-                      <i class="bi bi-eye me-1"></i> View Document
-                    </a>
+                    <div class="thread-attachments-list">
+                      <?php foreach ($selAttList as $att): ?>
+                        <div class="thread-att-chip">
+                          <i class="bi <?= $att['ext'] === 'pdf' ? 'bi-file-earmark-pdf text-danger' : (in_array($att['ext'], ['jpg','jpeg','png','gif','webp'], true) ? 'bi-file-earmark-image text-primary' : 'bi-file-earmark-text text-secondary') ?>"></i>
+                          <?php if ($att['available'] && $att['url'] !== ''): ?>
+                            <a href="<?= htmlspecialchars($att['url']) ?>" class="thread-att-link" title="Download <?= htmlspecialchars($att['name']) ?>">
+                              <?= htmlspecialchars($att['name']) ?>
+                            </a>
+                            <?php if ($att['size_label'] !== ''): ?>
+                              <span class="text-muted">(<?= htmlspecialchars($att['size_label']) ?>)</span>
+                            <?php endif; ?>
+                            <?php if ($att['can_preview'] && $att['preview_url'] !== ''): ?>
+                              <a href="<?= htmlspecialchars($att['preview_url']) ?>" target="_blank" class="thread-att-action" title="Preview in new tab"><i class="bi bi-eye"></i></a>
+                            <?php endif; ?>
+                          <?php else: ?>
+                            <span><?= htmlspecialchars($att['name']) ?></span>
+                            <?php if ($att['size_label'] !== ''): ?>
+                              <span class="text-muted">(<?= htmlspecialchars($att['size_label']) ?>)</span>
+                            <?php endif; ?>
+                          <?php endif; ?>
+                        </div>
+                      <?php endforeach; ?>
+                    </div>
                   </div>
                 <?php endif; ?>
               </div>
 
               <!-- Quick Follow-up Composer -->
               <div class="mail-pane-compose">
-                <form method="POST" action="email-desk.php">
+                <form method="POST" action="email-desk.php" enctype="multipart/form-data">
                   <input type="hidden" name="action" value="compose_outbound_email">
                   <input type="hidden" name="inquiry_id" value="<?= $selectedMessage['inquiry_id'] ?? 0 ?>">
                   <input type="hidden" name="to_email" value="<?= htmlspecialchars($selectedMessage['direction'] === 'inbound' ? $selectedMessage['from_email'] : $selectedMessage['to_email']) ?>">
@@ -651,6 +683,14 @@ if ($pdo !== null) {
 
                   <div class="reply-compose-box">
                     <textarea name="email_body" class="form-control font-monospace reply-textarea" rows="3" placeholder="Type quick trade reply, SGS assay confirmation, or FOB delivery schedule..." required></textarea>
+                    <div class="d-flex align-items-center justify-content-between gap-2 px-2.5 py-1.5 border-top bg-light flex-wrap">
+                      <label class="d-inline-flex align-items-center gap-1.5 small fw-semibold text-dark mb-0" style="font-size: 0.72rem; cursor: pointer;">
+                        <i class="bi bi-paperclip text-primary"></i>
+                        <span>Attach Files:</span>
+                        <input type="file" name="attachments[]" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.txt,.jpg,.jpeg,.png,.gif,.webp,.zip" class="form-control form-control-sm" style="width: auto; max-width: 240px; font-size: 0.7rem;">
+                      </label>
+                      <span class="text-muted" style="font-size: 0.66rem;">Max 10 MB/file, 20 MB total</span>
+                    </div>
                     <div class="reply-compose-footer d-flex justify-content-between align-items-center">
                       <div class="text-muted small" style="font-size: 0.72rem;">
                         <i class="bi bi-lightning-charge me-1 text-secondary"></i> Dispatches via Hostinger SMTP TLS Relay
@@ -675,7 +715,7 @@ if ($pdo !== null) {
   <div class="modal fade" id="newOfferModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-resizable" style="max-width: 960px;">
       <div class="modal-content">
-        <form method="POST" action="email-desk.php">
+        <form method="POST" action="email-desk.php" enctype="multipart/form-data">
           <input type="hidden" name="action" value="compose_outbound_email">
           <input type="hidden" name="csrf_token" value="<?= getCsrfToken() ?>">
 
@@ -749,6 +789,12 @@ WhatsApp: +92 334 8888104
 Web: https://balochistanminerals.com</textarea>
             </div>
 
+            <div class="mb-2">
+              <label class="form-label">Attach Trade Documents (PDF Quote, COA, Assay, Photos)</label>
+              <input type="file" name="attachments[]" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.txt,.jpg,.jpeg,.png,.gif,.webp,.zip" class="form-control form-control-sm">
+              <div class="form-text" style="font-size: 0.68rem;">Optional • Up to 10 files (Max 10 MB/file, 20 MB total)</div>
+            </div>
+
             <div class="p-2 bg-light rounded border d-flex align-items-center justify-content-between">
               <div class="form-check mb-0">
                 <input type="checkbox" class="form-check-input me-1.5" checked id="chkAssay">
@@ -773,7 +819,7 @@ Web: https://balochistanminerals.com</textarea>
   <div class="modal fade" id="mailConfigModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" style="max-width: 580px;">
       <div class="modal-content">
-        <form method="POST" action="email-desk.php">
+        <form method="POST" action="email-desk.php" enctype="multipart/form-data">
           <input type="hidden" name="action" value="save_mail_settings">
           <input type="hidden" name="csrf_token" value="<?= getCsrfToken() ?>">
 
@@ -870,13 +916,16 @@ Web: https://balochistanminerals.com</textarea>
         const res = await fetch('mail-sync.php?action=sync');
         const data = await res.json();
         const syncedTotal = Number(data.synced_count ?? ((data.synced_inbound || 0) + (data.synced_sent || 0)));
+        if (window.BMNotify) window.BMNotify.refresh();
         if (syncedTotal > 0) {
           window.location.reload();
+        } else if (data.warnings && data.warnings.length) {
+          window.BMNotify?.toast({ type: 'warning', title: 'Mailbox Sync Warning', message: data.warnings.join(' | '), openBell: true });
         } else {
-          alert(data.message || data.info || 'All mailboxes are up to date.');
+          window.BMNotify?.toast({ type: 'info', title: 'Mailboxes Up to Date', message: data.message || data.info || 'All mailboxes are up to date.' });
         }
       } catch (err) {
-        alert('Mail sync error: ' + err.message);
+        window.BMNotify?.toast({ type: 'error', title: 'Mail Sync Error', message: err.message });
       } finally {
         if (btn) {
           btn.disabled = false;
@@ -885,6 +934,6 @@ Web: https://balochistanminerals.com</textarea>
       }
     }
   </script>
-  <script src="admin-layout.js"></script>
+  <script src="admin-layout.js?v=<?= filemtime(__DIR__ . '/admin-layout.js') ?>"></script>
 </body>
 </html>

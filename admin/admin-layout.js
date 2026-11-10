@@ -242,6 +242,265 @@
     }
   }
 
+  // ==========================================================================
+  // UNIFIED INDUSTRY-STANDARD NOTIFICATION CENTER & TOAST STACK
+  // ==========================================================================
+  function escapeHtml(str) {
+    return String(str == null ? '' : str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function createToastContainer() {
+    let container = document.getElementById('bmUnifiedToastContainer');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'bmUnifiedToastContainer';
+      container.className = 'live-toast-container';
+      document.body.appendChild(container);
+    }
+    return container;
+  }
+
+  function showToast(opts) {
+    const cfg = (typeof opts === 'string')
+      ? { title: opts, message: arguments[1] || '', type: 'info' }
+      : (opts || {});
+    const type = ['success', 'info', 'warning', 'error'].includes(cfg.type) ? cfg.type : 'info';
+    const title = cfg.title || 'Notification';
+    const message = cfg.message || '';
+    const inquiryId = cfg.inquiryId || null;
+    const duration = cfg.duration || ((type === 'warning' || type === 'error') ? 10000 : 5500);
+
+    const container = createToastContainer();
+    // Enforce clean max-3 visible stack so toasts never pile across the viewport
+    const existing = container.querySelectorAll('.live-toast:not(.hiding)');
+    if (existing.length >= 3) {
+      const oldest = existing[0];
+      oldest.remove();
+    }
+
+    const iconMap = {
+      success: 'bi-check-circle-fill',
+      warning: 'bi-exclamation-triangle-fill',
+      error: 'bi-x-octagon-fill',
+      info: 'bi-bell-fill'
+    };
+
+    const toast = document.createElement('div');
+    toast.className = `live-toast toast-${type}`;
+
+    let ctaHtml = '';
+    if (inquiryId && typeof window.openBuyerDossier === 'function') {
+      ctaHtml = `<button type="button" class="live-toast-btn" data-dossier-id="${Number(inquiryId)}"><i class="bi bi-folder2-open me-1"></i> Open Dossier</button>`;
+    } else if (cfg.openBell) {
+      ctaHtml = `<button type="button" class="live-toast-btn" data-open-bell="1"><i class="bi bi-bell me-1"></i> View in Notifications</button>`;
+    }
+
+    toast.innerHTML = `
+      <div class="live-toast-icon"><i class="bi ${iconMap[type]}"></i></div>
+      <div class="live-toast-body">
+        <div class="live-toast-title">${escapeHtml(title)}</div>
+        <div class="live-toast-text">${escapeHtml(message)}</div>
+        ${ctaHtml}
+      </div>
+      <button type="button" class="live-toast-close" aria-label="Dismiss">&times;</button>
+    `;
+
+    const dismiss = () => {
+      if (toast.classList.contains('hiding')) return;
+      toast.classList.add('hiding');
+      setTimeout(() => toast.remove(), 260);
+    };
+
+    toast.querySelector('.live-toast-close')?.addEventListener('click', dismiss);
+    toast.querySelector('[data-dossier-id]')?.addEventListener('click', () => {
+      if (typeof window.openBuyerDossier === 'function') {
+        window.openBuyerDossier(Number(inquiryId));
+      }
+      dismiss();
+    });
+    toast.querySelector('[data-open-bell]')?.addEventListener('click', () => {
+      if (window.BMNotify && typeof window.BMNotify.open === 'function') {
+        window.BMNotify.open();
+      }
+      dismiss();
+    });
+
+    // Hover pauses auto-dismiss so long alerts or errors can be read comfortably
+    let timer = setTimeout(dismiss, duration);
+    toast.addEventListener('mouseenter', () => { clearTimeout(timer); });
+    toast.addEventListener('mouseleave', () => { timer = setTimeout(dismiss, 3500); });
+
+    container.appendChild(toast);
+  }
+
+  function initNotificationCenter() {
+    const topbarRight = document.querySelector('.top-bar .topbar-right');
+    if (!topbarRight || document.getElementById('bmNotifWrap')) return;
+
+    let notifCsrf = '';
+    const wrap = document.createElement('div');
+    wrap.id = 'bmNotifWrap';
+    wrap.className = 'bm-notif-wrap';
+    wrap.innerHTML = `
+      <button type="button" id="bmNotifBtn" class="bm-notif-btn" title="Notifications & Sync Alerts" aria-expanded="false">
+        <i class="bi bi-bell"></i>
+        <span id="bmNotifBadge" class="bm-notif-badge">0</span>
+      </button>
+      <div id="bmNotifPanel" class="bm-notif-panel" role="region" aria-label="Notification Center">
+        <div class="bm-notif-header">
+          <span class="bm-notif-header-title"><i class="bi bi-bell-fill text-warning me-1"></i> Notifications</span>
+          <div class="bm-notif-actions">
+            <button type="button" id="bmNotifMarkAll" class="bm-notif-action-link">Mark all read</button>
+            <button type="button" id="bmNotifClearAll" class="bm-notif-action-link">Clear</button>
+          </div>
+        </div>
+        <div id="bmNotifList" class="bm-notif-list">
+          <div class="bm-notif-empty">Loading notifications...</div>
+        </div>
+      </div>
+    `;
+
+    // Insert cleanly as first button inside topbar-right
+    topbarRight.insertBefore(wrap, topbarRight.firstChild);
+
+    const btn = document.getElementById('bmNotifBtn');
+    const panel = document.getElementById('bmNotifPanel');
+    const badge = document.getElementById('bmNotifBadge');
+    const list = document.getElementById('bmNotifList');
+
+    async function refreshNotifications() {
+      try {
+        const res = await fetch('api-notifications.php');
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!data || !data.success) return;
+
+        notifCsrf = data.csrf_token || notifCsrf;
+        const unread = Number(data.unread_count || 0);
+        if (badge) {
+          badge.textContent = unread > 99 ? '99+' : String(unread);
+          badge.classList.toggle('is-visible', unread > 0);
+        }
+
+        const items = Array.isArray(data.notifications) ? data.notifications : [];
+        if (!items.length) {
+          list.innerHTML = '<div class="bm-notif-empty"><i class="bi bi-check2-circle fs-4 d-block mb-1 text-success"></i>All caught up — no notifications.</div>';
+          return;
+        }
+
+        list.innerHTML = items.map((n) => {
+          const unreadCls = n.is_read ? '' : 'is-unread';
+          const canDossier = n.inquiry_id && typeof window.openBuyerDossier === 'function';
+          const ctaLabel = canDossier ? 'Open Dossier' : (n.link_url ? 'Open Page' : '');
+          const ctaAttr = canDossier
+            ? `data-open-dossier="${Number(n.inquiry_id)}"`
+            : (n.link_url ? `href="${escapeHtml(n.link_url)}"` : '');
+          const ctaEl = ctaLabel
+            ? (canDossier
+                ? `<button type="button" class="bm-notif-action-link text-primary p-0" ${ctaAttr}>${ctaLabel} →</button>`
+                : `<a class="bm-notif-item-cta" ${ctaAttr}>${ctaLabel} →</a>`)
+            : '';
+          return `
+            <div class="bm-notif-item ${unreadCls}" data-notif-id="${Number(n.id)}">
+              <span class="bm-notif-dot type-${escapeHtml(n.type || 'info')}"></span>
+              <div class="bm-notif-item-body">
+                <div class="bm-notif-item-title">${escapeHtml(n.title)}</div>
+                <div class="bm-notif-item-msg">${escapeHtml(n.message)}</div>
+                <div class="bm-notif-item-meta">
+                  <span>${escapeHtml(n.created_human || n.created_at || '')}</span>
+                  ${ctaEl}
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (e) {}
+    }
+
+    async function postNotifAction(action, extra = {}) {
+      if (!notifCsrf) await refreshNotifications();
+      const body = new URLSearchParams({ action, csrf_token: notifCsrf, ...extra });
+      await fetch('api-notifications.php', { method: 'POST', body });
+      await refreshNotifications();
+    }
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = panel.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (open) refreshNotifications();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!wrap.contains(e.target)) {
+        panel.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    list.addEventListener('click', async (e) => {
+      const dossierBtn = e.target.closest('[data-open-dossier]');
+      const row = e.target.closest('[data-notif-id]');
+      const id = row ? row.getAttribute('data-notif-id') : null;
+      if (id && row.classList.contains('is-unread')) {
+        await postNotifAction('mark_read', { id });
+      }
+      if (dossierBtn && typeof window.openBuyerDossier === 'function') {
+        e.preventDefault();
+        const inqId = Number(dossierBtn.getAttribute('data-open-dossier'));
+        panel.classList.remove('is-open');
+        window.openBuyerDossier(inqId);
+      }
+    });
+
+    document.getElementById('bmNotifMarkAll')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      postNotifAction('mark_all_read');
+    });
+    document.getElementById('bmNotifClearAll')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      postNotifAction('clear_all');
+    });
+
+    window.BMNotify = {
+      toast: showToast,
+      refresh: refreshNotifications,
+      open: () => {
+        panel.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+        refreshNotifications();
+      }
+    };
+
+    // Adopt any server-rendered flash toast into unified non-overlapping stack
+    const flashWrap = document.getElementById('flashToastContainer');
+    if (flashWrap) {
+      const ft = flashWrap.querySelector('.live-toast');
+      if (ft) {
+        const title = ft.querySelector('.live-toast-title')?.textContent?.trim() || 'Notice';
+        const msg = ft.querySelector('.live-toast-text')?.textContent?.trim() || '';
+        const iconStyle = ft.querySelector('.live-toast-icon')?.getAttribute('style') || '';
+        const t = iconStyle.includes('EF4444') ? 'error' : (iconStyle.includes('F59E0B') ? 'warning' : 'success');
+        flashWrap.remove();
+        showToast({ type: t, title, message: msg });
+      }
+    }
+
+    refreshNotifications();
+    setInterval(() => {
+      if (document.visibilityState === 'visible') refreshNotifications();
+    }, 30000);
+  }
+
+  if (!window.BMNotify) {
+    window.BMNotify = { toast: showToast, refresh: () => {}, open: () => {} };
+  }
+
   // Initialize once DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
@@ -249,11 +508,13 @@
       initLiveClock();
       initResizableModals();
       initTooltips();
+      initNotificationCenter();
     });
   } else {
     initSidebar();
     initLiveClock();
     initResizableModals();
     initTooltips();
+    initNotificationCenter();
   }
 })();

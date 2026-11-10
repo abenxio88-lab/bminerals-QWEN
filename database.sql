@@ -308,3 +308,20 @@ CREATE TABLE IF NOT EXISTS `blog_discussions` (
   INDEX `idx_status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+-- Table structure for `admin_notifications` (Persistent Alert & Sync Log Center)
+-- --------------------------------------------------------
+CREATE TABLE IF NOT EXISTS `admin_notifications` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `type` ENUM('info', 'success', 'warning', 'error') NOT NULL DEFAULT 'info',
+  `category` VARCHAR(40) NOT NULL DEFAULT 'system',
+  `title` VARCHAR(180) NOT NULL,
+  `message` TEXT NOT NULL,
+  `inquiry_id` INT NULL,
+  `link_url` VARCHAR(255) NULL,
+  `is_read` TINYINT(1) NOT NULL DEFAULT 0,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  INDEX `idx_is_read` (`is_read`),
+  INDEX `idx_created_at` (`created_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+

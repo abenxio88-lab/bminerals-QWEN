@@ -8,6 +8,7 @@ require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/smtp-mailer.php';
 require_once __DIR__ . '/flag-helper.php';
 require_once __DIR__ . '/inquiry-row-helper.php';
+require_once __DIR__ . '/mail-helpers.php';
 requireAuth();
 
 $user = getLoggedInUser();
@@ -40,20 +41,29 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && $pdo !== null) {
             $subject     = cleanInput($_POST['subject'] ?? 'Quotation & Export Inquiry Follow-up');
             $replyBody   = cleanInput($_POST['reply_body'] ?? '');
 
-            // Log email reply into internal notes / timeline
-            $logEntry = "[" . date('M d, Y H:i') . "] Email sent from " . $fromEmail . " to " . $toEmail . ":\nSubject: " . $subject . "\n" . $replyBody . "\n-------------------\n";
-            
-            $stmt = $pdo->prepare('UPDATE inquiries SET internal_notes = CONCAT(?, COALESCE(internal_notes, "")), status = CASE WHEN status = "New" THEN "Contacted" ELSE status END WHERE id = ?');
-            $stmt->execute([$logEntry, $id]);
-
-            // Dispatch via Hostinger SMTP engine
-            $sendRes = sendHostingerMail($toEmail, $subject, $replyBody, $fromEmail);
-            if ($sendRes['success']) {
-                $_SESSION['bm_flash_msg'] = 'Official email reply dispatched to ' . $toEmail . ' and logged to Buyer Dossier #' . $id . '.';
-                $_SESSION['bm_flash_type'] = 'success';
+            $uploadRes = handleUploadedAttachments('attachments');
+            if (!empty($uploadRes['errors'])) {
+                $_SESSION['bm_flash_msg'] = 'Reply not sent: ' . implode(' ', $uploadRes['errors']);
+                $_SESSION['bm_flash_type'] = 'danger';
             } else {
-                $_SESSION['bm_flash_msg'] = 'Reply logged to Dossier #' . $id . ', but live SMTP reported: ' . $sendRes['error'];
-                $_SESSION['bm_flash_type'] = 'warning';
+                $attachedFiles = $uploadRes['files'];
+                $attNote = !empty($attachedFiles) ? (" [Attachments: " . implode(', ', array_column($attachedFiles, 'name')) . "]") : '';
+
+                // Log email reply into internal notes / timeline
+                $logEntry = "[" . date('M d, Y H:i') . "] Email sent from " . $fromEmail . " to " . $toEmail . ":\nSubject: " . $subject . $attNote . "\n" . $replyBody . "\n-------------------\n";
+
+                $stmt = $pdo->prepare('UPDATE inquiries SET internal_notes = CONCAT(?, COALESCE(internal_notes, "")), status = CASE WHEN status = "New" THEN "Contacted" ELSE status END WHERE id = ?');
+                $stmt->execute([$logEntry, $id]);
+
+                // Dispatch via Hostinger SMTP engine
+                $sendRes = sendHostingerMail($toEmail, $subject, $replyBody, $fromEmail, null, $attachedFiles, $id);
+                if ($sendRes['success']) {
+                    $_SESSION['bm_flash_msg'] = 'Official email reply dispatched to ' . $toEmail . ' and logged to Buyer Dossier #' . $id . '.';
+                    $_SESSION['bm_flash_type'] = 'success';
+                } else {
+                    $_SESSION['bm_flash_msg'] = 'Reply logged to Dossier #' . $id . ', but live SMTP reported: ' . $sendRes['error'];
+                    $_SESSION['bm_flash_type'] = 'warning';
+                }
             }
         } elseif ($action === 'save_mail_settings') {
             $smtpHost = cleanInput($_POST['smtp_host'] ?? 'smtp.hostinger.com');
@@ -143,7 +153,7 @@ if ($pdo !== null) {
         $params = array_merge($params, [$searchTerm, $searchTerm, $searchTerm, $searchTerm, $searchTerm]);
     }
 
-    $sql .= " ORDER BY i.created_at DESC LIMIT 100";
+    $sql .= " ORDER BY i.created_at DESC, i.id DESC LIMIT 100";
     $stmt = $pdo->prepare($sql);
     $stmt->execute($params);
     $inquiries = $stmt->fetchAll();
@@ -348,7 +358,7 @@ function getBallInCourtStatus($row) {
       --text-dark: #0F172A;
       --text-muted: #64748B;
       --whatsapp-green: #15803D;
-      --sidebar-width: 255px;
+      --sidebar-width: 280px;
     }
 
     * { box-sizing: border-box; }
@@ -616,20 +626,20 @@ function getBallInCourtStatus($row) {
       position: relative;
     }
 
-    /* Custom Luxury Slate Scrollbar */
+    /* Custom High-Contrast Slate Scrollbar */
     .table-scroll-container::-webkit-scrollbar {
-      width: 7px;
-      height: 7px;
+      width: 8px;
+      height: 9px;
     }
     .table-scroll-container::-webkit-scrollbar-track {
-      background: #F8FAFC;
+      background: #E2E8F0;
     }
     .table-scroll-container::-webkit-scrollbar-thumb {
-      background: #CBD5E1;
+      background: #64748B;
       border-radius: 4px;
     }
     .table-scroll-container::-webkit-scrollbar-thumb:hover {
-      background: #94A3B8;
+      background: #475569;
     }
 
     .table-clean {
@@ -803,7 +813,7 @@ function getBallInCourtStatus($row) {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 280px;
+      max-width: calc(100% - 26px);
       display: inline-block;
       vertical-align: middle;
       transition: color 0.15s ease;
@@ -1080,12 +1090,12 @@ function getBallInCourtStatus($row) {
               </div>
             </div>
             <div class="table-panel-actions">
-              <button type="button" class="btn btn-sm btn-primary d-inline-flex align-items-center gap-1.5 fw-semibold px-3 py-1.5" style="border-radius: 6px;" id="btnSyncMail" onclick="syncCorporateMail(false)" title="Check Hostinger IMAP Inboxes (sales@ and info@)">
+              <button type="button" class="btn btn-sm btn-primary d-inline-flex align-items-center gap-1.5 fw-semibold px-3 py-1.5" style="border-radius: 6px;" id="btnSyncMail" onclick="syncCorporateMail()" title="Check Hostinger IMAP Inboxes (sales@ and info@)">
                 <i class="bi bi-arrow-repeat"></i> <span>Sync Emails</span>
               </button>
               <div class="btn-group btn-group-sm">
-                <button type="button" class="btn btn-outline-secondary py-1.5" onclick="syncCorporateMail(true)" title="Simulate a Test Foreign Buyer Email">
-                  <i class="bi bi-envelope-plus"></i> <span class="d-none d-sm-inline ms-1">Test Mail</span>
+                <button type="button" class="btn btn-outline-secondary py-1.5 d-none" id="btnResetRfqCols" onclick="resetRfqColumnWidths()" title="Reset table columns to balanced default (auto-expanding Commodity &amp; Specs)">
+                  <i class="bi bi-layout-three-columns"></i> <span class="d-none d-sm-inline ms-1">Reset Widths</span>
                 </button>
                 <button type="button" class="btn btn-outline-secondary py-1.5" id="btnToggleTableHeight" onclick="toggleTableHeight()" title="Toggle Scroll View vs Expanded View">
                   <i class="bi bi-arrows-expand"></i> <span class="d-none d-sm-inline ms-1">Expand</span>
@@ -1098,16 +1108,25 @@ function getBallInCourtStatus($row) {
           </div>
 
           <div class="table-responsive table-scroll-container" id="rfqTableContainer">
-            <table class="table-clean">
+            <table class="table-clean" id="rfqDataGrid">
+              <colgroup id="rfqColGroup">
+                <col data-col="buyer" style="width: 258px;">
+                <col data-col="commodity" style="width: auto;">
+                <col data-col="port" style="width: 112px;">
+                <col data-col="received" style="width: 112px;">
+                <col data-col="stage" style="width: 118px;">
+                <col data-col="quote" style="width: 108px;">
+                <col data-col="actions" style="width: 296px;">
+              </colgroup>
               <thead>
                 <tr>
-                  <th style="min-width: 250px;">Buyer & Company</th>
-                  <th style="min-width: 210px;">Commodity & Specs</th>
-                  <th style="min-width: 140px;">Tonnage & Port</th>
-                  <th style="min-width: 115px;">Received</th>
-                  <th style="min-width: 130px;">Deal Stage</th>
-                  <th style="min-width: 110px;">Spot Quote</th>
-                  <th style="min-width: 175px;" class="text-end">Actions</th>
+                  <th data-col="buyer">Buyer &amp; Company<span class="col-resize-handle" data-resize-col="buyer" title="Drag to resize column • Double-click to reset"></span></th>
+                  <th data-col="commodity">Commodity &amp; Specs<span class="col-resize-handle" data-resize-col="commodity" title="Drag to resize column • Double-click for auto-expand"></span></th>
+                  <th data-col="port">Port<span class="col-resize-handle" data-resize-col="port" title="Drag to resize column • Double-click to reset"></span></th>
+                  <th data-col="received">Received<span class="col-resize-handle" data-resize-col="received" title="Drag to resize column • Double-click to reset"></span></th>
+                  <th data-col="stage">Deal Stage<span class="col-resize-handle" data-resize-col="stage" title="Drag to resize column • Double-click to reset"></span></th>
+                  <th data-col="quote">Spot Quote<span class="col-resize-handle" data-resize-col="quote" title="Drag to resize column • Double-click to reset"></span></th>
+                  <th data-col="actions" class="text-end">Actions<span class="col-resize-handle" data-resize-col="actions" title="Drag to resize column • Double-click to reset"></span></th>
                 </tr>
               </thead>
               <tbody>
@@ -1278,33 +1297,17 @@ function getBallInCourtStatus($row) {
       }
     }
 
-    // Floating Toast Notification
-    function showLiveToast(title, message, inquiryId) {
-      let container = document.getElementById('liveToastContainer');
-      if (!container) {
-        container = document.createElement('div');
-        container.id = 'liveToastContainer';
-        container.className = 'live-toast-container';
-        document.body.appendChild(container);
+    // Unified Industry-Standard Toast Alert (delegates to admin-layout.js BMNotify)
+    function showLiveToast(title, message, inquiryId, type = 'info', openBell = false) {
+      if (window.BMNotify && typeof window.BMNotify.toast === 'function') {
+        window.BMNotify.toast({
+          type,
+          title,
+          message,
+          inquiryId: inquiryId || null,
+          openBell
+        });
       }
-
-      const toast = document.createElement('div');
-      toast.className = 'live-toast';
-      toast.innerHTML = `
-        <div class="live-toast-icon"><i class="bi bi-bell-fill"></i></div>
-        <div class="live-toast-body">
-          <div class="live-toast-title">${escapeDossierHtml(title)}</div>
-          <div class="live-toast-text">${escapeDossierHtml(message)}</div>
-          ${inquiryId ? `<button type="button" class="live-toast-btn" onclick="openBuyerDossier(${inquiryId}); this.closest('.live-toast').remove();"><i class="bi bi-folder2-open me-1"></i> Open Dossier</button>` : ''}
-        </div>
-        <button type="button" class="live-toast-close" onclick="this.closest('.live-toast').remove()">&times;</button>
-      `;
-      container.appendChild(toast);
-
-      setTimeout(() => {
-        toast.classList.add('hiding');
-        setTimeout(() => { toast.remove(); }, 350);
-      }, 7000);
     }
 
     function animateNumber(elementId, targetValue) {
@@ -1391,13 +1394,25 @@ function getBallInCourtStatus($row) {
               playExecutiveChime();
 
               if (data.previews && data.previews.length > 0) {
-                data.previews.forEach(p => {
+                if (data.previews.length > 2) {
                   showLiveToast(
-                    'New RFQ Received #' + p.id,
-                    `${p.buyer_name} (${p.company_name}) • ${p.mineral_type} • ${p.country}`,
-                    p.id
+                    `${data.previews.length} New Inquiries Received`,
+                    `Latest: ${data.previews[0].buyer_name} (${data.previews[0].mineral_type}) + ${data.previews.length - 1} more added to pipeline.`,
+                    null,
+                    'info',
+                    true
                   );
-                });
+                } else {
+                  data.previews.forEach(p => {
+                    showLiveToast(
+                      'New RFQ Received #' + p.id,
+                      `${p.buyer_name} (${p.company_name}) • ${p.mineral_type} • ${p.country}`,
+                      p.id,
+                      'info'
+                    );
+                  });
+                }
+                if (window.BMNotify) window.BMNotify.refresh();
               }
             }
           }
@@ -1440,7 +1455,7 @@ function getBallInCourtStatus($row) {
       }
     });
 
-    async function syncCorporateMail(isSimulate, silent = false) {
+    async function syncCorporateMail(silent = false) {
       const btn = document.getElementById('btnSyncMail');
       const originalText = btn ? btn.innerHTML : '';
       if (btn && !silent) {
@@ -1449,26 +1464,29 @@ function getBallInCourtStatus($row) {
       }
 
       try {
-        const url = isSimulate ? 'mail-sync.php?action=simulate' : 'mail-sync.php?action=sync';
-        const res = await fetch(url);
+        const res = await fetch('mail-sync.php?action=sync');
         const data = await res.json();
 
         const syncedTotal = Number(data.synced_count ?? ((data.synced_inbound || 0) + (data.synced_sent || 0)));
 
         if (data.success) {
+          const hasWarnings = Array.isArray(data.warnings) && data.warnings.length > 0;
           if (syncedTotal > 0) {
-            showLiveToast('Mail Sync Successful', data.message || 'New inbound messages ingested into pipeline.');
+            showLiveToast('Mail Sync Complete', data.message || 'New inbound messages ingested into pipeline.', null, 'success');
             await checkLiveUpdates(true);
           } else if (!silent) {
-            const warnText = (data.warnings && data.warnings.length) ? ' (' + data.warnings.join('; ') + ')' : '';
-            showLiveToast('Mailbox Up to Date', (data.message || data.info || 'Mailbox is up to date. No new unread messages.') + warnText);
+            showLiveToast('Mailbox Up to Date', data.message || data.info || 'No new unread messages.', null, 'info');
+          }
+          if (hasWarnings) {
+            showLiveToast('Mailbox Sync Notice (Saved in Bell)', data.warnings.join(' | '), null, 'warning', true);
           }
         } else if (!silent) {
-          showLiveToast('Mail Sync Notice', data.warning || data.error || 'Unable to sync mailbox.');
+          showLiveToast('Mail Sync Notice', data.warning || data.error || 'Unable to sync mailbox.', null, 'warning', true);
         }
+        if (window.BMNotify) window.BMNotify.refresh();
       } catch (err) {
         if (!silent) {
-          showLiveToast('Sync Error', 'Failed to connect to mail sync service: ' + err.message);
+          showLiveToast('Sync Error', 'Failed to connect to mail sync service: ' + err.message, null, 'error', true);
         }
       } finally {
         if (btn && !silent) {
@@ -1547,10 +1565,10 @@ function getBallInCourtStatus($row) {
       try {
         updateChimeUi();
         startHeartbeatLoop();
-        setTimeout(() => { syncCorporateMail(false, true); }, 2500);
+        setTimeout(() => { syncCorporateMail(true); }, 2500);
         setInterval(() => {
           if (document.visibilityState === 'visible') {
-            syncCorporateMail(false, true);
+            syncCorporateMail(true);
           }
         }, 60000);
         if (localStorage.getItem('bm_table_expanded') === '1') {
@@ -1561,13 +1579,277 @@ function getBallInCourtStatus($row) {
             btn.innerHTML = '<i class="bi bi-arrows-collapse me-1"></i> Scroll View';
           }
         }
+        initRfqColumnResizer();
       } catch(e) {}
     });
+
+    /* ============================================================
+       RFQ TABLE HEADER COLUMN RESIZER (PERSISTENT DATA-GRID CONTROL)
+       ============================================================ */
+    const RFQ_COL_STORAGE_KEY = 'bm_rfq_col_widths_v2';
+    const RFQ_DEFAULT_COLS = {
+      buyer: 258,
+      commodity: 'auto',
+      port: 112,
+      received: 112,
+      stage: 118,
+      quote: 108,
+      actions: 296
+    };
+    const RFQ_COL_BOUNDS = {
+      buyer: [215, 440],
+      commodity: [160, 900],
+      port: [90, 240],
+      received: [100, 180],
+      stage: [100, 210],
+      quote: [96, 180],
+      actions: [288, 360]
+    };
+    let rfqCurrentWidths = { ...RFQ_DEFAULT_COLS };
+
+    function getSavedRfqColWidths() {
+      const merged = { ...RFQ_DEFAULT_COLS };
+      try {
+        const raw = localStorage.getItem(RFQ_COL_STORAGE_KEY);
+        if (!raw) return merged;
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === 'object') {
+          Object.keys(RFQ_DEFAULT_COLS).forEach(key => {
+            if (key === 'commodity' && parsed[key] === 'auto') {
+              merged[key] = 'auto';
+              return;
+            }
+            const n = Number(parsed[key]);
+            if (Number.isFinite(n)) {
+              const [minW, maxW] = RFQ_COL_BOUNDS[key];
+              merged[key] = Math.min(maxW, Math.max(minW, Math.round(n)));
+            }
+          });
+        }
+      } catch (e) {}
+      return merged;
+    }
+
+    function applyRfqColumnWidths(widths) {
+      const colGroup = document.getElementById('rfqColGroup');
+      const table = document.getElementById('rfqDataGrid');
+      const resetBtn = document.getElementById('btnResetRfqCols');
+      if (!colGroup || !table) return;
+
+      let fixedSum = 0;
+      let isCustomized = false;
+
+      Object.keys(RFQ_DEFAULT_COLS).forEach(key => {
+        const colEl = colGroup.querySelector(`col[data-col="${key}"]`);
+        const val = widths[key];
+        if (colEl) {
+          // Keep Commodity always fluid ('auto') so 100% of container / collapsed sidebar fills edge-to-edge
+          colEl.style.width = (key === 'commodity' || val === 'auto') ? 'auto' : (val + 'px');
+        }
+        if (val !== RFQ_DEFAULT_COLS[key]) isCustomized = true;
+        if (key !== 'commodity' && Number.isFinite(Number(val))) {
+          fixedSum += Number(val);
+        }
+      });
+
+      const commodityFloor = (widths.commodity === 'auto' || !Number.isFinite(Number(widths.commodity)))
+        ? 160
+        : Number(widths.commodity);
+
+      // Always keep table width 100% so closing/opening sidebar or resizing viewport never leaves a blank card gap
+      table.style.width = '100%';
+      table.style.minWidth = Math.max(1080, fixedSum + commodityFloor) + 'px';
+
+      if (resetBtn) {
+        resetBtn.classList.toggle('d-none', !isCustomized);
+      }
+    }
+
+    function resetRfqColumnWidths() {
+      rfqCurrentWidths = { ...RFQ_DEFAULT_COLS };
+      try {
+        localStorage.removeItem(RFQ_COL_STORAGE_KEY);
+      } catch (e) {}
+      applyRfqColumnWidths(rfqCurrentWidths);
+    }
+
+    function initRfqColumnResizer() {
+      const table = document.getElementById('rfqDataGrid');
+      if (!table) return;
+
+      rfqCurrentWidths = getSavedRfqColWidths();
+      applyRfqColumnWidths(rfqCurrentWidths);
+
+      table.querySelectorAll('.col-resize-handle').forEach(handle => {
+        handle.addEventListener('dblclick', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const colKey = handle.dataset.resizeCol;
+          if (!colKey) return;
+          rfqCurrentWidths[colKey] = RFQ_DEFAULT_COLS[colKey];
+          try {
+            localStorage.setItem(RFQ_COL_STORAGE_KEY, JSON.stringify(rfqCurrentWidths));
+          } catch (err) {}
+          applyRfqColumnWidths(rfqCurrentWidths);
+        });
+
+        handle.addEventListener('pointerdown', (e) => {
+          if (e.button !== 0) return;
+          e.preventDefault();
+          e.stopPropagation();
+          const colKey = handle.dataset.resizeCol;
+          const th = handle.closest('th');
+          if (!colKey || !th) return;
+
+          const startX = e.clientX;
+          const startWidth = th.getBoundingClientRect().width;
+          const [minW, maxW] = RFQ_COL_BOUNDS[colKey];
+
+          handle.classList.add('is-resizing');
+          document.body.classList.add('bm-col-resizing');
+
+          const onMove = (moveEv) => {
+            const dx = moveEv.clientX - startX;
+            const nextW = Math.min(maxW, Math.max(minW, Math.round(startWidth + dx)));
+            if (colKey === 'commodity' && nextW <= 165) {
+              rfqCurrentWidths[colKey] = 'auto';
+            } else {
+              rfqCurrentWidths[colKey] = nextW;
+            }
+            applyRfqColumnWidths(rfqCurrentWidths);
+          };
+
+          const onUp = () => {
+            handle.classList.remove('is-resizing');
+            document.body.classList.remove('bm-col-resizing');
+            window.removeEventListener('pointermove', onMove);
+            window.removeEventListener('pointerup', onUp);
+            window.removeEventListener('pointercancel', onUp);
+            try {
+              localStorage.setItem(RFQ_COL_STORAGE_KEY, JSON.stringify(rfqCurrentWidths));
+            } catch (err) {}
+          };
+
+          window.addEventListener('pointermove', onMove);
+          window.addEventListener('pointerup', onUp);
+          window.addEventListener('pointercancel', onUp);
+        });
+      });
+    }
 
     /* ============================================================
        360° BUYER DOSSIER & CONVERSATION THREAD CONTROLLER
        ============================================================ */
     let currentDossierId = 0;
+    let dossierSelectedFiles = [];
+
+    function formatDossierFileSize(bytes) {
+      const b = Number(bytes) || 0;
+      if (b < 1024) return b + ' B';
+      if (b < 1048576) return Math.round(b / 1024) + ' KB';
+      return (b / 1048576).toFixed(1) + ' MB';
+    }
+
+    function renderDossierAttachmentChips() {
+      const box = document.getElementById('dossierAttachmentList');
+      const hint = document.getElementById('dossierAttachMeta');
+      if (!box) return;
+      if (!dossierSelectedFiles.length) {
+        box.innerHTML = '';
+        if (hint) hint.textContent = 'PDF, Word, Excel, Images, ZIP • Max 10 MB/file (20 MB total)';
+        return;
+      }
+      let totalBytes = 0;
+      box.innerHTML = dossierSelectedFiles.map((f, idx) => {
+        totalBytes += f.size;
+        return `<span class="dossier-att-pill" title="${escapeDossierHtml(f.name)}">
+          <i class="bi bi-paperclip text-primary"></i>
+          <span class="dossier-att-name">${escapeDossierHtml(f.name)}</span>
+          <span class="text-muted font-monospace" style="font-size: 0.65rem;">(${formatDossierFileSize(f.size)})</span>
+          <button type="button" class="dossier-att-remove" onclick="removeDossierFile(${idx})" aria-label="Remove attachment">&times;</button>
+        </span>`;
+      }).join('');
+      if (hint) {
+        hint.textContent = `${dossierSelectedFiles.length} file(s) • ${formatDossierFileSize(totalBytes)} / 20 MB`;
+      }
+    }
+
+    function addDossierFiles(fileList) {
+      if (!fileList || !fileList.length) return;
+      const maxPerFile = 10 * 1024 * 1024;
+      const maxTotal   = 20 * 1024 * 1024;
+      let currentTotal = dossierSelectedFiles.reduce((acc, f) => acc + f.size, 0);
+      const errors = [];
+
+      Array.from(fileList).forEach(file => {
+        if (dossierSelectedFiles.length >= 10) {
+          errors.push('Maximum 10 attachments allowed per email.');
+          return;
+        }
+        if (file.size > maxPerFile) {
+          errors.push(`${file.name} exceeds 10 MB per-file limit.`);
+          return;
+        }
+        if (currentTotal + file.size > maxTotal) {
+          errors.push(`Adding ${file.name} exceeds 20 MB total limit.`);
+          return;
+        }
+        const duplicate = dossierSelectedFiles.some(x => x.name === file.name && x.size === file.size);
+        if (!duplicate) {
+          dossierSelectedFiles.push(file);
+          currentTotal += file.size;
+        }
+      });
+
+      if (errors.length && window.BMNotify) {
+        window.BMNotify.toast('warning', 'Attachment Notice', errors[0]);
+      } else if (errors.length) {
+        alert(errors.join('\n'));
+      }
+      renderDossierAttachmentChips();
+    }
+
+    function removeDossierFile(index) {
+      dossierSelectedFiles.splice(index, 1);
+      renderDossierAttachmentChips();
+    }
+
+    function clearDossierFiles() {
+      dossierSelectedFiles = [];
+      const inp = document.getElementById('dossierFilesInput');
+      if (inp) inp.value = '';
+      renderDossierAttachmentChips();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const fileInp = document.getElementById('dossierFilesInput');
+      const dropzone = document.getElementById('dossierAttachDropzone');
+      if (fileInp) {
+        fileInp.addEventListener('change', (ev) => {
+          addDossierFiles(ev.target.files);
+          fileInp.value = '';
+        });
+      }
+      if (dropzone) {
+        ['dragenter', 'dragover'].forEach(evt => {
+          dropzone.addEventListener(evt, (e) => {
+            e.preventDefault();
+            dropzone.classList.add('is-dragover');
+          });
+        });
+        ['dragleave', 'drop'].forEach(evt => {
+          dropzone.addEventListener(evt, (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('is-dragover');
+          });
+        });
+        dropzone.addEventListener('drop', (e) => {
+          if (e.dataTransfer && e.dataTransfer.files) {
+            addDossierFiles(e.dataTransfer.files);
+          }
+        });
+      }
+    });
 
     function escapeDossierHtml(text) {
       if (!text) return '';
@@ -1577,6 +1859,7 @@ function getBallInCourtStatus($row) {
 
     async function openBuyerDossier(inquiryId) {
       currentDossierId = inquiryId;
+      clearDossierFiles();
       const drawer = document.getElementById('buyerDossierDrawer');
       const backdrop = document.getElementById('dossierBackdrop');
       if (!drawer || !backdrop) return;
@@ -1626,6 +1909,12 @@ function getBallInCourtStatus($row) {
         document.getElementById('dossierInquiryId').value = inq.id;
         document.getElementById('dossierBuyerEmail').value = inq.email;
         document.getElementById('dossierBuyerEmailDisplay').textContent = inq.email || 'No email on file';
+        const fromSel = document.getElementById('dossierFromEmail');
+        if (fromSel) {
+          fromSel.value = (inq.source && inq.source.toLowerCase().includes('info@'))
+            ? 'info@balochistanminerals.com'
+            : 'sales@balochistanminerals.com';
+        }
         document.getElementById('dossierSubject').value = 'RE: Balochistan Minerals - ' + inq.mineral_type + ' Export Order';
         document.getElementById('dossierBody').value = 'Dear ' + inq.buyer_name + ',\n\nThank you for reaching out regarding ' + inq.mineral_type + ' (' + inq.quantity + '). Balochistan Minerals (Pvt) Ltd has verified port stockpile allocations available.\n\nPlease find our commercial specifications attached for review.\n\nBest regards,\nExport Commercial Desk\nBalochistan Minerals (Pvt) Ltd\nWeb: https://balochistanminerals.com';
 
@@ -1636,7 +1925,8 @@ function getBallInCourtStatus($row) {
         // Render Messages Stream
         document.getElementById('dossierMsgCount').textContent = data.message_count;
         if (!data.messages || data.messages.length === 0) {
-          threadStream.innerHTML = '<div class="p-3 text-center text-muted small bg-light rounded border"><i class="bi bi-inbox text-secondary fs-4 d-block mb-1"></i>No prior email exchanges logged.<div class="mt-2 text-start p-2 bg-white rounded border font-monospace text-dark" style="font-size: 0.74rem;"><strong>Inquiry Lead Text:</strong><br>' + escapeDossierHtml(inq.message || 'Direct lead inquiry registered on trade portal.') + '</div></div>';
+          const fallbackHtml = inq.message_html || ('<p>' + escapeDossierHtml(inq.message || 'Direct lead inquiry registered on trade portal.') + '</p>');
+          threadStream.innerHTML = '<div class="p-3 text-center text-muted small bg-light rounded border"><i class="bi bi-inbox text-secondary fs-4 d-block mb-1"></i>No prior email exchanges logged.<div class="mt-2 text-start p-2 bg-white rounded border text-dark thread-rich-body"><strong>Inquiry Lead Text:</strong><br>' + fallbackHtml + '</div></div>';
         } else {
           let html = '';
           data.messages.forEach(m => {
@@ -1646,14 +1936,39 @@ function getBallInCourtStatus($row) {
               ? '<span class="text-primary"><i class="bi bi-arrow-down-left me-1"></i>Inbound: ' + escapeDossierHtml(m.from_email || inq.buyer_name) + '</span>'
               : '<span class="text-success"><i class="bi bi-arrow-up-right me-1"></i>Desk Reply &bull; ' + escapeDossierHtml(m.from_email || 'Desk') + '</span>';
 
+            const renderedBody = m.body_html
+              ? `<div class="thread-rich-body">${m.body_html}</div>`
+              : `<div class="thread-body">${escapeDossierHtml(m.body_text)}</div>`;
+
+            let attHtml = '';
+            if (Array.isArray(m.attachments) && m.attachments.length > 0) {
+              attHtml = '<div class="thread-attachments-list">' + m.attachments.map(att => {
+                const icon = ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(att.ext) ? 'bi-file-earmark-image' : (att.ext === 'pdf' ? 'bi-file-earmark-pdf text-danger' : 'bi-file-earmark-arrow-down');
+                const sizeTag = att.size_label ? `<span class="text-muted ms-1">(${escapeDossierHtml(att.size_label)})</span>` : '';
+                if (att.available && att.url) {
+                  const viewBtn = att.can_preview && att.preview_url
+                    ? `<a href="${escapeDossierHtml(att.preview_url)}" target="_blank" class="thread-att-action" title="Preview"><i class="bi bi-eye"></i></a>`
+                    : '';
+                  return `<div class="thread-att-chip">
+                    <i class="bi ${icon}"></i>
+                    <a href="${escapeDossierHtml(att.url)}" class="thread-att-link" title="Download ${escapeDossierHtml(att.name)}">${escapeDossierHtml(att.name)}</a>
+                    ${sizeTag}
+                    ${viewBtn}
+                  </div>`;
+                }
+                return `<div class="thread-att-chip"><i class="bi ${icon}"></i><span>${escapeDossierHtml(att.name)}</span>${sizeTag}</div>`;
+              }).join('') + '</div>';
+            }
+
             html += `
               <div class="thread-bubble ${bubbleClass}">
                 <div class="thread-meta d-flex justify-content-between align-items-center">
                   ${senderBadge}
                   <span class="text-muted font-monospace" style="font-size: 0.68rem;">${m.sent_at}</span>
                 </div>
-                <div class="fw-bold text-dark small mb-1" style="font-size: 0.78rem;">${escapeDossierHtml(m.subject)}</div>
-                <div class="thread-body">${escapeDossierHtml(m.body_text)}</div>
+                <div class="fw-bold text-dark small mb-1.5" style="font-size: 0.78rem;">${escapeDossierHtml(m.subject)}</div>
+                ${renderedBody}
+                ${attHtml}
               </div>
             `;
           });
@@ -1727,6 +2042,7 @@ function getBallInCourtStatus($row) {
       const sendBtn = document.getElementById('dossierSendBtn');
       const alertEl = document.getElementById('dossierReplyAlert');
       const toEmail = document.getElementById('dossierBuyerEmail').value;
+      const fromEmail = document.getElementById('dossierFromEmail')?.value || 'sales@balochistanminerals.com';
       const subject = document.getElementById('dossierSubject').value;
       const body = document.getElementById('dossierBody').value;
 
@@ -1744,19 +2060,25 @@ function getBallInCourtStatus($row) {
         formData.append('action', 'send_reply');
         formData.append('inquiry_id', currentDossierId);
         formData.append('to_email', toEmail);
+        formData.append('from_email', fromEmail);
         formData.append('subject', subject);
         formData.append('body', body);
+        dossierSelectedFiles.forEach(file => {
+          formData.append('attachments[]', file, file.name);
+        });
 
         const res = await fetch('api-dossier.php', { method: 'POST', body: formData });
         const data = await res.json();
 
         if (data.success) {
-          alertEl.innerHTML = '<span class="text-success"><i class="bi bi-check-circle-fill"></i> Dispatched!</span>';
+          const attLabel = data.attachment_count > 0 ? ` (${data.attachment_count} attachment${data.attachment_count > 1 ? 's' : ''})` : '';
+          alertEl.innerHTML = '<span class="text-success"><i class="bi bi-check-circle-fill"></i> Dispatched' + attLabel + '!</span>';
           document.getElementById('dossierBody').value = '';
+          clearDossierFiles();
           setTimeout(() => {
             alertEl.textContent = '';
             openBuyerDossier(currentDossierId);
-          }, 1200);
+          }, 1000);
         } else {
           alertEl.innerHTML = '<span class="text-danger">' + (data.error || 'Send failed') + '</span>';
         }
@@ -1842,12 +2164,6 @@ function getBallInCourtStatus($row) {
           </div>
         </div>
       </div>
-              <li><hr class="dropdown-divider my-1"></li>
-              <li><a class="dropdown-item text-danger" href="javascript:void(0)" onclick="updateDossierStage('Closed/Lost')"><i class="bi bi-x-circle me-1.5"></i> Closed / Lost</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
 
       <!-- Section 2: Chronological Email Thread Stream -->
       <div class="p-3">
@@ -1865,9 +2181,12 @@ function getBallInCourtStatus($row) {
 
       <!-- Section 3: Direct Reply via Hostinger SMTP -->
       <div class="p-3 bg-light border-top">
-        <div class="fw-bold mb-2 brand-font d-flex align-items-center justify-content-between" style="font-size: 0.78rem; color: #0F172A;">
+        <div class="fw-bold mb-2 brand-font d-flex align-items-center justify-content-between gap-2 flex-wrap" style="font-size: 0.78rem; color: #0F172A;">
           <span><i class="bi bi-reply-fill text-primary me-1"></i> Quick Reply via Hostinger SMTP</span>
-          <span class="badge bg-white text-secondary font-monospace" style="font-size: 0.65rem; border: none !important; box-shadow: none !important;">sales@balochistanminerals.com</span>
+          <select id="dossierFromEmail" class="form-select form-select-sm font-monospace fw-bold py-0.5" style="width: auto; font-size: 0.68rem;">
+            <option value="sales@balochistanminerals.com">sales@balochistanminerals.com</option>
+            <option value="info@balochistanminerals.com">info@balochistanminerals.com</option>
+          </select>
         </div>
         <form id="dossierReplyForm" onsubmit="handleDossierReply(event)">
           <input type="hidden" id="dossierInquiryId" value="">
@@ -1878,6 +2197,19 @@ function getBallInCourtStatus($row) {
           <div class="mb-2">
             <textarea id="dossierBody" class="form-control form-control-sm font-monospace" rows="4" placeholder="Type commercial desk response here..." required style="font-size: 0.78rem; border-color: #CBD5E1; box-shadow: none !important;"></textarea>
           </div>
+
+          <!-- Attachments Uploader & Chips -->
+          <div id="dossierAttachDropzone" class="dossier-attach-dropzone mb-2">
+            <input type="file" id="dossierFilesInput" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.txt,.jpg,.jpeg,.png,.gif,.webp,.zip" class="d-none">
+            <div class="d-flex align-items-center justify-content-between gap-2 flex-wrap">
+              <button type="button" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center gap-1" onclick="document.getElementById('dossierFilesInput').click()" style="font-size: 0.72rem; background: #FFFFFF; border-color: #CBD5E1; color: #0F172A;">
+                <i class="bi bi-paperclip text-primary"></i> Attach Documents
+              </button>
+              <span id="dossierAttachMeta" class="text-muted" style="font-size: 0.67rem;">PDF, Word, Excel, Images, ZIP • Max 10 MB/file (20 MB total)</span>
+            </div>
+            <div id="dossierAttachmentList" class="dossier-attachment-chips"></div>
+          </div>
+
           <div class="d-flex justify-content-end align-items-center gap-2">
             <span id="dossierReplyAlert" class="small text-muted" style="font-size: 0.72rem;"></span>
             <button type="submit" id="dossierSendBtn" class="btn btn-sm btn-dark d-inline-flex align-items-center gap-1.5" style="font-size: 0.76rem; font-weight: 600; box-shadow: none !important;">
@@ -1926,6 +2258,6 @@ function getBallInCourtStatus($row) {
   </script>
   <?php endif; ?>
 
-  <script src="admin-layout.js"></script>
+  <script src="admin-layout.js?v=<?= filemtime(__DIR__ . '/admin-layout.js') ?>"></script>
 </body>
 </html>

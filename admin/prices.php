@@ -89,7 +89,7 @@ if ($pdo !== null) {
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="admin-layout.css">
+  <link rel="stylesheet" href="admin-layout.css?v=<?= filemtime(__DIR__ . '/admin-layout.css') ?>">
   <style>
     :root {
       --navy-900: #0F172A;
@@ -103,7 +103,7 @@ if ($pdo !== null) {
       --brand-orange: #E65C1A;
       --text-dark: #0F172A;
       --text-muted: #64748B;
-      --sidebar-width: 255px;
+      --sidebar-width: 280px;
     }
     body { font-family: 'Poppins', sans-serif; font-size: 0.88rem; color: var(--text-dark); background-color: var(--brand-canvas); margin: 0; }
     h1, h2, h3, h4, h5, h6, .brand-font { font-family: 'Montserrat', sans-serif; letter-spacing: -0.015em; }
@@ -248,18 +248,18 @@ if ($pdo !== null) {
       position: relative;
     }
     .table-scroll-container::-webkit-scrollbar {
-      width: 7px;
-      height: 7px;
+      width: 8px;
+      height: 9px;
     }
     .table-scroll-container::-webkit-scrollbar-track {
-      background: #F8FAFC;
+      background: #E2E8F0;
     }
     .table-scroll-container::-webkit-scrollbar-thumb {
-      background: #CBD5E1;
+      background: #64748B;
       border-radius: 4px;
     }
     .table-scroll-container::-webkit-scrollbar-thumb:hover {
-      background: #94A3B8;
+      background: #475569;
     }
     .table thead th {
       position: sticky;
@@ -934,6 +934,6 @@ if ($pdo !== null) {
     });
   </script>
   <?= renderCommodityDatalist('mineralList') ?>
-  <script src="admin-layout.js"></script>
+  <script src="admin-layout.js?v=<?= filemtime(__DIR__ . '/admin-layout.js') ?>"></script>
 </body>
 </html>

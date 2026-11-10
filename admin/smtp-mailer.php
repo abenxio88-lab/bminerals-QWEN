@@ -6,6 +6,7 @@
  */
 
 require_once __DIR__ . '/db.php';
+require_once __DIR__ . '/mail-helpers.php';
 
 // Load saved mail configuration if available
 $mailConfigFile = __DIR__ . '/mail-config.php';
@@ -63,18 +64,51 @@ function sendHostingerMail($toEmail, $subject, $bodyText, $fromEmail = null, $cc
     // Generate HTML version with corporate styling
     $bodyHtml = buildCorporateEmailHtml($subject, $bodyText, $fromEmail);
     $msgId = '<bm-' . uniqid() . '.' . time() . '@balochistanminerals.com>';
-    $attachmentListStr = !empty($attachments) ? implode(', ', $attachments) : null;
+
+    // Normalize attachments (supports structured metadata arrays or raw filesystem paths)
+    $normalizedAttachments = [];
+    if (is_array($attachments)) {
+        foreach ($attachments as $att) {
+            if (is_array($att) && !empty($att['name'])) {
+                $abs = !empty($att['abs_path']) && is_file($att['abs_path'])
+                    ? $att['abs_path']
+                    : (!empty($att['path']) ? resolveAttachmentAbsPath($att['path']) : null);
+                $normalizedAttachments[] = [
+                    'name'     => (string)$att['name'],
+                    'path'     => (string)($att['path'] ?? ''),
+                    'abs_path' => $abs,
+                    'mime'     => (string)($att['mime'] ?? 'application/octet-stream'),
+                    'size'     => (int)($att['size'] ?? ($abs && is_file($abs) ? filesize($abs) : 0)),
+                    'inline'   => !empty($att['inline']),
+                    'cid'      => !empty($att['cid']) ? (string)$att['cid'] : null,
+                ];
+            } elseif (is_string($att) && trim($att) !== '') {
+                $attPath = trim($att);
+                if (is_file($attPath)) {
+                    $bytes = @file_get_contents($attPath);
+                    $saved = $bytes !== false ? saveMailAttachmentBytes($bytes, basename($attPath)) : null;
+                    if ($saved) {
+                        $normalizedAttachments[] = $saved;
+                    }
+                }
+            }
+        }
+    }
+
+    $attachmentMetaJson = encodeAttachmentsMeta($normalizedAttachments);
 
     // Archive in email_messages table
     $pdo = getDB();
+    $insertedMsgId = 0;
     if ($pdo !== null) {
         try {
             $stmt = $pdo->prepare("INSERT INTO email_messages 
                 (inquiry_id, direction, from_email, to_email, cc_email, subject, body_text, body_html, attachments, status, message_id)
                 VALUES (?, 'outbound', ?, ?, ?, ?, ?, ?, ?, 'Sent', ?)");
             $stmt->execute([
-                $inquiryId, $fromEmail, $toEmail, $ccEmail, $subject, $bodyText, $bodyHtml, $attachmentListStr, $msgId
+                $inquiryId, $fromEmail, $toEmail, $ccEmail, $subject, $bodyText, $bodyHtml, $attachmentMetaJson, $msgId
             ]);
+            $insertedMsgId = (int)$pdo->lastInsertId();
         } catch (Exception $e) {
             error_log("Email archival error: " . $e->getMessage());
         }
@@ -85,6 +119,9 @@ function sendHostingerMail($toEmail, $subject, $bodyText, $fromEmail = null, $cc
         return [
             'success' => true,
             'simulated' => true,
+            'email_message_id' => $insertedMsgId,
+            'attachment_count' => count($normalizedAttachments),
+            'attachments' => formatPublicAttachmentsForMessage($insertedMsgId, $attachmentMetaJson ?? ''),
             'message' => 'Dispatched & logged into Buyer Dossier and Outbox (Hostinger SMTP password not set in settings).',
             'message_id' => $msgId
         ];
@@ -190,8 +227,28 @@ function sendHostingerMail($toEmail, $subject, $bodyText, $fromEmail = null, $cc
         return ['success' => false, 'error' => "DATA rejected: $dataRes"];
     }
 
-    // Build MIME message with boundary
-    $boundary = "----=_Part_" . md5(uniqid()) . "_" . time();
+    // Filter readable files for MIME attachment parts
+    $readableFiles = [];
+    foreach ($normalizedAttachments as $att) {
+        if (!empty($att['abs_path']) && is_file($att['abs_path'])) {
+            $bytes = @file_get_contents($att['abs_path']);
+            if ($bytes !== false) {
+                $att['_bytes'] = $bytes;
+                $readableFiles[] = $att;
+            }
+        }
+    }
+
+    // Normalize line endings strictly to CRLF for SMTP RFC compliance
+    $crlfPlain = str_replace(["\r\n", "\r"], "\n", $bodyText);
+    $crlfPlain = str_replace("\n", "\r\n", $crlfPlain);
+    $crlfHtml  = str_replace(["\r\n", "\r"], "\n", $bodyHtml);
+    $crlfHtml  = str_replace("\n", "\r\n", $crlfHtml);
+
+    $altBoundary   = "----=_Alt_" . md5(uniqid('alt', true)) . "_" . time();
+    $mixedBoundary = "----=_Mixed_" . md5(uniqid('mix', true)) . "_" . time();
+    $hasFiles      = !empty($readableFiles);
+
     $headers = [
         "From: =?UTF-8?B?" . base64_encode($fromName) . "?= <$fromEmail>",
         "To: <$toEmail>",
@@ -200,7 +257,7 @@ function sendHostingerMail($toEmail, $subject, $bodyText, $fromEmail = null, $cc
         "Date: " . date('r'),
         "Message-ID: $msgId",
         "MIME-Version: 1.0",
-        "Content-Type: multipart/alternative; boundary=\"$boundary\"",
+        "Content-Type: " . ($hasFiles ? "multipart/mixed; boundary=\"$mixedBoundary\"" : "multipart/alternative; boundary=\"$altBoundary\""),
         "X-Mailer: Balochistan Minerals Trade Desk SMTP Engine"
     ];
 
@@ -208,18 +265,41 @@ function sendHostingerMail($toEmail, $subject, $bodyText, $fromEmail = null, $cc
         $headers[] = "Cc: <$ccEmail>";
     }
 
-    $mimeMsg  = implode("\r\n", $headers) . "\r\n\r\n";
-    $mimeMsg .= "--" . $boundary . "\r\n";
-    $mimeMsg .= "Content-Type: text/plain; charset=UTF-8\r\n";
-    $mimeMsg .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
-    $mimeMsg .= $bodyText . "\r\n\r\n";
+    $altBody  = "--" . $altBoundary . "\r\n";
+    $altBody .= "Content-Type: text/plain; charset=UTF-8\r\n";
+    $altBody .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
+    $altBody .= $crlfPlain . "\r\n\r\n";
 
-    $mimeMsg .= "--" . $boundary . "\r\n";
-    $mimeMsg .= "Content-Type: text/html; charset=UTF-8\r\n";
-    $mimeMsg .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
-    $mimeMsg .= $bodyHtml . "\r\n\r\n";
+    $altBody .= "--" . $altBoundary . "\r\n";
+    $altBody .= "Content-Type: text/html; charset=UTF-8\r\n";
+    $altBody .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
+    $altBody .= $crlfHtml . "\r\n\r\n";
+    $altBody .= "--" . $altBoundary . "--\r\n";
 
-    $mimeMsg .= "--" . $boundary . "--\r\n.";
+    $mimeMsg = implode("\r\n", $headers) . "\r\n\r\n";
+
+    if ($hasFiles) {
+        $mimeMsg .= "--" . $mixedBoundary . "\r\n";
+        $mimeMsg .= "Content-Type: multipart/alternative; boundary=\"$altBoundary\"\r\n\r\n";
+        $mimeMsg .= $altBody . "\r\n";
+
+        foreach ($readableFiles as $file) {
+            $encName = "=?UTF-8?B?" . base64_encode($file['name']) . "?=";
+            $mimeMsg .= "--" . $mixedBoundary . "\r\n";
+            $mimeMsg .= "Content-Type: " . $file['mime'] . "; name=\"" . $encName . "\"\r\n";
+            $mimeMsg .= "Content-Transfer-Encoding: base64\r\n";
+            $mimeMsg .= "Content-Disposition: attachment; filename=\"" . $encName . "\"\r\n\r\n";
+            $mimeMsg .= rtrim(chunk_split(base64_encode($file['_bytes']), 76, "\r\n"), "\r\n") . "\r\n";
+        }
+
+        $mimeMsg .= "--" . $mixedBoundary . "--";
+    } else {
+        $mimeMsg .= rtrim($altBody, "\r\n");
+    }
+
+    // SMTP dot-stuffing on lines starting with '.'
+    $mimeMsg = preg_replace('/^\./m', '..', $mimeMsg);
+    $mimeMsg .= "\r\n.";
 
     $sendCommand($mimeMsg);
     $sendRes = $getResponse();
@@ -231,6 +311,9 @@ function sendHostingerMail($toEmail, $subject, $bodyText, $fromEmail = null, $cc
         return [
             'success' => true,
             'simulated' => false,
+            'email_message_id' => $insertedMsgId,
+            'attachment_count' => count($readableFiles),
+            'attachments' => formatPublicAttachmentsForMessage($insertedMsgId, $attachmentMetaJson ?? ''),
             'message' => 'Official B2B trade offer delivered successfully via Hostinger SMTP relay.',
             'message_id' => $msgId
         ];

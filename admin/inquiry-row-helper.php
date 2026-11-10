@@ -112,7 +112,7 @@ if (!function_exists('renderInquiryRow')) {
 
                 <!-- Source & Mailbox Channel & Velocity Tracker -->
                 <div class="mt-1.5 d-flex gap-1.5 flex-wrap align-items-center">
-                  <span class="badge bg-light text-secondary fw-medium" style="font-size: 0.68rem; padding: 3px 8px; border: none !important; box-shadow: none !important;">
+                  <span class="badge bg-light text-secondary fw-medium" style="font-size: 0.68rem; padding: 3px 8px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; border: none !important; box-shadow: none !important;">
                     <i class="bi bi-inbox-fill text-primary me-1"></i><?= !empty($row['source']) && strpos($row['source'], '@') !== false ? htmlspecialchars($row['source']) : 'sales@balochistanminerals.com' ?>
                   </span>
 
@@ -144,21 +144,22 @@ if (!function_exists('renderInquiryRow')) {
             <?php endif; ?>
 
             <!-- Buyer Inquiry Message / Email Content Preview -->
-            <?php if (!empty($row['message'])): ?>
-              <div class="inquiry-message-snippet mt-1.5 pt-1 border-top" style="border-color: #F1F5F9 !important;">
+            <?php if (!empty($row['message'])):
+              $cleanSnippet = function_exists('cleanEmailPlainText') ? cleanEmailPlainText($row['message']) : $row['message'];
+            ?>
+              <div class="inquiry-message-snippet mt-1.5 pt-1 border-top" style="border-color: #F1F5F9 !important; max-width: 100%; overflow: hidden;">
                 <a href="javascript:void(0)" class="text-decoration-none d-block" data-bs-toggle="modal" data-bs-target="#replyModal<?= (int)$row['id'] ?>" title="Click to read full message & reply">
-                  <span class="text-muted small fst-italic" style="font-size: 0.73rem; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; color: #475569 !important;">
-                    <i class="bi bi-chat-left-quote-fill me-1 text-secondary" style="font-size: 0.68rem;"></i>&ldquo;<?= htmlspecialchars($row['message']) ?>&rdquo;
+                  <span class="text-muted small fst-italic" style="font-size: 0.72rem; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; word-break: break-word; overflow-wrap: anywhere; color: #475569 !important;">
+                    <i class="bi bi-chat-left-quote-fill me-1 text-secondary" style="font-size: 0.68rem;"></i>&ldquo;<?= htmlspecialchars($cleanSnippet) ?>&rdquo;
                   </span>
                 </a>
               </div>
             <?php endif; ?>
           </td>
 
-          <!-- Quantity & Port -->
+          <!-- Port -->
           <td>
-            <div class="fw-bold font-monospace"><?= htmlspecialchars($row['quantity'] ?: 'Unspecified') ?></div>
-            <div class="text-muted small"><?= htmlspecialchars($row['destination_port'] ?: 'FOB Karachi') ?></div>
+            <div class="fw-semibold" style="color: #0F172A; font-size: 0.80rem;"><?= htmlspecialchars($row['destination_port'] ?: 'FOB Karachi') ?></div>
           </td>
 
           <!-- Date -->
@@ -188,7 +189,7 @@ if (!function_exists('renderInquiryRow')) {
 
           <!-- Actions -->
           <td class="text-end">
-            <div class="d-inline-flex gap-2">
+            <div class="d-inline-flex flex-nowrap align-items-center" style="gap: 6px;">
               <button type="button" class="btn-action-email" data-bs-toggle="modal" data-bs-target="#replyModal<?= (int)$row['id'] ?>" title="Send Official Email Reply">
                 <i class="bi bi-reply-fill"></i> Reply
               </button>
@@ -210,7 +211,7 @@ if (!function_exists('renderInquiryRow')) {
             <div class="modal fade text-start" id="replyModal<?= (int)$row['id'] ?>" tabindex="-1" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered modal-dialog-resizable" style="max-width: 1040px;">
                 <div class="modal-content">
-                  <form method="POST" action="dashboard.php">
+                  <form method="POST" action="dashboard.php" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="send_reply">
                     <input type="hidden" name="inquiry_id" value="<?= (int)$row['id'] ?>">
                     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken) ?>">
@@ -271,8 +272,14 @@ if (!function_exists('renderInquiryRow')) {
 
                           <div>
                             <label class="form-label mb-1">Original Buyer Message</label>
-                            <div class="p-2.5 rounded bg-white border small" style="max-height: 180px; overflow-y: auto; font-size: 0.78rem; line-height: 1.45; white-space: pre-wrap; color: #334155;">
-<?= htmlspecialchars($row['message'] ?: 'No message body recorded with this inquiry.') ?>
+                            <div class="p-2.5 rounded bg-white border small thread-rich-body" style="max-height: 220px; overflow-y: auto; font-size: 0.78rem; line-height: 1.5; color: #334155;">
+<?php
+  if (function_exists('formatPlainTextAsCleanHtml')) {
+      echo formatPlainTextAsCleanHtml($row['message'] ?: 'No message body recorded with this inquiry.');
+  } else {
+      echo nl2br(htmlspecialchars($row['message'] ?: 'No message body recorded with this inquiry.'));
+  }
+?>
                             </div>
                           </div>
 
@@ -351,6 +358,12 @@ Karachi / Quetta, Pakistan
 Web: https://balochistanminerals.com</textarea>
                             </div>
 
+                            <div class="mb-2">
+                              <label class="form-label mb-1">Attach Documents (PDF, Word, Excel, Images, ZIP)</label>
+                              <input type="file" name="attachments[]" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.txt,.jpg,.jpeg,.png,.gif,.webp,.zip" class="form-control form-control-sm">
+                              <div class="form-text" style="font-size: 0.67rem;">Optional • Up to 10 files (Max 10 MB/file, 20 MB total)</div>
+                            </div>
+
                             <?php
                               $cleanMailto = "mailto:" . rawurlencode($row['email'] ?? '') . "?subject=" . rawurlencode("Re: Inquiry for " . ($row['mineral_type'] ?? '') . " - Balochistan Minerals") . "&body=" . rawurlencode("Dear " . ($row['buyer_name'] ?? 'Buyer') . ",\n\nRegarding your inquiry for " . ($row['mineral_type'] ?? '') . "...\n\nBalochistan Minerals Export Desk");
                             ?>
@@ -389,7 +402,7 @@ Web: https://balochistanminerals.com</textarea>
             <div class="modal fade text-start" id="editModal<?= (int)$row['id'] ?>" tabindex="-1" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
-                  <form method="POST" action="dashboard.php">
+                  <form method="POST" action="dashboard.php" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="update_inquiry">
                     <input type="hidden" name="inquiry_id" value="<?= (int)$row['id'] ?>">
                     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken) ?>">

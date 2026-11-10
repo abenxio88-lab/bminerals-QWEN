@@ -56,6 +56,7 @@ graphify-out/
 .windsurf/
 skills-lock.json
 
-# Server-only credentials (never commit)
+# Server-only credentials & runtime mail attachments (never commit)
 admin/db-config.php
 admin/mail-config.php
+admin/uploads/

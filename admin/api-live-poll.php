@@ -68,7 +68,7 @@ try {
             $params = array_merge($params, [$searchTerm, $searchTerm, $searchTerm, $searchTerm, $searchTerm]);
         }
 
-        $sql .= " ORDER BY i.id DESC LIMIT 50";
+        $sql .= " ORDER BY i.created_at DESC, i.id DESC LIMIT 50";
         $stmt = $pdo->prepare($sql);
         $stmt->execute($params);
         $newRecords = $stmt->fetchAll();
@@ -76,6 +76,8 @@ try {
         if (!empty($newRecords)) {
             $hasNew = true;
             $csrf = getCsrfToken();
+            ensureNotificationsTable($pdo);
+            $notifChk = $pdo->prepare("SELECT id FROM admin_notifications WHERE inquiry_id = ? LIMIT 1");
             foreach ($newRecords as $rec) {
                 $newRowsHtml .= renderInquiryRow($rec, $csrf, true);
                 $country = detectCountryName($rec['country'] ?? '', $rec['email'] ?? '', $rec['whatsapp'] ?? '', $rec['company_name'] ?? '', $rec['message'] ?? '');
@@ -88,6 +90,21 @@ try {
                     'quantity' => $rec['quantity'] ?: 'Unspecified',
                     'created_at' => $rec['created_at']
                 ];
+                $notifChk->execute([(int)$rec['id']]);
+                if (!$notifChk->fetchColumn()) {
+                    $srcLabel = !empty($rec['source']) ? $rec['source'] : 'Trade Desk';
+                    logAdminNotification(
+                        $pdo,
+                        'info',
+                        'inbound_email',
+                        "New Inquiry #{$rec['id']} ({$srcLabel})",
+                        "{$rec['buyer_name']} • {$rec['mineral_type']} • {$country}",
+                        (int)$rec['id'],
+                        'dashboard.php',
+                        0,
+                        $rec['created_at'] ?? null
+                    );
+                }
             }
         }
     }

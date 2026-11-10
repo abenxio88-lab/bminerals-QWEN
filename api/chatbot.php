@@ -143,6 +143,16 @@ if ($action === 'submit_rfq') {
                 VALUES (?, ?, ?, ?, ?, "Chatbot RFQ", "AI Portal Assistant", ?, ?, ?, ?, "New", ?)');
             $stmt->execute([$name, $company, $country, $email, $phone, $mineral, $quantity, $port, $fullMsg, $ip]);
             $leadId = (int)$pdo->lastInsertId();
+            logAdminNotification(
+                $pdo,
+                'info',
+                'web_rfq',
+                "New AI Chatbot RFQ #{$leadId}",
+                "{$name}" . ($company ? " ({$company})" : '') . " • {$mineral} ({$quantity})",
+                $leadId,
+                'dashboard.php',
+                0
+            );
         } catch (Exception $e) {
             error_log("Chatbot RFQ Error: " . $e->getMessage());
         }

@@ -75,6 +75,16 @@ if ($pdo !== null) {
             $emSubject = 'Website Inquiry: ' . $mineral . ($company ? ' (' . $company . ')' : '');
             $emStmt->execute([$leadId, $email, $targetBox, $emSubject, $message ?: ('RFQ submitted for ' . $mineral), $emMsgId]);
         }
+        logAdminNotification(
+            $pdo,
+            'info',
+            'web_rfq',
+            "New Website Inquiry #{$leadId}",
+            "{$name}" . ($company ? " ({$company})" : '') . " • {$mineral} • {$targetBox}",
+            $leadId,
+            'dashboard.php',
+            0
+        );
     } catch (Exception $e) {
         // Fallback silently if DB error to prevent breaking user submission
         error_log("DB Inquiry Error: " . $e->getMessage());
