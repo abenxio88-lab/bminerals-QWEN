@@ -301,13 +301,16 @@ if ($pdo !== null) {
       color: #64748B;
     }
 
-    /* Table Container */
+    /* Table Container & Precision Grid Layout */
     .table-panel {
       background: #FFFFFF;
       border: 1px solid var(--brand-border);
       border-radius: 10px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.02);
       overflow: hidden;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
     }
     .table-panel-header {
       padding: 12px 20px;
@@ -315,34 +318,123 @@ if ($pdo !== null) {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
       background: #FFFFFF;
     }
     .table-scroll-container {
-      max-height: 600px;
+      width: 100%;
+      max-width: 100%;
+      max-height: clamp(320px, calc(100vh - 295px), 540px);
       overflow-y: auto;
-      overflow-x: auto;
+      overflow-x: auto !important;
+      scrollbar-width: thin;
+      scrollbar-color: #64748B #E2E8F0;
     }
-    .table-clean { width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 0; }
-    .table-clean thead th {
+    .table-scroll-container::-webkit-scrollbar { width: 8px; height: 10px; }
+    .table-scroll-container::-webkit-scrollbar-track { background: #E2E8F0; border-radius: 4px; }
+    .table-scroll-container::-webkit-scrollbar-thumb { background: #64748B; border-radius: 4px; border: 1px solid #E2E8F0; }
+    .table-scroll-container::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+    #prospectsDataGrid {
+      width: 100%;
+      min-width: 1160px;
+      table-layout: fixed;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-bottom: 0;
+    }
+    #prospectsDataGrid thead th {
       background: #F8FAFC;
       color: #475569;
       font-family: 'Montserrat', sans-serif;
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      padding: 10px 14px;
+      padding: 10px 10px;
       border-bottom: 1px solid var(--brand-border);
+      border-right: 1px solid #E2E8F0;
       white-space: nowrap;
       position: sticky; top: 0; z-index: 10;
     }
-    .table-clean tbody td {
-      padding: 12px 14px;
+    #prospectsDataGrid thead th:last-child { border-right: none; padding-right: 14px; }
+    #prospectsDataGrid tbody td {
+      padding: 11px 10px;
       border-bottom: 1px solid #F1F5F9;
+      border-right: 1px solid #F8FAFC;
       vertical-align: middle;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
+      overflow-wrap: break-word;
     }
-    .table-clean tr:hover td { background-color: #FAFCFE; }
+    #prospectsDataGrid tbody td:last-child { border-right: none; padding-right: 14px; }
+    #prospectsDataGrid tr:hover td { background-color: #FAFCFE; }
+
+    .prospect-corridor-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 5px;
+      padding: 3px 8px;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 5px;
+      font-size: 0.71rem;
+      font-weight: 500;
+      color: #334155;
+      max-width: 100%;
+      line-height: 1.25;
+    }
+    .prospect-flag-wrap {
+      width: 17px;
+      height: 12px;
+      border-radius: 2px;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #FFFFFF;
+    }
+    .prospect-flag-wrap svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    .prospect-corridor-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .prospect-mineral-pill {
+      background: #F1F5F9;
+      color: #0F172A;
+      border: 1px solid #CBD5E1;
+      border-radius: 5px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      max-width: 100%;
+    }
+    .prospect-email-link {
+      color: #0284C7;
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.73rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      max-width: calc(100% - 22px);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: middle;
+    }
+    .prospect-email-link:hover { text-decoration: underline; color: #0369A1; }
 
     /* Crisp Luxury Modals */
     .modal-dialog.modal-lg { max-width: 820px; }
@@ -377,39 +469,20 @@ if ($pdo !== null) {
       margin-bottom: 4px;
     }
 
-    /* Buttons */
-    .btn-action-wa {
-      background: #15803D;
-      color: #FFFFFF !important;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.76rem;
-      font-weight: 600;
-      height: 32px;
-      padding: 0 12px;
-      border-radius: 6px;
-      border: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      text-decoration: none;
-      transition: background 0.15s ease;
-      white-space: nowrap;
-    }
-    .btn-action-wa:hover { background: #166534; }
-
+    /* Compact Outreach Action Buttons */
     .btn-action-email {
       background: #FFFFFF !important;
       color: #0F172A !important;
       font-family: 'Montserrat', sans-serif;
-      font-size: 0.74rem;
+      font-size: 0.69rem;
       font-weight: 600;
-      height: 32px;
-      padding: 0 12px;
-      border-radius: 6px;
+      height: 26px;
+      padding: 0 7px;
+      border-radius: 5px;
       border: 1px solid #CBD5E1 !important;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
       cursor: pointer;
       text-decoration: none;
       box-shadow: none !important;
@@ -418,7 +491,7 @@ if ($pdo !== null) {
     }
     .btn-action-email i {
       color: #475569 !important;
-      font-size: 0.85rem;
+      font-size: 0.74rem;
       line-height: 1;
       transition: color 0.15s ease;
     }
@@ -436,15 +509,15 @@ if ($pdo !== null) {
       background: #15803D;
       color: #FFFFFF !important;
       font-family: 'Montserrat', sans-serif;
-      font-size: 0.74rem;
+      font-size: 0.69rem;
       font-weight: 600;
-      height: 32px;
-      padding: 0 12px;
-      border-radius: 6px;
+      height: 26px;
+      padding: 0 7px;
+      border-radius: 5px;
       border: 1px solid #15803D;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
       text-decoration: none;
       box-shadow: none !important;
       transition: background 0.15s ease;
@@ -494,7 +567,7 @@ if ($pdo !== null) {
     .status-Identified { background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; }
     .status-Outreach_Sent { background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE; }
     .status-Assay_Shared { background: #FEF3C7; color: #B45309; border: 1px solid #FDE68A; }
-    .status-Negotiating { background: #FFF7ED; color: #C2410C; border: 1px solid #FED7AA; }
+    .status-Negotiating { background: #EEF2FF; color: #3730A3; border: 1px solid #C7D2FE; }
     .status-Contract_Executed { background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; }
   </style>
 </head>
@@ -528,7 +601,7 @@ if ($pdo !== null) {
         </a>
         <a href="prospects.php" class="sidebar-link active">
           <div><i class="bi bi-bullseye"></i> Buyer Directory</div>
-          <span class="badge font-monospace" style="background: rgba(230,92,26,0.15); color: #E65C1A; font-size: 0.7rem;"><?= $totalCount ?></span>
+          <span class="badge bg-light text-dark border font-monospace" style="font-size: 0.7rem;"><?= $totalCount ?></span>
         </a>
         <a href="radar.php" class="sidebar-link">
           <div><i class="bi bi-broadcast-pin"></i> Live Visitor Radar</div>
@@ -701,16 +774,24 @@ if ($pdo !== null) {
             <span class="small text-muted font-monospace">Verified FOB Gwadar, KPT & Port Qasim Importers</span>
           </div>
 
-          <div class="table-scroll-container">
-            <table class="table-clean">
+          <div class="table-scroll-container" id="prospectsTableContainer">
+            <table class="table-clean" id="prospectsDataGrid">
+              <colgroup>
+                <col style="width: 250px;">
+                <col style="width: 200px;">
+                <col style="width: 184px;">
+                <col style="width: auto;">
+                <col style="width: 114px;">
+                <col style="width: 198px;">
+              </colgroup>
               <thead>
                 <tr>
-                  <th>Target Company & Corridor</th>
-                  <th>Target Mineral & Spec</th>
-                  <th>Buyer Profile & Demand</th>
+                  <th>Target Company &amp; Corridor</th>
+                  <th>Target Mineral &amp; Spec</th>
+                  <th>Buyer Profile &amp; Demand</th>
                   <th>Direct Contact</th>
                   <th>Pipeline Stage</th>
-                  <th class="text-end" style="min-width: 235px;">1-Click Outreach</th>
+                  <th class="text-end">1-Click Outreach</th>
                 </tr>
               </thead>
               <tbody>
@@ -737,50 +818,51 @@ if ($pdo !== null) {
                     <tr>
                       <!-- Company & Corridor -->
                       <td>
-                        <div class="fw-bold" style="color: var(--brand-navy); font-size: 0.90rem;">
+                        <div class="fw-bold" style="color: var(--brand-navy); font-size: 0.86rem; line-height: 1.3;">
                           <?= htmlspecialchars($b['company_name']) ?>
                         </div>
-                        <div class="d-flex align-items-center gap-1.5 mt-0.5">
-                          <span class="badge bg-light text-dark border d-inline-flex align-items-center gap-1.5" style="font-size: 0.70rem;">
-                            <span class="buyer-flag-chip" style="width: 16px; height: 11px; border-radius: 2px;"><?= getCountryFlagSvg($b['country'] ?? '') ?></span>
-                            <?= htmlspecialchars($b['country']) ?> (<?= htmlspecialchars($b['city']) ?>)
-                          </span>
+                        <div class="prospect-corridor-pill" title="<?= htmlspecialchars($b['country'] . ' (' . $b['city'] . ')') ?>">
+                          <span class="prospect-flag-wrap"><?= getCountryFlagSvg($b['country'] ?? '') ?></span>
+                          <span class="prospect-corridor-text"><?= htmlspecialchars($b['country']) ?> (<?= htmlspecialchars($b['city']) ?>)</span>
                         </div>
                       </td>
 
                       <!-- Mineral & Spec -->
                       <td>
-                        <div class="d-flex align-items-center gap-1.5">
-                          <span class="badge fw-bold" style="background: #FFF7ED; color: #C2410C; border: 1px solid #FFEDD5; font-size: 0.74rem;">
-                            <i class="bi bi-gem me-1"></i><?= htmlspecialchars($b['target_mineral']) ?>
+                        <div>
+                          <span class="prospect-mineral-pill">
+                            <i class="bi bi-gem text-secondary" style="font-size: 0.68rem;"></i>
+                            <span><?= htmlspecialchars($b['target_mineral']) ?></span>
                           </span>
                         </div>
-                        <div class="small text-muted font-monospace mt-1" style="font-size: 0.76rem;">
+                        <div class="small text-muted font-monospace mt-1" style="font-size: 0.74rem; line-height: 1.35;">
                           <?= htmlspecialchars($b['target_grade']) ?>
                         </div>
                       </td>
 
                       <!-- Buyer Profile & Demand -->
                       <td>
-                        <div class="fw-semibold small text-dark"><?= htmlspecialchars($b['buyer_type']) ?></div>
-                        <div class="small text-muted font-monospace" style="font-size: 0.75rem;">
+                        <div class="fw-semibold text-dark" style="font-size: 0.80rem; line-height: 1.3;"><?= htmlspecialchars($b['buyer_type']) ?></div>
+                        <div class="small text-muted font-monospace mt-0.5" style="font-size: 0.73rem;">
                           <i class="bi bi-box-seam me-1 text-secondary"></i>Est: <?= htmlspecialchars($b['annual_demand'] ?: 'Spot Bulk') ?>
                         </div>
                       </td>
 
                       <!-- Direct Contact -->
                       <td>
-                        <div class="fw-semibold small text-dark"><?= htmlspecialchars($b['contact_person'] ?: 'Procurement Dept') ?></div>
-                        <div class="d-flex align-items-center gap-1.5 mt-0.5">
-                          <a href="mailto:<?= htmlspecialchars($b['email']) ?>" class="text-decoration-none font-monospace small" style="color: #0284C7; font-size: 0.74rem;" title="Email <?= htmlspecialchars($b['email']) ?>">
+                        <div class="fw-semibold text-dark text-truncate" style="font-size: 0.80rem;" title="<?= htmlspecialchars($b['contact_person'] ?: 'Procurement Dept') ?>">
+                          <?= htmlspecialchars($b['contact_person'] ?: 'Procurement Dept') ?>
+                        </div>
+                        <div class="d-flex align-items-center mt-0.5" style="gap: 5px; min-width: 0;">
+                          <a href="mailto:<?= htmlspecialchars($b['email']) ?>" class="prospect-email-link" title="Email <?= htmlspecialchars($b['email']) ?>">
                             <i class="bi bi-envelope me-1"></i><?= htmlspecialchars($b['email']) ?>
                           </a>
-                          <button type="button" class="btn btn-link p-0 text-muted" onclick="copyToClipboard('<?= htmlspecialchars($b['email']) ?>', this)" title="Copy email address" style="font-size: 0.70rem; line-height: 1;">
+                          <button type="button" class="btn btn-link p-0 text-muted flex-shrink-0" onclick="copyToClipboard('<?= htmlspecialchars($b['email']) ?>', this)" title="Copy email address" style="font-size: 0.70rem; line-height: 1;">
                             <i class="bi bi-clipboard"></i>
                           </button>
                         </div>
                         <?php if (!empty($b['phone'])): ?>
-                          <div class="small font-monospace text-muted mt-0.5" style="font-size: 0.72rem;">
+                          <div class="small font-monospace text-muted mt-0.5" style="font-size: 0.71rem;">
                             <i class="bi bi-telephone me-1"></i><?= htmlspecialchars($b['phone']) ?>
                           </div>
                         <?php endif; ?>
@@ -792,7 +874,7 @@ if ($pdo !== null) {
                           <input type="hidden" name="action" value="quick_status">
                           <input type="hidden" name="prospect_id" value="<?= $b['id'] ?>">
                           <input type="hidden" name="csrf_token" value="<?= getCsrfToken() ?>">
-                          <select name="status" class="form-select form-select-sm fw-bold <?= $statusClass ?>" style="font-size: 0.72rem; padding: 3px 20px 3px 8px; width: 135px;" onchange="this.form.submit()">
+                          <select name="status" class="form-select form-select-sm fw-bold <?= $statusClass ?>" style="font-size: 0.68rem; height: 26px; padding: 2px 18px 2px 6px; width: 96px;" onchange="this.form.submit()">
                             <option value="Identified" <?= $b['status'] === 'Identified' ? 'selected' : '' ?>>Identified</option>
                             <option value="Outreach Sent" <?= $b['status'] === 'Outreach Sent' ? 'selected' : '' ?>>Outreach Sent</option>
                             <option value="Assay Shared" <?= $b['status'] === 'Assay Shared' ? 'selected' : '' ?>>Assay Shared</option>
@@ -804,7 +886,7 @@ if ($pdo !== null) {
 
                       <!-- 1-Click Outreach Buttons -->
                       <td class="text-end">
-                        <div class="d-inline-flex align-items-center justify-content-end" style="gap: 8px;">
+                        <div class="d-inline-flex flex-nowrap align-items-center justify-content-end" style="gap: 4px;">
                           <!-- 1-Click WhatsApp Pitch -->
                           <a href="<?= $waUrl ?>" target="_blank" class="btn-action-wa" title="Open pre-formatted WhatsApp trade offer">
                             <i class="bi bi-whatsapp"></i> <span>WhatsApp</span>
@@ -816,8 +898,8 @@ if ($pdo !== null) {
                           </button>
 
                           <!-- Edit Dossier -->
-                          <button type="button" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center justify-content-center" style="width: 32px; height: 32px; border-radius: 6px; padding: 0;" data-bs-toggle="modal" data-bs-target="#editModal<?= $b['id'] ?>" title="Edit prospect details & notes">
-                            <i class="bi bi-pencil"></i>
+                          <button type="button" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center justify-content-center" style="width: 26px; height: 26px; border-radius: 5px; padding: 0;" data-bs-toggle="modal" data-bs-target="#editModal<?= $b['id'] ?>" title="Edit prospect details & notes">
+                            <i class="bi bi-pencil" style="font-size: 0.70rem;"></i>
                           </button>
                         </div>
                       </td>
