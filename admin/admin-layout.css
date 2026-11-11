@@ -1478,7 +1478,7 @@ body.bm-col-resizing * {
 
 @media (min-width: 992px) {
   .modal-dialog-resizable.modal-dialog-reply-wide .modal-content {
-    height: min(88vh, 860px);
+    height: min(90vh, 880px);
     min-height: 580px;
   }
   .modal-dialog-resizable.modal-dialog-reply-wide .reply-modal-form {
@@ -1488,7 +1488,8 @@ body.bm-col-resizing * {
     min-height: 0;
     height: 100%;
   }
-  .modal-dialog-resizable.modal-dialog-reply-wide .modal-body {
+  .modal-dialog-resizable.modal-dialog-reply-wide .modal-body,
+  .modal-dialog-resizable.modal-dialog-reply-wide.modal-maximized .modal-body {
     flex: 1;
     min-height: 0;
     overflow: hidden;
@@ -1531,19 +1532,270 @@ body.bm-col-resizing * {
     flex-direction: column;
     overflow-y: auto;
     overflow-x: hidden;
-    padding-right: 2px;
+    padding: 0 5px;
   }
   .modal-dialog-resizable.modal-dialog-reply-wide .reply-body-field-wrap {
     flex: 1 1 0%;
-    min-height: 130px;
+    min-height: 180px;
     display: flex;
     flex-direction: column;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #FFFFFF;
   }
-  .modal-dialog-resizable.modal-dialog-reply-wide .reply-modal-textarea {
+  .modal-dialog-resizable.modal-dialog-reply-wide .reply-rich-editor,
+  .modal-dialog-resizable.modal-dialog-reply-wide .reply-email-preview-frame {
     flex: 1 1 0%;
-    min-height: 130px;
-    resize: none;
+    min-height: 140px;
+    overflow-y: auto;
   }
+}
+
+@media (min-width: 992px) and (max-height: 820px) {
+  .modal-dialog-resizable.modal-dialog-reply-wide .modal-content {
+    height: 94vh;
+  }
+}
+
+/* Reply Modal Controls, Rich Editor Toolbar & Preview */
+.reply-view-pills {
+  display: inline-flex;
+  align-items: center;
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.reply-view-pill {
+  background: transparent;
+  border: none;
+  color: #475569;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.66rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  line-height: 1.2;
+  transition: all 0.14s ease;
+  white-space: nowrap;
+}
+
+.reply-view-pill:hover {
+  color: #0F172A;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.reply-view-pill.active {
+  background: #0F172A;
+  color: #FFFFFF;
+}
+
+.reply-cc-toggle {
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  color: #334155;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.63rem;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 4px;
+  cursor: pointer;
+  line-height: 1.35;
+}
+
+.reply-cc-toggle.is-open,
+.reply-cc-toggle:hover {
+  background: #0F172A;
+  color: #FFFFFF;
+  border-color: #0F172A;
+}
+
+.reply-smtp-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid #CBD5E1;
+  background: #F8FAFC;
+  color: #475569;
+}
+
+.reply-smtp-pill.is-ready {
+  background: #ECFDF5;
+  border-color: #A7F3D0;
+  color: #15803D;
+}
+
+.reply-smtp-pill.is-sim {
+  background: #FFFBEB;
+  border-color: #FDE68A;
+  color: #B45309;
+}
+
+.reply-draft-pill {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #2563EB;
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-radius: 999px;
+  padding: 1px 8px;
+}
+
+.reply-editor-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 6px 8px;
+  background: #F8FAFC;
+  border-bottom: 1px solid #E2E8F0;
+  flex-shrink: 0;
+}
+
+.reply-tool-btn {
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  color: #1E293B;
+  height: 26px;
+  min-width: 26px;
+  padding: 0 7px;
+  border-radius: 5px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.reply-tool-btn:hover {
+  background: #0F172A;
+  color: #FFFFFF;
+  border-color: #0F172A;
+}
+
+.reply-rich-editor {
+  padding: 12px 14px;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 0.83rem;
+  line-height: 1.6;
+  color: #0F172A;
+  background: #FFFFFF;
+  outline: none;
+  min-height: 160px;
+  overflow-y: auto;
+}
+
+.reply-rich-editor p {
+  margin: 0 0 10px 0;
+}
+
+.reply-rich-editor p:last-child {
+  margin-bottom: 0;
+}
+
+.reply-rich-editor ul,
+.reply-rich-editor ol {
+  margin: 4px 0 10px 0;
+  padding-left: 20px;
+}
+
+.reply-rich-editor blockquote {
+  margin: 8px 0;
+  padding: 6px 10px;
+  border-left: 3px solid #94A3B8;
+  background: #F8FAFC;
+  color: #475569;
+  font-size: 0.78rem;
+}
+
+.reply-rich-editor table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0;
+  font-size: 0.78rem;
+}
+
+.reply-rich-editor th,
+.reply-rich-editor td {
+  border: 1px solid #CBD5E1;
+  padding: 5px 8px;
+}
+
+.reply-email-preview-frame {
+  background: #F1F5F9;
+  padding: 14px;
+  min-height: 160px;
+  overflow-y: auto;
+}
+
+.reply-attach-dropzone {
+  background: #F8FAFC;
+  border: 1px dashed #CBD5E1;
+  border-radius: 8px;
+  padding: 7px 10px;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.reply-attach-dropzone.is-dragover {
+  border-color: #2563EB;
+  background: #EFF6FF;
+}
+
+.reply-att-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.reply-att-chips:not(:empty) {
+  margin-top: 6px;
+}
+
+.reply-att-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  padding: 2px 7px;
+  font-size: 0.70rem;
+  color: #0F172A;
+}
+
+.reply-att-rm {
+  background: transparent;
+  border: none;
+  color: #64748B;
+  cursor: pointer;
+  padding: 0 2px;
+  line-height: 1;
+  font-size: 0.9rem;
+}
+
+.reply-att-rm:hover {
+  color: #DC2626;
+}
+
+[data-pane="thread"] .thread-bubble {
+  padding: 10px;
+}
+
+[data-pane="thread"] .thread-rich-body {
+  overflow-x: auto;
 }
 
 /* Real-Window Corner Resize Grip Handle */

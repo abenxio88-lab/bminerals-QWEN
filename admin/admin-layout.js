@@ -530,6 +530,547 @@
     });
   }
 
+  // ==========================================================================
+  // EXECUTIVE REPLY MODAL CONTROLLER (RICH HTML VIEWER, COMPOSER, PREVIEW, FILES, DRAFTS)
+  // ==========================================================================
+  function htmlFragmentToPlainText(container) {
+    if (!container) return '';
+    const clone = container.cloneNode(true);
+    clone.querySelectorAll('li').forEach((li) => {
+      li.textContent = '• ' + li.textContent.trim();
+    });
+    clone.querySelectorAll('tr').forEach((tr) => {
+      const cells = Array.from(tr.children).map((c) => c.textContent.trim()).filter(Boolean);
+      if (cells.length) {
+        tr.innerHTML = '';
+        tr.textContent = cells.join(': ') + '\n';
+      }
+    });
+    const raw = (clone.innerText || clone.textContent || '')
+      .replace(/\r\n/g, '\n')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+    return raw;
+  }
+
+  function formatReplyTemplateHtml(val, meta) {
+    const buyer = escapeHtml(meta.buyerName || 'Buyer');
+    const mineral = escapeHtml(meta.mineral || 'Minerals');
+    const grade = meta.grade ? ` (${escapeHtml(meta.grade)})` : '';
+    const qty = escapeHtml(meta.quantity || 'your required tonnage');
+    const port = escapeHtml(meta.port || 'FOB Karachi');
+    const price = escapeHtml(meta.price || '185.00');
+
+    if (val === 'assay') {
+      return `<p>Dear ${buyer},</p>`
+        + `<p>In reference to your technical inquiry for <strong>${mineral}${grade}</strong>, we have verified that our ready Balochistan stockpiles conform to international export purity tolerances.</p>`
+        + `<ul>`
+        + `<li><strong>Chemical Assay:</strong> Sampled &amp; verified by SGS Pakistan / Alfred H. Knight at Karachi / Gwadar corridors</li>`
+        + `<li><strong>Certificate of Analysis (COA):</strong> Issued upon lot demarcation prior to loading</li>`
+        + `<li><strong>Moisture &amp; Sizing:</strong> Guaranteed export grade per commercial contract specification</li>`
+        + `</ul>`
+        + `<p>Please let us know if your metallurgical team requires a courier trial sample or scanned batch assay certificate.</p>`
+        + `<p>Sincerely,<br><strong>Technical &amp; Quality Control Desk</strong><br>Balochistan Minerals (Pvt) Ltd &bull; Karachi / Quetta, Pakistan</p>`;
+    }
+    if (val === 'lc') {
+      return `<p>Dear ${buyer},</p>`
+        + `<p>Regarding commercial settlement &amp; banking structure for <strong>${mineral}</strong> export from Pakistan:</p>`
+        + `<ul>`
+        + `<li><strong>Payment Instrument:</strong> 100% Irrevocable Letter of Credit (L/C at Sight) or SBP-compliant Advance TT terms</li>`
+        + `<li><strong>Advising Bank:</strong> Habib Bank Limited (HBL) / Meezan Bank, Karachi Corporate Branch</li>`
+        + `<li><strong>Inspection:</strong> Final weight &amp; quality certificate issued by SGS at port of loading</li>`
+        + `<li><strong>Shipping Terms:</strong> ${port} or CIF designated discharge port (Incoterms 2020)</li>`
+        + `</ul>`
+        + `<p>Please share your corporate billing entity and issuing bank details so we may issue our formal draft contract.</p>`
+        + `<p>Sincerely,<br><strong>Commercial Finance Desk</strong><br>Balochistan Minerals (Pvt) Ltd &bull; Web: https://balochistanminerals.com</p>`;
+    }
+    if (val === 'sample') {
+      return `<p>Dear ${buyer},</p>`
+        + `<p>We would be pleased to dispatch a sealed laboratory test sample of our <strong>${mineral}${grade}</strong> directly from our concession stockpiles to your assay lab.</p>`
+        + `<ul>`
+        + `<li><strong>Sample Lot:</strong> 5 kg – 25 kg sealed representative lump/crushed sample</li>`
+        + `<li><strong>Logistics:</strong> Dispatched via DHL Express / FedEx Priority with origin packing list</li>`
+        + `<li><strong>Indicative Basis:</strong> $${price} USD / MT (${port}) upon qualification</li>`
+        + `</ul>`
+        + `<p>Please confirm your recipient name, complete lab delivery address, and phone contact to schedule immediate dispatch.</p>`
+        + `<p>Sincerely,<br><strong>Export Commercial Desk</strong><br>Balochistan Minerals (Pvt) Ltd</p>`;
+    }
+    if (val === 'custom') {
+      return `<p>Dear ${buyer},</p><p>Thank you for reaching out to Balochistan Minerals (Pvt) Ltd regarding <strong>${mineral}</strong>.</p><p>[Enter your tailored message here]</p><p>Best regards,<br><strong>Export Commercial Desk</strong><br>Balochistan Minerals (Pvt) Ltd</p>`;
+    }
+    return `<p>Dear ${buyer},</p>`
+      + `<p>Thank you for contacting <strong>Balochistan Minerals (Pvt) Ltd</strong> regarding your inquiry for <strong>${mineral}</strong>.</p>`
+      + `<p>We are pleased to provide our current commercial indicative terms for ${qty}:</p>`
+      + `<ul>`
+      + `<li><strong>Commodity:</strong> ${mineral}${grade}</li>`
+      + `<li><strong>Delivery Terms:</strong> ${port}</li>`
+      + `<li><strong>Indicative Spot Rate:</strong> $${price} USD / MT</li>`
+      + `<li><strong>Packing:</strong> Bulk in vessel hold or 1.5 MT heavy-duty jumbo bags in 20ft containers</li>`
+      + `<li><strong>Quality Control:</strong> SGS / Alfred H. Knight sampling &amp; assay at load port prior to loading</li>`
+      + `</ul>`
+      + `<p>Please advise your target delivery schedule and discharge port so we may issue our formal Corporate Proforma Invoice.</p>`
+      + `<p>Sincerely,<br><strong>Export Commercial Desk</strong><br>Balochistan Minerals (Pvt) Ltd &bull; Karachi / Quetta, Pakistan</p>`;
+  }
+
+  function renderCorporateEmailPreview(subject, fromEmail, toEmail, ccEmail, bodyHtml) {
+    const ccBadge = ccEmail ? `<span class="badge bg-light text-secondary border font-monospace">CC: ${escapeHtml(ccEmail)}</span>` : '';
+    return `
+      <div class="d-flex align-items-center flex-wrap gap-1.5 mb-2.5 pb-2 border-bottom small" style="font-size: 0.72rem;">
+        <span class="badge bg-white text-dark border font-monospace">From: ${escapeHtml(fromEmail)}</span>
+        <span class="badge bg-white text-dark border font-monospace">To: ${escapeHtml(toEmail)}</span>
+        ${ccBadge}
+      </div>
+      <div style="max-width: 650px; margin: 0 auto; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(15,23,42,0.05);">
+        <div style="padding: 18px 22px; background: #0F172A; border-bottom: 3px solid #E65C1A; display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+          <div>
+            <div style="font-size: 14px; font-weight: 800; color: #FFFFFF; letter-spacing: 0.4px;">BALOCHISTAN MINERALS (PVT) LTD</div>
+            <div style="font-size: 10px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.8px; margin-top: 2px;">Commercial Export Desk &bull; Gwadar, KPT &amp; Port Qasim</div>
+          </div>
+          <span style="padding: 3px 8px; background: rgba(230,92,26,0.18); border: 1px solid #E65C1A; color: #E65C1A; font-size: 10px; font-weight: 700; border-radius: 4px; white-space: nowrap;">OFFICIAL B2B OFFER</span>
+        </div>
+        <div style="padding: 18px 22px; font-size: 13px; line-height: 1.6; color: #1E293B;" class="thread-rich-body">
+          <div style="font-weight: 700; font-size: 14px; color: #0F172A; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #F1F5F9;">${escapeHtml(subject)}</div>
+          ${bodyHtml}
+        </div>
+        <div style="padding: 16px 22px; background: #F8FAFC; border-top: 1px solid #E2E8F0;">
+          <div class="d-flex justify-content-between align-items-start gap-3 flex-wrap">
+            <div>
+              <div style="font-weight: 800; font-size: 11px; color: #0F172A; text-transform: uppercase;">Commercial Export Operations Desk</div>
+              <div style="font-size: 11px; font-weight: 700; color: #E65C1A;">Balochistan Minerals (Pvt) Ltd</div>
+              <div style="font-size: 10px; color: #64748B; margin-top: 4px; line-height: 1.45;">
+                SECP Registered &bull; Concessions: Muslim Bagh, Khuzdar &amp; Chagai<br>
+                Direct Desk: +92 334 8888104 &bull; Email: ${escapeHtml(fromEmail)}
+              </div>
+            </div>
+            <div style="padding: 6px 10px; background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 10px; color: #475569; line-height: 1.35;">
+              <strong style="color: #0F172A;">QUALITY ASSURANCE:</strong><br>
+              Verified by SGS / PCSIR / Alfred H Knight.
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function initReplyModals() {
+    const MAX_FILES = 10;
+    const MAX_FILE_BYTES = 10 * 1024 * 1024;
+    const MAX_TOTAL_BYTES = 20 * 1024 * 1024;
+
+    function fmtSize(bytes) {
+      if (bytes < 1024) return bytes + ' B';
+      if (bytes < 1048576) return Math.round(bytes / 1024) + ' KB';
+      return (bytes / 1048576).toFixed(1) + ' MB';
+    }
+
+    async function hydrateLeftContext(modal, inquiryId) {
+      if (modal.dataset.contextLoaded === '1' || !inquiryId) return;
+      modal.dataset.contextLoaded = '1';
+      try {
+        const res = await fetch('api-dossier.php?inquiry_id=' + inquiryId);
+        const data = await res.json();
+        if (!data || !data.success) return;
+
+        const msgs = Array.isArray(data.messages) ? data.messages : [];
+        const cntEl = modal.querySelector('[data-thread-count]');
+        if (cntEl) cntEl.textContent = String(msgs.length || 1);
+
+        const richPane = modal.querySelector('[data-pane="rich"]');
+        const textPane = modal.querySelector('[data-pane="text"]');
+        const threadPane = modal.querySelector('[data-pane="thread"]');
+
+        if (msgs.length > 0) {
+          const latestInbound = [...msgs].reverse().find(m => m.direction === 'inbound') || msgs[msgs.length - 1];
+          if (richPane && latestInbound.body_html) {
+            richPane.innerHTML = latestInbound.body_html;
+          }
+          if (textPane && latestInbound.body_text) {
+            textPane.innerHTML = `<div style="white-space: pre-wrap; word-break: break-word;">${escapeHtml(latestInbound.body_text)}</div>`;
+          }
+          if (threadPane) {
+            threadPane.innerHTML = msgs.map(m => {
+              const isIn = m.direction === 'inbound';
+              const badge = isIn
+                ? `<span class="thread-dir-pill thread-dir-inbound"><i class="bi bi-arrow-down-left"></i> Inbound</span>`
+                : `<span class="thread-dir-pill thread-dir-outbound"><i class="bi bi-arrow-up-right"></i> Desk Reply</span>`;
+              const body = m.body_html
+                ? `<div class="thread-rich-body">${m.body_html}</div>`
+                : `<div class="thread-body">${escapeHtml(m.body_text || '')}</div>`;
+              return `
+                <div class="thread-bubble ${isIn ? 'thread-bubble-inbound' : 'thread-bubble-outbound'} p-2.5 mb-2">
+                  <div class="thread-card-header mb-1.5 pb-1.5">
+                    <div class="d-flex align-items-center gap-1.5 flex-wrap thread-meta">${badge} <span class="text-secondary">${escapeHtml(m.from_email || '')}</span></div>
+                    <span class="text-muted font-monospace" style="font-size:0.66rem;">${escapeHtml(m.sent_at || '')}</span>
+                  </div>
+                  <div class="fw-bold text-dark mb-1.5" style="font-size: 0.78rem;">${escapeHtml(m.subject || '')}</div>
+                  ${body}
+                </div>
+              `;
+            }).join('');
+          }
+        }
+      } catch (err) {
+        // Keep server-rendered fallback silently on transient fetch errors
+      }
+    }
+
+    function setupReplyModal(modal) {
+      if (!modal || modal._replyEnhInitialized) return;
+      modal._replyEnhInitialized = true;
+
+      const inquiryId = modal.dataset.inquiryId;
+      const meta = {
+        buyerName: modal.dataset.buyerName || 'Buyer',
+        buyerEmail: modal.dataset.buyerEmail || '',
+        mineral: modal.dataset.mineral || '',
+        grade: modal.dataset.grade || '',
+        quantity: modal.dataset.quantity || '',
+        port: modal.dataset.port || 'FOB Karachi',
+        price: modal.dataset.price || '185.00',
+      };
+
+      const form = modal.querySelector('[data-reply-form]');
+      const editor = modal.querySelector('[data-rich-editor]');
+      const previewEl = modal.querySelector('[data-email-preview]');
+      const hiddenHtml = modal.querySelector('[data-reply-html-input]');
+      const hiddenText = modal.querySelector('[data-reply-text-input]');
+      const subjectInput = modal.querySelector('[data-subject-input]');
+      const fromSelect = modal.querySelector('[data-from-select]');
+      const toInput = modal.querySelector('input[name="to_email"]');
+      const smtpBadge = modal.querySelector('[data-smtp-badge]');
+      const draftBadge = modal.querySelector('[data-draft-badge]');
+      const tplSelect = modal.querySelector('[data-template-select]');
+      const ccInput = modal.querySelector('[data-cc-input]');
+      const bccInput = modal.querySelector('[data-bcc-input]');
+      const draftKey = 'bm_reply_draft_' + inquiryId;
+
+      function updateSmtpPill() {
+        if (!fromSelect || !smtpBadge) return;
+        const opt = fromSelect.options[fromSelect.selectedIndex];
+        const ready = opt && opt.dataset.smtpReady === '1';
+        smtpBadge.className = 'reply-smtp-pill ' + (ready ? 'is-ready' : 'is-sim');
+        smtpBadge.innerHTML = ready
+          ? '<i class="bi bi-shield-check"></i> SMTP Ready'
+          : '<i class="bi bi-journal-check"></i> Dossier Log Only (Set Mail Config for Live SMTP)';
+      }
+      if (fromSelect) {
+        fromSelect.addEventListener('change', updateSmtpPill);
+        updateSmtpPill();
+      }
+
+      // Left Panel View Switcher (Rich Email / Plain Text / Thread)
+      modal.querySelectorAll('[data-view-mode]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const mode = btn.dataset.viewMode;
+          modal.querySelectorAll('[data-view-mode]').forEach(b => b.classList.toggle('active', b === btn));
+          modal.querySelectorAll('[data-pane]').forEach(p => p.classList.toggle('d-none', p.dataset.pane !== mode));
+        });
+      });
+
+      // + CC / + BCC toggles
+      const ccBccRow = modal.querySelector('[data-cc-bcc-row]');
+      const ccCol = modal.querySelector('[data-cc-col]');
+      const bccCol = modal.querySelector('[data-bcc-col]');
+      modal.querySelector('[data-toggle-cc]')?.addEventListener('click', (e) => {
+        const opening = ccCol.classList.toggle('d-none') === false;
+        e.currentTarget.classList.toggle('is-open', opening);
+        ccBccRow.classList.toggle('d-none', ccCol.classList.contains('d-none') && bccCol.classList.contains('d-none'));
+        if (opening) ccInput?.focus();
+      });
+      modal.querySelector('[data-toggle-bcc]')?.addEventListener('click', (e) => {
+        const opening = bccCol.classList.toggle('d-none') === false;
+        e.currentTarget.classList.toggle('is-open', opening);
+        ccBccRow.classList.toggle('d-none', ccCol.classList.contains('d-none') && bccCol.classList.contains('d-none'));
+        if (opening) bccInput?.focus();
+      });
+
+      // Sync editor -> hidden inputs & localStorage draft
+      function syncFormPayload() {
+        if (editor && hiddenHtml) hiddenHtml.value = editor.innerHTML.trim();
+        if (editor && hiddenText) hiddenText.value = htmlFragmentToPlainText(editor);
+      }
+
+      function saveDraft() {
+        try {
+          const payload = {
+            subject: subjectInput?.value || '',
+            cc: ccInput?.value || '',
+            bcc: bccInput?.value || '',
+            html: editor?.innerHTML || '',
+            ts: Date.now()
+          };
+          localStorage.setItem(draftKey, JSON.stringify(payload));
+        } catch {}
+      }
+
+      // Check existing unsent draft
+      try {
+        const savedRaw = localStorage.getItem(draftKey);
+        if (savedRaw) {
+          const saved = JSON.parse(savedRaw);
+          if (saved && saved.html && editor && saved.html !== editor.dataset.defaultHtml) {
+            editor.innerHTML = saved.html;
+            editor.dataset.dirty = '1';
+            if (saved.subject && subjectInput) subjectInput.value = saved.subject;
+            if (saved.cc && ccInput) {
+              ccInput.value = saved.cc;
+              ccCol?.classList.remove('d-none');
+              ccBccRow?.classList.remove('d-none');
+              modal.querySelector('[data-toggle-cc]')?.classList.add('is-open');
+            }
+            if (saved.bcc && bccInput) {
+              bccInput.value = saved.bcc;
+              bccCol?.classList.remove('d-none');
+              ccBccRow?.classList.remove('d-none');
+              modal.querySelector('[data-toggle-bcc]')?.classList.add('is-open');
+            }
+            draftBadge?.classList.remove('d-none');
+            syncFormPayload();
+          }
+        }
+      } catch {}
+
+      modal.querySelector('[data-reset-draft]')?.addEventListener('click', () => {
+        try { localStorage.removeItem(draftKey); } catch {}
+        if (editor) {
+          editor.innerHTML = editor.dataset.defaultHtml || formatReplyTemplateHtml('quote', meta);
+          delete editor.dataset.dirty;
+        }
+        if (tplSelect) tplSelect.value = 'quote';
+        draftBadge?.classList.add('d-none');
+        syncFormPayload();
+      });
+
+      if (editor) {
+        editor.addEventListener('input', () => {
+          editor.dataset.dirty = '1';
+          syncFormPayload();
+          saveDraft();
+        });
+      }
+      subjectInput?.addEventListener('input', saveDraft);
+      ccInput?.addEventListener('input', saveDraft);
+      bccInput?.addEventListener('input', saveDraft);
+
+      // Rich Text Toolbar commands
+      modal.querySelectorAll('[data-cmd]').forEach((btn) => {
+        btn.addEventListener('mousedown', (e) => e.preventDefault());
+        btn.addEventListener('click', () => {
+          editor?.focus();
+          document.execCommand(btn.dataset.cmd, false, null);
+          editor.dataset.dirty = '1';
+          syncFormPayload();
+          saveDraft();
+        });
+      });
+
+      modal.querySelector('[data-insert-spec-table]')?.addEventListener('mousedown', (e) => e.preventDefault());
+      modal.querySelector('[data-insert-spec-table]')?.addEventListener('click', () => {
+        if (!editor) return;
+        editor.focus();
+        const tblHtml = `<table style="width:100%; border-collapse:collapse; margin:10px 0;">`
+          + `<thead><tr style="background:#F8FAFC;"><th style="border:1px solid #CBD5E1; padding:6px 8px; text-align:left;">Specification</th><th style="border:1px solid #CBD5E1; padding:6px 8px; text-align:left;">Offer Details</th></tr></thead>`
+          + `<tbody>`
+          + `<tr><td style="border:1px solid #CBD5E1; padding:5px 8px;"><strong>Commodity</strong></td><td style="border:1px solid #CBD5E1; padding:5px 8px;">${escapeHtml(meta.mineral)}${meta.grade ? ' (' + escapeHtml(meta.grade) + ')' : ''}</td></tr>`
+          + `<tr><td style="border:1px solid #CBD5E1; padding:5px 8px;"><strong>Quantity / Lot</strong></td><td style="border:1px solid #CBD5E1; padding:5px 8px;">${escapeHtml(meta.quantity)}</td></tr>`
+          + `<tr><td style="border:1px solid #CBD5E1; padding:5px 8px;"><strong>Delivery Terms</strong></td><td style="border:1px solid #CBD5E1; padding:5px 8px;">${escapeHtml(meta.port)} (Incoterms 2020)</td></tr>`
+          + `<tr><td style="border:1px solid #CBD5E1; padding:5px 8px;"><strong>Indicative Rate</strong></td><td style="border:1px solid #CBD5E1; padding:5px 8px;"><strong>$${escapeHtml(meta.price)} USD / MT</strong></td></tr>`
+          + `<tr><td style="border:1px solid #CBD5E1; padding:5px 8px;"><strong>Inspection</strong></td><td style="border:1px solid #CBD5E1; padding:5px 8px;">SGS / Alfred H. Knight at Load Port</td></tr>`
+          + `</tbody></table><p><br></p>`;
+        document.execCommand('insertHTML', false, tblHtml);
+        editor.dataset.dirty = '1';
+        syncFormPayload();
+        saveDraft();
+      });
+
+      modal.querySelector('[data-insert-quote]')?.addEventListener('mousedown', (e) => e.preventDefault());
+      modal.querySelector('[data-insert-quote]')?.addEventListener('click', () => {
+        if (!editor) return;
+        const textPane = modal.querySelector('[data-pane="text"]');
+        let snippet = (textPane?.innerText || '').trim().slice(0, 600);
+        if (snippet.length >= 600) snippet += '…';
+        if (!snippet) return;
+        editor.focus();
+        const qHtml = `<blockquote><strong>Original Inquiry from ${escapeHtml(meta.buyerName)}:</strong><br>${escapeHtml(snippet).replace(/\n/g, '<br>')}</blockquote><p><br></p>`;
+        document.execCommand('insertHTML', false, qHtml);
+        editor.dataset.dirty = '1';
+        syncFormPayload();
+        saveDraft();
+      });
+
+      // Write vs Preview Final Corporate Email tabs
+      modal.querySelectorAll('[data-compose-mode]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const isPreview = btn.dataset.composeMode === 'preview';
+          modal.querySelectorAll('[data-compose-mode]').forEach(b => b.classList.toggle('active', b === btn));
+          const fmtGroup = modal.querySelector('[data-format-buttons]');
+          if (fmtGroup) fmtGroup.style.visibility = isPreview ? 'hidden' : 'visible';
+          if (isPreview) {
+            syncFormPayload();
+            previewEl.innerHTML = renderCorporateEmailPreview(
+              subjectInput?.value || 'Commercial Quotation',
+              fromSelect?.value || 'sales@balochistanminerals.com',
+              toInput?.value || meta.buyerEmail,
+              ccInput?.value || '',
+              editor?.innerHTML || ''
+            );
+            editor.classList.add('d-none');
+            previewEl.classList.remove('d-none');
+          } else {
+            previewEl.classList.add('d-none');
+            editor.classList.remove('d-none');
+          }
+        });
+      });
+
+      // B2B Template Switcher with dirty guard
+      if (tplSelect) {
+        tplSelect.dataset.prevVal = tplSelect.value;
+        tplSelect.addEventListener('change', () => {
+          if (editor?.dataset.dirty === '1') {
+            if (!window.confirm('Replace your current edited message with the selected template?')) {
+              tplSelect.value = tplSelect.dataset.prevVal || 'quote';
+              return;
+            }
+          }
+          const html = formatReplyTemplateHtml(tplSelect.value, meta);
+          if (editor) {
+            editor.innerHTML = html;
+            delete editor.dataset.dirty;
+          }
+          tplSelect.dataset.prevVal = tplSelect.value;
+          syncFormPayload();
+          saveDraft();
+        });
+      }
+
+      // Multi-File Drag-and-Drop synced to native <input type="file">
+      const dropzone = modal.querySelector('[data-reply-dropzone]');
+      const fileInput = modal.querySelector('[data-reply-file-input]');
+      const attList = modal.querySelector('[data-reply-att-list]');
+      const attMeta = modal.querySelector('[data-att-meta]');
+      let filesArr = [];
+
+      function syncAttachmentInput() {
+        if (!fileInput || typeof DataTransfer === 'undefined') return;
+        const dt = new DataTransfer();
+        let totalBytes = 0;
+        filesArr.forEach((f) => {
+          dt.items.add(f);
+          totalBytes += f.size;
+        });
+        fileInput.files = dt.files;
+
+        if (attMeta) {
+          attMeta.textContent = filesArr.length > 0
+            ? `${filesArr.length} file${filesArr.length > 1 ? 's' : ''} (${fmtSize(totalBytes)} / 20 MB)`
+            : 'Drop files here • Max 10 files (20 MB)';
+        }
+        if (attList) {
+          attList.innerHTML = filesArr.map((f, idx) => `
+            <span class="reply-att-chip">
+              <i class="bi bi-file-earmark-check text-primary"></i>
+              <span class="text-truncate" style="max-width: 170px;">${escapeHtml(f.name)}</span>
+              <span class="text-muted">(${fmtSize(f.size)})</span>
+              <button type="button" class="reply-att-rm" data-rm-file="${idx}" aria-label="Remove attachment">&times;</button>
+            </span>
+          `).join('');
+          attList.querySelectorAll('[data-rm-file]').forEach((b) => {
+            b.addEventListener('click', () => {
+              filesArr.splice(Number(b.dataset.rmFile), 1);
+              syncAttachmentInput();
+            });
+          });
+        }
+      }
+
+      function addFiles(fileList) {
+        let total = filesArr.reduce((acc, f) => acc + f.size, 0);
+        const warnings = [];
+        Array.from(fileList || []).forEach((file) => {
+          if (filesArr.length >= MAX_FILES) {
+            warnings.push(`Maximum ${MAX_FILES} attachments allowed.`);
+            return;
+          }
+          if (file.size > MAX_FILE_BYTES) {
+            warnings.push(`"${file.name}" exceeds the 10 MB limit.`);
+            return;
+          }
+          if (total + file.size > MAX_TOTAL_BYTES) {
+            warnings.push(`Adding "${file.name}" exceeds the 20 MB total limit.`);
+            return;
+          }
+          if (!filesArr.some(f => f.name === file.name && f.size === file.size)) {
+            filesArr.push(file);
+            total += file.size;
+          }
+        });
+        if (warnings.length && window.BMNotify) {
+          window.BMNotify.toast('warning', 'Attachment Limit', warnings[0]);
+        }
+        syncAttachmentInput();
+      }
+
+      modal.querySelector('[data-pick-files]')?.addEventListener('click', () => fileInput?.click());
+      fileInput?.addEventListener('change', (ev) => {
+        if (ev.target.files && ev.target.files.length) addFiles(ev.target.files);
+      });
+      if (dropzone) {
+        ['dragenter', 'dragover'].forEach(evt => dropzone.addEventListener(evt, (e) => {
+          e.preventDefault();
+          dropzone.classList.add('is-dragover');
+        }));
+        ['dragleave', 'drop'].forEach(evt => dropzone.addEventListener(evt, (e) => {
+          e.preventDefault();
+          dropzone.classList.remove('is-dragover');
+        }));
+        dropzone.addEventListener('drop', (e) => {
+          if (e.dataTransfer?.files?.length) addFiles(e.dataTransfer.files);
+        });
+      }
+
+      // Pre-submit sync & clear draft
+      form?.addEventListener('submit', () => {
+        syncFormPayload();
+        syncAttachmentInput();
+        try { localStorage.removeItem(draftKey); } catch {}
+      });
+
+      syncFormPayload();
+    }
+
+    // Hydrate any modal opened during initial page load race
+    document.querySelectorAll('[data-reply-modal]').forEach((modal) => {
+      setupReplyModal(modal);
+      if (modal.classList.contains('show')) {
+        hydrateLeftContext(modal, modal.dataset.inquiryId);
+      }
+    });
+
+    const handleModalOpen = (e) => {
+      const modal = e.target;
+      if (modal && modal.matches('[data-reply-modal]')) {
+        setupReplyModal(modal);
+        hydrateLeftContext(modal, modal.dataset.inquiryId);
+      }
+    };
+    document.addEventListener('show.bs.modal', handleModalOpen);
+    document.addEventListener('shown.bs.modal', handleModalOpen);
+
+    window.BMReply = {
+      applyTemplate: (select, inquiryId) => {
+        const modal = document.getElementById('replyModal' + inquiryId);
+        if (!modal) return;
+        setupReplyModal(modal);
+        const tplSelect = modal.querySelector('[data-template-select]');
+        if (tplSelect) {
+          tplSelect.value = select.value;
+          tplSelect.dispatchEvent(new Event('change'));
+        }
+      }
+    };
+  }
+
   // Initialize once DOM is ready
   initEmailImageFallback();
   if (document.readyState === 'loading') {
@@ -537,6 +1078,7 @@
       initSidebar();
       initLiveClock();
       initResizableModals();
+      initReplyModals();
       initTooltips();
       initNotificationCenter();
     });
@@ -544,6 +1086,7 @@
     initSidebar();
     initLiveClock();
     initResizableModals();
+    initReplyModals();
     initTooltips();
     initNotificationCenter();
   }

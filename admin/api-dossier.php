@@ -160,15 +160,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $qty = (float)str_replace(',', '', $qm[1]);
     }
     $spotPrice = (float)($inquiry['spot_price_quoted'] ?? 0);
-    if ($spotPrice <= 0) {
-        $mLower = strtolower($inquiry['mineral_type'] ?? '');
-        $prefix = trim(substr($mLower, 0, 5));
-        if ($prefix !== '') {
-            $priceStmt = $pdo->prepare("SELECT price_high_usd FROM mineral_prices WHERE LOWER(mineral_name) LIKE ? LIMIT 1");
-            $priceStmt->execute(['%' . $prefix . '%']);
-            $priceRow = $priceStmt->fetch(PDO::FETCH_ASSOC);
-            $spotPrice = (float)($priceRow['price_high_usd'] ?? 0);
-        }
+    $benchmarkRow = function_exists('getMineralBenchmarkForType') ? getMineralBenchmarkForType($inquiry['mineral_type'] ?? '') : null;
+    if ($spotPrice <= 0 && $benchmarkRow) {
+        $spotPrice = (float)($benchmarkRow['price_high_usd'] ?? 0);
     }
     $estimatedDealUsd = ($qty > 0 && $spotPrice > 0) ? round($qty * $spotPrice) : null;
 
@@ -201,6 +195,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             'destination_port' => $inquiry['destination_port'] ?: 'FOB Karachi / CIF',
             'status' => $inquiry['status'],
             'spot_price_quoted' => $spotPrice,
+            'benchmark' => $benchmarkRow ? [
+                'grade' => $benchmarkRow['grade_name'] ?? '',
+                'purity' => $benchmarkRow['purity_spec'] ?? '',
+                'price_low' => (float)($benchmarkRow['price_low_usd'] ?? 0),
+                'price_high' => (float)($benchmarkRow['price_high_usd'] ?? 0),
+                'delivery' => $benchmarkRow['delivery_terms'] ?? 'FOB Karachi',
+            ] : null,
             'estimated_deal_usd' => $estimatedDealUsd,
             'internal_notes' => $inquiry['internal_notes'] ?? '',
             'message' => cleanEmailPlainText($inquiry['message'] ?? ''),

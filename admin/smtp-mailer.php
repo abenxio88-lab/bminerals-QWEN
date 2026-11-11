@@ -30,12 +30,14 @@ if (!defined('BM_SMTP_PASS')) {
  * @param string $subject Email subject line
  * @param string $bodyText Plain text message body
  * @param string|null $fromEmail Sender address (defaults to sales@balochistanminerals.com)
- * @param string|null $ccEmail Optional CC recipient
+ * @param string|null $ccEmail Optional CC recipient(s), comma-separated
  * @param array $attachments Array of file paths or document names to attach
  * @param int|null $inquiryId Associated inquiry ID for logging
+ * @param string|null $customBodyHtml Optional sanitized rich HTML inner body from composer
+ * @param string|null $bccEmail Optional BCC recipient(s), comma-separated
  * @return array ['success' => bool, 'message' => string, 'simulated' => bool]
  */
-function sendHostingerMail($toEmail, $subject, $bodyText, $fromEmail = null, $ccEmail = null, $attachments = [], $inquiryId = null) {
+function sendHostingerMail($toEmail, $subject, $bodyText, $fromEmail = null, $ccEmail = null, $attachments = [], $inquiryId = null, $customBodyHtml = null, $bccEmail = null) {
     $host = defined('BM_SMTP_HOST') ? BM_SMTP_HOST : 'smtp.hostinger.com';
     $port = defined('BM_SMTP_PORT') ? (int)BM_SMTP_PORT : 465;
     $defaultUser = defined('BM_SMTP_USER') ? BM_SMTP_USER : 'sales@balochistanminerals.com';
@@ -61,8 +63,23 @@ function sendHostingerMail($toEmail, $subject, $bodyText, $fromEmail = null, $cc
     }
     $fromName = 'Balochistan Minerals (Pvt) Ltd — Commercial Export Desk';
 
+    // Parse valid CC / BCC email lists cleanly
+    $parseEmailList = function ($raw) {
+        $valid = [];
+        foreach (preg_split('/[\s,;]+/', (string)$raw, -1, PREG_SPLIT_NO_EMPTY) as $addr) {
+            $clean = filter_var(trim($addr), FILTER_VALIDATE_EMAIL);
+            if ($clean) {
+                $valid[] = $clean;
+            }
+        }
+        return array_values(array_unique($valid));
+    };
+    $ccList  = $parseEmailList($ccEmail);
+    $bccList = $parseEmailList($bccEmail);
+    $ccHeaderStr = !empty($ccList) ? implode(', ', $ccList) : null;
+
     // Generate HTML version with corporate styling
-    $bodyHtml = buildCorporateEmailHtml($subject, $bodyText, $fromEmail);
+    $bodyHtml = buildCorporateEmailHtml($subject, $bodyText, $fromEmail, $customBodyHtml);
     $msgId = '<bm-' . uniqid() . '.' . time() . '@balochistanminerals.com>';
 
     // Normalize attachments (supports structured metadata arrays or raw filesystem paths)
@@ -106,7 +123,7 @@ function sendHostingerMail($toEmail, $subject, $bodyText, $fromEmail = null, $cc
                 (inquiry_id, direction, from_email, to_email, cc_email, subject, body_text, body_html, attachments, status, message_id)
                 VALUES (?, 'outbound', ?, ?, ?, ?, ?, ?, ?, 'Sent', ?)");
             $stmt->execute([
-                $inquiryId, $fromEmail, $toEmail, $ccEmail, $subject, $bodyText, $bodyHtml, $attachmentMetaJson, $msgId
+                $inquiryId, $fromEmail, $toEmail, $ccHeaderStr, $subject, $bodyText, $bodyHtml, $attachmentMetaJson, $msgId
             ]);
             $insertedMsgId = (int)$pdo->lastInsertId();
         } catch (Exception $e) {
@@ -213,9 +230,13 @@ function sendHostingerMail($toEmail, $subject, $bodyText, $fromEmail = null, $cc
         return ['success' => false, 'error' => "RCPT TO rejected: $rcptRes"];
     }
 
-    // Optional CC recipient
-    if (!empty($ccEmail)) {
-        $sendCommand("RCPT TO: <$ccEmail>");
+    // Optional CC & BCC recipients (BCC omitted from email headers below)
+    foreach ($ccList as $ccAddr) {
+        $sendCommand("RCPT TO: <$ccAddr>");
+        $getResponse();
+    }
+    foreach ($bccList as $bccAddr) {
+        $sendCommand("RCPT TO: <$bccAddr>");
         $getResponse();
     }
 
@@ -261,8 +282,8 @@ function sendHostingerMail($toEmail, $subject, $bodyText, $fromEmail = null, $cc
         "X-Mailer: Balochistan Minerals Trade Desk SMTP Engine"
     ];
 
-    if (!empty($ccEmail)) {
-        $headers[] = "Cc: <$ccEmail>";
+    if (!empty($ccHeaderStr)) {
+        $headers[] = "Cc: $ccHeaderStr";
     }
 
     $altBody  = "--" . $altBoundary . "\r\n";
@@ -325,13 +346,26 @@ function sendHostingerMail($toEmail, $subject, $bodyText, $fromEmail = null, $cc
 /**
  * Builds high-converting HTML corporate email with official signature
  */
-function buildCorporateEmailHtml($subject, $bodyText, $fromEmail) {
-    $paragraphs = explode("\n\n", htmlspecialchars($bodyText));
+function buildCorporateEmailHtml($subject, $bodyText, $fromEmail, $customBodyHtml = null) {
     $htmlBody = '';
-    foreach ($paragraphs as $p) {
-        $trimmed = trim($p);
-        if (empty($trimmed)) continue;
-        $htmlBody .= '<p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #1E293B;">' . nl2br($trimmed) . '</p>';
+    if (is_string($customBodyHtml) && trim($customBodyHtml) !== '' && function_exists('sanitizeAndResolveEmailHtml')) {
+        $sanitizedCustom = sanitizeAndResolveEmailHtml($customBodyHtml, 0, [], false);
+        if (trim(strip_tags($sanitizedCustom, '<table><tr><td><th><ul><ol><li><blockquote><hr>')) !== '') {
+            $htmlBody = '<div style="font-size: 14px; line-height: 1.65; color: #1E293B;">' . $sanitizedCustom . '</div>';
+        }
+    }
+
+    if ($htmlBody === '') {
+        if (function_exists('formatPlainTextAsCleanHtml')) {
+            $htmlBody = '<div style="font-size: 14px; line-height: 1.65; color: #1E293B;">' . formatPlainTextAsCleanHtml($bodyText) . '</div>';
+        } else {
+            $paragraphs = explode("\n\n", htmlspecialchars($bodyText));
+            foreach ($paragraphs as $p) {
+                $trimmed = trim($p);
+                if (empty($trimmed)) continue;
+                $htmlBody .= '<p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #1E293B;">' . nl2br($trimmed) . '</p>';
+            }
+        }
     }
 
     return '<!DOCTYPE html>

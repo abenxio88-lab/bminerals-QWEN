@@ -580,7 +580,7 @@ function sanitizeEmailInlineCss($styleRaw) {
         'margin-bottom', 'margin-left', 'margin-right', 'padding', 'padding-top',
         'padding-bottom', 'padding-left', 'padding-right', 'border', 'border-top',
         'border-bottom', 'border-left', 'border-right', 'border-collapse',
-        'border-radius', 'font-size', 'vertical-align', 'display',
+        'border-radius', 'font-size', 'vertical-align', 'display', 'width', 'max-width',
     ];
     $parts = explode(';', (string)$styleRaw);
     $kept  = [];
@@ -599,6 +599,9 @@ function sanitizeEmailInlineCss($styleRaw) {
             continue;
         }
         if ($prop === 'display' && !in_array(strtolower($val), ['inline', 'inline-block', 'block'], true)) {
+            continue;
+        }
+        if (($prop === 'width' || $prop === 'max-width') && !preg_match('/^(\d+(?:\.\d+)?(px|%)|auto)$/i', $val)) {
             continue;
         }
         $kept[] = $prop . ': ' . $val;

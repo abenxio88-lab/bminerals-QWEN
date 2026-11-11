@@ -35,11 +35,19 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && $pdo !== null) {
             $_SESSION['bm_flash_msg'] = 'Inquiry #' . $id . ' updated successfully.';
             $_SESSION['bm_flash_type'] = 'success';
         } elseif ($action === 'send_reply') {
-            $id          = (int)($_POST['inquiry_id'] ?? 0);
-            $toEmail     = filter_var(trim($_POST['to_email'] ?? ''), FILTER_SANITIZE_EMAIL);
-            $fromEmail   = cleanInput($_POST['from_email'] ?? 'sales@balochistanminerals.com');
-            $subject     = cleanInput($_POST['subject'] ?? 'Quotation & Export Inquiry Follow-up');
-            $replyBody   = cleanInput($_POST['reply_body'] ?? '');
+            $id            = (int)($_POST['inquiry_id'] ?? 0);
+            $toEmail       = filter_var(trim($_POST['to_email'] ?? ''), FILTER_SANITIZE_EMAIL);
+            $fromEmail     = cleanInput($_POST['from_email'] ?? 'sales@balochistanminerals.com');
+            $ccEmail       = trim((string)($_POST['cc_email'] ?? ''));
+            $bccEmail      = trim((string)($_POST['bcc_email'] ?? ''));
+            $subject       = cleanInput($_POST['subject'] ?? 'Quotation & Export Inquiry Follow-up');
+            $replyBody     = trim((string)($_POST['reply_body'] ?? ''));
+            $replyHtmlBody = trim((string)($_POST['reply_html_body'] ?? ''));
+            $autoLog       = !isset($_POST['auto_log_submitted']) || !empty($_POST['auto_log']);
+
+            if ($replyBody === '' && $replyHtmlBody !== '') {
+                $replyBody = trim(html_entity_decode(strip_tags(str_ireplace(['<br>', '<br/>', '<br />', '</p>', '</div>', '</li>'], "\n", $replyHtmlBody)), ENT_QUOTES, 'UTF-8'));
+            }
 
             $uploadRes = handleUploadedAttachments('attachments');
             if (!empty($uploadRes['errors'])) {
@@ -49,19 +57,20 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && $pdo !== null) {
                 $attachedFiles = $uploadRes['files'];
                 $attNote = !empty($attachedFiles) ? (" [Attachments: " . implode(', ', array_column($attachedFiles, 'name')) . "]") : '';
 
-                // Log email reply into internal notes / timeline
-                $logEntry = "[" . date('M d, Y H:i') . "] Email sent from " . $fromEmail . " to " . $toEmail . ":\nSubject: " . $subject . $attNote . "\n" . $replyBody . "\n-------------------\n";
+                if ($autoLog && $id > 0) {
+                    $ccNote = $ccEmail !== '' ? " (CC: $ccEmail)" : '';
+                    $logEntry = "[" . date('M d, Y H:i') . "] Email sent from " . $fromEmail . " to " . $toEmail . $ccNote . ":\nSubject: " . $subject . $attNote . "\n" . $replyBody . "\n-------------------\n";
+                    $stmt = $pdo->prepare('UPDATE inquiries SET internal_notes = CONCAT(?, COALESCE(internal_notes, "")), status = CASE WHEN status = "New" THEN "Contacted" ELSE status END WHERE id = ?');
+                    $stmt->execute([$logEntry, $id]);
+                }
 
-                $stmt = $pdo->prepare('UPDATE inquiries SET internal_notes = CONCAT(?, COALESCE(internal_notes, "")), status = CASE WHEN status = "New" THEN "Contacted" ELSE status END WHERE id = ?');
-                $stmt->execute([$logEntry, $id]);
-
-                // Dispatch via Hostinger SMTP engine
-                $sendRes = sendHostingerMail($toEmail, $subject, $replyBody, $fromEmail, null, $attachedFiles, $id);
+                // Dispatch via Hostinger SMTP engine (supports CC, BCC, and formatted HTML body)
+                $sendRes = sendHostingerMail($toEmail, $subject, $replyBody, $fromEmail, $ccEmail !== '' ? $ccEmail : null, $attachedFiles, $id, $replyHtmlBody !== '' ? $replyHtmlBody : null, $bccEmail !== '' ? $bccEmail : null);
                 if ($sendRes['success']) {
-                    $_SESSION['bm_flash_msg'] = 'Official email reply dispatched to ' . $toEmail . ' and logged to Buyer Dossier #' . $id . '.';
+                    $_SESSION['bm_flash_msg'] = 'Official email reply dispatched to ' . $toEmail . ($autoLog ? ' and logged to Buyer Dossier #' . $id . '.' : '.');
                     $_SESSION['bm_flash_type'] = 'success';
                 } else {
-                    $_SESSION['bm_flash_msg'] = 'Reply logged to Dossier #' . $id . ', but live SMTP reported: ' . $sendRes['error'];
+                    $_SESSION['bm_flash_msg'] = ($autoLog ? 'Reply logged to Dossier #' . $id . ', but live SMTP reported: ' : 'SMTP reported: ') . $sendRes['error'];
                     $_SESSION['bm_flash_type'] = 'warning';
                 }
             }
@@ -1497,19 +1506,8 @@ function getBallInCourtStatus($row) {
     }
 
     function loadReplyTemplate(select, inquiryId) {
-      const val = select.value;
-      const textarea = document.getElementById('replyBody' + inquiryId);
-      if (!textarea) return;
-
-      if (val === 'assay') {
-        textarea.value = "Dear Buyer,\n\nIn reference to your technical inquiry, we have verified that our current stockpiles conform to your purity requirements.\n\n• Chemical Assay: Sampled & verified by SGS Pakistan at Gwadar Port / KPT / Port Qasim\n• Certificate of Analysis (COA): Available upon final lot inspection and contract signing\n• Moisture & Sizing: Guaranteed export grade per contract terms\n\nPlease let us know if you require a formal sample dispatch or full chemical spec sheet.\n\nSincerely,\nTechnical & Quality Control Desk\nBalochistan Minerals (Pvt) Ltd\nWeb: https://balochistanminerals.com";
-      } else if (val === 'lc') {
-        textarea.value = "Dear Buyer,\n\nRegarding commercial payment terms for international export from Pakistan:\n\n• Payment Instrument: 100% Irrevocable Letter of Credit (L/C at Sight) or SBP-approved TT terms\n• Advising Bank: Habib Bank Limited (HBL) / Meezan Bank, Karachi Corporate Branch\n• Inspection: Final weight and quality certificate issued by SGS at port of loading\n• Shipping Terms: FOB Gwadar / Karachi (KPT / Port Qasim) or CIF designated discharge port (Incoterms 2020)\n\nPlease provide your corporate details and issuing bank name to initiate our formal draft contract.\n\nSincerely,\nCommercial Finance Desk\nBalochistan Minerals (Pvt) Ltd\nWeb: https://balochistanminerals.com";
-      } else if (val === 'custom') {
-        textarea.value = "Dear Buyer,\n\nThank you for reaching out to Balochistan Minerals (Pvt) Ltd.\n\n[Please enter your custom message here]\n\nBest regards,\nExport Commercial Desk\nBalochistan Minerals (Pvt) Ltd\nWeb: https://balochistanminerals.com";
-      } else {
-        // default quote
-        textarea.value = textarea.defaultValue;
+      if (window.BMReply && typeof window.BMReply.applyTemplate === 'function') {
+        window.BMReply.applyTemplate(select, inquiryId);
       }
     }
 

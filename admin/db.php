@@ -134,6 +134,47 @@ function getConfiguredMailboxes() {
 }
 
 /**
+ * Matches an inquiry mineral name against active mineral_prices benchmarks cleanly.
+ */
+function getMineralBenchmarkForType($mineralType) {
+    static $cachedRows = null;
+    if ($cachedRows === null) {
+        $cachedRows = [];
+        $pdo = getDB();
+        if ($pdo) {
+            try {
+                $cachedRows = $pdo->query("SELECT mineral_name, grade_name, purity_spec, price_low_usd, price_high_usd, unit, delivery_terms FROM mineral_prices WHERE is_active = 1 ORDER BY sort_order ASC")->fetchAll(PDO::FETCH_ASSOC);
+            } catch (Exception $e) {
+                $cachedRows = [];
+            }
+        }
+    }
+
+    $needle = strtolower(trim((string)$mineralType));
+    if ($needle !== '' && !empty($cachedRows)) {
+        // 1. Exact or strong substring match
+        foreach ($cachedRows as $r) {
+            $m = strtolower(trim((string)($r['mineral_name'] ?? '')));
+            if ($m !== '' && ($m === $needle || strpos($needle, $m) !== false || strpos($m, $needle) !== false)) {
+                return $r;
+            }
+        }
+        // 2. First keyword prefix match (e.g. "Marble (Balochistan & Iranian)" -> "Marble")
+        $firstWord = preg_split('/[\s\(,&\/]+/', $needle)[0] ?? '';
+        if (strlen($firstWord) >= 4) {
+            foreach ($cachedRows as $r) {
+                $m = strtolower(trim((string)($r['mineral_name'] ?? '')));
+                if ($m !== '' && strpos($m, $firstWord) !== false) {
+                    return $r;
+                }
+            }
+        }
+    }
+
+    return null;
+}
+
+/**
  * Ensures the persistent admin_notifications table exists.
  */
 function ensureNotificationsTable($pdo) {

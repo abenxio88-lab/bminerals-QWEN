@@ -108,8 +108,8 @@
   color: var(--primary-gold-400);
   margin-bottom: 0.75rem;
   padding: 0.4rem 1rem;
-  background: rgba(230, 92, 26, 0.1);
-  border: 1px solid rgba(230, 92, 26, 0.3);
+  background: transparent;
+  border: 1px solid rgba(230, 92, 26, 0.45);
 }
 
 .route-overview__title {
@@ -265,8 +265,7 @@
 /* Network Map Section */
 .network-map {
   padding: 4rem var(--section-padding-x) 4.5rem;
-  background:
-    linear-gradient(180deg, #f8faf8 0%, #ffffff 100%);
+  background: linear-gradient(180deg, #f8faf8 0%, #ffffff 100%);
 }
 
 .network-map__container {
@@ -298,8 +297,7 @@
   gap: 1rem;
   padding: clamp(0.9rem, 2vw, 1.3rem);
   overflow: hidden;
-  background:
-    linear-gradient(180deg, #ffffff 0%, #f4f7f4 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #f4f7f4 100%);
   border: 1px solid rgba(15, 31, 58, 0.12);
   box-shadow: 0 30px 80px rgba(15, 31, 58, 0.1);
 }
@@ -323,7 +321,8 @@
   min-height: 520px;
   overflow: hidden;
   background:
-    linear-gradient(180deg, #ffffff 0%, #f6fbff 100%);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(246, 251, 255, 0.72) 100%),
+    url("../../images/warehouse/map-bg.avif") center / cover no-repeat;
   border: 1px solid rgba(15, 31, 58, 0.11);
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.86),
@@ -348,7 +347,7 @@
 }
 
 .corridor-frame {
-  fill: rgba(255, 255, 255, 0.62);
+  fill: rgba(255, 255, 255, 0.42);
   stroke: rgba(15, 31, 58, 0.08);
 }
 
@@ -420,32 +419,32 @@
 
 .corridor-hub__title {
   fill: var(--navy-950);
-  font-size: 15px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
 }
 
 .corridor-hub__meta {
-  fill: rgba(47, 58, 64, 0.6);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  fill: rgba(47, 58, 64, 0.65);
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
 }
 
 .corridor-node__plate {
-  fill: #ffffff;
-  stroke: rgba(212, 90, 21, 0.2);
+  fill: rgba(255, 255, 255, 0.96);
+  stroke: rgba(212, 90, 21, 0.24);
   stroke-width: 1.2;
 }
 
 .corridor-node__plate--port {
-  stroke: rgba(44, 94, 143, 0.22);
+  stroke: rgba(44, 94, 143, 0.26);
 }
 
 .corridor-node__dot {
   fill: var(--primary-gold-500);
   stroke: #ffffff;
-  stroke-width: 3;
+  stroke-width: 1.5;
 }
 
 .corridor-node--port .corridor-node__dot {
@@ -461,27 +460,27 @@
 
 .corridor-node__label {
   fill: var(--navy-950);
-  font-size: 11.5px;
-  font-weight: 800;
-  letter-spacing: 0.035em;
-}
-
-.corridor-node__meta {
-  fill: rgba(47, 58, 64, 0.62);
-  font-size: 8px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 700;
   letter-spacing: 0.04em;
 }
 
+.corridor-node__meta {
+  fill: rgba(47, 58, 64, 0.72);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
 .corridor-map-label {
-  fill: rgba(15, 31, 58, 0.34);
+  fill: rgba(15, 31, 58, 0.56);
   font-size: 10px;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.14em;
 }
 
 .corridor-map-label--small {
-  fill: rgba(15, 31, 58, 0.48);
+  fill: rgba(15, 31, 58, 0.64);
   font-size: 9px;
 }
 
@@ -901,9 +900,7 @@
   isolation: isolate;
   padding: clamp(4rem, 7vw, 6.5rem) var(--section-padding-x);
   overflow: hidden;
-  background:
-    radial-gradient(circle at 82% 18%, rgba(230, 92, 26, 0.12), transparent 30%),
-    linear-gradient(135deg, #0b1726 0%, #132235 58%, #101923 100%);
+  background: #070b12;
   color: #ffffff;
 }
 
@@ -913,9 +910,12 @@
   inset: 0;
   z-index: -1;
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.055), transparent 36%),
-    linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.035) 100%);
-  opacity: 0.62;
+    radial-gradient(circle at 82% 18%, rgba(230, 92, 26, 0.14), transparent 34%),
+    linear-gradient(180deg, rgba(5, 8, 13, 0.84) 0%, rgba(7, 11, 18, 0.64) 50%, rgba(5, 8, 13, 0.88) 100%),
+    linear-gradient(90deg, rgba(5, 8, 13, 0.78) 0%, rgba(5, 8, 13, 0.48) 55%, rgba(5, 8, 13, 0.76) 100%),
+    url("../../images/warehouse/shipment-proof-buyer-bg.avif") center / cover no-repeat;
+  opacity: 0.92;
+  pointer-events: none;
 }
 
 .export-documents__container {
@@ -936,8 +936,8 @@
   width: fit-content;
   padding: 0.42rem 0.85rem;
   color: var(--primary-gold-400);
-  background: rgba(230, 92, 26, 0.12);
-  border: 1px solid rgba(230, 92, 26, 0.28);
+  background: transparent;
+  border: 1px solid rgba(230, 92, 26, 0.42);
   font-family: var(--font-ui);
   font-size: 0.68rem;
   font-weight: 800;
@@ -1081,13 +1081,12 @@
   min-height: 168px;
   padding: clamp(1.05rem, 2.2vw, 1.8rem);
   overflow: hidden;
-  color: #f5f0e8;
+  color: #0f1f3a;
   text-decoration: none;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.045));
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  transition: border-color 0.28s ease, transform 0.28s ease, background-color 0.28s ease;
+  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 18px 40px rgba(7, 15, 28, 0.24);
+  transition: border-color 0.28s ease, transform 0.28s ease, box-shadow 0.28s ease;
 }
 
 .export-document-card::before {
@@ -1096,7 +1095,8 @@
   inset: 0 auto 0 0;
   width: 4px;
   background: var(--primary-gold-500);
-  opacity: 0.85;
+  opacity: 0.95;
+  z-index: 2;
 }
 
 .export-document-card::after {
@@ -1105,16 +1105,81 @@
   inset: 1rem 1rem auto auto;
   width: 92px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(245, 240, 232, 0.28));
+  background: linear-gradient(90deg, transparent, rgba(15, 31, 58, 0.16));
+  z-index: 2;
+}
+
+.export-document-card__media {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.export-document-card__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    #ffffff 0%,
+    rgba(255, 255, 255, 0.85) 38%,
+    rgba(255, 255, 255, 0.08) 70%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.export-document-card__image {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 56%;
+  max-width: 440px;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  opacity: 0.94;
+  filter: contrast(1.08) saturate(1.12);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.34) 26%,
+    rgba(0, 0, 0, 0.96) 78%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.34) 26%,
+    rgba(0, 0, 0, 0.96) 78%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  transition: opacity 0.4s var(--ease-smooth), transform 0.5s var(--ease-smooth);
+}
+
+.export-document-card > *:not(.export-document-card__media) {
+  position: relative;
+  z-index: 2;
 }
 
 .export-document-card:hover,
 .export-document-card:focus-visible {
-  color: #ffffff;
-  border-color: rgba(242, 106, 33, 0.42);
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.145), rgba(255, 255, 255, 0.064));
+  color: #0f1f3a;
+  border-color: rgba(242, 106, 33, 0.55);
+  box-shadow: 0 22px 48px rgba(7, 15, 28, 0.34);
   transform: translateY(-2px);
+}
+
+@media (min-width: 769px) {
+  .export-document-card:hover .export-document-card__image {
+    opacity: 0.96;
+    transform: scale(1.03);
+  }
 }
 
 .export-document-card:active {
@@ -1122,7 +1187,7 @@
 }
 
 .export-document-card__index {
-  color: rgba(245, 240, 232, 0.4);
+  color: rgba(15, 31, 58, 0.22);
   font-family: var(--font-heading);
   font-size: clamp(1.25rem, 2.3vw, 1.95rem);
   font-weight: 700;
@@ -1134,9 +1199,9 @@
   place-items: center;
   width: 3.65rem;
   height: 3.65rem;
-  color: var(--primary-gold-400);
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.13);
+  color: var(--primary-gold-500);
+  background: rgba(15, 31, 58, 0.045);
+  border: 1px solid rgba(15, 31, 58, 0.11);
 }
 
 .export-document-card__body {
@@ -1145,7 +1210,7 @@
 }
 
 .export-document-card__body strong {
-  color: #ffffff;
+  color: #0f1f3a;
   font-family: var(--font-heading);
   font-size: clamp(1.08rem, 1.7vw, 1.62rem);
   font-weight: 600;
@@ -1154,7 +1219,7 @@
 }
 
 .export-document-card__body small {
-  color: rgba(245, 240, 232, 0.62);
+  color: #4a5660;
   font-family: var(--font-ui);
   font-size: 0.68rem;
   font-weight: 800;
@@ -1169,8 +1234,9 @@
   min-height: 2.45rem;
   padding: 0.68rem 0.9rem;
   color: #ffffff;
-  background: rgba(230, 92, 26, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(230, 92, 26, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 6px 18px rgba(15, 31, 58, 0.18);
   font-family: var(--font-ui);
   font-size: 0.64rem;
   font-weight: 800;
@@ -1180,11 +1246,11 @@
 }
 
 .export-document-card--lading::before {
-  background: #95b8d4;
+  background: #2c5e8f;
 }
 
 .export-document-card--lading .export-document-card__icon {
-  color: #b9d6eb;
+  color: #1e3a5f;
 }
 
 .capacity-section {
