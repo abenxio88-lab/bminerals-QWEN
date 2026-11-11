@@ -121,6 +121,7 @@ jobs:
             **/tailwind.config.js
             **/*.md
             **/*.sql
+            **/*.zip
             **/.lighthouserc.json
             product-metallic-navbar.png
             products-mobile-industrial-audit.png
@@ -175,6 +176,7 @@ jobs:
             **/tailwind.config.js
             **/*.md
             **/*.sql
+            **/*.zip
             **/.lighthouserc.json
             product-metallic-navbar.png
             products-mobile-industrial-audit.png
@@ -227,6 +229,7 @@ jobs:
             **/tailwind.config.js
             **/*.md
             **/*.sql
+            **/*.zip
             **/.lighthouserc.json
             product-metallic-navbar.png
             products-mobile-industrial-audit.png

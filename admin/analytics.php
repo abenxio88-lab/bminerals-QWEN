@@ -303,6 +303,10 @@ $conversionRate = $totalInquiries > 0 ? round((($statusCounts['Contract Signed']
         </a>
 
         <div class="sidebar-section-title">Logistics & Trade Operations</div>
+        <a href="deals.php" class="sidebar-link">
+          <div><i class="bi bi-shield-check"></i> Deals &amp; Evidence Vault</div>
+          <span class="badge-sidebar-intel">VAULT</span>
+        </a>
         <a href="stockpiles.php" class="sidebar-link">
           <div><i class="bi bi-boxes"></i> Stockpiles & Shipments</div>
         </a>

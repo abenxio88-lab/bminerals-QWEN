@@ -896,6 +896,10 @@ function getBallInCourtStatus($row) {
         </a>
 
         <div class="sidebar-section-title">Logistics & Trade Operations</div>
+        <a href="deals.php" class="sidebar-link">
+          <div><i class="bi bi-shield-check"></i> Deals &amp; Evidence Vault</div>
+          <span class="badge-sidebar-intel">VAULT</span>
+        </a>
         <a href="stockpiles.php" class="sidebar-link">
           <div><i class="bi bi-boxes"></i> Stockpiles & Shipments</div>
         </a>
@@ -1910,6 +1914,8 @@ function getBallInCourtStatus($row) {
         // Quick links
         document.getElementById('dossierWaBtn').href = inq.wa_url || '#';
         document.getElementById('dossierQuoteBtn').href = 'generate-quote.php?id=' + inq.id;
+        const dealBtn = document.getElementById('dossierDealBtn');
+        if (dealBtn) dealBtn.href = 'deals.php?from_inquiry=' + inq.id;
         document.getElementById('dossierStageText').textContent = inq.status;
         const fullReplyBtn = document.getElementById('dossierFullReplyBtn');
         if (fullReplyBtn) {
@@ -2192,6 +2198,9 @@ function getBallInCourtStatus($row) {
           </a>
           <a href="#" id="dossierQuoteBtn" target="_blank" class="btn btn-sm btn-outline-dark dossier-action-btn flex-fill" style="background: #FFFFFF; color: #0F172A; border-color: #CBD5E1;">
             <i class="bi bi-file-earmark-pdf"></i> PDF Quote
+          </a>
+          <a href="#" id="dossierDealBtn" target="_blank" class="btn btn-sm btn-warning fw-bold dossier-action-btn flex-fill" style="color: #0F172A;">
+            <i class="bi bi-shield-plus"></i> Convert to Deal
           </a>
           <div class="dropdown flex-fill">
             <button class="btn btn-sm btn-outline-secondary dropdown-toggle w-100 dossier-action-btn" type="button" data-bs-toggle="dropdown" style="background: #FFFFFF; color: #0F172A; border-color: #CBD5E1;">

@@ -9,6 +9,7 @@ header('X-Content-Type-Options: nosniff');
 
 require_once __DIR__ . '/../admin/db.php';
 require_once __DIR__ . '/../admin/flag-helper.php';
+require_once __DIR__ . '/../admin/deal-helpers.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -51,6 +52,31 @@ if ($pdo !== null) {
     }
 }
 
+// Resolve mineral-specific verified public COA if uploaded into Vault, else static summary
+$downloadUrl = 'documents/Balochistan_Minerals_Assay_Summary.html';
+if ($pdo !== null) {
+    try {
+        ensureDealVaultSchema($pdo);
+        $term = '%' . preg_replace('/[^a-zA-Z0-9 ]+/', '', trim($mineral)) . '%';
+        $pubStmt = $pdo->prepare("SELECT dd.id
+            FROM `deal_documents` dd
+            JOIN `deals` d ON d.id = dd.deal_id
+            WHERE dd.visibility = 'public_sample'
+              AND dd.doc_status != 'Superseded'
+              AND dd.doc_category IN ('coa_pdf', 'weight_moisture_pdf', 'general_evidence')
+              AND (d.commodity LIKE ? OR dd.title LIKE ?)
+            ORDER BY (dd.doc_status = 'Verified Final') DESC, dd.id DESC
+            LIMIT 1");
+        $pubStmt->execute([$term, $term]);
+        $pubDocId = (int)$pubStmt->fetchColumn();
+        if ($pubDocId > 0) {
+            $downloadUrl = 'admin/api-vault-file.php?public_doc_id=' . $pubDocId;
+        }
+    } catch (Exception $e) {
+        error_log("Assay sample routing note: " . $e->getMessage());
+    }
+}
+
 // Generate WhatsApp connection to owner
 $waOwnerMsg = "Hello Balochistan Minerals, I have just downloaded the official Certificate of Analysis (COA) for " . $mineral . " on your website. My name is " . $name . ($company ? " (" . $company . ")" : "") . ". I would like to discuss current FOB Karachi stockpiles and pricing.";
 $waUrl = 'https://wa.me/923348888104?text=' . urlencode($waOwnerMsg);
@@ -58,6 +84,6 @@ $waUrl = 'https://wa.me/923348888104?text=' . urlencode($waOwnerMsg);
 echo json_encode([
     'success'      => true,
     'message'      => 'Assay certificate unlocked successfully.',
-    'download_url' => 'documents/Balochistan_Minerals_Assay_Summary.html',
+    'download_url' => $downloadUrl,
     'whatsapp_url' => $waUrl
 ]);

@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="output.css?v=5c668be295b3">
+  <link rel="stylesheet" href="output.css?v=2dcc23be2aed">
   <style>
     :root {
       --brand-navy: #0F172A;
@@ -98,12 +98,13 @@
   <div class="container">
     <div class="tracking-card">
       <form id="trackingForm" onsubmit="event.preventDefault(); trackConsignment();">
-        <label for="trackingCode" class="form-label fw-bold small text-muted text-uppercase" style="letter-spacing: 0.05em;">Enter Export Tracking Code / B/L Reference</label>
-        <div class="input-group search-input-group mb-3">
+        <label for="trackingCode" class="form-label fw-bold small text-muted text-uppercase" style="letter-spacing: 0.05em;">Enter Export Tracking Code &amp; Private Buyer Key</label>
+        <div class="input-group search-input-group mb-2">
           <input type="text" id="trackingCode" class="form-control form-control-lg border-0 ps-3" placeholder="e.g. BM-EXP-2026-081" required autofocus value="BM-EXP-2026-081">
+          <input type="text" id="trackingToken" class="form-control border-0 border-start ps-3 font-monospace" style="max-width: 240px; font-size: 0.85rem;" placeholder="Buyer key (blank for demo)">
           <button type="submit" class="btn btn-track">Track Consignment</button>
         </div>
-        <div class="small text-muted">Active manifest sample: <code>BM-EXP-2026-081</code></div>
+        <div class="small text-muted">Active public showcase manifest: <code>BM-EXP-2026-081</code> • Live client orders require the private key from your export officer.</div>
       </form>
 
       <!-- Results Container -->
@@ -116,72 +117,191 @@
   </footer>
 
   <script>
+    function escHtml(str) {
+      return String(str == null ? '' : str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
     async function trackConsignment() {
       const code = document.getElementById('trackingCode').value.trim();
+      const token = document.getElementById('trackingToken').value.trim();
       const container = document.getElementById('trackingResult');
-      
+
       container.style.display = 'block';
       container.innerHTML = '<div class="text-center py-4"><div class="spinner-border text-dark" role="status"></div><div class="small text-muted mt-2">Accessing Port Logistics Manifest...</div></div>';
 
       try {
-        const res = await fetch('api/public-content.php?type=track&code=' + encodeURIComponent(code));
+        let url = 'api/public-content.php?type=track&code=' + encodeURIComponent(code);
+        if (token) url += '&k=' + encodeURIComponent(token);
+
+        const res = await fetch(url);
         const data = await res.json();
 
         if (data.success && data.shipment) {
           const s = data.shipment;
+          const milestones = data.milestones || [];
+          const measurements = data.measurements || [];
+          const docs = data.documents || [];
+
+          const sgsClass = s.inspection_status === 'Verified Complete' ? 'text-success' : 'text-warning-emphasis';
+          const sgsLabel = s.inspection_status === 'Verified Complete'
+            ? 'Independent COA Verified'
+            : (s.inspection_status || 'Pending Inspection');
+
+          const timelineHtml = milestones.map(m => {
+            const isDone = m.status === 'Verified Complete';
+            const isProg = m.status === 'In Progress' || m.status === 'Awaiting Verification';
+            const dotStyle = isDone
+              ? 'background:#15803D;color:#FFF;'
+              : (isProg ? 'background:#D97706;color:#FFF;' : 'background:#E2E8F0;color:#64748B;');
+            const badgeCls = isDone ? 'bg-success-subtle text-success' : (isProg ? 'bg-warning-subtle text-warning-emphasis' : 'bg-light text-muted');
+            return `
+              <div class="d-flex align-items-start gap-3 py-2 border-bottom">
+                <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold flex-shrink-0" style="width:28px;height:28px;font-size:0.76rem;${dotStyle}">${Number(m.stage_order)}</div>
+                <div class="flex-grow-1">
+                  <div class="d-flex justify-content-between align-items-center flex-wrap gap-1">
+                    <span class="fw-bold small">${escHtml(m.stage_title)}</span>
+                    <span class="badge ${badgeCls}" style="font-size:0.68rem;">${escHtml(m.status)}</span>
+                  </div>
+                  ${m.buyer_summary ? `<div class="small text-muted mt-1">${escHtml(m.buyer_summary)}</div>` : ''}
+                  ${m.completed_at ? `<div class="text-muted" style="font-size:0.68rem;">Verified: ${escHtml(m.completed_at)}</div>` : ''}
+                </div>
+              </div>`;
+          }).join('');
+
+          const metricsHtml = measurements.length ? `
+            <div class="mb-4">
+              <div class="fw-bold small mb-2 brand-font" style="color: var(--brand-navy);">Measured Stage Verification Metrics</div>
+              <div class="row g-2">
+                ${measurements.map(met => `
+                  <div class="col-6 col-md-4">
+                    <div class="p-2 border rounded bg-white h-100">
+                      <div class="text-muted" style="font-size:0.7rem;">${escHtml(met.metric_label)}</div>
+                      <div class="fw-bold small text-dark">${escHtml(met.metric_value)} ${escHtml(met.unit || '')}</div>
+                    </div>
+                  </div>`).join('')}
+              </div>
+            </div>` : '';
+
           container.innerHTML = `
             <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
               <div>
-                <span class="badge bg-light text-dark border font-monospace me-2">${s.tracking_code}</span>
-                <h4 class="fw-bold mb-0 mt-1 brand-font" style="color: var(--brand-navy);">${s.commodity} (${s.tonnage})</h4>
-                <div class="text-muted small">${s.company_name} • Port of Discharge: ${s.port_of_discharge}</div>
+                <span class="badge bg-light text-dark border font-monospace me-2">${escHtml(s.tracking_code)}</span>
+                ${s.is_public_demo ? '<span class="badge bg-warning text-dark">Public Demo</span>' : ''}
+                <h4 class="fw-bold mb-0 mt-1 brand-font" style="color: var(--brand-navy);">${escHtml(s.commodity)} (${escHtml(s.tonnage)})</h4>
+                <div class="text-muted small">${escHtml(s.company_name)} • POD: ${escHtml(s.port_of_discharge || 'TBD')}</div>
               </div>
               <div class="text-md-end">
-                <span class="milestone-badge-live">
-                  ● Milestone: ${s.status_stage}
-                </span>
-                <div class="text-muted small mt-1">Manifest Update: ${s.updated_at}</div>
+                <span class="milestone-badge-live">● ${escHtml(s.status_stage)}</span>
+                <div class="text-muted small mt-1">Manifest Update: ${escHtml(s.updated_at)}</div>
               </div>
             </div>
 
             <div class="row g-3 p-3 bg-light rounded-2 mb-4">
               <div class="col-6 col-md-3">
                 <div class="text-muted small">Port of Loading:</div>
-                <div class="fw-bold small">${s.port_of_loading}</div>
+                <div class="fw-bold small">${escHtml(s.port_of_loading)}</div>
               </div>
               <div class="col-6 col-md-3">
                 <div class="text-muted small">Vessel Name:</div>
-                <div class="fw-bold small">${s.vessel_name || 'Vessel Pending Nomination'}</div>
+                <div class="fw-bold small">${escHtml(s.vessel_name || 'Vessel Pending Nomination')}</div>
               </div>
               <div class="col-6 col-md-3">
                 <div class="text-muted small">Bill of Lading:</div>
-                <div class="fw-bold font-monospace small">${s.bill_of_lading || 'Draft in Review'}</div>
+                <div class="fw-bold font-monospace small">${escHtml(s.bill_of_lading || 'Draft / Pending')}</div>
               </div>
               <div class="col-6 col-md-3">
-                <div class="text-muted small">Commercial Inspection:</div>
-                <div class="fw-bold text-success small">SGS / AHK Verified</div>
+                <div class="text-muted small">Lab Assay Inspection:</div>
+                <div class="fw-bold ${sgsClass} small">${escHtml(sgsLabel)}</div>
               </div>
             </div>
+
+            ${metricsHtml}
+
+            <div class="mb-4">
+              <div class="fw-bold small mb-2 brand-font" style="color: var(--brand-navy);">Export Lifecycle Progress</div>
+              <div class="border rounded-2 px-3 py-1 bg-white">${timelineHtml}</div>
+            </div>
+
+            <div id="buyerDocsGallery" class="mb-4" style="display:none;"></div>
 
             <div class="p-3 border rounded-2 mb-4">
               <div class="fw-bold small mb-1" style="color: var(--brand-navy);">Export Desk Consignment Log:</div>
-              <div class="small text-muted">${s.notes || 'Materials safely stacked at Port terminal. SGS assay sampling verified.'}</div>
+              <div class="small text-muted">${escHtml(s.notes || 'Stage updates posted cleanly by your export operations desk.')}</div>
             </div>
 
             <div class="text-center pt-2">
-              <a href="https://wa.me/923348888104?text=${encodeURIComponent('Hello Balochistan Minerals, I am inquiring regarding consignment tracking: ' + s.tracking_code)}" target="_blank" class="btn btn-sm btn-success px-4 py-2 fw-semibold" style="background: #15803D;">
+              <a id="waInquiryAnchor" href="https://wa.me/923348888104" target="_blank" class="btn btn-sm btn-success px-4 py-2 fw-semibold" style="background: #15803D;">
                 <i class="bi bi-whatsapp me-1"></i> Contact Export Desk via WhatsApp (+92 334 8888104)
               </a>
-            </div>
-          `;
+            </div>`;
+
+          const waEl = document.getElementById('waInquiryAnchor');
+          if (waEl) {
+            waEl.href = 'https://wa.me/923348888104?text=' + encodeURIComponent('Hello Balochistan Minerals, I am inquiring regarding consignment tracking: ' + s.tracking_code);
+          }
+
+          if (docs.length) {
+            const gBox = document.getElementById('buyerDocsGallery');
+            gBox.style.display = 'block';
+            const hdr = document.createElement('div');
+            hdr.className = 'fw-bold small mb-2 brand-font';
+            hdr.style.color = 'var(--brand-navy)';
+            hdr.textContent = 'Buyer-Authorized Compliance Documents & Photos';
+            gBox.appendChild(hdr);
+
+            const grid = document.createElement('div');
+            grid.className = 'row g-2';
+            docs.forEach(doc => {
+              const col = document.createElement('div');
+              col.className = 'col-6 col-md-3';
+              const a = document.createElement('a');
+              a.href = doc.file_url;
+              a.target = '_blank';
+              a.rel = 'noopener noreferrer';
+              a.className = 'd-block p-2 border rounded text-decoration-none bg-white h-100';
+
+              if (/^image\//.test(doc.mime_type || '') && doc.thumb_url) {
+                const img = document.createElement('img');
+                img.src = doc.thumb_url;
+                img.alt = doc.title || 'Evidence';
+                img.className = 'w-100 rounded mb-1';
+                img.style.cssText = 'height:90px;object-fit:cover;';
+                a.appendChild(img);
+              } else {
+                const iconBox = document.createElement('div');
+                iconBox.className = 'py-3 text-center bg-light rounded mb-1';
+                iconBox.innerHTML = '<i class="bi bi-file-earmark-pdf fs-3 text-danger"></i>';
+                a.appendChild(iconBox);
+              }
+
+              const tDiv = document.createElement('div');
+              tDiv.className = 'small fw-semibold text-dark text-truncate';
+              tDiv.textContent = doc.title || 'Document';
+              a.appendChild(tDiv);
+
+              const sDiv = document.createElement('div');
+              sDiv.className = 'text-muted';
+              sDiv.style.fontSize = '0.68rem';
+              sDiv.textContent = doc.doc_status || '';
+              a.appendChild(sDiv);
+
+              col.appendChild(a);
+              grid.appendChild(col);
+            });
+            gBox.appendChild(grid);
+          }
         } else {
           container.innerHTML = `
-            <div class="alert alert-warning text-center py-4 mb-0 border">
-              <i class="bi bi-exclamation-circle-fill fs-2 d-block mb-2 text-warning"></i>
-              <div class="fw-bold">${data.error || 'No consignment found matching tracking code.'}</div>
-              <div class="small text-muted mt-1">Please confirm your tracking reference with your export contract officer.</div>
-            </div>
-          `;
+            <div class="alert ${data.requires_token ? 'alert-info' : 'alert-warning'} text-center py-4 mb-0 border">
+              <i class="bi ${data.requires_token ? 'bi-shield-lock-fill text-primary' : 'bi-exclamation-circle-fill text-warning'} fs-2 d-block mb-2"></i>
+              <div class="fw-bold">${escHtml(data.error || 'No consignment found matching tracking code.')}</div>
+              <div class="small text-muted mt-1">Please use the full tracking URL or buyer access key supplied by your export contract officer.</div>
+            </div>`;
         }
       } catch (err) {
         container.innerHTML = '<div class="alert alert-danger text-center">Unable to load tracking details. Please contact support on WhatsApp.</div>';
@@ -189,6 +309,11 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const qCode = params.get('code');
+      const qKey  = params.get('k');
+      if (qCode) document.getElementById('trackingCode').value = qCode;
+      if (qKey) document.getElementById('trackingToken').value = qKey;
       trackConsignment();
     });
   </script>

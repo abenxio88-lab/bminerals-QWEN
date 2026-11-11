@@ -5,6 +5,7 @@
  */
 
 require_once __DIR__ . '/auth.php';
+require_once __DIR__ . '/deal-helpers.php';
 requireAuth();
 
 $user = getLoggedInUser();
@@ -63,10 +64,13 @@ $newLeads   = 0;
 $pendingReviews = 0;
 
 if ($pdo !== null) {
+    ensureDealVaultSchema($pdo);
     $newLeads = (int)$pdo->query("SELECT COUNT(*) FROM inquiries WHERE status = 'New'")->fetchColumn();
     $pendingReviews = (int)$pdo->query("SELECT COUNT(*) FROM reviews WHERE status = 'Pending'")->fetchColumn();
     $totalProspects = (int)$pdo->query("SELECT COUNT(*) FROM buyer_prospects")->fetchColumn();
-    $stockpiles = $pdo->query('SELECT * FROM stockpiles ORDER BY tonnage_available DESC')->fetchAll();
+    $stockpiles = $pdo->query("SELECT s.*,
+        COALESCE((SELECT SUM(a.allocated_mt) FROM `deal_stockpile_allocations` a JOIN `deals` dl ON dl.id = a.deal_id WHERE a.stockpile_id = s.id AND dl.stockpile_deducted = 0 AND dl.deal_state = 'Active'), 0) AS committed_mt
+        FROM stockpiles s ORDER BY s.tonnage_available DESC")->fetchAll();
     $shipments  = $pdo->query('SELECT * FROM shipments ORDER BY created_at DESC')->fetchAll();
 }
 ?>
@@ -292,6 +296,10 @@ if ($pdo !== null) {
         </a>
 
         <div class="sidebar-section-title">Logistics & Trade Operations</div>
+        <a href="deals.php" class="sidebar-link">
+          <div><i class="bi bi-shield-check"></i> Deals &amp; Evidence Vault</div>
+          <span class="badge-sidebar-intel">VAULT</span>
+        </a>
         <a href="stockpiles.php" class="sidebar-link active">
           <div><i class="bi bi-boxes"></i> Stockpiles & Shipments</div>
         </a>
@@ -395,6 +403,11 @@ if ($pdo !== null) {
                           <?= number_format($stk['tonnage_available']) ?>
                         </span>
                         <span class="text-muted small">MT</span>
+                        <?php $commMt = (float)($stk['committed_mt'] ?? 0); if ($commMt > 0): ?>
+                          <div class="small text-warning-emphasis font-monospace" style="font-size:0.72rem;">
+                            Reserved: <?= number_format($commMt, 0) ?> MT • Free: <?= number_format(max(0, $stk['tonnage_available'] - $commMt), 0) ?> MT
+                          </div>
+                        <?php endif; ?>
                       </td>
                       <td>
                         <?php if ($stk['status'] === 'Ready for Loading'): ?>
@@ -495,6 +508,9 @@ if ($pdo !== null) {
               </h6>
               <div class="small text-muted">Tracked live by international buyers via tracking codes</div>
             </div>
+            <a href="deals.php" class="btn btn-sm btn-dark fw-semibold px-3">
+              <i class="bi bi-shield-check me-1"></i> Open Deals &amp; Evidence Vault
+            </a>
           </div>
 
           <div class="table-responsive">

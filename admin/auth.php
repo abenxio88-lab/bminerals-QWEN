@@ -44,3 +44,20 @@ function getCsrfToken() {
 function verifyCsrfToken($token) {
     return isset($_SESSION['bm_csrf_token']) && hash_equals($_SESSION['bm_csrf_token'], (string)$token);
 }
+
+function getAdminRole() {
+    return trim((string)($_SESSION['bm_admin_role'] ?? 'Owner'));
+}
+
+function isRestrictedFieldRole() {
+    $low = strtolower(getAdminRole());
+    return in_array($low, ['yard', 'clearing', 'field', 'supervisor', 'inspector', 'agent', 'logistics_staff'], true);
+}
+
+function canViewDealFinancials() {
+    return isLoggedIn() && !isRestrictedFieldRole();
+}
+
+function canSealOrBackupDeals() {
+    return isLoggedIn() && !isRestrictedFieldRole();
+}

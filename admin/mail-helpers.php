@@ -31,22 +31,27 @@ function getAllowedMailAttachmentMap() {
         'png'  => 'image/png',
         'gif'  => 'image/gif',
         'webp' => 'image/webp',
+        'avif' => 'image/avif',
         'zip'  => 'application/zip',
     ];
 }
 
 /**
- * Ensures admin/uploads/attachments exists and cannot execute PHP/CGI scripts via HTTP.
+ * Creates a protected directory inside admin/uploads and blocks script execution
+ * (or blocks all direct HTTP requests when $denyAll is true).
  */
-function getMailAttachmentsBaseDir() {
-    $uploadsRoot = __DIR__ . '/uploads';
-    $attDir      = $uploadsRoot . '/attachments';
-    if (!is_dir($attDir)) {
-        @mkdir($attDir, 0755, true);
+function ensureProtectedUploadDir($targetDir, $denyAll = false) {
+    if (!is_dir($targetDir)) {
+        @mkdir($targetDir, 0755, true);
     }
 
-    $htaccessPath = $uploadsRoot . '/.htaccess';
-    if (!file_exists($htaccessPath)) {
+    $uploadsRoot = __DIR__ . '/uploads';
+    if (!is_dir($uploadsRoot)) {
+        @mkdir($uploadsRoot, 0755, true);
+    }
+
+    $rootHtaccess = $uploadsRoot . '/.htaccess';
+    if (!file_exists($rootHtaccess)) {
         $rules = "Options -Indexes -ExecCGI\n"
             . "<FilesMatch \"\\.(php|phtml|php3|php4|php5|php7|php8|phar|cgi|pl|py|sh|exe|bat|cmd|js|html|htm|svg)$\">\n"
             . "  <IfModule mod_authz_core.c>\n"
@@ -57,15 +62,41 @@ function getMailAttachmentsBaseDir() {
             . "    Deny from all\n"
             . "  </IfModule>\n"
             . "</FilesMatch>\n";
-        @file_put_contents($htaccessPath, $rules);
+        @file_put_contents($rootHtaccess, $rules);
     }
 
-    $indexFile = $uploadsRoot . '/index.php';
-    if (!file_exists($indexFile)) {
-        @file_put_contents($indexFile, "<?php http_response_code(403); exit;\n");
+    $rootIndex = $uploadsRoot . '/index.php';
+    if (!file_exists($rootIndex)) {
+        @file_put_contents($rootIndex, "<?php http_response_code(403); exit;\n");
     }
 
-    return $attDir;
+    if ($denyAll) {
+        $dirHtaccess = rtrim($targetDir, '/\\') . '/.htaccess';
+        if (!file_exists($dirHtaccess)) {
+            $denyRules = "Options -Indexes -ExecCGI\n"
+                . "<IfModule mod_authz_core.c>\n"
+                . "  Require all denied\n"
+                . "</IfModule>\n"
+                . "<IfModule !mod_authz_core.c>\n"
+                . "  Order deny,allow\n"
+                . "  Deny from all\n"
+                . "</IfModule>\n";
+            @file_put_contents($dirHtaccess, $denyRules);
+        }
+        $dirIndex = rtrim($targetDir, '/\\') . '/index.php';
+        if (!file_exists($dirIndex)) {
+            @file_put_contents($dirIndex, "<?php http_response_code(403); exit;\n");
+        }
+    }
+
+    return $targetDir;
+}
+
+/**
+ * Ensures admin/uploads/attachments exists and cannot execute PHP/CGI scripts via HTTP.
+ */
+function getMailAttachmentsBaseDir() {
+    return ensureProtectedUploadDir(__DIR__ . '/uploads/attachments', false);
 }
 
 /**
