@@ -149,8 +149,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       border: 1px solid #CBD5E1;
       border-radius: 0;
       padding: 10px 13px;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       transition: all 0.15s ease;
+    }
+    .form-control::placeholder {
+      font-size: 0.82rem;
+      color: #94A3B8;
     }
     .form-control:focus {
       border-color: var(--brand-navy);
@@ -220,7 +224,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <div class="mb-3">
         <label for="username" class="form-label">Username</label>
-        <input type="text" id="username" name="username" class="form-control" placeholder="Enter authorized username" autocomplete="username" required autofocus value="<?= htmlspecialchars($_POST['username'] ?? '') ?>">
+        <input type="text" id="username" name="username" class="form-control" placeholder="Username" autocomplete="username" required autofocus value="<?= htmlspecialchars($_POST['username'] ?? '') ?>">
       </div>
 
       <div class="mb-4">

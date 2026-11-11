@@ -153,17 +153,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
     }
 
-    // Estimated Deal USD Size
-    $qtyStr = preg_replace('/[^0-9]/', '', $inquiry['quantity'] ?? '0');
-    $qty = (int)$qtyStr ?: 1500;
+    // Estimated Deal USD Size (only compute when buyer specifies explicit tonnage/quantity)
+    $rawQtyText = trim((string)($inquiry['quantity'] ?? ''));
+    $qty = 0;
+    if ($rawQtyText !== '' && preg_match('/([0-9][0-9,]*(?:\.[0-9]+)?)/', $rawQtyText, $qm)) {
+        $qty = (float)str_replace(',', '', $qm[1]);
+    }
     $spotPrice = (float)($inquiry['spot_price_quoted'] ?? 0);
     if ($spotPrice <= 0) {
-        // Fallback to mineral benchmark price
         $mLower = strtolower($inquiry['mineral_type'] ?? '');
-        $priceRow = $pdo->query("SELECT price_high_usd FROM mineral_prices WHERE LOWER(mineral_name) LIKE '%" . addslashes(substr($mLower, 0, 5)) . "%' LIMIT 1")->fetch(PDO::FETCH_ASSOC);
-        $spotPrice = (float)($priceRow['price_high_usd'] ?? 220);
+        $prefix = trim(substr($mLower, 0, 5));
+        if ($prefix !== '') {
+            $priceStmt = $pdo->prepare("SELECT price_high_usd FROM mineral_prices WHERE LOWER(mineral_name) LIKE ? LIMIT 1");
+            $priceStmt->execute(['%' . $prefix . '%']);
+            $priceRow = $priceStmt->fetch(PDO::FETCH_ASSOC);
+            $spotPrice = (float)($priceRow['price_high_usd'] ?? 0);
+        }
     }
-    $estimatedDealUsd = $qty * $spotPrice;
+    $estimatedDealUsd = ($qty > 0 && $spotPrice > 0) ? round($qty * $spotPrice) : null;
 
     // Buyer Initials
     $words = preg_split('/\s+/', trim($inquiry['buyer_name'] ?? 'Buyer'));
@@ -190,7 +197,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             'email' => $inquiry['email'],
             'whatsapp' => $inquiry['whatsapp'],
             'mineral_type' => $inquiry['mineral_type'],
-            'quantity' => $inquiry['quantity'] ?: 'Trial / FCL Order',
+            'quantity' => $inquiry['quantity'] ?: 'Open / TBD',
             'destination_port' => $inquiry['destination_port'] ?: 'FOB Karachi / CIF',
             'status' => $inquiry['status'],
             'spot_price_quoted' => $spotPrice,

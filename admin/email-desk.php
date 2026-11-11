@@ -812,7 +812,7 @@ if ($pdo !== null) {
 
   <!-- Modal: Compose Fresh Outbound Trade Offer -->
   <div class="modal fade" id="newOfferModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-resizable" style="max-width: 960px;">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-resizable" style="max-width: 1140px;">
       <div class="modal-content">
         <form method="POST" action="email-desk.php" enctype="multipart/form-data">
           <input type="hidden" name="action" value="compose_outbound_email">

@@ -510,8 +510,14 @@ function formatPlainTextAsCleanHtml($text) {
         $rawUrl = rtrim($m[1], '.,;');
         $trail  = substr($m[1], strlen($rawUrl));
         $url    = htmlspecialchars($rawUrl, ENT_QUOTES, 'UTF-8');
-        $lbl    = htmlspecialchars(strlen($rawUrl) > 60 ? getFriendlyUrlLabel($rawUrl) : $rawUrl, ENT_QUOTES, 'UTF-8');
-        return $makeToken('<a href="' . $url . '" target="_blank" rel="noopener noreferrer">' . $lbl . '</a>') . htmlspecialchars($trail, ENT_QUOTES, 'UTF-8');
+        $isLong = strlen($rawUrl) > 55;
+        $lbl    = htmlspecialchars($isLong ? getFriendlyUrlLabel($rawUrl) : $rawUrl, ENT_QUOTES, 'UTF-8');
+        if ($isLong) {
+            $pill = '<a href="' . $url . '" target="_blank" rel="noopener noreferrer" class="bm-mail-link-pill" title="' . $url . '">' . $lbl . ' &#8599;</a>';
+        } else {
+            $pill = '<a href="' . $url . '" target="_blank" rel="noopener noreferrer">' . $lbl . '</a>';
+        }
+        return $makeToken($pill) . htmlspecialchars($trail, ENT_QUOTES, 'UTF-8');
     }, $s);
 
     $s = preg_replace("/\n{3,}/", "\n\n", trim($s));
@@ -574,7 +580,7 @@ function sanitizeEmailInlineCss($styleRaw) {
         'margin-bottom', 'margin-left', 'margin-right', 'padding', 'padding-top',
         'padding-bottom', 'padding-left', 'padding-right', 'border', 'border-top',
         'border-bottom', 'border-left', 'border-right', 'border-collapse',
-        'border-radius', 'font-size', 'vertical-align',
+        'border-radius', 'font-size', 'vertical-align', 'display',
     ];
     $parts = explode(';', (string)$styleRaw);
     $kept  = [];
@@ -590,6 +596,9 @@ function sanitizeEmailInlineCss($styleRaw) {
         }
         // Only keep background if it's a flat color rather than complex gradient/image
         if ($prop === 'background' && !preg_match('/^(#[0-9a-f]{3,8}|rgb\([^)]+\)|rgba\([^)]+\)|transparent|none|[a-z]{3,20})$/i', $val)) {
+            continue;
+        }
+        if ($prop === 'display' && !in_array(strtolower($val), ['inline', 'inline-block', 'block'], true)) {
             continue;
         }
         $kept[] = $prop . ': ' . $val;
@@ -713,9 +722,9 @@ function sanitizeAndResolveEmailHtml($rawHtml, $msgId = 0, $attachmentsMeta = []
             $allowedAttrs[] = 'rel';
             $allowedAttrs[] = 'class'; // only kept when set to bm-mail-link-pill above
         } elseif ($tag === 'img') {
-            $allowedAttrs = ['src', 'alt', 'width', 'height', 'style'];
+            $allowedAttrs = ['src', 'alt', 'style'];
         } elseif (in_array($tag, ['table', 'tr', 'td', 'th'], true)) {
-            $allowedAttrs = ['colspan', 'rowspan', 'align', 'valign', 'cellpadding', 'cellspacing', 'style'];
+            $allowedAttrs = ['colspan', 'rowspan', 'align', 'valign', 'border', 'style'];
         }
 
         $toRemove = [];

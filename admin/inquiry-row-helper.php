@@ -6,6 +6,7 @@
 
 require_once __DIR__ . '/db.php';
 require_once __DIR__ . '/flag-helper.php';
+require_once __DIR__ . '/mail-helpers.php';
 
 if (!function_exists('getBallInCourtStatus')) {
     /**
@@ -209,9 +210,9 @@ if (!function_exists('renderInquiryRow')) {
 
             <!-- Email Reply Modal (Executive Stretchable & Resizable Split View) -->
             <div class="modal fade text-start" id="replyModal<?= (int)$row['id'] ?>" tabindex="-1" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered modal-dialog-resizable" style="max-width: 1040px;">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-resizable modal-dialog-reply-wide">
                 <div class="modal-content">
-                  <form method="POST" action="dashboard.php" enctype="multipart/form-data">
+                  <form method="POST" action="dashboard.php" enctype="multipart/form-data" class="reply-modal-form">
                     <input type="hidden" name="action" value="send_reply">
                     <input type="hidden" name="inquiry_id" value="<?= (int)$row['id'] ?>">
                     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken) ?>">
@@ -229,11 +230,14 @@ if (!function_exists('renderInquiryRow')) {
                     </div>
 
                     <div class="modal-body p-3 p-md-3.5">
-                      <div class="row g-3">
+                      <div class="row g-3 reply-split-row">
                         <!-- Left Column: Inbound Inquiry & Thread Context -->
-                        <div class="col-md-5 border-end pe-md-3">
-                          <div class="d-flex align-items-center text-uppercase fw-bold text-muted mb-2 pb-1 border-bottom" style="font-size: 0.70rem; letter-spacing: 0.05em;">
-                            <i class="bi bi-inbox-fill text-primary me-1.5"></i> Buyer Inquiry Context
+                        <div class="col-md-5 border-end pe-md-3 reply-left-col">
+                          <div class="d-flex align-items-center justify-content-between text-uppercase fw-bold text-muted mb-2 pb-1 border-bottom" style="font-size: 0.70rem; letter-spacing: 0.05em;">
+                            <span><i class="bi bi-inbox-fill text-primary me-1.5"></i> Buyer Inquiry Context</span>
+                            <button type="button" class="btn btn-link btn-sm p-0 text-decoration-none fw-semibold" style="font-size: 0.70rem; text-transform: none; letter-spacing: 0;" onclick="var m = bootstrap.Modal.getInstance(this.closest('.modal')); if(m) m.hide(); if(typeof openBuyerDossier === 'function') openBuyerDossier(<?= (int)$row['id'] ?>);">
+                              <i class="bi bi-layout-sidebar-inset-reverse me-1"></i>Open 360° Dossier
+                            </button>
                           </div>
 
                           <div class="p-2.5 rounded bg-light border mb-2.5">
@@ -270,9 +274,9 @@ if (!function_exists('renderInquiryRow')) {
                             </div>
                           </div>
 
-                          <div>
+                          <div class="reply-msg-wrap">
                             <label class="form-label mb-1">Original Buyer Message</label>
-                            <div class="p-2.5 rounded bg-white border small thread-rich-body" style="max-height: 220px; overflow-y: auto; font-size: 0.78rem; line-height: 1.5; color: #334155;">
+                            <div class="p-2.5 rounded bg-white border small thread-rich-body reply-original-msg-box">
 <?php
   if (function_exists('formatPlainTextAsCleanHtml')) {
       echo formatPlainTextAsCleanHtml($row['message'] ?: 'No message body recorded with this inquiry.');
@@ -294,8 +298,8 @@ if (!function_exists('renderInquiryRow')) {
                         </div>
 
                         <!-- Right Column: Compose & Dispatch Engine -->
-                        <div class="col-md-7 ps-md-3 d-flex flex-column justify-content-between">
-                          <div>
+                        <div class="col-md-7 ps-md-3 d-flex flex-column justify-content-between reply-right-col">
+                          <div class="reply-compose-main">
                             <div class="d-flex align-items-center justify-content-between text-uppercase fw-bold text-muted mb-2 pb-1 border-bottom" style="font-size: 0.70rem; letter-spacing: 0.05em;">
                               <span><i class="bi bi-envelope-paper-fill text-warning me-1.5"></i> Compose Official Reply</span>
                               <span class="badge bg-light text-dark border font-monospace" style="font-size: 0.67rem;">Hostinger SMTP Relay</span>
@@ -346,9 +350,9 @@ if (!function_exists('renderInquiryRow')) {
                               </select>
                             </div>
 
-                            <div class="mb-1">
+                            <div class="mb-2 reply-body-field-wrap">
                               <label class="form-label mb-1">Message Body</label>
-                              <textarea id="replyBody<?= (int)$row['id'] ?>" name="reply_body" class="form-control form-control-sm font-monospace" rows="8" required style="font-size: 0.80rem; line-height: 1.45;">Dear <?= htmlspecialchars($row['buyer_name'] ?? 'Buyer') ?>,
+                              <textarea id="replyBody<?= (int)$row['id'] ?>" name="reply_body" class="form-control form-control-sm font-monospace reply-modal-textarea" rows="6" required>Dear <?= htmlspecialchars($row['buyer_name'] ?? 'Buyer') ?>,
 
 Thank you for contacting Balochistan Minerals (Pvt) Ltd regarding your inquiry for <?= htmlspecialchars($row['mineral_type'] ?? 'minerals') ?>.
 

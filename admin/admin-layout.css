@@ -1438,9 +1438,9 @@ body.bm-col-resizing * {
 
 /* Resizable Modal Window */
 .modal-dialog-resizable {
-  max-width: 1040px;
+  max-width: 1180px;
   width: 94vw;
-  margin: 1.5rem auto;
+  margin: 1.25rem auto;
   transition: max-width 0.12s ease, width 0.12s ease;
 }
 
@@ -1453,6 +1453,97 @@ body.bm-col-resizing * {
   display: flex;
   flex-direction: column;
   min-height: 480px;
+}
+
+/* Executive Reply Opener — starts spacious & stretched by default */
+.modal-dialog-resizable.modal-dialog-reply-wide {
+  max-width: 1400px;
+  width: 95vw;
+  margin: 1rem auto;
+}
+
+.reply-original-msg-box {
+  font-size: 0.80rem;
+  line-height: 1.55;
+  color: #1E293B;
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.reply-modal-textarea {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  min-height: 220px;
+}
+
+@media (min-width: 992px) {
+  .modal-dialog-resizable.modal-dialog-reply-wide .modal-content {
+    height: min(88vh, 860px);
+    min-height: 580px;
+  }
+  .modal-dialog-resizable.modal-dialog-reply-wide .reply-modal-form {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    height: 100%;
+  }
+  .modal-dialog-resizable.modal-dialog-reply-wide .modal-body {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .modal-dialog-resizable.modal-dialog-reply-wide .reply-split-row {
+    --bs-gutter-y: 0;
+    flex: 1;
+    min-height: 0;
+    align-items: stretch;
+    overflow: hidden;
+  }
+  .modal-dialog-resizable.modal-dialog-reply-wide .reply-left-col,
+  .modal-dialog-resizable.modal-dialog-reply-wide .reply-right-col {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    margin-top: 0;
+    max-height: 100%;
+    overflow: hidden;
+  }
+  .modal-dialog-resizable.modal-dialog-reply-wide .reply-msg-wrap {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .modal-dialog-resizable.modal-dialog-reply-wide .reply-original-msg-box {
+    flex: 1;
+    min-height: 160px;
+    max-height: none;
+    overflow-y: auto;
+  }
+  .modal-dialog-resizable.modal-dialog-reply-wide .reply-compose-main {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 2px;
+  }
+  .modal-dialog-resizable.modal-dialog-reply-wide .reply-body-field-wrap {
+    flex: 1 1 0%;
+    min-height: 130px;
+    display: flex;
+    flex-direction: column;
+  }
+  .modal-dialog-resizable.modal-dialog-reply-wide .reply-modal-textarea {
+    flex: 1 1 0%;
+    min-height: 130px;
+    resize: none;
+  }
 }
 
 /* Real-Window Corner Resize Grip Handle */
@@ -1665,27 +1756,78 @@ a.btn-dark {
   top: 0;
   right: 0;
   bottom: 0;
-  width: 540px;
-  max-width: 95vw;
+  width: min(920px, 94vw);
+  max-width: 97vw;
   background: #FFFFFF;
   z-index: 1075;
   display: flex;
   flex-direction: column;
   border-left: 1px solid #CBD5E1;
-  box-shadow: none !important;
+  box-shadow: -12px 0 36px rgba(15, 23, 42, 0.14);
   transform: translateX(100%);
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), width 0.22s ease;
+}
+
+.buyer-dossier-drawer.dossier-expanded {
+  width: min(1280px, 97vw);
 }
 
 .buyer-dossier-drawer.active {
   transform: translateX(0);
 }
 
+@media (max-width: 767.98px) {
+  .buyer-dossier-drawer,
+  .buyer-dossier-drawer.dossier-expanded {
+    width: 100vw;
+    max-width: 100vw;
+  }
+}
+
 .dossier-header {
-  padding: 16px 20px;
+  padding: 16px 22px;
   background: #FFFFFF;
   border-bottom: 1px solid #E2E8F0;
   flex-shrink: 0;
+}
+
+.dossier-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+@media (max-width: 767.98px) {
+  .dossier-kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.dossier-kpi-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 9px 11px;
+  text-align: left;
+  min-width: 0;
+}
+
+.dossier-kpi-label {
+  font-size: 0.63rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748B;
+  margin-bottom: 2px;
+}
+
+.dossier-kpi-value {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #0F172A;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .dossier-avatar {
@@ -1741,43 +1883,99 @@ a.btn-dark {
 .dossier-thread-stream {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .thread-bubble {
-  border-radius: 8px;
-  padding: 12px 14px;
-  font-size: 0.8rem;
-  line-height: 1.5;
-  box-shadow: none !important;
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
   position: relative;
+  width: 100%;
+  max-width: 100%;
+  align-self: stretch;
 }
 
 .thread-bubble-inbound {
-  background: #F8FAFC;
-  border: 1px solid #E2E8F0;
-  align-self: flex-start;
-  max-width: 92%;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-left: 4px solid #2563EB;
 }
 
 .thread-bubble-outbound {
-  background: #F0FDF4;
-  border: 1px solid #DCFCE7;
-  align-self: flex-end;
-  max-width: 92%;
+  background: #F8FFFA;
+  border: 1px solid #BBF7D0;
+  border-left: 4px solid #16A34A;
+}
+
+.thread-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.thread-dir-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.68rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+}
+
+.thread-dir-inbound {
+  background: #EFF6FF;
+  color: #1D4ED8;
+  border: 1px solid #BFDBFE;
+}
+
+.thread-dir-outbound {
+  background: #ECFDF5;
+  color: #15803D;
+  border: 1px solid #A7F3D0;
+}
+
+.thread-subject-line {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #0F172A;
+  line-height: 1.35;
+  margin-bottom: 10px;
+}
+
+.thread-email-frame {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 14px 16px;
+  max-height: 480px;
+  overflow-y: auto;
+  overflow-x: auto;
 }
 
 .thread-meta {
-  font-size: 0.69rem;
+  font-size: 0.71rem;
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
-  margin-bottom: 5px;
+  margin-bottom: 0;
 }
 
 .thread-body {
   color: #1E293B;
   white-space: pre-wrap;
-  word-break: break-word;
+  word-break: normal;
+  overflow-wrap: break-word;
   font-family: 'Poppins', sans-serif;
 }
 
@@ -2540,10 +2738,10 @@ a.btn-dark {
 .thread-rich-body {
   color: #1E293B;
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  font-size: 0.80rem;
-  line-height: 1.55;
-  word-break: break-word;
-  overflow-wrap: anywhere;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  word-break: normal;
+  overflow-wrap: break-word;
   max-width: 100%;
   overflow-x: auto;
 }
@@ -2566,17 +2764,23 @@ a.btn-dark {
   max-width: 100% !important;
   width: auto !important;
   border-collapse: collapse;
-  margin: 6px 0;
-  font-size: 0.76rem;
+  margin: 4px 0;
+  font-size: 0.78rem;
 }
 .thread-rich-body th,
 .thread-rich-body td {
-  padding: 4px 8px;
-  border: 1px solid #E2E8F0;
+  padding: 4px 6px;
+  border: none;
   vertical-align: top;
+}
+.thread-rich-body table[border="1"] th,
+.thread-rich-body table[border="1"] td {
+  border: 1px solid #E2E8F0;
+  padding: 6px 8px;
 }
 .thread-rich-body img {
   max-width: 100% !important;
+  width: auto !important;
   height: auto !important;
   border-radius: 4px;
   vertical-align: middle;
@@ -2587,12 +2791,22 @@ a.btn-dark {
   border-left: 3px solid #CBD5E1;
   background: #F8FAFC;
   color: #475569;
-  font-size: 0.76rem;
+  font-size: 0.78rem;
 }
 .thread-rich-body a {
   color: #2563EB;
   text-decoration: underline;
-  word-break: break-all;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+.thread-rich-body a[style*="padding"],
+.thread-rich-body a[style*="background"] {
+  display: inline-block;
+  white-space: nowrap;
+  line-height: 1.25;
+  vertical-align: middle;
+  text-decoration: none;
+  margin: 2px 4px 2px 0;
 }
 .thread-rich-body a.bm-mail-link-pill {
   display: inline-flex;

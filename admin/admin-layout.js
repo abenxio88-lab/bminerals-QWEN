@@ -198,7 +198,7 @@
           content.style.height = newH + 'px';
 
           const modalBody = content.querySelector('.modal-body');
-          if (modalBody) {
+          if (modalBody && !(dialog.classList.contains('modal-dialog-reply-wide') && window.innerWidth >= 992)) {
             modalBody.style.flex = '1';
             modalBody.style.overflowY = 'auto';
           }
@@ -501,7 +501,37 @@
     window.BMNotify = { toast: showToast, refresh: () => {}, open: () => {} };
   }
 
+  function hideBrokenRichEmailImg(img) {
+    if (!img || img.dataset.bmBrokenImg === '1') return;
+    img.style.display = 'none';
+    img.dataset.bmBrokenImg = '1';
+    const parentLink = img.closest('a');
+    if (parentLink && parentLink.textContent.trim() === '') {
+      const remainingImgs = parentLink.querySelectorAll('img:not([data-bm-broken-img="1"])');
+      if (remainingImgs.length === 0) {
+        parentLink.style.display = 'none';
+      }
+    }
+  }
+
+  function initEmailImageFallback() {
+    document.addEventListener('error', (e) => {
+      const el = e.target;
+      if (!el || el.tagName !== 'IMG' || !el.closest('.thread-rich-body')) return;
+      hideBrokenRichEmailImg(el);
+    }, true);
+
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.thread-rich-body img').forEach((img) => {
+        if (img.complete && img.naturalWidth === 0) {
+          hideBrokenRichEmailImg(img);
+        }
+      });
+    });
+  }
+
   // Initialize once DOM is ready
+  initEmailImageFallback();
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       initSidebar();

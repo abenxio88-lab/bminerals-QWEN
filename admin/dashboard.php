@@ -1898,12 +1898,31 @@ function getBallInCourtStatus($row) {
         // KPI cards
         document.getElementById('dossierMineral').textContent = inq.mineral_type;
         document.getElementById('dossierQty').textContent = inq.quantity;
-        document.getElementById('dossierDealVal').textContent = '$' + Number(inq.estimated_deal_usd || 0).toLocaleString();
+        const portEl = document.getElementById('dossierPort');
+        if (portEl) portEl.textContent = inq.destination_port || 'FOB Karachi';
+        const dealEl = document.getElementById('dossierDealVal');
+        if (inq.estimated_deal_usd && Number(inq.estimated_deal_usd) > 0) {
+          dealEl.textContent = '$' + Number(inq.estimated_deal_usd).toLocaleString();
+          dealEl.style.color = '#15803D';
+        } else {
+          dealEl.textContent = 'Upon Quote';
+          dealEl.style.color = '#64748B';
+        }
 
         // Quick links
         document.getElementById('dossierWaBtn').href = inq.wa_url || '#';
         document.getElementById('dossierQuoteBtn').href = 'generate-quote.php?id=' + inq.id;
         document.getElementById('dossierStageText').textContent = inq.status;
+        const fullReplyBtn = document.getElementById('dossierFullReplyBtn');
+        if (fullReplyBtn) {
+          fullReplyBtn.onclick = () => {
+            closeBuyerDossier();
+            const replyModalEl = document.getElementById('replyModal' + inq.id);
+            if (replyModalEl && typeof bootstrap !== 'undefined') {
+              bootstrap.Modal.getOrCreateInstance(replyModalEl).show();
+            }
+          };
+        }
 
         // Composer inputs
         document.getElementById('dossierInquiryId').value = inq.id;
@@ -1929,19 +1948,22 @@ function getBallInCourtStatus($row) {
         document.getElementById('dossierMsgCount').textContent = data.message_count;
         if (!data.messages || data.messages.length === 0) {
           const fallbackHtml = inq.message_html || ('<p>' + escapeDossierHtml(inq.message || 'Direct lead inquiry registered on trade portal.') + '</p>');
-          threadStream.innerHTML = '<div class="p-3 text-center text-muted small bg-light rounded border"><i class="bi bi-inbox text-secondary fs-4 d-block mb-1"></i>No prior email exchanges logged.<div class="mt-2 text-start p-2 bg-white rounded border text-dark thread-rich-body"><strong>Inquiry Lead Text:</strong><br>' + fallbackHtml + '</div></div>';
+          threadStream.innerHTML = '<div class="p-3 text-center text-muted small bg-light rounded border"><i class="bi bi-inbox text-secondary fs-4 d-block mb-1"></i>No prior email exchanges logged.<div class="mt-2 text-start p-3 bg-white rounded border text-dark thread-rich-body"><strong>Inquiry Lead Text:</strong><br>' + fallbackHtml + '</div></div>';
         } else {
           let html = '';
           data.messages.forEach(m => {
             const isInbound = m.direction === 'inbound';
             const bubbleClass = isInbound ? 'thread-bubble-inbound' : 'thread-bubble-outbound';
-            const senderBadge = isInbound 
-              ? '<span class="text-primary"><i class="bi bi-arrow-down-left me-1"></i>Inbound: ' + escapeDossierHtml(m.from_email || inq.buyer_name) + '</span>'
-              : '<span class="text-success"><i class="bi bi-arrow-up-right me-1"></i>Desk Reply &bull; ' + escapeDossierHtml(m.from_email || 'Desk') + '</span>';
+            const dirPill = isInbound
+              ? `<span class="thread-dir-pill thread-dir-inbound"><i class="bi bi-arrow-down-left"></i> Inbound</span>`
+              : `<span class="thread-dir-pill thread-dir-outbound"><i class="bi bi-arrow-up-right"></i> Desk Reply</span>`;
+            const counterpartyLine = isInbound
+              ? `<span class="text-secondary text-truncate" style="max-width: 340px;">${escapeDossierHtml(m.from_email || inq.buyer_name)}</span>`
+              : `<span class="text-secondary text-truncate" style="max-width: 340px;">From ${escapeDossierHtml(m.from_email || 'Desk')}</span>`;
 
             const renderedBody = m.body_html
-              ? `<div class="thread-rich-body">${m.body_html}</div>`
-              : `<div class="thread-body">${escapeDossierHtml(m.body_text)}</div>`;
+              ? `<div class="thread-email-frame"><div class="thread-rich-body">${m.body_html}</div></div>`
+              : `<div class="thread-email-frame"><div class="thread-body">${escapeDossierHtml(m.body_text)}</div></div>`;
 
             let attHtml = '';
             if (Array.isArray(m.attachments) && m.attachments.length > 0) {
@@ -1965,11 +1987,14 @@ function getBallInCourtStatus($row) {
 
             html += `
               <div class="thread-bubble ${bubbleClass}">
-                <div class="thread-meta d-flex justify-content-between align-items-center">
-                  ${senderBadge}
-                  <span class="text-muted font-monospace" style="font-size: 0.68rem;">${m.sent_at}</span>
+                <div class="thread-card-header">
+                  <div class="d-flex align-items-center gap-2 flex-wrap thread-meta" style="min-width: 0;">
+                    ${dirPill}
+                    ${counterpartyLine}
+                  </div>
+                  <span class="text-muted font-monospace flex-shrink-0" style="font-size: 0.70rem;">${m.sent_at}</span>
                 </div>
-                <div class="fw-bold text-dark small mb-1.5" style="font-size: 0.78rem;">${escapeDossierHtml(m.subject)}</div>
+                <div class="thread-subject-line">${escapeDossierHtml(m.subject)}</div>
                 ${renderedBody}
                 ${attHtml}
               </div>
@@ -1980,6 +2005,15 @@ function getBallInCourtStatus($row) {
       } catch (err) {
         threadStream.innerHTML = '<div class="alert alert-danger small p-2">Error connecting to dossier API: ' + err.message + '</div>';
       }
+    }
+
+    function toggleDossierExpand() {
+      const drawer = document.getElementById('buyerDossierDrawer');
+      const btn = document.getElementById('btnDossierExpand');
+      if (!drawer || !btn) return;
+      const expanded = drawer.classList.toggle('dossier-expanded');
+      btn.innerHTML = expanded ? '<i class="bi bi-arrows-angle-contract"></i>' : '<i class="bi bi-arrows-angle-expand"></i>';
+      btn.title = expanded ? 'Restore default dossier width' : 'Expand dossier wider';
     }
 
     function closeBuyerDossier() {
@@ -1994,6 +2028,15 @@ function getBallInCourtStatus($row) {
       }
       document.body.style.overflow = '';
     }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const drawer = document.getElementById('buyerDossierDrawer');
+        if (drawer && drawer.classList.contains('active')) {
+          closeBuyerDossier();
+        }
+      }
+    });
 
     async function saveDossierNotes() {
       if (!currentDossierId) return;
@@ -2103,16 +2146,17 @@ function getBallInCourtStatus($row) {
         <div class="dossier-avatar" id="dossierAvatar">BM</div>
         <div style="min-width: 0; flex: 1;">
           <h6 class="mb-0 fw-bold brand-font text-truncate" id="dossierBuyerName" style="color: #0F172A; font-size: 1.05rem;">Buyer Name</h6>
-          <div class="text-muted d-flex align-items-center gap-2 text-nowrap mt-0.5" style="font-size: 0.76rem; overflow: hidden;">
-            <span id="dossierCompany" class="text-truncate fw-semibold text-dark" style="max-width: 160px;">Company</span>
+          <div class="text-muted d-flex align-items-center gap-2 text-nowrap mt-0.5" style="font-size: 0.78rem; overflow: hidden;">
+            <span id="dossierCompany" class="text-truncate fw-semibold text-dark" style="max-width: 340px;">Company</span>
             <span class="text-muted" style="font-size: 0.6rem;">&bull;</span>
             <span id="dossierFlagChip" class="dossier-flag-chip" style="width: 18px; height: 12px; min-width: 18px; min-height: 12px; max-width: 18px; max-height: 12px; display: inline-flex; align-items: center; justify-content: center; overflow: hidden; border: none !important; border-radius: 2px; flex-shrink: 0;"></span>
-            <span id="dossierCountry" class="text-secondary fw-medium text-truncate" style="max-width: 120px;">Country</span>
+            <span id="dossierCountry" class="text-secondary fw-medium text-truncate" style="max-width: 220px;">Country</span>
           </div>
         </div>
       </div>
       <div class="d-flex align-items-center gap-2 flex-shrink-0 ms-2">
         <span id="dossierBicBadge" class="badge-vel-desk">Desk Turn</span>
+        <button type="button" id="btnDossierExpand" class="btn-window-control" onclick="toggleDossierExpand()" title="Expand / Restore Dossier Width" aria-label="Toggle wide dossier"><i class="bi bi-arrows-angle-expand"></i></button>
         <button type="button" class="btn-close" onclick="closeBuyerDossier()" aria-label="Close" style="font-size: 0.8rem;"></button>
       </div>
     </div>
@@ -2121,29 +2165,30 @@ function getBallInCourtStatus($row) {
     <div class="dossier-body">
       <!-- Section 1: Deal Intelligence KPI Cards -->
       <div class="p-3 bg-light border-bottom">
-        <div class="row g-2 text-center">
-          <div class="col-4">
-            <div class="bg-white p-2 rounded border">
-              <div class="text-muted" style="font-size: 0.65rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.04em;">Mineral</div>
-              <div class="fw-bold text-truncate" id="dossierMineral" style="font-size: 0.82rem; color: #0F172A;">-</div>
-            </div>
+        <div class="dossier-kpi-grid">
+          <div class="dossier-kpi-card">
+            <div class="dossier-kpi-label">Commodity</div>
+            <div class="dossier-kpi-value" id="dossierMineral">-</div>
           </div>
-          <div class="col-4">
-            <div class="bg-white p-2 rounded border">
-              <div class="text-muted" style="font-size: 0.65rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.04em;">Volume</div>
-              <div class="fw-bold font-monospace text-truncate" id="dossierQty" style="font-size: 0.82rem; color: #0F172A;">-</div>
-            </div>
+          <div class="dossier-kpi-card">
+            <div class="dossier-kpi-label">Volume</div>
+            <div class="dossier-kpi-value font-monospace" id="dossierQty">-</div>
           </div>
-          <div class="col-4">
-            <div class="bg-white p-2 rounded border">
-              <div class="text-muted" style="font-size: 0.65rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.04em;">Est. Deal</div>
-              <div class="fw-bold font-monospace text-truncate" id="dossierDealVal" style="font-size: 0.82rem; color: #15803D;">-</div>
-            </div>
+          <div class="dossier-kpi-card">
+            <div class="dossier-kpi-label">Port / Terms</div>
+            <div class="dossier-kpi-value" id="dossierPort">-</div>
+          </div>
+          <div class="dossier-kpi-card">
+            <div class="dossier-kpi-label">Est. Deal</div>
+            <div class="dossier-kpi-value font-monospace" id="dossierDealVal" style="color: #64748B;">Upon Quote</div>
           </div>
         </div>
 
         <!-- Quick Action Pill Bar -->
-        <div class="d-flex align-items-center gap-2 mt-2.5">
+        <div class="d-flex align-items-center gap-2 mt-2.5 flex-wrap">
+          <button type="button" id="dossierFullReplyBtn" class="btn btn-sm btn-dark dossier-action-btn flex-fill">
+            <i class="bi bi-reply-fill"></i> Full Reply Editor
+          </button>
           <a href="#" id="dossierWaBtn" target="_blank" class="btn btn-sm btn-success dossier-action-btn flex-fill">
             <i class="bi bi-whatsapp"></i> WhatsApp
           </a>
