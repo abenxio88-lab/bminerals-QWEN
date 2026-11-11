@@ -12,8 +12,22 @@ require_once __DIR__ . '/flag-helper.php';
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/mail-helpers.php';
 
-// Must be logged in to trigger sync
-requireAuth();
+// Must have Email Desk permission to trigger sync, then release session lock immediately so parallel page clicks NEVER block
+requirePermission('draft_reply', true);
+$allMailboxes = function_exists('getConfiguredMailboxes') ? getConfiguredMailboxes() : [
+    'sales' => [
+        'user' => defined('MAIL_IMAP_USER') ? MAIL_IMAP_USER : 'sales@balochistanminerals.com',
+        'pass' => defined('MAIL_IMAP_PASS') ? MAIL_IMAP_PASS : '',
+    ],
+];
+releaseSessionLock();
+
+if (function_exists('imap_timeout')) {
+    @imap_timeout(IMAP_OPENTIMEOUT, 5);
+    @imap_timeout(IMAP_READTIMEOUT, 8);
+    @imap_timeout(IMAP_WRITETIMEOUT, 8);
+    @imap_timeout(IMAP_CLOSETIMEOUT, 3);
+}
 
 $pdo = getDB();
 if (!$pdo) {
@@ -78,12 +92,6 @@ function decodeImapPartPayload($raw, $encoding, $params = []) {
 $mailHost = defined('MAIL_IMAP_HOST') ? MAIL_IMAP_HOST : 'imap.hostinger.com';
 $mailPort = defined('MAIL_IMAP_PORT') ? MAIL_IMAP_PORT : 993;
 
-$allMailboxes = function_exists('getConfiguredMailboxes') ? getConfiguredMailboxes() : [
-    'sales' => [
-        'user' => defined('MAIL_IMAP_USER') ? MAIL_IMAP_USER : 'sales@balochistanminerals.com',
-        'pass' => defined('MAIL_IMAP_PASS') ? MAIL_IMAP_PASS : '',
-    ],
-];
 $activeBoxes = array_values(array_filter($allMailboxes, function ($box) {
     return !empty($box['user']) && !empty($box['pass']);
 }));
@@ -127,8 +135,25 @@ $mineralKeywords = [
     'gypsum'    => 'Gypsum Ore'
 ];
 
-$sinceDate = date("j-M-Y", strtotime("-14 days"));
 $isManual  = isset($_GET['manual']) && $_GET['manual'] === '1';
+$sinceDate = date("j-M-Y", strtotime($isManual ? "-14 days" : "-3 days"));
+$autoCooldownFile = sys_get_temp_dir() . '/bm_imap_last_auto_sync.json';
+if (!$isManual && is_file($autoCooldownFile)) {
+    $cdData = @json_decode((string)@file_get_contents($autoCooldownFile), true);
+    if (is_array($cdData) && !empty($cdData['ts']) && (time() - (int)$cdData['ts']) < 120) {
+        echo json_encode([
+            'success'          => true,
+            'skipped_cooldown' => true,
+            'synced_count'     => 0,
+            'synced_inbound'   => 0,
+            'synced_sent'      => 0,
+            'warnings'         => [],
+            'message'          => 'Mailboxes recently synced.',
+        ]);
+        exit;
+    }
+}
+@file_put_contents($autoCooldownFile, json_encode(['ts' => time()]));
 
 /**
  * Prevents repeated background IMAP login storms when Hostinger blocks or rejects a mailbox.

@@ -13,22 +13,25 @@ require_once __DIR__ . '/flag-helper.php';
 require_once __DIR__ . '/smtp-mailer.php';
 require_once __DIR__ . '/mail-helpers.php';
 
-if (!isLoggedIn()) {
-    http_response_code(401);
-    echo json_encode(['success' => false, 'error' => 'Authentication required. Please refresh or sign in.']);
-    exit;
-}
+requirePermission('view_rfqs', true);
 
 $pdo = getDB();
 if (!$pdo) {
     echo json_encode(['success' => false, 'error' => 'Database connection unavailable.']);
     exit;
 }
+ensureTeamSecuritySchema($pdo);
+$currentUser = getLoggedInUser();
+$currentUid  = (int)($currentUser['id'] ?? 0);
+$currentTier = $currentUser['tier'] ?? 'Owner';
 
 // ------------------------------------------
 // 1. GET: Fetch Buyer Dossier & Message Thread
 // ------------------------------------------
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $canAssignDossier = hasPermission('assign_records');
+    $canDirectDossier = hasPermission('send_direct_email');
+    releaseSessionLock();
     $inquiryId = (int)($_GET['inquiry_id'] ?? 0);
     if ($inquiryId <= 0) {
         echo json_encode(['success' => false, 'error' => 'Invalid Inquiry ID']);
@@ -41,6 +44,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     if (!$inquiry) {
         echo json_encode(['success' => false, 'error' => 'Inquiry not found']);
+        exit;
+    }
+    if ($currentTier === 'Junior' && !empty($inquiry['assigned_user_id']) && (int)$inquiry['assigned_user_id'] !== $currentUid) {
+        http_response_code(403);
+        echo json_encode(['success' => false, 'error' => 'This buyer RFQ is assigned to another colleague.']);
         exit;
     }
 
@@ -209,7 +217,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             'source' => $inquiry['source'] ?? '',
             'created_at' => date('M d, Y • h:i A', strtotime($inquiry['created_at'])),
             'initials' => $initials,
-            'wa_url' => $waUrl
+            'wa_url' => $waUrl,
+            'assigned_user_id' => !empty($inquiry['assigned_user_id']) ? (int)$inquiry['assigned_user_id'] : null,
+            'can_assign' => hasPermission('assign_records'),
+            'can_send_direct_email' => hasPermission('send_direct_email'),
+            'staff_list' => hasPermission('assign_records') ? getActiveStaffList($pdo) : []
         ],
         'flag_svg' => getCountryFlagSvg($resolvedCountry, $inquiry['email'] ?? '', $inquiry['whatsapp'] ?? '', $inquiry['company_name'] ?? ''),
         'ball_in_court' => $ballInCourt,
@@ -228,6 +240,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($inquiryId <= 0) {
         echo json_encode(['success' => false, 'error' => 'Invalid Inquiry ID']);
+        exit;
+    }
+
+    if ($currentTier === 'Junior') {
+        $chkAs = $pdo->prepare("SELECT assigned_user_id FROM inquiries WHERE id = ? LIMIT 1");
+        $chkAs->execute([$inquiryId]);
+        $asUid = $chkAs->fetchColumn();
+        if (!empty($asUid) && (int)$asUid !== $currentUid) {
+            http_response_code(403);
+            echo json_encode(['success' => false, 'error' => 'This inquiry is assigned to another colleague.']);
+            exit;
+        }
+    }
+
+    // Assigning Inquiry to Staff (Owner / Manager Only)
+    if ($action === 'assign_inquiry') {
+        requirePermission('assign_records', true);
+        $assigneeId = !empty($_POST['assigned_user_id']) ? (int)$_POST['assigned_user_id'] : null;
+        $pdo->prepare("UPDATE inquiries SET assigned_user_id = ? WHERE id = ?")->execute([$assigneeId, $inquiryId]);
+        $aName = 'Unassigned';
+        if ($assigneeId) {
+            $uSt = $pdo->prepare("SELECT full_name FROM admin_users WHERE id = ? LIMIT 1");
+            $uSt->execute([$assigneeId]);
+            $aName = $uSt->fetchColumn() ?: ('Staff #' . $assigneeId);
+        }
+        logSystemAudit($pdo, 'rfq', "Assigned RFQ #{$inquiryId} to {$aName}", $inquiryId);
+        echo json_encode(['success' => true, 'assigned_name' => $aName, 'message' => "Lead assigned to {$aName}."]);
         exit;
     }
 
@@ -268,14 +307,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         $attachedFiles = $uploadRes['files'];
 
-        // Dispatch via Hostinger SMTP
-        $res = sendHostingerMail($toEmail, $subject, $body, $fromEmail, null, $attachedFiles, $inquiryId);
+        // Dispatch via Hostinger SMTP OR Maker-Checker Approval Queue
+        $res = dispatchOrQueueStaffEmail($pdo, [
+            'to_email'    => $toEmail,
+            'from_email'  => $fromEmail,
+            'subject'     => $subject,
+            'body_text'   => $body,
+            'attachments' => $attachedFiles,
+            'inquiry_id'  => $inquiryId,
+        ]);
 
-        // Update inquiry status & internal timeline
-        $attNote = !empty($attachedFiles) ? (" [Attachments: " . implode(', ', array_column($attachedFiles, 'name')) . "]") : '';
-        $logNote = "[" . date('M d, Y H:i') . "] Dossier reply sent from " . $fromEmail . " to " . $toEmail . ": " . $subject . $attNote . "\n-------------------\n";
-        $up = $pdo->prepare("UPDATE inquiries SET status = CASE WHEN status = 'New' THEN 'Contacted' ELSE status END, internal_notes = CONCAT(?, COALESCE(internal_notes, '')) WHERE id = ?");
-        $up->execute([$logNote, $inquiryId]);
+        if (!empty($res['queued_for_approval'])) {
+            $logNote = "[" . date('M d, Y H:i') . "] Draft reply queued for approval (" . $currentUser['full_name'] . ") to " . $toEmail . ": " . $subject . "\n-------------------\n";
+            $pdo->prepare("UPDATE inquiries SET internal_notes = CONCAT(?, COALESCE(internal_notes, '')) WHERE id = ?")->execute([$logNote, $inquiryId]);
+        } else {
+            $attNote = !empty($attachedFiles) ? (" [Attachments: " . implode(', ', array_column($attachedFiles, 'name')) . "]") : '';
+            $logNote = "[" . date('M d, Y H:i') . "] Dossier reply sent from " . $fromEmail . " to " . $toEmail . ": " . $subject . $attNote . "\n-------------------\n";
+            $up = $pdo->prepare("UPDATE inquiries SET status = CASE WHEN status = 'New' THEN 'Contacted' ELSE status END, internal_notes = CONCAT(?, COALESCE(internal_notes, '')) WHERE id = ?");
+            $up->execute([$logNote, $inquiryId]);
+        }
 
         if (empty($res['success'])) {
             echo json_encode([
@@ -288,6 +338,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         echo json_encode([
             'success' => true,
+            'queued_for_approval' => !empty($res['queued_for_approval']),
             'attachment_count' => count($attachedFiles),
             'attachments' => $res['attachments'] ?? [],
             'message' => $res['message'] ?? 'Official reply dispatched via Hostinger SMTP relay.',

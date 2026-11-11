@@ -5,7 +5,7 @@
 
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/deal-helpers.php';
-requireAuth();
+requirePermission('view_deals');
 
 $user = getLoggedInUser();
 $pdo  = getDB();
@@ -424,10 +424,12 @@ $csrfToken        = getCsrfToken();
             </ul>
           </div>
           <?php endif; ?>
+          <?php if (hasPermission('create_deal')): ?>
           <button type="button" class="btn-topbar-primary" onclick="openNewDealModal()">
             <i class="bi bi-plus-lg"></i>
             <span>New Export Deal</span>
           </button>
+          <?php endif; ?>
         </div>
       </header>
 
@@ -514,6 +516,12 @@ $csrfToken        = getCsrfToken();
                     </div>
                     <h4 class="brand-font fw-bold mt-2 mb-1" id="hdrTitle">—</h4>
                     <div class="small text-muted" id="hdrSubtitle">—</div>
+                    <div id="dealAssigneeWrap" class="mt-2 d-flex align-items-center gap-2 d-none">
+                      <span class="small fw-semibold text-muted"><i class="bi bi-person-badge me-1"></i>Assigned Officer:</span>
+                      <select id="dealAssigneeSelect" class="form-select form-select-sm" style="width:auto;min-width:190px;font-size:0.76rem;" onchange="assignActiveDealStaff(this.value)">
+                        <option value="">— Unassigned (Shared) —</option>
+                      </select>
+                    </div>
                   </div>
                   <div class="d-flex flex-wrap align-items-center gap-2 flex-shrink-0">
                     <button type="button" id="btnCloseDealTrigger" class="btn-topbar-action" style="display:none; border-color:#059669; color:#065F46 !important;" onclick="openFinalizeDealModal()">
@@ -735,11 +743,12 @@ $csrfToken        = getCsrfToken();
 
     let allDeals = [];
     let allStockpiles = [];
+    let allStaffMembers = [];
     let activeDealData = null;
     let activeStageKey = 'contract_lc';
     let activeLedgerTab = 'lots';
     let dealStateFilter = 'Active';
-    let roleFlags = { role: 'Owner', can_financials: true, can_seal: true };
+    let roleFlags = { role: 'Owner', can_financials: true, can_verify_lock: true, can_standard_close: true, can_force_close: true, can_reopen: true, can_assign: true, can_create: true, can_seal: true };
     let queuedFiles = [];
 
     function esc(str) {
@@ -778,6 +787,7 @@ $csrfToken        = getCsrfToken();
 
       allDeals = data.deals || [];
       allStockpiles = data.stockpiles || [];
+      if (data.staff_list && data.staff_list.length) allStaffMembers = data.staff_list;
       if (data.role_flags) roleFlags = data.role_flags;
 
       // Render Executive Exception Radar
@@ -887,6 +897,7 @@ $csrfToken        = getCsrfToken();
       if (!data.success) return;
 
       activeDealData = data;
+      if (data.staff_list && data.staff_list.length) allStaffMembers = data.staff_list;
       if (data.role_flags) roleFlags = data.role_flags;
       if (!preserveStage) {
         activeStageKey = data.deal.current_stage_key || 'contract_lc';
@@ -919,9 +930,23 @@ $csrfToken        = getCsrfToken();
         `${Number(d.contracted_mt || 0).toLocaleString()} MT • ${d.incoterm} • ${d.payment_terms} • ${d.port_of_loading} → ${d.port_of_discharge || 'POD TBD'}` +
         (isSealed && d.sealed_at ? ` • Sealed ${d.sealed_at} by ${d.sealed_by || 'Owner'}` : '');
 
-      document.getElementById('btnCloseDealTrigger').style.display = (!isSealed && roleFlags.can_seal) ? 'inline-block' : 'none';
-      document.getElementById('btnReopenDealTrigger').style.display = (isSealed && roleFlags.can_seal) ? 'inline-block' : 'none';
+      document.getElementById('btnCloseDealTrigger').style.display = (!isSealed && (roleFlags.can_standard_close || roleFlags.can_force_close)) ? 'inline-block' : 'none';
+      document.getElementById('btnReopenDealTrigger').style.display = (isSealed && roleFlags.can_reopen) ? 'inline-block' : 'none';
+
+      const assignWrap = document.getElementById('dealAssigneeWrap');
+      const assignSel  = document.getElementById('dealAssigneeSelect');
+      if (assignWrap && assignSel) {
+        if (roleFlags.can_assign && allStaffMembers.length) {
+          assignSel.innerHTML = '<option value="">— Unassigned (Shared Desk) —</option>' +
+            allStaffMembers.map(u => `<option value="${Number(u.id)}">${esc(u.full_name)} (${esc(u.role)})</option>`).join('');
+          assignSel.value = d.assigned_user_id ? String(d.assigned_user_id) : '';
+          assignWrap.classList.remove('d-none');
+        } else {
+          assignWrap.classList.add('d-none');
+        }
+      }
       document.getElementById('btnPrintInvoice').href = `deal-print.php?id=${d.id}&doc=invoice`;
+      document.getElementById('btnPrintInvoice').style.display = roleFlags.can_financials ? 'inline-flex' : 'none';
       document.getElementById('btnPrintPacking').href = `deal-print.php?id=${d.id}&doc=packing`;
       document.getElementById('btnZipBuyer').href = `api-deals.php?action=zip_pack&deal_id=${d.id}&scope=buyer`;
       const zipAllEl = document.getElementById('btnZipAll');
@@ -1107,8 +1132,8 @@ $csrfToken        = getCsrfToken();
                 <td class="text-end">
                   <div class="btn-group btn-group-sm">
                     <a href="${esc(doc.file_url)}&download=1" class="btn btn-outline-secondary" title="Download"><i class="bi bi-download"></i></a>
-                    ${Number(doc.is_locked) === 0 ? `<button type="button" class="btn btn-outline-success" onclick="verifyLockDoc(${doc.id})" title="Verify & Lock Record"><i class="bi bi-shield-check"></i></button>` : ''}
-                    ${Number(doc.is_locked) === 0 ? `<button type="button" class="btn btn-outline-danger" onclick="deleteDoc(${doc.id})" title="Delete unlocked file"><i class="bi bi-trash"></i></button>` : ''}
+                    ${(Number(doc.is_locked) === 0 && roleFlags.can_verify_lock) ? `<button type="button" class="btn btn-outline-success" onclick="verifyLockDoc(${doc.id})" title="Verify & Lock Record"><i class="bi bi-shield-check"></i></button>` : ''}
+                    ${(Number(doc.is_locked) === 0 && roleFlags.can_verify_lock) ? `<button type="button" class="btn btn-outline-danger" onclick="deleteDoc(${doc.id})" title="Delete unlocked file"><i class="bi bi-trash"></i></button>` : ''}
                   </div>
                 </td>
               </tr>`;
@@ -1125,7 +1150,7 @@ $csrfToken        = getCsrfToken();
               <option value="Pending" ${m.status === 'Pending' ? 'selected' : ''}>Pending</option>
               <option value="In Progress" ${m.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
               <option value="Awaiting Verification" ${m.status === 'Awaiting Verification' ? 'selected' : ''}>Awaiting Verification</option>
-              <option value="Verified Complete" ${m.status === 'Verified Complete' ? 'selected' : ''}>Verified Complete</option>
+              ${(roleFlags.can_verify_lock || m.status === 'Verified Complete') ? `<option value="Verified Complete" ${m.status === 'Verified Complete' ? 'selected' : ''}>Verified Complete</option>` : ''}
             </select>
             <button type="button" class="btn btn-sm btn-dark fw-semibold px-3" onclick="saveActiveMilestone(${m.id})">
               <i class="bi bi-check2-circle me-1"></i> Save Stage &amp; Metrics
@@ -1150,14 +1175,15 @@ $csrfToken        = getCsrfToken();
         </div>
 
         <div class="row g-3 mb-4">
-          <div class="col-md-6">
+          <div class="${roleFlags.can_financials ? 'col-md-6' : 'col-12'}">
             <label class="form-label small fw-semibold">Buyer-Visible Stage Update</label>
             <textarea id="stageBuyerSummary" class="form-control form-control-sm" rows="2" placeholder="Clear update shown on buyer tracking link...">${esc(m.buyer_summary || '')}</textarea>
           </div>
+          ${roleFlags.can_financials ? `
           <div class="col-md-6">
             <label class="form-label small fw-semibold">Internal Compliance Notes (Private)</label>
             <textarea id="stageInternalRemarks" class="form-control form-control-sm" rows="2" placeholder="Mine supplier notes, L/C discrepancies, fee logs...">${esc(m.internal_remarks || '')}</textarea>
-          </div>
+          </div>` : ''}
         </div>
 
         <!-- Evidence Compressor & Uploader -->
@@ -1181,7 +1207,7 @@ $csrfToken        = getCsrfToken();
               <select id="upDocStatus" class="form-select form-select-sm">
                 <option value="Under Review">Under Review</option>
                 <option value="Draft">Draft (Audit Pending)</option>
-                <option value="Verified Final">Verified Final</option>
+                ${roleFlags.can_verify_lock ? '<option value="Verified Final">Verified Final</option>' : ''}
               </select>
             </div>
           </div>
@@ -1356,7 +1382,8 @@ $csrfToken        = getCsrfToken();
       fd.append('milestone_id', milestoneId);
       fd.append('status', document.getElementById('stageStatusSel').value);
       fd.append('buyer_summary', document.getElementById('stageBuyerSummary').value);
-      fd.append('internal_remarks', document.getElementById('stageInternalRemarks').value);
+      const remEl = document.getElementById('stageInternalRemarks');
+      fd.append('internal_remarks', remEl ? remEl.value : '');
       fd.append('metrics_json', JSON.stringify(metrics));
 
       const res = await fetch('api-deals.php', { method: 'POST', body: fd });
@@ -1395,6 +1422,23 @@ $csrfToken        = getCsrfToken();
     function changeDocVisibility(docId, vis) { docOp(docId, 'set_visibility', { visibility: vis }); }
     function deleteDoc(docId) {
       if (confirm('Delete this unverified upload from the vault?')) docOp(docId, 'delete');
+    }
+
+    async function assignActiveDealStaff(assignedUserId) {
+      if (!activeDealData || !activeDealData.deal) return;
+      const fd = new FormData();
+      fd.append('csrf_token', CSRF_TOKEN);
+      fd.append('action', 'assign_deal');
+      fd.append('deal_id', activeDealData.deal.id);
+      fd.append('assigned_user_id', assignedUserId);
+      const res = await fetch('api-deals.php', { method: 'POST', body: fd });
+      const data = await res.json();
+      if (data.success) {
+        showVaultAlert('Deal assigned to ' + (data.assigned_name || 'Unassigned') + '.');
+        await loadDealsList(activeDealData.deal.id);
+      } else {
+        showVaultAlert(data.error || 'Failed to assign deal', 'danger');
+      }
     }
 
     async function addStockpileAllocation() {
@@ -1674,14 +1718,15 @@ $csrfToken        = getCsrfToken();
             <strong>Pre-Close Check Warning:</strong>
             ${missing.length ? `<div class="mt-1">Missing docs: ${missing.map(x => esc(x)).join(', ')}</div>` : ''}
             ${unver.length ? `<div class="mt-1">Pending final lock: ${unver.map(x => esc(x)).join(', ')}</div>` : ''}
+            ${!roleFlags.can_force_close ? '<div class="mt-2 text-danger fw-bold">Manager Standard Close requires 100% verified docs (ask Owner for Force-Close override).</div>' : ''}
           </div>`;
-        forceWrap.style.display = 'block';
+        forceWrap.style.display = roleFlags.can_force_close ? 'block' : 'none';
       }
       bootstrap.Modal.getOrCreateInstance(document.getElementById('finalizeDealModal')).show();
     }
 
     async function confirmFinalizeDeal() {
-      const force = document.getElementById('chkForceClose').checked ? 1 : 0;
+      const force = (roleFlags.can_force_close && document.getElementById('chkForceClose').checked) ? 1 : 0;
       const fd = new FormData();
       fd.append('csrf_token', CSRF_TOKEN);
       fd.append('action', 'close_deal');
@@ -1694,8 +1739,12 @@ $csrfToken        = getCsrfToken();
       const res = await fetch('api-deals.php', { method: 'POST', body: fd });
       const data = await res.json();
       if (data.needs_confirmation) {
-        document.getElementById('forceCloseConfirmWrap').style.display = 'block';
-        alert('Mandatory docs are incomplete. Tick "Override missing/unverified docs" to confirm early seal.');
+        if (roleFlags.can_force_close) {
+          document.getElementById('forceCloseConfirmWrap').style.display = 'block';
+          alert('Mandatory docs are incomplete. Tick "Override missing/unverified docs" to confirm early seal.');
+        } else {
+          showVaultAlert('All mandatory compliance documents must be Verified Final before Manager Standard Close.', 'warning');
+        }
         return;
       }
       if (data.success) {

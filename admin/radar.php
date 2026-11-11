@@ -5,7 +5,7 @@
  */
 
 require_once __DIR__ . '/auth.php';
-requireAuth();
+requirePermission('view_radar');
 
 $user = getLoggedInUser();
 $pdo  = getDB();
@@ -38,8 +38,15 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && $pdo !== null) {
             $stmt->execute([$chosen[0], $chosen[1], $chosen[2], $chosen[3], $chosen[4], $chosen[5]]);
             $flashMessage = 'Simulated live visit from ' . $chosen[1] . ' (' . $chosen[4] . ') recorded.';
         } elseif ($action === 'clear_radar') {
-            $pdo->exec("DELETE FROM visitor_radar WHERE visited_at < NOW() - INTERVAL 30 DAY");
-            $flashMessage = 'Old radar logs cleared.';
+            if (!hasPermission('hard_delete')) {
+                logSystemAudit($pdo, 'security', 'Blocked non-Owner clear_radar attempt');
+                $flashMessage = 'Only Owner can purge radar telemetry logs.';
+                $flashType = 'danger';
+            } else {
+                $pdo->exec("DELETE FROM visitor_radar WHERE visited_at < NOW() - INTERVAL 30 DAY");
+                logSystemAudit($pdo, 'radar', 'Cleared radar logs older than 30 days');
+                $flashMessage = 'Old radar logs cleared.';
+            }
         }
     }
 }

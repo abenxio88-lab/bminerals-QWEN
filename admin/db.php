@@ -175,11 +175,36 @@ function getMineralBenchmarkForType($mineralType) {
 }
 
 /**
+ * Cross-request schema version marker in sys_get_temp_dir() to eliminate redundant DDL/SHOW COLUMNS per HTTP hit.
+ */
+function getSchemaBootFlagPath($key) {
+    $host = defined('DB_HOST') ? DB_HOST : 'localhost';
+    $name = defined('DB_NAME') ? DB_NAME : '';
+    return rtrim(sys_get_temp_dir(), '/\\') . DIRECTORY_SEPARATOR . 'bm_schema_' . md5($host . '|' . $name . '|' . $key) . '.ok';
+}
+
+function isSchemaBootstrapped($key) {
+    $name = defined('DB_NAME') ? DB_NAME : '';
+    if ($name === '') return false;
+    return is_file(getSchemaBootFlagPath($key));
+}
+
+function markSchemaBootstrapped($key) {
+    $name = defined('DB_NAME') ? DB_NAME : '';
+    if ($name === '') return;
+    @file_put_contents(getSchemaBootFlagPath($key), '1');
+}
+
+/**
  * Ensures the persistent admin_notifications table exists.
  */
 function ensureNotificationsTable($pdo) {
     static $ensured = false;
     if ($ensured || !$pdo) return;
+    if (isSchemaBootstrapped('notif_v1')) {
+        $ensured = true;
+        return;
+    }
     try {
         $pdo->exec("CREATE TABLE IF NOT EXISTS `admin_notifications` (
             `id` INT AUTO_INCREMENT PRIMARY KEY,
@@ -194,6 +219,7 @@ function ensureNotificationsTable($pdo) {
             INDEX `idx_is_read` (`is_read`),
             INDEX `idx_created_at` (`created_at`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+        markSchemaBootstrapped('notif_v1');
         $ensured = true;
     } catch (Exception $e) {
         error_log("Notification table ensure notice: " . $e->getMessage());

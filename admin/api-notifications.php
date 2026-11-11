@@ -10,11 +10,7 @@ header('X-Content-Type-Options: nosniff');
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/db.php';
 
-if (!isLoggedIn()) {
-    http_response_code(401);
-    echo json_encode(['success' => false, 'error' => 'Authentication required']);
-    exit;
-}
+requireAuth(true);
 
 $pdo = getDB();
 if (!$pdo) {
@@ -25,10 +21,24 @@ if (!$pdo) {
 ensureNotificationsTable($pdo);
 
 if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'GET') {
+    $csrf = getCsrfToken();
+    $canTeam = hasPermission('manage_team');
+    $canAppr = hasPermission('approve_emails');
+    releaseSessionLock();
     try {
-        $unread = (int)$pdo->query("SELECT COUNT(*) FROM admin_notifications WHERE is_read = 0")->fetchColumn();
+        $filters = [];
+        if (!$canTeam) {
+            $filters[] = "category != 'security'";
+        }
+        if (!$canAppr) {
+            $filters[] = "category != 'approval'";
+        }
+        $whereSql = !empty($filters) ? (' WHERE ' . implode(' AND ', $filters)) : '';
+        $unreadSql = !empty($filters) ? (' WHERE is_read = 0 AND ' . implode(' AND ', $filters)) : ' WHERE is_read = 0';
+
+        $unread = (int)$pdo->query("SELECT COUNT(*) FROM admin_notifications{$unreadSql}")->fetchColumn();
         $rows = $pdo->query("SELECT id, type, category, title, message, inquiry_id, link_url, is_read, created_at
-            FROM admin_notifications
+            FROM admin_notifications{$whereSql}
             ORDER BY is_read ASC, created_at DESC, id DESC
             LIMIT 40")->fetchAll(PDO::FETCH_ASSOC);
 
@@ -44,7 +54,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'GET') {
             'success' => true,
             'unread_count' => $unread,
             'notifications' => $rows,
-            'csrf_token' => getCsrfToken(),
+            'csrf_token' => $csrf,
         ]);
     } catch (Exception $e) {
         echo json_encode(['success' => false, 'error' => $e->getMessage()]);

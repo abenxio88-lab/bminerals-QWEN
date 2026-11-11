@@ -120,6 +120,7 @@ jobs:
             **/postcss.config.js
             **/tailwind.config.js
             **/*.md
+            INTERNAL_STAFF_ACCOUNTS_RULEBOOK.md
             **/*.sql
             **/*.zip
             **/.lighthouserc.json
@@ -175,6 +176,7 @@ jobs:
             **/postcss.config.js
             **/tailwind.config.js
             **/*.md
+            INTERNAL_STAFF_ACCOUNTS_RULEBOOK.md
             **/*.sql
             **/*.zip
             **/.lighthouserc.json
@@ -228,6 +230,7 @@ jobs:
             **/postcss.config.js
             **/tailwind.config.js
             **/*.md
+            INTERNAL_STAFF_ACCOUNTS_RULEBOOK.md
             **/*.sql
             **/*.zip
             **/.lighthouserc.json

@@ -7,10 +7,15 @@
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/smtp-mailer.php';
 require_once __DIR__ . '/mail-helpers.php';
-requireAuth();
+requirePermission('draft_reply');
 
 $user = getLoggedInUser();
 $pdo  = getDB();
+if ($pdo !== null) {
+    ensureTeamSecuritySchema($pdo);
+}
+$currentUid  = (int)($user['id'] ?? 0);
+$currentTier = $user['tier'] ?? 'Owner';
 
 $flashMessage = '';
 $flashType    = 'success';
@@ -35,38 +40,61 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && $pdo !== null) {
                 $flashType = 'danger';
             } else {
                 $attachedFiles = $uploadRes['files'];
-                $sendRes = sendHostingerMail($toEmail, $subject, $replyBody, $fromEmail, $ccEmail, $attachedFiles, $inquiryId);
-                if ($sendRes['success']) {
+                $sendRes = dispatchOrQueueStaffEmail($pdo, [
+                    'to_email'    => $toEmail,
+                    'from_email'  => $fromEmail,
+                    'cc_email'    => $ccEmail,
+                    'subject'     => $subject,
+                    'body_text'   => $replyBody,
+                    'attachments' => $attachedFiles,
+                    'inquiry_id'  => $inquiryId,
+                ]);
+                if (!empty($sendRes['queued_for_approval'])) {
+                    $flashMessage = 'Draft saved and queued for Manager / Owner approval before sending to ' . $toEmail . '.';
+                    $flashType = 'info';
+                } elseif ($sendRes['success']) {
                     $attSuffix = !empty($attachedFiles) ? (' (' . count($attachedFiles) . ' attachment(s))') : '';
                     $flashMessage = 'Official export email dispatched to ' . $toEmail . $attSuffix . ' via Hostinger SMTP relay.';
                 } else {
-                    $flashMessage = 'Email logged in outbox, but SMTP reported: ' . $sendRes['error'];
+                    $flashMessage = 'Email logged in outbox, but SMTP reported: ' . ($sendRes['error'] ?? 'Delivery failed.');
                     $flashType = 'warning';
                 }
             }
         } elseif ($action === 'save_mail_settings') {
-            $smtpHost = cleanInput($_POST['smtp_host'] ?? 'smtp.hostinger.com');
-            $smtpPort = (int)($_POST['smtp_port'] ?? 465);
-            $smtpUser = cleanInput($_POST['smtp_user'] ?? 'sales@balochistanminerals.com');
-            $smtpPass = trim($_POST['smtp_pass'] ?? '');
-
-            $_SESSION['bm_mail_pass'] = $smtpPass;
-            $confContent = "<?php\ndefine('BM_SMTP_HOST', " . var_export($smtpHost, true) . ");\ndefine('BM_SMTP_PORT', " . var_export($smtpPort, true) . ");\ndefine('BM_SMTP_USER', " . var_export($smtpUser, true) . ");\ndefine('BM_SMTP_PASS', " . var_export($smtpPass, true) . ");\n";
-            @file_put_contents(__DIR__ . '/mail-config.php', $confContent);
-
-            $flashMessage = 'Hostinger mail server configuration saved successfully.';
-        } elseif ($action === 'test_smtp') {
-            $smtpHost = cleanInput($_POST['smtp_host'] ?? 'smtp.hostinger.com');
-            $smtpPort = (int)($_POST['smtp_port'] ?? 465);
-            $smtpUser = cleanInput($_POST['smtp_user'] ?? 'sales@balochistanminerals.com');
-            $smtpPass = trim($_POST['smtp_pass'] ?? '');
-
-            $testRes = testHostingerSmtp($smtpHost, $smtpPort, $smtpUser, $smtpPass);
-            if ($testRes['success']) {
-                $flashMessage = '✓ ' . $testRes['message'];
-            } else {
-                $flashMessage = 'SMTP Test Error: ' . $testRes['error'];
+            if (!hasPermission('manage_mail_config')) {
+                logSystemAudit($pdo, 'security', 'Blocked non-Owner save_mail_settings on email-desk');
+                $flashMessage = 'Only Owner can update corporate SMTP mail credentials.';
                 $flashType = 'danger';
+            } else {
+                $smtpHost = cleanInput($_POST['smtp_host'] ?? 'smtp.hostinger.com');
+                $smtpPort = (int)($_POST['smtp_port'] ?? 465);
+                $smtpUser = cleanInput($_POST['smtp_user'] ?? 'sales@balochistanminerals.com');
+                $smtpPass = trim($_POST['smtp_pass'] ?? '');
+
+                $_SESSION['bm_mail_pass'] = $smtpPass;
+                $confContent = "<?php\ndefine('BM_SMTP_HOST', " . var_export($smtpHost, true) . ");\ndefine('BM_SMTP_PORT', " . var_export($smtpPort, true) . ");\ndefine('BM_SMTP_USER', " . var_export($smtpUser, true) . ");\ndefine('BM_SMTP_PASS', " . var_export($smtpPass, true) . ");\n";
+                @file_put_contents(__DIR__ . '/mail-config.php', $confContent);
+                logSystemAudit($pdo, 'security', "Updated Hostinger SMTP settings on Email Desk ({$smtpUser}:{$smtpPort})");
+
+                $flashMessage = 'Hostinger mail server configuration saved successfully.';
+            }
+        } elseif ($action === 'test_smtp') {
+            if (!hasPermission('manage_mail_config')) {
+                $flashMessage = 'Only Owner can test corporate SMTP configuration.';
+                $flashType = 'danger';
+            } else {
+                $smtpHost = cleanInput($_POST['smtp_host'] ?? 'smtp.hostinger.com');
+                $smtpPort = (int)($_POST['smtp_port'] ?? 465);
+                $smtpUser = cleanInput($_POST['smtp_user'] ?? 'sales@balochistanminerals.com');
+                $smtpPass = trim($_POST['smtp_pass'] ?? '');
+
+                $testRes = testHostingerSmtp($smtpHost, $smtpPort, $smtpUser, $smtpPass);
+                if ($testRes['success']) {
+                    $flashMessage = '✓ ' . $testRes['message'];
+                } else {
+                    $flashMessage = 'SMTP Test Error: ' . $testRes['error'];
+                    $flashType = 'danger';
+                }
             }
         }
     } else {
@@ -104,6 +132,11 @@ if ($pdo !== null) {
             WHERE 1=1";
     $params = [];
 
+    if ($currentTier === 'Junior' && $currentUid > 0) {
+        $sql .= " AND (i.id IS NULL OR i.assigned_user_id IS NULL OR i.assigned_user_id = ? OR m.created_by_user_id = ?)";
+        $params[] = $currentUid;
+        $params[] = $currentUid;
+    }
     if (!empty($filterDirection)) {
         $sql .= " AND m.direction = ?";
         $params[] = $filterDirection;
@@ -572,9 +605,11 @@ if ($pdo !== null) {
           <button type="button" id="btnDeskSyncMail" class="btn-topbar-action" onclick="syncDeskMailboxes()" title="Pull incoming & sent mail from sales@ and info@">
             <i class="bi bi-arrow-repeat"></i> <span>Sync Mail</span>
           </button>
+          <?php if (hasPermission('manage_mail_config')): ?>
           <button type="button" class="btn-topbar-action" data-bs-toggle="modal" data-bs-target="#mailConfigModal">
             <i class="bi bi-gear"></i> <span>Server Config</span>
           </button>
+          <?php endif; ?>
           <button type="button" class="btn-topbar-primary" data-bs-toggle="modal" data-bs-target="#newOfferModal">
             <i class="bi bi-pencil-square"></i> <span>Compose Trade Offer</span>
           </button>
@@ -582,6 +617,12 @@ if ($pdo !== null) {
       </header>
 
       <main class="content-canvas">
+        <?php if ($pdo !== null && hasPermission('approve_emails') && ($deskPend = getPendingApprovalCount($pdo)) > 0): ?>
+        <div class="alert alert-warning d-flex align-items-center justify-content-between py-2 px-3 mb-3 small shadow-sm">
+          <div><i class="bi bi-envelope-exclamation-fill me-2"></i><strong><?= (int)$deskPend ?></strong> Junior reply draft(s) waiting for Maker-Checker review before dispatch.</div>
+          <a href="team.php#approvals" class="btn btn-sm btn-dark fw-semibold py-0.5 px-2.5">Review &amp; Approve</a>
+        </div>
+        <?php endif; ?>
 
         <?php if (!empty($flashMessage)): ?>
           <div class="alert alert-<?= $flashType ?> alert-dismissible fade show d-flex align-items-center gap-2 py-2 px-3 mb-2 small shadow-sm" role="alert">
@@ -923,7 +964,7 @@ Web: https://balochistanminerals.com</textarea>
           <div class="modal-footer d-flex justify-content-end gap-2 py-2 px-3 bg-light border-top">
             <button type="button" class="btn btn-sm btn-outline-secondary px-3 py-1" data-bs-dismiss="modal">Cancel</button>
             <button type="submit" class="btn btn-sm btn-dark px-3 py-1 fw-bold text-white shadow-sm" style="background: #0F172A; border-color: #0F172A; border-radius: 6px;">
-              <i class="bi bi-send-fill me-1"></i> Dispatch Trade Offer
+              <i class="bi <?= hasPermission('send_direct_email') ? 'bi-send-fill' : 'bi-hourglass-split' ?> me-1"></i> <?= hasPermission('send_direct_email') ? 'Dispatch Trade Offer' : 'Submit for Manager Approval' ?>
             </button>
           </div>
         </form>
@@ -931,6 +972,7 @@ Web: https://balochistanminerals.com</textarea>
     </div>
   </div>
 
+  <?php if (hasPermission('manage_mail_config')): ?>
   <!-- Modal: Hostinger Mail Server Settings -->
   <div class="modal fade" id="mailConfigModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" style="max-width: 580px;">
@@ -994,6 +1036,7 @@ Web: https://balochistanminerals.com</textarea>
       </div>
     </div>
   </div>
+  <?php endif; ?>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script>

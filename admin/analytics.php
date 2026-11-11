@@ -6,7 +6,7 @@
 
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/flag-helper.php';
-requireAuth();
+requirePermission('view_analytics');
 
 $user = getLoggedInUser();
 $pdo  = getDB();

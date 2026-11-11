@@ -66,13 +66,16 @@ if ($publicDocId > 0) {
         }
     }
 } elseif (isLoggedIn() && $docId > 0) {
+    requireAuth();
+    $canFinVault = canViewDealFinancials();
+    releaseSessionLock();
     $stmt = $pdo->prepare("SELECT dd.*, fb.storage_key, fb.thumb_key, fb.mime_type
         FROM `deal_documents` dd
         JOIN `file_blobs` fb ON fb.id = dd.blob_id
         WHERE dd.id = ? LIMIT 1");
     $stmt->execute([$docId]);
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    if ($row && !canViewDealFinancials()) {
+    if ($row && !$canFinVault) {
         $restrictedCats = ['spa', 'proforma_invoice', 'lc_swift', 'form_e', 'final_invoice', 'bank_prc', 'royalty_pass'];
         if ($row['visibility'] === 'internal_only' && in_array($row['doc_category'], $restrictedCats, true)) {
             $row = null;

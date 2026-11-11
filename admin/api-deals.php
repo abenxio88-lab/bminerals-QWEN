@@ -6,13 +6,7 @@
 
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/vault-helpers.php';
-
-if (!isLoggedIn()) {
-    header('Content-Type: application/json; charset=utf-8');
-    http_response_code(401);
-    echo json_encode(['success' => false, 'error' => 'Session expired. Please sign in again.']);
-    exit;
-}
+requirePermission('view_deals', true);
 
 $pdo = getDB();
 if (!$pdo) {
@@ -23,10 +17,35 @@ if (!$pdo) {
 }
 
 ensureDealVaultSchema($pdo);
-$user = getLoggedInUser();
-$canFinancials = canViewDealFinancials();
-$canSeal       = canSealOrBackupDeals();
+ensureTeamSecuritySchema($pdo);
+$user             = getLoggedInUser();
+$currentUid       = (int)($user['id'] ?? 0);
+$currentTier      = $user['tier'] ?? 'Owner';
+$canFinancials    = hasPermission('view_deal_financials');
+$canVerifyLock    = hasPermission('verify_lock_docs');
+$canStandardClose = hasPermission('standard_close_deal');
+$canForceClose    = hasPermission('force_close_deal');
+$canReopen        = hasPermission('reopen_deal');
+$canAssign        = hasPermission('assign_records');
+$canCreateDeal    = hasPermission('create_deal');
+$canBackup        = hasPermission('download_backup');
+$canSeal          = $canForceClose;
 $action = $_REQUEST['action'] ?? 'list';
+
+function buildRoleFlagsPayload($canFinancials, $canVerifyLock, $canStandardClose, $canForceClose, $canReopen, $canAssign, $canCreateDeal, $canBackup) {
+    return [
+        'role'               => getAdminRole(),
+        'can_financials'     => $canFinancials,
+        'can_verify_lock'    => $canVerifyLock,
+        'can_standard_close' => $canStandardClose,
+        'can_force_close'    => $canForceClose,
+        'can_reopen'         => $canReopen,
+        'can_assign'         => $canAssign,
+        'can_create'         => $canCreateDeal,
+        'can_backup'         => $canBackup,
+        'can_seal'           => $canForceClose,
+    ];
+}
 
 function assertDealNotSealed($pdo, $dealId) {
     $st = $pdo->prepare("SELECT deal_state, deal_code FROM `deals` WHERE id = ? LIMIT 1");
@@ -46,6 +65,10 @@ function assertDealNotSealed($pdo, $dealId) {
 
 function getRestrictedDocCategoriesForField() {
     return ['spa', 'proforma_invoice', 'lc_swift', 'form_e', 'final_invoice', 'bank_prc', 'royalty_pass'];
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    releaseSessionLock();
 }
 
 // ---------------------------------------------------------
@@ -93,7 +116,16 @@ header('X-Content-Type-Options: nosniff');
 // ---------------------------------------------------------
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if ($action === 'list') {
-        $deals = $pdo->query("SELECT * FROM `deals` ORDER BY is_public_demo ASC, FIELD(deal_state,'Active','Disputed','Closed Settled','Archived'), updated_at DESC, id DESC")->fetchAll(PDO::FETCH_ASSOC);
+        $whereSql = ($currentTier === 'Junior' && $currentUid > 0)
+            ? " WHERE (d.assigned_user_id IS NULL OR d.assigned_user_id = ?)"
+            : "";
+        $stDeals = $pdo->prepare("SELECT d.*, u.full_name AS assigned_staff_name
+            FROM `deals` d
+            LEFT JOIN `admin_users` u ON u.id = d.assigned_user_id
+            {$whereSql}
+            ORDER BY d.is_public_demo ASC, FIELD(d.deal_state,'Active','Disputed','Closed Settled','Archived'), d.updated_at DESC, d.id DESC");
+        $stDeals->execute(($whereSql !== '') ? [$currentUid] : []);
+        $deals = $stDeals->fetchAll(PDO::FETCH_ASSOC);
         $globalAlerts = [];
         foreach ($deals as &$d) {
             $d['readiness']    = computeDealReadiness($pdo, (int)$d['id']);
@@ -135,11 +167,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             'vault_stats'=> $blobStats,
             'stockpiles' => $stockpiles,
             'exceptions' => $globalAlerts,
-            'role_flags' => [
-                'role'           => getAdminRole(),
-                'can_financials' => $canFinancials,
-                'can_seal'       => $canSeal,
-            ],
+            'staff_list' => $canAssign ? getActiveStaffList($pdo) : [],
+            'role_flags' => buildRoleFlagsPayload($canFinancials, $canVerifyLock, $canStandardClose, $canForceClose, $canReopen, $canAssign, $canCreateDeal, $canBackup),
         ]);
         exit;
     }
@@ -168,6 +197,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $deal = $stmt->fetch(PDO::FETCH_ASSOC);
         if (!$deal) {
             echo json_encode(['success' => false, 'error' => 'Deal not found.']);
+            exit;
+        }
+        if ($currentTier === 'Junior' && !empty($deal['assigned_user_id']) && (int)$deal['assigned_user_id'] !== $currentUid) {
+            http_response_code(403);
+            echo json_encode(['success' => false, 'error' => 'This shipment deal is assigned to another colleague.']);
             exit;
         }
 
@@ -283,11 +317,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             'intelligence' => $intelligence,
             'buyer_token'  => $activeTok,
             'presets'      => getMineralAssayPresets($deal['commodity']),
-            'role_flags'   => [
-                'role'           => getAdminRole(),
-                'can_financials' => $canFinancials,
-                'can_seal'       => $canSeal,
-            ],
+            'staff_list'   => $canAssign ? getActiveStaffList($pdo) : [],
+            'role_flags'   => buildRoleFlagsPayload($canFinancials, $canVerifyLock, $canStandardClose, $canForceClose, $canReopen, $canAssign, $canCreateDeal, $canBackup),
             'stockpiles'   => $pdo->query("SELECT id, mineral_name, location, tonnage_available, grade_spec FROM `stockpiles` ORDER BY mineral_name ASC")->fetchAll(PDO::FETCH_ASSOC),
         ]);
         exit;
@@ -310,6 +341,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // 1. CREATE DEAL
     if ($action === 'create_deal') {
+        if (!$canCreateDeal) {
+            http_response_code(403);
+            echo json_encode(['success' => false, 'error' => 'Manager or Owner authorization required to open a new export deal.']);
+            exit;
+        }
         $inquiryId   = (int)($_POST['inquiry_id'] ?? 0);
         $stockpileId = (int)($_POST['stockpile_id'] ?? 0);
         $buyerName   = trim((string)($_POST['buyer_name'] ?? ''));
@@ -450,11 +486,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $completedAt = ($status === 'Verified Complete') ? ($ms['completed_at'] ?: date('Y-m-d H:i:s')) : null;
+        if (!$canVerifyLock && $status === 'Verified Complete') {
+            $status = 'Awaiting Verification';
+            $completedAt = null;
+        }
         $verifiedBy  = ($status === 'Verified Complete') ? ($user['full_name'] ?? 'Admin') : null;
         $startedAt   = ($status !== 'Pending' && empty($ms['started_at'])) ? date('Y-m-d H:i:s') : $ms['started_at'];
+        $remarksToSave = $canFinancials ? $internalRemarks : (string)($ms['internal_remarks'] ?? '');
 
         $pdo->prepare("UPDATE `deal_milestones` SET status = ?, buyer_summary = ?, internal_remarks = ?, started_at = ?, completed_at = ?, verified_by = ? WHERE id = ?")
-            ->execute([$status, $buyerSummary, $internalRemarks, $startedAt, $completedAt, $verifiedBy, $milestoneId]);
+            ->execute([$status, $buyerSummary, $remarksToSave, $startedAt, $completedAt, $verifiedBy, $milestoneId]);
 
         // Upsert measurements & collect top-level deal mirrors
         $upsertM = $pdo->prepare("INSERT INTO `deal_measurements`
@@ -480,6 +521,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mKey = 'custom_' . substr(preg_replace('/[^a-z0-9]+/', '_', strtolower($mLabel)), 0, 32) . '_' . substr(md5($mLabel), 0, 4);
             }
             if ($mKey === '' || $mLabel === '') continue;
+            if (!$canFinancials && in_array($mKey, ['unit_price_usd', 'settled_usd', 'prc_ref'], true)) {
+                continue;
+            }
 
             $upsertM->execute([$dealId, $milestoneId, $mKey, $mLabel, $mVal, $mUnit, $mSrc, $mVis]);
 
@@ -569,6 +613,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $keepExisting = !empty($_POST['keep_existing']);
 
         if (!in_array($docStatus, ['Draft', 'Under Review', 'Verified Final', 'Superseded'], true)) $docStatus = 'Under Review';
+        if (!$canVerifyLock && $docStatus === 'Verified Final') {
+            $docStatus = 'Under Review';
+        }
         if (!in_array($visibility, ['internal_only', 'buyer_portal', 'public_sample'], true)) $visibility = 'buyer_portal';
 
         $chk = $pdo->prepare("SELECT id FROM `deal_milestones` WHERE id = ? AND deal_id = ? LIMIT 1");
@@ -652,6 +699,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         assertDealNotSealed($pdo, (int)$doc['deal_id']);
 
         if ($op === 'verify_lock') {
+            if (!$canVerifyLock) {
+                http_response_code(403);
+                echo json_encode(['success' => false, 'error' => 'Only Manager or Owner can lock & verify documents.']);
+                exit;
+            }
             $pdo->prepare("UPDATE `deal_documents` SET doc_status = 'Verified Final', is_locked = 1, verified_by = ?, verified_at = NOW() WHERE id = ?")
                 ->execute([$user['full_name'] ?? 'Admin', $docId]);
             logDealAudit($pdo, (int)$doc['deal_id'], 'doc_lock', "Verified & locked document #{$docId} ({$doc['title']})");
@@ -667,9 +719,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             $st = $_POST['doc_status'] ?? 'Under Review';
             if (!in_array($st, ['Draft', 'Under Review', 'Verified Final', 'Superseded'], true)) $st = 'Under Review';
+            if (!$canVerifyLock && $st === 'Verified Final') {
+                http_response_code(403);
+                echo json_encode(['success' => false, 'error' => 'Only Manager or Owner can mark a document Verified Final.']);
+                exit;
+            }
             $pdo->prepare("UPDATE `deal_documents` SET doc_status = ? WHERE id = ?")->execute([$st, $docId]);
             logDealAudit($pdo, (int)$doc['deal_id'], 'doc_status', "Updated status of '{$doc['title']}' -> {$st}");
         } elseif ($op === 'delete') {
+            if (!$canVerifyLock) {
+                http_response_code(403);
+                echo json_encode(['success' => false, 'error' => 'Only Manager or Owner can remove vault uploads.']);
+                exit;
+            }
             if ((int)$doc['is_locked'] === 1) {
                 echo json_encode(['success' => false, 'error' => 'Verified & locked compliance records cannot be deleted (upload a newer version or supersede).']);
                 exit;
@@ -856,13 +918,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // 10. 1-BUTTON FINALIZE & CLOSE DEAL (+ AUTO-DEDUCT STOCKPILE & SEAL VAULT)
     if ($action === 'close_deal') {
-        if (!$canSeal) {
+        if (!$canStandardClose && !$canForceClose) {
             http_response_code(403);
-            echo json_encode(['success' => false, 'error' => 'Only Owner / Executive role can finalize and seal deals.']);
+            echo json_encode(['success' => false, 'error' => 'Manager or Owner role required to finalize deals.']);
             exit;
         }
         $dealId      = (int)($_POST['deal_id'] ?? 0);
         $forceClose  = !empty($_POST['force_close']);
+        if ($forceClose && !$canForceClose) {
+            http_response_code(403);
+            echo json_encode(['success' => false, 'error' => 'Only Owner can Force-Close a deal with incomplete compliance documents.']);
+            exit;
+        }
         $deductStock = !empty($_POST['deduct_stockpile']);
         $retireToken = !empty($_POST['retire_token']);
         $closeNote   = trim((string)($_POST['close_note'] ?? 'Deal verified & settled cleanly.'));
@@ -872,6 +939,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $deal = $dealStmt->fetch(PDO::FETCH_ASSOC);
         if (!$deal) {
             echo json_encode(['success' => false, 'error' => 'Deal not found.']);
+            exit;
+        }
+        if ($currentTier === 'Junior' && !empty($deal['assigned_user_id']) && (int)$deal['assigned_user_id'] !== $currentUid) {
+            http_response_code(403);
+            echo json_encode(['success' => false, 'error' => 'This shipment deal is assigned to another colleague.']);
             exit;
         }
 
@@ -947,6 +1019,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         logDealAudit($pdo, $dealId, 'deal_closed', "Finalized & sealed deal {$deal['deal_code']}{$deductedSummary}. Note: {$closeNote}");
+        logSystemAudit($pdo, 'deal', "Closed deal {$deal['deal_code']}" . ($forceClose ? ' [FORCE CLOSED]' : '') . $deductedSummary, $dealId);
         logAdminNotification($pdo, 'success', 'deals', 'Deal Finalized & Sealed', "{$deal['deal_code']} closed{$deductedSummary}", $deal['inquiry_id'] ?: null, "deals.php?id={$dealId}");
 
         echo json_encode(['success' => true, 'summary' => "Deal {$deal['deal_code']} sealed as Closed Settled{$deductedSummary}."]);
@@ -954,16 +1027,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($action === 'reopen_deal') {
-        if (!$canSeal) {
+        if (!$canReopen) {
             http_response_code(403);
-            echo json_encode(['success' => false, 'error' => 'Only Owner / Executive role can reopen sealed deals.']);
+            echo json_encode(['success' => false, 'error' => 'Only Owner can reopen sealed deals.']);
             exit;
         }
         $dealId = (int)($_POST['deal_id'] ?? 0);
         $reason = trim((string)($_POST['reason'] ?? 'Owner correction'));
         $pdo->prepare("UPDATE `deals` SET deal_state = 'Active', sealed_at = NULL, sealed_by = NULL WHERE id = ?")->execute([$dealId]);
         logDealAudit($pdo, $dealId, 'deal_reopened', "Reopened sealed deal: {$reason}");
+        logSystemAudit($pdo, 'deal', "Reopened sealed deal #{$dealId}: {$reason}", $dealId);
         echo json_encode(['success' => true]);
+        exit;
+    }
+
+    if ($action === 'assign_deal') {
+        if (!$canAssign) {
+            http_response_code(403);
+            echo json_encode(['success' => false, 'error' => 'Only Owner or Manager can assign export deals.']);
+            exit;
+        }
+        $dealId = (int)($_POST['deal_id'] ?? 0);
+        $assigneeId = !empty($_POST['assigned_user_id']) ? (int)$_POST['assigned_user_id'] : null;
+        $pdo->prepare("UPDATE `deals` SET assigned_user_id = ? WHERE id = ?")->execute([$assigneeId, $dealId]);
+        $aName = 'Unassigned';
+        if ($assigneeId) {
+            $uSt = $pdo->prepare("SELECT full_name FROM `admin_users` WHERE id = ? LIMIT 1");
+            $uSt->execute([$assigneeId]);
+            $aName = $uSt->fetchColumn() ?: ('Staff #' . $assigneeId);
+        }
+        logDealAudit($pdo, $dealId, 'deal_assigned', "Assigned deal to {$aName}");
+        logSystemAudit($pdo, 'deal', "Assigned deal #{$dealId} to {$aName}", $dealId);
+        echo json_encode(['success' => true, 'assigned_name' => $aName]);
         exit;
     }
 

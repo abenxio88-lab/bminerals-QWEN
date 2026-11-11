@@ -7,13 +7,7 @@
 
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/vault-helpers.php';
-requireAuth();
-
-if (!canSealOrBackupDeals()) {
-    http_response_code(403);
-    echo 'Owner privileges required for database & vault backups.';
-    exit;
-}
+requirePermission('download_backup');
 
 $pdo = getDB();
 if (!$pdo) {
@@ -25,6 +19,8 @@ if (!$pdo) {
 ensureDealVaultSchema($pdo);
 $mode = ($_GET['mode'] ?? 'full_zip') === 'sql' ? 'sql' : 'full_zip';
 $stamp = date('Y-m-d_His');
+logSystemAudit($pdo, 'backup', "Downloaded disaster-recovery export bundle ({$mode})");
+releaseSessionLock();
 
 function buildPurePhpSqlDump($pdo) {
     $out = [];

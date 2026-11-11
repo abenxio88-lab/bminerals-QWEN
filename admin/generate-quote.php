@@ -5,7 +5,7 @@
  */
 
 require_once __DIR__ . '/auth.php';
-requireAuth();
+requirePermission('generate_quote');
 
 $pdo = getDB();
 $id  = (int)($_GET['id'] ?? 0);

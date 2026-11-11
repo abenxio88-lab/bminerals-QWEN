@@ -5,7 +5,7 @@
  */
 
 require_once __DIR__ . '/auth.php';
-requireAuth();
+requirePermission('manage_prices');
 
 $user = getLoggedInUser();
 $pdo  = getDB();
@@ -39,22 +39,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pdo !== null) {
             if ($id > 0) {
                 $stmt = $pdo->prepare('UPDATE mineral_prices SET mineral_name = ?, grade_name = ?, purity_spec = ?, price_low_usd = ?, price_high_usd = ?, unit = ?, delivery_terms = ?, notes = ?, is_active = ? WHERE id = ?');
                 $stmt->execute([$mineral, $grade, $purity, $low, $high, $unit, $terms, $notes, $isActive, $id]);
+                logSystemAudit($pdo, 'price', "Updated spot benchmark '{$mineral}' (\${$low}-\${$high} / {$unit})", $id);
                 $flashMessage = 'Price for ' . $mineral . ' updated successfully (' . $unit . ').';
             } else {
                 $stmt = $pdo->prepare('INSERT INTO mineral_prices (mineral_name, grade_name, purity_spec, price_low_usd, price_high_usd, unit, delivery_terms, notes, is_active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)');
                 $stmt->execute([$mineral, $grade, $purity, $low, $high, $unit, $terms, $notes, $isActive]);
+                logSystemAudit($pdo, 'price', "Created spot benchmark '{$mineral}' (\${$low}-\${$high} / {$unit})");
                 $flashMessage = 'New mineral price entry created for ' . $mineral . ' (' . $unit . ').';
             }
         } elseif ($action === 'update_rate') {
             $newRate = (float)($_POST['usd_pkr_rate'] ?? 278.50);
             if ($newRate > 0) {
                 $_SESSION['bm_usd_pkr_rate'] = $newRate;
+                logSystemAudit($pdo, 'price', "Updated USD/PKR desk FX rate to {$newRate}");
                 $flashMessage = 'USD to PKR conversion rate updated to ₨ ' . number_format($newRate, 2);
             }
         } elseif ($action === 'delete_price') {
             $id = (int)($_POST['price_id'] ?? 0);
             $stmt = $pdo->prepare('DELETE FROM mineral_prices WHERE id = ?');
             $stmt->execute([$id]);
+            logSystemAudit($pdo, 'price', "Deleted mineral price entry #{$id}", $id);
             $flashMessage = 'Price entry deleted.';
             $flashType = 'warning';
         }

@@ -6,7 +6,12 @@
 
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/deal-helpers.php';
-requireAuth();
+$docType = ($_GET['doc'] ?? 'invoice') === 'packing' ? 'packing' : 'invoice';
+if ($docType === 'invoice') {
+    requirePermission('view_deal_financials');
+} else {
+    requirePermission('view_deals');
+}
 
 $pdo = getDB();
 if (!$pdo) {
@@ -14,8 +19,7 @@ if (!$pdo) {
 }
 ensureDealVaultSchema($pdo);
 
-$dealId  = (int)($_GET['id'] ?? 0);
-$docType = ($_GET['doc'] ?? 'invoice') === 'packing' ? 'packing' : 'invoice';
+$dealId = (int)($_GET['id'] ?? 0);
 
 $stmt = $pdo->prepare("SELECT * FROM `deals` WHERE id = ? LIMIT 1");
 $stmt->execute([$dealId]);

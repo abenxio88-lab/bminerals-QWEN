@@ -6,7 +6,7 @@
 
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/deal-helpers.php';
-requireAuth();
+requirePermission('view_stockpiles');
 
 $user = getLoggedInUser();
 $pdo  = getDB();
@@ -20,37 +20,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pdo !== null) {
 
     if (verifyCsrfToken($csrf)) {
         if ($action === 'save_stockpile') {
-            $id       = (int)($_POST['stockpile_id'] ?? 0);
-            $mineral  = cleanInput($_POST['mineral_name'] ?? '');
-            $location = cleanInput($_POST['location'] ?? 'Karachi Port');
-            $tonnage  = (int)($_POST['tonnage_available'] ?? 0);
-            $grade    = cleanInput($_POST['grade_spec'] ?? '');
-            $status   = cleanInput($_POST['status'] ?? 'Ready for Loading');
-
-            if ($id > 0) {
-                $stmt = $pdo->prepare('UPDATE stockpiles SET mineral_name = ?, location = ?, tonnage_available = ?, grade_spec = ?, status = ?, last_survey_date = CURDATE() WHERE id = ?');
-                $stmt->execute([$mineral, $location, $tonnage, $grade, $status, $id]);
-                $flashMessage = 'Stockpile updated successfully.';
+            if (!hasPermission('manage_stockpiles')) {
+                logSystemAudit($pdo, 'security', 'Blocked unauthorized save_stockpile attempt');
+                $flashMessage = 'Read-only stockpile access for your account role.';
+                $flashType = 'danger';
             } else {
-                $stmt = $pdo->prepare('INSERT INTO stockpiles (mineral_name, location, tonnage_available, grade_spec, status, last_survey_date) VALUES (?, ?, ?, ?, ?, CURDATE())');
-                $stmt->execute([$mineral, $location, $tonnage, $grade, $status]);
-                $flashMessage = 'New stockpile location logged.';
+                $id       = (int)($_POST['stockpile_id'] ?? 0);
+                $mineral  = cleanInput($_POST['mineral_name'] ?? '');
+                $location = cleanInput($_POST['location'] ?? 'Karachi Port');
+                $tonnage  = (int)($_POST['tonnage_available'] ?? 0);
+                $grade    = cleanInput($_POST['grade_spec'] ?? '');
+                $status   = cleanInput($_POST['status'] ?? 'Ready for Loading');
+
+                if ($id > 0) {
+                    $stmt = $pdo->prepare('UPDATE stockpiles SET mineral_name = ?, location = ?, tonnage_available = ?, grade_spec = ?, status = ?, last_survey_date = CURDATE() WHERE id = ?');
+                    $stmt->execute([$mineral, $location, $tonnage, $grade, $status, $id]);
+                    logSystemAudit($pdo, 'stockpile', "Updated stockpile #{$id}: {$mineral} ({$tonnage} MT @ {$location})", $id);
+                    $flashMessage = 'Stockpile updated successfully.';
+                } else {
+                    $stmt = $pdo->prepare('INSERT INTO stockpiles (mineral_name, location, tonnage_available, grade_spec, status, last_survey_date) VALUES (?, ?, ?, ?, ?, CURDATE())');
+                    $stmt->execute([$mineral, $location, $tonnage, $grade, $status]);
+                    logSystemAudit($pdo, 'stockpile', "Added stockpile lot: {$mineral} ({$tonnage} MT @ {$location})");
+                    $flashMessage = 'New stockpile location logged.';
+                }
             }
         } elseif ($action === 'delete_stockpile') {
-            $id = (int)($_POST['stockpile_id'] ?? 0);
-            $stmt = $pdo->prepare('DELETE FROM stockpiles WHERE id = ?');
-            $stmt->execute([$id]);
-            $flashMessage = 'Stockpile entry deleted.';
-            $flashType = 'warning';
+            if (!hasPermission('hard_delete')) {
+                logSystemAudit($pdo, 'security', 'Blocked non-Owner delete_stockpile attempt');
+                $flashMessage = 'Only Owner can permanently delete stockpile records.';
+                $flashType = 'danger';
+            } else {
+                $id = (int)($_POST['stockpile_id'] ?? 0);
+                $stmt = $pdo->prepare('DELETE FROM stockpiles WHERE id = ?');
+                $stmt->execute([$id]);
+                logSystemAudit($pdo, 'stockpile', "Deleted stockpile #{$id}", $id);
+                $flashMessage = 'Stockpile entry deleted.';
+                $flashType = 'warning';
+            }
         } elseif ($action === 'update_shipment') {
-            $id     = (int)($_POST['shipment_id'] ?? 0);
-            $stage  = cleanInput($_POST['status_stage'] ?? 'Contract & L/C Verified');
-            $vessel = cleanInput($_POST['vessel_name'] ?? '');
-            $notes  = cleanInput($_POST['notes'] ?? '');
+            if (!hasPermission('manage_stockpiles')) {
+                $flashMessage = 'Read-only logistics access for your account role.';
+                $flashType = 'danger';
+            } else {
+                $id     = (int)($_POST['shipment_id'] ?? 0);
+                $stage  = cleanInput($_POST['status_stage'] ?? 'Contract & L/C Verified');
+                $vessel = cleanInput($_POST['vessel_name'] ?? '');
+                $notes  = cleanInput($_POST['notes'] ?? '');
 
-            $stmt = $pdo->prepare('UPDATE shipments SET status_stage = ?, vessel_name = ?, notes = ? WHERE id = ?');
-            $stmt->execute([$stage, $vessel, $notes, $id]);
-            $flashMessage = 'Shipment stage updated successfully.';
+                $stmt = $pdo->prepare('UPDATE shipments SET status_stage = ?, vessel_name = ?, notes = ? WHERE id = ?');
+                $stmt->execute([$stage, $vessel, $notes, $id]);
+                logSystemAudit($pdo, 'stockpile', "Updated shipment #{$id} -> {$stage}", $id);
+                $flashMessage = 'Shipment stage updated successfully.';
+            }
         }
     } else {
         $flashMessage = 'Session expired. Please try again.';
@@ -353,9 +374,11 @@ if ($pdo !== null) {
             <span class="status-dot dot-green"></span>
             <span>Port Logistics Active</span>
           </div>
+          <?php if (hasPermission('manage_stockpiles')): ?>
           <button type="button" class="btn-topbar-primary" data-bs-toggle="modal" data-bs-target="#stockModal0">
             <i class="bi bi-plus-lg"></i> <span>Log Stockpile Lot</span>
           </button>
+          <?php endif; ?>
         </div>
       </header>
 
@@ -471,9 +494,13 @@ if ($pdo !== null) {
                             </div>
 
                             <div class="modal-footer d-flex justify-content-between">
+                              <?php if (hasPermission('hard_delete')): ?>
                               <button type="button" class="btn-delete-action" onclick="if(confirm('Delete stockpile record?')) { document.getElementById('delStock<?= $stk['id'] ?>').submit(); }">
                                 <i class="bi bi-trash3 me-1"></i> Delete
                               </button>
+                              <?php else: ?>
+                              <span class="small text-muted">Deletion restricted to Owner</span>
+                              <?php endif; ?>
                               <div class="d-flex gap-2">
                                 <button type="button" class="btn-cancel-action" data-bs-dismiss="modal">Cancel</button>
                                 <button type="submit" class="btn-save-action">
@@ -483,11 +510,13 @@ if ($pdo !== null) {
                             </div>
                           </form>
 
+                          <?php if (hasPermission('hard_delete')): ?>
                           <form id="delStock<?= $stk['id'] ?>" method="POST" action="stockpiles.php" style="display:none;">
                             <input type="hidden" name="action" value="delete_stockpile">
                             <input type="hidden" name="stockpile_id" value="<?= $stk['id'] ?>">
                             <input type="hidden" name="csrf_token" value="<?= getCsrfToken() ?>">
                           </form>
+                          <?php endif; ?>
                         </div>
                       </div>
                     </div>

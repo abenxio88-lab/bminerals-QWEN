@@ -5,7 +5,7 @@
  */
 
 require_once __DIR__ . '/auth.php';
-requireAuth();
+requirePermission('manage_community');
 
 $user = getLoggedInUser();
 $pdo  = getDB();

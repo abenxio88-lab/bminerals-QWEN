@@ -266,6 +266,10 @@ function ensureDealVaultSchema($pdo) {
     if ($done || !$pdo) {
         return;
     }
+    if (function_exists('isSchemaBootstrapped') && isSchemaBootstrapped('deal_vault_v2')) {
+        $done = true;
+        return;
+    }
 
     try {
         // 1. Deals master table
@@ -488,6 +492,9 @@ function ensureDealVaultSchema($pdo) {
         // 9. Safe multi-row migration from legacy shipments without overwriting live production rows
         syncLegacyShipmentsIntoDeals($pdo);
 
+        if (function_exists('markSchemaBootstrapped')) {
+            markSchemaBootstrapped('deal_vault_v2');
+        }
         $done = true;
     } catch (Exception $e) {
         error_log('ensureDealVaultSchema error: ' . $e->getMessage());

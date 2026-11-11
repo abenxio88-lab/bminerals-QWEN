@@ -63,3 +63,6 @@ admin/uploads/
 BM_DB_BACKUP_*.sql
 BM_FULL_RECOVERY_BACKUP_*.zip
 *.zip
+
+# Internal Owner-only staff credentials & operating rulebook (NEVER push or deploy)
+INTERNAL_STAFF_ACCOUNTS_RULEBOOK.md

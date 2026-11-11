@@ -9,12 +9,8 @@ require_once __DIR__ . '/db.php';
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/mail-helpers.php';
 
-if (!isLoggedIn()) {
-    http_response_code(401);
-    header('Content-Type: text/plain; charset=utf-8');
-    echo 'Authentication required.';
-    exit;
-}
+requirePermission('view_rfqs', true);
+releaseSessionLock();
 
 $pdo = getDB();
 if (!$pdo) {

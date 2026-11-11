@@ -1071,23 +1071,136 @@
     };
   }
 
+  // ==========================================================================
+  // LIVE PRESENCE HEARTBEAT, ROLE BADGE & RBAC SIDEBAR FILTERING
+  // ==========================================================================
+  function initTeamPresenceAndRbac() {
+    const sidebarNav = document.querySelector('#appSidebar .sidebar-nav, .app-sidebar .sidebar-nav');
+    const sidebarFooter = document.querySelector('#appSidebar .sidebar-footer, .app-sidebar .sidebar-footer');
+    const currentFile = (window.location.pathname.split('/').pop() || 'dashboard.php').split('?')[0] || 'dashboard.php';
+
+    function injectTeamNavAndBadges(data) {
+      const allowed = data.allowed_pages || {};
+      const pendingCount = Number(data.pending_approvals || 0);
+      const role = (data.user && data.user.role) ? String(data.user.role) : '';
+
+      // 1. Display clean Role tier badge inside sidebar footer next to user name
+      if (sidebarFooter && role) {
+        const nameBlock = sidebarFooter.querySelector('.fw-bold.small, div > div');
+        if (nameBlock && !sidebarFooter.querySelector('.bm-role-tier-pill')) {
+          const badge = document.createElement('span');
+          const tierColors = {
+            Owner: 'background:#0F172A;color:#FFFFFF;',
+            Manager: 'background:#E65C1A;color:#FFFFFF;',
+            Junior: 'background:#E2E8F0;color:#0F172A;',
+            Yard: 'background:#DBEAFE;color:#1E40AF;'
+          };
+          badge.className = 'bm-role-tier-pill ms-1 px-1.5 py-0.5 rounded font-monospace';
+          badge.style.cssText = 'font-size:0.62rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;' + (tierColors[role] || 'background:#E2E8F0;color:#0F172A;');
+          badge.textContent = role;
+          nameBlock.appendChild(badge);
+        }
+      }
+
+      if (!sidebarNav) return;
+
+      // 2. Inject "Team & Security" link before Buyer Tracking Portal if permitted & absent
+      if (allowed['team.php'] && !sidebarNav.querySelector('a[href="team.php"]')) {
+        const trackingLink = sidebarNav.querySelector('a[href="../tracking"], a[href*="tracking"]');
+        const teamLink = document.createElement('a');
+        teamLink.href = 'team.php';
+        teamLink.className = 'sidebar-link' + (currentFile === 'team.php' ? ' active' : '');
+        teamLink.innerHTML = '<div><i class="bi bi-shield-lock-fill"></i> Team &amp; Security</div><span class="badge bg-dark font-monospace js-team-approval-badge" style="font-size:0.68rem;display:none;">0</span>';
+        if (trackingLink && trackingLink.parentNode === sidebarNav) {
+          sidebarNav.insertBefore(teamLink, trackingLink);
+        } else {
+          sidebarNav.appendChild(teamLink);
+        }
+      }
+
+      // Update Pending Approval badge count on Team link
+      const approvalBadge = sidebarNav.querySelector('.js-team-approval-badge');
+      if (approvalBadge) {
+        if (pendingCount > 0) {
+          approvalBadge.textContent = pendingCount + ' PEND';
+          approvalBadge.style.backgroundColor = '#E65C1A';
+          approvalBadge.style.display = 'inline-block';
+        } else {
+          approvalBadge.style.display = 'none';
+        }
+      }
+
+      // 3. Enforce sidebar link visibility matching server RBAC flags
+      sidebarNav.querySelectorAll('a.sidebar-link').forEach((link) => {
+        const rawHref = (link.getAttribute('href') || '').split('?')[0].split('#')[0];
+        const target = rawHref.split('/').pop();
+        if (Object.prototype.hasOwnProperty.call(allowed, target)) {
+          link.style.display = allowed[target] ? '' : 'none';
+        }
+      });
+
+      // 4. Hide section titles if every link in that section was hidden
+      const titles = Array.from(sidebarNav.querySelectorAll('.sidebar-section-title'));
+      titles.forEach((titleEl) => {
+        let sibling = titleEl.nextElementSibling;
+        let hasVisible = false;
+        while (sibling && !sibling.classList.contains('sidebar-section-title')) {
+          if (sibling.matches('a.sidebar-link') && sibling.style.display !== 'none') {
+            hasVisible = true;
+            break;
+          }
+          sibling = sibling.nextElementSibling;
+        }
+        titleEl.style.display = hasVisible ? '' : 'none';
+      });
+    }
+
+    async function pingPresence() {
+      try {
+        const res = await fetch('api-presence.php?page=' + encodeURIComponent(currentFile), {
+          headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+          cache: 'no-store'
+        });
+        if (res.status === 401) {
+          let payload = {};
+          try { payload = await res.json(); } catch (e) {}
+          window.location.href = payload.redirect || 'login.php?revoked=revoked';
+          return;
+        }
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data && data.auth_revoked) {
+          window.location.href = data.redirect || 'login.php?revoked=revoked';
+          return;
+        }
+        if (data && data.success) {
+          window.BM_AUTH = data;
+          injectTeamNavAndBadges(data);
+          window.dispatchEvent(new CustomEvent('bm:presence', { detail: data }));
+        }
+      } catch (e) {
+        // Silent retry on temporary network drop
+      }
+    }
+
+    pingPresence();
+    setInterval(pingPresence, 25000);
+  }
+
   // Initialize once DOM is ready
   initEmailImageFallback();
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      initSidebar();
-      initLiveClock();
-      initResizableModals();
-      initReplyModals();
-      initTooltips();
-      initNotificationCenter();
-    });
-  } else {
+  function bootLayout() {
     initSidebar();
     initLiveClock();
     initResizableModals();
     initReplyModals();
     initTooltips();
     initNotificationCenter();
+    initTeamPresenceAndRbac();
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootLayout);
+  } else {
+    bootLayout();
   }
 })();

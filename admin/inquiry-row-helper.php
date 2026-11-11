@@ -481,8 +481,9 @@ if (!function_exists('renderInquiryRow')) {
                       </div>
                       <div class="d-flex align-items-center gap-2 ms-auto">
                         <button type="button" class="btn btn-sm btn-outline-secondary px-3 py-1.5" data-bs-dismiss="modal">Cancel</button>
+                        <?php $canDirectEmailBtn = !function_exists('hasPermission') || hasPermission('send_direct_email'); ?>
                         <button type="submit" class="btn btn-sm btn-dark px-3.5 py-1.5 fw-bold text-white shadow-sm" style="background: #0F172A; border-color: #0F172A; border-radius: 6px;">
-                          <i class="bi bi-send-fill me-1"></i> Send Official Reply
+                          <i class="bi bi-send-fill me-1"></i> <?= $canDirectEmailBtn ? 'Send Official Reply' : 'Submit for Approval' ?>
                         </button>
                       </div>
                     </div>
@@ -561,6 +562,24 @@ if (!function_exists('renderInquiryRow')) {
                             <span class="input-group-text">USD / MT</span>
                           </div>
                         </div>
+                        <?php if (function_exists('hasPermission') && hasPermission('assign_records')):
+                          static $bmCachedStaff = null;
+                          if ($bmCachedStaff === null && function_exists('getActiveStaffList')) {
+                              $bmCachedStaff = getActiveStaffList(getDB());
+                          }
+                        ?>
+                        <div class="col-12">
+                          <label class="form-label fw-bold small">Assigned Operations Officer</label>
+                          <select name="assigned_user_id" class="form-select form-select-sm">
+                            <option value="">— Unassigned (Shared Desk) —</option>
+                            <?php foreach ($bmCachedStaff ?: [] as $stMember): ?>
+                              <option value="<?= (int)$stMember['id'] ?>" <?= ((int)($row['assigned_user_id'] ?? 0) === (int)$stMember['id']) ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($stMember['full_name']) ?> (<?= htmlspecialchars($stMember['role']) ?>)
+                              </option>
+                            <?php endforeach; ?>
+                          </select>
+                        </div>
+                        <?php endif; ?>
                         <div class="col-12">
                           <label class="form-label fw-bold small">Internal Trade Desk Notes (Private)</label>
                           <textarea name="internal_notes" class="form-control form-control-sm" rows="3" placeholder="Private notes on trucking, weighbridge results, L/C bank requirements, etc."><?= htmlspecialchars($row['internal_notes'] ?? '') ?></textarea>
@@ -569,9 +588,13 @@ if (!function_exists('renderInquiryRow')) {
                     </div>
 
                     <div class="modal-footer d-flex justify-content-between">
+                      <?php if (!function_exists('hasPermission') || hasPermission('hard_delete')): ?>
                       <button type="button" class="btn btn-sm btn-outline-danger" onclick="if(confirm('Delete inquiry permanently?')) { document.getElementById('delForm<?= (int)$row['id'] ?>').submit(); }">
                         <i class="bi bi-trash"></i> Delete
                       </button>
+                      <?php else: ?>
+                      <span class="small text-muted">Deletion restricted to Owner</span>
+                      <?php endif; ?>
                       <div class="d-flex gap-2">
                         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-sm btn-dark" style="background: var(--brand-navy);">Save Changes</button>
@@ -579,11 +602,13 @@ if (!function_exists('renderInquiryRow')) {
                     </div>
                   </form>
 
+                  <?php if (!function_exists('hasPermission') || hasPermission('hard_delete')): ?>
                   <form id="delForm<?= (int)$row['id'] ?>" method="POST" action="dashboard.php" style="display:none;">
                     <input type="hidden" name="action" value="delete_inquiry">
                     <input type="hidden" name="inquiry_id" value="<?= (int)$row['id'] ?>">
                     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken) ?>">
                   </form>
+                  <?php endif; ?>
                 </div>
               </div>
             </div>

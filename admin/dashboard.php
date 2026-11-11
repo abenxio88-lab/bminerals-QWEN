@@ -9,14 +9,24 @@ require_once __DIR__ . '/smtp-mailer.php';
 require_once __DIR__ . '/flag-helper.php';
 require_once __DIR__ . '/inquiry-row-helper.php';
 require_once __DIR__ . '/mail-helpers.php';
-requireAuth();
+requirePermission('view_rfqs');
 
 $user = getLoggedInUser();
 $pdo  = getDB();
+if ($pdo !== null) {
+    ensureTeamSecuritySchema($pdo);
+}
+$currentUid  = (int)($user['id'] ?? 0);
+$currentTier = $user['tier'] ?? 'Owner';
 
 $flashMessage = $_SESSION['bm_flash_msg'] ?? '';
 $flashType    = $_SESSION['bm_flash_type'] ?? 'success';
 unset($_SESSION['bm_flash_msg'], $_SESSION['bm_flash_type']);
+
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'GET') {
+    getCsrfToken();
+    releaseSessionLock();
+}
 
 // Handle quick updates (Status change, spot quote, internal notes, or delete)
 if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && $pdo !== null) {
@@ -30,8 +40,15 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && $pdo !== null) {
             $spotPrice  = !empty($_POST['spot_price']) ? (float)$_POST['spot_price'] : null;
             $notes      = cleanInput($_POST['internal_notes'] ?? '');
 
-            $stmt = $pdo->prepare('UPDATE inquiries SET status = ?, spot_price_quoted = ?, internal_notes = ? WHERE id = ?');
-            $stmt->execute([$status, $spotPrice, $notes, $id]);
+            if (hasPermission('assign_records') && array_key_exists('assigned_user_id', $_POST)) {
+                $assignId = !empty($_POST['assigned_user_id']) ? (int)$_POST['assigned_user_id'] : null;
+                $stmt = $pdo->prepare('UPDATE inquiries SET status = ?, spot_price_quoted = ?, internal_notes = ?, assigned_user_id = ? WHERE id = ?');
+                $stmt->execute([$status, $spotPrice, $notes, $assignId, $id]);
+            } else {
+                $stmt = $pdo->prepare('UPDATE inquiries SET status = ?, spot_price_quoted = ?, internal_notes = ? WHERE id = ?');
+                $stmt->execute([$status, $spotPrice, $notes, $id]);
+            }
+            logSystemAudit($pdo, 'rfq', "Updated RFQ #{$id} (status: {$status})", $id);
             $_SESSION['bm_flash_msg'] = 'Inquiry #' . $id . ' updated successfully.';
             $_SESSION['bm_flash_type'] = 'success';
         } elseif ($action === 'send_reply') {
@@ -57,55 +74,91 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && $pdo !== null) {
                 $attachedFiles = $uploadRes['files'];
                 $attNote = !empty($attachedFiles) ? (" [Attachments: " . implode(', ', array_column($attachedFiles, 'name')) . "]") : '';
 
-                if ($autoLog && $id > 0) {
-                    $ccNote = $ccEmail !== '' ? " (CC: $ccEmail)" : '';
-                    $logEntry = "[" . date('M d, Y H:i') . "] Email sent from " . $fromEmail . " to " . $toEmail . $ccNote . ":\nSubject: " . $subject . $attNote . "\n" . $replyBody . "\n-------------------\n";
-                    $stmt = $pdo->prepare('UPDATE inquiries SET internal_notes = CONCAT(?, COALESCE(internal_notes, "")), status = CASE WHEN status = "New" THEN "Contacted" ELSE status END WHERE id = ?');
-                    $stmt->execute([$logEntry, $id]);
-                }
+                // Dispatch directly via Hostinger SMTP OR Queue for Manager/Owner approval
+                $sendRes = dispatchOrQueueStaffEmail($pdo, [
+                    'to_email'    => $toEmail,
+                    'from_email'  => $fromEmail,
+                    'cc_email'    => $ccEmail,
+                    'bcc_email'   => $bccEmail,
+                    'subject'     => $subject,
+                    'body_text'   => $replyBody,
+                    'body_html'   => $replyHtmlBody !== '' ? $replyHtmlBody : null,
+                    'attachments' => $attachedFiles,
+                    'inquiry_id'  => $id,
+                ]);
 
-                // Dispatch via Hostinger SMTP engine (supports CC, BCC, and formatted HTML body)
-                $sendRes = sendHostingerMail($toEmail, $subject, $replyBody, $fromEmail, $ccEmail !== '' ? $ccEmail : null, $attachedFiles, $id, $replyHtmlBody !== '' ? $replyHtmlBody : null, $bccEmail !== '' ? $bccEmail : null);
-                if ($sendRes['success']) {
+                if (!empty($sendRes['queued_for_approval'])) {
+                    if ($autoLog && $id > 0) {
+                        $logEntry = "[" . date('M d, Y H:i') . "] Draft reply queued for approval ({$user['full_name']}) to {$toEmail}: {$subject}{$attNote}\n-------------------\n";
+                        $pdo->prepare('UPDATE inquiries SET internal_notes = CONCAT(?, COALESCE(internal_notes, "")) WHERE id = ?')->execute([$logEntry, $id]);
+                    }
+                    $_SESSION['bm_flash_msg'] = 'Reply draft saved and queued for Manager / Owner approval before sending to ' . $toEmail . '.';
+                    $_SESSION['bm_flash_type'] = 'info';
+                } elseif ($sendRes['success']) {
+                    if ($autoLog && $id > 0) {
+                        $ccNote = $ccEmail !== '' ? " (CC: $ccEmail)" : '';
+                        $logEntry = "[" . date('M d, Y H:i') . "] Email sent from " . $fromEmail . " to " . $toEmail . $ccNote . ":\nSubject: " . $subject . $attNote . "\n" . $replyBody . "\n-------------------\n";
+                        $stmt = $pdo->prepare('UPDATE inquiries SET internal_notes = CONCAT(?, COALESCE(internal_notes, "")), status = CASE WHEN status = "New" THEN "Contacted" ELSE status END WHERE id = ?');
+                        $stmt->execute([$logEntry, $id]);
+                    }
                     $_SESSION['bm_flash_msg'] = 'Official email reply dispatched to ' . $toEmail . ($autoLog ? ' and logged to Buyer Dossier #' . $id . '.' : '.');
                     $_SESSION['bm_flash_type'] = 'success';
                 } else {
-                    $_SESSION['bm_flash_msg'] = ($autoLog ? 'Reply logged to Dossier #' . $id . ', but live SMTP reported: ' : 'SMTP reported: ') . $sendRes['error'];
+                    $_SESSION['bm_flash_msg'] = 'SMTP reported: ' . ($sendRes['error'] ?? 'Delivery failed.');
                     $_SESSION['bm_flash_type'] = 'warning';
                 }
             }
         } elseif ($action === 'save_mail_settings') {
-            $smtpHost = cleanInput($_POST['smtp_host'] ?? 'smtp.hostinger.com');
-            $smtpPort = (int)($_POST['smtp_port'] ?? 465);
-            $smtpUser = cleanInput($_POST['smtp_user'] ?? 'sales@balochistanminerals.com');
-            $smtpPass = trim($_POST['smtp_pass'] ?? '');
-
-            $_SESSION['bm_mail_pass'] = $smtpPass;
-            $confContent = "<?php\ndefine('BM_SMTP_HOST', " . var_export($smtpHost, true) . ");\ndefine('BM_SMTP_PORT', " . var_export($smtpPort, true) . ");\ndefine('BM_SMTP_USER', " . var_export($smtpUser, true) . ");\ndefine('BM_SMTP_PASS', " . var_export($smtpPass, true) . ");\n";
-            @file_put_contents(__DIR__ . '/mail-config.php', $confContent);
-
-            $_SESSION['bm_flash_msg'] = 'Hostinger mail server configuration saved successfully.';
-            $_SESSION['bm_flash_type'] = 'success';
-        } elseif ($action === 'test_smtp') {
-            $smtpHost = cleanInput($_POST['smtp_host'] ?? 'smtp.hostinger.com');
-            $smtpPort = (int)($_POST['smtp_port'] ?? 465);
-            $smtpUser = cleanInput($_POST['smtp_user'] ?? 'sales@balochistanminerals.com');
-            $smtpPass = trim($_POST['smtp_pass'] ?? '');
-
-            $testRes = testHostingerSmtp($smtpHost, $smtpPort, $smtpUser, $smtpPass);
-            if ($testRes['success']) {
-                $_SESSION['bm_flash_msg'] = '✓ ' . $testRes['message'];
-                $_SESSION['bm_flash_type'] = 'success';
-            } else {
-                $_SESSION['bm_flash_msg'] = 'SMTP Test Error: ' . $testRes['error'];
+            if (!hasPermission('manage_mail_config')) {
+                logSystemAudit($pdo, 'security', 'Blocked non-Owner save_mail_settings attempt');
+                $_SESSION['bm_flash_msg'] = 'Only Owner can modify corporate SMTP mail settings.';
                 $_SESSION['bm_flash_type'] = 'danger';
+            } else {
+                $smtpHost = cleanInput($_POST['smtp_host'] ?? 'smtp.hostinger.com');
+                $smtpPort = (int)($_POST['smtp_port'] ?? 465);
+                $smtpUser = cleanInput($_POST['smtp_user'] ?? 'sales@balochistanminerals.com');
+                $smtpPass = trim($_POST['smtp_pass'] ?? '');
+
+                $_SESSION['bm_mail_pass'] = $smtpPass;
+                $confContent = "<?php\ndefine('BM_SMTP_HOST', " . var_export($smtpHost, true) . ");\ndefine('BM_SMTP_PORT', " . var_export($smtpPort, true) . ");\ndefine('BM_SMTP_USER', " . var_export($smtpUser, true) . ");\ndefine('BM_SMTP_PASS', " . var_export($smtpPass, true) . ");\n";
+                @file_put_contents(__DIR__ . '/mail-config.php', $confContent);
+                logSystemAudit($pdo, 'security', "Updated Hostinger SMTP settings ({$smtpUser}:{$smtpPort})");
+
+                $_SESSION['bm_flash_msg'] = 'Hostinger mail server configuration saved successfully.';
+                $_SESSION['bm_flash_type'] = 'success';
+            }
+        } elseif ($action === 'test_smtp') {
+            if (!hasPermission('manage_mail_config')) {
+                $_SESSION['bm_flash_msg'] = 'Only Owner can test corporate SMTP configuration.';
+                $_SESSION['bm_flash_type'] = 'danger';
+            } else {
+                $smtpHost = cleanInput($_POST['smtp_host'] ?? 'smtp.hostinger.com');
+                $smtpPort = (int)($_POST['smtp_port'] ?? 465);
+                $smtpUser = cleanInput($_POST['smtp_user'] ?? 'sales@balochistanminerals.com');
+                $smtpPass = trim($_POST['smtp_pass'] ?? '');
+
+                $testRes = testHostingerSmtp($smtpHost, $smtpPort, $smtpUser, $smtpPass);
+                if ($testRes['success']) {
+                    $_SESSION['bm_flash_msg'] = '✓ ' . $testRes['message'];
+                    $_SESSION['bm_flash_type'] = 'success';
+                } else {
+                    $_SESSION['bm_flash_msg'] = 'SMTP Test Error: ' . $testRes['error'];
+                    $_SESSION['bm_flash_type'] = 'danger';
+                }
             }
         } elseif ($action === 'delete_inquiry') {
-            $id = (int)($_POST['inquiry_id'] ?? 0);
-            $stmt = $pdo->prepare('DELETE FROM inquiries WHERE id = ?');
-            $stmt->execute([$id]);
-            $_SESSION['bm_flash_msg'] = 'Inquiry #' . $id . ' permanently deleted.';
-            $_SESSION['bm_flash_type'] = 'warning';
+            if (!hasPermission('hard_delete')) {
+                logSystemAudit($pdo, 'security', 'Blocked non-Owner delete_inquiry attempt');
+                $_SESSION['bm_flash_msg'] = 'Only Owner can permanently delete buyer inquiries.';
+                $_SESSION['bm_flash_type'] = 'danger';
+            } else {
+                $id = (int)($_POST['inquiry_id'] ?? 0);
+                $stmt = $pdo->prepare('DELETE FROM inquiries WHERE id = ?');
+                $stmt->execute([$id]);
+                logSystemAudit($pdo, 'rfq', "Permanently deleted inquiry #{$id}", $id);
+                $_SESSION['bm_flash_msg'] = 'Inquiry #' . $id . ' permanently deleted.';
+                $_SESSION['bm_flash_type'] = 'warning';
+            }
         }
     } else {
         $_SESSION['bm_flash_msg'] = 'Session expired. Please try again.';
@@ -147,6 +200,10 @@ if ($pdo !== null) {
             FROM inquiries i WHERE 1=1";
     $params = [];
 
+    if ($currentTier === 'Junior' && $currentUid > 0) {
+        $sql .= " AND (i.assigned_user_id IS NULL OR i.assigned_user_id = ?)";
+        $params[] = $currentUid;
+    }
     if (!empty($filterStatus)) {
         $sql .= " AND i.status = ?";
         $params[] = $filterStatus;
@@ -962,9 +1019,11 @@ function getBallInCourtStatus($row) {
         </div>
 
         <div class="topbar-right">
+          <?php if (hasPermission('manage_mail_config')): ?>
           <button type="button" class="btn-topbar-action" data-bs-toggle="modal" data-bs-target="#mailConfigModal">
             <i class="bi bi-gear"></i> <span>Mail Settings</span>
           </button>
+          <?php endif; ?>
           <div class="pill-status d-none d-xl-inline-flex" title="Export Port Corridors Active: Gwadar Port, KPT & Port Qasim">
             <span class="status-dot dot-green"></span>
             <span>Port Corridors: Gwadar, KPT & Port Qasim</span>
@@ -979,6 +1038,12 @@ function getBallInCourtStatus($row) {
       </header>
 
       <main class="content-canvas">
+        <?php if ($pdo !== null && hasPermission('approve_emails') && ($dashPend = getPendingApprovalCount($pdo)) > 0): ?>
+        <div class="alert alert-warning d-flex align-items-center justify-content-between py-2 px-3 mb-3 small shadow-sm">
+          <div><i class="bi bi-envelope-exclamation-fill me-2"></i><strong><?= (int)$dashPend ?></strong> Junior reply draft(s) awaiting Manager / Owner Maker-Checker review before dispatch.</div>
+          <a href="team.php#approvals" class="btn btn-sm btn-dark fw-semibold py-0.5 px-2.5">Review &amp; Approve</a>
+        </div>
+        <?php endif; ?>
 
         <!-- Executive Metrics Strip (Executive Neutral Styling, Zero Shade) -->
         <div class="row g-2.5 g-md-3 mb-3">
@@ -1163,6 +1228,7 @@ function getBallInCourtStatus($row) {
         </div>
 
         <!-- Modal: Hostinger Mail Server Settings -->
+        <?php if (hasPermission('manage_mail_config')): ?>
         <div class="modal fade" id="mailConfigModal" tabindex="-1" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" style="max-width: 580px;">
             <div class="modal-content">
@@ -1231,6 +1297,7 @@ function getBallInCourtStatus($row) {
             </div>
           </div>
         </div>
+        <?php endif; ?>
 
       </main>
 
@@ -1567,12 +1634,20 @@ function getBallInCourtStatus($row) {
       try {
         updateChimeUi();
         startHeartbeatLoop();
-        setTimeout(() => { syncCorporateMail(true); }, 2500);
+        const maybeAutoSyncMail = () => {
+          try {
+            const lastTs = Number(localStorage.getItem('bm_last_auto_mail_sync') || 0);
+            if (Date.now() - lastTs < 110000) return;
+            localStorage.setItem('bm_last_auto_mail_sync', String(Date.now()));
+          } catch (err) {}
+          syncCorporateMail(true);
+        };
+        setTimeout(() => { maybeAutoSyncMail(); }, 3500);
         setInterval(() => {
           if (document.visibilityState === 'visible') {
-            syncCorporateMail(true);
+            maybeAutoSyncMail();
           }
-        }, 60000);
+        }, 120000);
         if (localStorage.getItem('bm_table_expanded') === '1') {
           const container = document.getElementById('rfqTableContainer');
           const btn = document.getElementById('btnToggleTableHeight');
@@ -1944,6 +2019,27 @@ function getBallInCourtStatus($row) {
         document.getElementById('dossierSubject').value = 'RE: Balochistan Minerals - ' + inq.mineral_type + ' Export Order';
         document.getElementById('dossierBody').value = 'Dear ' + inq.buyer_name + ',\n\nThank you for reaching out regarding ' + inq.mineral_type + ' (' + inq.quantity + '). Balochistan Minerals (Pvt) Ltd has verified port stockpile allocations available.\n\nPlease find our commercial specifications attached for review.\n\nBest regards,\nExport Commercial Desk\nBalochistan Minerals (Pvt) Ltd\nWeb: https://balochistanminerals.com';
 
+        const sendBtnEl = document.getElementById('dossierSendBtn');
+        if (sendBtnEl) {
+          sendBtnEl.dataset.directSend = inq.can_send_direct_email ? '1' : '0';
+          sendBtnEl.innerHTML = inq.can_send_direct_email
+            ? '<i class="bi bi-send-fill"></i> Dispatch Reply'
+            : '<i class="bi bi-hourglass-split"></i> Submit for Approval';
+        }
+
+        const assignWrap = document.getElementById('dossierAssignWrap');
+        const assignSel = document.getElementById('dossierAssignSelect');
+        if (assignWrap && assignSel) {
+          if (inq.can_assign && Array.isArray(inq.staff_list) && inq.staff_list.length) {
+            assignSel.innerHTML = '<option value="">— Unassigned (Shared Desk) —</option>' +
+              inq.staff_list.map(u => `<option value="${Number(u.id)}">${escapeDossierHtml(u.full_name)} (${escapeDossierHtml(u.role)})</option>`).join('');
+            assignSel.value = inq.assigned_user_id ? String(inq.assigned_user_id) : '';
+            assignWrap.classList.remove('d-none');
+          } else {
+            assignWrap.classList.add('d-none');
+          }
+        }
+
         // Scratchpad notes
         document.getElementById('dossierNotes').value = inq.internal_notes || '';
         document.getElementById('dossierNotesFeedback').textContent = '';
@@ -2122,7 +2218,9 @@ function getBallInCourtStatus($row) {
 
         if (data.success) {
           const attLabel = data.attachment_count > 0 ? ` (${data.attachment_count} attachment${data.attachment_count > 1 ? 's' : ''})` : '';
-          alertEl.innerHTML = '<span class="text-success"><i class="bi bi-check-circle-fill"></i> Dispatched' + attLabel + '!</span>';
+          alertEl.innerHTML = data.queued_for_approval
+            ? '<span class="text-warning-emphasis fw-semibold"><i class="bi bi-hourglass-split"></i> Draft queued for Manager/Owner approval' + attLabel + '</span>'
+            : '<span class="text-success"><i class="bi bi-check-circle-fill"></i> Dispatched' + attLabel + '!</span>';
           document.getElementById('dossierBody').value = '';
           clearDossierFiles();
           setTimeout(() => {
@@ -2136,7 +2234,26 @@ function getBallInCourtStatus($row) {
         alertEl.innerHTML = '<span class="text-danger">' + err.message + '</span>';
       } finally {
         sendBtn.disabled = false;
-        sendBtn.innerHTML = '<i class="bi bi-send-fill"></i> Dispatch Reply';
+        sendBtn.innerHTML = sendBtn.dataset.directSend === '0'
+          ? '<i class="bi bi-hourglass-split"></i> Submit for Approval'
+          : '<i class="bi bi-send-fill"></i> Dispatch Reply';
+      }
+    }
+
+    async function assignDossierStaff(assignedUserId) {
+      if (!currentDossierId) return;
+      const fd = new FormData();
+      fd.append('action', 'assign_inquiry');
+      fd.append('inquiry_id', currentDossierId);
+      fd.append('assigned_user_id', assignedUserId);
+      try {
+        const res = await fetch('api-dossier.php', { method: 'POST', body: fd });
+        const data = await res.json();
+        if (window.BMNotify) {
+          window.BMNotify.toast(data.success ? 'success' : 'danger', 'Lead Assignment', data.message || data.error || 'Updated');
+        }
+      } catch (err) {
+        alert('Error assigning lead: ' + err.message);
       }
     }
   </script>
@@ -2217,6 +2334,13 @@ function getBallInCourtStatus($row) {
               <li><a class="dropdown-item text-danger" href="javascript:void(0)" onclick="updateDossierStage('Closed/Lost')"><i class="bi bi-x-circle me-1.5"></i> Closed / Lost</a></li>
             </ul>
           </div>
+        </div>
+
+        <div id="dossierAssignWrap" class="mt-2.5 d-flex align-items-center justify-content-between gap-2 pt-2 border-top d-none">
+          <span class="small fw-semibold text-muted"><i class="bi bi-person-check me-1"></i>Assigned Officer:</span>
+          <select id="dossierAssignSelect" class="form-select form-select-sm" style="width:auto;min-width:200px;font-size:0.75rem;" onchange="assignDossierStaff(this.value)">
+            <option value="">— Unassigned (Shared) —</option>
+          </select>
         </div>
       </div>
 

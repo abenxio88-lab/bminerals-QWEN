@@ -12,17 +12,18 @@ require_once __DIR__ . '/db.php';
 require_once __DIR__ . '/flag-helper.php';
 require_once __DIR__ . '/inquiry-row-helper.php';
 
-if (!isLoggedIn()) {
-    http_response_code(401);
-    echo json_encode(['success' => false, 'error' => 'Authentication required']);
-    exit;
-}
+requirePermission('view_rfqs', true);
 
 $pdo = getDB();
 if (!$pdo) {
     echo json_encode(['success' => false, 'error' => 'Database connection unavailable']);
     exit;
 }
+ensureTeamSecuritySchema($pdo);
+$currentTier = getAdminRole();
+$currentUid  = (int)($_SESSION['bm_admin_id'] ?? 0);
+$csrfTokenPoll = getCsrfToken();
+releaseSessionLock();
 
 $lastSeenId    = (int)($_GET['last_seen_id'] ?? 0);
 $filterStatus  = cleanInput($_GET['status'] ?? '');
@@ -53,6 +54,10 @@ try {
                 WHERE i.id > ?";
         $params = [$lastSeenId];
 
+        if ($currentTier === 'Junior' && $currentUid > 0) {
+            $sql .= " AND (i.assigned_user_id IS NULL OR i.assigned_user_id = ?)";
+            $params[] = $currentUid;
+        }
         if (!empty($filterStatus)) {
             $sql .= " AND i.status = ?";
             $params[] = $filterStatus;
@@ -75,7 +80,7 @@ try {
 
         if (!empty($newRecords)) {
             $hasNew = true;
-            $csrf = getCsrfToken();
+            $csrf = $csrfTokenPoll;
             ensureNotificationsTable($pdo);
             $notifChk = $pdo->prepare("SELECT id FROM admin_notifications WHERE inquiry_id = ? LIMIT 1");
             foreach ($newRecords as $rec) {

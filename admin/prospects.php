@@ -7,10 +7,13 @@
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/flag-helper.php';
 require_once __DIR__ . '/prospect-import-helper.php';
-requireAuth();
+requirePermission('view_prospects');
 
 $user = getLoggedInUser();
 $pdo  = getDB();
+if ($pdo !== null) {
+    ensureTeamSecuritySchema($pdo);
+}
 
 $flashMessage = $_SESSION['bm_prospects_flash'] ?? '';
 $flashType    = $_SESSION['bm_prospects_flash_type'] ?? 'success';
@@ -28,8 +31,10 @@ if (isset($_GET['action']) && $_GET['action'] === 'download_template') {
     exit;
 }
 
-// Handle CSV Export
+// Handle CSV Export (Owner Only)
 if (isset($_GET['action']) && $_GET['action'] === 'export_csv' && $pdo !== null) {
+    requirePermission('export_prospects');
+    logSystemAudit($pdo, 'prospect', 'Exported full Buyer Directory CSV list');
     header('Content-Type: text/csv; charset=utf-8');
     header('Content-Disposition: attachment; filename="Balochistan_Minerals_Buyer_Prospects_' . date('Y-m-d') . '.csv"');
     $output = fopen('php://output', 'w');
@@ -97,12 +102,26 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && $pdo !== null) {
             $body       = cleanInput($_POST['email_body'] ?? '');
             $fromEmail  = 'sales@balochistanminerals.com';
 
-            $log = "\n[" . date('M d, Y H:i') . "] Outbound Pitch Sent to " . $toEmail . " (Subject: " . $subject . ")\n";
-            $stmt = $pdo->prepare("UPDATE buyer_prospects SET notes = CONCAT(COALESCE(notes, ''), ?), status = 'Outreach Sent', last_contacted_at = NOW() WHERE id = ?");
-            $stmt->execute([$log, $id]);
-
-            @mail($toEmail, $subject, $body, "From: Balochistan Minerals <" . $fromEmail . ">\r\nReply-To: " . $fromEmail);
-            $flashMessage = 'Outbound trade email dispatched to ' . $toEmail . ' and status moved to "Outreach Sent".';
+            $sendRes = dispatchOrQueueStaffEmail($pdo, [
+                'to_email'   => $toEmail,
+                'from_email' => $fromEmail,
+                'subject'    => $subject,
+                'body_text'  => $body,
+            ]);
+            if (!empty($sendRes['queued_for_approval'])) {
+                $log = "\n[" . date('M d, Y H:i') . "] Outbound Pitch Queued for Approval ({$user['full_name']}) to {$toEmail}: {$subject}\n";
+                $pdo->prepare("UPDATE buyer_prospects SET notes = CONCAT(COALESCE(notes, ''), ?) WHERE id = ?")->execute([$log, $id]);
+                $flashMessage = 'Outreach email drafted and queued for Manager / Owner approval before dispatch.';
+                $flashType = 'info';
+            } elseif (!empty($sendRes['success'])) {
+                $log = "\n[" . date('M d, Y H:i') . "] Outbound Pitch Sent to " . $toEmail . " (Subject: " . $subject . ")\n";
+                $stmt = $pdo->prepare("UPDATE buyer_prospects SET notes = CONCAT(COALESCE(notes, ''), ?), status = 'Outreach Sent', last_contacted_at = NOW() WHERE id = ?");
+                $stmt->execute([$log, $id]);
+                $flashMessage = 'Outbound trade email dispatched to ' . $toEmail . ' and status moved to "Outreach Sent".';
+            } else {
+                $flashMessage = 'Outbound pitch failed: ' . ($sendRes['error'] ?? 'SMTP error');
+                $flashType = 'danger';
+            }
         } elseif ($action === 'import_prospects') {
             $importRes = importBuyerProspectsFromSpreadsheet(
                 $pdo,
@@ -112,6 +131,9 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && $pdo !== null) {
                     'default_status' => $_POST['default_status'] ?? 'Identified',
                 ]
             );
+            if (!empty($importRes['success'])) {
+                logSystemAudit($pdo, 'prospect', 'Imported prospects CSV/XLSX: ' . ($importRes['message'] ?? 'batch'));
+            }
             $_SESSION['bm_prospects_flash'] = !empty($importRes['success'])
                 ? $importRes['message']
                 : ($importRes['error'] ?? 'Import failed.');
@@ -119,11 +141,18 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && $pdo !== null) {
             header('Location: prospects.php');
             exit;
         } elseif ($action === 'delete_prospect') {
-            $id = (int)($_POST['prospect_id'] ?? 0);
-            $stmt = $pdo->prepare("DELETE FROM buyer_prospects WHERE id = ?");
-            $stmt->execute([$id]);
-            $flashMessage = 'Prospect entry deleted.';
-            $flashType = 'warning';
+            if (!hasPermission('hard_delete')) {
+                logSystemAudit($pdo, 'security', 'Blocked non-Owner delete_prospect attempt');
+                $flashMessage = 'Only Owner can permanently delete buyer directory contacts.';
+                $flashType = 'danger';
+            } else {
+                $id = (int)($_POST['prospect_id'] ?? 0);
+                $stmt = $pdo->prepare("DELETE FROM buyer_prospects WHERE id = ?");
+                $stmt->execute([$id]);
+                logSystemAudit($pdo, 'prospect', "Permanently deleted prospect #{$id}", $id);
+                $flashMessage = 'Prospect entry deleted.';
+                $flashType = 'warning';
+            }
         }
     } else {
         $flashMessage = 'Session expired. Please try again.';
@@ -709,9 +738,11 @@ if ($pdo !== null) {
           <button type="button" class="btn-topbar-action" data-bs-toggle="modal" data-bs-target="#importProspectsModal" title="Import Buyers from Excel (.xlsx) or CSV">
             <i class="bi bi-file-earmark-arrow-up"></i> <span>Import Excel / CSV</span>
           </button>
+          <?php if (hasPermission('export_prospects')): ?>
           <a href="prospects.php?action=export_csv" class="btn-topbar-action">
             <i class="bi bi-file-earmark-spreadsheet"></i> <span>Export CSV</span>
           </a>
+          <?php endif; ?>
           <button type="button" class="btn-topbar-primary" data-bs-toggle="modal" data-bs-target="#addProspectModal">
             <i class="bi bi-plus-lg"></i> <span>Add New Buyer</span>
           </button>
@@ -1106,9 +1137,13 @@ Web: https://balochistanminerals.com</textarea>
                             </div>
 
                             <div class="modal-footer d-flex justify-content-between py-2 px-3">
+                              <?php if (hasPermission('hard_delete')): ?>
                               <button type="button" class="btn btn-sm btn-outline-danger" onclick="if(confirm('Delete this buyer prospect?')) { document.getElementById('delBuyer<?= $b['id'] ?>').submit(); }">
                                 <i class="bi bi-trash3 me-1"></i> Delete
                               </button>
+                              <?php else: ?>
+                              <span class="small text-muted">Deletion restricted to Owner</span>
+                              <?php endif; ?>
                               <div class="d-flex gap-2">
                                 <button type="button" class="btn-cancel-action" data-bs-dismiss="modal">Cancel</button>
                                 <button type="submit" class="btn-save-action">Save Changes</button>
@@ -1116,11 +1151,13 @@ Web: https://balochistanminerals.com</textarea>
                             </div>
                           </form>
 
+                          <?php if (hasPermission('hard_delete')): ?>
                           <form id="delBuyer<?= $b['id'] ?>" method="POST" action="prospects.php" style="display:none;">
                             <input type="hidden" name="action" value="delete_prospect">
                             <input type="hidden" name="prospect_id" value="<?= $b['id'] ?>">
                             <input type="hidden" name="csrf_token" value="<?= getCsrfToken() ?>">
                           </form>
+                          <?php endif; ?>
                         </div>
                       </div>
                     </div>
