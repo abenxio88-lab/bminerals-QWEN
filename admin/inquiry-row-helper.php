@@ -206,6 +206,12 @@ if (!function_exists('renderInquiryRow')) {
               <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editModal<?= (int)$row['id'] ?>" title="Edit Lead">
                 <i class="bi bi-pencil"></i>
               </button>
+
+              <?php if (!function_exists('hasPermission') || hasPermission('hard_delete')): ?>
+              <button type="button" class="btn btn-sm btn-outline-danger" onclick="if(confirm('Delete inquiry #<?= (int)$row['id'] ?> permanently?')) { document.getElementById('delForm<?= (int)$row['id'] ?>').submit(); }" title="Permanently Delete Inquiry (Purge Spam)">
+                <i class="bi bi-trash3"></i>
+              </button>
+              <?php endif; ?>
             </div>
 
 <?php

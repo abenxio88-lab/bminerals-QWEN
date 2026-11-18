@@ -64,10 +64,16 @@ GitHub will automatically compile your CSS and upload all new files directly to 
 
 ## 🔑 ACCESSING THE PORTAL
 
-Once deployed, the owner can log in from any phone or computer at:
+Once deployed, the owner and team can log in from any phone or computer at:
 👉 **`https://balochistanminerals.com/admin/`**
 
-* **Default Username:** `admin`
-* **Default Password:** `Admin@BM2026`
+### Master Owner Account
+* **Username:** `bmops_rqx6k5`
+* **Password:** `Bm!qgmzjuMMNnhsaK4rg7#`
+* **Role:** Owner (Unrestricted control, pricing/margins, buyer directory exports, mail settings, team management)
 
-*(The password will automatically rehash to secure encrypted bcrypt upon first successful login).*
+### Active Staff Accounts
+* **Manager Account:** `ops_manager` / `R2!ZcGDgBP*U8H` (Assigned: `sales@balochistanminerals.com`, direct send + reply approver)
+* **Junior Account:** `trade_desk1` / `P6cEdh3$TBZe62` (Assigned: `info@balochistanminerals.com`, Maker-Checker email queue required)
+
+*(Detailed operational tier rules, email approval workflows, and 2FA onboarding are documented in [INTERNAL_STAFF_ACCOUNTS_RULEBOOK.md](file:///C:/Users/Lenovo/Documents/GitHub/bminerals-QWEN/INTERNAL_STAFF_ACCOUNTS_RULEBOOK.md)).*

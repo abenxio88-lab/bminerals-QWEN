@@ -17,10 +17,30 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// 1. Anti-Bot Honeypot Check
-if (!empty($_POST['botcheck'])) {
-    // Bot filled hidden field, silently succeed without storing spam
-    echo json_encode(['success' => true, 'message' => 'Inquiry received.']);
+// 1. Comprehensive Anti-Spam & Bot Defense Shield
+$spamReason = function_exists('detectSpamSubmission') ? detectSpamSubmission($_POST) : (!empty($_POST['botcheck']) ? 'Honeypot' : null);
+if ($spamReason !== null) {
+    $pdo = getDB();
+    if ($pdo !== null) {
+        $blockedName = substr(strip_tags((string)($_POST['name'] ?? 'Unknown')), 0, 80);
+        $blockedEmail = substr(filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL), 0, 80);
+        logAdminNotification(
+            $pdo,
+            'warning',
+            'spam_blocked',
+            'Spam Bot Attempt Blocked',
+            "Auto-blocked suspicious submission from '{$blockedName}' ({$blockedEmail}) • Reason: {$spamReason}",
+            null,
+            'dashboard.php',
+            5
+        );
+    }
+    // Return silent 200 OK so bots believe they succeeded and do not adapt
+    echo json_encode([
+        'success' => true,
+        'message' => 'Inquiry received.',
+        'whatsapp_url' => 'https://wa.me/923348888104'
+    ]);
     exit;
 }
 

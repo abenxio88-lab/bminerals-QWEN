@@ -24,6 +24,7 @@
       function initContactForm() {
         const form = document.getElementById('contact-form');
         if (!form) return;
+        const formInitTimestamp = Math.floor(Date.now() / 1000);
         const formTitle = document.querySelector('.contact-form__title');
         const modeButtons = document.querySelectorAll('[data-contact-mode]');
         const inquirySelect = document.getElementById('inquiry');
@@ -152,6 +153,7 @@
           statusMessage.innerHTML = '';
 
           const formData = new FormData(form);
+          formData.append('form_ts', formInitTimestamp);
           
           // Determine endpoint based on whether this is a customer review or RFQ
           const isReviewMode = (inquirySelect && inquirySelect.value === 'review') || document.getElementById('tab-review')?.classList.contains('is-active');

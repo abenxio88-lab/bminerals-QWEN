@@ -15,7 +15,23 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-if (!empty($_POST['botcheck'])) {
+// 1. Comprehensive Anti-Spam & Bot Defense Shield
+$spamReason = function_exists('detectSpamSubmission') ? detectSpamSubmission($_POST) : (!empty($_POST['botcheck']) ? 'Honeypot' : null);
+if ($spamReason !== null) {
+    $pdo = getDB();
+    if ($pdo !== null) {
+        $blockedName = substr(strip_tags((string)($_POST['name'] ?? 'Unknown')), 0, 80);
+        logAdminNotification(
+            $pdo,
+            'warning',
+            'spam_blocked',
+            'Spam Review Bot Blocked',
+            "Auto-blocked suspicious review from '{$blockedName}' • Reason: {$spamReason}",
+            null,
+            'reviews.php',
+            5
+        );
+    }
     echo json_encode(['success' => true, 'message' => 'Review received.']);
     exit;
 }

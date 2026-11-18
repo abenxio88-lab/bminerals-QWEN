@@ -57,6 +57,8 @@ if (!defined('SUPPORT_MAIL_PASS')) define('SUPPORT_MAIL_PASS', ''); // Defined i
 
 if (!defined('DB_CHARSET')) define('DB_CHARSET', 'utf8mb4');
 
+require_once __DIR__ . '/spam-shield.php';
+
 /**
  * Unified catalog of corporate Hostinger mailboxes supported in the Admin Trade Desk.
  */
