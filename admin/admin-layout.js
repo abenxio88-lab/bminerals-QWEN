@@ -1090,7 +1090,7 @@
         const roleLower = role.toLowerCase();
         const displayRole = (role.toLowerCase() === 'owner') ? 'CEO' : role;
         const tierStyles = {
-          Owner: 'background:#FFFFFF;color:#E65C1A;border:1px solid #0F172A;',
+          Owner: 'background:#FFFFFF;color:#E65C1A;border:none;box-shadow:none;',
           Manager: 'background:#FFFFFF;color:#0F172A;border:1px solid #E65C1A;',
           Junior: 'background:#FFFFFF;color:#475569;border:1px solid #CBD5E1;',
           Yard: 'background:#FFFFFF;color:#1E40AF;border:1px solid #93C5FD;'
@@ -1099,7 +1099,7 @@
         if (!badge) {
           badge = document.createElement('span');
           badge.className = 'bm-role-tier-pill tier-' + roleLower + ' px-2 py-0.5 rounded font-monospace flex-shrink-0';
-          badge.style.cssText = 'font-size:0.68rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;line-height:1.2;border-radius:6px;' + (tierStyles[role] || 'background:#FFFFFF;color:#E65C1A;border:1px solid #0F172A;');
+          badge.style.cssText = 'font-size:0.68rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;line-height:1.2;border-radius:6px;' + (tierStyles[role] || 'background:#FFFFFF;color:#E65C1A;border:none;box-shadow:none;');
           badge.textContent = displayRole;
 
           const metaRow = sidebarFooter.querySelector('.sidebar-footer-row-meta');
@@ -1128,7 +1128,7 @@
         } else {
           badge.className = 'bm-role-tier-pill tier-' + roleLower + ' px-2 py-0.5 rounded font-monospace flex-shrink-0';
           badge.textContent = displayRole;
-          badge.style.cssText = 'font-size:0.68rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;line-height:1.2;border-radius:6px;' + (tierStyles[role] || 'background:#FFFFFF;color:#E65C1A;border:1px solid #0F172A;');
+          badge.style.cssText = 'font-size:0.68rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;line-height:1.2;border-radius:6px;' + (tierStyles[role] || 'background:#FFFFFF;color:#E65C1A;border:none;box-shadow:none;');
         }
       }
 
