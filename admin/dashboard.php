@@ -763,17 +763,17 @@ function getBallInCourtStatus($row) {
       border-radius: 4px;
     }
 
-    /* Action Buttons (Flat, Zero Shade, Neutral Elegant Line Effect) */
+    /* Action Buttons (Executive Dual CTA + Dropdown Visual Hierarchy) */
     .btn-action-email {
-      background: #FFFFFF !important;
-      color: #0F172A !important;
+      background: #0F172A !important;
+      color: #FFFFFF !important;
       font-family: 'Montserrat', sans-serif;
       font-size: 0.74rem;
       font-weight: 600;
       height: 32px;
       padding: 0 12px;
       border-radius: 6px;
-      border: 1px solid #CBD5E1 !important;
+      border: 1px solid #0F172A !important;
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -785,21 +785,21 @@ function getBallInCourtStatus($row) {
     }
 
     .btn-action-email i {
-      color: #475569 !important;
+      color: #94A3B8 !important;
       font-size: 0.85rem;
       line-height: 1;
       transition: color 0.15s ease;
     }
 
     .btn-action-email:hover {
-      background: #F8FAFC !important;
-      color: #0F172A !important;
-      border-color: #0F172A !important;
+      background: #1E293B !important;
+      color: #FFFFFF !important;
+      border-color: #1E293B !important;
       box-shadow: none !important;
     }
 
     .btn-action-email:hover i {
-      color: #0F172A !important;
+      color: #FFFFFF !important;
     }
 
     .btn-action-wa {
@@ -825,6 +825,75 @@ function getBallInCourtStatus($row) {
       background: #166534;
       border-color: #166534;
       box-shadow: none !important;
+    }
+
+    .btn-action-more {
+      background: #FFFFFF !important;
+      color: #475569 !important;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      height: 32px;
+      width: 32px;
+      padding: 0 !important;
+      border-radius: 6px;
+      border: 1px solid #CBD5E1 !important;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: none !important;
+      transition: all 0.15s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-action-more:hover,
+    .btn-action-more[aria-expanded="true"] {
+      background: #F1F5F9 !important;
+      color: #0F172A !important;
+      border-color: #94A3B8 !important;
+    }
+
+    .btn-action-more::after {
+      display: none !important;
+    }
+
+    .rfq-action-dropdown {
+      min-width: 195px !important;
+      padding: 6px 0 !important;
+      border-radius: 8px !important;
+      border: 1px solid #E2E8F0 !important;
+      background: #FFFFFF !important;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+      font-size: 0.78rem !important;
+      font-family: 'Montserrat', sans-serif !important;
+      z-index: 1065 !important;
+    }
+
+    .rfq-action-dropdown .dropdown-item {
+      padding: 7px 14px !important;
+      font-weight: 500;
+      color: #1E293B;
+      transition: all 0.12s ease;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      width: 100%;
+      text-align: left;
+      text-decoration: none;
+    }
+
+    .rfq-action-dropdown .dropdown-item:hover {
+      background-color: #F8FAFC !important;
+      color: #0F172A !important;
+    }
+
+    .rfq-action-dropdown .dropdown-item.text-danger:hover {
+      background-color: #FEF2F2 !important;
+      color: #DC2626 !important;
     }
 
     .btn-action-quote {
@@ -1194,7 +1263,7 @@ function getBallInCourtStatus($row) {
                 <col data-col="received" style="width: 112px;">
                 <col data-col="stage" style="width: 118px;">
                 <col data-col="quote" style="width: 108px;">
-                <col data-col="actions" style="width: 296px;">
+                <col data-col="actions" style="width: 220px;">
               </colgroup>
               <thead>
                 <tr>
@@ -1663,7 +1732,7 @@ function getBallInCourtStatus($row) {
     /* ============================================================
        RFQ TABLE HEADER COLUMN RESIZER (PERSISTENT DATA-GRID CONTROL)
        ============================================================ */
-    const RFQ_COL_STORAGE_KEY = 'bm_rfq_col_widths_v2';
+    const RFQ_COL_STORAGE_KEY = 'bm_rfq_col_widths_v3';
     const RFQ_DEFAULT_COLS = {
       buyer: 258,
       commodity: 'auto',
@@ -1671,7 +1740,7 @@ function getBallInCourtStatus($row) {
       received: 112,
       stage: 118,
       quote: 108,
-      actions: 296
+      actions: 220
     };
     const RFQ_COL_BOUNDS = {
       buyer: [215, 440],
@@ -1680,20 +1749,25 @@ function getBallInCourtStatus($row) {
       received: [100, 180],
       stage: [100, 210],
       quote: [96, 180],
-      actions: [288, 360]
+      actions: [180, 320]
     };
     let rfqCurrentWidths = { ...RFQ_DEFAULT_COLS };
 
     function getSavedRfqColWidths() {
       const merged = { ...RFQ_DEFAULT_COLS };
       try {
-        const raw = localStorage.getItem(RFQ_COL_STORAGE_KEY);
+        const raw = localStorage.getItem(RFQ_COL_STORAGE_KEY) || localStorage.getItem('bm_rfq_col_widths_v2');
         if (!raw) return merged;
         const parsed = JSON.parse(raw);
         if (parsed && typeof parsed === 'object') {
           Object.keys(RFQ_DEFAULT_COLS).forEach(key => {
             if (key === 'commodity' && parsed[key] === 'auto') {
               merged[key] = 'auto';
+              return;
+            }
+            // Auto-migrate old wide actions column (>260px) to sleek 220px
+            if (key === 'actions' && (!parsed.version || Number(parsed[key]) > 260)) {
+              merged[key] = 220;
               return;
             }
             const n = Number(parsed[key]);

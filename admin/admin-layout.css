@@ -1020,9 +1020,96 @@ body.sidebar-open .sidebar-backdrop {
 #rfqTableContainer .btn-action-wa,
 #rfqTableContainer .btn-action-quote {
   height: 30px;
-  padding: 0 9.5px !important;
+  padding: 0 10.5px !important;
   font-size: 0.73rem !important;
   gap: 5px !important;
+}
+
+#rfqTableContainer .btn-action-email {
+  background: #0F172A !important;
+  color: #FFFFFF !important;
+  border-color: #0F172A !important;
+}
+
+#rfqTableContainer .btn-action-email i {
+  color: #94A3B8 !important;
+  transition: color 0.15s ease;
+}
+
+#rfqTableContainer .btn-action-email:hover {
+  background: #1E293B !important;
+  border-color: #1E293B !important;
+  color: #FFFFFF !important;
+}
+
+#rfqTableContainer .btn-action-email:hover i {
+  color: #FFFFFF !important;
+}
+
+#rfqTableContainer .btn-action-more {
+  height: 30px;
+  width: 30px;
+  padding: 0 !important;
+  font-size: 0.85rem !important;
+  border-radius: 6px;
+  border: 1px solid #CBD5E1 !important;
+  background: #FFFFFF !important;
+  color: #475569 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none !important;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+#rfqTableContainer .btn-action-more:hover,
+#rfqTableContainer .btn-action-more[aria-expanded="true"] {
+  background: #F1F5F9 !important;
+  color: #0F172A !important;
+  border-color: #94A3B8 !important;
+}
+
+#rfqTableContainer .btn-action-more::after {
+  display: none !important;
+}
+
+.rfq-action-dropdown {
+  min-width: 195px !important;
+  padding: 6px 0 !important;
+  border-radius: 8px !important;
+  border: 1px solid #E2E8F0 !important;
+  background: #FFFFFF !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+  font-size: 0.78rem !important;
+  font-family: 'Montserrat', sans-serif !important;
+  z-index: 1065 !important;
+}
+
+.rfq-action-dropdown .dropdown-item {
+  padding: 7px 14px !important;
+  font-weight: 500;
+  color: #1E293B;
+  transition: all 0.12s ease;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  text-decoration: none;
+}
+
+.rfq-action-dropdown .dropdown-item:hover {
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
+}
+
+.rfq-action-dropdown .dropdown-item.text-danger:hover {
+  background-color: #FEF2F2 !important;
+  color: #DC2626 !important;
 }
 
 /* Header-Bar Column Resizer Handles */

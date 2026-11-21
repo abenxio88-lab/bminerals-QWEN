@@ -188,7 +188,7 @@ if (!function_exists('renderInquiryRow')) {
             <?php endif; ?>
           </td>
 
-          <!-- Actions -->
+          <!-- Actions (Option 1: Executive Dual CTA + Fixed More Actions Menu) -->
           <td class="text-end">
             <div class="d-inline-flex flex-nowrap align-items-center" style="gap: 6px;">
               <button type="button" class="btn-action-email" data-bs-toggle="modal" data-bs-target="#replyModal<?= (int)$row['id'] ?>" title="Send Official Email Reply">
@@ -199,19 +199,34 @@ if (!function_exists('renderInquiryRow')) {
                 <i class="bi bi-whatsapp"></i> Chat
               </a>
 
-              <a href="generate-quote.php?id=<?= (int)$row['id'] ?>" target="_blank" class="btn-action-quote" title="Generate Official Corporate PDF Quote">
-                <i class="bi bi-file-earmark-pdf"></i> Quote
-              </a>
-
-              <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editModal<?= (int)$row['id'] ?>" title="Edit Lead">
-                <i class="bi bi-pencil"></i>
-              </button>
-
-              <?php if (!function_exists('hasPermission') || hasPermission('hard_delete')): ?>
-              <button type="button" class="btn btn-sm btn-outline-danger" onclick="if(confirm('Delete inquiry #<?= (int)$row['id'] ?> permanently?')) { document.getElementById('delForm<?= (int)$row['id'] ?>').submit(); }" title="Permanently Delete Inquiry (Purge Spam)">
-                <i class="bi bi-trash3"></i>
-              </button>
-              <?php endif; ?>
+              <div class="dropdown d-inline-block">
+                <button type="button" class="btn-action-more" data-bs-toggle="dropdown" data-bs-strategy="fixed" aria-expanded="false" title="More Deal &amp; Lead Actions">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end rfq-action-dropdown">
+                  <li>
+                    <a class="dropdown-item" href="generate-quote.php?id=<?= (int)$row['id'] ?>" target="_blank">
+                      <i class="bi bi-file-earmark-pdf text-danger" style="font-size: 0.88rem;"></i>
+                      <span>Generate Quote</span>
+                    </a>
+                  </li>
+                  <li>
+                    <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal<?= (int)$row['id'] ?>">
+                      <i class="bi bi-pencil text-primary" style="font-size: 0.88rem;"></i>
+                      <span>Edit Lead Details</span>
+                    </button>
+                  </li>
+                  <?php if (!function_exists('hasPermission') || hasPermission('hard_delete')): ?>
+                  <li><hr class="dropdown-divider my-1"></li>
+                  <li>
+                    <button type="button" class="dropdown-item text-danger" onclick="if(confirm('Permanently purge inquiry #<?= (int)$row['id'] ?> (cannot be undone)?')) { document.getElementById('delForm<?= (int)$row['id'] ?>').submit(); }">
+                      <i class="bi bi-trash3 text-danger" style="font-size: 0.88rem;"></i>
+                      <span>Delete / Purge</span>
+                    </button>
+                  </li>
+                  <?php endif; ?>
+                </ul>
+              </div>
             </div>
 
 <?php
