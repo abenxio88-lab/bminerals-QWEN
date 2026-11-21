@@ -59,6 +59,8 @@ skills-lock.json
 # Server-only credentials, runtime uploads & recovery backups (never commit)
 admin/db-config.php
 admin/mail-config.php
+admin/sync-config.php
+sync-config.json
 admin/uploads/
 BM_DB_BACKUP_*.sql
 BM_FULL_RECOVERY_BACKUP_*.zip

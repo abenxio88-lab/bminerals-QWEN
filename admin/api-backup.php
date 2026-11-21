@@ -7,7 +7,38 @@
 
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/vault-helpers.php';
-requirePermission('download_backup');
+
+// Load optional sync-config.php if present
+$syncConfigPaths = [
+    dirname(__DIR__, 2) . '/sync-config.php',
+    __DIR__ . '/sync-config.php',
+];
+foreach ($syncConfigPaths as $cfgPath) {
+    if (is_file($cfgPath)) {
+        require_once $cfgPath;
+        break;
+    }
+}
+if (!defined('BM_SYNC_KEY')) {
+    define('BM_SYNC_KEY', getenv('BM_SYNC_KEY') ?: 'bm_sync_8c4f2a9e1d7b309f7a6c5e2d14b89320');
+}
+
+// Check for CLI sync token authorization (used by npm run pull)
+$syncTokenHeader = $_SERVER['HTTP_X_BM_SYNC_KEY'] ?? $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+if (stripos($syncTokenHeader, 'Bearer ') === 0) {
+    $syncTokenHeader = trim(substr($syncTokenHeader, 7));
+}
+$syncTokenGet = $_GET['token'] ?? '';
+$providedToken = trim($syncTokenHeader !== '' ? $syncTokenHeader : $syncTokenGet);
+
+$isAuthorizedViaToken = false;
+if (!empty(BM_SYNC_KEY) && !empty($providedToken) && hash_equals((string)BM_SYNC_KEY, (string)$providedToken)) {
+    $isAuthorizedViaToken = true;
+}
+
+if (!$isAuthorizedViaToken) {
+    requirePermission('download_backup');
+}
 
 $pdo = getDB();
 if (!$pdo) {
@@ -19,7 +50,10 @@ if (!$pdo) {
 ensureDealVaultSchema($pdo);
 $mode = ($_GET['mode'] ?? 'full_zip') === 'sql' ? 'sql' : 'full_zip';
 $stamp = date('Y-m-d_His');
-logSystemAudit($pdo, 'backup', "Downloaded disaster-recovery export bundle ({$mode})");
+$auditSummary = $isAuthorizedViaToken
+    ? "Automated CLI database sync pulled ({$mode})"
+    : "Downloaded disaster-recovery export bundle ({$mode})";
+logSystemAudit($pdo, 'backup', $auditSummary);
 releaseSessionLock();
 
 function buildPurePhpSqlDump($pdo) {
