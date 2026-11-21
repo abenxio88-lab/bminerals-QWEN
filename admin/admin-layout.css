@@ -3330,6 +3330,237 @@ a.btn-dark {
   color: #DC2626;
 }
 
+/* ==========================================================================
+   TABLET & MOBILE COMPREHENSIVE RESPONSIVENESS (320px - 1099.98px)
+   ========================================================================== */
+
+/* --- TABLET ADAPTATIONS (768px - 1099.98px) --- */
+@media (max-width: 1099.98px) {
+  /* Sidebar Drawer */
+  .app-sidebar {
+    width: min(85vw, 300px) !important;
+  }
+  .sidebar-header {
+    padding: 16px 14px 14px !important;
+  }
+  .sidebar-nav {
+    padding: 10px 8px !important;
+  }
+  .sidebar-footer {
+    padding: 8px 12px !important;
+  }
+  .sidebar-footer-row-user .fw-bold {
+    font-size: 0.78rem !important;
+  }
+  .sidebar-footer-row-meta .text-muted {
+    font-size: 0.68rem !important;
+  }
+  .bm-role-tier-pill.tier-ceo,
+  .bm-role-tier-pill.tier-owner {
+    font-size: 0.65rem !important;
+    padding: 2px 7.5px !important;
+  }
+
+  /* Top Bar */
+  .top-bar {
+    padding: 10px 16px !important;
+    min-height: 56px !important;
+  }
+  .topbar-title {
+    font-size: 0.95rem !important;
+  }
+  .topbar-subtitle {
+    font-size: 0.68rem !important;
+  }
+
+  /* Content Canvas */
+  .content-canvas {
+    padding: 16px 16px !important;
+  }
+
+  /* Filter toolbar on tablets */
+  .filter-toolbar {
+    padding: 12px 14px !important;
+  }
+}
+
+/* --- MOBILE & PHABLET ADAPTATIONS (< 768px) --- */
+@media (max-width: 767.98px) {
+  /* Content Canvas */
+  .content-canvas {
+    padding: 10px 10px !important;
+  }
+
+  /* Top Bar */
+  .top-bar {
+    padding: 8px 12px !important;
+    min-height: 52px !important;
+    gap: 8px !important;
+  }
+  .topbar-left {
+    gap: 10px !important;
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+  }
+  .topbar-title {
+    font-size: 0.88rem !important;
+    line-height: 1.2 !important;
+  }
+  .topbar-subtitle {
+    display: none !important;
+  }
+  .topbar-right {
+    gap: 6px !important;
+    flex-shrink: 0 !important;
+  }
+  .pill-status:not(.pill-clock) {
+    display: none !important;
+  }
+  .pill-clock {
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    padding: 0 8px !important;
+    height: 30px !important;
+    font-size: 0.7rem !important;
+    gap: 4px !important;
+  }
+  .pill-clock .clock-date {
+    display: none !important;
+  }
+  .pill-clock .clock-tz {
+    font-size: 0.64rem !important;
+  }
+
+  /* Executive Metric Cards */
+  .metric-card {
+    padding: 10px 12px !important;
+    min-height: 82px !important;
+    border-radius: 8px !important;
+  }
+  .metric-card-top {
+    margin-bottom: 4px !important;
+  }
+  .metric-card-label {
+    font-size: 0.62rem !important;
+    white-space: normal !important;
+    line-height: 1.25 !important;
+    letter-spacing: 0.04em !important;
+  }
+  .metric-card-icon {
+    width: 26px !important;
+    height: 26px !important;
+    font-size: 0.82rem !important;
+    border-radius: 5px !important;
+    flex-shrink: 0 !important;
+  }
+  .metric-card-value {
+    font-size: 1.35rem !important;
+    line-height: 1.15 !important;
+  }
+
+  /* Filter Toolbar & Form Controls */
+  .filter-toolbar {
+    padding: 10px 12px !important;
+    margin-bottom: 12px !important;
+    border-radius: 8px !important;
+  }
+  .filter-toolbar .form-control,
+  .filter-toolbar .form-select,
+  .filter-toolbar .input-group-text {
+    font-size: 0.82rem !important;
+    min-height: 36px !important;
+  }
+  .btn-filter-action {
+    height: 36px !important;
+    font-size: 0.82rem !important;
+  }
+
+  /* Quick View Stage Filter Pills */
+  .quick-view-wrapper {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    padding-bottom: 4px !important;
+    gap: 5px !important;
+  }
+  .quick-view-wrapper::-webkit-scrollbar {
+    display: none !important;
+  }
+  .quick-view-label {
+    flex-shrink: 0 !important;
+    font-size: 0.68rem !important;
+  }
+  .quick-filter-pill {
+    flex-shrink: 0 !important;
+    padding: 3px 10px !important;
+    font-size: 0.7rem !important;
+  }
+
+  /* Table Panel & Responsive Scrolling */
+  .table-panel {
+    border-radius: 8px !important;
+    margin-bottom: 14px !important;
+  }
+  .table-panel-header {
+    padding: 10px 12px !important;
+  }
+  .table-panel-title {
+    font-size: 0.86rem !important;
+  }
+  .table-panel-actions {
+    width: 100% !important;
+    justify-content: flex-start !important;
+    gap: 6px !important;
+  }
+  .table th,
+  .table td {
+    padding: 8px 10px !important;
+    font-size: 0.8rem !important;
+  }
+
+  /* Prevent Mobile Safari Auto-Zoom on Input Focus */
+  input[type="text"],
+  input[type="search"],
+  input[type="email"],
+  input[type="password"],
+  input[type="tel"],
+  input[type="number"],
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+
+  /* Modals on Mobile */
+  .modal-dialog {
+    margin: 8px auto !important;
+    max-width: calc(100% - 16px) !important;
+  }
+  .modal-content {
+    border-radius: 10px !important;
+  }
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding: 12px 14px !important;
+  }
+}
+
+/* --- SMALL MOBILE SCREENS (< 420px) --- */
+@media (max-width: 419.98px) {
+  .pill-clock {
+    display: none !important;
+  }
+  .topbar-title {
+    font-size: 0.82rem !important;
+  }
+  .metric-card-label {
+    font-size: 0.58rem !important;
+  }
+}
+
 
 
 

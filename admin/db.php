@@ -330,105 +330,123 @@ function cleanInput($data) {
 
 /**
  * Master catalog of all minerals and commodities produced and exported by Balochistan Minerals.
- * Structured by commercial category for UI grouping, filtering, and reporting.
+ * Exactly mirrors the 4 product showcase categories from the official products catalog.
  */
 function getCommodityCatalog() {
     return [
-        'Metallic Ores & Concentrates' => [
+        'Metallic Minerals' => [
             'Chromite' => [
                 'name'    => 'Chromite Ore',
-                'badge'   => '40%-54% Cr2O3',
-                'aliases' => ['Chromite', 'Chrome'],
+                'badge'   => '40%-54% Cr2O3 Lumps & Concentrate',
+                'aliases' => ['Chromite', 'Chrome', 'Cr2O3'],
                 'category'=> 'metallic',
             ],
             'Antimony' => [
                 'name'    => 'Antimony Ore (Stibnite)',
-                'badge'   => '40%-65% Sb',
-                'aliases' => ['Antimony', 'Stibnite'],
+                'badge'   => '40%-65% Sb Grade',
+                'aliases' => ['Antimony', 'Stibnite', 'Sb'],
                 'category'=> 'metallic',
             ],
             'Copper' => [
                 'name'    => 'Copper Ore',
-                'badge'   => '18%-32% Cu',
-                'aliases' => ['Copper', 'Cu '],
+                'badge'   => '18%-32% Cu Lumps & Ore',
+                'aliases' => ['Copper', 'Cu'],
                 'category'=> 'metallic',
             ],
             'Iron' => [
                 'name'    => 'Iron Ore (Magnetite / Hematite)',
                 'badge'   => '60%-64% Fe Basis',
-                'aliases' => ['Iron', 'Magnetite', 'Hematite'],
+                'aliases' => ['Iron', 'Magnetite', 'Hematite', 'Fe'],
                 'category'=> 'metallic',
             ],
             'Manganese' => [
                 'name'    => 'Manganese Ore',
-                'badge'   => '38%-48% Mn',
-                'aliases' => ['Manganese'],
+                'badge'   => '38%-48% Mn Basis',
+                'aliases' => ['Manganese', 'Mn'],
                 'category'=> 'metallic',
             ],
             'Bauxite' => [
                 'name'    => 'Bauxite Ore',
-                'badge'   => '48%-56% Al2O3',
-                'aliases' => ['Bauxite'],
+                'badge'   => '48%-56% Al2O3 Basis',
+                'aliases' => ['Bauxite', 'Al2O3'],
                 'category'=> 'metallic',
             ],
             'Lead-Zinc' => [
                 'name'    => 'Lead & Zinc Ore',
-                'badge'   => 'Galena & Sphalerite',
-                'aliases' => ['Lead', 'Zinc'],
+                'badge'   => 'Galena & Sphalerite (45%-55% Combined)',
+                'aliases' => ['Lead & Zinc', 'Lead and Zinc', 'Lead', 'Zinc', 'Galena', 'Sphalerite'],
                 'category'=> 'metallic',
             ],
         ],
-        'Industrial & Drilling Minerals' => [
+        'Industrial Minerals' => [
             'Barite' => [
-                'name'    => 'Barite (Barytes / Drilling API 13A)',
+                'name'    => 'Barite (Drilling API 13A / Chemical)',
                 'badge'   => '4.10-4.25+ SG',
-                'aliases' => ['Barite', 'Baryte'],
+                'aliases' => ['Barite', 'Baryte', 'API Grade Barite', 'API 13A'],
                 'category'=> 'industrial',
             ],
             'Fluorite' => [
                 'name'    => 'Fluorite / Fluorspar',
-                'badge'   => '75%-97% CaF2',
-                'aliases' => ['Fluorite', 'Fluorspar', 'Fluor'],
+                'badge'   => '75%-97% CaF2 Basis',
+                'aliases' => ['Fluorite', 'Fluorspar', 'Fluor', 'CaF2'],
                 'category'=> 'industrial',
             ],
             'Gypsum' => [
-                'name'    => 'Gypsum Ore',
+                'name'    => 'Gypsum Ore (Spintangi)',
                 'badge'   => '90%-96% CaSO4·2H2O',
-                'aliases' => ['Gypsum'],
+                'aliases' => ['Gypsum', 'CaSO4'],
                 'category'=> 'industrial',
             ],
             'Magnesite' => [
                 'name'    => 'Magnesite',
-                'badge'   => '45%-47% MgO',
-                'aliases' => ['Magnesite'],
+                'badge'   => '42%-47% Raw / 85%-90% Calcined',
+                'aliases' => ['Magnesite', 'MgO'],
+                'category'=> 'industrial',
+            ],
+            'Phosphate' => [
+                'name'    => 'Phosphate Rock',
+                'badge'   => 'P2O5 Feedstock',
+                'aliases' => ['Phosphate', 'P2O5'],
                 'category'=> 'industrial',
             ],
         ],
-        'Energy Minerals & Solid Fuels' => [
-            'Coal' => [
-                'name'    => 'Balochistan Coal',
-                'badge'   => '5,500-6,800 kcal/kg Steam Coal',
-                'aliases' => ['Coal'],
+        'Energy & Fuel Minerals' => [
+            'Coal-Sorange' => [
+                'name'    => 'Sorange-Degari Coal',
+                'badge'   => 'Quetta Coalfield (5,800-6,200 kcal/kg)',
+                'aliases' => ['Sorange', 'Degari', 'Sorange-Degari', 'Balochistan Coal', 'Steam Coal', 'Coal'],
+                'category'=> 'energy',
+            ],
+            'Coal-Mach' => [
+                'name'    => 'Mach-Anjira Coal',
+                'badge'   => 'Mach Corridor Sourcing',
+                'aliases' => ['Mach', 'Anjira', 'Mach-Anjira'],
                 'category'=> 'energy',
             ],
         ],
         'Natural Stones & Dimensional Blocks' => [
             'Marble' => [
                 'name'    => 'Marble (Balochistan & Iranian)',
-                'badge'   => 'Blocks & Slabs',
-                'aliases' => ['Marble', 'Silver Steam'],
+                'badge'   => 'Blocks, Slabs & Silver Steam',
+                'aliases' => ['Marble', 'Silver Steam', 'White Marble'],
                 'category'=> 'stone',
             ],
-            'Onyx' => [
-                'name'    => 'Onyx Stone',
-                'badge'   => 'Dark & Multi-Green Onyx',
-                'aliases' => ['Onyx'],
+            'Travertine' => [
+                'name'    => 'Travertine',
+                'badge'   => 'Beige / Walnut / Titanium Blocks',
+                'aliases' => ['Travertine'],
                 'category'=> 'stone',
             ],
-            'Granite' => [
-                'name'    => 'Granite Stone',
-                'badge'   => 'Dimensional Slabs',
-                'aliases' => ['Granite'],
+            'Pietra-Grey' => [
+                'name'    => 'Pietra Grey Marble',
+                'badge'   => 'Charcoal Grey Blocks & Slabs',
+                'aliases' => ['Pietra Grey', 'Pietra'],
+                'category'=> 'stone',
+            ],
+            'Persian-Silk' => [
+                'name'    => 'Persian Silk Marble',
+                'badge'   => 'Tundra Grey Blocks & Slabs',
+                'aliases' => ['Persian Silk', 'Tundra Grey'],
                 'category'=> 'stone',
             ],
         ],

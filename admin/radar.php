@@ -31,7 +31,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && $pdo !== null) {
                 ['103.21.58.90', 'India', 'Mumbai', '/minerals/manganese-ore', 'Manganese Ore', 'Google India'],
                 ['39.40.112.50', 'Pakistan', 'Karachi', '/minerals/balochistan-coal', 'Balochistan Coal', 'Cement Procurement Portal'],
                 ['195.175.25.60', 'Turkey', 'Istanbul', '/minerals/gypsum-ore', 'Gypsum Ore', 'Yandex'],
-                ['212.174.45.10', 'Spain', 'Novelda', '/minerals/balochistan-marble-onyx', 'Marble & Onyx', 'Direct Stone Buyer']
+                ['212.174.45.10', 'Spain', 'Novelda', '/minerals/balochistan-marble', 'Marble & Travertine', 'Direct Stone Buyer']
             ];
             $chosen = $sims[array_rand($sims)];
             $stmt = $pdo->prepare("INSERT INTO visitor_radar (ip_address, country, city, page_url, mineral_interest, referrer, user_agent) VALUES (?, ?, ?, ?, ?, ?, 'Mozilla/5.0 Commercial Browser Simulator')");

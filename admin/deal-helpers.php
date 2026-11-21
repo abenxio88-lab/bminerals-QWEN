@@ -233,7 +233,7 @@ function getMineralAssayPresets($commodityName) {
             ['key' => 'assay_ash', 'label' => 'Ash Content',   'unit' => '%',       'placeholder' => 'e.g. 12.5'],
         ];
     }
-    if (strpos($low, 'marble') !== false || strpos($low, 'onyx') !== false || strpos($low, 'granite') !== false || strpos($low, 'stone') !== false) {
+    if (strpos($low, 'marble') !== false || strpos($low, 'travertine') !== false || strpos($low, 'pietra') !== false || strpos($low, 'stone') !== false) {
         return [
             ['key' => 'stone_dims',   'label' => 'Block / Slab Size', 'unit' => 'cm', 'placeholder' => 'e.g. 280x160x2'],
             ['key' => 'stone_finish', 'label' => 'Grade / Finish',    'unit' => '',   'placeholder' => 'Grade A Export Cut'],

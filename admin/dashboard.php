@@ -1173,7 +1173,7 @@ function getBallInCourtStatus($row) {
         <!-- Filter & Search Toolbar -->
         <div class="filter-toolbar">
           <form method="GET" action="dashboard.php" class="row g-2 align-items-center">
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-5 col-xl-4">
               <div class="input-group input-group-sm search-input-group">
                 <span class="input-group-text py-1.5"><i class="bi bi-search"></i></span>
                 <input type="text" name="q" class="form-control py-1.5" placeholder="Search buyer, company, country, WhatsApp..." value="<?= htmlspecialchars($searchQuery) ?>">
@@ -1182,7 +1182,7 @@ function getBallInCourtStatus($row) {
                 <?php endif; ?>
               </div>
             </div>
-            <div class="col-6 col-md-2">
+            <div class="col-12 col-sm-6 col-md-3 col-xl-2">
               <select name="status" class="form-select form-select-sm py-1.5" onchange="this.form.submit()">
                 <option value="">All Deal Stages</option>
                 <option value="New" <?= $filterStatus === 'New' ? 'selected' : '' ?>>New</option>
@@ -1194,17 +1194,17 @@ function getBallInCourtStatus($row) {
                 <option value="Closed" <?= $filterStatus === 'Closed' ? 'selected' : '' ?>>Closed</option>
               </select>
             </div>
-            <div class="col-6 col-md-4">
+            <div class="col-12 col-sm-6 col-md-4 col-xl-4">
               <select name="mineral" class="form-select form-select-sm py-1.5" onchange="this.form.submit()" title="Filter by Mineral or Commodity">
                 <?= renderCommodityOptions($filterMineral, true, 'All Commodities') ?>
               </select>
             </div>
-            <div class="col-12 col-md-2 d-flex gap-1.5">
-              <button type="submit" class="btn-filter-action">
+            <div class="col-12 col-md-12 col-xl-2 d-flex gap-1.5">
+              <button type="submit" class="btn-filter-action flex-grow-1">
                 <i class="bi bi-funnel"></i> <span>Filter</span>
               </button>
               <?php if (!empty($searchQuery) || !empty($filterStatus) || !empty($filterMineral)): ?>
-                <a href="dashboard.php" class="btn btn-sm btn-outline-secondary py-1.5 px-2.5" title="Reset Filters"><i class="bi bi-arrow-counterclockwise"></i></a>
+                <a href="dashboard.php" class="btn btn-sm btn-outline-secondary py-1.5 px-2.5 flex-shrink-0" title="Reset Filters"><i class="bi bi-arrow-counterclockwise"></i></a>
               <?php endif; ?>
             </div>
           </form>

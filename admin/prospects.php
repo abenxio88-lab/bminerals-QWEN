@@ -794,18 +794,18 @@ if ($pdo !== null) {
         <!-- Filter & Search Toolbar -->
         <form method="GET" action="prospects.php" class="card p-2.5 bg-white border mb-3" style="border-radius: 8px;">
           <div class="row g-2 align-items-center">
-            <div class="col-md-4">
+            <div class="col-12 col-md-5 col-xl-4">
               <div class="input-group input-group-sm">
                 <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
                 <input type="text" name="q" class="form-control" placeholder="Search company, contact, city, notes..." value="<?= htmlspecialchars($searchQuery) ?>">
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-12 col-sm-6 col-md-4 col-xl-3">
               <select name="mineral" class="form-select form-select-sm" onchange="this.form.submit()" title="Filter by Commodity">
                 <?= renderCommodityOptions($filterMineral, true, 'All Commodities') ?>
               </select>
             </div>
-            <div class="col-md-3">
+            <div class="col-12 col-sm-6 col-md-3 col-xl-3">
               <select name="country" class="form-select form-select-sm" onchange="this.form.submit()">
                 <option value="">All Buyer Corridors</option>
                 <option value="China" <?= $filterCountry === 'China' ? 'selected' : '' ?>>China</option>
@@ -818,8 +818,8 @@ if ($pdo !== null) {
                 <option value="India" <?= $filterCountry === 'India' ? 'selected' : '' ?>>India</option>
               </select>
             </div>
-            <div class="col-md-2 d-flex gap-1">
-              <button type="submit" class="btn-filter-action">
+            <div class="col-12 col-md-12 col-xl-2 d-flex gap-1">
+              <button type="submit" class="btn-filter-action flex-grow-1">
                 <i class="bi bi-funnel"></i> <span>Filter</span>
               </button>
               <?php if (!empty($filterMineral) || !empty($filterCountry) || !empty($searchQuery)): ?>
