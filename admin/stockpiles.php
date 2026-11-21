@@ -221,7 +221,7 @@ if ($pdo !== null) {
     .app-wrapper { display: flex; min-height: 100vh; }
     .app-sidebar {
       width: var(--sidebar-width); background: var(--brand-surface); border-right: 1px solid var(--brand-border);
-      display: flex; flex-direction: column; position: fixed; top: 0; bottom: 0; left: 0; z-index: 1040;
+      display: flex; flex-direction: column; position: fixed; top: 0; bottom: 0; left: 0; z-index: 1050;
     }
 
     .sidebar-nav { padding: 16px 12px; flex: 1; }

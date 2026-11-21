@@ -203,7 +203,7 @@ if ($pdo !== null) {
       border-right: 1px solid var(--brand-border);
       position: fixed;
       top: 0; bottom: 0; left: 0;
-      z-index: 1040;
+      z-index: 1050;
       display: flex;
       flex-direction: column;
     }

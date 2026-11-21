@@ -50,8 +50,12 @@
       backdrop.addEventListener('click', closeMobileSidebar);
     }
 
-    // Keyboard shortcut: Ctrl + B or Cmd + B to toggle sidebar
+    // Keyboard shortcuts: Ctrl + B / Cmd + B to toggle, Escape to close mobile drawer
     window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && document.body.classList.contains('sidebar-open')) {
+        closeMobileSidebar();
+        return;
+      }
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'b') {
         const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
         if (activeTag !== 'input' && activeTag !== 'textarea') {

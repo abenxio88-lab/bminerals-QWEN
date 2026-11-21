@@ -461,7 +461,7 @@ function getBallInCourtStatus($row) {
       top: 0;
       bottom: 0;
       left: 0;
-      z-index: 1040;
+      z-index: 1050;
     }
 
 

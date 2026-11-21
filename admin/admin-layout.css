@@ -57,7 +57,7 @@ h1, h2, h3, h4, h5, h6, .brand-font {
 /* Sidebar Canvas */
 .app-sidebar {
   width: var(--sidebar-width) !important;
-  background: var(--brand-surface);
+  background: var(--brand-surface) !important;
   border-right: 1px solid var(--brand-border);
   display: flex;
   flex-direction: column;
@@ -65,7 +65,7 @@ h1, h2, h3, h4, h5, h6, .brand-font {
   top: 0;
   bottom: 0;
   left: 0;
-  z-index: 1045;
+  z-index: 1050 !important;
   transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.28s ease;
   box-shadow: 2px 0 12px rgba(15, 23, 42, 0.03);
 }
@@ -398,16 +398,18 @@ body.sidebar-collapsed .app-main {
   .app-sidebar {
     transform: translateX(-100%);
     box-shadow: 0 10px 30px rgba(15, 23, 42, 0.25);
+    z-index: 1050 !important;
   }
   .app-main {
     margin-left: 0 !important;
   }
   body.sidebar-open .app-sidebar {
     transform: translateX(0);
+    z-index: 1050 !important;
   }
 }
 
-/* Mobile Backdrop Overlay */
+/* Mobile Backdrop Overlay - High performance dimming without blur artifacts */
 .sidebar-backdrop {
   position: fixed;
   top: 0;
@@ -415,8 +417,7 @@ body.sidebar-collapsed .app-main {
   right: 0;
   bottom: 0;
   background: rgba(15, 23, 42, 0.5);
-  backdrop-filter: blur(2px);
-  z-index: 1040;
+  z-index: 1040 !important;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s ease;
@@ -3339,6 +3340,7 @@ a.btn-dark {
   /* Sidebar Drawer */
   .app-sidebar {
     width: min(85vw, 300px) !important;
+    z-index: 1050 !important;
   }
   .sidebar-header {
     padding: 16px 14px 14px !important;
