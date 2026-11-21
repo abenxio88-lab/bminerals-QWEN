@@ -1084,21 +1084,51 @@
       const pendingCount = Number(data.pending_approvals || 0);
       const role = (data.user && data.user.role) ? String(data.user.role) : '';
 
-      // 1. Display clean Role tier badge inside sidebar footer next to user name
+      // 1. Display clean Role tier badge inside sidebar footer on its own bottom row
       if (sidebarFooter && role) {
-        const nameBlock = sidebarFooter.querySelector('.fw-bold.small, div > div');
-        if (nameBlock && !sidebarFooter.querySelector('.bm-role-tier-pill')) {
-          const badge = document.createElement('span');
-          const tierColors = {
-            Owner: 'background:#0F172A;color:#FFFFFF;',
-            Manager: 'background:#E65C1A;color:#FFFFFF;',
-            Junior: 'background:#E2E8F0;color:#0F172A;',
-            Yard: 'background:#DBEAFE;color:#1E40AF;'
-          };
-          badge.className = 'bm-role-tier-pill ms-1 px-1.5 py-0.5 rounded font-monospace';
-          badge.style.cssText = 'font-size:0.62rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;' + (tierColors[role] || 'background:#E2E8F0;color:#0F172A;');
-          badge.textContent = role;
-          nameBlock.appendChild(badge);
+        let badge = sidebarFooter.querySelector('.bm-role-tier-pill');
+        const roleLower = role.toLowerCase();
+        const displayRole = (role.toLowerCase() === 'owner') ? 'CEO' : role;
+        const tierStyles = {
+          Owner: 'background:#FFFFFF;color:#E65C1A;border:1px solid #0F172A;',
+          Manager: 'background:#FFFFFF;color:#0F172A;border:1px solid #E65C1A;',
+          Junior: 'background:#FFFFFF;color:#475569;border:1px solid #CBD5E1;',
+          Yard: 'background:#FFFFFF;color:#1E40AF;border:1px solid #93C5FD;'
+        };
+
+        if (!badge) {
+          badge = document.createElement('span');
+          badge.className = 'bm-role-tier-pill tier-' + roleLower + ' px-2 py-0.5 rounded font-monospace flex-shrink-0';
+          badge.style.cssText = 'font-size:0.68rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;line-height:1.2;border-radius:6px;' + (tierStyles[role] || 'background:#FFFFFF;color:#E65C1A;border:1px solid #0F172A;');
+          badge.textContent = displayRole;
+
+          const metaRow = sidebarFooter.querySelector('.sidebar-footer-row-meta');
+          if (metaRow) {
+            metaRow.appendChild(badge);
+          } else {
+            const textMuted = sidebarFooter.querySelector('.text-muted');
+            if (textMuted && textMuted.parentElement) {
+              const metaDiv = document.createElement('div');
+              metaDiv.className = 'sidebar-footer-row-meta d-flex align-items-center justify-content-between gap-2 mt-1';
+              textMuted.parentElement.insertBefore(metaDiv, textMuted);
+              metaDiv.appendChild(textMuted);
+              metaDiv.appendChild(badge);
+            } else {
+              const metaDiv = document.createElement('div');
+              metaDiv.className = 'sidebar-footer-row-meta d-flex align-items-center justify-content-between gap-2 mt-1';
+              const label = document.createElement('div');
+              label.className = 'text-muted text-truncate';
+              label.style.fontSize = '0.7rem';
+              label.textContent = 'Commercial Export Desk';
+              metaDiv.appendChild(label);
+              metaDiv.appendChild(badge);
+              sidebarFooter.appendChild(metaDiv);
+            }
+          }
+        } else {
+          badge.className = 'bm-role-tier-pill tier-' + roleLower + ' px-2 py-0.5 rounded font-monospace flex-shrink-0';
+          badge.textContent = displayRole;
+          badge.style.cssText = 'font-size:0.68rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;line-height:1.2;border-radius:6px;' + (tierStyles[role] || 'background:#FFFFFF;color:#E65C1A;border:1px solid #0F172A;');
         }
       }
 

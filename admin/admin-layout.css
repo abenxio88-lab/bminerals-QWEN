@@ -286,7 +286,7 @@ h1, h2, h3, h4, h5, h6, .brand-font {
 }
 
 .sidebar-footer {
-  padding: 12px 16px;
+  padding: 10px 14px;
   border-top: 1px solid var(--brand-border);
   background: #FAFCFE;
   flex-shrink: 0;
@@ -296,11 +296,79 @@ h1, h2, h3, h4, h5, h6, .brand-font {
   min-width: 0;
 }
 
-.sidebar-footer .fw-bold,
-.sidebar-footer .text-muted {
+.sidebar-footer-row-user {
+  min-width: 0;
+}
+
+.sidebar-footer-row-user .fw-bold {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 0;
+  color: var(--brand-navy);
+  font-size: 0.8rem;
+}
+
+.sidebar-footer-row-meta {
+  min-width: 0;
+}
+
+.sidebar-footer-row-meta .text-muted {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+  font-size: 0.7rem;
+}
+
+.sidebar-footer .btn-outline-secondary {
+  border-color: #CBD5E1;
+  color: #64748B;
+  transition: all 0.15s ease;
+}
+
+.sidebar-footer .btn-outline-secondary:hover {
+  background: #EF4444;
+  border-color: #EF4444;
+  color: #FFFFFF;
+}
+
+.bm-role-tier-pill {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.25;
+  display: inline-block;
+  padding: 2.5px 8.5px;
+  border-radius: 6px;
+}
+
+.bm-role-tier-pill.tier-owner,
+.bm-role-tier-pill.tier-ceo {
+  background: #FFFFFF !important;
+  color: #E65C1A !important;
+  border: 1px solid #0F172A !important;
+  border-radius: 6px !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+}
+
+.bm-role-tier-pill.tier-manager {
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  border: 1px solid #E65C1A !important;
+}
+
+.bm-role-tier-pill.tier-junior {
+  background: #FFFFFF !important;
+  color: #475569 !important;
+  border: 1px solid #CBD5E1 !important;
+}
+
+.bm-role-tier-pill.tier-yard {
+  background: #FFFFFF !important;
+  color: #1E40AF !important;
+  border: 1px solid #93C5FD !important;
 }
 
 /* ==========================================================================

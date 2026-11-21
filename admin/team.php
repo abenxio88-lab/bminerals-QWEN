@@ -202,9 +202,15 @@ $csrfToken        = getCsrfToken();
       </nav>
 
       <div class="sidebar-footer">
-        <div class="d-flex align-items-center justify-content-between">
-          <div class="fw-bold small" style="color: var(--brand-navy);"><?= htmlspecialchars($user['full_name']) ?></div>
-          <a href="logout.php" class="btn btn-sm btn-outline-secondary p-1 px-2" title="Sign Out"><i class="bi bi-power"></i></a>
+        <div class="sidebar-footer-row-user d-flex align-items-center justify-content-between gap-2 mb-1">
+          <div class="fw-bold small text-truncate" style="color: var(--brand-navy); font-size: 0.8rem;" title="<?= htmlspecialchars($user['full_name']) ?>"><?= htmlspecialchars($user['full_name']) ?></div>
+          <a href="logout.php" class="btn btn-sm btn-outline-secondary p-1 px-2 flex-shrink-0" title="Sign Out">
+            <i class="bi bi-power"></i>
+          </a>
+        </div>
+        <div class="sidebar-footer-row-meta d-flex align-items-center justify-content-between gap-2">
+          <div class="text-muted text-truncate" style="font-size: 0.7rem;">Commercial Export Desk</div>
+          <span class="bm-role-tier-pill tier-owner px-2 py-0.5 font-monospace flex-shrink-0" style="font-size:0.68rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;background:#FFFFFF;color:#E65C1A;border:1px solid #0F172A;border-radius:6px;"><?= ($user['role'] ?? '') === 'Owner' ? 'CEO' : htmlspecialchars($user['role'] ?? 'CEO') ?></span>
         </div>
       </div>
     </aside>
