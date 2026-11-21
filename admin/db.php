@@ -330,197 +330,152 @@ function cleanInput($data) {
 
 /**
  * Master catalog of all minerals and commodities produced and exported by Balochistan Minerals.
- * Exactly mirrors the 4 product showcase categories from the official products catalog.
+ * Exactly mirrors the 4 product showcase categories and cards from products.html in exact order.
  */
 function getCommodityCatalog() {
     return [
         'Metallic Minerals' => [
+            'Copper' => [
+                'name'    => 'Copper Lumps',
+                'badge'   => '2% - 10%+ Cu Flagship Export',
+                'aliases' => ['Copper', 'Copper Lumps', 'Cu'],
+                'category'=> 'metallic',
+            ],
             'Chromite' => [
-                'name'    => 'Chromite Ore',
-                'badge'   => '40%-54% Cr2O3 Lumps & Concentrate',
-                'aliases' => ['Chromite', 'Chrome', 'Cr2O3'],
+                'name'    => 'Chrome Lumps',
+                'badge'   => '12% - 52% Cr2O3 Metallurgical',
+                'aliases' => ['Chromite', 'Chrome', 'Chrome Lumps', 'Chromite Ore', 'Cr2O3'],
+                'category'=> 'metallic',
+            ],
+            'Iron-Ore' => [
+                'name'    => 'Iron Ore Lumps',
+                'badge'   => '60% - 64% Fe Basis',
+                'aliases' => ['Iron', 'Iron Ore', 'Iron Ore Lumps', 'Magnetite', 'Hematite', 'Fe'],
                 'category'=> 'metallic',
             ],
             'Antimony' => [
-                'name'    => 'Antimony Ore (Stibnite)',
-                'badge'   => '40%-65% Sb Grade',
-                'aliases' => ['Antimony', 'Stibnite', 'Sb'],
-                'category'=> 'metallic',
-            ],
-            'Copper' => [
-                'name'    => 'Copper Ore',
-                'badge'   => '18%-32% Cu Lumps & Ore',
-                'aliases' => ['Copper', 'Cu'],
-                'category'=> 'metallic',
-            ],
-            'Iron' => [
-                'name'    => 'Iron Ore (Magnetite / Hematite)',
-                'badge'   => '60%-64% Fe Basis',
-                'aliases' => ['Iron', 'Magnetite', 'Hematite', 'Fe'],
+                'name'    => 'Antimony Lumps',
+                'badge'   => '40% - 65% Sb Grade',
+                'aliases' => ['Antimony', 'Antimony Lumps', 'Stibnite', 'Sb'],
                 'category'=> 'metallic',
             ],
             'Manganese' => [
                 'name'    => 'Manganese Ore',
-                'badge'   => '38%-48% Mn Basis',
-                'aliases' => ['Manganese', 'Mn'],
+                'badge'   => '38% - 48% Mn Basis',
+                'aliases' => ['Manganese', 'Manganese Ore', 'Mn'],
                 'category'=> 'metallic',
             ],
             'Bauxite' => [
                 'name'    => 'Bauxite Ore',
-                'badge'   => '48%-56% Al2O3 Basis',
-                'aliases' => ['Bauxite', 'Al2O3'],
+                'badge'   => '48% - 56% Al2O3 Refractory',
+                'aliases' => ['Bauxite', 'Bauxite Ore', 'Al2O3'],
                 'category'=> 'metallic',
             ],
             'Lead-Zinc' => [
                 'name'    => 'Lead & Zinc Ore',
-                'badge'   => 'Galena & Sphalerite (45%-55% Combined)',
-                'aliases' => ['Lead & Zinc', 'Lead and Zinc', 'Lead', 'Zinc', 'Galena', 'Sphalerite'],
+                'badge'   => 'Galena & Sphalerite Mixed Sulfide',
+                'aliases' => ['Lead', 'Zinc', 'Lead & Zinc', 'Lead and Zinc', 'Lead & Zinc Ore'],
                 'category'=> 'metallic',
             ],
         ],
         'Industrial Minerals' => [
             'Barite' => [
-                'name'    => 'Barite (Drilling API 13A / Chemical)',
-                'badge'   => '4.10-4.25+ SG',
-                'aliases' => ['Barite', 'Baryte', 'API Grade Barite', 'API 13A'],
+                'name'    => 'Barite',
+                'badge'   => 'API 13A SG 4.20+ / Chemical',
+                'aliases' => ['Barite', 'Baryte', 'Drilling & Industrial Barite', 'API Grade Barite', 'API 13A'],
                 'category'=> 'industrial',
             ],
             'Fluorite' => [
-                'name'    => 'Fluorite / Fluorspar',
-                'badge'   => '75%-97% CaF2 Basis',
-                'aliases' => ['Fluorite', 'Fluorspar', 'Fluor', 'CaF2'],
+                'name'    => 'Fluorite',
+                'badge'   => 'CaF2 Metallurgical & Ceramic',
+                'aliases' => ['Fluorite', 'Fluorspar', 'CaF2', 'Fluor'],
                 'category'=> 'industrial',
             ],
             'Gypsum' => [
-                'name'    => 'Gypsum Ore (Spintangi)',
-                'badge'   => '90%-96% CaSO4·2H2O',
-                'aliases' => ['Gypsum', 'CaSO4'],
+                'name'    => 'Gypsum',
+                'badge'   => 'Construction & Cement Grade (90%+)',
+                'aliases' => ['Gypsum', 'Gypsum Ore', 'Spintangi Gypsum', 'CaSO4'],
                 'category'=> 'industrial',
             ],
             'Magnesite' => [
                 'name'    => 'Magnesite',
-                'badge'   => '42%-47% Raw / 85%-90% Calcined',
-                'aliases' => ['Magnesite', 'MgO'],
+                'badge'   => 'Raw & Calcined Magnesite',
+                'aliases' => ['Magnesite', 'Raw & Calcined Magnesite', 'MgO'],
                 'category'=> 'industrial',
             ],
             'Phosphate' => [
                 'name'    => 'Phosphate Rock',
-                'badge'   => 'P2O5 Feedstock',
-                'aliases' => ['Phosphate', 'P2O5'],
+                'badge'   => 'Fertilizer & Chemical Feed',
+                'aliases' => ['Phosphate', 'Phosphate Rock', 'P2O5'],
                 'category'=> 'industrial',
             ],
         ],
-        'Energy & Fuel Minerals' => [
-            'Coal-Sorange' => [
-                'name'    => 'Sorange-Degari Coal',
-                'badge'   => 'Quetta Coalfield (5,800-6,200 kcal/kg)',
-                'aliases' => ['Sorange', 'Degari', 'Sorange-Degari', 'Balochistan Coal', 'Steam Coal', 'Coal'],
-                'category'=> 'energy',
+        'Natural Stones & Marble' => [
+            'Marble' => [
+                'name'    => 'Marble',
+                'badge'   => 'Commercial and premium marble',
+                'aliases' => ['Marble', 'Commercial and premium marble', 'Balochistan Marble', 'Marble (Balochistan & Iranian)'],
+                'category'=> 'stone',
             ],
-            'Coal-Mach' => [
-                'name'    => 'Mach-Anjira Coal',
-                'badge'   => 'Mach Corridor Sourcing',
-                'aliases' => ['Mach', 'Anjira', 'Mach-Anjira'],
-                'category'=> 'energy',
+            'White-Marble' => [
+                'name'    => 'White Marble',
+                'badge'   => 'Bright white marble selection',
+                'aliases' => ['White Marble', 'Bright white marble selection', 'Bright white marble'],
+                'category'=> 'stone',
+            ],
+            'Persian-Silk-Tundra-Grey' => [
+                'name'    => 'Persian Silk Tundra Grey',
+                'badge'   => 'Iranian Marble Slabs & Tiles',
+                'aliases' => ['Persian Silk Tundra Grey', 'Tundra Grey', 'Persian Silk', 'Iranian Marble'],
+                'category'=> 'stone',
+            ],
+            'Persian-Silk-Block' => [
+                'name'    => 'Persian Silk Block',
+                'badge'   => 'Raw processing blocks',
+                'aliases' => ['Persian Silk Block', 'Persian Silk Blocks', 'Raw processing blocks'],
+                'category'=> 'stone',
+            ],
+            'Pietra-Grey-Block' => [
+                'name'    => 'Pietra Grey Block',
+                'badge'   => 'Premium Dark Marble Blocks',
+                'aliases' => ['Pietra Grey Block', 'Pietra Grey Blocks', 'Pietra Grey', 'Dark Marble'],
+                'category'=> 'stone',
+            ],
+            'Pietra-Grey-Slab' => [
+                'name'    => 'Pietra Grey Slab',
+                'badge'   => 'Finished Slab Selection',
+                'aliases' => ['Pietra Grey Slab', 'Pietra Grey Slabs', 'Finished Slab'],
+                'category'=> 'stone',
+            ],
+            'Irani-Marble' => [
+                'name'    => 'Iranian Marble',
+                'badge'   => 'Silver Steam Premium White Slabs & Blocks',
+                'aliases' => ['Iranian Marble', 'Silver Steam', 'Silver Steam Marble', 'Silver Steam - a luminous white'],
+                'category'=> 'stone',
             ],
         ],
-        'Natural Stones & Dimensional Blocks' => [
-            'Marble' => [
-                'name'    => 'Marble (Balochistan & Iranian)',
-                'badge'   => 'Blocks, Slabs & Silver Steam',
-                'aliases' => ['Marble', 'Silver Steam', 'White Marble'],
-                'category'=> 'stone',
+        'Energy Minerals' => [
+            'Coal-Sorange-Degari' => [
+                'name'    => 'Sorange-Degari',
+                'badge'   => 'Quetta coalfield',
+                'aliases' => ['Sorange-Degari', 'Sorange', 'Degari', 'Quetta coalfield', 'Coal', 'Balochistan Coal', 'Steam Coal'],
+                'category'=> 'energy',
             ],
-            'Travertine' => [
-                'name'    => 'Travertine',
-                'badge'   => 'Beige / Walnut / Titanium Blocks',
-                'aliases' => ['Travertine'],
-                'category'=> 'stone',
-            ],
-            'Pietra-Grey' => [
-                'name'    => 'Pietra Grey Marble',
-                'badge'   => 'Charcoal Grey Blocks & Slabs',
-                'aliases' => ['Pietra Grey', 'Pietra'],
-                'category'=> 'stone',
-            ],
-            'Persian-Silk' => [
-                'name'    => 'Persian Silk Marble',
-                'badge'   => 'Tundra Grey Blocks & Slabs',
-                'aliases' => ['Persian Silk', 'Tundra Grey'],
-                'category'=> 'stone',
+            'Coal-Mach-Anjira' => [
+                'name'    => 'Mach-Anjira',
+                'badge'   => 'Mach corridor coal sourcing',
+                'aliases' => ['Mach-Anjira', 'Mach', 'Anjira', 'Mach corridor'],
+                'category'=> 'energy',
             ],
         ],
     ];
 }
 
 /**
- * Returns complete catalog merged with any custom mineral values found dynamically in DB.
+ * Returns the exact commodities catalog matching products.html.
  */
 function getAllFilterableCommodities($pdo = null) {
-    $catalog = getCommodityCatalog();
-    if ($pdo === null) {
-        $pdo = getDB();
-    }
-    if (!$pdo) {
-        return $catalog;
-    }
-
-    try {
-        $knownAliases = [];
-        foreach ($catalog as $group => $items) {
-            foreach ($items as $key => $meta) {
-                foreach ($meta['aliases'] as $alias) {
-                    $knownAliases[] = strtolower($alias);
-                }
-            }
-        }
-
-        $extra = [];
-        $queries = [
-            "SELECT DISTINCT mineral_name FROM mineral_prices WHERE mineral_name IS NOT NULL AND mineral_name != ''",
-            "SELECT DISTINCT target_mineral FROM buyer_prospects WHERE target_mineral IS NOT NULL AND target_mineral != ''",
-            "SELECT DISTINCT mineral_name FROM stockpiles WHERE mineral_name IS NOT NULL AND mineral_name != ''",
-            "SELECT DISTINCT mineral_type FROM inquiries WHERE mineral_type IS NOT NULL AND mineral_type != '' AND mineral_type != 'General Mineral'"
-        ];
-
-        foreach ($queries as $q) {
-            $stmt = $pdo->query($q);
-            while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-                $val = trim($row[0]);
-                if (!empty($val)) {
-                    $extra[] = $val;
-                }
-            }
-        }
-
-        $custom = [];
-        foreach (array_unique($extra) as $item) {
-            $matched = false;
-            $low = strtolower($item);
-            foreach ($knownAliases as $alias) {
-                if (strpos($low, $alias) !== false) {
-                    $matched = true;
-                    break;
-                }
-            }
-            if (!$matched) {
-                $custom[$item] = [
-                    'name'    => $item,
-                    'badge'   => 'Custom Asset',
-                    'aliases' => [$item],
-                    'category'=> 'custom',
-                ];
-            }
-        }
-
-        if (!empty($custom)) {
-            $catalog['Additional Commercial Minerals'] = $custom;
-        }
-    } catch (Exception $e) {
-        // fail-soft
-    }
-
-    return $catalog;
+    return getCommodityCatalog();
 }
 
 /**
