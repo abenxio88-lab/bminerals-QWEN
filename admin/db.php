@@ -330,83 +330,95 @@ function cleanInput($data) {
 
 /**
  * Master catalog of all minerals and commodities produced and exported by Balochistan Minerals.
- * Exactly mirrors the 4 product showcase categories and cards from products.html in exact order.
+ * Exactly mirrors the 4 product showcase categories and cards from the website in exact order.
  */
 function getCommodityCatalog() {
     return [
         'Metallic Minerals' => [
-            'Copper' => [
+            'Copper-Lumps' => [
                 'name'    => 'Copper Lumps',
                 'badge'   => '2% - 10%+ Cu Flagship Export',
                 'aliases' => ['Copper', 'Copper Lumps', 'Cu'],
                 'category'=> 'metallic',
             ],
-            'Chromite' => [
+            'Chrome-Lumps' => [
                 'name'    => 'Chrome Lumps',
                 'badge'   => '12% - 52% Cr2O3 Metallurgical',
                 'aliases' => ['Chromite', 'Chrome', 'Chrome Lumps', 'Chromite Ore', 'Cr2O3'],
                 'category'=> 'metallic',
             ],
-            'Iron-Ore' => [
+            'Iron-Lumps' => [
                 'name'    => 'Iron Ore Lumps',
                 'badge'   => '60% - 64% Fe Basis',
                 'aliases' => ['Iron', 'Iron Ore', 'Iron Ore Lumps', 'Magnetite', 'Hematite', 'Fe'],
                 'category'=> 'metallic',
             ],
-            'Antimony' => [
+            'Iron-Concentrate' => [
+                'name'    => 'Iron Ore Concentrate',
+                'badge'   => '65%+ Fe High-Purity Pellet Feed',
+                'aliases' => ['Iron Concentrate', 'Iron Ore Concentrate', 'Magnetite Concentrate'],
+                'category'=> 'metallic',
+            ],
+            'Antimony-Lumps' => [
                 'name'    => 'Antimony Lumps',
                 'badge'   => '40% - 65% Sb Grade',
                 'aliases' => ['Antimony', 'Antimony Lumps', 'Stibnite', 'Sb'],
                 'category'=> 'metallic',
             ],
-            'Manganese' => [
+            'Antimony-Concentrate' => [
+                'name'    => 'Antimony Concentrate',
+                'badge'   => 'High-Grade Sb Flotation Concentrate',
+                'aliases' => ['Antimony Concentrate', 'Sb Concentrate', 'Stibnite Concentrate'],
+                'category'=> 'metallic',
+            ],
+            'Manganese-Ore' => [
                 'name'    => 'Manganese Ore',
-                'badge'   => '38% - 48% Mn Basis',
-                'aliases' => ['Manganese', 'Manganese Ore', 'Mn'],
+                'badge'   => '30% - 48% Mn Pyrolusite',
+                'aliases' => ['Manganese', 'Manganese Ore', 'Mn', 'Pyrolusite'],
                 'category'=> 'metallic',
             ],
-            'Bauxite' => [
-                'name'    => 'Bauxite Ore',
-                'badge'   => '48% - 56% Al2O3 Refractory',
-                'aliases' => ['Bauxite', 'Bauxite Ore', 'Al2O3'],
-                'category'=> 'metallic',
-            ],
-            'Lead-Zinc' => [
+            'Lead-Zinc-Ore' => [
                 'name'    => 'Lead & Zinc Ore',
-                'badge'   => 'Galena & Sphalerite Mixed Sulfide',
-                'aliases' => ['Lead', 'Zinc', 'Lead & Zinc', 'Lead and Zinc', 'Lead & Zinc Ore'],
+                'badge'   => '55%-62% Zn · 60% Pb Flotation Concentrate',
+                'aliases' => ['Lead', 'Zinc', 'Lead & Zinc', 'Lead and Zinc', 'Lead & Zinc Ore', 'Duddar'],
                 'category'=> 'metallic',
             ],
         ],
         'Industrial Minerals' => [
             'Barite' => [
-                'name'    => 'Barite',
-                'badge'   => 'API 13A SG 4.20+ / Chemical',
-                'aliases' => ['Barite', 'Baryte', 'Drilling & Industrial Barite', 'API Grade Barite', 'API 13A'],
+                'name'    => 'Barite / Baryte',
+                'badge'   => '92% - 98% BaSO4 · API 13A SG 4.20+',
+                'aliases' => ['Barite', 'Baryte', 'Drilling & Industrial Barite', 'API Grade Barite', 'API 13A', 'BaSO4'],
                 'category'=> 'industrial',
             ],
             'Fluorite' => [
-                'name'    => 'Fluorite',
-                'badge'   => 'CaF2 Metallurgical & Ceramic',
+                'name'    => 'Fluorite / Fluorspar',
+                'badge'   => '50% - 90%+ CaF2 Metallurgical & Ceramic',
                 'aliases' => ['Fluorite', 'Fluorspar', 'CaF2', 'Fluor'],
                 'category'=> 'industrial',
             ],
             'Gypsum' => [
                 'name'    => 'Gypsum',
-                'badge'   => 'Construction & Cement Grade (90%+)',
+                'badge'   => '90% - 95% CaSO4·2H2O Spintangi Grade',
                 'aliases' => ['Gypsum', 'Gypsum Ore', 'Spintangi Gypsum', 'CaSO4'],
                 'category'=> 'industrial',
             ],
             'Magnesite' => [
                 'name'    => 'Magnesite',
-                'badge'   => 'Raw & Calcined Magnesite',
+                'badge'   => 'Raw (42%-47% MgO) & Calcined (85%-90% MgO)',
                 'aliases' => ['Magnesite', 'Raw & Calcined Magnesite', 'MgO'],
                 'category'=> 'industrial',
             ],
             'Phosphate' => [
                 'name'    => 'Phosphate Rock',
-                'badge'   => 'Fertilizer & Chemical Feed',
+                'badge'   => 'P2O5 Feedstock for Fertilizer & Chemicals',
                 'aliases' => ['Phosphate', 'Phosphate Rock', 'P2O5'],
+                'category'=> 'industrial',
+            ],
+            'Bauxite' => [
+                'name'    => 'Bauxite',
+                'badge'   => '45% - 62% Al2O3 Refractory & Industrial',
+                'aliases' => ['Bauxite', 'Bauxite Ore', 'Al2O3', 'Alumina'],
                 'category'=> 'industrial',
             ],
         ],
@@ -424,33 +436,33 @@ function getCommodityCatalog() {
                 'category'=> 'stone',
             ],
             'Persian-Silk-Tundra-Grey' => [
-                'name'    => 'Persian Silk Tundra Grey',
-                'badge'   => 'Iranian Marble Slabs & Tiles',
+                'name'    => 'Iranian Marble — Persian Silk Tundra Grey',
+                'badge'   => 'Slabs, tiles & cut-to-size',
                 'aliases' => ['Persian Silk Tundra Grey', 'Tundra Grey', 'Persian Silk', 'Iranian Marble'],
                 'category'=> 'stone',
             ],
-            'Persian-Silk-Block' => [
-                'name'    => 'Persian Silk Block',
-                'badge'   => 'Raw processing blocks',
+            'Persian-Silk-Blocks' => [
+                'name'    => 'Iranian Marble — Persian Silk Blocks',
+                'badge'   => 'Raw blocks by dimensions & recovery',
                 'aliases' => ['Persian Silk Block', 'Persian Silk Blocks', 'Raw processing blocks'],
                 'category'=> 'stone',
             ],
-            'Pietra-Grey-Block' => [
-                'name'    => 'Pietra Grey Block',
-                'badge'   => 'Premium Dark Marble Blocks',
+            'Pietra-Grey-Blocks' => [
+                'name'    => 'Iranian Marble — Pietra Grey Blocks',
+                'badge'   => 'Raw blocks for slab & tile processing',
                 'aliases' => ['Pietra Grey Block', 'Pietra Grey Blocks', 'Pietra Grey', 'Dark Marble'],
                 'category'=> 'stone',
             ],
-            'Pietra-Grey-Slab' => [
-                'name'    => 'Pietra Grey Slab',
-                'badge'   => 'Finished Slab Selection',
+            'Pietra-Grey-Slabs' => [
+                'name'    => 'Iranian Marble — Pietra Grey Slabs',
+                'badge'   => 'Polished charcoal slabs with fine white veins',
                 'aliases' => ['Pietra Grey Slab', 'Pietra Grey Slabs', 'Finished Slab'],
                 'category'=> 'stone',
             ],
-            'Irani-Marble' => [
-                'name'    => 'Iranian Marble',
-                'badge'   => 'Silver Steam Premium White Slabs & Blocks',
-                'aliases' => ['Iranian Marble', 'Silver Steam', 'Silver Steam Marble', 'Silver Steam - a luminous white'],
+            'Silver-Steam-Marble' => [
+                'name'    => 'Iranian Marble — Silver Steam',
+                'badge'   => 'Luminous white with soft silver-grey veining',
+                'aliases' => ['Iranian Marble', 'Silver Steam', 'Silver Steam Marble', 'Silver Steam — Irani White Marble'],
                 'category'=> 'stone',
             ],
         ],
