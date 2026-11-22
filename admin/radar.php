@@ -356,6 +356,15 @@ if ($pdo !== null) {
         </a>
 
         <div class="sidebar-section-title">System & Links</div>
+        <?php if (function_exists('hasPermission') && (hasPermission('manage_team') || hasPermission('approve_emails'))): ?>
+        <a href="team.php" class="sidebar-link">
+          <div><i class="bi bi-shield-lock-fill"></i> Team & Security</div>
+        </a>
+        <?php endif; ?>
+        <a href="../tracking" target="_blank" class="sidebar-link">
+          <div><i class="bi bi-truck"></i> Buyer Tracking Portal</div>
+          <i class="bi bi-box-arrow-up-right small text-muted"></i>
+        </a>
         <a href="../" target="_blank" class="sidebar-link">
           <div><i class="bi bi-globe2"></i> Live Website</div>
           <i class="bi bi-box-arrow-up-right small text-muted"></i>

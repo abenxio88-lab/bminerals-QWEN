@@ -41,13 +41,181 @@ $csrfToken        = getCsrfToken();
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="admin-layout.css?v=<?= filemtime(__DIR__ . '/admin-layout.css') ?>">
   <style>
+    /* Executive Card & Surface Standards */
     .team-card {
       background: #FFFFFF;
       border: 1px solid #E2E8F0;
-      border-radius: 10px;
-      padding: 20px 22px;
-      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      border-radius: 8px;
+      padding: 18px 20px;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
     }
+
+    /* Executive Compact KPI Strip */
+    .team-kpi-grid {
+      margin-bottom: 18px;
+    }
+    .team-kpi-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.02);
+      transition: all 0.18s ease;
+      cursor: default;
+    }
+    .team-kpi-card:hover {
+      border-color: #E65C1A;
+      box-shadow: 0 4px 14px rgba(230, 92, 26, 0.09);
+      transform: translateY(-1px);
+    }
+    .team-kpi-card:hover .team-kpi-top i {
+      color: #E65C1A !important;
+    }
+
+    .team-kpi-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .team-kpi-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.67rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #64748B;
+      line-height: 1.2;
+    }
+    .team-kpi-top i {
+      font-size: 0.85rem;
+      color: #94A3B8;
+      transition: color 0.18s ease;
+    }
+
+    .team-kpi-value {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #0F172A;
+      line-height: 1.2;
+      margin: 4px 0 3px;
+      letter-spacing: -0.015em;
+      font-variant-numeric: tabular-nums;
+    }
+    .team-kpi-meta {
+      font-size: 0.70rem;
+      color: #94A3B8;
+      line-height: 1.25;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Executive Compact Topbar Buttons */
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-topbar-action {
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      color: #334155 !important;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.74rem;
+      font-weight: 500;
+      height: 31px;
+      padding: 0 11px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      box-shadow: none !important;
+      transition: all 0.15s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-topbar-action:hover {
+      background: #F8FAFC;
+      border-color: #E65C1A;
+      color: #E65C1A !important;
+    }
+    .btn-topbar-action:hover i {
+      color: #E65C1A;
+    }
+    .btn-topbar-action i {
+      color: #64748B;
+      font-size: 0.82rem;
+      line-height: 1;
+      transition: color 0.15s ease;
+    }
+
+    .btn-topbar-primary {
+      background: #0F172A !important;
+      border: 1px solid #0F172A !important;
+      color: #FFFFFF !important;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.74rem;
+      font-weight: 500;
+      height: 31px;
+      padding: 0 12px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      box-shadow: none !important;
+      transition: all 0.15s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-topbar-primary:hover {
+      background: #1E293B !important;
+      border-color: #E65C1A !important;
+      color: #FFFFFF !important;
+    }
+    .btn-topbar-primary i {
+      color: #FFFFFF;
+      font-size: 0.82rem;
+    }
+
+    .btn-topbar-danger {
+      background: #FFFFFF !important;
+      border: 1px solid #FECDD3 !important;
+      color: #B91C1C !important;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.74rem;
+      font-weight: 500;
+      height: 31px;
+      padding: 0 11px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      box-shadow: none !important;
+      transition: all 0.15s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-topbar-danger:hover {
+      background: #FEF2F2 !important;
+      border-color: #DC2626 !important;
+      color: #991B1B !important;
+    }
+    .btn-topbar-danger i {
+      color: #DC2626;
+      font-size: 0.82rem;
+      line-height: 1;
+    }
+
+    /* Tabs Styling */
     .team-tabs {
       display: inline-flex;
       flex-wrap: wrap;
@@ -79,6 +247,8 @@ $csrfToken        = getCsrfToken();
       border-color: #CBD5E1;
       box-shadow: 0 1px 3px rgba(15, 23, 42, 0.07);
     }
+
+    /* Live Session Dots */
     .live-dot {
       width: 8px;
       height: 8px;
@@ -89,6 +259,8 @@ $csrfToken        = getCsrfToken();
     .live-dot.online { background: #10B981; box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18); }
     .live-dot.idle   { background: #F59E0B; }
     .live-dot.stale  { background: #94A3B8; }
+
+    /* Role Tiers */
     .tier-badge {
       font-family: 'Montserrat', sans-serif;
       font-size: 0.68rem;
@@ -124,6 +296,89 @@ $csrfToken        = getCsrfToken();
       max-height: 300px;
       overflow-y: auto;
       font-size: 0.85rem;
+    }
+
+    /* Responsive Polish across breakpoints */
+    @media (max-width: 991px) {
+      .topbar-right {
+        gap: 8px;
+      }
+      .team-kpi-card {
+        padding: 14px 16px;
+      }
+      .team-kpi-value {
+        font-size: 1.45rem;
+      }
+    }
+    @media (max-width: 767px) {
+      .top-bar {
+        padding: 12px 14px;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .topbar-right {
+        width: 100%;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 2px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .topbar-right::-webkit-scrollbar {
+        display: none;
+      }
+      .btn-topbar-action,
+      .btn-topbar-primary,
+      .btn-topbar-danger {
+        height: 33px;
+        padding: 0 11px;
+        font-size: 0.74rem;
+        gap: 6px;
+        flex-shrink: 0;
+      }
+      .team-kpi-top {
+        margin-bottom: 6px;
+      }
+      .team-kpi-label {
+        font-size: 0.65rem;
+      }
+      .team-kpi-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 0.85rem;
+        border-radius: 6px;
+      }
+      .team-kpi-value {
+        font-size: 1.35rem;
+      }
+      .team-kpi-meta {
+        font-size: 0.70rem;
+      }
+      .team-tabs {
+        width: 100%;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .team-tabs::-webkit-scrollbar {
+        display: none;
+      }
+      .team-tab-btn {
+        flex-shrink: 0;
+        padding: 6px 12px;
+        font-size: 0.74rem;
+      }
+    }
+    @media (max-width: 480px) {
+      .team-kpi-grid > [class*="col-"] {
+        width: 100%;
+      }
+      .btn-topbar-action span,
+      .btn-topbar-primary span,
+      .btn-topbar-danger span {
+        font-size: 0.72rem;
+      }
     }
   </style>
 </head>
@@ -220,59 +475,80 @@ $csrfToken        = getCsrfToken();
     <div class="app-main">
       <header class="top-bar">
         <div class="topbar-left">
-          <button type="button" id="sidebarToggle" class="btn-sidebar-toggle" aria-label="Menu">
-            <i class="bi bi-list"></i>
+          <button type="button" id="sidebarToggle" class="btn-sidebar-toggle" aria-label="Toggle Sidebar">
+            <i class="bi bi-layout-sidebar-inset"></i>
           </button>
-          <div>
+          <div class="topbar-title-wrap">
             <h1 class="topbar-title">Team Oversight, Approvals &amp; Access Control</h1>
             <div class="topbar-subtitle">Live staff sessions, Maker-Checker outbound approvals, Authenticator 2FA &amp; company audit ledger</div>
           </div>
         </div>
-        <div class="topbar-actions">
-          <button type="button" id="btnRefreshTeam" class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-clockwise me-1"></i> Refresh</button>
+        <div class="topbar-right">
+          <button type="button" id="btnRefreshTeam" class="btn-topbar-action" title="Refresh Live Data">
+            <i class="bi bi-arrow-clockwise"></i> <span>Refresh</span>
+          </button>
           <?php if ($canManageTeam): ?>
-            <button type="button" id="btnOpenCreateStaff" class="btn btn-sm btn-dark fw-semibold"><i class="bi bi-person-plus-fill me-1"></i> New Staff Account</button>
-            <button type="button" id="btnPanicSignoutAll" class="btn btn-sm btn-outline-danger fw-semibold"><i class="bi bi-shield-exclamation me-1"></i> Kick All Other Sessions</button>
+            <button type="button" id="btnOpenCreateStaff" class="btn-topbar-primary" title="Create New Staff Account">
+              <i class="bi bi-person-plus-fill"></i> <span>New Staff Account</span>
+            </button>
+            <button type="button" id="btnPanicSignoutAll" class="btn-topbar-danger" title="Force Logout All Other Sessions Across Company">
+              <i class="bi bi-shield-slash-fill"></i> <span>Kick All Other Sessions</span>
+            </button>
           <?php endif; ?>
         </div>
       </header>
 
-      <div class="main-content">
+      <main class="content-canvas">
         <div id="teamFlashContainer" class="mb-3"></div>
 
-        <!-- KPI Strip -->
-        <div class="row g-3 mb-4">
-          <div class="col-6 col-xl-3">
-            <div class="kpi-card h-100">
-              <div class="kpi-title">Pending Email Approvals</div>
-              <div class="kpi-value" id="kpiPendingApprovals">0</div>
-              <div class="kpi-meta text-muted">Junior drafts awaiting review</div>
+        <!-- Executive Compact KPI Strip -->
+        <div class="row g-2 team-kpi-grid mb-3">
+          <div class="col-6 col-xl-3 col-md-6">
+            <div class="team-kpi-card h-100">
+              <div class="team-kpi-top">
+                <span class="team-kpi-label">Pending Email Approvals</span>
+                <i class="bi bi-envelope text-muted"></i>
+              </div>
+              <div class="team-kpi-value" id="kpiPendingApprovals">0</div>
+              <div class="team-kpi-meta">Junior drafts awaiting review</div>
             </div>
           </div>
-          <div class="col-6 col-xl-3">
-            <div class="kpi-card h-100">
-              <div class="kpi-title">Active Login Sessions</div>
-              <div class="kpi-value text-success" id="kpiLiveSessions">—</div>
-              <div class="kpi-meta text-muted" id="kpiLiveSessionsSub">Tracked browser devices</div>
+          <div class="col-6 col-xl-3 col-md-6">
+            <div class="team-kpi-card h-100">
+              <div class="team-kpi-top">
+                <span class="team-kpi-label">Active Login Sessions</span>
+                <i class="bi bi-display text-muted"></i>
+              </div>
+              <div class="team-kpi-value d-flex align-items-center gap-1">
+                <span class="live-dot online" style="width:7px;height:7px;"></span>
+                <span id="kpiLiveSessions">—</span>
+              </div>
+              <div class="team-kpi-meta" id="kpiLiveSessionsSub">Tracked browser devices</div>
             </div>
           </div>
-          <div class="col-6 col-xl-3">
-            <div class="kpi-card h-100">
-              <div class="kpi-title">Team Roster &amp; 2FA</div>
-              <div class="kpi-value" id="kpiActiveStaff">—</div>
-              <div class="kpi-meta text-muted" id="kpi2faSub">Authenticator-secured accounts</div>
+          <div class="col-6 col-xl-3 col-md-6">
+            <div class="team-kpi-card h-100">
+              <div class="team-kpi-top">
+                <span class="team-kpi-label">Team Roster &amp; 2FA</span>
+                <i class="bi bi-shield-lock text-muted"></i>
+              </div>
+              <div class="team-kpi-value" id="kpiActiveStaff">—</div>
+              <div class="team-kpi-meta" id="kpi2faSub">Authenticator-secured accounts</div>
             </div>
           </div>
-          <div class="col-6 col-xl-3">
-            <div class="kpi-card h-100">
-              <div class="kpi-title">Avg First Response SLA</div>
-              <div class="kpi-value" id="kpiAvgSla">—</div>
-              <div class="kpi-meta text-muted">Lead intake to first dispatch</div>
+          <div class="col-6 col-xl-3 col-md-6">
+            <div class="team-kpi-card h-100">
+              <div class="team-kpi-top">
+                <span class="team-kpi-label">Avg First Response SLA</span>
+                <i class="bi bi-stopwatch text-muted"></i>
+              </div>
+              <div class="team-kpi-value" id="kpiAvgSla">—</div>
+              <div class="team-kpi-meta">Lead intake to first dispatch</div>
             </div>
           </div>
         </div>
 
-        <!-- Tabs -->
+        <!-- Navigation Tabs Bar -->
         <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
           <div class="team-tabs" id="teamTabTrack">
             <button type="button" class="team-tab-btn active" data-tab="approvals"><i class="bi bi-envelope-check"></i> Reply Approvals <span class="badge bg-dark ms-1" id="tabBadgeApprovals">0</span></button>
@@ -283,7 +559,10 @@ $csrfToken        = getCsrfToken();
             <?php endif; ?>
             <button type="button" class="team-tab-btn" data-tab="security"><i class="bi bi-key-fill"></i> My 2FA &amp; Team SLA</button>
           </div>
-          <div class="small text-muted" id="lastSyncedLabel">Live sync active</div>
+          <div class="small text-muted d-inline-flex align-items-center gap-1">
+            <span class="live-dot online"></span>
+            <span id="lastSyncedLabel">Live sync active</span>
+          </div>
         </div>
 
         <!-- TAB: Maker-Checker Email Approvals -->
@@ -466,7 +745,7 @@ $csrfToken        = getCsrfToken();
           </div>
         </div>
 
-      </div>
+      </main>
     </div>
   </div>
 
