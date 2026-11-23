@@ -1,7 +1,7 @@
 <?php
 /**
  * Balochistan Minerals - Live Chat Admin API
- * Real-time polling, message sending, session claiming, and RFQ conversion.
+ * Real-time polling, message sending, session claiming, buyer intelligence, and RFQ conversion.
  */
 
 header('Content-Type: application/json; charset=utf-8');
@@ -24,6 +24,88 @@ $uid = (int)($user['id'] ?? 0);
 $agentName = $user['full_name'] ?: ($user['username'] ?? 'Export Desk Specialist');
 $agentRole = $user['tier'] ?? 'Sales Specialist';
 
+/**
+ * Returns a clean, highly professional B2B trade desk officer title for visitors.
+ */
+function getCleanOfficerPublicTitle($name, $role = '') {
+    return 'BM Helper Desk';
+}
+
+/**
+ * Enriches raw chat session with enterprise buyer intelligence (flag, country, city, local time, distinct ID).
+ */
+function enrichSessionForAdmin(array $s): array {
+    $id = (int)$s['id'];
+    $name = trim((string)($s['visitor_name'] ?? ''));
+    if ($name === '' || $name === 'Guest Buyer') {
+        $name = 'Buyer #' . (1000 + $id);
+    }
+
+    $cCode = strtoupper(trim((string)($s['country_code'] ?? '')));
+    if ($cCode === '' || $cCode === 'XX') {
+        $cName = trim((string)($s['country'] ?? ''));
+        if ($cName === 'China') $cCode = 'CN';
+        elseif ($cName === 'Pakistan') $cCode = 'PK';
+        elseif ($cName === 'United Arab Emirates' || $cName === 'UAE') $cCode = 'AE';
+        elseif ($cName === 'United States' || $cName === 'USA') $cCode = 'US';
+        elseif ($cName === 'United Kingdom' || $cName === 'UK') $cCode = 'GB';
+        elseif ($cName === 'Saudi Arabia') $cCode = 'SA';
+        elseif ($cName === 'India') $cCode = 'IN';
+        elseif ($cName === 'Turkey') $cCode = 'TR';
+        elseif (!empty($s['timezone'])) {
+            $tzGeo = inferGeoFromTimezone($s['timezone']);
+            $cCode = $tzGeo['code'];
+        }
+    }
+
+    $meta = getCountryMetaByCode($cCode);
+    $countryDisplay = ($meta['name'] !== 'International') ? $meta['name'] : ($s['country'] ?: 'International');
+    $flag = $meta['flag'];
+    $city = trim((string)($s['city'] ?? ''));
+
+    if ($city !== '' && $countryDisplay !== 'International') {
+        $countryWithCity = "{$flag} {$countryDisplay} ({$city})";
+    } elseif ($countryDisplay !== 'International') {
+        $countryWithCity = "{$flag} {$countryDisplay}";
+    } else {
+        $countryWithCity = "International";
+    }
+
+    $localTime = getVisitorLocalTimeStr($s['timezone'] ?? null);
+
+    $page = trim((string)($s['current_page'] ?? ''));
+    if ($page === '') $page = '/';
+
+    return [
+        'id'                => $id,
+        'token'             => $s['session_token'],
+        'name'              => $name,
+        'display_name'      => $name,
+        'email'             => $s['visitor_email'] ?: '',
+        'phone'             => $s['visitor_phone'] ?: '',
+        'ip'                => $s['visitor_ip'] ?: '',
+        'country'           => $countryDisplay,
+        'country_code'      => $cCode,
+        'city'              => $city,
+        'flag'              => $flag,
+        'country_with_city' => $countryWithCity,
+        'timezone'          => $s['timezone'] ?: 'UTC',
+        'local_time_str'    => $localTime,
+        'page'              => $page,
+        'current_page'      => $page,
+        'mineral'           => $s['mineral_interest'] ?: 'Export Minerals',
+        'mineral_interest'  => $s['mineral_interest'] ?: 'Export Minerals',
+        'internal_notes'    => $s['internal_notes'] ?? '',
+        'status'            => $s['status'],
+        'assigned_id'       => (int)($s['assigned_admin_id'] ?? 0),
+        'assigned_name'     => $s['assigned_admin_name'] ?: 'Unassigned',
+        'last_message'      => $s['last_message'] ?: '',
+        'last_sender'       => $s['last_message_sender'] ?: '',
+        'last_time'         => !empty($s['last_message_at']) ? date('h:i A', strtotime($s['last_message_at'])) : '',
+        'unread_admin'      => (int)($s['unread_admin_count'] ?? 0),
+    ];
+}
+
 $raw = file_get_contents('php://input');
 $json = json_decode($raw, true) ?: [];
 $action = cleanInput($json['action'] ?? $_POST['action'] ?? $_GET['action'] ?? 'poll');
@@ -40,15 +122,15 @@ if ($action === 'poll_sessions') {
     } elseif ($filter === 'closed') {
         $where = "status = 'closed'";
     } else {
-        // active = waiting_human or agent_active or recent bot
-        $where = "status IN ('waiting_human', 'agent_active') OR (status = 'bot' AND last_message_at >= DATE_SUB(NOW(), INTERVAL 2 HOUR))";
+        // Active desk queue shows all active visitors (conversing with AI bot, waiting for human, or claimed by agent)
+        $where = "status IN ('bot', 'waiting_human', 'agent_active')";
     }
 
     $stmt = $pdo->query("SELECT * FROM `chat_sessions` WHERE {$where} ORDER BY (status = 'waiting_human') DESC, last_message_at DESC LIMIT 50");
     $sessions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     $waitingCount = (int)$pdo->query("SELECT COUNT(*) FROM `chat_sessions` WHERE status = 'waiting_human'")->fetchColumn();
-    $activeCount  = (int)$pdo->query("SELECT COUNT(*) FROM `chat_sessions` WHERE status = 'agent_active'")->fetchColumn();
+    $activeCount  = (int)$pdo->query("SELECT COUNT(*) FROM `chat_sessions` WHERE status IN ('bot', 'waiting_human', 'agent_active')")->fetchColumn();
     $myCount      = (int)$pdo->query("SELECT COUNT(*) FROM `chat_sessions` WHERE status = 'agent_active' AND assigned_admin_id = {$uid}")->fetchColumn();
 
     echo json_encode([
@@ -56,26 +138,7 @@ if ($action === 'poll_sessions') {
         'waiting_count' => $waitingCount,
         'active_count'  => $activeCount,
         'my_count'      => $myCount,
-        'sessions'      => array_map(function($s) {
-            return [
-                'id'            => (int)$s['id'],
-                'token'         => $s['session_token'],
-                'name'          => $s['visitor_name'],
-                'email'         => $s['visitor_email'],
-                'phone'         => $s['visitor_phone'],
-                'ip'            => $s['visitor_ip'],
-                'country'       => $s['country'] ?: 'International',
-                'page'          => $s['current_page'],
-                'mineral'       => $s['mineral_interest'],
-                'status'        => $s['status'],
-                'assigned_id'   => (int)$s['assigned_admin_id'],
-                'assigned_name' => $s['assigned_admin_name'],
-                'last_message'  => $s['last_message'],
-                'last_sender'   => $s['last_message_sender'],
-                'last_time'     => date('h:i A', strtotime($s['last_message_at'])),
-                'unread_admin'  => (int)$s['unread_admin_count'],
-            ];
-        }, $sessions),
+        'sessions'      => array_map('enrichSessionForAdmin', $sessions),
     ]);
     exit;
 }
@@ -92,9 +155,9 @@ if ($action === 'fetch_messages') {
 
     $sStmt = $pdo->prepare("SELECT * FROM `chat_sessions` WHERE id = ? LIMIT 1");
     $sStmt->execute([$sessionId]);
-    $session = $sStmt->fetch(PDO::FETCH_ASSOC);
+    $rawSession = $sStmt->fetch(PDO::FETCH_ASSOC);
 
-    if (!$session) {
+    if (!$rawSession) {
         echo json_encode(['success' => false, 'error' => 'Session not found']);
         exit;
     }
@@ -111,14 +174,25 @@ if ($action === 'fetch_messages') {
             ->execute([$sessionId]);
     }
 
+    // Clean assigned officer title
+    if (!empty($rawSession['assigned_admin_name'])) {
+        $rawSession['assigned_admin_name'] = getCleanOfficerPublicTitle($rawSession['assigned_admin_name']);
+    }
+
+    $enriched = enrichSessionForAdmin($rawSession);
+
     echo json_encode([
         'success'  => true,
-        'session'  => $session,
+        'session'  => $enriched,
         'messages' => array_map(function($m) {
+            $sender = $m['sender_name'];
+            if ($m['sender_type'] === 'agent') {
+                $sender = getCleanOfficerPublicTitle($sender);
+            }
             return [
                 'id'          => (int)$m['id'],
                 'sender_type' => $m['sender_type'],
-                'sender_name' => $m['sender_name'],
+                'sender_name' => $sender,
                 'text'        => $m['message_text'],
                 'time'        => date('h:i A', strtotime($m['created_at'])),
                 'is_read'     => (int)$m['is_read'],
@@ -153,11 +227,12 @@ if ($action === 'send_agent_message') {
                 WHERE id = ?")
                 ->execute([$uid, $agentName, $sessionId]);
             
-            logChatMessage($pdo, $sessionId, 'system', 'Trade Desk System', "Officer {$agentName} has joined the conversation.");
+            logChatMessage($pdo, $sessionId, 'system', 'Trade Desk System', "BM Helper Desk has joined the conversation to assist your inquiry.");
         }
     }
 
-    $msgId = logChatMessage($pdo, $sessionId, 'agent', $agentName . ' (' . $agentRole . ')', $messageText);
+    $publicOfficerTitle = getCleanOfficerPublicTitle($agentName, $agentRole);
+    $msgId = logChatMessage($pdo, $sessionId, 'agent', $publicOfficerTitle, $messageText);
 
     echo json_encode([
         'success' => true,
@@ -183,7 +258,7 @@ if ($action === 'claim_session') {
         WHERE id = ?")
         ->execute([$uid, $agentName, $sessionId]);
 
-    logChatMessage($pdo, $sessionId, 'system', 'Trade Desk System', "Officer {$agentName} has joined the conversation.");
+    logChatMessage($pdo, $sessionId, 'system', 'Trade Desk System', "BM Helper Desk has joined the conversation to assist your inquiry.");
 
     echo json_encode(['success' => true]);
     exit;
@@ -200,7 +275,7 @@ if ($action === 'close_session') {
     $pdo->prepare("UPDATE `chat_sessions` SET status = 'closed', updated_at = NOW() WHERE id = ?")
         ->execute([$sessionId]);
 
-    logChatMessage($pdo, $sessionId, 'system', 'Trade Desk System', "This live session has been closed by Officer {$agentName}.");
+    logChatMessage($pdo, $sessionId, 'system', 'Trade Desk System', "Live session closed and archived by BM Helper Desk.");
 
     echo json_encode(['success' => true]);
     exit;
@@ -237,7 +312,7 @@ if ($action === 'convert_to_rfq') {
         (full_name, email, phone, company_name, mineral_type, notes, source, status, internal_notes, created_at)
         VALUES (?, ?, ?, 'Live Chat Sourcing', ?, ?, 'Live Chat Desk', 'New', ?, NOW())");
     
-    $buyerName = $session['visitor_name'] ?: 'Live Chat Visitor';
+    $buyerName = $session['visitor_name'] ?: ('Buyer #' . (1000 + (int)$session['id']));
     $email = $session['visitor_email'] ?: ('chat_' . $session['id'] . '@guest.balochistanminerals.com');
     $phone = $session['visitor_phone'] ?: '';
     $mineral = $session['mineral_interest'] ?: 'Export Minerals';
@@ -251,6 +326,34 @@ if ($action === 'convert_to_rfq') {
         'success'    => true,
         'inquiry_id' => $inquiryId,
     ]);
+    exit;
+}
+
+// 7. UPDATE BUYER DOSSIER
+if ($action === 'update_buyer_dossier') {
+    $sessionId = (int)($json['session_id'] ?? $_POST['session_id'] ?? 0);
+    if ($sessionId <= 0) {
+        echo json_encode(['success' => false, 'error' => 'Invalid session ID']);
+        exit;
+    }
+
+    $name    = cleanInput($json['visitor_name'] ?? $_POST['visitor_name'] ?? '');
+    $email   = cleanInput($json['visitor_email'] ?? $_POST['visitor_email'] ?? '');
+    $phone   = cleanInput($json['visitor_phone'] ?? $_POST['visitor_phone'] ?? '');
+    $mineral = cleanInput($json['mineral_interest'] ?? $_POST['mineral_interest'] ?? '');
+    $notes   = cleanInput($json['internal_notes'] ?? $_POST['internal_notes'] ?? '');
+
+    $pdo->prepare("UPDATE `chat_sessions` SET 
+        visitor_name = COALESCE(NULLIF(?, ''), visitor_name),
+        visitor_email = ?,
+        visitor_phone = ?,
+        mineral_interest = COALESCE(NULLIF(?, ''), mineral_interest),
+        internal_notes = ?,
+        updated_at = NOW()
+        WHERE id = ?")
+        ->execute([$name, $email, $phone, $mineral, $notes, $sessionId]);
+
+    echo json_encode(['success' => true]);
     exit;
 }
 

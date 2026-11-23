@@ -493,6 +493,101 @@ if ($pdo !== null) {
         flex: 1;
       }
     }
+
+    /* Mobile & Tablet Responsive Master-Detail Layout (< 992px) */
+    @media (max-width: 991.98px) {
+      .top-bar {
+        padding: 8px 12px !important;
+        min-height: 52px !important;
+        gap: 8px !important;
+      }
+      .topbar-left {
+        gap: 8px !important;
+        min-width: 0 !important;
+      }
+      .topbar-title {
+        font-size: 0.88rem !important;
+        line-height: 1.2 !important;
+      }
+      .topbar-subtitle {
+        display: none !important;
+      }
+      .topbar-right {
+        gap: 6px !important;
+        flex-shrink: 0 !important;
+      }
+      .topbar-right .btn-topbar-action span,
+      .topbar-right .btn-topbar-primary span {
+        display: none !important;
+      }
+      .topbar-right .btn-topbar-action,
+      .topbar-right .btn-topbar-primary {
+        padding: 6px 9px !important;
+        min-height: 32px !important;
+        height: 32px !important;
+        font-size: 0.84rem !important;
+      }
+
+      .content-canvas {
+        padding: 8px 10px !important;
+      }
+
+      .mail-split-container {
+        border-radius: 8px !important;
+        flex-direction: column !important;
+        border: 1px solid var(--brand-border) !important;
+      }
+
+      /* When viewing inbox list on mobile: thread list is full-width, reading pane hidden */
+      .mail-split-container.mobile-show-list .mail-thread-list {
+        width: 100% !important;
+        display: flex !important;
+        border-right: none !important;
+      }
+      .mail-split-container.mobile-show-list .mail-reading-pane {
+        display: none !important;
+      }
+
+      /* When viewing message on mobile: thread list hidden, reading pane full-width */
+      .mail-split-container.mobile-show-reading .mail-thread-list {
+        display: none !important;
+      }
+      .mail-split-container.mobile-show-reading .mail-reading-pane {
+        width: 100% !important;
+        display: flex !important;
+      }
+
+      .mail-pane-header {
+        padding: 12px 14px !important;
+      }
+      .mail-pane-header h6 {
+        font-size: 0.95rem !important;
+      }
+      .mail-pane-header .small.text-muted {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 3px !important;
+      }
+      .mail-pane-body {
+        padding: 12px 14px !important;
+      }
+      .mail-pane-compose {
+        padding: 12px 14px !important;
+      }
+      .mail-pane-compose .d-flex.align-items-center.justify-content-between {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+      }
+      .mail-pane-compose .d-flex.align-items-center.gap-2 {
+        flex-wrap: wrap !important;
+        width: 100% !important;
+      }
+      .mail-pane-compose .btn-save-action {
+        width: 100% !important;
+        justify-content: center !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -518,6 +613,10 @@ if ($pdo !== null) {
           <?php if ($newLeads > 0): ?>
             <span class="badge bg-dark font-monospace" style="font-size: 0.7rem;"><?= $newLeads ?></span>
           <?php endif; ?>
+        </a>
+        <a href="live-chat.php" class="sidebar-link">
+          <div><i class="bi bi-chat-dots-fill"></i> Live Chat Desk</div>
+          <span class="badge bg-danger font-monospace" style="font-size: 0.65rem;">LIVE</span>
         </a>
         <a href="email-desk.php" class="sidebar-link active">
           <div><i class="bi bi-envelope"></i> Email Reply Desk</div>
@@ -602,7 +701,7 @@ if ($pdo !== null) {
             <i class="bi bi-layout-sidebar-inset"></i>
           </button>
           <div class="topbar-title-wrap">
-            <h1 class="topbar-title">Commercial Email Reply Desk & Outbox</h1>
+            <h1 class="topbar-title"><span class="d-none d-sm-inline">Commercial </span>Email Desk</h1>
             <div class="topbar-subtitle">Hostinger Business Webmail & Trade Offer Dispatch</div>
           </div>
         </div>
@@ -613,15 +712,15 @@ if ($pdo !== null) {
             <span>Hostinger Relay Active</span>
           </div>
           <button type="button" id="btnDeskSyncMail" class="btn-topbar-action" onclick="syncDeskMailboxes()" title="Pull incoming & sent mail from sales@ and info@">
-            <i class="bi bi-arrow-repeat"></i> <span>Sync Mail</span>
+            <i class="bi bi-arrow-repeat"></i> <span class="d-none d-sm-inline ms-1">Sync</span>
           </button>
           <?php if (hasPermission('manage_mail_config')): ?>
-          <button type="button" class="btn-topbar-action" data-bs-toggle="modal" data-bs-target="#mailConfigModal">
-            <i class="bi bi-gear"></i> <span>Server Config</span>
+          <button type="button" class="btn-topbar-action" data-bs-toggle="modal" data-bs-target="#mailConfigModal" title="Server Config">
+            <i class="bi bi-gear"></i> <span class="d-none d-md-inline ms-1">Config</span>
           </button>
           <?php endif; ?>
-          <button type="button" class="btn-topbar-primary" data-bs-toggle="modal" data-bs-target="#newOfferModal">
-            <i class="bi bi-pencil-square"></i> <span>Compose Trade Offer</span>
+          <button type="button" class="btn-topbar-primary" data-bs-toggle="modal" data-bs-target="#newOfferModal" title="Compose Trade Offer">
+            <i class="bi bi-pencil-square"></i> <span class="d-none d-sm-inline ms-1">Compose</span>
           </button>
         </div>
       </header>
@@ -643,7 +742,7 @@ if ($pdo !== null) {
         <?php endif; ?>
 
         <!-- Split Desk -->
-        <div class="mail-split-container">
+        <div class="mail-split-container <?= $selectedMsgId > 0 ? 'mobile-show-reading' : 'mobile-show-list' ?>" id="mailSplitContainer">
           
           <!-- Left: Message Stream -->
           <div class="mail-thread-list">
@@ -717,6 +816,11 @@ if ($pdo !== null) {
             <?php else: ?>
               <!-- Message Header -->
               <div class="mail-pane-header">
+                <div class="d-lg-none mb-2.5 pb-2 border-bottom">
+                  <a href="email-desk.php<?= !empty($filterDirection) ? '?direction=' . $filterDirection : '' ?>" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center gap-1.5 fw-semibold py-1.5 px-3" style="font-size: 0.8rem; border-radius: 6px;">
+                    <i class="bi bi-arrow-left"></i> <span>Back to Inbound / Outbox List</span>
+                  </a>
+                </div>
                 <div class="d-flex justify-content-between align-items-start">
                   <div>
                     <h6 class="fw-bold brand-font mb-1" style="color: var(--brand-navy); font-size: 1.05rem;">

@@ -66,7 +66,12 @@ $csrfToken = getCsrfToken();
       z-index: 1050;
       display: flex;
       flex-direction: column;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
+    body.sidebar-collapsed .app-sidebar {
+      transform: translateX(-100%);
+    }
+
     .sidebar-nav { padding: 14px 12px; flex: 1; overflow-y: auto; }
     .sidebar-section-title {
       font-size: 0.65rem;
@@ -103,10 +108,10 @@ $csrfToken = getCsrfToken();
       position: absolute;
       left: -12px; top: 6px; bottom: 6px;
       width: 3.5px;
-      background: var(--brand-gold);
+      background: var(--brand-orange);
       border-radius: 0 3px 3px 0;
     }
-    .sidebar-link.active i { color: var(--brand-gold); }
+    .sidebar-link.active i { color: var(--brand-orange); }
     .sidebar-footer {
       padding: 14px 18px;
       border-top: 1px solid var(--brand-border);
@@ -121,6 +126,51 @@ $csrfToken = getCsrfToken();
       height: 100vh;
       overflow: hidden;
       min-width: 0;
+      transition: margin-left 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    body.sidebar-collapsed .app-main {
+      margin-left: 0 !important;
+    }
+
+    /* Sidebar Collapse & Reopen Controls */
+    .btn-sidebar-toggle {
+      width: 34px;
+      height: 34px;
+      border-radius: 6px;
+      border: 1px solid #CBD5E1;
+      background: #FFFFFF;
+      color: #0F172A;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      box-shadow: none !important;
+      padding: 0;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-sidebar-toggle:hover {
+      background: #F1F5F9;
+      border-color: #94A3B8;
+      color: #0F172A;
+    }
+    .btn-sidebar-toggle i {
+      font-size: 1.1rem;
+    }
+
+    @media (min-width: 1100px) {
+      body:not(.sidebar-collapsed) .btn-sidebar-toggle {
+        display: none !important;
+      }
+      body.sidebar-collapsed .btn-sidebar-toggle {
+        display: inline-flex !important;
+      }
+    }
+    @media (max-width: 1099.98px) {
+      .btn-sidebar-toggle {
+        display: inline-flex !important;
+      }
     }
 
     .top-bar {
@@ -148,7 +198,7 @@ $csrfToken = getCsrfToken();
 
     /* Column 1: Conversations List */
     .chat-conversations-pane {
-      width: 330px;
+      width: 360px;
       border-right: 1px solid var(--brand-border);
       display: flex;
       flex-direction: column;
@@ -157,15 +207,16 @@ $csrfToken = getCsrfToken();
     }
 
     .conversations-search {
-      padding: 10px 12px;
+      padding: 9px 12px;
       border-bottom: 1px solid var(--brand-border);
       background: #FFFFFF;
     }
 
     .chat-filter-tabs {
       display: flex;
-      padding: 8px 12px;
-      gap: 6px;
+      align-items: center;
+      padding: 6px 10px;
+      gap: 5px;
       border-bottom: 1px solid var(--brand-border);
       background: #F8FAFC;
       overflow-x: auto;
@@ -176,9 +227,9 @@ $csrfToken = getCsrfToken();
       display: none;
     }
     .chat-filter-btn {
-      font-size: 0.72rem;
+      font-size: 0.69rem;
       font-weight: 600;
-      padding: 4px 11px;
+      padding: 3px 8px;
       border-radius: 9999px;
       border: 1px solid var(--brand-border);
       background: #FFFFFF;
@@ -186,6 +237,7 @@ $csrfToken = getCsrfToken();
       cursor: pointer;
       white-space: nowrap;
       transition: all 0.15s ease;
+      line-height: 1.3;
     }
     .chat-filter-btn.active {
       background: #0F172A;
@@ -199,6 +251,129 @@ $csrfToken = getCsrfToken();
       padding: 8px;
     }
 
+    /* Top Bar Controls */
+    .desk-online-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      border-radius: 20px;
+      padding: 3.5px 10px;
+      font-size: 0.70rem;
+      font-weight: 700;
+      color: #0F172A;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+    .desk-online-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #059669;
+      flex-shrink: 0;
+    }
+    .desk-online-count {
+      color: #64748B;
+      font-weight: 600;
+    }
+
+    .btn-desk-control {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #FFFFFF !important;
+      border: 1px solid #CBD5E1 !important;
+      border-radius: 6px !important;
+      padding: 5px 11px !important;
+      font-size: 0.74rem !important;
+      font-weight: 600 !important;
+      color: #0F172A !important;
+      cursor: pointer !important;
+      height: 31px !important;
+      transition: all 0.15s ease !important;
+      box-shadow: none !important;
+    }
+    .btn-desk-control:hover {
+      background: #F8FAFC !important;
+      border-color: #94A3B8 !important;
+      color: #0F172A !important;
+    }
+    .desk-sync-control {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #FFFFFF !important;
+      border: 1px solid #CBD5E1 !important;
+      border-radius: 6px !important;
+      padding: 5px 11px !important;
+      font-size: 0.73rem !important;
+      font-weight: 600 !important;
+      color: #475569 !important;
+      height: 31px !important;
+      box-shadow: none !important;
+      white-space: nowrap !important;
+    }
+    .desk-sync-control i {
+      color: #059669;
+      font-size: 0.85rem;
+    }
+
+    /* Status Badges - Deep Executive Palette (Zero Neon / Zero Cartoon) */
+    .badge-status-waiting {
+      display: inline-flex;
+      align-items: center;
+      padding: 2.5px 7px;
+      border-radius: 4px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      background: #FEF3C7;
+      color: #92400E;
+      border: 1px solid #FCD34D;
+      font-family: var(--font-mono, monospace);
+    }
+    .badge-status-live {
+      display: inline-flex;
+      align-items: center;
+      padding: 2.5px 7px;
+      border-radius: 4px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      background: #ECFDF5;
+      color: #065F46;
+      border: 1px solid #A7F3D0;
+      font-family: var(--font-mono, monospace);
+    }
+    .badge-status-bot {
+      display: inline-flex;
+      align-items: center;
+      padding: 2.5px 7px;
+      border-radius: 4px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      background: #F1F5F9;
+      color: #475569;
+      border: 1px solid #CBD5E1;
+      font-family: var(--font-mono, monospace);
+    }
+    .badge-status-unread {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 17px;
+      height: 17px;
+      padding: 0 4px;
+      border-radius: 9px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      background: #991B1B;
+      color: #FFFFFF;
+      line-height: 1;
+    }
+
     /* WhatsApp / Messenger style conversation list items */
     .conv-item {
       display: flex;
@@ -207,7 +382,7 @@ $csrfToken = getCsrfToken();
       padding: 10px 12px;
       border-radius: 8px;
       background: #FFFFFF;
-      border: 1px solid var(--brand-border);
+      border: 1px solid #E2E8F0;
       margin-bottom: 6px;
       cursor: pointer;
       transition: all 0.15s ease;
@@ -215,29 +390,30 @@ $csrfToken = getCsrfToken();
     }
     .conv-item:hover {
       border-color: #94A3B8;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
     }
     .conv-item.active {
       border-color: #0F172A;
       background: #F8FAFC;
-      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+      border-left: 3.5px solid #0F172A;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
     }
     .conv-item.is-waiting {
-      border-left: 3.5px solid var(--brand-orange);
+      border-left: 3.5px solid #475569;
     }
     .conv-avatar {
-      width: 38px;
-      height: 38px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
-      background: #0F172A;
-      color: #D4AF37;
+      background: #F1F5F9;
+      color: #0F172A;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
       font-size: 0.8rem;
       flex-shrink: 0;
-      border: 1px solid rgba(212, 175, 55, 0.35);
+      border: 1px solid #CBD5E1;
     }
     .conv-content {
       flex: 1;
@@ -301,15 +477,165 @@ $csrfToken = getCsrfToken();
     }
 
     .active-chat-header {
-      padding: 10px 14px;
+      padding: 9px 16px;
       border-bottom: 1px solid var(--brand-border);
       background: #FFFFFF;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-shrink: 0;
-      gap: 8px;
+      gap: 10px;
       min-height: 52px;
+    }
+
+    .active-chat-buyer-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .active-chat-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #F8FAFC;
+      color: #0F172A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.82rem;
+      flex-shrink: 0;
+      border: 1px solid #CBD5E1;
+    }
+
+    .active-chat-info {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      overflow: hidden;
+    }
+
+    .active-chat-name {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #0F172A;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      line-height: 1.25;
+    }
+
+    .active-chat-sub {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.68rem;
+      color: #64748B;
+      line-height: 1.2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .active-chat-country {
+      color: #475569;
+      font-weight: 600;
+      flex-shrink: 0;
+      letter-spacing: 0.02em;
+    }
+
+    .active-chat-sep {
+      color: #CBD5E1;
+      font-size: 0.65rem;
+      flex-shrink: 0;
+    }
+
+    .active-chat-sub-label {
+      color: #94A3B8;
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+
+    .active-chat-path {
+      font-family: var(--font-mono, monospace);
+      font-size: 0.68rem;
+      color: #0F172A;
+      background: #F1F5F9;
+      padding: 0 5px;
+      border-radius: 3px;
+      border: 1px solid #E2E8F0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 140px;
+    }
+
+    /* Action Buttons in Chat Header with Clear Hierarchy */
+    .active-chat-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .btn-chat-header {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      height: 28px;
+      padding: 0 9px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      border-radius: 5px;
+      border: 1px solid #CBD5E1;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      text-decoration: none;
+      box-shadow: none !important;
+    }
+
+    .btn-chat-header i {
+      font-size: 0.82rem;
+      flex-shrink: 0;
+    }
+
+    .btn-chat-header--claim {
+      background: #0F172A !important;
+      color: #FFFFFF !important;
+      border-color: #0F172A !important;
+    }
+    .btn-chat-header--claim:hover {
+      background: #1E293B !important;
+      border-color: #1E293B !important;
+      color: #FFFFFF !important;
+    }
+
+    .btn-chat-header--rfq {
+      background: #FFFFFF !important;
+      color: #0F172A !important;
+      border-color: #CBD5E1 !important;
+    }
+    .btn-chat-header--rfq:hover {
+      background: #F8FAFC !important;
+      border-color: #94A3B8 !important;
+      color: #0F172A !important;
+    }
+
+    .btn-chat-header--close {
+      background: #FFFFFF !important;
+      color: #475569 !important;
+      border-color: #CBD5E1 !important;
+    }
+    .btn-chat-header--close:hover {
+      background: #FEF2F2 !important;
+      border-color: #FECACA !important;
+      color: #991B1B !important;
     }
 
     .active-chat-body {
@@ -325,28 +651,81 @@ $csrfToken = getCsrfToken();
       -webkit-overflow-scrolling: touch;
     }
 
+    /* Message Rows & Side Avatars */
+    .chat-msg-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+      width: 100%;
+      margin-bottom: 6px;
+    }
+    .chat-msg-row.is-visitor {
+      justify-content: flex-start;
+    }
+    .chat-msg-row.is-agent {
+      justify-content: flex-end;
+    }
+    .chat-msg-row.is-system {
+      justify-content: center;
+      margin: 4px 0;
+    }
+    .chat-msg-row.is-bot {
+      justify-content: flex-start;
+    }
+
+    .chat-msg-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid #CBD5E1;
+      margin-bottom: 12px;
+    }
+    .chat-msg-avatar--visitor {
+      background: #F1F5F9;
+      color: #475569;
+      font-size: 0.8rem;
+    }
+    .chat-msg-avatar--agent {
+      background: #FFFFFF;
+      border-color: #CBD5E1;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      overflow: hidden;
+      padding: 3px;
+    }
+    .chat-avatar-logo {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 50%;
+    }
+    .chat-msg-avatar--bot {
+      background: #EFF6FF;
+      color: #2563EB;
+      font-size: 0.8rem;
+    }
+
     /* Message Bubbles */
     .chat-bubble-wrap {
       display: flex;
       flex-direction: column;
-      max-width: 82%;
+      max-width: 78%;
     }
     .chat-bubble-wrap.is-visitor {
-      align-self: flex-start;
       align-items: flex-start;
     }
     .chat-bubble-wrap.is-agent {
-      align-self: flex-end;
       align-items: flex-end;
     }
     .chat-bubble-wrap.is-bot {
-      align-self: flex-start;
-      max-width: 88%;
+      max-width: 82%;
     }
     .chat-bubble-wrap.is-system {
-      align-self: center;
       max-width: 92%;
-      margin: 4px 0;
+      align-items: center;
     }
 
     .chat-bubble {
@@ -366,10 +745,11 @@ $csrfToken = getCsrfToken();
       box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
     }
     .chat-bubble.bubble-agent {
-      background: #0F172A;
-      color: #FFFFFF;
+      background: #F1F5F9; /* Clean executive slate neutral - ZERO ORANGE & ZERO BLACK */
+      color: #0F172A;      /* Deep midnight slate text, sharp and readable */
+      border: 1px solid #CBD5E1;
       border-radius: 12px 12px 3px 12px;
-      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.15);
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
     }
     .chat-bubble.bubble-bot {
       background: #F1F5F9;
@@ -379,15 +759,17 @@ $csrfToken = getCsrfToken();
       font-size: 0.78rem;
     }
     .chat-bubble.bubble-system {
-      background: #EFF6FF;
-      color: #1E40AF;
-      border: 1px solid #BFDBFE;
+      background: #FFFFFF;
+      color: #C2410C;
+      border: 1px solid #FED7AA;
       font-size: 0.72rem;
+      font-weight: 500;
       text-align: center;
-      padding: 5px 13px;
+      padding: 5px 14px;
       border-radius: 9999px;
       line-height: 1.4;
       word-break: break-word;
+      box-shadow: 0 1px 3px rgba(230, 92, 26, 0.05);
     }
 
     .bubble-meta {
@@ -456,7 +838,7 @@ $csrfToken = getCsrfToken();
       border-radius: 20px;
       border: 1px solid var(--brand-border);
       padding: 8px 14px;
-      font-size: 16px; /* 16px prevents iOS Safari optical auto-zoom */
+      font-size: 0.8125rem;
       line-height: 1.35;
       min-height: 38px;
       max-height: 85px;
@@ -466,6 +848,12 @@ $csrfToken = getCsrfToken();
       box-sizing: border-box;
       transition: border-color 0.2s, background-color 0.2s;
     }
+    .chat-input-textarea::placeholder {
+      font-size: 0.75rem;
+      color: #94A3B8;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
     .chat-input-textarea:focus {
       border-color: #0F172A;
       background: #FFFFFF;
@@ -474,21 +862,22 @@ $csrfToken = getCsrfToken();
     .btn-send-message {
       width: 38px;
       height: 38px;
-      border-radius: 50%;
-      background: #E65C1A;
+      border-radius: 8px;
+      background: #0F172A;
       color: #FFFFFF;
-      border: none;
+      border: 1px solid #0F172A;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 0.95rem;
       flex-shrink: 0;
       cursor: pointer;
-      transition: background 0.15s ease, transform 0.15s ease;
-      box-shadow: 0 2px 6px rgba(230, 92, 26, 0.3);
+      transition: all 0.15s ease;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.15);
     }
     .btn-send-message:hover {
-      background: #C2410C;
+      background: #1E293B;
+      border-color: #1E293B;
     }
     .btn-send-message:active {
       transform: scale(0.95);
@@ -496,10 +885,10 @@ $csrfToken = getCsrfToken();
 
     /* Column 3: Buyer Dossier (Right Pane) */
     .chat-dossier-pane {
-      width: 270px;
+      width: 290px;
       border-left: 1px solid var(--brand-border);
       background: #FAFCFE;
-      padding: 16px;
+      padding: 14px 16px;
       overflow-y: auto;
       flex-shrink: 0;
     }
@@ -517,17 +906,51 @@ $csrfToken = getCsrfToken();
       margin-bottom: 10px;
     }
     .dossier-label {
-      font-size: 0.67rem;
+      font-size: 0.65rem;
       color: #94A3B8;
       text-transform: uppercase;
-      font-weight: 600;
-      margin-bottom: 1px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 2px;
     }
     .dossier-val {
       font-size: 0.8rem;
       font-weight: 600;
       color: #0F172A;
-      word-break: break-all;
+      word-break: break-word;
+      line-height: 1.35;
+    }
+    .dossier-time-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 6px;
+      padding: 7px 10px;
+    }
+    .dossier-link {
+      color: #0F172A;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+    .dossier-link:hover {
+      color: #E65C1A;
+      text-decoration: underline;
+    }
+    .conv-avatar-flag {
+      position: absolute;
+      bottom: -3px;
+      right: -3px;
+      font-size: 0.74rem;
+      line-height: 1;
+      filter: drop-shadow(0 1px 1px rgba(0,0,0,0.25));
+    }
+    .active-chat-time {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: #0F172A;
+      background: #F1F5F9;
+      padding: 1px 5px;
+      border-radius: 3px;
+      border: 1px solid #E2E8F0;
     }
 
     /* Empty State */
@@ -583,6 +1006,75 @@ $csrfToken = getCsrfToken();
         display: flex !important;
         height: 100vh !important;
         height: 100dvh !important;
+      }
+    }
+
+    @media (max-width: 575.98px) {
+      .active-chat-header {
+        padding: 6px 10px;
+        min-height: 46px;
+        gap: 6px;
+      }
+      .active-chat-buyer-wrap {
+        gap: 8px;
+        min-width: 0;
+      }
+      .btn-mobile-back {
+        margin-right: 0 !important;
+        width: 24px;
+        height: 26px;
+        font-size: 1.1rem;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .active-chat-avatar {
+        width: 28px;
+        height: 28px;
+        font-size: 0.72rem;
+      }
+      .active-chat-info {
+        gap: 0;
+        min-width: 0;
+      }
+      .active-chat-name {
+        font-size: 0.82rem;
+        max-width: 130px;
+        line-height: 1.2;
+      }
+      .active-chat-sub {
+        gap: 4px;
+        font-size: 0.64rem;
+        line-height: 1.15;
+      }
+      .active-chat-country {
+        font-size: 0.64rem;
+      }
+      .active-chat-path {
+        font-size: 0.62rem;
+        padding: 0 4px;
+        max-width: 80px;
+      }
+      .active-chat-actions {
+        gap: 4px;
+      }
+      .btn-chat-header {
+        height: 26px;
+        padding: 0 7px;
+        font-size: 0.68rem;
+        border-radius: 4px;
+      }
+      .btn-chat-header i {
+        font-size: 0.78rem;
+      }
+      .chat-input-textarea {
+        font-size: 0.8125rem;
+        padding: 6px 12px;
+        min-height: 36px;
+      }
+      .chat-input-textarea::placeholder {
+        font-size: 0.72rem;
       }
     }
   </style>
@@ -655,44 +1147,50 @@ $csrfToken = getCsrfToken();
       </nav>
 
       <div class="sidebar-footer">
-        <div class="d-flex align-items-center justify-content-between">
-          <div>
-            <div class="fw-bold small" style="color: var(--brand-navy);"><?= htmlspecialchars($agentName) ?></div>
-            <div class="text-muted" style="font-size: 0.7rem;"><?= htmlspecialchars($currentTier) ?></div>
-          </div>
-          <a href="logout.php" class="btn btn-sm btn-outline-secondary p-1 px-2" title="Sign Out">
+        <div class="sidebar-footer-row-user d-flex align-items-center justify-content-between gap-2 mb-1">
+          <div class="fw-bold small text-truncate" style="color: var(--brand-navy); font-size: 0.8rem;" title="<?= htmlspecialchars($user['full_name']) ?>"><?= htmlspecialchars($user['full_name']) ?></div>
+          <a href="logout.php" class="btn btn-sm btn-outline-secondary p-1 px-2 flex-shrink-0" title="Sign Out">
             <i class="bi bi-box-arrow-right"></i>
           </a>
         </div>
+        <div class="sidebar-footer-row-meta d-flex align-items-center justify-content-between gap-2">
+          <div class="text-muted text-truncate" style="font-size: 0.7rem;"><?= htmlspecialchars($currentTier) ?></div>
+          <span class="bm-role-tier-pill tier-owner px-2 py-0.5 font-monospace flex-shrink-0" style="font-size:0.68rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;background:#FFFFFF;color:#E65C1A;border:none;border-radius:6px;"><?= ($user['role'] ?? '') === 'Owner' ? 'CEO' : htmlspecialchars($user['role'] ?? 'CEO') ?></span>
+        </div>
       </div>
     </aside>
+
+    <!-- Mobile / Tablet Backdrop Overlay -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
     <!-- 2. MAIN WORKSPACE -->
     <main class="app-main">
 
       <!-- Top Bar -->
       <header class="top-bar">
-        <div class="d-flex align-items-center gap-2 min-w-0">
-          <button type="button" id="sidebarToggle" class="btn btn-sm btn-outline-secondary d-lg-none p-1 px-2" aria-label="Toggle Navigation">
-            <i class="bi bi-list fs-5"></i>
+        <div class="topbar-left d-flex align-items-center gap-2 min-w-0">
+          <button type="button" id="sidebarToggle" class="btn-sidebar-toggle" title="Toggle Sidebar (Ctrl + B)" aria-label="Toggle Sidebar">
+            <i class="bi bi-layout-sidebar-inset"></i>
           </button>
           <div class="brand-font fw-bold" style="font-size: 0.95rem; color: #0F172A; white-space: nowrap;">
             <span class="d-none d-sm-inline">Live </span>Chat Desk
           </div>
-          <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-0.5 font-monospace" style="font-size: 0.68rem; white-space: nowrap;">
-            <i class="bi bi-circle-fill me-1" style="font-size: 0.4rem;"></i><span class="d-none d-sm-inline">ONLINE </span>(<?= $onlineCount ?>)
-          </span>
+          <div class="desk-online-badge" title="Active Trade Desk Officers in Portal">
+            <span class="desk-online-dot"></span>
+            <span>ONLINE <span class="desk-online-count">(<?= $onlineCount ?>)</span></span>
+          </div>
         </div>
 
-        <div class="d-flex align-items-center gap-1.5 flex-shrink-0">
+        <div class="d-flex align-items-center gap-2 flex-shrink-0">
           <!-- Audio Alert Toggle -->
-          <button type="button" id="soundToggleBtn" class="btn btn-sm btn-light border p-1 px-2 text-muted" title="Toggle audio chime on new buyer message">
-            <i class="bi bi-volume-up-fill text-dark" id="soundIcon"></i>
-            <span class="small d-none d-md-inline ms-1" id="soundLabel">Sound On</span>
+          <button type="button" id="soundToggleBtn" class="btn-desk-control" title="Toggle audio chime on new buyer message">
+            <i class="bi bi-volume-up-fill" id="soundIcon"></i>
+            <span class="d-none d-sm-inline" id="soundLabel">Sound On</span>
           </button>
           <!-- Live Indicator Pill -->
-          <div class="badge bg-light text-secondary border p-1 px-2 font-monospace" style="font-size: 0.68rem;" title="Auto-Sync active (2.5s)">
-            <i class="bi bi-arrow-repeat text-success me-1"></i><span class="d-none d-sm-inline">Auto-Sync </span>2.5s
+          <div class="desk-sync-control" title="Real-time live sync active (2.5s)">
+            <i class="bi bi-arrow-repeat"></i>
+            <span><span class="d-none d-sm-inline">Auto-Sync </span><strong>2.5s</strong></span>
           </div>
         </div>
       </header>
@@ -711,8 +1209,8 @@ $csrfToken = getCsrfToken();
 
           <!-- Tabs -->
           <div class="chat-filter-tabs">
-            <button type="button" class="chat-filter-btn active" data-filter="active">All Active (<span id="countActive"><?= $activeCount ?></span>)</button>
-            <button type="button" class="chat-filter-btn text-danger fw-bold" data-filter="waiting">Queue (<span id="countWaiting"><?= $waitingCount ?></span>)</button>
+            <button type="button" class="chat-filter-btn active" data-filter="active">Active (<span id="countActive"><?= $activeCount ?></span>)</button>
+            <button type="button" class="chat-filter-btn" data-filter="waiting">Queue (<span id="countWaiting"><?= $waitingCount ?></span>)</button>
             <button type="button" class="chat-filter-btn" data-filter="my_chats">My Chats (<span id="countMy"><?= $myCount ?></span>)</button>
             <button type="button" class="chat-filter-btn" data-filter="closed">Closed</button>
           </div>
@@ -736,32 +1234,41 @@ $csrfToken = getCsrfToken();
             
             <!-- Chat Header -->
             <div class="active-chat-header">
-              <div class="d-flex align-items-center gap-2 min-w-0">
-                <button type="button" class="btn-mobile-back" id="btnMobileBack" aria-label="Back to conversations list">
-                  <i class="bi bi-chevron-left fs-5"></i>
+              <div class="active-chat-buyer-wrap">
+                <button type="button" class="btn-mobile-back d-lg-none" id="btnMobileBack" aria-label="Back to conversations list">
+                  <i class="bi bi-chevron-left"></i>
                 </button>
-                <div class="conv-avatar flex-shrink-0" id="chatHeaderAvatar" style="width: 34px; height: 34px; font-size: 0.75rem;">G</div>
-                <div class="min-w-0">
-                  <div class="fw-bold text-dark d-flex align-items-center gap-1.5 text-truncate" id="chatHeaderTitle" style="font-size: 0.88rem; line-height: 1.2;">
-                    <span class="text-truncate">Guest Buyer</span>
-                    <span class="badge bg-light text-dark border font-monospace flex-shrink-0" style="font-size: 0.62rem;" id="chatHeaderCountry">China</span>
-                  </div>
-                  <div class="small text-muted text-truncate" style="font-size: 0.68rem;" id="chatHeaderSub">
-                    Viewing: /minerals/chromite-ore
+                <div class="active-chat-avatar" id="chatHeaderAvatar" style="position: relative;">
+                  <span id="chatHeaderInitial">G</span>
+                  <span id="chatHeaderFlag" class="conv-avatar-flag" style="display: none;"></span>
+                </div>
+                <div class="active-chat-info">
+                  <div class="active-chat-name" id="chatHeaderTitleText">Guest Buyer</div>
+                  <div class="active-chat-sub" id="chatHeaderSub">
+                    <span class="active-chat-country" id="chatHeaderCountry">International</span>
+                    <span class="active-chat-sep">&bull;</span>
+                    <span class="active-chat-sub-label d-none d-md-inline">Local:</span>
+                    <span class="active-chat-time font-monospace d-none d-sm-inline" id="chatHeaderLocalTime">—</span>
+                    <span class="active-chat-sep d-none d-sm-inline">&bull;</span>
+                    <span class="active-chat-sub-label d-none d-sm-inline">Viewing:</span>
+                    <span class="active-chat-path" id="chatHeaderSubPath">/</span>
                   </div>
                 </div>
               </div>
 
-              <!-- Header Action Buttons -->
-              <div class="d-flex align-items-center gap-1.5 flex-shrink-0">
-                <button type="button" class="btn btn-sm btn-outline-dark py-1 px-2" id="btnClaimChat" style="display: none; font-size: 0.72rem;">
-                  <i class="bi bi-hand-index-thumb me-1"></i>Claim
+              <!-- Header Action Buttons with Clear Executive Hierarchy -->
+              <div class="active-chat-actions">
+                <button type="button" class="btn-chat-header btn-chat-header--claim" id="btnClaimChat" style="display: none;" title="Claim this session to take over live correspondence">
+                  <i class="bi bi-shield-check"></i>
+                  <span class="d-none d-sm-inline">Claim</span>
                 </button>
-                <button type="button" class="btn btn-sm btn-outline-primary py-1 px-2" id="btnConvertToRfq" title="Transfer lead and transcript into Inbound RFQs database" style="font-size: 0.72rem;">
-                  <i class="bi bi-file-earmark-plus"></i><span class="d-none d-sm-inline ms-1">RFQ</span>
+                <button type="button" class="btn-chat-header btn-chat-header--rfq" id="btnConvertToRfq" title="Transfer lead and transcript into Inbound RFQs database">
+                  <i class="bi bi-file-earmark-plus"></i>
+                  <span class="d-none d-sm-inline">RFQ</span>
                 </button>
-                <button type="button" class="btn btn-sm btn-outline-secondary py-1 px-2" id="btnCloseChat" title="End live chat and archive" style="font-size: 0.72rem;">
-                  <i class="bi bi-check2-circle"></i><span class="d-none d-sm-inline ms-1">Close</span>
+                <button type="button" class="btn-chat-header btn-chat-header--close" id="btnCloseChat" title="End live chat and archive session">
+                  <i class="bi bi-x-circle"></i>
+                  <span class="d-none d-sm-inline">Close</span>
                 </button>
               </div>
             </div>
@@ -797,48 +1304,128 @@ $csrfToken = getCsrfToken();
 
         <!-- Column 3: Buyer Intelligence Dossier -->
         <div class="chat-dossier-pane" id="chatDossierPane">
-          <div class="dossier-section-title">Buyer Intelligence</div>
-          
+          <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+            <div class="dossier-section-title mb-0 border-0 p-0">Buyer Intelligence</div>
+            <button type="button" class="btn btn-xs btn-outline-secondary py-0 px-2" id="btnToggleDossierEdit" title="Edit buyer contact details" style="font-size: 0.68rem; height: 23px; border-radius: 4px;">
+              <i class="bi bi-pencil-square me-1"></i><span id="btnEditLabel">Edit</span>
+            </button>
+          </div>
+
+          <!-- Buyer Local Time Card -->
+          <div class="dossier-time-card mb-3 p-2 rounded" style="background: #F8FAFC; border: 1px solid #E2E8F0;">
+            <div class="d-flex align-items-center justify-content-between mb-1">
+              <span class="text-muted" style="font-size: 0.64rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">Buyer Local Time</span>
+              <span class="badge font-monospace" style="background:#E2E8F0; color:#334155; font-size:0.62rem;" id="dosTimezone">UTC</span>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi bi-clock-history text-secondary" style="font-size: 0.92rem;"></i>
+              <span class="fw-bold font-monospace text-dark" style="font-size: 0.88rem;" id="dosLocalTime">—</span>
+            </div>
+          </div>
+
+          <!-- Buyer Name -->
           <div class="dossier-row">
             <div class="dossier-label">Buyer / Contact</div>
-            <div class="dossier-val" id="dosName">Guest Buyer</div>
+            <div class="dossier-val" id="dosNameView">Buyer #—</div>
+            <div id="dosNameEditWrap" style="display: none;" class="mt-1">
+              <input type="text" id="inputDosName" class="form-control form-control-sm" placeholder="e.g. Li Wei (Orient Trading)" style="font-size: 0.75rem;">
+            </div>
           </div>
 
+          <!-- Location & Origin -->
+          <div class="dossier-row">
+            <div class="dossier-label">Location / Origin</div>
+            <div class="dossier-val" id="dosCountryView"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-inline-block me-1" style="vertical-align: -2px; color: #475569;"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>International</div>
+            <div class="text-muted font-monospace mt-0.5" style="font-size: 0.67rem;" id="dosIpView">IP: —</div>
+          </div>
+
+          <!-- Email Address -->
           <div class="dossier-row">
             <div class="dossier-label">Email Address</div>
-            <div class="dossier-val" id="dosEmail">—</div>
+            <div class="dossier-val" id="dosEmailView">—</div>
+            <div id="dosEmailEditWrap" style="display: none;" class="mt-1">
+              <input type="email" id="inputDosEmail" class="form-control form-control-sm" placeholder="buyer@company.com" style="font-size: 0.75rem;">
+            </div>
           </div>
 
+          <!-- Phone / WhatsApp -->
           <div class="dossier-row">
             <div class="dossier-label">Phone / WhatsApp</div>
-            <div class="dossier-val" id="dosPhone">—</div>
+            <div class="dossier-val" id="dosPhoneView">—</div>
+            <div id="dosPhoneEditWrap" style="display: none;" class="mt-1">
+              <input type="text" id="inputDosPhone" class="form-control form-control-sm" placeholder="+86 138 0000 0000" style="font-size: 0.75rem;">
+            </div>
           </div>
 
-          <div class="dossier-row">
-            <div class="dossier-label">Location / IP Country</div>
-            <div class="dossier-val" id="dosCountry">International</div>
-          </div>
-
+          <!-- Current Page (Live Navigation) -->
           <div class="dossier-row">
             <div class="dossier-label">Current Page</div>
-            <div class="dossier-val" id="dosPage" style="font-size: 0.72rem;">—</div>
+            <div class="dossier-val" id="dosPageView">
+              <a href="/" target="_blank" id="dosPageLink" class="text-dark text-decoration-none font-monospace d-inline-flex align-items-center gap-1 p-1 px-1.5 rounded" style="background:#F1F5F9; border:1px solid #CBD5E1; font-size:0.7rem; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                <i class="bi bi-box-arrow-up-right text-primary" style="font-size:0.65rem;"></i>
+                <span id="dosPageText">/</span>
+              </a>
+            </div>
           </div>
 
+          <!-- Mineral Interest -->
           <div class="dossier-row">
             <div class="dossier-label">Mineral Interest</div>
-            <div class="dossier-val text-primary" id="dosMineral">Export Minerals</div>
+            <div class="dossier-val" id="dosMineralView">
+              <span class="badge" style="background: #F1F5F9; color: #0F172A; border: 1px solid #CBD5E1; font-size: 0.72rem; font-weight: 600; padding: 4px 10px; border-radius: 6px;" id="dosMineralBadge">Export Minerals</span>
+            </div>
+            <div id="dosMineralEditWrap" style="display: none;" class="mt-1">
+              <select id="selectDosMineral" class="form-select form-select-sm" style="font-size: 0.75rem;">
+                <option value="Export Minerals">Export Minerals (General)</option>
+                <option value="Barite 4.2+ SG">Barite 4.2+ SG (API 13A)</option>
+                <option value="Chromite 42-52%">Chromite 42-52% (Lumpy)</option>
+                <option value="Chagai Copper DSO">Chagai Copper DSO</option>
+                <option value="Iron Ore (62%+ Fe)">Iron Ore (62%+ Fe)</option>
+                <option value="Fluorspar (CaF2 85%+)">Fluorspar (CaF2 85%+)</option>
+                <option value="Balochistan Marble &amp; Onyx">Balochistan Marble &amp; Onyx</option>
+                <option value="Manganese Ore">Manganese Ore</option>
+                <option value="Antimony Ore">Antimony Ore</option>
+              </select>
+            </div>
           </div>
 
+          <!-- Assigned Officer -->
           <div class="dossier-row">
             <div class="dossier-label">Assigned Officer</div>
             <div class="dossier-val" id="dosAgent">Unassigned</div>
           </div>
 
-          <div class="mt-4 pt-3 border-top">
-            <a href="generate-quote.php" target="_blank" class="btn btn-sm btn-outline-dark w-100 mb-2">
+          <!-- Internal Trade Desk Notes -->
+          <div class="dossier-row mb-3">
+            <div class="d-flex align-items-center justify-content-between mb-1">
+              <div class="dossier-label mb-0">Trade Desk Notes</div>
+              <span id="notesSavedIndicator" class="text-success small" style="display:none; font-size:0.64rem;"><i class="bi bi-check-circle-fill"></i> Saved</span>
+            </div>
+            <textarea id="dosInternalNotes" class="form-control form-control-sm" rows="2" placeholder="Record buyer target price, port, terms..." style="font-size: 0.73rem;"></textarea>
+            <button type="button" id="btnSaveNotes" class="btn btn-xs btn-outline-dark mt-1 w-100 py-1" style="font-size: 0.68rem; font-weight: 600;">
+              <i class="bi bi-save me-1"></i>Save Notes
+            </button>
+          </div>
+
+          <!-- Save / Cancel Buttons in Edit Mode -->
+          <div id="dossierEditActions" style="display: none;" class="mb-3">
+            <button type="button" class="btn btn-sm btn-dark w-100 mb-1" id="btnSaveDossier" style="font-size: 0.74rem;">
+              <i class="bi bi-check-lg me-1"></i>Save Changes
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary w-100" id="btnCancelDossierEdit" style="font-size: 0.72rem;">
+              Cancel
+            </button>
+          </div>
+
+          <!-- Quick Action Conversion Buttons -->
+          <div class="pt-2 border-top">
+            <button type="button" class="btn btn-sm btn-outline-primary w-100 mb-2" id="dosBtnRfq" style="font-size: 0.75rem; font-weight: 600;">
+              <i class="bi bi-file-earmark-plus me-1"></i>Convert to RFQ
+            </button>
+            <a href="generate-quote.php" target="_blank" class="btn btn-sm btn-outline-dark w-100 mb-2" style="font-size: 0.75rem;">
               <i class="bi bi-file-earmark-text me-1"></i>Open Quote Generator
             </a>
-            <a href="stockpiles.php" target="_blank" class="btn btn-sm btn-outline-secondary w-100">
+            <a href="stockpiles.php" target="_blank" class="btn btn-sm btn-outline-secondary w-100" style="font-size: 0.75rem;">
               <i class="bi bi-boxes me-1"></i>Check Ready Yards
             </a>
           </div>
@@ -858,6 +1445,8 @@ $csrfToken = getCsrfToken();
     let lastMessageId = 0;
     let pollInterval = null;
     let soundEnabled = true;
+    let isDossierEditing = false;
+    let activeSessionCache = null;
 
     // Web Audio Synthesized Chime (Zero external audio file needed)
     function playAudioChime() {
@@ -895,7 +1484,6 @@ $csrfToken = getCsrfToken();
       if (soundEnabled) {
         icon.className = 'bi bi-volume-up-fill text-dark me-1';
         label.textContent = 'Sound On';
-        playAudioChime();
       } else {
         icon.className = 'bi bi-volume-mute-fill text-muted me-1';
         label.textContent = 'Muted';
@@ -946,6 +1534,8 @@ $csrfToken = getCsrfToken();
         if (!search) return true;
         return (s.name && s.name.toLowerCase().includes(search)) ||
                (s.country && s.country.toLowerCase().includes(search)) ||
+               (s.city && s.city.toLowerCase().includes(search)) ||
+               (s.country_with_city && s.country_with_city.toLowerCase().includes(search)) ||
                (s.mineral && s.mineral.toLowerCase().includes(search)) ||
                (s.last_message && s.last_message.toLowerCase().includes(search));
       });
@@ -959,27 +1549,36 @@ $csrfToken = getCsrfToken();
         const isWaiting = s.status === 'waiting_human';
         const isActive = s.id === currentSessionId;
         const statusBadge = isWaiting
-          ? '<span class="badge bg-danger font-monospace" style="font-size: 0.62rem;">WAITING</span>'
+          ? '<span class="badge-status-waiting">WAITING</span>'
           : (s.status === 'agent_active' 
-              ? '<span class="badge bg-success font-monospace" style="font-size: 0.62rem;">LIVE</span>'
-              : '<span class="badge bg-secondary font-monospace" style="font-size: 0.62rem;">AI BOT</span>');
+              ? '<span class="badge-status-live">LIVE</span>'
+              : '<span class="badge-status-bot">AI BOT</span>');
 
-        const unread = s.unread_admin > 0 ? `<span class="badge rounded-pill bg-danger" style="font-size: 0.65rem;">${s.unread_admin}</span>` : '';
-        const nameStr = s.name || 'Guest Buyer';
-        const initial = (nameStr.replace(/[^a-zA-Z]/g, '') || 'G').charAt(0).toUpperCase();
+        const unread = s.unread_admin > 0 ? `<span class="badge-status-unread">${s.unread_admin}</span>` : '';
+        const nameStr = s.display_name || s.name || `Buyer #${1000 + s.id}`;
+        const initial = (nameStr.replace(/[^a-zA-Z]/g, '') || 'B').charAt(0).toUpperCase();
+        const flag = (s.flag && s.flag !== '🌐') ? s.flag : '';
+        let locSnippet = '';
+        if (flag) {
+          locSnippet = `<span class="me-1">${flag}</span> ${escapeHtml(s.country || 'International')}${s.city ? ` (${escapeHtml(s.city)})` : ''}`;
+        } else {
+          locSnippet = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-inline-block me-1" style="vertical-align: -1px; color: #64748B;"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>International`;
+        }
 
         return `
           <div class="conv-item ${isWaiting ? 'is-waiting' : ''} ${isActive ? 'active' : ''}" onclick="selectSession(${s.id})">
-            <div class="conv-avatar">${initial}</div>
+            <div class="conv-avatar">
+              <span>${initial}</span>
+              ${flag ? `<span class="conv-avatar-flag">${flag}</span>` : ''}
+            </div>
             <div class="conv-content">
               <div class="conv-top-line">
                 <span class="conv-name">${escapeHtml(nameStr)}</span>
                 <span class="conv-time">${s.last_time || ''}</span>
               </div>
               <div class="conv-subline">
-                <i class="bi bi-geo-alt text-secondary" style="font-size: 0.65rem;"></i>
-                <span>${escapeHtml(s.country || 'International')}</span>
-                ${s.mineral ? `&bull; <span class="badge bg-light text-dark border p-0.5 px-1">${escapeHtml(s.mineral)}</span>` : ''}
+                <span>${locSnippet}</span>
+                ${s.mineral ? `&bull; <span class="badge border" style="background:#F1F5F9; color:#0F172A; font-size:0.65rem; font-weight:600;">${escapeHtml(s.mineral)}</span>` : ''}
               </div>
               <div class="conv-snippet">
                 ${s.last_sender === 'visitor' ? '<strong>Buyer: </strong>' : ''}${escapeHtml(s.last_message || 'Session initiated')}
@@ -1002,48 +1601,250 @@ $csrfToken = getCsrfToken();
     async function selectSession(sessionId) {
       currentSessionId = sessionId;
       lastMessageId = 0;
+      setDossierEditing(false);
       document.body.classList.add('mobile-view-chat');
       document.getElementById('emptyChatScreen').style.display = 'none';
       document.getElementById('activeChatContent').style.display = 'flex';
+      document.getElementById('activeChatBody').innerHTML = ''; // Fresh stream on session switch
 
       document.querySelectorAll('.conv-item').forEach(el => el.classList.remove('active'));
       const activeEl = document.querySelector(`.conv-item[onclick="selectSession(${sessionId})"]`);
       if (activeEl) activeEl.classList.add('active');
 
-      await fetchMessages(true);
+      await fetchMessages(true, false);
+    }
+
+    // Toggle Dossier Edit Mode
+    function setDossierEditing(edit) {
+      isDossierEditing = edit;
+      const btnLabel = document.getElementById('btnEditLabel');
+      if (btnLabel) btnLabel.textContent = edit ? 'Editing' : 'Edit';
+
+      document.getElementById('dosNameView').style.display = edit ? 'none' : 'block';
+      document.getElementById('dosNameEditWrap').style.display = edit ? 'block' : 'none';
+
+      document.getElementById('dosEmailView').style.display = edit ? 'none' : 'block';
+      document.getElementById('dosEmailEditWrap').style.display = edit ? 'block' : 'none';
+
+      document.getElementById('dosPhoneView').style.display = edit ? 'none' : 'block';
+      document.getElementById('dosPhoneEditWrap').style.display = edit ? 'block' : 'none';
+
+      document.getElementById('dosMineralView').style.display = edit ? 'none' : 'block';
+      document.getElementById('dosMineralEditWrap').style.display = edit ? 'block' : 'none';
+
+      document.getElementById('dossierEditActions').style.display = edit ? 'block' : 'none';
+    }
+
+    document.getElementById('btnToggleDossierEdit').addEventListener('click', () => {
+      setDossierEditing(!isDossierEditing);
+    });
+
+    document.getElementById('btnCancelDossierEdit').addEventListener('click', () => {
+      setDossierEditing(false);
+      if (activeSessionCache) {
+        populateDossierFields(activeSessionCache);
+      }
+    });
+
+    // Save Dossier Changes
+    document.getElementById('btnSaveDossier').addEventListener('click', async () => {
+      if (!currentSessionId) return;
+      const newName = document.getElementById('inputDosName').value.trim();
+      const newEmail = document.getElementById('inputDosEmail').value.trim();
+      const newPhone = document.getElementById('inputDosPhone').value.trim();
+      const newMineral = document.getElementById('selectDosMineral').value;
+      const notes = document.getElementById('dosInternalNotes').value.trim();
+
+      try {
+        const res = await fetch('api-chat-admin.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'update_buyer_dossier',
+            session_id: currentSessionId,
+            visitor_name: newName,
+            visitor_email: newEmail,
+            visitor_phone: newPhone,
+            mineral_interest: newMineral,
+            internal_notes: notes
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          setDossierEditing(false);
+          await fetchMessages(false, false);
+          fetchSessions();
+        }
+      } catch (e) {}
+    });
+
+    // Save Notes Only
+    document.getElementById('btnSaveNotes').addEventListener('click', async () => {
+      if (!currentSessionId) return;
+      const notes = document.getElementById('dosInternalNotes').value.trim();
+      try {
+        const res = await fetch('api-chat-admin.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'update_buyer_dossier',
+            session_id: currentSessionId,
+            internal_notes: notes
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          const ind = document.getElementById('notesSavedIndicator');
+          if (ind) {
+            ind.style.display = 'inline';
+            setTimeout(() => { ind.style.display = 'none'; }, 2200);
+          }
+        }
+      } catch (e) {}
+    });
+
+    function populateDossierFields(s) {
+      const vName = s.display_name || s.name || `Buyer #${1000 + s.id}`;
+      const locationText = s.country_with_city || s.country || 'International';
+
+      // Header Updates
+      const titleTextEl = document.getElementById('chatHeaderTitleText');
+      if (titleTextEl) titleTextEl.textContent = vName;
+
+      const headerInitial = document.getElementById('chatHeaderInitial');
+      if (headerInitial) {
+        headerInitial.textContent = (vName.replace(/[^a-zA-Z]/g, '') || 'B').charAt(0).toUpperCase();
+      }
+      const headerFlag = document.getElementById('chatHeaderFlag');
+      if (headerFlag) {
+        if (s.flag && s.flag !== '🌐') {
+          headerFlag.textContent = s.flag;
+          headerFlag.style.display = 'inline';
+        } else {
+          headerFlag.style.display = 'none';
+        }
+      }
+
+      const globeSvgSmall = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-inline-block me-1" style="vertical-align: -1.5px; color: #475569;"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>`;
+      const globeSvgMedium = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-inline-block me-1" style="vertical-align: -2px; color: #475569;"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>`;
+
+      const countryEl = document.getElementById('chatHeaderCountry');
+      if (countryEl) {
+        if (s.flag && s.flag !== '🌐') {
+          countryEl.innerHTML = `<span class="me-1">${s.flag}</span> <span>${escapeHtml(s.country || 'International')}${s.city ? ` (${escapeHtml(s.city)})` : ''}</span>`;
+        } else {
+          countryEl.innerHTML = `${globeSvgSmall}<span>International</span>`;
+        }
+      }
+
+      const localTimeEl = document.getElementById('chatHeaderLocalTime');
+      if (localTimeEl) localTimeEl.textContent = s.local_time_str || '—';
+
+      const pathEl = document.getElementById('chatHeaderSubPath');
+      if (pathEl) pathEl.textContent = s.page || s.current_page || '/';
+
+      // Dossier Updates
+      const dosTimezone = document.getElementById('dosTimezone');
+      if (dosTimezone) dosTimezone.textContent = s.timezone || 'UTC';
+
+      const dosLocalTime = document.getElementById('dosLocalTime');
+      if (dosLocalTime) dosLocalTime.textContent = s.local_time_str || '—';
+
+      const dosNameView = document.getElementById('dosNameView');
+      if (dosNameView) dosNameView.textContent = vName;
+      if (!isDossierEditing) document.getElementById('inputDosName').value = vName;
+
+      const dosCountryView = document.getElementById('dosCountryView');
+      if (dosCountryView) {
+        if (s.flag && s.flag !== '🌐') {
+          dosCountryView.innerHTML = `<span class="me-1">${s.flag}</span> <span>${escapeHtml(s.country || 'International')}${s.city ? ` (${escapeHtml(s.city)})` : ''}</span>`;
+        } else {
+          dosCountryView.innerHTML = `${globeSvgMedium}<span>International</span>`;
+        }
+      }
+
+      const dosIpView = document.getElementById('dosIpView');
+      if (dosIpView) dosIpView.textContent = s.ip ? `IP: ${s.ip}` : 'IP: —';
+
+      // Email with mailto link
+      const dosEmailView = document.getElementById('dosEmailView');
+      if (dosEmailView) {
+        if (s.email) {
+          dosEmailView.innerHTML = `
+            <a href="mailto:${escapeHtml(s.email)}" class="dossier-link d-inline-flex align-items-center gap-1">
+              <i class="bi bi-envelope text-primary"></i>
+              <span>${escapeHtml(s.email)}</span>
+            </a>
+          `;
+        } else {
+          dosEmailView.innerHTML = '<span class="text-muted fst-italic" style="font-size:0.75rem;">Not captured yet</span>';
+        }
+      }
+      if (!isDossierEditing) document.getElementById('inputDosEmail').value = s.email || '';
+
+      // Phone with direct WhatsApp click-to-chat
+      const dosPhoneView = document.getElementById('dosPhoneView');
+      if (dosPhoneView) {
+        if (s.phone) {
+          const cleanDigits = s.phone.replace(/[^\d]/g, '');
+          const waUrl = `https://wa.me/${cleanDigits}`;
+          dosPhoneView.innerHTML = `
+            <div class="d-flex align-items-center justify-content-between gap-1">
+              <span class="font-monospace">${escapeHtml(s.phone)}</span>
+              <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-xs btn-success text-white py-0 px-1.5 d-inline-flex align-items-center gap-1" style="font-size:0.67rem; border-radius:4px;" title="Chat directly with buyer on WhatsApp">
+                <i class="bi bi-whatsapp"></i> Chat
+              </a>
+            </div>
+          `;
+        } else {
+          dosPhoneView.innerHTML = '<span class="text-muted fst-italic" style="font-size:0.75rem;">Not captured yet</span>';
+        }
+      }
+      if (!isDossierEditing) document.getElementById('inputDosPhone').value = s.phone || '';
+
+      // Current page link
+      const curPage = s.page || s.current_page || '/';
+      const pageText = document.getElementById('dosPageText');
+      if (pageText) pageText.textContent = curPage;
+      const pageLink = document.getElementById('dosPageLink');
+      if (pageLink) pageLink.href = curPage;
+
+      // Mineral interest
+      const mineralText = s.mineral || s.mineral_interest || 'Export Minerals';
+      const mineralBadge = document.getElementById('dosMineralBadge');
+      if (mineralBadge) mineralBadge.textContent = mineralText;
+      if (!isDossierEditing) {
+        const selectMin = document.getElementById('selectDosMineral');
+        if (selectMin) {
+          const matchOpt = Array.from(selectMin.options).find(o => o.value.toLowerCase() === mineralText.toLowerCase());
+          if (matchOpt) selectMin.value = matchOpt.value;
+        }
+      }
+
+      // Officer
+      const dosAgent = document.getElementById('dosAgent');
+      if (dosAgent) dosAgent.textContent = s.assigned_name || 'Unassigned';
+
+      // Notes
+      if (document.activeElement !== document.getElementById('dosInternalNotes')) {
+        document.getElementById('dosInternalNotes').value = s.internal_notes || '';
+      }
     }
 
     // Fetch Messages
-    async function fetchMessages(scrollToBottom = false) {
+    async function fetchMessages(scrollToBottom = false, isBackgroundPoll = false) {
       if (!currentSessionId) return;
       try {
         const res = await fetch(`api-chat-admin.php?action=fetch_messages&session_id=${currentSessionId}&last_id=${lastMessageId}`);
         const data = await res.json();
         if (data.success) {
           const s = data.session;
-          // Update Dossier & Header
-          const vName = s.visitor_name || 'Guest Buyer';
-          document.getElementById('chatHeaderTitle').firstElementChild.textContent = vName;
-          document.getElementById('chatHeaderCountry').textContent = s.country || 'International';
-          document.getElementById('chatHeaderSub').textContent = `Viewing: ${s.current_page || '/'}`;
-
-          const headerAvatar = document.getElementById('chatHeaderAvatar');
-          if (headerAvatar) {
-            const initial = (vName.replace(/[^a-zA-Z]/g, '') || 'G').charAt(0).toUpperCase();
-            headerAvatar.textContent = initial;
-          }
-
-          document.getElementById('dosName').textContent = vName;
-          document.getElementById('dosEmail').textContent = s.visitor_email || '—';
-          document.getElementById('dosPhone').textContent = s.visitor_phone || '—';
-          document.getElementById('dosCountry').textContent = `${s.country || 'International'} (IP: ${s.visitor_ip || '—'})`;
-          document.getElementById('dosPage').textContent = s.current_page || '—';
-          document.getElementById('dosMineral').textContent = s.mineral_interest || 'Export Minerals';
-          document.getElementById('dosAgent').textContent = s.assigned_admin_name || 'Unassigned';
+          activeSessionCache = s;
+          populateDossierFields(s);
 
           // Claim button visibility
           const claimBtn = document.getElementById('btnClaimChat');
-          if (s.status === 'waiting_human' || !s.assigned_admin_id) {
+          if (s.status === 'waiting_human' || !s.assigned_id) {
             claimBtn.style.display = 'inline-flex';
           } else {
             claimBtn.style.display = 'none';
@@ -1058,41 +1859,73 @@ $csrfToken = getCsrfToken();
                 lastMessageId = m.id;
                 if (m.sender_type === 'visitor') hasNewVisitorMsg = true;
 
-                const bubbleWrap = document.createElement('div');
-                let wrapClass = 'chat-bubble-wrap is-visitor';
+                const row = document.createElement('div');
+                let rowClass = 'chat-msg-row is-visitor';
                 let bubbleClass = 'chat-bubble bubble-visitor';
                 let metaHtml = `<span>${m.time}</span>`;
+                let avatarHtml = `<div class="chat-msg-avatar chat-msg-avatar--visitor" title="Buyer / Contact"><i class="bi bi-person-fill"></i></div>`;
 
                 if (m.sender_type === 'agent') {
-                  wrapClass = 'chat-bubble-wrap is-agent';
+                  rowClass = 'chat-msg-row is-agent';
                   bubbleClass = 'chat-bubble bubble-agent';
                   metaHtml = `<span>${m.time} &bull; Delivered</span>`;
+                  avatarHtml = `<div class="chat-msg-avatar chat-msg-avatar--agent" title="Balochistan Minerals"><img src="../images/favicon/apple-touch-icon.png" alt="BM" class="chat-avatar-logo"></div>`;
                 } else if (m.sender_type === 'bot') {
-                  wrapClass = 'chat-bubble-wrap is-bot';
+                  rowClass = 'chat-msg-row is-bot';
                   bubbleClass = 'chat-bubble bubble-bot';
                   metaHtml = `<span>AI Assistant</span> &bull; <span>${m.time}</span>`;
+                  avatarHtml = `<div class="chat-msg-avatar chat-msg-avatar--bot" title="AI Assistant"><i class="bi bi-robot"></i></div>`;
                 } else if (m.sender_type === 'system') {
-                  wrapClass = 'chat-bubble-wrap is-system';
+                  rowClass = 'chat-msg-row is-system';
                   bubbleClass = 'chat-bubble bubble-system';
                   metaHtml = `<span>${m.time}</span>`;
+                  avatarHtml = '';
                 } else {
                   metaHtml = `<span>${escapeHtml(m.sender_name || 'Buyer')}</span> &bull; <span>${m.time}</span>`;
                 }
 
-                bubbleWrap.className = wrapClass;
-                bubbleWrap.innerHTML = `
-                  <div class="${bubbleClass}">
-                    ${escapeHtml(m.text).replace(/\n/g, '<br>')}
-                  </div>
-                  <div class="bubble-meta">
-                    ${metaHtml}
-                  </div>
-                `;
-                body.appendChild(bubbleWrap);
+                row.className = rowClass;
+                if (m.sender_type === 'agent') {
+                  row.innerHTML = `
+                    <div class="chat-bubble-wrap is-agent">
+                      <div class="${bubbleClass}">
+                        ${escapeHtml(m.text).replace(/\n/g, '<br>')}
+                      </div>
+                      <div class="bubble-meta">
+                        ${metaHtml}
+                      </div>
+                    </div>
+                    ${avatarHtml}
+                  `;
+                } else if (m.sender_type === 'system') {
+                  row.innerHTML = `
+                    <div class="chat-bubble-wrap is-system">
+                      <div class="${bubbleClass}">
+                        ${escapeHtml(m.text).replace(/\n/g, '<br>')}
+                      </div>
+                      <div class="bubble-meta">
+                        ${metaHtml}
+                      </div>
+                    </div>
+                  `;
+                } else {
+                  row.innerHTML = `
+                    ${avatarHtml}
+                    <div class="chat-bubble-wrap ${m.sender_type === 'bot' ? 'is-bot' : 'is-visitor'}">
+                      <div class="${bubbleClass}">
+                        ${escapeHtml(m.text).replace(/\n/g, '<br>')}
+                      </div>
+                      <div class="bubble-meta">
+                        ${metaHtml}
+                      </div>
+                    </div>
+                  `;
+                }
+                body.appendChild(row);
               }
             });
 
-            if (hasNewVisitorMsg) {
+            if (hasNewVisitorMsg && isBackgroundPoll) {
               playAudioChime();
             }
 
@@ -1100,6 +1933,11 @@ $csrfToken = getCsrfToken();
               body.scrollTop = body.scrollHeight;
             }
           }
+        } else if (data && data.error === 'Session not found') {
+          currentSessionId = null;
+          lastMessageId = 0;
+          document.getElementById('emptyChatScreen').style.display = 'flex';
+          document.getElementById('activeChatContent').style.display = 'none';
         }
       } catch (err) {}
     }
@@ -1180,8 +2018,8 @@ $csrfToken = getCsrfToken();
       } catch (err) {}
     });
 
-    // Convert to RFQ
-    document.getElementById('btnConvertToRfq').addEventListener('click', async () => {
+    // Convert to RFQ (Header Button & Dossier Button)
+    async function convertSessionToRfq() {
       if (!currentSessionId || !confirm('Convert this conversation into an official Inbound RFQ / Lead?')) return;
       try {
         const res = await fetch('api-chat-admin.php', {
@@ -1196,7 +2034,10 @@ $csrfToken = getCsrfToken();
           fetchSessions();
         }
       } catch (err) {}
-    });
+    }
+
+    document.getElementById('btnConvertToRfq').addEventListener('click', convertSessionToRfq);
+    document.getElementById('dosBtnRfq').addEventListener('click', convertSessionToRfq);
 
     function escapeHtml(str) {
       return String(str || '')
@@ -1212,7 +2053,25 @@ $csrfToken = getCsrfToken();
     pollInterval = setInterval(() => {
       fetchSessions();
       if (currentSessionId) {
-        fetchMessages(false);
+        fetchMessages(false, true);
+      }
+    }, 2500);
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    // Auto-poll loop every 2.5 seconds
+    fetchSessions();
+    pollInterval = setInterval(() => {
+      fetchSessions();
+      if (currentSessionId) {
+        fetchMessages(false, true);
       }
     }, 2500);
   </script>

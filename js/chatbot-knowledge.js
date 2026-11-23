@@ -413,7 +413,7 @@ How can our Marketing & Export Department assist your procurement today? You can
         { name: 'Copper DSO', grade: '2% - 10% Cu Direct Ship', image: 'images/copper-new-480.avif', query: 'Chagai Copper' },
         { name: 'Iron Ore', grade: 'Fe 40% - 62% Magnetite', image: 'images/iron-ore-new-480.avif', query: 'Iron Ore' }
       ],
-      chips: ['Chromite 42-52%', 'Barite 4.2+ SG', 'Chagai Copper', 'Live Spot Prices', 'Active Mining Projects', 'Request Quote']
+      chips: ['Live Spot Prices', 'Active Mining Projects', 'Request Formal Quote', 'Custom Sourcing']
     };
   }
 

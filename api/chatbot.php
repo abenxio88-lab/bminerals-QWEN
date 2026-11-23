@@ -253,7 +253,7 @@ if ($isGreeting && $matchedUnlisted === null) {
             ['name' => 'Copper DSO', 'grade' => '2% - 10% Cu Direct Ship', 'image' => 'images/copper-new-480.avif', 'query' => 'Chagai Copper'],
             ['name' => 'Iron Ore', 'grade' => 'Fe 40% - 62% Magnetite', 'image' => 'images/iron-ore-new-480.avif', 'query' => 'Iron Ore']
         ],
-        'chips' => ['Chromite 42-52%', 'Barite 4.2+ SG', 'Chagai Copper', 'Live Spot Prices', 'Active Mining Projects', 'Request Quote']
+        'chips' => ['Live Spot Prices', 'Active Mining Projects', 'Request Formal Quote', 'Custom Sourcing']
     ]);
     exit;
 }
@@ -397,7 +397,7 @@ if ($isCatalogIntent) {
             ['name' => 'Fluorspar', 'grade' => '50% - 90%+ CaF₂', 'image' => 'images/fluorite-480.avif', 'query' => 'Fluorite CaF2'],
             ['name' => 'Marble Slabs', 'grade' => 'Persian Silk & Pietra', 'image' => 'images/silver-steam-white-marble-1-480.avif', 'query' => 'Marble & Stone Slabs']
         ],
-        'chips' => ['Chromite 42-52%', 'Barite 4.2+ SG', 'Chagai Copper', 'Live Spot Prices', 'Stockpiles Ready', 'Custom Sourcing']
+        'chips' => ['Live Spot Prices', 'Stockpiles Ready', 'Custom Sourcing', 'Request Formal Quote']
     ]);
     exit;
 }
@@ -443,7 +443,7 @@ if ($isPriceIntent && $pdo !== null) {
     }
 
     if (!empty($matchedPrices)) {
-        $priceText = "### 📊 Live Export Spot Prices (FOB Karachi / Port Qasim)\n\n";
+        $priceText = "**📊 Live Export Spot Prices (FOB Karachi / Port Qasim)**\n\n";
         foreach ($matchedPrices as $mp) {
             $priceText .= "• **" . $mp['mineral_name'] . " (" . $mp['grade_name'] . "):** \$" . number_format($mp['price_low_usd'], 2) . " – \$" . number_format($mp['price_high_usd'], 2) . " " . $mp['unit'] . " *" . $mp['delivery_terms'] . "*\n";
             if (!empty($mp['purity_spec'])) {
@@ -486,7 +486,7 @@ if ($isStockIntent && $pdo !== null) {
         $stocks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         if (!empty($stocks)) {
-            $stockText = "### ⚓ Verified Export Stockpiles & Yard Status\n\n";
+            $stockText = "**⚓ Verified Export Stockpiles & Yard Status**\n\n";
             $stockText .= "We maintain active bulk and container storage across prime port and regional depots:\n\n";
             foreach ($stocks as $s) {
                 $badge = ($s['status'] === 'Ready for Loading') ? '✅ Ready for Loading' : '🚚 ' . $s['status'];

@@ -108,7 +108,7 @@ class BMChatbot {
     const link = document.createElement('link');
     link.id = STYLESHEET_ID;
     link.rel = 'stylesheet';
-    link.href = this.resolveAssetPath('css/components/chatbot.css?v=20261006b');
+    link.href = this.resolveAssetPath('css/components/chatbot.css?v=20261123f');
 
     link.addEventListener('load', revealWhenReady);
     link.addEventListener('error', revealWhenReady);
@@ -212,14 +212,14 @@ class BMChatbot {
         <div class="bm-chat-agent-bar" aria-live="polite">
           <div class="bm-chat-agent-bar__status">
             <span class="bm-chat-agent-bar__dot bm-chat-agent-bar__dot--offline"></span>
-            <span class="bm-chat-agent-bar__text">Balochistan Minerals AI Assistant</span>
+            <span class="bm-chat-agent-bar__text">AI Trade Desk Active</span>
           </div>
-          <button type="button" class="bm-chat-agent-bar__action" aria-label="Talk to Trade Desk Specialist">
+          <button type="button" class="bm-chat-agent-bar__action" aria-label="Connect with Trade Desk Officer">
             <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
               <circle cx="12" cy="7" r="4"></circle>
             </svg>
-            <span>Talk to Human</span>
+            <span>Live Specialist</span>
           </button>
         </div>
 
@@ -725,10 +725,10 @@ class BMChatbot {
     this.saveHistory();
     this.scrollToBottom();
 
-    // Transmit visitor message to live desk backend (logs context for human officers)
+    // Log every user inquiry to backend so session is established with full geo telemetry
     this.logVisitorMessageToBackend(text);
 
-    // If waiting for human or chatting with officer, do NOT trigger AI bot response
+    // If waiting for human or chatting with officer, route straight to live trade desk
     if (this.chatMode === 'waiting_human' || this.chatMode === 'human') {
       this.startSyncLoop();
       return;
@@ -770,8 +770,16 @@ class BMChatbot {
     const el = document.createElement('div');
     el.className = 'bm-chat-msg bm-chat-msg--user';
     el.innerHTML = `
-      <div class="bm-chat-msg__bubble">
-        <p>${this.escapeHtml(text)}</p>
+      <div class="bm-chat-user-row">
+        <div class="bm-chat-msg__bubble">
+          <p>${this.escapeHtml(text)}</p>
+        </div>
+        <div class="bm-chat-user-avatar" title="You" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
       </div>
       <span class="bm-chat-msg__meta">${time}</span>
     `;
@@ -805,7 +813,7 @@ class BMChatbot {
       productGridHtml = `
         <div class="bm-chat-product-grid">
           ${data.productsList.map(p => `
-            <button type="button" class="bm-chat-product-card" data-query="${this.escapeHtml(p.query || p.name)}" title="View ${this.escapeHtml(p.name)} specifications">
+            <button type="button" class="bm-chat-product-card" data-query="${this.escapeHtml(p.query || p.name)}" aria-label="${this.escapeHtml(p.name)} specifications">
               <img src="${this.escapeHtml(this.resolveAssetPath(p.image))}" alt="${this.escapeHtml(p.name)}" class="bm-chat-product-card__img" width="32" height="32" loading="lazy" decoding="async">
               <div class="bm-chat-product-card__meta">
                 <strong class="bm-chat-product-card__name">${this.escapeHtml(p.name)}</strong>
@@ -823,7 +831,7 @@ class BMChatbot {
       const linkLabel = data.urlLabel || `View ${data.title || 'Official'} Specifications & Section →`;
       sourceLinkHtml = `
         <div class="bm-chat-source">
-          <a href="${this.escapeHtml(this.resolveAssetPath(data.url))}" class="bm-chat-source__link" title="Navigate directly to page / section">
+          <a href="${this.escapeHtml(this.resolveAssetPath(data.url))}" class="bm-chat-source__link">
             <svg class="bm-chat-source__icon" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
               <polyline points="15 3 21 3 21 9"></polyline>
@@ -876,7 +884,7 @@ class BMChatbot {
               <span>WhatsApp</span>
             </a>
             <a href="${emailUrl}" class="bm-chat-rfq-btn bm-chat-rfq-btn--email">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <rect width="20" height="16" x="2" y="4" rx="2"></rect>
                 <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
               </svg>
@@ -887,20 +895,30 @@ class BMChatbot {
       `;
     }
 
-    // 4. Interactive Action Chips
+    // 4. Interactive Action Chips (Deduplicated against product showroom)
     let chipsHtml = '';
     if (data.chips && data.chips.length > 0) {
-      chipsHtml = `
-        <div class="bm-chat-chips">
-          ${data.chips.map(chip => {
-            const thumb = this.getChipThumbnail(chip);
-            if (thumb) {
-              return `<button type="button" class="bm-chat-chip bm-chat-chip--thumb" data-query="${this.escapeHtml(chip)}"><img src="${this.escapeHtml(thumb)}" alt="" class="bm-chat-chip__img" width="14" height="14" loading="lazy"><span>${this.escapeHtml(chip)}</span></button>`;
-            }
-            return `<button type="button" class="bm-chat-chip" data-query="${this.escapeHtml(chip)}"><span>${this.escapeHtml(chip)}</span></button>`;
-          }).join('')}
-        </div>
-      `;
+      let filteredChips = data.chips;
+      if (data.productsList && data.productsList.length > 0) {
+        const prodNames = data.productsList.map(p => (p.name || '').toLowerCase());
+        filteredChips = data.chips.filter(c => {
+          const cLower = c.toLowerCase();
+          return !prodNames.some(pName => cLower.includes(pName) || pName.includes(cLower));
+        });
+      }
+      if (filteredChips.length > 0) {
+        chipsHtml = `
+          <div class="bm-chat-chips">
+            ${filteredChips.map(chip => {
+              const thumb = this.getChipThumbnail(chip);
+              if (thumb) {
+                return `<button type="button" class="bm-chat-chip bm-chat-chip--thumb" data-query="${this.escapeHtml(chip)}"><img src="${this.escapeHtml(thumb)}" alt="" class="bm-chat-chip__img" width="14" height="14" loading="lazy"><span>${this.escapeHtml(chip)}</span></button>`;
+              }
+              return `<button type="button" class="bm-chat-chip" data-query="${this.escapeHtml(chip)}"><span>${this.escapeHtml(chip)}</span></button>`;
+            }).join('')}
+          </div>
+        `;
+      }
     }
 
     el.innerHTML = `
@@ -1010,6 +1028,10 @@ class BMChatbot {
     if (!markdown) return '';
     let html = this.escapeHtml(markdown);
 
+    // Markdown Headings (#, ##, ###) -> Clean prominent bold labels (Zero raw hashes)
+    html = html.replace(/^(?:###|##|#)\s*(.*$)/gim, '<strong>$1</strong>');
+    html = html.replace(/#{2,6}\s*/g, '');
+
     // Bold
     html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
@@ -1045,6 +1067,26 @@ class BMChatbot {
      Live Trade Desk Handover Methods
      ========================================================================== */
 
+  getClientTelemetry() {
+    let tz = '';
+    try {
+      tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    } catch {}
+    let offset = 0;
+    try {
+      offset = new Date().getTimezoneOffset();
+    } catch {}
+    const locale = navigator.language || navigator.userLanguage || '';
+    const page = window.location.pathname || '/';
+    return {
+      client_tz: tz,
+      client_offset: offset,
+      client_locale: locale,
+      page: page,
+      page_url: page
+    };
+  }
+
   initLiveChatDesk() {
     this.fetchOfficerStatus();
     // Periodically update officer online state while page is active
@@ -1055,7 +1097,8 @@ class BMChatbot {
 
   async fetchOfficerStatus() {
     try {
-      const res = await fetch(this.resolveAssetPath('api/live-chat.php?action=get_status'));
+      const telem = this.getClientTelemetry();
+      const res = await fetch(`${this.resolveAssetPath('api/live-chat.php')}?action=get_status&client_tz=${encodeURIComponent(telem.client_tz)}&page=${encodeURIComponent(telem.page)}`);
       const data = await res.json();
       if (data && data.success) {
         this.officerStatus = data;
@@ -1082,37 +1125,37 @@ class BMChatbot {
       `;
     } else if (this.chatMode === 'human') {
       this.agentDot.className = 'bm-chat-agent-bar__dot bm-chat-agent-bar__dot--online';
-      this.agentText.textContent = `Live: ${this.assignedOfficerName || 'Trade Specialist'}`;
+      this.agentText.textContent = `Connected: ${this.assignedOfficerName || 'BM Helper Desk'}`;
       this.agentActionBtn.className = 'bm-chat-agent-bar__action bm-chat-agent-bar__action--active';
       this.agentActionBtn.innerHTML = `
         <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
-        <span>End Live Chat</span>
+        <span>Return to AI</span>
       `;
     } else {
       this.agentActionBtn.className = 'bm-chat-agent-bar__action';
       if (this.officerStatus.is_online) {
         this.agentDot.className = 'bm-chat-agent-bar__dot bm-chat-agent-bar__dot--online';
         const count = this.officerStatus.online_count || 1;
-        this.agentText.textContent = `Trade Desk Online (${count})`;
+        this.agentText.textContent = `Trade Desk Active (${count})`;
         this.agentActionBtn.innerHTML = `
           <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
             <circle cx="12" cy="7" r="4"></circle>
           </svg>
-          <span>Talk to Human</span>
+          <span>Live Specialist</span>
         `;
       } else {
         this.agentDot.className = 'bm-chat-agent-bar__dot bm-chat-agent-bar__dot--offline';
-        this.agentText.textContent = 'AI Trade Assistant';
+        this.agentText.textContent = 'AI Trade Desk Active';
         this.agentActionBtn.innerHTML = `
           <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
             <circle cx="12" cy="7" r="4"></circle>
           </svg>
-          <span>Talk to Human</span>
+          <span>Live Specialist</span>
         `;
       }
     }
@@ -1122,13 +1165,22 @@ class BMChatbot {
     if (this.officerStatus.is_online) {
       this.chatMode = 'waiting_human';
       this.updateAgentBar();
-      this.renderSystemMessage('Connecting you with an active export desk officer... Your conversation context has been shared with our trade desk.');
+      this.renderSystemMessage('Connecting to BM Helper Desk...');
 
       try {
+        const telem = this.getClientTelemetry();
         const fd = new FormData();
         fd.append('action', 'request_human');
         fd.append('token', this.sessionToken);
-        fd.append('page_url', window.location.href);
+        fd.append('page', telem.page);
+        fd.append('page_url', telem.page_url);
+        fd.append('client_tz', telem.client_tz);
+        fd.append('client_offset', telem.client_offset);
+        fd.append('client_locale', telem.client_locale);
+        const lastUserMsg = [...this.messages].reverse().find(m => m.role === 'user');
+        if (lastUserMsg) {
+          fd.append('context', lastUserMsg.text);
+        }
         await fetch(this.resolveAssetPath('api/live-chat.php'), {
           method: 'POST',
           body: fd
@@ -1142,7 +1194,7 @@ class BMChatbot {
       const offlineHtml = `
         <div class="bm-chat-offline-box">
           <div class="bm-chat-offline-box__title">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"></circle>
               <polyline points="12 6 12 12 16 14"></polyline>
             </svg>
@@ -1178,7 +1230,7 @@ class BMChatbot {
     this.chatMode = 'bot';
     this.stopSyncLoop();
     this.updateAgentBar();
-    this.renderSystemMessage('Switched back to Balochistan Minerals AI Assistant.');
+    this.renderSystemMessage('Switched to AI Assistant.');
 
     try {
       const fd = new FormData();
@@ -1212,22 +1264,25 @@ class BMChatbot {
     if (this.chatMode === 'bot') return;
 
     try {
-      const url = `${this.resolveAssetPath('api/live-chat.php')}?action=sync&token=${encodeURIComponent(this.sessionToken)}&last_id=${this.lastMessageId}`;
+      const telem = this.getClientTelemetry();
+      const url = `${this.resolveAssetPath('api/live-chat.php')}?action=sync&token=${encodeURIComponent(this.sessionToken)}&last_id=${this.lastMessageId}&page=${encodeURIComponent(telem.page)}&client_tz=${encodeURIComponent(telem.client_tz)}&client_offset=${encodeURIComponent(telem.client_offset)}&client_locale=${encodeURIComponent(telem.client_locale)}`;
       const res = await fetch(url);
       const data = await res.json();
       if (data && data.success) {
-        if (data.session) {
-          if (data.session.status === 'active' && this.chatMode === 'waiting_human') {
+        const sessionStatus = data.status || (data.session && data.session.status) || '';
+        const assignedAgent = data.assigned_agent || (data.session && data.session.assigned_officer_name) || '';
+
+        if (sessionStatus === 'agent_active' || sessionStatus === 'active') {
+          if (this.chatMode === 'waiting_human') {
             this.chatMode = 'human';
-            this.assignedOfficerName = data.session.assigned_officer_name || 'Trade Specialist';
+            this.assignedOfficerName = assignedAgent || 'BM Helper Desk';
             this.updateAgentBar();
-            this.renderSystemMessage(`Trade Officer ${this.assignedOfficerName} has joined your session.`);
-          } else if (data.session.status === 'closed' && this.chatMode !== 'bot') {
-            this.chatMode = 'bot';
-            this.stopSyncLoop();
-            this.updateAgentBar();
-            this.renderSystemMessage('Live chat session closed by trade officer. You are now back with AI Assistant.');
           }
+        } else if (sessionStatus === 'closed' && this.chatMode !== 'bot') {
+          this.chatMode = 'bot';
+          this.stopSyncLoop();
+          this.updateAgentBar();
+          this.renderSystemMessage('Live chat session closed. Switched to AI Assistant.');
         }
 
         if (data.messages && data.messages.length > 0) {
@@ -1235,11 +1290,20 @@ class BMChatbot {
             if (msg.id > this.lastMessageId) {
               this.lastMessageId = msg.id;
             }
+            const textContent = msg.text || msg.message_text || '';
+            const timeContent = msg.time || msg.created_at || '';
             if (msg.sender_type === 'agent') {
-              this.renderAgentMessage(msg.sender_name, msg.message_text, msg.created_at);
+              if (this.chatMode !== 'human') {
+                this.chatMode = 'human';
+                this.assignedOfficerName = msg.sender_name || assignedAgent || 'BM Helper Desk';
+                this.updateAgentBar();
+              }
+              this.renderAgentMessage(msg.sender_name, textContent, timeContent);
               this.playChime();
             } else if (msg.sender_type === 'system') {
-              this.renderSystemMessage(msg.message_text);
+              if (textContent.trim()) {
+                this.renderSystemMessage(textContent);
+              }
             }
           }
           this.scrollToBottom();
@@ -1250,11 +1314,16 @@ class BMChatbot {
 
   async logVisitorMessageToBackend(text) {
     try {
+      const telem = this.getClientTelemetry();
       const fd = new FormData();
       fd.append('action', 'send_message');
       fd.append('token', this.sessionToken);
       fd.append('message', text);
-      fd.append('page_url', window.location.href);
+      fd.append('page', telem.page);
+      fd.append('page_url', telem.page_url);
+      fd.append('client_tz', telem.client_tz);
+      fd.append('client_offset', telem.client_offset);
+      fd.append('client_locale', telem.client_locale);
       const res = await fetch(this.resolveAssetPath('api/live-chat.php'), {
         method: 'POST',
         body: fd
@@ -1275,22 +1344,30 @@ class BMChatbot {
     const formatted = this.formatMarkdown(text);
 
     el.innerHTML = `
-      <div class="bm-chat-msg__bubble">
-        <div class="bm-chat-agent-badge">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
-          </svg>
-          <span>${this.escapeHtml(name || 'Trade Desk Officer')}</span>
+      <div class="bm-chat-agent-header">
+        <div class="bm-chat-agent-avatar" aria-hidden="true">
+          <img src="${this.resolveAssetPath('images/favicon/favicon-32x32.png')}" alt="BM" class="bm-chat-agent-avatar-img" width="16" height="16">
         </div>
+        <div class="bm-chat-agent-info">
+          <span class="bm-chat-agent-name">BM Helper Desk</span>
+        </div>
+        <span class="bm-chat-agent-time">${displayTime}</span>
+      </div>
+      <div class="bm-chat-msg__bubble">
         ${formatted}
       </div>
-      <span class="bm-chat-msg__meta">${displayTime} • Verified Officer</span>
     `;
     this.messagesContainer.appendChild(el);
     this.scrollToBottom();
   }
 
   renderSystemMessage(text) {
+    if (!text || !text.trim()) return;
+    // Deduplicate consecutive identical system notices
+    const lastMsg = this.messagesContainer?.lastElementChild;
+    if (lastMsg && lastMsg.classList.contains('bm-chat-msg--system')) {
+      if (lastMsg.textContent.trim().toLowerCase() === text.trim().toLowerCase()) return;
+    }
     const el = document.createElement('div');
     el.className = 'bm-chat-msg bm-chat-msg--system';
     el.innerHTML = `
@@ -1303,6 +1380,10 @@ class BMChatbot {
   }
 
   formatIsoOrTime(str) {
+    if (!str) return this.formatTime();
+    if (typeof str === 'string' && (str.includes('AM') || str.includes('PM'))) {
+      return str;
+    }
     try {
       const d = new Date(str);
       if (!isNaN(d.getTime())) {

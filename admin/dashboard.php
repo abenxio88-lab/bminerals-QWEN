@@ -1257,9 +1257,10 @@ function getBallInCourtStatus($row) {
                 <?php if (!empty($searchQuery)): ?>
                   <a href="dashboard.php" class="input-group-text text-decoration-none py-1.5" title="Clear search"><i class="bi bi-x-circle text-muted"></i></a>
                 <?php endif; ?>
+                <button type="submit" class="btn btn-dark btn-sm px-2.5 d-md-none" title="Search"><i class="bi bi-arrow-right"></i></button>
               </div>
             </div>
-            <div class="col-12 col-sm-6 col-md-3 col-xl-2">
+            <div class="col-6 col-sm-6 col-md-3 col-xl-2">
               <select name="status" class="form-select form-select-sm py-1.5" onchange="this.form.submit()">
                 <option value="">All Deal Stages</option>
                 <option value="New" <?= $filterStatus === 'New' ? 'selected' : '' ?>>New</option>
@@ -1271,12 +1272,12 @@ function getBallInCourtStatus($row) {
                 <option value="Closed" <?= $filterStatus === 'Closed' ? 'selected' : '' ?>>Closed</option>
               </select>
             </div>
-            <div class="col-12 col-sm-6 col-md-4 col-xl-4">
+            <div class="col-6 col-sm-6 col-md-4 col-xl-4">
               <select name="mineral" class="form-select form-select-sm py-1.5" onchange="this.form.submit()" title="Filter by Mineral or Commodity">
                 <?= renderCommodityOptions($filterMineral, true, 'All Commodities') ?>
               </select>
             </div>
-            <div class="col-12 col-md-12 col-xl-2 d-flex gap-1.5">
+            <div class="col-12 col-md-12 col-xl-2 d-none d-md-flex gap-1.5">
               <button type="submit" class="btn-filter-action flex-grow-1">
                 <i class="bi bi-funnel"></i> <span>Filter</span>
               </button>
@@ -1300,35 +1301,39 @@ function getBallInCourtStatus($row) {
         <!-- Inbound RFQ Pipeline Table -->
         <div class="table-panel">
           <div class="table-panel-header">
-            <div class="d-flex align-items-center gap-2 flex-wrap">
-              <h2 class="table-panel-title">
-                <i class="bi bi-table text-secondary"></i> Commercial Inquiries & RFQs
-              </h2>
-              <span class="badge rounded-pill bg-dark font-monospace px-2.5 py-1" id="inquiriesTableCount"><?= count($inquiries) ?></span>
-              <span class="table-scroll-hint" title="Use mouse wheel or drag horizontally to view all columns">
-                <i class="bi bi-arrows-expand-vertical"></i> Scroll ↔
-              </span>
+            <div class="table-panel-header-top">
+              <div class="d-flex align-items-center gap-2">
+                <h2 class="table-panel-title m-0">
+                  <i class="bi bi-table text-secondary"></i> Commercial Inquiries & RFQs
+                </h2>
+                <span class="badge rounded-pill bg-dark font-monospace px-2 py-0.5" id="inquiriesTableCount"><?= count($inquiries) ?></span>
+              </div>
+              <div class="table-panel-actions m-0">
+                <button type="button" class="btn btn-sm btn-primary d-inline-flex align-items-center gap-1.5 fw-semibold px-2.5 py-1.5" style="border-radius: 6px;" id="btnSyncMail" onclick="syncCorporateMail()" title="Check Hostinger IMAP Inboxes (sales@ and info@)">
+                  <i class="bi bi-arrow-repeat"></i> <span>Sync Emails</span>
+                </button>
+                <div class="btn-group btn-group-sm d-none d-sm-inline-flex">
+                  <button type="button" class="btn btn-outline-secondary py-1.5 d-none" id="btnResetRfqCols" onclick="resetRfqColumnWidths()" title="Reset table columns to balanced default (auto-expanding Commodity &amp; Specs)">
+                    <i class="bi bi-layout-three-columns"></i> <span class="d-none d-sm-inline ms-1">Reset Widths</span>
+                  </button>
+                  <button type="button" class="btn btn-outline-secondary py-1.5" id="btnToggleTableHeight" onclick="toggleTableHeight()" title="Toggle Scroll View vs Expanded View">
+                    <i class="bi bi-arrows-expand"></i> <span class="d-none d-sm-inline ms-1">Expand</span>
+                  </button>
+                  <button type="button" class="btn btn-outline-secondary py-1.5" onclick="window.print()" title="Print RFQ Register">
+                    <i class="bi bi-printer"></i> <span class="d-none d-sm-inline ms-1">Print</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="table-panel-header-sub">
               <!-- Real-Time Live Sync Indicator -->
-              <div class="live-sync-pill" id="liveSyncStatusBadge" onclick="checkLiveUpdates(true)" title="Real-Time Auto Sync Active • Click to refresh">
+              <div class="live-sync-pill m-0" id="liveSyncStatusBadge" onclick="checkLiveUpdates(true)" title="Real-Time Auto Sync Active • Click to refresh">
                 <span class="live-sync-dot"></span>
                 <span id="liveSyncStatusText">Live Sync Active</span>
               </div>
-            </div>
-            <div class="table-panel-actions">
-              <button type="button" class="btn btn-sm btn-primary d-inline-flex align-items-center gap-1.5 fw-semibold px-3 py-1.5" style="border-radius: 6px;" id="btnSyncMail" onclick="syncCorporateMail()" title="Check Hostinger IMAP Inboxes (sales@ and info@)">
-                <i class="bi bi-arrow-repeat"></i> <span>Sync Emails</span>
-              </button>
-              <div class="btn-group btn-group-sm">
-                <button type="button" class="btn btn-outline-secondary py-1.5 d-none" id="btnResetRfqCols" onclick="resetRfqColumnWidths()" title="Reset table columns to balanced default (auto-expanding Commodity &amp; Specs)">
-                  <i class="bi bi-layout-three-columns"></i> <span class="d-none d-sm-inline ms-1">Reset Widths</span>
-                </button>
-                <button type="button" class="btn btn-outline-secondary py-1.5" id="btnToggleTableHeight" onclick="toggleTableHeight()" title="Toggle Scroll View vs Expanded View">
-                  <i class="bi bi-arrows-expand"></i> <span class="d-none d-sm-inline ms-1">Expand</span>
-                </button>
-                <button type="button" class="btn btn-outline-secondary py-1.5" onclick="window.print()" title="Print RFQ Register">
-                  <i class="bi bi-printer"></i> <span class="d-none d-sm-inline ms-1">Print</span>
-                </button>
-              </div>
+              <span class="table-scroll-hint m-0" title="Swipe horizontally to view all columns">
+                <i class="bi bi-arrows-expand-vertical"></i> Scroll ↔
+              </span>
             </div>
           </div>
 

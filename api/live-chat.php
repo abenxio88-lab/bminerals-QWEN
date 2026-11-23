@@ -19,7 +19,7 @@ if (!$pdo) {
 
 ensureLiveChatSchema($pdo);
 
-// Parse input
+// Parse input (supports JSON, FormData, and GET)
 $raw = file_get_contents('php://input');
 $json = json_decode($raw, true) ?: [];
 $action = cleanInput($json['action'] ?? $_POST['action'] ?? $_GET['action'] ?? 'get_status');
@@ -33,9 +33,16 @@ if (!empty($_SERVER['HTTP_CF_CONNECTING_IP'])) {
     $visitorIp = trim($parts[0]);
 }
 
-$page = cleanInput($json['page'] ?? $_POST['page'] ?? $_GET['page'] ?? '');
-$mineral = cleanInput($json['mineral'] ?? $_POST['mineral'] ?? $_GET['mineral'] ?? '');
-$country = cleanInput($_SERVER['HTTP_CF_IPCOUNTRY'] ?? 'International');
+$page = cleanInput($json['page'] ?? $json['page_url'] ?? $_POST['page'] ?? $_POST['page_url'] ?? $_GET['page'] ?? $_GET['page_url'] ?? '');
+if ($page !== '' && (str_starts_with($page, 'http://') || str_starts_with($page, 'https://'))) {
+    $parsedPath = parse_url($page, PHP_URL_PATH);
+    if ($parsedPath) $page = $parsedPath;
+}
+
+$mineral      = cleanInput($json['mineral'] ?? $json['mineral_interest'] ?? $_POST['mineral'] ?? $_POST['mineral_interest'] ?? $_GET['mineral'] ?? '');
+$clientTz     = cleanInput($json['client_tz'] ?? $_POST['client_tz'] ?? $_GET['client_tz'] ?? '');
+$clientLocale = cleanInput($json['client_locale'] ?? $_POST['client_locale'] ?? $_GET['client_locale'] ?? '');
+$clientOffset = isset($json['client_offset']) ? (int)$json['client_offset'] : (isset($_POST['client_offset']) ? (int)$_POST['client_offset'] : (isset($_GET['client_offset']) ? (int)$_GET['client_offset'] : null));
 
 // 1. GET STATUS: Online status of trade desk
 if ($action === 'get_status') {
@@ -56,11 +63,19 @@ if (empty($token) || strlen($token) < 16) {
     $token = bin2hex(random_bytes(16));
 }
 
+// Multi-tier geolocation resolution
+$cfCountry = $_SERVER['HTTP_CF_IPCOUNTRY'] ?? null;
+$cfCity    = $_SERVER['HTTP_CF_IPCITY'] ?? null;
+$geo = resolveVisitorGeo($visitorIp, $cfCountry, $cfCity, $clientTz, $clientLocale, $clientOffset);
+
 $session = getOrCreateChatSession($pdo, $token, [
     'ip'               => $visitorIp,
     'page'             => $page,
     'mineral_interest' => $mineral,
-    'country'          => $country,
+    'country'          => $geo['country'],
+    'country_code'     => $geo['country_code'],
+    'city'             => $geo['city'],
+    'timezone'         => $geo['timezone'],
 ]);
 
 // 2. REQUEST HUMAN AGENT
@@ -69,23 +84,48 @@ if ($action === 'request_human') {
     $isOnline = ($onlineCount > 0);
 
     if ($session['status'] === 'bot' || $session['status'] === 'closed') {
-        $newStatus = $isOnline ? 'waiting_human' : 'waiting_human';
+        $newStatus = 'waiting_human';
         $pdo->prepare("UPDATE `chat_sessions` SET status = ?, updated_at = NOW() WHERE id = ?")
             ->execute([$newStatus, $session['id']]);
 
-        // Insert system announcement message
-        if ($isOnline) {
-            $sysMsg = "Connecting you to an Export Desk Specialist. Our team is online and has been alerted.";
-            logChatMessage($pdo, (int)$session['id'], 'system', 'Trade Desk System', $sysMsg);
+        $context = cleanInput($json['context'] ?? $_POST['context'] ?? '');
+        if ($context !== '') {
+            logChatMessage($pdo, (int)$session['id'], 'visitor', $session['visitor_name'] ?: ('Buyer #' . (1000 + (int)$session['id'])), $context);
 
-            // Log notification for admin officers
+            // Auto-extract lead intelligence from initial inquiry context
+            $intel = extractLeadIntelligenceFromText($context);
+            if (!empty($intel)) {
+                $sessionUp = [];
+                $params = [];
+                if (!empty($intel['email']) && empty($session['visitor_email'])) {
+                    $sessionUp[] = "visitor_email = ?";
+                    $params[] = $intel['email'];
+                }
+                if (!empty($intel['phone']) && empty($session['visitor_phone'])) {
+                    $sessionUp[] = "visitor_phone = ?";
+                    $params[] = $intel['phone'];
+                }
+                if (!empty($intel['mineral']) && (empty($session['mineral_interest']) || $session['mineral_interest'] === 'Export Minerals')) {
+                    $sessionUp[] = "mineral_interest = ?";
+                    $params[] = $intel['mineral'];
+                }
+                if (!empty($sessionUp)) {
+                    $params[] = $session['id'];
+                    $pdo->prepare("UPDATE `chat_sessions` SET " . implode(", ", $sessionUp) . ", updated_at = NOW() WHERE id = ?")->execute($params);
+                }
+            }
+        }
+
+        // Log notification for admin officers
+        if ($isOnline) {
             if (function_exists('logAdminNotification')) {
+                $notifSummary = $context ? "Inquiry: \"{$context}\"" : "Buyer on {$session['current_page']} ({$session['country']}) requested live assistance.";
                 logAdminNotification(
                     $pdo,
                     'urgent',
                     'lead',
                     '🔴 Live Chat Handover Requested',
-                    "Visitor on {$session['current_page']} ({$session['country']}) requested live agent assistance.",
+                    $notifSummary,
                     null,
                     'admin/live-chat.php?session=' . (int)$session['id'],
                     5
@@ -115,54 +155,69 @@ if ($action === 'send_message') {
         exit;
     }
 
+    $buyerDisplayName = $session['visitor_name'] ?: ('Buyer #' . (1000 + (int)$session['id']));
+
     // Save visitor message
-    $msgId = logChatMessage($pdo, (int)$session['id'], 'visitor', $session['visitor_name'], $messageText);
+    $msgId = logChatMessage($pdo, (int)$session['id'], 'visitor', $buyerDisplayName, $messageText);
 
-    $replyData = null;
-
-    // If currently in BOT mode, also query the AI knowledge engine to generate auto-response
-    if ($session['status'] === 'bot') {
-        // Query existing knowledge logic
-        $botReplyText = '';
-        $botChips = ['Talk to Live Specialist', 'Live Spot Prices', 'Stockpiles Ready', 'Request Official Quotation'];
-
-        // Simple fast responder or dispatch to AI
-        // Let's call chatbot internal query
-        ob_start();
-        $_POST['action'] = 'query';
-        $_POST['query'] = $messageText;
-        $_POST['page'] = $page;
-        include __DIR__ . '/chatbot.php';
-        $rawBot = ob_get_clean();
-        $botJson = json_decode($rawBot, true);
-
-        if (!empty($botJson['text'])) {
-            $botReplyText = $botJson['text'];
-            if (!empty($botJson['chips'])) {
-                $botChips = $botJson['chips'];
-            }
-        } else {
-            $botReplyText = "Thank you for your message. Would you like to connect directly with a live Trade Desk Specialist for current vessel allocations and official pricing?";
+    // Auto-extract lead intelligence (email, phone, mineral, buyer name)
+    $intel = extractLeadIntelligenceFromText($messageText);
+    if (!empty($intel)) {
+        $sessionUp = [];
+        $params = [];
+        if (!empty($intel['email']) && empty($session['visitor_email'])) {
+            $sessionUp[] = "visitor_email = ?";
+            $params[] = $intel['email'];
+            $session['visitor_email'] = $intel['email'];
+        }
+        if (!empty($intel['phone']) && empty($session['visitor_phone'])) {
+            $sessionUp[] = "visitor_phone = ?";
+            $params[] = $intel['phone'];
+            $session['visitor_phone'] = $intel['phone'];
+        }
+        if (!empty($intel['mineral']) && (empty($session['mineral_interest']) || $session['mineral_interest'] === 'Export Minerals')) {
+            $sessionUp[] = "mineral_interest = ?";
+            $params[] = $intel['mineral'];
+            $session['mineral_interest'] = $intel['mineral'];
         }
 
-        // Log bot answer into conversation
-        $botMsgId = logChatMessage($pdo, (int)$session['id'], 'bot', 'Balochistan Minerals AI', $botReplyText);
-        $replyData = [
-            'id'          => $botMsgId,
-            'sender_type' => 'bot',
-            'sender_name' => 'Balochistan Minerals AI',
-            'text'        => $botReplyText,
-            'chips'       => $botChips,
-            'time'        => date('h:i A'),
-        ];
-    } else {
-        // If in waiting_human, send alert to admin if first message in wait state
+        // Smart name promotion if generic Buyer #ID
+        $currentName = $session['visitor_name'];
+        $isGeneric = (empty($currentName) || $currentName === 'Guest Buyer' || str_starts_with($currentName, 'Buyer #'));
+        if ($isGeneric) {
+            $promotedName = '';
+            if (!empty($intel['name']) && !empty($intel['company'])) {
+                $promotedName = "{$intel['name']} ({$intel['company']})";
+            } elseif (!empty($intel['name'])) {
+                $promotedName = "{$intel['name']} (Buyer #" . (1000 + (int)$session['id']) . ")";
+            } elseif (!empty($intel['company'])) {
+                $promotedName = "{$intel['company']} (Buyer #" . (1000 + (int)$session['id']) . ")";
+            } elseif (!empty($intel['email'])) {
+                $emailUser = explode('@', $intel['email'])[0];
+                $promotedName = ucwords(str_replace(['.', '_', '-'], ' ', $emailUser)) . " (Buyer #" . (1000 + (int)$session['id']) . ")";
+            }
+
+            if ($promotedName !== '') {
+                $sessionUp[] = "visitor_name = ?";
+                $params[] = $promotedName;
+                $session['visitor_name'] = $promotedName;
+            }
+        }
+
+        if (!empty($sessionUp)) {
+            $params[] = $session['id'];
+            $pdo->prepare("UPDATE `chat_sessions` SET " . implode(", ", $sessionUp) . ", updated_at = NOW() WHERE id = ?")->execute($params);
+        }
+    }
+
+    // If in waiting_human or agent_active, notify trade desk officers
+    if ($session['status'] === 'waiting_human' || $session['status'] === 'agent_active') {
         if (function_exists('logAdminNotification')) {
             logAdminNotification(
                 $pdo,
                 'urgent',
                 'lead',
-                '💬 New Message from Visitor in Queue',
+                '💬 Live Chat Message from Buyer',
                 mb_substr($messageText, 0, 100),
                 null,
                 'admin/live-chat.php?session=' . (int)$session['id'],
@@ -176,7 +231,6 @@ if ($action === 'send_message') {
         'msg_id'     => $msgId,
         'status'     => $session['status'],
         'assigned'   => $session['assigned_admin_name'],
-        'bot_reply'  => $replyData,
     ]);
     exit;
 }
@@ -185,7 +239,13 @@ if ($action === 'send_message') {
 if ($action === 'sync') {
     $lastId = (int)($json['last_id'] ?? $_POST['last_id'] ?? $_GET['last_id'] ?? 0);
 
-    // Refresh session data
+    // Refresh session data and update current_page if live navigation passed
+    if ($page !== '' && $page !== $session['current_page']) {
+        $pdo->prepare("UPDATE `chat_sessions` SET current_page = ?, updated_at = NOW() WHERE id = ?")
+            ->execute([$page, $session['id']]);
+        $session['current_page'] = $page;
+    }
+
     $stmt = $pdo->prepare("SELECT * FROM `chat_sessions` WHERE id = ? LIMIT 1");
     $stmt->execute([$session['id']]);
     $session = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -207,18 +267,36 @@ if ($action === 'sync') {
 
     $onlineCount = countOnlineTradeDeskOfficers($pdo, 5);
 
+    // Clean assigned agent title for public visitor display
+    $publicAgentName = 'BM Helper Desk';
+
     echo json_encode([
         'success'        => true,
         'status'         => $session['status'],
-        'assigned_agent' => $session['assigned_admin_name'],
+        'assigned_agent' => $publicAgentName,
         'is_online'      => ($onlineCount > 0),
         'online_count'   => $onlineCount,
         'messages'       => array_map(function($m) {
+            $sender = $m['sender_name'];
+            $text   = $m['message_text'];
+            if ($m['sender_type'] === 'agent') {
+                $sender = 'BM Helper Desk';
+            } elseif ($m['sender_type'] === 'system') {
+                if (stripos($text, 'has joined') !== false || stripos($text, 'joined the conversation') !== false) {
+                    $text = 'BM Helper Desk has joined the conversation.';
+                } elseif (stripos($text, 'closed') !== false) {
+                    $text = 'Live session closed and archived by BM Helper Desk.';
+                } elseif (stripos($text, 'connecting') !== false) {
+                    $text = 'Connecting to BM Helper Desk...';
+                } elseif (stripos($text, 'returned to ai') !== false) {
+                    $text = 'Switched to AI Assistant.';
+                }
+            }
             return [
                 'id'          => (int)$m['id'],
                 'sender_type' => $m['sender_type'],
-                'sender_name' => $m['sender_name'],
-                'text'        => $m['message_text'],
+                'sender_name' => $sender,
+                'text'        => $text,
                 'time'        => date('h:i A', strtotime($m['created_at'])),
             ];
         }, $newMessages),
@@ -249,7 +327,7 @@ if ($action === 'leave_lead') {
                 VALUES (?, ?, ?, 'Live Chat Lead', ?, ?, 'Live Chat Desk', 'New', NOW())");
             $mineralInterest = $session['mineral_interest'] ?: 'General Inquiry';
             $fullNotes = "Lead captured via Live Chat Handover. Page: {$session['current_page']}. Notes: {$notes}";
-            $inqStmt->execute([$name ?: 'Guest Buyer', $email, $phone, $mineralInterest, $fullNotes]);
+            $inqStmt->execute([$name ?: ('Buyer #' . (1000 + (int)$session['id'])), $email, $phone, $mineralInterest, $fullNotes]);
         } catch (Exception $e) {}
     }
 
@@ -266,7 +344,6 @@ if ($action === 'leave_lead') {
 if ($action === 'reset_to_bot') {
     $pdo->prepare("UPDATE `chat_sessions` SET status = 'bot', updated_at = NOW() WHERE id = ?")
         ->execute([$session['id']]);
-    logChatMessage($pdo, (int)$session['id'], 'system', 'Trade Desk System', "Session returned to AI Assistant mode.");
     echo json_encode(['success' => true]);
     exit;
 }

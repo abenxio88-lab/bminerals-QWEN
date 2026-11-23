@@ -283,6 +283,10 @@ $conversionRate = $totalInquiries > 0 ? round((($statusCounts['Contract Signed']
             <span class="badge bg-dark font-monospace" style="font-size: 0.7rem;"><?= $statusCounts['New'] ?></span>
           <?php endif; ?>
         </a>
+        <a href="live-chat.php" class="sidebar-link">
+          <div><i class="bi bi-chat-dots-fill"></i> Live Chat Desk</div>
+          <span class="badge bg-danger font-monospace" style="font-size: 0.65rem;">LIVE</span>
+        </a>
         <a href="email-desk.php" class="sidebar-link">
           <div><i class="bi bi-envelope"></i> Email Reply Desk</div>
           <span class="badge-sidebar-hostinger">HOSTINGER</span>
