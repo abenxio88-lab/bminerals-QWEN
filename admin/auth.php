@@ -234,6 +234,7 @@ function requirePermission($perm, $isApi = false) {
 function getAllowedSidebarPages() {
     return [
         'dashboard.php'        => hasPermission('view_rfqs'),
+        'live-chat.php'        => hasPermission('draft_reply'),
         'email-desk.php'       => hasPermission('draft_reply'),
         'prospects.php'        => hasPermission('view_prospects'),
         'radar.php'            => hasPermission('view_radar'),

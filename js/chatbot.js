@@ -27,7 +27,30 @@ class BMChatbot {
     this.onTouchMove = null;
     this.onTouchStart = null;
 
+    // Live Trade Desk Handover state
+    this.sessionToken = this.getSessionToken();
+    this.chatMode = 'bot'; // 'bot' | 'waiting_human' | 'human'
+    this.officerStatus = { is_online: false, online_count: 0, officers: [] };
+    this.assignedOfficerName = '';
+    this.syncTimer = null;
+    this.statusTimer = null;
+    this.lastMessageId = 0;
+    this.audioCtx = null;
+
     this.init();
+  }
+
+  getSessionToken() {
+    try {
+      let token = localStorage.getItem('bm_live_chat_token');
+      if (!token) {
+        token = 'usr_' + Math.random().toString(36).substring(2, 12) + Date.now().toString(36);
+        localStorage.setItem('bm_live_chat_token', token);
+      }
+      return token;
+    } catch {
+      return 'usr_' + Math.random().toString(36).substring(2, 12);
+    }
   }
 
   init() {
@@ -36,6 +59,7 @@ class BMChatbot {
     this.render();
     this.bindEvents();
     this.initScrollVisibility();
+    this.initLiveChatDesk();
 
     if (this.messages.length === 0) {
       this.addWelcomeMessage();
@@ -184,6 +208,21 @@ class BMChatbot {
           </div>
         </div>
 
+        <!-- Live Trade Desk Presence Bar -->
+        <div class="bm-chat-agent-bar" aria-live="polite">
+          <div class="bm-chat-agent-bar__status">
+            <span class="bm-chat-agent-bar__dot bm-chat-agent-bar__dot--offline"></span>
+            <span class="bm-chat-agent-bar__text">Balochistan Minerals AI Assistant</span>
+          </div>
+          <button type="button" class="bm-chat-agent-bar__action" aria-label="Talk to Trade Desk Specialist">
+            <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Talk to Human</span>
+          </button>
+        </div>
+
         <!-- Chat Stream Body -->
         <div class="bm-chat-body" data-lenis-prevent data-lenis-prevent-wheel data-lenis-prevent-touch>
           <div class="bm-chat-messages-container"></div>
@@ -217,6 +256,10 @@ class BMChatbot {
     this.sendBtn = root.querySelector('.bm-chat-send');
     this.form = root.querySelector('.bm-chat-form');
     this.whatsappBtn = root.querySelector('.bm-chat-btn-whatsapp');
+    this.agentBar = root.querySelector('.bm-chat-agent-bar');
+    this.agentDot = root.querySelector('.bm-chat-agent-bar__dot');
+    this.agentText = root.querySelector('.bm-chat-agent-bar__text');
+    this.agentActionBtn = root.querySelector('.bm-chat-agent-bar__action');
   }
 
   bindEvents() {
@@ -233,6 +276,16 @@ class BMChatbot {
     const minimizeBtn = this.container.querySelector('.bm-chat-btn-minimize');
     if (minimizeBtn) {
       minimizeBtn.addEventListener('click', () => this.toggleMinimize());
+    }
+
+    if (this.agentActionBtn) {
+      this.agentActionBtn.addEventListener('click', () => {
+        if (this.chatMode === 'waiting_human' || this.chatMode === 'human') {
+          this.switchToBot();
+        } else {
+          this.requestHumanAgent();
+        }
+      });
     }
 
     if (this.whatsappBtn) {
@@ -396,6 +449,12 @@ class BMChatbot {
       this.whatsappBtn.classList.add('is-blinking');
     }
 
+    // 7. Refresh Live Officer Presence & Resume sync if in human mode
+    this.fetchOfficerStatus();
+    if (this.chatMode === 'waiting_human' || this.chatMode === 'human') {
+      this.startSyncLoop();
+    }
+
     // Focus input on desktop; on touch devices avoid auto-triggering keyboard immediately on open
     setTimeout(() => {
       if (window.innerWidth > 768) {
@@ -406,6 +465,9 @@ class BMChatbot {
 
   close() {
     this.isOpen = false;
+
+    // Pause fast sync loop while chat is closed
+    this.stopSyncLoop();
 
     // Reset WhatsApp icon blinking animation if closed mid-animation
     if (this.whatsappBtn) {
@@ -584,7 +646,11 @@ class BMChatbot {
     sessionStorage.removeItem(STORAGE_KEY);
     this.messages = [];
     this.messagesContainer.innerHTML = '';
-    this.addWelcomeMessage();
+    if (this.chatMode !== 'bot') {
+      this.switchToBot();
+    } else {
+      this.addWelcomeMessage();
+    }
   }
 
   addWelcomeMessage() {
@@ -658,6 +724,15 @@ class BMChatbot {
     this.messages.push({ role: 'user', text, time });
     this.saveHistory();
     this.scrollToBottom();
+
+    // Transmit visitor message to live desk backend (logs context for human officers)
+    this.logVisitorMessageToBackend(text);
+
+    // If waiting for human or chatting with officer, do NOT trigger AI bot response
+    if (this.chatMode === 'waiting_human' || this.chatMode === 'human') {
+      this.startSyncLoop();
+      return;
+    }
 
     // Show typing indicator
     this.showTyping();
@@ -964,6 +1039,296 @@ class BMChatbot {
       });
 
     return paragraphs.join('');
+  }
+
+  /* ==========================================================================
+     Live Trade Desk Handover Methods
+     ========================================================================== */
+
+  initLiveChatDesk() {
+    this.fetchOfficerStatus();
+    // Periodically update officer online state while page is active
+    this.statusTimer = setInterval(() => {
+      this.fetchOfficerStatus();
+    }, 25000);
+  }
+
+  async fetchOfficerStatus() {
+    try {
+      const res = await fetch(this.resolveAssetPath('api/live-chat.php?action=get_status'));
+      const data = await res.json();
+      if (data && data.success) {
+        this.officerStatus = data;
+        this.updateAgentBar();
+      }
+    } catch {
+      // Keep existing state on transient network blip
+    }
+  }
+
+  updateAgentBar() {
+    if (!this.agentBar || !this.agentDot || !this.agentText || !this.agentActionBtn) return;
+
+    if (this.chatMode === 'waiting_human') {
+      this.agentDot.className = 'bm-chat-agent-bar__dot bm-chat-agent-bar__dot--waiting';
+      this.agentText.textContent = 'Connecting to Trade Desk...';
+      this.agentActionBtn.className = 'bm-chat-agent-bar__action bm-chat-agent-bar__action--active';
+      this.agentActionBtn.innerHTML = `
+        <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+        <span>Return to AI</span>
+      `;
+    } else if (this.chatMode === 'human') {
+      this.agentDot.className = 'bm-chat-agent-bar__dot bm-chat-agent-bar__dot--online';
+      this.agentText.textContent = `Live: ${this.assignedOfficerName || 'Trade Specialist'}`;
+      this.agentActionBtn.className = 'bm-chat-agent-bar__action bm-chat-agent-bar__action--active';
+      this.agentActionBtn.innerHTML = `
+        <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+        <span>End Live Chat</span>
+      `;
+    } else {
+      this.agentActionBtn.className = 'bm-chat-agent-bar__action';
+      if (this.officerStatus.is_online) {
+        this.agentDot.className = 'bm-chat-agent-bar__dot bm-chat-agent-bar__dot--online';
+        const count = this.officerStatus.online_count || 1;
+        this.agentText.textContent = `Trade Desk Online (${count} Available)`;
+        this.agentActionBtn.innerHTML = `
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span>Talk to Human</span>
+        `;
+      } else {
+        this.agentDot.className = 'bm-chat-agent-bar__dot bm-chat-agent-bar__dot--offline';
+        this.agentText.textContent = 'Balochistan Minerals AI Assistant';
+        this.agentActionBtn.innerHTML = `
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span>Talk to Human</span>
+        `;
+      }
+    }
+  }
+
+  async requestHumanAgent() {
+    if (this.officerStatus.is_online) {
+      this.chatMode = 'waiting_human';
+      this.updateAgentBar();
+      this.renderSystemMessage('Connecting you with an active export desk officer... Your conversation context has been shared with our trade desk.');
+
+      try {
+        const fd = new FormData();
+        fd.append('action', 'request_human');
+        fd.append('token', this.sessionToken);
+        fd.append('page_url', window.location.href);
+        await fetch(this.resolveAssetPath('api/live-chat.php'), {
+          method: 'POST',
+          body: fd
+        });
+      } catch {}
+
+      this.startSyncLoop();
+    } else {
+      this.renderSystemMessage('Our trade desk officers are currently off-duty (Operating Hours: 09:00 - 21:00 PKT UTC+5).');
+
+      const offlineHtml = `
+        <div class="bm-chat-offline-box">
+          <div class="bm-chat-offline-box__title">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span>Direct Commercial Trade Line</span>
+          </div>
+          <p class="bm-chat-offline-box__text">
+            For vessel allocations, Letter of Credit (L/C) terms, or CIF container quotes, connect directly with our on-call director:
+          </p>
+          <div class="bm-chat-offline-box__actions">
+            <a href="https://wa.me/923348888104?text=Hello%2C%20I%20would%20like%20to%20connect%20with%20a%20human%20trade%20specialist%20regarding%20mineral%20sourcing."
+               target="_blank" rel="noopener noreferrer" class="bm-chat-offline-btn bm-chat-offline-btn--wa">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.456 5.71 1.457h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+              </svg>
+              <span>WhatsApp Direct</span>
+            </a>
+            <a href="mailto:exports@balochistanminerals.com?subject=Direct%20Trade%20Inquiry%20-%20Balochistan%20Minerals"
+               class="bm-chat-offline-btn bm-chat-offline-btn--email">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+              </svg>
+              <span>Email Trade Desk</span>
+            </a>
+          </div>
+        </div>
+      `;
+      this.appendHtml(offlineHtml);
+    }
+  }
+
+  async switchToBot() {
+    this.chatMode = 'bot';
+    this.stopSyncLoop();
+    this.updateAgentBar();
+    this.renderSystemMessage('Switched back to Balochistan Minerals AI Assistant.');
+
+    try {
+      const fd = new FormData();
+      fd.append('action', 'reset_to_bot');
+      fd.append('token', this.sessionToken);
+      await fetch(this.resolveAssetPath('api/live-chat.php'), {
+        method: 'POST',
+        body: fd
+      });
+    } catch {}
+  }
+
+  startSyncLoop() {
+    this.stopSyncLoop();
+    this.syncMessages();
+    this.syncTimer = setInterval(() => {
+      if (this.isOpen && (this.chatMode === 'waiting_human' || this.chatMode === 'human')) {
+        this.syncMessages();
+      }
+    }, 2500);
+  }
+
+  stopSyncLoop() {
+    if (this.syncTimer) {
+      clearInterval(this.syncTimer);
+      this.syncTimer = null;
+    }
+  }
+
+  async syncMessages() {
+    if (this.chatMode === 'bot') return;
+
+    try {
+      const url = `${this.resolveAssetPath('api/live-chat.php')}?action=sync&token=${encodeURIComponent(this.sessionToken)}&last_id=${this.lastMessageId}`;
+      const res = await fetch(url);
+      const data = await res.json();
+      if (data && data.success) {
+        if (data.session) {
+          if (data.session.status === 'active' && this.chatMode === 'waiting_human') {
+            this.chatMode = 'human';
+            this.assignedOfficerName = data.session.assigned_officer_name || 'Trade Specialist';
+            this.updateAgentBar();
+            this.renderSystemMessage(`Trade Officer ${this.assignedOfficerName} has joined your session.`);
+          } else if (data.session.status === 'closed' && this.chatMode !== 'bot') {
+            this.chatMode = 'bot';
+            this.stopSyncLoop();
+            this.updateAgentBar();
+            this.renderSystemMessage('Live chat session closed by trade officer. You are now back with AI Assistant.');
+          }
+        }
+
+        if (data.messages && data.messages.length > 0) {
+          for (const msg of data.messages) {
+            if (msg.id > this.lastMessageId) {
+              this.lastMessageId = msg.id;
+            }
+            if (msg.sender_type === 'agent') {
+              this.renderAgentMessage(msg.sender_name, msg.message_text, msg.created_at);
+              this.playChime();
+            } else if (msg.sender_type === 'system') {
+              this.renderSystemMessage(msg.message_text);
+            }
+          }
+          this.scrollToBottom();
+        }
+      }
+    } catch {}
+  }
+
+  async logVisitorMessageToBackend(text) {
+    try {
+      const fd = new FormData();
+      fd.append('action', 'send_message');
+      fd.append('token', this.sessionToken);
+      fd.append('message', text);
+      fd.append('page_url', window.location.href);
+      const res = await fetch(this.resolveAssetPath('api/live-chat.php'), {
+        method: 'POST',
+        body: fd
+      });
+      const data = await res.json();
+      if (data && data.success && data.message_id) {
+        if (data.message_id > this.lastMessageId) {
+          this.lastMessageId = data.message_id;
+        }
+      }
+    } catch {}
+  }
+
+  renderAgentMessage(name, text, timeStr) {
+    const el = document.createElement('div');
+    el.className = 'bm-chat-msg bm-chat-msg--agent';
+    const displayTime = timeStr ? this.formatIsoOrTime(timeStr) : this.formatTime();
+    const formatted = this.formatMarkdown(text);
+
+    el.innerHTML = `
+      <div class="bm-chat-msg__bubble">
+        <div class="bm-chat-agent-badge">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+          </svg>
+          <span>${this.escapeHtml(name || 'Trade Desk Officer')}</span>
+        </div>
+        ${formatted}
+      </div>
+      <span class="bm-chat-msg__meta">${displayTime} • Verified Officer</span>
+    `;
+    this.messagesContainer.appendChild(el);
+    this.scrollToBottom();
+  }
+
+  renderSystemMessage(text) {
+    const el = document.createElement('div');
+    el.className = 'bm-chat-msg bm-chat-msg--system';
+    el.innerHTML = `
+      <div class="bm-chat-msg__bubble">
+        <span>${this.escapeHtml(text)}</span>
+      </div>
+    `;
+    this.messagesContainer.appendChild(el);
+    this.scrollToBottom();
+  }
+
+  formatIsoOrTime(str) {
+    try {
+      const d = new Date(str);
+      if (!isNaN(d.getTime())) {
+        return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      }
+    } catch {}
+    return this.formatTime();
+  }
+
+  playChime() {
+    try {
+      const ctx = this.audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+      this.audioCtx = ctx;
+      if (ctx.state === 'suspended') ctx.resume();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(659.25, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.12);
+      gain.gain.setValueAtTime(0.08, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.35);
+    } catch {}
   }
 }
 

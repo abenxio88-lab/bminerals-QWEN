@@ -38,6 +38,10 @@ try {
     $quotedLeads    = (int)$pdo->query("SELECT COUNT(*) FROM inquiries WHERE status IN ('Quoted', 'Assay Sent', 'Sample Sent')")->fetchColumn();
     $closedLeads    = (int)$pdo->query("SELECT COUNT(*) FROM inquiries WHERE status = 'Contract Signed'")->fetchColumn();
     $pendingReviews = (int)$pdo->query("SELECT COUNT(*) FROM reviews WHERE status = 'Pending'")->fetchColumn();
+    $waitingChats   = 0;
+    try {
+        $waitingChats = (int)$pdo->query("SELECT COUNT(*) FROM `chat_sessions` WHERE status = 'waiting_human'")->fetchColumn();
+    } catch (Exception $e) {}
     $maxId          = (int)$pdo->query("SELECT COALESCE(MAX(id), 0) FROM inquiries")->fetchColumn();
 
     $hasNew = false;
@@ -127,7 +131,8 @@ try {
             'contactedLeads' => $contactedLeads,
             'quotedLeads'    => $quotedLeads,
             'closedLeads'    => $closedLeads,
-            'pendingReviews' => $pendingReviews
+            'pendingReviews' => $pendingReviews,
+            'waitingChats'   => $waitingChats
         ],
         'timestamp' => time()
     ]);
