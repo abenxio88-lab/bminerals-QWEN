@@ -54,6 +54,12 @@ $csrfToken = getCsrfToken();
       --sidebar-width: 280px;
     }
     body { font-family: 'Poppins', sans-serif; font-size: 0.88rem; color: var(--text-dark); background-color: var(--brand-canvas); margin: 0; }
+    /* Executive Density Desktop Calibration (92% zoom scale) */
+    @media (min-width: 992px) {
+      body {
+        zoom: 0.92;
+      }
+    }
     h1, h2, h3, h4, h5, h6, .brand-font { font-family: 'Montserrat', sans-serif; letter-spacing: -0.015em; }
 
     .app-wrapper { display: flex; min-height: 100vh; }
@@ -979,8 +985,16 @@ $csrfToken = getCsrfToken();
       margin-right: 12px;
     }
 
-    @media (max-width: 991px) {
-      .app-sidebar { display: none; }
+    @media (max-width: 991.98px) {
+      .app-sidebar {
+        display: flex !important;
+        transform: translateX(-100%);
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.25);
+        z-index: 1050 !important;
+      }
+      body.sidebar-open .app-sidebar {
+        transform: translateX(0) !important;
+      }
       .app-main { margin-left: 0; }
       .chat-dossier-pane { display: none; }
       .btn-mobile-back { display: inline-flex; }
