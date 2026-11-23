@@ -1429,11 +1429,26 @@
 
   .bm-chat-agent-bar {
     padding: 6px 12px;
+    gap: 8px;
+  }
+
+  .bm-chat-agent-bar__status {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .bm-chat-agent-bar__text {
+    font-size: 0.68rem;
   }
 
   .bm-chat-agent-bar__action {
     padding: 3px 8px;
     font-size: 0.59rem;
+    flex-shrink: 0;
+  }
+
+  .bm-chat-offline-btn {
+    flex: 0 1 auto;
   }
 
   .bm-chat-body {

@@ -976,6 +976,70 @@ function getBallInCourtStatus($row) {
     .inquiry-message-snippet a:hover {
       opacity: 0.85;
     }
+
+    /* ==========================================================================
+       MOBILE RESPONSIVENESS & DIRECTIONAL TOUCH LOCK (<= 768px)
+       Preserves full horizontal table row layout; eliminates 2D diagonal drift.
+       Swiping horizontally slides cleanly right/left with zero diagonal wobble.
+       ========================================================================== */
+    @media (max-width: 768px) {
+      .table-panel-header {
+        padding: 10px 12px !important;
+        gap: 8px !important;
+      }
+
+      /* Directional Lock: Container scrolls ONLY horizontally (no internal vertical scroll) */
+      .table-scroll-container {
+        max-height: none !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        overscroll-behavior-x: contain !important;
+        overscroll-behavior-y: auto !important;
+        touch-action: pan-x pan-y !important;
+      }
+
+      /* Keep table strictly in horizontal row format as desired by user */
+      .table-clean {
+        display: table !important;
+        width: 100% !important;
+        min-width: 980px !important;
+        table-layout: auto !important;
+      }
+
+      .table-clean thead {
+        display: table-header-group !important;
+      }
+
+      .table-clean tbody {
+        display: table-row-group !important;
+      }
+
+      .table-clean tr {
+        display: table-row !important;
+      }
+
+      .table-clean th,
+      .table-clean td {
+        display: table-cell !important;
+        white-space: nowrap !important;
+      }
+
+      /* Specific column width retention for smooth horizontal sliding */
+      .table-clean td:first-child {
+        min-width: 260px !important;
+        white-space: normal !important;
+      }
+
+      .table-clean td:nth-child(2) {
+        min-width: 220px !important;
+        white-space: normal !important;
+      }
+
+      .table-clean td:last-child {
+        min-width: 170px !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1096,15 +1160,15 @@ function getBallInCourtStatus($row) {
             <i class="bi bi-layout-sidebar-inset"></i>
           </button>
           <div class="topbar-title-wrap">
-            <h1 class="topbar-title">Commercial Operations & Leads</h1>
+            <h1 class="topbar-title"><span class="d-none d-sm-inline">Commercial Operations &amp; Leads</span><span class="d-inline d-sm-none">Operations</span></h1>
             <div class="topbar-subtitle">Balochistan Minerals (Pvt) Ltd • Export Desk Management</div>
           </div>
         </div>
 
         <div class="topbar-right">
           <?php if (hasPermission('manage_mail_config')): ?>
-          <button type="button" class="btn-topbar-action" data-bs-toggle="modal" data-bs-target="#mailConfigModal">
-            <i class="bi bi-gear"></i> <span>Mail Settings</span>
+          <button type="button" class="btn-topbar-action" data-bs-toggle="modal" data-bs-target="#mailConfigModal" title="Corporate Mail Settings">
+            <i class="bi bi-gear"></i> <span class="d-none d-sm-inline">Mail Settings</span>
           </button>
           <?php endif; ?>
           <div class="pill-status d-none d-xl-inline-flex" title="Export Port Corridors Active: Gwadar Port, KPT & Port Qasim">
@@ -1113,9 +1177,9 @@ function getBallInCourtStatus($row) {
           </div>
           <div class="pill-status pill-clock" title="Official Pakistan Standard Time (PKT, UTC+5)">
             <span class="status-dot dot-green"></span>
-            <span class="clock-date"><?= date('M d') ?> •</span>
+            <span class="clock-date d-none d-md-inline"><?= date('M d') ?> •</span>
             <span id="livePktClock"><?= date('h:i:s A') ?></span>
-            <span class="clock-tz">PKT</span>
+            <span class="clock-tz d-none d-md-inline">PKT</span>
           </div>
         </div>
       </header>

@@ -1071,7 +1071,7 @@ class BMChatbot {
 
     if (this.chatMode === 'waiting_human') {
       this.agentDot.className = 'bm-chat-agent-bar__dot bm-chat-agent-bar__dot--waiting';
-      this.agentText.textContent = 'Connecting to Trade Desk...';
+      this.agentText.textContent = 'Connecting to Desk...';
       this.agentActionBtn.className = 'bm-chat-agent-bar__action bm-chat-agent-bar__action--active';
       this.agentActionBtn.innerHTML = `
         <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1096,7 +1096,7 @@ class BMChatbot {
       if (this.officerStatus.is_online) {
         this.agentDot.className = 'bm-chat-agent-bar__dot bm-chat-agent-bar__dot--online';
         const count = this.officerStatus.online_count || 1;
-        this.agentText.textContent = `Trade Desk Online (${count} Available)`;
+        this.agentText.textContent = `Trade Desk Online (${count})`;
         this.agentActionBtn.innerHTML = `
           <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -1106,7 +1106,7 @@ class BMChatbot {
         `;
       } else {
         this.agentDot.className = 'bm-chat-agent-bar__dot bm-chat-agent-bar__dot--offline';
-        this.agentText.textContent = 'Balochistan Minerals AI Assistant';
+        this.agentText.textContent = 'AI Trade Assistant';
         this.agentActionBtn.innerHTML = `
           <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>

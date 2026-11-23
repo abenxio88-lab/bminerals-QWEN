@@ -126,21 +126,24 @@ $csrfToken = getCsrfToken();
     .top-bar {
       background: var(--brand-surface);
       border-bottom: 1px solid var(--brand-border);
-      padding: 10px 24px;
+      padding: 8px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-shrink: 0;
       z-index: 1030;
+      min-height: 52px;
+      gap: 10px;
     }
 
     /* Live Chat Triple-Pane Terminal */
     .chat-terminal {
       display: flex;
       flex: 1;
-      height: calc(100vh - 65px);
+      height: calc(100vh - 52px);
       overflow: hidden;
       background: #FFFFFF;
+      width: 100%;
     }
 
     /* Column 1: Conversations List */
@@ -154,26 +157,31 @@ $csrfToken = getCsrfToken();
     }
 
     .conversations-search {
-      padding: 12px 14px;
+      padding: 10px 12px;
       border-bottom: 1px solid var(--brand-border);
       background: #FFFFFF;
     }
 
     .chat-filter-tabs {
       display: flex;
-      padding: 6px 12px;
-      gap: 4px;
+      padding: 8px 12px;
+      gap: 6px;
       border-bottom: 1px solid var(--brand-border);
       background: #F8FAFC;
       overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .chat-filter-tabs::-webkit-scrollbar {
+      display: none;
     }
     .chat-filter-btn {
       font-size: 0.72rem;
       font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 4px;
-      border: none;
-      background: transparent;
+      padding: 4px 11px;
+      border-radius: 9999px;
+      border: 1px solid var(--brand-border);
+      background: #FFFFFF;
       color: #64748B;
       cursor: pointer;
       white-space: nowrap;
@@ -182,6 +190,7 @@ $csrfToken = getCsrfToken();
     .chat-filter-btn.active {
       background: #0F172A;
       color: #FFFFFF;
+      border-color: #0F172A;
     }
 
     .conversations-list {
@@ -190,9 +199,13 @@ $csrfToken = getCsrfToken();
       padding: 8px;
     }
 
+    /* WhatsApp / Messenger style conversation list items */
     .conv-item {
-      padding: 11px 12px;
-      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 10px 12px;
+      border-radius: 8px;
       background: #FFFFFF;
       border: 1px solid var(--brand-border);
       margin-bottom: 6px;
@@ -202,7 +215,7 @@ $csrfToken = getCsrfToken();
     }
     .conv-item:hover {
       border-color: #94A3B8;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
     }
     .conv-item.active {
       border-color: #0F172A;
@@ -212,45 +225,69 @@ $csrfToken = getCsrfToken();
     .conv-item.is-waiting {
       border-left: 3.5px solid var(--brand-orange);
     }
-    .conv-header {
+    .conv-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #0F172A;
+      color: #D4AF37;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+      border: 1px solid rgba(212, 175, 55, 0.35);
+    }
+    .conv-content {
+      flex: 1;
+      min-width: 0;
+    }
+    .conv-top-line {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 3px;
+      gap: 6px;
+      margin-bottom: 2px;
     }
-    .conv-buyer-name {
+    .conv-name {
       font-weight: 600;
       font-size: 0.82rem;
       color: #0F172A;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     .conv-time {
       font-size: 0.68rem;
       color: #94A3B8;
+      flex-shrink: 0;
     }
-    .conv-page {
+    .conv-subline {
       font-size: 0.7rem;
       color: #64748B;
-      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 2px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
     .conv-snippet {
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       color: #475569;
       line-height: 1.35;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    .conv-badge-row {
+    .conv-badge-col {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 6px;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 3px;
+      flex-shrink: 0;
     }
 
     /* Column 2: Active Chat Window */
@@ -264,87 +301,103 @@ $csrfToken = getCsrfToken();
     }
 
     .active-chat-header {
-      padding: 12px 20px;
+      padding: 10px 14px;
       border-bottom: 1px solid var(--brand-border);
       background: #FFFFFF;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-shrink: 0;
+      gap: 8px;
+      min-height: 52px;
     }
 
     .active-chat-body {
       flex: 1;
       overflow-y: auto;
-      padding: 20px;
+      overflow-x: hidden;
+      padding: 14px;
       background: #F8FAFC;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
+      touch-action: pan-y;
+      -webkit-overflow-scrolling: touch;
     }
 
     /* Message Bubbles */
     .chat-bubble-wrap {
       display: flex;
       flex-direction: column;
-      max-width: 78%;
+      max-width: 82%;
     }
     .chat-bubble-wrap.is-visitor {
       align-self: flex-start;
+      align-items: flex-start;
     }
     .chat-bubble-wrap.is-agent {
       align-self: flex-end;
+      align-items: flex-end;
     }
     .chat-bubble-wrap.is-bot {
       align-self: flex-start;
-      max-width: 85%;
+      max-width: 88%;
     }
     .chat-bubble-wrap.is-system {
       align-self: center;
-      max-width: 90%;
+      max-width: 92%;
+      margin: 4px 0;
     }
 
     .chat-bubble {
-      padding: 10px 14px;
-      border-radius: 8px;
+      padding: 8px 13px;
+      border-radius: 12px;
       font-size: 0.82rem;
       line-height: 1.45;
       position: relative;
       word-break: break-word;
+      overflow-wrap: break-word;
     }
     .chat-bubble.bubble-visitor {
       background: #FFFFFF;
       color: #0F172A;
       border: 1px solid var(--brand-border);
-      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+      border-radius: 12px 12px 12px 3px;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
     }
     .chat-bubble.bubble-agent {
       background: #0F172A;
       color: #FFFFFF;
+      border-radius: 12px 12px 3px 12px;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.15);
     }
     .chat-bubble.bubble-bot {
       background: #F1F5F9;
       color: #334155;
       border: 1px dashed #CBD5E1;
+      border-radius: 12px 12px 12px 3px;
       font-size: 0.78rem;
     }
     .chat-bubble.bubble-system {
       background: #EFF6FF;
       color: #1E40AF;
       border: 1px solid #BFDBFE;
-      font-size: 0.73rem;
+      font-size: 0.72rem;
       text-align: center;
-      padding: 6px 14px;
-      border-radius: 20px;
+      padding: 5px 13px;
+      border-radius: 9999px;
+      line-height: 1.4;
+      word-break: break-word;
     }
 
     .bubble-meta {
-      font-size: 0.67rem;
-      margin-top: 3px;
+      font-size: 0.65rem;
+      margin-top: 2px;
       color: #94A3B8;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
+      padding: 0 2px;
     }
     .chat-bubble-wrap.is-agent .bubble-meta {
       justify-content: flex-end;
@@ -352,32 +405,40 @@ $csrfToken = getCsrfToken();
 
     /* Chat Footer & Input */
     .active-chat-footer {
-      padding: 12px 18px;
+      padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px)) 12px;
       border-top: 1px solid var(--brand-border);
       background: #FFFFFF;
       flex-shrink: 0;
+      z-index: 10;
     }
 
     .quick-templates-bar {
       display: flex;
       align-items: center;
       gap: 6px;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       overflow-x: auto;
-      padding-bottom: 4px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 2px;
+    }
+    .quick-templates-bar::-webkit-scrollbar {
+      display: none;
     }
     .template-chip {
-      font-size: 0.7rem;
-      padding: 3px 8px;
-      border-radius: 4px;
+      font-size: 0.68rem;
+      font-weight: 500;
+      padding: 3px 9px;
+      border-radius: 9999px;
       border: 1px solid var(--brand-border);
       background: #F8FAFC;
       color: #475569;
       cursor: pointer;
       white-space: nowrap;
       transition: all 0.15s ease;
+      flex-shrink: 0;
     }
-    .template-chip:hover {
+    .template-chip:hover, .template-chip:active {
       background: #0F172A;
       color: #FFFFFF;
       border-color: #0F172A;
@@ -386,21 +447,51 @@ $csrfToken = getCsrfToken();
     .chat-input-row {
       display: flex;
       gap: 8px;
-      align-items: flex-end;
+      align-items: center;
+      width: 100%;
     }
     .chat-input-textarea {
       flex: 1;
       resize: none;
-      border-radius: 6px;
+      border-radius: 20px;
       border: 1px solid var(--brand-border);
-      padding: 8px 12px;
-      font-size: 0.84rem;
-      max-height: 100px;
+      padding: 8px 14px;
+      font-size: 16px; /* 16px prevents iOS Safari optical auto-zoom */
+      line-height: 1.35;
+      min-height: 38px;
+      max-height: 85px;
       outline: none;
       font-family: inherit;
+      background: #F8FAFC;
+      box-sizing: border-box;
+      transition: border-color 0.2s, background-color 0.2s;
     }
     .chat-input-textarea:focus {
       border-color: #0F172A;
+      background: #FFFFFF;
+    }
+
+    .btn-send-message {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #E65C1A;
+      color: #FFFFFF;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.15s ease;
+      box-shadow: 0 2px 6px rgba(230, 92, 26, 0.3);
+    }
+    .btn-send-message:hover {
+      background: #C2410C;
+    }
+    .btn-send-message:active {
+      transform: scale(0.95);
     }
 
     /* Column 3: Buyer Dossier (Right Pane) */
@@ -478,11 +569,20 @@ $csrfToken = getCsrfToken();
         display: none;
         width: 100%;
       }
+      body.mobile-view-chat .top-bar {
+        display: none !important;
+      }
       body.mobile-view-chat .chat-conversations-pane {
-        display: none;
+        display: none !important;
+      }
+      body.mobile-view-chat .chat-terminal {
+        height: 100vh !important;
+        height: 100dvh !important;
       }
       body.mobile-view-chat .chat-active-pane {
-        display: flex;
+        display: flex !important;
+        height: 100vh !important;
+        height: 100dvh !important;
       }
     }
   </style>
@@ -572,27 +672,27 @@ $csrfToken = getCsrfToken();
 
       <!-- Top Bar -->
       <header class="top-bar">
-        <div class="d-flex align-items-center gap-3">
-          <button type="button" id="sidebarToggle" class="btn btn-sm btn-outline-secondary d-lg-none">
+        <div class="d-flex align-items-center gap-2 min-w-0">
+          <button type="button" id="sidebarToggle" class="btn btn-sm btn-outline-secondary d-lg-none p-1 px-2" aria-label="Toggle Navigation">
             <i class="bi bi-list fs-5"></i>
           </button>
-          <div class="brand-font fw-bold" style="font-size: 1.05rem; color: #0F172A;">
-            Live Chat Desk
+          <div class="brand-font fw-bold" style="font-size: 0.95rem; color: #0F172A; white-space: nowrap;">
+            <span class="d-none d-sm-inline">Live </span>Chat Desk
           </div>
-          <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 font-monospace" style="font-size: 0.72rem;">
-            <i class="bi bi-circle-fill me-1" style="font-size: 0.45rem;"></i>TRADE DESK ONLINE (<?= $onlineCount ?>)
+          <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-0.5 font-monospace" style="font-size: 0.68rem; white-space: nowrap;">
+            <i class="bi bi-circle-fill me-1" style="font-size: 0.4rem;"></i><span class="d-none d-sm-inline">ONLINE </span>(<?= $onlineCount ?>)
           </span>
         </div>
 
-        <div class="d-flex align-items-center gap-2">
+        <div class="d-flex align-items-center gap-1.5 flex-shrink-0">
           <!-- Audio Alert Toggle -->
-          <button type="button" id="soundToggleBtn" class="btn btn-sm btn-light border px-2.5 py-1 text-muted" title="Toggle audio chime on new buyer message">
-            <i class="bi bi-volume-up-fill text-dark me-1" id="soundIcon"></i>
-            <span class="small" id="soundLabel">Sound On</span>
+          <button type="button" id="soundToggleBtn" class="btn btn-sm btn-light border p-1 px-2 text-muted" title="Toggle audio chime on new buyer message">
+            <i class="bi bi-volume-up-fill text-dark" id="soundIcon"></i>
+            <span class="small d-none d-md-inline ms-1" id="soundLabel">Sound On</span>
           </button>
           <!-- Live Indicator Pill -->
-          <div class="badge bg-light text-secondary border px-2 py-1 font-monospace" style="font-size: 0.72rem;">
-            Auto-Sync 2.5s
+          <div class="badge bg-light text-secondary border p-1 px-2 font-monospace" style="font-size: 0.68rem;" title="Auto-Sync active (2.5s)">
+            <i class="bi bi-arrow-repeat text-success me-1"></i><span class="d-none d-sm-inline">Auto-Sync </span>2.5s
           </div>
         </div>
       </header>
@@ -636,31 +736,32 @@ $csrfToken = getCsrfToken();
             
             <!-- Chat Header -->
             <div class="active-chat-header">
-              <div class="d-flex align-items-center">
-                <button type="button" class="btn-mobile-back" id="btnMobileBack">
-                  <i class="bi bi-arrow-left"></i> List
+              <div class="d-flex align-items-center gap-2 min-w-0">
+                <button type="button" class="btn-mobile-back" id="btnMobileBack" aria-label="Back to conversations list">
+                  <i class="bi bi-chevron-left fs-5"></i>
                 </button>
-                <div>
-                  <div class="fw-bold text-dark d-flex align-items-center gap-2" id="chatHeaderTitle">
-                    <span>Guest Buyer</span>
-                    <span class="badge bg-light text-dark border font-monospace" style="font-size: 0.68rem;" id="chatHeaderCountry">China</span>
+                <div class="conv-avatar flex-shrink-0" id="chatHeaderAvatar" style="width: 34px; height: 34px; font-size: 0.75rem;">G</div>
+                <div class="min-w-0">
+                  <div class="fw-bold text-dark d-flex align-items-center gap-1.5 text-truncate" id="chatHeaderTitle" style="font-size: 0.88rem; line-height: 1.2;">
+                    <span class="text-truncate">Guest Buyer</span>
+                    <span class="badge bg-light text-dark border font-monospace flex-shrink-0" style="font-size: 0.62rem;" id="chatHeaderCountry">China</span>
                   </div>
-                  <div class="small text-muted" style="font-size: 0.72rem;" id="chatHeaderSub">
+                  <div class="small text-muted text-truncate" style="font-size: 0.68rem;" id="chatHeaderSub">
                     Viewing: /minerals/chromite-ore
                   </div>
                 </div>
               </div>
 
               <!-- Header Action Buttons -->
-              <div class="d-flex align-items-center gap-2">
-                <button type="button" class="btn btn-sm btn-outline-dark" id="btnClaimChat" style="display: none;">
-                  <i class="bi bi-hand-index-thumb me-1"></i>Claim Chat
+              <div class="d-flex align-items-center gap-1.5 flex-shrink-0">
+                <button type="button" class="btn btn-sm btn-outline-dark py-1 px-2" id="btnClaimChat" style="display: none; font-size: 0.72rem;">
+                  <i class="bi bi-hand-index-thumb me-1"></i>Claim
                 </button>
-                <button type="button" class="btn btn-sm btn-outline-primary" id="btnConvertToRfq" title="Transfer lead and transcript into Inbound RFQs database">
-                  <i class="bi bi-file-earmark-plus me-1"></i>Convert to RFQ
+                <button type="button" class="btn btn-sm btn-outline-primary py-1 px-2" id="btnConvertToRfq" title="Transfer lead and transcript into Inbound RFQs database" style="font-size: 0.72rem;">
+                  <i class="bi bi-file-earmark-plus"></i><span class="d-none d-sm-inline ms-1">RFQ</span>
                 </button>
-                <button type="button" class="btn btn-sm btn-outline-secondary" id="btnCloseChat" title="End live chat and archive">
-                  <i class="bi bi-check2-circle me-1"></i>Close
+                <button type="button" class="btn btn-sm btn-outline-secondary py-1 px-2" id="btnCloseChat" title="End live chat and archive" style="font-size: 0.72rem;">
+                  <i class="bi bi-check2-circle"></i><span class="d-none d-sm-inline ms-1">Close</span>
                 </button>
               </div>
             </div>
@@ -683,8 +784,8 @@ $csrfToken = getCsrfToken();
               </div>
 
               <div class="chat-input-row">
-                <textarea id="chatInputText" class="chat-input-textarea" rows="2" placeholder="Type official trade desk response... (Press Enter to send, Shift+Enter for new line)"></textarea>
-                <button type="button" id="btnSendChat" class="btn btn-dark px-3" style="height: 48px;">
+                <textarea id="chatInputText" class="chat-input-textarea" rows="1" placeholder="Type official reply... (Enter to send)"></textarea>
+                <button type="button" id="btnSendChat" class="btn btn-dark px-3 btn-send-message" aria-label="Send Message" style="height: 40px; min-width: 44px; border-radius: 8px;">
                   <i class="bi bi-send-fill"></i>
                 </button>
               </div>
@@ -858,31 +959,35 @@ $csrfToken = getCsrfToken();
         const isWaiting = s.status === 'waiting_human';
         const isActive = s.id === currentSessionId;
         const statusBadge = isWaiting
-          ? '<span class="badge bg-danger font-monospace" style="font-size: 0.65rem;">WAITING</span>'
+          ? '<span class="badge bg-danger font-monospace" style="font-size: 0.62rem;">WAITING</span>'
           : (s.status === 'agent_active' 
-              ? '<span class="badge bg-success font-monospace" style="font-size: 0.65rem;">LIVE AGENT</span>'
-              : '<span class="badge bg-secondary font-monospace" style="font-size: 0.65rem;">AI BOT</span>');
+              ? '<span class="badge bg-success font-monospace" style="font-size: 0.62rem;">LIVE</span>'
+              : '<span class="badge bg-secondary font-monospace" style="font-size: 0.62rem;">AI BOT</span>');
 
-        const unread = s.unread_admin > 0 ? `<span class="badge rounded-pill bg-danger">${s.unread_admin}</span>` : '';
+        const unread = s.unread_admin > 0 ? `<span class="badge rounded-pill bg-danger" style="font-size: 0.65rem;">${s.unread_admin}</span>` : '';
+        const nameStr = s.name || 'Guest Buyer';
+        const initial = (nameStr.replace(/[^a-zA-Z]/g, '') || 'G').charAt(0).toUpperCase();
 
         return `
           <div class="conv-item ${isWaiting ? 'is-waiting' : ''} ${isActive ? 'active' : ''}" onclick="selectSession(${s.id})">
-            <div class="conv-header">
-              <div class="conv-buyer-name">
-                <i class="bi bi-person-circle text-secondary"></i>
-                <span class="text-truncate" style="max-width: 140px;">${escapeHtml(s.name || 'Guest Buyer')}</span>
+            <div class="conv-avatar">${initial}</div>
+            <div class="conv-content">
+              <div class="conv-top-line">
+                <span class="conv-name">${escapeHtml(nameStr)}</span>
+                <span class="conv-time">${s.last_time || ''}</span>
               </div>
-              <span class="conv-time font-monospace">${s.last_time || ''}</span>
+              <div class="conv-subline">
+                <i class="bi bi-geo-alt text-secondary" style="font-size: 0.65rem;"></i>
+                <span>${escapeHtml(s.country || 'International')}</span>
+                ${s.mineral ? `&bull; <span class="badge bg-light text-dark border p-0.5 px-1">${escapeHtml(s.mineral)}</span>` : ''}
+              </div>
+              <div class="conv-snippet">
+                ${s.last_sender === 'visitor' ? '<strong>Buyer: </strong>' : ''}${escapeHtml(s.last_message || 'Session initiated')}
+              </div>
             </div>
-            <div class="conv-page">
-              <i class="bi bi-globe2 me-1"></i>${escapeHtml(s.country || 'International')} &bull; ${escapeHtml(s.page || '/') }
-            </div>
-            <div class="conv-snippet">
-              ${s.last_sender === 'visitor' ? '<strong>Buyer:</strong> ' : ''}${escapeHtml(s.last_message || 'Session initiated')}
-            </div>
-            <div class="conv-badge-row">
-              <div>${statusBadge}</div>
-              <div>${unread}</div>
+            <div class="conv-badge-col">
+              ${statusBadge}
+              ${unread}
             </div>
           </div>
         `;
@@ -917,11 +1022,18 @@ $csrfToken = getCsrfToken();
         if (data.success) {
           const s = data.session;
           // Update Dossier & Header
-          document.getElementById('chatHeaderTitle').firstElementChild.textContent = s.visitor_name || 'Guest Buyer';
+          const vName = s.visitor_name || 'Guest Buyer';
+          document.getElementById('chatHeaderTitle').firstElementChild.textContent = vName;
           document.getElementById('chatHeaderCountry').textContent = s.country || 'International';
           document.getElementById('chatHeaderSub').textContent = `Viewing: ${s.current_page || '/'}`;
 
-          document.getElementById('dosName').textContent = s.visitor_name || 'Guest Buyer';
+          const headerAvatar = document.getElementById('chatHeaderAvatar');
+          if (headerAvatar) {
+            const initial = (vName.replace(/[^a-zA-Z]/g, '') || 'G').charAt(0).toUpperCase();
+            headerAvatar.textContent = initial;
+          }
+
+          document.getElementById('dosName').textContent = vName;
           document.getElementById('dosEmail').textContent = s.visitor_email || '—';
           document.getElementById('dosPhone').textContent = s.visitor_phone || '—';
           document.getElementById('dosCountry').textContent = `${s.country || 'International'} (IP: ${s.visitor_ip || '—'})`;
@@ -949,16 +1061,22 @@ $csrfToken = getCsrfToken();
                 const bubbleWrap = document.createElement('div');
                 let wrapClass = 'chat-bubble-wrap is-visitor';
                 let bubbleClass = 'chat-bubble bubble-visitor';
+                let metaHtml = `<span>${m.time}</span>`;
 
                 if (m.sender_type === 'agent') {
                   wrapClass = 'chat-bubble-wrap is-agent';
                   bubbleClass = 'chat-bubble bubble-agent';
+                  metaHtml = `<span>${m.time} &bull; Delivered</span>`;
                 } else if (m.sender_type === 'bot') {
                   wrapClass = 'chat-bubble-wrap is-bot';
                   bubbleClass = 'chat-bubble bubble-bot';
+                  metaHtml = `<span>AI Assistant</span> &bull; <span>${m.time}</span>`;
                 } else if (m.sender_type === 'system') {
                   wrapClass = 'chat-bubble-wrap is-system';
                   bubbleClass = 'chat-bubble bubble-system';
+                  metaHtml = `<span>${m.time}</span>`;
+                } else {
+                  metaHtml = `<span>${escapeHtml(m.sender_name || 'Buyer')}</span> &bull; <span>${m.time}</span>`;
                 }
 
                 bubbleWrap.className = wrapClass;
@@ -967,7 +1085,7 @@ $csrfToken = getCsrfToken();
                     ${escapeHtml(m.text).replace(/\n/g, '<br>')}
                   </div>
                   <div class="bubble-meta">
-                    <span>${escapeHtml(m.sender_name)}</span> &bull; <span>${m.time}</span>
+                    ${metaHtml}
                   </div>
                 `;
                 body.appendChild(bubbleWrap);
