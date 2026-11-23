@@ -57,22 +57,20 @@ try {
         $deal = $dStmt->fetch(PDO::FETCH_ASSOC);
 
         if ($deal) {
-            if ((int)$deal['is_public_demo'] !== 1) {
-                if ($token === '') {
-                    http_response_code(403);
-                    echo json_encode(['success' => false, 'requires_token' => true, 'error' => 'Please enter your private buyer access key to view this consignment manifest.']);
-                    exit;
-                }
-                $tokStmt = $pdo->prepare("SELECT id FROM `deal_access_tokens` WHERE deal_id = ? AND token = ? AND is_active = 1 LIMIT 1");
-                $tokStmt->execute([$deal['id'], $token]);
-                $tokId = $tokStmt->fetchColumn();
-                if (!$tokId) {
-                    http_response_code(403);
-                    echo json_encode(['success' => false, 'requires_token' => true, 'error' => 'Invalid or expired buyer access token for this tracking reference.']);
-                    exit;
-                }
-                $pdo->prepare("UPDATE `deal_access_tokens` SET last_viewed_at = NOW() WHERE id = ?")->execute([$tokId]);
+            if ($token === '') {
+                http_response_code(403);
+                echo json_encode(['success' => false, 'requires_token' => true, 'error' => 'Private Buyer Access Key required to view this consignment telemetry and official documentation.']);
+                exit;
             }
+            $tokStmt = $pdo->prepare("SELECT id FROM `deal_access_tokens` WHERE deal_id = ? AND token = ? AND is_active = 1 LIMIT 1");
+            $tokStmt->execute([$deal['id'], $token]);
+            $tokId = $tokStmt->fetchColumn();
+            if (!$tokId) {
+                http_response_code(403);
+                echo json_encode(['success' => false, 'requires_token' => true, 'error' => 'Invalid or expired buyer access key for this tracking reference.']);
+                exit;
+            }
+            $pdo->prepare("UPDATE `deal_access_tokens` SET last_viewed_at = NOW() WHERE id = ?")->execute([$tokId]);
 
             $msStmt = $pdo->prepare("SELECT id, stage_order, stage_title, status, buyer_summary, completed_at FROM `deal_milestones` WHERE deal_id = ? ORDER BY stage_order ASC");
             $msStmt->execute([$deal['id']]);

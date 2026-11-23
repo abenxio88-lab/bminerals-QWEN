@@ -41,17 +41,17 @@ function getDealStageDefinitions() {
             'title'           => 'Mine Sourcing & Crushing',
             'short'           => 'Mine & Royalty',
             'legacy_stage'    => 'Mine Sourcing & Crushing',
-            'description'     => 'Verify mine batch extraction, sizing, dispatched truck tonnage, and Balochistan Royalty/Rahdari passes.',
+            'description'     => 'Verify mine batch extraction, sizing, dispatched truck tonnage, and provincial mineral transit permits.',
             'metrics'         => [
                 ['key' => 'source_district', 'label' => 'Source District',      'unit' => '',       'placeholder' => 'Muslim Bagh / Khuzdar / Chagai'],
                 ['key' => 'mine_batch_id',   'label' => 'Mine Batch / Lot ID',  'unit' => '',       'placeholder' => 'MB-LOT-2026-01'],
                 ['key' => 'dispatched_mt',   'label' => 'Mine Dispatched MT',   'unit' => 'MT',     'placeholder' => 'e.g. 2540'],
                 ['key' => 'truck_count',     'label' => 'Trucks Dispatched',    'unit' => 'trucks', 'placeholder' => 'e.g. 64'],
-                ['key' => 'royalty_challan', 'label' => 'Royalty / Rahdari #',  'unit' => '',       'placeholder' => 'Challan Receipt No.'],
+                ['key' => 'royalty_challan', 'label' => 'Royalty / Transit Permit #', 'unit' => '', 'placeholder' => 'Transit Permit No.'],
             ],
             'doc_categories'  => [
                 'mine_photos'  => 'Mine Pit & Ore Photos',
-                'royalty_pass' => 'Balochistan Royalty / Rahdari Pass',
+                'royalty_pass' => 'Provincial Mineral Transit Permit',
                 'mine_tally'   => 'Mine Dispatch Truck Tally',
             ],
             'mandatory_docs'  => ['mine_photos', 'royalty_pass'],
@@ -62,7 +62,7 @@ function getDealStageDefinitions() {
             'title'           => 'Inland Transit & Yard Staging',
             'short'           => 'Yard Weighbridge',
             'legacy_stage'    => 'Port Warehouse Stacking',
-            'description'     => 'Reconcile port/warehouse weighbridge intake weight (Kanta), transit shrinkage, and jumbo bag stacking.',
+            'description'     => 'Reconcile port/warehouse weighbridge intake weight, transit shrinkage, and jumbo bag stacking.',
             'metrics'         => [
                 ['key' => 'yard_bay',            'label' => 'Warehouse / Yard Bay',   'unit' => '',     'placeholder' => 'KPT / Hub Yard Bay B-04'],
                 ['key' => 'yard_weighbridge_mt', 'label' => 'Yard Weighbridge Weight','unit' => 'MT',   'placeholder' => 'e.g. 2518'],
@@ -71,7 +71,7 @@ function getDealStageDefinitions() {
                 ['key' => 'bag_count',           'label' => 'Bags / Lots Count',      'unit' => 'bags', 'placeholder' => 'e.g. 2014'],
             ],
             'doc_categories'  => [
-                'weighbridge_slips' => 'Weighbridge Slips (Kanta)',
+                'weighbridge_slips' => 'Certified Weighbridge Slips',
                 'yard_photos'       => 'Yard Stack & Bagging Photos',
                 'yard_grn'          => 'Warehouse Goods Receiving Note (GRN)',
             ],

@@ -43,9 +43,7 @@ if ($publicDocId > 0) {
 
     if ($deal) {
         $authorized = false;
-        if ((int)$deal['is_public_demo'] === 1) {
-            $authorized = true;
-        } elseif ($token !== '') {
+        if ($token !== '') {
             $tokStmt = $pdo->prepare("SELECT id FROM `deal_access_tokens` WHERE deal_id = ? AND token = ? AND is_active = 1 LIMIT 1");
             $tokStmt->execute([$deal['id'], $token]);
             if ($tokStmt->fetchColumn()) {

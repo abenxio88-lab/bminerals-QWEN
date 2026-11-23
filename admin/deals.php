@@ -1011,9 +1011,9 @@ $csrfToken        = getCsrfToken();
       document.getElementById('hdrDocsBar').style.width = pct + '%';
 
       const baseOrigin = window.location.href.replace(/\/admin\/.*$/, '');
-      const buyerUrl = Number(d.is_public_demo) === 1
-        ? `${baseOrigin}/tracking?code=${encodeURIComponent(d.tracking_code)}`
-        : `${baseOrigin}/tracking?code=${encodeURIComponent(d.tracking_code)}&k=${encodeURIComponent(tok)}`;
+      const buyerUrl = tok
+        ? `${baseOrigin}/tracking?code=${encodeURIComponent(d.tracking_code)}&k=${encodeURIComponent(tok)}`
+        : `${baseOrigin}/tracking?code=${encodeURIComponent(d.tracking_code)}`;
       document.getElementById('buyerShareLink').value = buyerUrl;
       document.getElementById('buyerWaShareBtn').href = `https://wa.me/?text=${encodeURIComponent('Live Export Consignment Tracker (' + d.deal_code + '): ' + buyerUrl)}`;
 
