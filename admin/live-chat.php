@@ -18,7 +18,12 @@ if ($pdo !== null) {
 
 $currentUid  = (int)($user['id'] ?? 0);
 $currentTier = $user['tier'] ?? 'Owner';
-$agentName   = $user['full_name'] ?: ($user['username'] ?? 'Export Officer');
+$rawAgentName = trim((string)($user['full_name'] ?: ($user['username'] ?? 'Balochistan Minerals Executive')));
+if ($rawAgentName === '' || strcasecmp($rawAgentName, 'Balochistan Minerals Admin') === 0 || strcasecmp($rawAgentName, 'Admin') === 0) {
+    $agentName = 'Balochistan Minerals Executive';
+} else {
+    $agentName = $rawAgentName;
+}
 
 // KPI Metrics
 $waitingCount = (int)$pdo->query("SELECT COUNT(*) FROM `chat_sessions` WHERE status = 'waiting_human'")->fetchColumn();
@@ -33,7 +38,7 @@ $csrfToken = getCsrfToken();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Live Chat Desk &bull; Balochistan Minerals Enterprise Systems</title>
+  <title>Live Chat Desk &bull; Balochistan Minerals Trade Desk</title>
   <link rel="icon" type="image/png" href="../images/favicon/favicon-32x32.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1358,7 +1363,7 @@ $csrfToken = getCsrfToken();
       <div class="sidebar-header">
         <a href="../" target="_blank" class="sidebar-logo-wrap" title="Balochistan Minerals">
           <picture style="display: contents;"><source media="(min-width: 769px)" srcset="../images/new-logo-dekstop.png" width="723" height="278"><img src="../images/new-logo.png" alt="Balochistan Minerals" class="sidebar-logo" onerror="this.style.display='none'"></picture>
-          <span class="sidebar-badge">ENTERPRISE SYSTEMS</span>
+          <span class="sidebar-badge">TRADE DESK PORTAL</span>
         </a>
         <button type="button" id="sidebarCloseBtn" class="btn-sidebar-panel-toggle" aria-label="Toggle Sidebar" title="Collapse Sidebar (Ctrl + B)">
           <i class="bi bi-layout-sidebar-inset"></i>
@@ -1418,13 +1423,13 @@ $csrfToken = getCsrfToken();
 
       <div class="sidebar-footer">
         <div class="sidebar-footer-row-user d-flex align-items-center justify-content-between gap-2 mb-1">
-          <div class="fw-bold small text-truncate" style="color: var(--brand-navy); font-size: 0.8rem;" title="<?= htmlspecialchars($user['full_name']) ?>"><?= htmlspecialchars($user['full_name']) ?></div>
+          <div class="fw-bold small text-truncate" style="color: var(--brand-navy); font-size: 0.8rem;" title="<?= htmlspecialchars($agentName) ?>"><?= htmlspecialchars($agentName) ?></div>
           <a href="logout.php" class="btn btn-sm btn-outline-secondary p-1 px-2 flex-shrink-0" title="Sign Out">
             <i class="bi bi-box-arrow-right"></i>
           </a>
         </div>
         <div class="sidebar-footer-row-meta d-flex align-items-center justify-content-between gap-2">
-          <div class="text-muted text-truncate" style="font-size: 0.7rem;"><?= htmlspecialchars($currentTier) ?></div>
+          <div class="text-muted text-truncate" style="font-size: 0.7rem;">Commercial Export Desk</div>
           <span class="bm-role-tier-pill tier-owner px-2 py-0.5 font-monospace flex-shrink-0" style="font-size:0.68rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;background:#FFFFFF;color:#E65C1A;border:none;border-radius:6px;"><?= ($user['role'] ?? '') === 'Owner' ? 'CEO' : htmlspecialchars($user['role'] ?? 'CEO') ?></span>
         </div>
       </div>
