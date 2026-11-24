@@ -56,8 +56,8 @@ function refreshSessionAuth($pdo = null) {
         $role = normalizeRoleTier($_SESSION['bm_admin_role'] ?? 'Owner');
         return [
             'id'          => $uid,
-            'username'    => $_SESSION['bm_admin_user'] ?? 'Admin',
-            'full_name'   => $_SESSION['bm_admin_name'] ?? 'Admin',
+            'username'    => $_SESSION['bm_admin_user'] ?? 'bmops_rqx6k5',
+            'full_name'   => $_SESSION['bm_admin_name'] ?? 'Balochistan Minerals MIS',
             'email'       => $_SESSION['bm_admin_email'] ?? '',
             'role'        => $role,
             'tier'        => $role,
@@ -113,8 +113,8 @@ function refreshSessionAuth($pdo = null) {
         $role = normalizeRoleTier($_SESSION['bm_admin_role'] ?? 'Owner');
         return [
             'id'          => $uid,
-            'username'    => $_SESSION['bm_admin_user'] ?? 'Admin',
-            'full_name'   => $_SESSION['bm_admin_name'] ?? 'Admin',
+            'username'    => $_SESSION['bm_admin_user'] ?? 'bmops_rqx6k5',
+            'full_name'   => $_SESSION['bm_admin_name'] ?? 'Balochistan Minerals MIS',
             'email'       => $_SESSION['bm_admin_email'] ?? '',
             'role'        => $role,
             'tier'        => $role,
