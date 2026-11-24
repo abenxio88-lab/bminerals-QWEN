@@ -1738,38 +1738,43 @@ $csrfToken = getCsrfToken();
   <!-- Meta Accounts & Channels Hub Modal -->
   <div class="modal fade" id="metaHubModal" tabindex="-1" aria-labelledby="metaHubModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-      <div class="modal-content" style="border: 1px solid var(--brand-border); box-shadow: 0 20px 40px rgba(15,23,42,0.18); border-radius: 12px; overflow: hidden;">
+      <div class="modal-content" style="border: 1px solid var(--brand-border); box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25); border-radius: 14px; overflow: hidden;">
         
-        <!-- Modal Header -->
-        <div class="modal-header" style="background: #0F172A; color: #FFFFFF; padding: 14px 20px; border-bottom: 1px solid #1E293B;">
-          <div class="d-flex align-items-center gap-2">
-            <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center;">
-              <i class="bi bi-meta" style="color: #38BDF8; font-size: 1.15rem;"></i>
+        <!-- Modal Header (Clean Executive Light Theme - Zero Jarring Black Bar) -->
+        <div class="modal-header" style="background: #FFFFFF; color: #0F172A; padding: 18px 24px; border-bottom: 1px solid #E2E8F0;">
+          <div class="d-flex align-items-center gap-2.5">
+            <div style="width: 38px; height: 38px; border-radius: 9px; background: #F0F9FF; border: 1px solid #BAE6FD; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <svg width="22" height="15" viewBox="0 0 28 18" fill="none">
+                <path d="M14.07 10.97c-.96-1.72-2.18-3.48-3.56-4.9-1.92-1.98-4.04-3.07-6.3-3.07C1.86 3 0 5.12 0 8.52c0 3.78 2.37 6.48 5.76 6.48 2.5 0 4.67-1.47 6.38-3.76l1.93-.27zm-8.31 1.77c-2.11 0-3.48-1.74-3.48-4.22 0-2.22 1.25-3.8 3.14-3.8 1.63 0 3.25.92 4.7 2.62 1.15 1.35 2.12 2.8 2.92 4.16-1.9 1.94-3.86 2.96-5.8 2.96l-.48.28zm16.48-9.74c-2.26 0-4.38 1.09-6.3 3.07-1.38 1.42-2.6 3.18-3.56 4.9l1.93.27c1.71 2.29 3.88 3.76 6.38 3.76 3.39 0 5.76-2.7 5.76-6.48 0-3.4-1.86-5.52-4.21-5.52zm-1.48 10.02c-1.94 0-3.9-1.02-5.8-2.96.8-1.36 1.77-2.81 2.92-4.16 1.45-1.7 3.07-2.62 4.7-2.62 1.89 0 3.14 1.58 3.14 3.8 0 2.48-1.37 4.22-3.48 4.22l-.48-.28z" fill="#0284C7"/>
+              </svg>
             </div>
             <div>
-              <h6 class="modal-title fw-bold mb-0" id="metaHubModalLabel" style="font-size: 0.95rem; letter-spacing: 0.02em;">Meta Accounts &amp; Channels Hub</h6>
-              <div class="text-white-50" style="font-size: 0.72rem;">Unified WhatsApp Web Companion, Instagram Direct &amp; Facebook Messenger</div>
+              <h6 class="modal-title fw-bold mb-0" id="metaHubModalLabel" style="font-size: 1.02rem; color: #0F172A; letter-spacing: -0.015em;">Meta Accounts &amp; Channels Hub</h6>
+              <div class="text-muted" style="font-size: 0.74rem;">Unified WhatsApp Web Companion, Instagram Direct &amp; Facebook Messenger</div>
             </div>
           </div>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
         <!-- Navigation Tabs -->
         <div class="modal-body p-0">
-          <ul class="nav nav-tabs nav-fill bg-light px-3 pt-2" id="metaHubTabs" role="tablist" style="border-bottom: 1px solid #E2E8F0;">
+          <ul class="nav nav-tabs nav-fill px-4 pt-2.5" id="metaHubTabs" role="tablist" style="background: #F8FAFC; border-bottom: 1px solid #E2E8F0;">
             <li class="nav-item" role="presentation">
-              <button class="nav-link active fw-semibold d-flex align-items-center justify-content-center gap-2 py-2" id="tabWhatsAppBtn" data-bs-toggle="tab" data-bs-target="#tabWhatsApp" type="button" role="tab" style="font-size: 0.8rem;">
-                <i class="bi bi-whatsapp text-success" style="font-size: 1rem;"></i> WhatsApp Companion
+              <button class="nav-link active fw-semibold d-flex align-items-center justify-content-center gap-2 py-2.5" id="tabWhatsAppBtn" data-bs-toggle="tab" data-bs-target="#tabWhatsApp" type="button" role="tab" style="font-size: 0.82rem; border-radius: 8px 8px 0 0;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path fill="#25D366" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2z"/><path fill="#FFFFFF" d="M17.5 14.33c-.28-.14-1.65-.81-1.9-.91-.26-.09-.45-.14-.64.14-.19.28-.73.91-.9 1.1-.16.19-.33.21-.61.07-.28-.14-1.18-.44-2.25-1.39-.83-.74-1.4-1.66-1.56-1.94-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.47.09-.19.05-.35-.02-.5-.07-.14-.64-1.54-.87-2.11-.23-.56-.47-.48-.64-.49-.17-.01-.36-.01-.56-.01-.19 0-.5.07-.76.35-.26.28-1 1-1 2.43s1.03 2.82 1.17 3.01c.14.19 2.02 3.1 4.9 4.35 2.87 1.25 2.87.83 3.39.79.52-.05 1.65-.67 1.88-1.33.23-.65.23-1.22.16-1.33-.07-.12-.26-.19-.54-.33z"/></svg>
+                <span>WhatsApp Companion</span>
               </button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link fw-semibold d-flex align-items-center justify-content-center gap-2 py-2" id="tabMetaSocialBtn" data-bs-toggle="tab" data-bs-target="#tabMetaSocial" type="button" role="tab" style="font-size: 0.8rem;">
-                <i class="bi bi-messenger text-primary" style="font-size: 1rem;"></i> Instagram &amp; Facebook
+              <button class="nav-link fw-semibold d-flex align-items-center justify-content-center gap-2 py-2.5" id="tabMetaSocialBtn" data-bs-toggle="tab" data-bs-target="#tabMetaSocial" type="button" role="tab" style="font-size: 0.82rem; border-radius: 8px 8px 0 0;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path fill="#0084FF" d="M12 2C6.48 2 2 6.15 2 11.26c0 2.91 1.45 5.52 3.73 7.18v3.56l3.42-1.88c.9.25 1.86.39 2.85.39 5.52 0 10-4.15 10-9.25C22 6.15 17.52 2 12 2z"/><path fill="#FFFFFF" d="m6.8 13.7 3.3-3.5 2.5 2.5 4.6-4.5-3.3 3.5-2.5-2.5z"/></svg>
+                <span>Instagram &amp; Facebook</span>
               </button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link fw-semibold d-flex align-items-center justify-content-center gap-2 py-2" id="tabOverviewBtn" data-bs-toggle="tab" data-bs-target="#tabOverview" type="button" role="tab" style="font-size: 0.8rem;">
-                <i class="bi bi-diagram-3 text-secondary" style="font-size: 1rem;"></i> Channel Matrix
+              <button class="nav-link fw-semibold d-flex align-items-center justify-content-center gap-2 py-2.5" id="tabOverviewBtn" data-bs-toggle="tab" data-bs-target="#tabOverview" type="button" role="tab" style="font-size: 0.82rem; border-radius: 8px 8px 0 0;">
+                <i class="bi bi-diagram-3 text-secondary"></i>
+                <span>Channel Matrix</span>
               </button>
             </li>
           </ul>
@@ -1780,17 +1785,19 @@ $csrfToken = getCsrfToken();
             <div class="tab-pane fade show active" id="tabWhatsApp" role="tabpanel">
               
               <!-- Multi-Device Explanation Banner -->
-              <div class="alert mb-3 d-flex align-items-start gap-2.5 p-2.5" style="background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 8px;">
-                <i class="bi bi-shield-check text-success fs-5 mt-0.5"></i>
-                <div style="font-size: 0.77rem; color: #166534; line-height: 1.45;">
-                  <strong>Multi-Device Companion Link Active:</strong> Your WhatsApp account stays 100% active on your physical cell phone. No number deactivation or SIM swap required. Staff can reply directly from this Trade Desk, and all messages appear on your phone simultaneously.
+              <div class="p-3 mb-3.5 rounded d-flex align-items-start gap-2.5" style="background: #F0FDF4; border: 1px solid #BBF7D0; border-left: 4px solid #10B981;">
+                <div style="width: 26px; height: 26px; border-radius: 50%; background: #DCFCE7; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #16A34A; margin-top: 1px;">
+                  <i class="bi bi-shield-check" style="font-size: 0.95rem;"></i>
+                </div>
+                <div style="font-size: 0.77rem; color: #166534; line-height: 1.5;">
+                  <strong style="color: #14532D;">Multi-Device Companion Link Active:</strong> Your WhatsApp account stays 100% active on your physical cell phone. No number deactivation or SIM swap required. Staff can reply directly from this Trade Desk, and all messages appear on your phone simultaneously.
                 </div>
               </div>
 
-              <div class="row g-3 align-items-center">
-                <!-- Left: QR Code Display -->
+              <div class="row g-3.5 align-items-center">
+                <!-- Left: QR Code / Device Display -->
                 <div class="col-md-5 text-center">
-                  <div class="p-3 bg-white rounded border d-inline-block position-relative" style="box-shadow: 0 4px 12px rgba(0,0,0,0.05);" id="waQrCodeWrapper">
+                  <div class="p-3 bg-white rounded border d-inline-block position-relative w-100" style="box-shadow: 0 4px 16px rgba(15,23,42,0.06); border-color: #E2E8F0 !important;" id="waQrCodeWrapper">
                     <div id="waQrContainer" style="min-height: 220px; display: flex; align-items: center; justify-content: center;">
                       <div class="spinner-border text-success" role="status"></div>
                     </div>
@@ -1802,35 +1809,47 @@ $csrfToken = getCsrfToken();
 
                 <!-- Right: Status & Steps -->
                 <div class="col-md-7">
-                  <div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom">
+                  <div class="d-flex align-items-center justify-content-between mb-3 pb-2.5 border-bottom">
                     <div>
-                      <span class="text-muted small fw-bold text-uppercase" style="font-size: 0.65rem;">Companion Status</span>
-                      <div class="fw-bold d-flex align-items-center gap-1.5" id="waStatusBadge" style="font-size: 0.88rem; color: #0F172A;">
+                      <span class="text-muted small fw-bold text-uppercase" style="font-size: 0.65rem; letter-spacing: 0.04em;">Companion Status</span>
+                      <div class="fw-bold d-flex align-items-center gap-1.5 mt-0.5" id="waStatusBadge" style="font-size: 0.88rem; color: #0F172A;">
                         <span class="badge bg-secondary">Checking status...</span>
                       </div>
                     </div>
                     <div class="text-end">
-                      <span class="text-muted small fw-bold text-uppercase" style="font-size: 0.65rem;">Linked Phone</span>
-                      <div class="fw-bold font-monospace" id="waConnectedPhone" style="font-size: 0.82rem; color: #0F172A;">+92 334 8888104</div>
+                      <span class="text-muted small fw-bold text-uppercase" style="font-size: 0.65rem; letter-spacing: 0.04em;">Linked Phone</span>
+                      <div class="fw-bold font-monospace mt-0.5" id="waConnectedPhone" style="font-size: 0.82rem; color: #0F172A;">+92 334 8888104</div>
                     </div>
                   </div>
 
-                  <h6 class="fw-bold mb-2 text-dark" style="font-size: 0.82rem;">How to Link WhatsApp on Mobile:</h6>
-                  <ol class="ps-3 mb-3 text-secondary" style="font-size: 0.75rem; line-height: 1.6;">
-                    <li>Open <strong>WhatsApp</strong> on your mobile phone.</li>
-                    <li>Tap <strong>Settings</strong> (iOS) or <strong>&vellip; (3 Dots)</strong> (Android).</li>
-                    <li>Select <strong>Linked Devices</strong> &rarr; tap <strong>Link a Device</strong>.</li>
-                    <li>Point your phone camera at the QR code on the left.</li>
-                  </ol>
+                  <h6 class="fw-bold mb-2.5 text-dark" style="font-size: 0.82rem; letter-spacing: -0.01em;">How to Link WhatsApp on Mobile:</h6>
+                  <div class="d-flex flex-column gap-2 mb-3">
+                    <div class="d-flex align-items-start gap-2 text-dark" style="font-size: 0.76rem;">
+                      <span style="width: 20px; height: 20px; border-radius: 50%; background: #0F172A; color: #FFF; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; flex-shrink: 0; margin-top: 1px;">1</span>
+                      <span>Open <strong>WhatsApp</strong> on your mobile phone.</span>
+                    </div>
+                    <div class="d-flex align-items-start gap-2 text-dark" style="font-size: 0.76rem;">
+                      <span style="width: 20px; height: 20px; border-radius: 50%; background: #0F172A; color: #FFF; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; flex-shrink: 0; margin-top: 1px;">2</span>
+                      <span>Tap <strong>Settings</strong> (iPhone) or <strong>⋮ (3 Dots)</strong> (Android).</span>
+                    </div>
+                    <div class="d-flex align-items-start gap-2 text-dark" style="font-size: 0.76rem;">
+                      <span style="width: 20px; height: 20px; border-radius: 50%; background: #0F172A; color: #FFF; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; flex-shrink: 0; margin-top: 1px;">3</span>
+                      <span>Select <strong>Linked Devices</strong> &rarr; tap <strong>Link a Device</strong>.</span>
+                    </div>
+                    <div class="d-flex align-items-start gap-2 text-dark" style="font-size: 0.76rem;">
+                      <span style="width: 20px; height: 20px; border-radius: 50%; background: #0F172A; color: #FFF; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; flex-shrink: 0; margin-top: 1px;">4</span>
+                      <span>Point your phone camera at the QR code on the left.</span>
+                    </div>
+                  </div>
 
-                  <div class="d-flex flex-wrap gap-2">
-                    <button type="button" class="btn btn-sm btn-outline-dark d-inline-flex align-items-center gap-1" id="btnRefreshWaQr" style="font-size: 0.75rem;">
+                  <div class="d-flex flex-wrap gap-2 pt-1">
+                    <button type="button" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center gap-1.5 py-1.5 px-3" id="btnRefreshWaQr" style="font-size: 0.76rem; font-weight: 600; border-radius: 6px;">
                       <i class="bi bi-arrow-clockwise"></i> Refresh QR
                     </button>
-                    <button type="button" class="btn btn-sm btn-outline-danger d-inline-flex align-items-center gap-1" id="btnDisconnectWa" style="font-size: 0.75rem;">
+                    <button type="button" class="btn btn-sm btn-outline-danger d-inline-flex align-items-center gap-1.5 py-1.5 px-3" id="btnDisconnectWa" style="font-size: 0.76rem; font-weight: 600; border-radius: 6px;">
                       <i class="bi bi-power"></i> Disconnect
                     </button>
-                    <button type="button" class="btn btn-sm btn-success text-white d-inline-flex align-items-center gap-1" id="btnQuickConfirmPair" style="font-size: 0.75rem;">
+                    <button type="button" class="btn btn-sm btn-success text-white d-inline-flex align-items-center gap-1.5 py-1.5 px-3" id="btnQuickConfirmPair" style="font-size: 0.76rem; font-weight: 600; border-radius: 6px; background: #16A34A; border-color: #16A34A;">
                       <i class="bi bi-check2-circle"></i> Mark Linked
                     </button>
                   </div>
@@ -2026,8 +2045,8 @@ $csrfToken = getCsrfToken();
           </div>
         </div>
 
-        <div class="modal-footer bg-light py-2 px-3 border-top">
-          <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal" style="font-size: 0.75rem;">Close</button>
+        <div class="modal-footer py-2.5 px-4" style="background: #FFFFFF; border-top: 1px solid #E2E8F0;">
+          <button type="button" class="btn btn-sm btn-outline-secondary px-3 py-1.5" data-bs-dismiss="modal" style="font-size: 0.76rem; font-weight: 600; border-radius: 6px;">Close Window</button>
         </div>
 
       </div>
@@ -2904,21 +2923,29 @@ $csrfToken = getCsrfToken();
         const data = await res.json();
         if (data.success) {
           if (data.is_connected) {
-            badge.innerHTML = `<span class="badge bg-success d-inline-flex align-items-center gap-1"><i class="bi bi-check-circle-fill"></i> Connected (${escapeHtml(data.phone)})</span>`;
+            badge.innerHTML = `<span class="badge d-inline-flex align-items-center gap-1.5 py-1 px-2.5" style="background: #DCFCE7; color: #166534; border: 1px solid #86EFAC; font-size: 0.72rem; border-radius: 6px;"><span class="status-dot" style="background:#16A34A; width:5px; height:5px;"></span> Active &amp; Synced</span>`;
             if (matrixWa) {
               matrixWa.innerHTML = `Connected (${escapeHtml(data.phone)})`;
               matrixWa.className = 'badge bg-success';
             }
             container.innerHTML = `
-              <div class="p-4 text-center">
-                <i class="bi bi-phone-fill text-success" style="font-size: 3rem;"></i>
-                <div class="fw-bold mt-2 text-dark">WhatsApp Companion Linked</div>
-                <div class="small text-muted font-monospace">${escapeHtml(data.phone)}</div>
-                <div class="small text-success mt-1"><i class="bi bi-shield-check"></i> Multi-device sync active</div>
+              <div class="p-3 text-center w-100">
+                <div class="mx-auto mb-2.5 d-flex align-items-center justify-content-center" style="width: 64px; height: 64px; border-radius: 50%; background: #F0FDF4; border: 1.5px solid #86EFAC; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.12);">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                    <path fill="#25D366" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2z"/>
+                    <path fill="#FFFFFF" d="M17.5 14.33c-.28-.14-1.65-.81-1.9-.91-.26-.09-.45-.14-.64.14-.19.28-.73.91-.9 1.1-.16.19-.33.21-.61.07-.28-.14-1.18-.44-2.25-1.39-.83-.74-1.4-1.66-1.56-1.94-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.47.09-.19.05-.35-.02-.5-.07-.14-.64-1.54-.87-2.11-.23-.56-.47-.48-.64-.49-.17-.01-.36-.01-.56-.01-.19 0-.5.07-.76.35-.26.28-1 1-1 2.43s1.03 2.82 1.17 3.01c.14.19 2.02 3.1 4.9 4.35 2.87 1.25 2.87.83 3.39.79.52-.05 1.65-.67 1.88-1.33.23-.65.23-1.22.16-1.33-.07-.12-.26-.19-.54-.33z"/>
+                  </svg>
+                </div>
+                <div class="fw-bold text-dark" style="font-size: 0.92rem; letter-spacing: -0.01em;">WhatsApp Companion Linked</div>
+                <div class="fw-semibold text-secondary font-monospace mt-1" style="font-size: 0.82rem;">${escapeHtml(data.phone)}</div>
+                <div class="d-inline-flex align-items-center gap-1.5 mt-2 py-1 px-2.5 rounded-pill" style="background: #F0FDF4; border: 1px solid #BBF7D0; color: #166534; font-size: 0.70rem; font-weight: 600;">
+                  <span class="status-dot" style="background:#16A34A; width:5px; height:5px;"></span>
+                  <span>Multi-Device Sync Active</span>
+                </div>
               </div>
             `;
           } else {
-            badge.innerHTML = `<span class="badge bg-warning text-dark d-inline-flex align-items-center gap-1"><i class="bi bi-qr-code-scan"></i> Standby (Scan QR)</span>`;
+            badge.innerHTML = `<span class="badge d-inline-flex align-items-center gap-1.5 py-1 px-2.5" style="background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; font-size: 0.72rem; border-radius: 6px;"><i class="bi bi-qr-code-scan"></i> Standby (Scan QR)</span>`;
             if (matrixWa) {
               matrixWa.innerHTML = 'Standby';
               matrixWa.className = 'badge bg-secondary';
