@@ -474,24 +474,24 @@ $csrfToken = getCsrfToken();
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
     }
     .badge-channel-whatsapp {
-      background: #F0FDF4;
-      color: #166534;
-      border: 1px solid #BBF7D0;
+      background: #F8FAFC;
+      color: #0F172A;
+      border: 1px solid #E2E8F0;
     }
     .badge-channel-instagram {
-      background: #FDF2F8;
-      color: #831843;
-      border: 1px solid #FBCFE8;
+      background: #F8FAFC;
+      color: #0F172A;
+      border: 1px solid #E2E8F0;
     }
     .badge-channel-facebook {
-      background: #EFF6FF;
-      color: #1E40AF;
-      border: 1px solid #BFDBFE;
+      background: #F8FAFC;
+      color: #0F172A;
+      border: 1px solid #E2E8F0;
     }
     .badge-channel-web {
       background: #F8FAFC;
-      color: #334155;
-      border: 1px solid #CBD5E1;
+      color: #0F172A;
+      border: 1px solid #E2E8F0;
     }
 
     /* Executive Dossier WhatsApp Action Button */
@@ -500,23 +500,42 @@ $csrfToken = getCsrfToken();
       align-items: center;
       gap: 5px;
       padding: 3px 8px;
-      background: #F0FDF4;
-      border: 1px solid #86EFAC;
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
       border-radius: 5px;
-      color: #15803D;
+      color: #0F172A;
       font-size: 0.70rem;
       font-weight: 600;
       text-decoration: none;
       transition: all 0.15s ease;
       white-space: nowrap;
-      box-shadow: 0 1px 2px rgba(22, 101, 52, 0.05);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
     }
     .btn-dossier-wa-action:hover {
-      background: #DCFCE7;
-      border-color: #4ADE80;
-      color: #14532D;
+      background: #F8FAFC;
+      border-color: #94A3B8;
+      color: #0284C7;
       transform: translateY(-0.5px);
-      box-shadow: 0 2px 4px rgba(22, 101, 52, 0.12);
+    }
+
+    /* Borderless Executive Manage Link for Dossier Channel Source */
+    .btn-dos-manage-link {
+      border: none !important;
+      background: transparent !important;
+      padding: 0 2px !important;
+      color: #0284C7 !important;
+      font-size: 0.72rem !important;
+      font-weight: 600 !important;
+      line-height: 1.2 !important;
+      cursor: pointer;
+      text-decoration: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+      transition: color 0.15s ease;
+    }
+    .btn-dos-manage-link:hover {
+      color: #0369A1 !important;
+      text-decoration: underline !important;
     }
 
     /* Channel Filter Pills Slider with Dual Arrow Navigation on the Right */
@@ -2599,12 +2618,12 @@ $csrfToken = getCsrfToken();
         if (pageRowLabel) pageRowLabel.textContent = 'Channel Source';
         if (pageView) {
           pageView.innerHTML = `
-            <div class="d-flex align-items-center justify-content-between p-1.5 px-2 rounded" style="background:#F0FDF4; border:1px solid #BBF7D0;">
+            <div class="d-flex align-items-center justify-content-between p-1.5 px-2 rounded" style="background:#F8FAFC; border:1px solid #E2E8F0;">
               <div class="d-flex align-items-center gap-1.5">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path fill="#25D366" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2z"/><path fill="#FFFFFF" d="M17.5 14.33c-.28-.14-1.65-.81-1.9-.91-.26-.09-.45-.14-.64.14-.19.28-.73.91-.9 1.1-.16.19-.33.21-.61.07-.28-.14-1.18-.44-2.25-1.39-.83-.74-1.4-1.66-1.56-1.94-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.47.09-.19.05-.35-.02-.5-.07-.14-.64-1.54-.87-2.11-.23-.56-.47-.48-.64-.49-.17-.01-.36-.01-.56-.01-.19 0-.5.07-.76.35-.26.28-1 1-1 2.43s1.03 2.82 1.17 3.01c.14.19 2.02 3.1 4.9 4.35 2.87 1.25 2.87.83 3.39.79.52-.05 1.65-.67 1.88-1.33.23-.65.23-1.22.16-1.33-.07-.12-.26-.19-.54-.33z"/></svg>
                 <span class="fw-semibold text-dark" style="font-size:0.73rem;">WhatsApp Mobile Linked</span>
               </div>
-              <button type="button" class="btn btn-xs btn-outline-success py-0.5 px-2 fw-semibold" id="dosWaQuickBtn" style="font-size:0.67rem; border-radius:4px;" title="View QR Login and Meta Hub">
+              <button type="button" class="btn-dos-manage-link" id="dosWaQuickBtn" title="View QR Login and Meta Hub">
                 Manage
               </button>
             </div>
@@ -2629,7 +2648,7 @@ $csrfToken = getCsrfToken();
                 ${isIg ? igSvg : fbSvg}
                 <span class="fw-semibold text-dark" style="font-size:0.73rem;">${isIg ? 'Instagram Direct' : 'Facebook Messenger'}</span>
               </div>
-              <button type="button" class="btn btn-xs btn-outline-primary py-0.5 px-2 fw-semibold" id="dosMetaQuickBtn" style="font-size:0.67rem; border-radius:4px;" title="Manage Meta Account">
+              <button type="button" class="btn-dos-manage-link" id="dosMetaQuickBtn" title="Manage Meta Account">
                 Settings
               </button>
             </div>
