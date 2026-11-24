@@ -18,9 +18,9 @@ if ($pdo !== null) {
 
 $currentUid  = (int)($user['id'] ?? 0);
 $currentTier = $user['tier'] ?? 'Owner';
-$rawAgentName = trim((string)($user['full_name'] ?: ($user['username'] ?? 'Balochistan Minerals Executive')));
-if ($rawAgentName === '' || strcasecmp($rawAgentName, 'Balochistan Minerals Admin') === 0 || strcasecmp($rawAgentName, 'Admin') === 0) {
-    $agentName = 'Balochistan Minerals Executive';
+$rawAgentName = trim((string)($user['full_name'] ?: ($user['username'] ?? 'Balochistan Minerals MIS')));
+if ($rawAgentName === '' || strcasecmp($rawAgentName, 'Balochistan Minerals Admin') === 0 || strcasecmp($rawAgentName, 'Balochistan Minerals Executive') === 0 || strcasecmp($rawAgentName, 'Admin') === 0) {
+    $agentName = 'Balochistan Minerals MIS';
 } else {
     $agentName = $rawAgentName;
 }
@@ -42,7 +42,7 @@ $csrfToken = getCsrfToken();
   <link rel="icon" type="image/png" href="../images/favicon/favicon-32x32.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="admin-layout.css?v=<?= filemtime(__DIR__ . '/admin-layout.css') ?>">
@@ -59,7 +59,7 @@ $csrfToken = getCsrfToken();
       --text-muted: #64748B;
       --sidebar-width: 280px;
     }
-    body { font-family: 'Poppins', sans-serif; font-size: 0.88rem; color: var(--text-dark); background-color: var(--brand-canvas); margin: 0; }
+    body { font-family: 'Poppins', sans-serif; font-size: 0.88rem; color: var(--text-dark); background-color: var(--brand-canvas); margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
     /* Executive Density Desktop Calibration (92% zoom scale) */
     @media (min-width: 992px) {
       body {
@@ -1442,9 +1442,9 @@ $csrfToken = getCsrfToken();
 
       <div class="sidebar-footer">
         <div class="sidebar-footer-row-user d-flex align-items-center justify-content-between gap-2 mb-1">
-          <div class="fw-bold small text-truncate" style="color: var(--brand-navy); font-size: 0.8rem;" title="<?= htmlspecialchars($agentName) ?>"><?= htmlspecialchars($agentName) ?></div>
+          <div class="fw-semibold small text-truncate" style="color: var(--brand-navy); font-size: 0.8rem; font-weight: 600;" title="<?= htmlspecialchars($agentName) ?>"><?= htmlspecialchars($agentName) ?></div>
           <a href="logout.php" class="btn btn-sm btn-outline-secondary p-1 px-2 flex-shrink-0" title="Sign Out">
-            <i class="bi bi-box-arrow-right"></i>
+            <i class="bi bi-power"></i>
           </a>
         </div>
         <div class="sidebar-footer-row-meta d-flex align-items-center justify-content-between gap-2">
