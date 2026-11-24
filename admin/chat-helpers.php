@@ -728,10 +728,12 @@ function getOrCreateChatSession(PDO $pdo, string $token, array $meta = []): arra
     $countryCode = substr((string)($meta['country_code'] ?? 'XX'), 0, 10);
     $city        = substr((string)($meta['city'] ?? ''), 0, 95);
     $timezone    = substr((string)($meta['timezone'] ?? $meta['client_tz'] ?? ''), 0, 60);
-    $channel     = in_array($meta['channel'] ?? 'web', ['web', 'whatsapp', 'instagram', 'facebook'], true) ? $meta['channel'] : 'web';
+    $rawChannel  = (string)($meta['channel'] ?? 'web');
+    $channel     = in_array($rawChannel, ['web', 'whatsapp', 'instagram', 'facebook'], true) ? $rawChannel : 'web';
     $channelId   = substr((string)($meta['channel_id'] ?? ''), 0, 95);
     $channelMeta = isset($meta['channel_metadata']) ? (is_array($meta['channel_metadata']) ? json_encode($meta['channel_metadata']) : (string)$meta['channel_metadata']) : null;
-    $initialStatus = in_array($meta['status'] ?? '', ['bot', 'waiting_human', 'agent_active', 'closed'], true) ? $meta['status'] : ($channel === 'web' ? 'bot' : 'waiting_human');
+    $rawStatus   = (string)($meta['status'] ?? '');
+    $initialStatus = in_array($rawStatus, ['bot', 'waiting_human', 'agent_active', 'closed'], true) ? $rawStatus : ($channel === 'web' ? 'bot' : 'waiting_human');
     $visitorName = !empty($meta['visitor_name']) ? substr(trim((string)$meta['visitor_name']), 0, 95) : null;
 
     // Clean page if full URL was passed

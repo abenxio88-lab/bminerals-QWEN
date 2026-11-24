@@ -449,11 +449,9 @@ class BMChatbot {
       this.whatsappBtn.classList.add('is-blinking');
     }
 
-    // 7. Refresh Live Officer Presence & Resume sync if in human mode
+    // 7. Refresh Live Officer Presence & Start live trade desk sync
     this.fetchOfficerStatus();
-    if (this.chatMode === 'waiting_human' || this.chatMode === 'human') {
-      this.startSyncLoop();
-    }
+    this.startSyncLoop();
 
     // Focus input on desktop; on touch devices avoid auto-triggering keyboard immediately on open
     setTimeout(() => {
@@ -1247,7 +1245,7 @@ class BMChatbot {
     this.stopSyncLoop();
     this.syncMessages();
     this.syncTimer = setInterval(() => {
-      if (this.isOpen && (this.chatMode === 'waiting_human' || this.chatMode === 'human')) {
+      if (this.isOpen) {
         this.syncMessages();
       }
     }, 2500);
@@ -1261,7 +1259,7 @@ class BMChatbot {
   }
 
   async syncMessages() {
-    if (this.chatMode === 'bot') return;
+    if (!this.isOpen) return;
 
     try {
       const telem = this.getClientTelemetry();
@@ -1329,9 +1327,10 @@ class BMChatbot {
         body: fd
       });
       const data = await res.json();
-      if (data && data.success && data.message_id) {
-        if (data.message_id > this.lastMessageId) {
-          this.lastMessageId = data.message_id;
+      if (data && data.success && (data.msg_id || data.message_id)) {
+        const id = Number(data.msg_id || data.message_id);
+        if (id > this.lastMessageId) {
+          this.lastMessageId = id;
         }
       }
     } catch {}
