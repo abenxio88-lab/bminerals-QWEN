@@ -33,7 +33,7 @@ $csrfToken = getCsrfToken();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Live Chat Desk &bull; Balochistan Minerals Trade Desk</title>
+  <title>Live Chat Desk &bull; Balochistan Minerals Enterprise Systems</title>
   <link rel="icon" type="image/png" href="../images/favicon/favicon-32x32.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,6 +41,7 @@ $csrfToken = getCsrfToken();
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="admin-layout.css?v=<?= filemtime(__DIR__ . '/admin-layout.css') ?>">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <style>
     :root {
       --brand-navy: #0F172A;
@@ -59,10 +60,28 @@ $csrfToken = getCsrfToken();
       body {
         zoom: 0.92;
       }
+      .app-wrapper {
+        min-height: calc(100vh / 0.92) !important;
+        height: calc(100vh / 0.92) !important;
+      }
+      .app-main {
+        min-height: calc(100vh / 0.92) !important;
+        height: calc(100vh / 0.92) !important;
+      }
+      .chat-terminal {
+        height: calc((100vh / 0.92) - 52px) !important;
+      }
     }
     h1, h2, h3, h4, h5, h6, .brand-font { font-family: 'Montserrat', sans-serif; letter-spacing: -0.015em; }
 
-    .app-wrapper { display: flex; min-height: 100vh; }
+    .app-wrapper {
+      display: flex;
+      min-height: 100vh;
+      min-height: calc(100vh / 0.92);
+      height: 100vh;
+      height: calc(100vh / 0.92);
+      overflow: hidden;
+    }
     .app-sidebar {
       width: var(--sidebar-width);
       background: var(--brand-surface);
@@ -326,58 +345,264 @@ $csrfToken = getCsrfToken();
     }
 
     /* Status Badges - Deep Executive Palette (Zero Neon / Zero Cartoon) */
+    /* Status Badges - Bespoke Swiss Executive Design (Zero Monospace / Zero Chunky Borders) */
     .badge-status-waiting {
       display: inline-flex;
       align-items: center;
-      padding: 2.5px 7px;
-      border-radius: 4px;
-      font-size: 0.62rem;
+      gap: 5px;
+      padding: 3px 8px;
+      border-radius: 9999px;
+      font-size: 0.58rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
-      background: #FEF3C7;
-      color: #92400E;
-      border: 1px solid #FCD34D;
-      font-family: var(--font-mono, monospace);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: #FFFFFF !important;
+      color: #F97316 !important;
+      border: 1px solid #FED7AA !important;
+      box-shadow: none !important;
+      text-shadow: none !important;
+      white-space: nowrap;
+      line-height: 1.2;
+      font-family: inherit;
     }
+    .badge-status-waiting .status-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #F97316;
+      box-shadow: none !important;
+      animation: pulseOrangeDot 2s infinite ease-in-out;
+      flex-shrink: 0;
+    }
+    @keyframes pulseOrangeDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.35); opacity: 0.55; }
+    }
+
     .badge-status-live {
       display: inline-flex;
       align-items: center;
-      padding: 2.5px 7px;
-      border-radius: 4px;
-      font-size: 0.62rem;
+      gap: 5px;
+      padding: 3px 9px;
+      border-radius: 9999px;
+      font-size: 0.58rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
-      background: #ECFDF5;
-      color: #065F46;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: #F0FDF4;
+      color: #047857;
       border: 1px solid #A7F3D0;
-      font-family: var(--font-mono, monospace);
+      box-shadow: 0 1px 2px rgba(4, 120, 87, 0.05);
+      white-space: nowrap;
+      line-height: 1.2;
     }
+    .badge-status-live .status-dot {
+      width: 5.5px;
+      height: 5.5px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.22);
+      animation: pulseGreenDot 2s infinite ease-in-out;
+      flex-shrink: 0;
+    }
+    @keyframes pulseGreenDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.35); opacity: 0.55; }
+    }
+
     .badge-status-bot {
       display: inline-flex;
       align-items: center;
-      padding: 2.5px 7px;
-      border-radius: 4px;
-      font-size: 0.62rem;
+      gap: 5px;
+      padding: 3px 9px;
+      border-radius: 9999px;
+      font-size: 0.58rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
-      background: #F1F5F9;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: #F8FAFC;
       color: #475569;
-      border: 1px solid #CBD5E1;
-      font-family: var(--font-mono, monospace);
+      border: 1px solid #E2E8F0;
+      white-space: nowrap;
+      line-height: 1.2;
     }
+    .badge-status-bot .status-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #94A3B8;
+      flex-shrink: 0;
+    }
+
     .badge-status-unread {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 17px;
-      height: 17px;
-      padding: 0 4px;
-      border-radius: 9px;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 5px;
+      border-radius: 9999px;
       font-size: 0.62rem;
       font-weight: 700;
-      background: #991B1B;
+      background: #0F172A;
       color: #FFFFFF;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.25);
       line-height: 1;
+      border: 1.5px solid #FFFFFF;
+      margin-top: 1px;
+    }
+
+    /* Multi-Channel Indicators - Executive Precision (Zero cartoon / Zero all-caps neon) */
+    .badge-channel-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.70rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      line-height: 1.25;
+      flex-shrink: 0;
+      text-transform: none;
+      vertical-align: middle;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    }
+    .badge-channel-whatsapp {
+      background: #F0FDF4;
+      color: #166534;
+      border: 1px solid #BBF7D0;
+    }
+    .badge-channel-instagram {
+      background: #FDF2F8;
+      color: #831843;
+      border: 1px solid #FBCFE8;
+    }
+    .badge-channel-facebook {
+      background: #EFF6FF;
+      color: #1E40AF;
+      border: 1px solid #BFDBFE;
+    }
+    .badge-channel-web {
+      background: #F8FAFC;
+      color: #334155;
+      border: 1px solid #CBD5E1;
+    }
+
+    /* Executive Dossier WhatsApp Action Button */
+    .btn-dossier-wa-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 8px;
+      background: #F0FDF4;
+      border: 1px solid #86EFAC;
+      border-radius: 5px;
+      color: #15803D;
+      font-size: 0.70rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      box-shadow: 0 1px 2px rgba(22, 101, 52, 0.05);
+    }
+    .btn-dossier-wa-action:hover {
+      background: #DCFCE7;
+      border-color: #4ADE80;
+      color: #14532D;
+      transform: translateY(-0.5px);
+      box-shadow: 0 2px 4px rgba(22, 101, 52, 0.12);
+    }
+
+    /* Channel Filter Pills Slider with Dual Arrow Navigation on the Right */
+    .chat-channel-slider-wrap {
+      display: flex;
+      align-items: center;
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--brand-border);
+      position: relative;
+      padding: 2px 6px 2px 8px;
+      gap: 6px;
+    }
+    .chat-channel-pills {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 2px;
+      background: transparent;
+      border-bottom: none;
+      overflow-x: auto;
+      scrollbar-width: none;
+      scroll-behavior: smooth;
+      flex: 1;
+      min-width: 0;
+    }
+    .chat-channel-pills::-webkit-scrollbar {
+      display: none;
+    }
+    .chat-channel-arrows-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      flex-shrink: 0;
+      padding-left: 6px;
+      border-left: 1px solid #E2E8F0;
+      background: #FFFFFF;
+      z-index: 2;
+    }
+    .btn-channel-slide {
+      width: 22px;
+      height: 24px;
+      border: 1px solid #E2E8F0;
+      background: #F8FAFC;
+      color: #64748B;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      flex-shrink: 0;
+      transition: all 0.15s ease;
+      padding: 0;
+    }
+    .btn-channel-slide:hover {
+      background: #0F172A;
+      color: #FFFFFF;
+      border-color: #0F172A;
+    }
+    .btn-channel-slide:active {
+      transform: scale(0.92);
+    }
+    .channel-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      height: 24px;
+      padding: 0 9px;
+      border-radius: 12px;
+      font-size: 0.67rem;
+      font-weight: 600;
+      border: 1px solid var(--brand-border);
+      background: #F8FAFC;
+      color: #475569;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+    }
+    .channel-pill:hover {
+      background: #F1F5F9;
+      color: #0F172A;
+      border-color: #CBD5E1;
+    }
+    .channel-pill.active {
+      background: #0F172A;
+      color: #FFFFFF;
+      border-color: #0F172A;
+    }
+    .channel-pill.active i {
+      color: #FFFFFF !important;
     }
 
     /* WhatsApp / Messenger style conversation list items */
@@ -405,21 +630,46 @@ $csrfToken = getCsrfToken();
       box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
     }
     .conv-item.is-waiting {
-      border-left: 3.5px solid #475569;
+      border-left: 3.5px solid #D97706;
     }
     .conv-avatar {
-      width: 36px;
-      height: 36px;
+      position: relative;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      background: #F1F5F9;
+      background: #F8FAFC;
       color: #0F172A;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      font-size: 0.8rem;
+      font-size: 0.88rem;
       flex-shrink: 0;
       border: 1px solid #CBD5E1;
+    }
+
+    /* High-Quality Official Brand SVG Icon Overlay on Avatar Bottom-Right (Zero White Circle) */
+    .conv-channel-badge {
+      position: absolute;
+      bottom: -3px;
+      right: -3px;
+      width: 18px;
+      height: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+      z-index: 3;
+      flex-shrink: 0;
+      pointer-events: none;
+    }
+    .conv-channel-badge svg {
+      width: 18px;
+      height: 18px;
+      display: block;
     }
     .conv-content {
       flex: 1;
@@ -503,6 +753,7 @@ $csrfToken = getCsrfToken();
     }
 
     .active-chat-avatar {
+      position: relative;
       width: 34px;
       height: 34px;
       border-radius: 50%;
@@ -515,6 +766,16 @@ $csrfToken = getCsrfToken();
       font-size: 0.82rem;
       flex-shrink: 0;
       border: 1px solid #CBD5E1;
+    }
+    .active-chat-avatar .conv-channel-badge {
+      width: 16px;
+      height: 16px;
+      bottom: -2px;
+      right: -2px;
+    }
+    .active-chat-avatar .conv-channel-badge svg {
+      width: 16px;
+      height: 16px;
     }
 
     .active-chat-info {
@@ -942,12 +1203,7 @@ $csrfToken = getCsrfToken();
       text-decoration: underline;
     }
     .conv-avatar-flag {
-      position: absolute;
-      bottom: -3px;
-      right: -3px;
-      font-size: 0.74rem;
-      line-height: 1;
-      filter: drop-shadow(0 1px 1px rgba(0,0,0,0.25));
+      display: none !important;
     }
     .active-chat-time {
       font-size: 0.68rem;
@@ -1102,7 +1358,7 @@ $csrfToken = getCsrfToken();
       <div class="sidebar-header">
         <a href="../" target="_blank" class="sidebar-logo-wrap" title="Balochistan Minerals">
           <picture style="display: contents;"><source media="(min-width: 769px)" srcset="../images/new-logo-dekstop.png" width="723" height="278"><img src="../images/new-logo.png" alt="Balochistan Minerals" class="sidebar-logo" onerror="this.style.display='none'"></picture>
-          <span class="sidebar-badge">TRADE DESK PORTAL</span>
+          <span class="sidebar-badge">ENTERPRISE SYSTEMS</span>
         </a>
         <button type="button" id="sidebarCloseBtn" class="btn-sidebar-panel-toggle" aria-label="Toggle Sidebar" title="Collapse Sidebar (Ctrl + B)">
           <i class="bi bi-layout-sidebar-inset"></i>
@@ -1196,6 +1452,12 @@ $csrfToken = getCsrfToken();
         </div>
 
         <div class="d-flex align-items-center gap-2 flex-shrink-0">
+          <!-- WhatsApp QR Login & Meta Hub Button -->
+          <button type="button" id="btnMetaHub" class="btn-desk-control d-inline-flex align-items-center gap-1.5" title="Scan QR Code to Link WhatsApp on your phone, or manage Instagram & Facebook" style="background: #F0FDF4; border: 1px solid #86EFAC; color: #166534;">
+            <i class="bi bi-qr-code" style="color: #16A34A; font-size: 0.95rem;"></i>
+            <span class="fw-bold" style="font-size: 0.76rem;">WhatsApp QR Login</span>
+            <span class="badge bg-success" id="metaHubBadge" style="font-size: 0.58rem; padding: 2px 5px;">LIVE</span>
+          </button>
           <!-- Audio Alert Toggle -->
           <button type="button" id="soundToggleBtn" class="btn-desk-control" title="Toggle audio chime on new buyer message">
             <i class="bi bi-volume-up-fill" id="soundIcon"></i>
@@ -1218,6 +1480,25 @@ $csrfToken = getCsrfToken();
             <div class="input-group input-group-sm">
               <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-search"></i></span>
               <input type="text" id="convSearchInput" class="form-control border-start-0 ps-0" placeholder="Filter buyer, country or mineral..." autocomplete="off">
+            </div>
+          </div>
+
+          <!-- Channel Filter Pills with Arrow Slider on Right -->
+          <div class="chat-channel-slider-wrap">
+            <div class="chat-channel-pills" id="channelFilterPills">
+              <button type="button" class="channel-pill active" data-channel="all"><i class="bi bi-grid-fill"></i> All (<span id="countAllChannels">0</span>)</button>
+              <button type="button" class="channel-pill" data-channel="whatsapp"><i class="bi bi-whatsapp" style="color:#25D366;"></i> WhatsApp (<span id="countWhatsApp">0</span>)</button>
+              <button type="button" class="channel-pill" data-channel="instagram"><i class="bi bi-instagram" style="color:#E1306C;"></i> Instagram (<span id="countInstagram">0</span>)</button>
+              <button type="button" class="channel-pill" data-channel="facebook"><i class="bi bi-messenger" style="color:#1877F2;"></i> Facebook (<span id="countFacebook">0</span>)</button>
+              <button type="button" class="channel-pill" data-channel="web" title="Website AI Chatbot Buddy"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" class="me-1"><path d="M6 3h12l4 6-10 12L2 9z"></path><path d="M11 3v6l-4 3"></path><path d="M13 3v6l4 3"></path></svg> Chatbot (<span id="countWeb">0</span>)</button>
+            </div>
+            <div class="chat-channel-arrows-wrap">
+              <button type="button" class="btn-channel-slide" id="btnChannelSlidePrev" title="Slide channels left" aria-label="Previous channels">
+                <i class="bi bi-chevron-left"></i>
+              </button>
+              <button type="button" class="btn-channel-slide" id="btnChannelSlideNext" title="Slide channels right" aria-label="Next channels">
+                <i class="bi bi-chevron-right"></i>
+              </button>
             </div>
           </div>
 
@@ -1252,19 +1533,21 @@ $csrfToken = getCsrfToken();
                 <button type="button" class="btn-mobile-back d-lg-none" id="btnMobileBack" aria-label="Back to conversations list">
                   <i class="bi bi-chevron-left"></i>
                 </button>
-                <div class="active-chat-avatar" id="chatHeaderAvatar" style="position: relative;">
+                <div class="active-chat-avatar" id="chatHeaderAvatar">
                   <span id="chatHeaderInitial">G</span>
-                  <span id="chatHeaderFlag" class="conv-avatar-flag" style="display: none;"></span>
                 </div>
                 <div class="active-chat-info">
-                  <div class="active-chat-name" id="chatHeaderTitleText">Guest Buyer</div>
+                  <div class="d-flex align-items-center gap-1.5 flex-wrap">
+                    <div class="active-chat-name" id="chatHeaderTitleText">Guest Buyer</div>
+                    <span id="chatHeaderChannelBadge"></span>
+                  </div>
                   <div class="active-chat-sub" id="chatHeaderSub">
                     <span class="active-chat-country" id="chatHeaderCountry">International</span>
                     <span class="active-chat-sep">&bull;</span>
                     <span class="active-chat-sub-label d-none d-md-inline">Local:</span>
                     <span class="active-chat-time font-monospace d-none d-sm-inline" id="chatHeaderLocalTime">—</span>
                     <span class="active-chat-sep d-none d-sm-inline">&bull;</span>
-                    <span class="active-chat-sub-label d-none d-sm-inline">Viewing:</span>
+                    <span class="active-chat-sub-label d-none d-sm-inline" id="chatHeaderOriginLabel">Viewing:</span>
                     <span class="active-chat-path" id="chatHeaderSubPath">/</span>
                   </div>
                 </div>
@@ -1275,10 +1558,6 @@ $csrfToken = getCsrfToken();
                 <button type="button" class="btn-chat-header btn-chat-header--claim" id="btnClaimChat" style="display: none;" title="Claim this session to take over live correspondence">
                   <i class="bi bi-shield-check"></i>
                   <span class="d-none d-sm-inline">Claim</span>
-                </button>
-                <button type="button" class="btn-chat-header btn-chat-header--rfq" id="btnConvertToRfq" title="Transfer lead and transcript into Inbound RFQs database">
-                  <i class="bi bi-file-earmark-plus"></i>
-                  <span class="d-none d-sm-inline">RFQ</span>
                 </button>
                 <button type="button" class="btn-chat-header btn-chat-header--close" id="btnCloseChat" title="End live chat and archive session">
                   <i class="bi bi-x-circle"></i>
@@ -1353,6 +1632,15 @@ $csrfToken = getCsrfToken();
             <div class="text-muted font-monospace mt-0.5" style="font-size: 0.67rem;" id="dosIpView">IP: —</div>
           </div>
 
+          <!-- Channel / Platform Origin -->
+          <div class="dossier-row">
+            <div class="dossier-label">Platform Channel</div>
+            <div class="dossier-val d-flex align-items-center gap-1.5" id="dosChannelView">
+              <span id="dosChannelBadge" class="badge-channel-item badge-channel-web"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1.5px;flex-shrink:0;"><path d="M6 3h12l4 6-10 12L2 9z"></path><path d="M11 3v6l-4 3"></path><path d="M13 3v6l4 3"></path></svg> <span>Web Desk</span></span>
+              <span id="dosChannelIdText" class="font-monospace text-muted" style="font-size:0.67rem;"></span>
+            </div>
+          </div>
+
           <!-- Email Address -->
           <div class="dossier-row">
             <div class="dossier-label">Email Address</div>
@@ -1371,9 +1659,9 @@ $csrfToken = getCsrfToken();
             </div>
           </div>
 
-          <!-- Current Page (Live Navigation) -->
+          <!-- Current Page / Channel Navigation -->
           <div class="dossier-row">
-            <div class="dossier-label">Current Page</div>
+            <div class="dossier-label" id="dosPageRowLabel">Current Page</div>
             <div class="dossier-val" id="dosPageView">
               <a href="/" target="_blank" id="dosPageLink" class="text-dark text-decoration-none font-monospace d-inline-flex align-items-center gap-1 p-1 px-1.5 rounded" style="background:#F1F5F9; border:1px solid #CBD5E1; font-size:0.7rem; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
                 <i class="bi bi-box-arrow-up-right text-primary" style="font-size:0.65rem;"></i>
@@ -1436,9 +1724,6 @@ $csrfToken = getCsrfToken();
             <button type="button" class="btn btn-sm btn-outline-primary w-100 mb-2" id="dosBtnRfq" style="font-size: 0.75rem; font-weight: 600;">
               <i class="bi bi-file-earmark-plus me-1"></i>Convert to RFQ
             </button>
-            <a href="generate-quote.php" target="_blank" class="btn btn-sm btn-outline-dark w-100 mb-2" style="font-size: 0.75rem;">
-              <i class="bi bi-file-earmark-text me-1"></i>Open Quote Generator
-            </a>
             <a href="stockpiles.php" target="_blank" class="btn btn-sm btn-outline-secondary w-100" style="font-size: 0.75rem;">
               <i class="bi bi-boxes me-1"></i>Check Ready Yards
             </a>
@@ -1448,6 +1733,305 @@ $csrfToken = getCsrfToken();
       </div>
 
     </main>
+  </div>
+
+  <!-- Meta Accounts & Channels Hub Modal -->
+  <div class="modal fade" id="metaHubModal" tabindex="-1" aria-labelledby="metaHubModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content" style="border: 1px solid var(--brand-border); box-shadow: 0 20px 40px rgba(15,23,42,0.18); border-radius: 12px; overflow: hidden;">
+        
+        <!-- Modal Header -->
+        <div class="modal-header" style="background: #0F172A; color: #FFFFFF; padding: 14px 20px; border-bottom: 1px solid #1E293B;">
+          <div class="d-flex align-items-center gap-2">
+            <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center;">
+              <i class="bi bi-meta" style="color: #38BDF8; font-size: 1.15rem;"></i>
+            </div>
+            <div>
+              <h6 class="modal-title fw-bold mb-0" id="metaHubModalLabel" style="font-size: 0.95rem; letter-spacing: 0.02em;">Meta Accounts &amp; Channels Hub</h6>
+              <div class="text-white-50" style="font-size: 0.72rem;">Unified WhatsApp Web Companion, Instagram Direct &amp; Facebook Messenger</div>
+            </div>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="modal-body p-0">
+          <ul class="nav nav-tabs nav-fill bg-light px-3 pt-2" id="metaHubTabs" role="tablist" style="border-bottom: 1px solid #E2E8F0;">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active fw-semibold d-flex align-items-center justify-content-center gap-2 py-2" id="tabWhatsAppBtn" data-bs-toggle="tab" data-bs-target="#tabWhatsApp" type="button" role="tab" style="font-size: 0.8rem;">
+                <i class="bi bi-whatsapp text-success" style="font-size: 1rem;"></i> WhatsApp Companion
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link fw-semibold d-flex align-items-center justify-content-center gap-2 py-2" id="tabMetaSocialBtn" data-bs-toggle="tab" data-bs-target="#tabMetaSocial" type="button" role="tab" style="font-size: 0.8rem;">
+                <i class="bi bi-messenger text-primary" style="font-size: 1rem;"></i> Instagram &amp; Facebook
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link fw-semibold d-flex align-items-center justify-content-center gap-2 py-2" id="tabOverviewBtn" data-bs-toggle="tab" data-bs-target="#tabOverview" type="button" role="tab" style="font-size: 0.8rem;">
+                <i class="bi bi-diagram-3 text-secondary" style="font-size: 1rem;"></i> Channel Matrix
+              </button>
+            </li>
+          </ul>
+
+          <div class="tab-content p-4" id="metaHubTabContent">
+            
+            <!-- TAB 1: WHATSAPP COMPANION (OPTION 2: QR LINK) -->
+            <div class="tab-pane fade show active" id="tabWhatsApp" role="tabpanel">
+              
+              <!-- Multi-Device Explanation Banner -->
+              <div class="alert mb-3 d-flex align-items-start gap-2.5 p-2.5" style="background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 8px;">
+                <i class="bi bi-shield-check text-success fs-5 mt-0.5"></i>
+                <div style="font-size: 0.77rem; color: #166534; line-height: 1.45;">
+                  <strong>Multi-Device Companion Link Active:</strong> Your WhatsApp account stays 100% active on your physical cell phone. No number deactivation or SIM swap required. Staff can reply directly from this Trade Desk, and all messages appear on your phone simultaneously.
+                </div>
+              </div>
+
+              <div class="row g-3 align-items-center">
+                <!-- Left: QR Code Display -->
+                <div class="col-md-5 text-center">
+                  <div class="p-3 bg-white rounded border d-inline-block position-relative" style="box-shadow: 0 4px 12px rgba(0,0,0,0.05);" id="waQrCodeWrapper">
+                    <div id="waQrContainer" style="min-height: 220px; display: flex; align-items: center; justify-content: center;">
+                      <div class="spinner-border text-success" role="status"></div>
+                    </div>
+                  </div>
+                  <div class="mt-2 small text-muted" style="font-size: 0.7rem;">
+                    <i class="bi bi-clock-history me-1"></i>QR refreshes dynamically
+                  </div>
+                </div>
+
+                <!-- Right: Status & Steps -->
+                <div class="col-md-7">
+                  <div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom">
+                    <div>
+                      <span class="text-muted small fw-bold text-uppercase" style="font-size: 0.65rem;">Companion Status</span>
+                      <div class="fw-bold d-flex align-items-center gap-1.5" id="waStatusBadge" style="font-size: 0.88rem; color: #0F172A;">
+                        <span class="badge bg-secondary">Checking status...</span>
+                      </div>
+                    </div>
+                    <div class="text-end">
+                      <span class="text-muted small fw-bold text-uppercase" style="font-size: 0.65rem;">Linked Phone</span>
+                      <div class="fw-bold font-monospace" id="waConnectedPhone" style="font-size: 0.82rem; color: #0F172A;">+92 334 8888104</div>
+                    </div>
+                  </div>
+
+                  <h6 class="fw-bold mb-2 text-dark" style="font-size: 0.82rem;">How to Link WhatsApp on Mobile:</h6>
+                  <ol class="ps-3 mb-3 text-secondary" style="font-size: 0.75rem; line-height: 1.6;">
+                    <li>Open <strong>WhatsApp</strong> on your mobile phone.</li>
+                    <li>Tap <strong>Settings</strong> (iOS) or <strong>&vellip; (3 Dots)</strong> (Android).</li>
+                    <li>Select <strong>Linked Devices</strong> &rarr; tap <strong>Link a Device</strong>.</li>
+                    <li>Point your phone camera at the QR code on the left.</li>
+                  </ol>
+
+                  <div class="d-flex flex-wrap gap-2">
+                    <button type="button" class="btn btn-sm btn-outline-dark d-inline-flex align-items-center gap-1" id="btnRefreshWaQr" style="font-size: 0.75rem;">
+                      <i class="bi bi-arrow-clockwise"></i> Refresh QR
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-danger d-inline-flex align-items-center gap-1" id="btnDisconnectWa" style="font-size: 0.75rem;">
+                      <i class="bi bi-power"></i> Disconnect
+                    </button>
+                    <button type="button" class="btn btn-sm btn-success text-white d-inline-flex align-items-center gap-1" id="btnQuickConfirmPair" style="font-size: 0.75rem;">
+                      <i class="bi bi-check2-circle"></i> Mark Linked
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Instant Simulation Accordion -->
+              <div class="mt-4 pt-3 border-top">
+                <button class="btn btn-sm btn-outline-secondary w-100 text-start d-flex align-items-center justify-content-between p-2" type="button" data-bs-toggle="collapse" data-bs-target="#waSimulationBox">
+                  <span class="fw-bold" style="font-size: 0.75rem;"><i class="bi bi-broadcast text-success me-1.5"></i> Test Simulator: Simulate Inbound WhatsApp Inquiry</span>
+                  <i class="bi bi-chevron-down small"></i>
+                </button>
+                <div class="collapse mt-2" id="waSimulationBox">
+                  <div class="p-3 bg-light rounded border">
+                    <div class="row g-2 mb-2">
+                      <div class="col-md-6">
+                        <label class="form-label small mb-1 fw-bold" style="font-size: 0.7rem;">Buyer Phone (+Country Code)</label>
+                        <input type="text" class="form-control form-control-sm" id="simWaPhone" value="+86 138 0013 8000" placeholder="+86 138 0000 0000" style="font-size: 0.75rem;">
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label small mb-1 fw-bold" style="font-size: 0.7rem;">Buyer / Company Name</label>
+                        <input type="text" class="form-control form-control-sm" id="simWaName" value="Zhang Wei (Sinochem Raw Materials)" placeholder="e.g. Li Wei" style="font-size: 0.75rem;">
+                      </div>
+                    </div>
+                    <div class="mb-2">
+                      <label class="form-label small mb-1 fw-bold" style="font-size: 0.7rem;">Inquiry Message Text</label>
+                      <input type="text" class="form-control form-control-sm" id="simWaMsg" value="We require 12,000 MT Barite 4.2+ SG (API 13A grade) FOB Karachi for Tianjin Port. Can you share assay and quote?" style="font-size: 0.75rem;">
+                    </div>
+                    <button type="button" class="btn btn-sm btn-dark w-100 py-1.5 d-inline-flex align-items-center justify-content-center gap-1" id="btnRunWaSimulation" style="font-size: 0.75rem; font-weight: 600;">
+                      <i class="bi bi-send-fill text-success"></i> Send Simulated WhatsApp Inquiry into Desk
+                    </button>
+                    <div id="simWaResult" class="small mt-2" style="display: none;"></div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- TAB 2: INSTAGRAM & FACEBOOK SETTINGS -->
+            <div class="tab-pane fade" id="tabMetaSocial" role="tabpanel">
+              
+              <!-- Webhook Card -->
+              <div class="p-3 mb-3 rounded" style="background: #F8FAFC; border: 1px solid #E2E8F0;">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                  <span class="fw-bold text-dark" style="font-size: 0.78rem;"><i class="bi bi-link-45deg text-primary me-1"></i> Meta Webhook Endpoint</span>
+                  <span class="badge bg-primary" style="font-size: 0.62rem;">Universal Handshake</span>
+                </div>
+                <div class="row g-2">
+                  <div class="col-md-7">
+                    <label class="form-label small text-muted mb-1" style="font-size: 0.68rem;">Callback URL (Paste into Meta App Dashboard)</label>
+                    <div class="input-group input-group-sm">
+                      <input type="text" class="form-control font-monospace" id="metaWebhookUrlDisplay" readonly style="font-size: 0.72rem; background: #FFFFFF;">
+                      <button class="btn btn-outline-secondary" type="button" id="btnCopyWebhookUrl" title="Copy to clipboard"><i class="bi bi-clipboard"></i> Copy</button>
+                    </div>
+                  </div>
+                  <div class="col-md-5">
+                    <label class="form-label small text-muted mb-1" style="font-size: 0.68rem;">Verify Token (hub.verify_token)</label>
+                    <div class="input-group input-group-sm">
+                      <input type="text" class="form-control font-monospace" id="metaVerifyTokenDisplay" readonly style="font-size: 0.72rem; background: #FFFFFF;">
+                      <button class="btn btn-outline-secondary" type="button" id="btnCopyVerifyToken" title="Copy to clipboard"><i class="bi bi-clipboard"></i> Copy</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-2 text-muted" style="font-size: 0.68rem;">
+                  <i class="bi bi-info-circle me-1"></i>Subscribe to webhook fields: <code class="text-primary">messages</code>, <code class="text-primary">messaging_postbacks</code>
+                </div>
+              </div>
+
+              <!-- Credentials Form -->
+              <div class="row g-2.5">
+                <div class="col-md-6">
+                  <label class="form-label small mb-1 fw-bold" style="font-size: 0.72rem;">Facebook Page ID</label>
+                  <input type="text" class="form-control form-control-sm font-monospace" id="inputFbPageId" placeholder="e.g. 102948192847291" style="font-size: 0.75rem;">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small mb-1 fw-bold" style="font-size: 0.72rem;">Instagram Business Account ID</label>
+                  <input type="text" class="form-control form-control-sm font-monospace" id="inputIgAccountId" placeholder="e.g. 178414002938472" style="font-size: 0.75rem;">
+                </div>
+                <div class="col-md-12">
+                  <label class="form-label small mb-1 fw-bold" style="font-size: 0.72rem;">Facebook Page Access Token (Never expires recommended)</label>
+                  <input type="password" class="form-control form-control-sm font-monospace" id="inputFbPageToken" placeholder="EAA..." style="font-size: 0.75rem;">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small mb-1 fw-bold" style="font-size: 0.72rem;">Meta App ID (Optional)</label>
+                  <input type="text" class="form-control form-control-sm font-monospace" id="inputMetaAppId" placeholder="e.g. 84920193847" style="font-size: 0.75rem;">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small mb-1 fw-bold" style="font-size: 0.72rem;">Meta App Secret (Optional)</label>
+                  <input type="password" class="form-control form-control-sm font-monospace" id="inputMetaAppSecret" placeholder="••••••••" style="font-size: 0.75rem;">
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center justify-content-between mt-3 pt-2 border-top">
+                <span id="metaSettingsSaveNotice" class="text-success small fw-bold" style="display: none; font-size: 0.72rem;">
+                  <i class="bi bi-check-circle-fill me-1"></i>Credentials saved successfully
+                </span>
+                <button type="button" class="btn btn-sm btn-primary ms-auto d-inline-flex align-items-center gap-1.5" id="btnSaveMetaSettings" style="font-size: 0.75rem; font-weight: 600;">
+                  <i class="bi bi-shield-lock-fill"></i> Save Meta Credentials
+                </button>
+              </div>
+
+              <!-- Instant Simulation for Social -->
+              <div class="mt-4 pt-3 border-top">
+                <button class="btn btn-sm btn-outline-secondary w-100 text-start d-flex align-items-center justify-content-between p-2" type="button" data-bs-toggle="collapse" data-bs-target="#socialSimulationBox">
+                  <span class="fw-bold" style="font-size: 0.75rem;"><i class="bi bi-broadcast text-primary me-1.5"></i> Test Simulator: Simulate Inbound Instagram DM or Facebook Message</span>
+                  <i class="bi bi-chevron-down small"></i>
+                </button>
+                <div class="collapse mt-2" id="socialSimulationBox">
+                  <div class="p-3 bg-light rounded border">
+                    <div class="row g-2 mb-2">
+                      <div class="col-md-4">
+                        <label class="form-label small mb-1 fw-bold" style="font-size: 0.7rem;">Target Channel</label>
+                        <select class="form-select form-select-sm" id="simSocialChannel" style="font-size: 0.75rem;">
+                          <option value="instagram">Instagram Direct (🟣)</option>
+                          <option value="facebook">Facebook Messenger (🔵)</option>
+                        </select>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label small mb-1 fw-bold" style="font-size: 0.7rem;">Buyer Handle / Name</label>
+                        <input type="text" class="form-control form-control-sm" id="simSocialName" value="Global Mineral Trading Ltd" style="font-size: 0.75rem;">
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label small mb-1 fw-bold" style="font-size: 0.7rem;">Country</label>
+                        <input type="text" class="form-control form-control-sm" id="simSocialCountry" value="United Arab Emirates" style="font-size: 0.75rem;">
+                      </div>
+                    </div>
+                    <div class="mb-2">
+                      <label class="form-label small mb-1 fw-bold" style="font-size: 0.7rem;">Message Text</label>
+                      <input type="text" class="form-control form-control-sm" id="simSocialMsg" value="We require 5,000 MT Chromite 44% CIF Jebel Ali. Please send specification and FOB quote." style="font-size: 0.75rem;">
+                    </div>
+                    <button type="button" class="btn btn-sm btn-dark w-100 py-1.5 d-inline-flex align-items-center justify-content-center gap-1" id="btnRunSocialSimulation" style="font-size: 0.75rem; font-weight: 600;">
+                      <i class="bi bi-send-fill text-primary"></i> Send Simulated Social Message into Desk
+                    </button>
+                    <div id="simSocialResult" class="small mt-2" style="display: none;"></div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- TAB 3: CHANNEL MATRIX & HEALTH -->
+            <div class="tab-pane fade" id="tabOverview" role="tabpanel">
+              <div class="table-responsive">
+                <table class="table table-sm table-bordered align-middle mb-0" style="font-size: 0.76rem;">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Channel</th>
+                      <th>Integration Method</th>
+                      <th>Status</th>
+                      <th>Inbound Route</th>
+                      <th>Outbound Route</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="fw-bold"><i class="bi bi-whatsapp text-success me-1"></i> WhatsApp</td>
+                      <td>Multi-Device Web Companion (QR)</td>
+                      <td><span class="badge bg-success" id="matrixWaStatus">Connected</span></td>
+                      <td>Real-time Companion Socket</td>
+                      <td>Direct via Authorized Companion</td>
+                    </tr>
+                    <tr>
+                      <td class="fw-bold"><i class="bi bi-instagram text-danger me-1"></i> Instagram</td>
+                      <td>Meta Graph API &amp; Webhook</td>
+                      <td><span class="badge bg-secondary" id="matrixIgStatus">Configured</span></td>
+                      <td><code>/api/meta-webhook.php</code></td>
+                      <td>Meta Graph API <code>/me/messages</code></td>
+                    </tr>
+                    <tr>
+                      <td class="fw-bold"><i class="bi bi-messenger text-primary me-1"></i> Facebook</td>
+                      <td>Meta Messenger Platform</td>
+                      <td><span class="badge bg-secondary" id="matrixFbStatus">Configured</span></td>
+                      <td><code>/api/meta-webhook.php</code></td>
+                      <td>Meta Graph API <code>/me/messages</code></td>
+                    </tr>
+                    <tr>
+                      <td class="fw-bold"><i class="bi bi-globe text-secondary me-1"></i> Web Live Chat</td>
+                      <td>Native Balochistan Portal</td>
+                      <td><span class="badge bg-success">Always Online</span></td>
+                      <td><code>/api/live-chat.php</code></td>
+                      <td>Trade Desk SSE / Polling</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="p-3 mt-3 rounded bg-light border text-muted" style="font-size: 0.72rem; line-height: 1.5;">
+                <div class="fw-bold text-dark mb-1"><i class="bi bi-layers-fill text-primary me-1"></i> Single Roof Trade Desk Dispatch:</div>
+                When an officer types a response in this console, the system checks whether the inquiry originated from WhatsApp, Instagram, Facebook, or the Website. Outbound messages are automatically dispatched to the buyer's original platform and saved to the audit ledger.
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="modal-footer bg-light py-2 px-3 border-top">
+          <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal" style="font-size: 0.75rem;">Close</button>
+        </div>
+
+      </div>
+    </div>
   </div>
 
   <script src="admin-layout.js"></script>
@@ -1519,16 +2103,139 @@ $csrfToken = getCsrfToken();
       });
     });
 
+    let activeChannelFilter = 'all';
+
+    // Channel Filter Pills Listener
+    document.querySelectorAll('.channel-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('.channel-pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        activeChannelFilter = pill.dataset.channel || 'all';
+        fetchSessions();
+      });
+    });
+
+    // Channel Filter Slider Arrows
+    const channelSlider = document.getElementById('channelFilterPills');
+    const btnSlidePrev = document.getElementById('btnChannelSlidePrev');
+    const btnSlideNext = document.getElementById('btnChannelSlideNext');
+    if (btnSlidePrev && channelSlider) {
+      btnSlidePrev.addEventListener('click', () => {
+        channelSlider.scrollBy({ left: -90, behavior: 'smooth' });
+      });
+    }
+    if (btnSlideNext && channelSlider) {
+      btnSlideNext.addEventListener('click', () => {
+        channelSlider.scrollBy({ left: 90, behavior: 'smooth' });
+      });
+    }
+
+    // High-Resolution Vector Flag Resolver (Fixes Windows Desktop plain-text emoji bug)
+    function inferCountryCode(country, code) {
+      if (code && code !== 'XX' && code !== 'T1') return code.toLowerCase();
+      const c = (country || '').toLowerCase();
+      if (c.includes('china')) return 'cn';
+      if (c.includes('emirates') || c.includes('uae')) return 'ae';
+      if (c.includes('pakistan')) return 'pk';
+      if (c.includes('united states') || c.includes('usa')) return 'us';
+      if (c.includes('saudi')) return 'sa';
+      if (c.includes('united kingdom') || c.includes('uk')) return 'gb';
+      if (c.includes('india')) return 'in';
+      if (c.includes('turkey') || c.includes('turkiye')) return 'tr';
+      if (c.includes('germany')) return 'de';
+      if (c.includes('japan')) return 'jp';
+      if (c.includes('korea')) return 'kr';
+      if (c.includes('singapore')) return 'sg';
+      if (c.includes('malaysia')) return 'my';
+      if (c.includes('oman')) return 'om';
+      if (c.includes('qatar')) return 'qa';
+      if (c.includes('kuwait')) return 'kw';
+      if (c.includes('bahrain')) return 'bh';
+      if (c.includes('vietnam')) return 'vn';
+      if (c.includes('thailand')) return 'th';
+      if (c.includes('indonesia')) return 'id';
+      return '';
+    }
+
+    function getCountryFlagHtml(country, code, fallbackEmoji = '') {
+      const c = inferCountryCode(country, code);
+      if (!c) {
+        return `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-inline-block me-1.5" style="vertical-align: -1.5px; color: #64748B;"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>`;
+      }
+      return `<img src="https://flagcdn.com/${c}.svg" width="16" height="12" alt="${c.toUpperCase()}" class="country-flag-icon me-1.5" style="vertical-align: -1.5px; display: inline-block; object-fit: cover; border-radius: 2px; box-shadow: 0 1px 2px rgba(0,0,0,0.18); border: 1px solid rgba(0,0,0,0.08);" onerror="this.outerHTML='<span class=\\'me-1.5 fw-bold font-monospace\\' style=\\'font-size:0.75rem;\\'>${fallbackEmoji || c.toUpperCase()}</span>'">`;
+    }
+
+    // High-Quality Official Brand Vector SVG Badge for Channel Overlay on Avatar (Zero White Circle)
+    function getChannelAvatarBadge(channel) {
+      const ch = (channel || 'web').toLowerCase();
+      if (ch === 'whatsapp') {
+        return `<span class="conv-channel-badge conv-channel-badge--whatsapp" title="Channel: WhatsApp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path fill="#25D366" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2z"/>
+            <path fill="#FFFFFF" d="M17.5 14.33c-.28-.14-1.65-.81-1.9-.91-.26-.09-.45-.14-.64.14-.19.28-.73.91-.9 1.1-.16.19-.33.21-.61.07-.28-.14-1.18-.44-2.25-1.39-.83-.74-1.4-1.66-1.56-1.94-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.47.09-.19.05-.35-.02-.5-.07-.14-.64-1.54-.87-2.11-.23-.56-.47-.48-.64-.49-.17-.01-.36-.01-.56-.01-.19 0-.5.07-.76.35-.26.28-1 1-1 2.43s1.03 2.82 1.17 3.01c.14.19 2.02 3.1 4.9 4.35 2.87 1.25 2.87.83 3.39.79.52-.05 1.65-.67 1.88-1.33.23-.65.23-1.22.16-1.33-.07-.12-.26-.19-.54-.33z"/>
+          </svg>
+        </span>`;
+      }
+      if (ch === 'facebook') {
+        return `<span class="conv-channel-badge conv-channel-badge--facebook" title="Channel: Facebook Messenger">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path fill="#0084FF" d="M12 2C6.48 2 2 6.15 2 11.26c0 2.91 1.45 5.52 3.73 7.18v3.56l3.42-1.88c.9.25 1.86.39 2.85.39 5.52 0 10-4.15 10-9.25C22 6.15 17.52 2 12 2z"/>
+            <path fill="#FFFFFF" d="m6.8 13.7 3.3-3.5 2.5 2.5 4.6-4.5-3.3 3.5-2.5-2.5z"/>
+          </svg>
+        </span>`;
+      }
+      if (ch === 'instagram') {
+        return `<span class="conv-channel-badge conv-channel-badge--instagram" title="Channel: Instagram Direct">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <defs>
+              <linearGradient id="igAvatarGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#FFD600"/>
+                <stop offset="25%" stop-color="#FF0069"/>
+                <stop offset="50%" stop-color="#D300C5"/>
+                <stop offset="75%" stop-color="#7638FA"/>
+                <stop offset="100%" stop-color="#00B2FE"/>
+              </linearGradient>
+            </defs>
+            <rect width="24" height="24" rx="6.5" fill="url(#igAvatarGrad)"/>
+            <rect x="5.5" y="5.5" width="13" height="13" rx="3.5" stroke="#FFFFFF" stroke-width="1.8"/>
+            <circle cx="12" cy="12" r="3.2" stroke="#FFFFFF" stroke-width="1.8"/>
+            <circle cx="15.8" cy="8.2" r="0.9" fill="#FFFFFF"/>
+          </svg>
+        </span>`;
+      }
+      // Default: Web (Balochistan Minerals Chatbot Buddy Diamond)
+      return `<span class="conv-channel-badge conv-channel-badge--web" title="Channel: Website Chatbot Buddy">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <rect width="24" height="24" rx="6" fill="#0F172A"/>
+          <path d="M6 5h12l4 5-10 10L2 10z" stroke="#F59E0B" stroke-width="1.8" stroke-linejoin="round" fill="none"/>
+          <path d="M10.5 5v5l-3.5 2.5M13.5 5v5l3.5 2.5" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </span>`;
+    }
+
     // Fetch Sessions Poll
     async function fetchSessions() {
       try {
-        const res = await fetch(`api-chat-admin.php?action=poll_sessions&filter=${encodeURIComponent(activeFilter)}`);
+        const res = await fetch(`api-chat-admin.php?action=poll_sessions&filter=${encodeURIComponent(activeFilter)}&channel=${encodeURIComponent(activeChannelFilter)}`);
         const data = await res.json();
         if (data.success) {
           document.getElementById('countActive').textContent = data.active_count || 0;
           document.getElementById('countWaiting').textContent = data.waiting_count || 0;
           document.getElementById('countMy').textContent = data.my_count || 0;
           
+          // Channel Counts
+          const totalChan = (data.web_count || 0) + (data.whatsapp_count || 0) + (data.instagram_count || 0) + (data.facebook_count || 0);
+          const cAll = document.getElementById('countAllChannels');
+          if (cAll) cAll.textContent = totalChan;
+          const cWeb = document.getElementById('countWeb');
+          if (cWeb) cWeb.textContent = data.web_count || 0;
+          const cWa = document.getElementById('countWhatsApp');
+          if (cWa) cWa.textContent = data.whatsapp_count || 0;
+          const cIg = document.getElementById('countInstagram');
+          if (cIg) cIg.textContent = data.instagram_count || 0;
+          const cFb = document.getElementById('countFacebook');
+          if (cFb) cFb.textContent = data.facebook_count || 0;
+
           const sideBadge = document.getElementById('sidebarWaitingBadge');
           if (sideBadge) {
             sideBadge.textContent = data.waiting_count || 0;
@@ -1536,6 +2243,17 @@ $csrfToken = getCsrfToken();
           }
 
           renderConversationsList(data.sessions || []);
+
+          // Auto-select active or first session so chat console is immediately loaded and visible
+          if (data.sessions && data.sessions.length > 0) {
+            const savedSessionId = parseInt(localStorage.getItem('bm_active_chat_session') || '0', 10);
+            if (!currentSessionId) {
+              const target = data.sessions.find(s => s.id === savedSessionId) || data.sessions[0];
+              if (target) {
+                selectSession(target.id);
+              }
+            }
+          }
         }
       } catch (err) {}
     }
@@ -1563,32 +2281,34 @@ $csrfToken = getCsrfToken();
         const isWaiting = s.status === 'waiting_human';
         const isActive = s.id === currentSessionId;
         const statusBadge = isWaiting
-          ? '<span class="badge-status-waiting">WAITING</span>'
+          ? '<span class="badge-status-waiting"><span class="status-dot"></span>WAITING</span>'
           : (s.status === 'agent_active' 
-              ? '<span class="badge-status-live">LIVE</span>'
-              : '<span class="badge-status-bot">AI BOT</span>');
+              ? '<span class="badge-status-live"><span class="status-dot"></span>LIVE</span>'
+              : '<span class="badge-status-bot"><span class="status-dot"></span>BOT</span>');
 
         const unread = s.unread_admin > 0 ? `<span class="badge-status-unread">${s.unread_admin}</span>` : '';
         const nameStr = s.display_name || s.name || `Buyer #${1000 + s.id}`;
         const initial = (nameStr.replace(/[^a-zA-Z]/g, '') || 'B').charAt(0).toUpperCase();
-        const flag = (s.flag && s.flag !== '🌐') ? s.flag : '';
+        const flagHtml = getCountryFlagHtml(s.country, s.country_code, s.flag);
         let locSnippet = '';
-        if (flag) {
-          locSnippet = `<span class="me-1">${flag}</span> ${escapeHtml(s.country || 'International')}${s.city ? ` (${escapeHtml(s.city)})` : ''}`;
+        if (s.country && s.country !== 'International') {
+          locSnippet = `${flagHtml}<span>${escapeHtml(s.country)}${s.city ? ` (${escapeHtml(s.city)})` : ''}</span>`;
         } else {
-          locSnippet = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-inline-block me-1" style="vertical-align: -1px; color: #64748B;"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>International`;
+          locSnippet = `${flagHtml}<span>International</span>`;
         }
+
+        const channelBadge = getChannelAvatarBadge(s.channel);
 
         return `
           <div class="conv-item ${isWaiting ? 'is-waiting' : ''} ${isActive ? 'active' : ''}" onclick="selectSession(${s.id})">
             <div class="conv-avatar">
               <span>${initial}</span>
-              ${flag ? `<span class="conv-avatar-flag">${flag}</span>` : ''}
+              ${channelBadge}
             </div>
             <div class="conv-content">
               <div class="conv-top-line">
-                <span class="conv-name">${escapeHtml(nameStr)}</span>
-                <span class="conv-time">${s.last_time || ''}</span>
+                <span class="conv-name text-truncate" title="${escapeHtml(nameStr)}">${escapeHtml(nameStr)}</span>
+                <span class="conv-time flex-shrink-0">${s.last_time || ''}</span>
               </div>
               <div class="conv-subline">
                 <span>${locSnippet}</span>
@@ -1614,6 +2334,7 @@ $csrfToken = getCsrfToken();
     // Select a Session
     async function selectSession(sessionId) {
       currentSessionId = sessionId;
+      try { localStorage.setItem('bm_active_chat_session', sessionId); } catch (e) {}
       lastMessageId = 0;
       setDossierEditing(false);
       document.body.classList.add('mobile-view-chat');
@@ -1725,18 +2446,10 @@ $csrfToken = getCsrfToken();
       const titleTextEl = document.getElementById('chatHeaderTitleText');
       if (titleTextEl) titleTextEl.textContent = vName;
 
-      const headerInitial = document.getElementById('chatHeaderInitial');
-      if (headerInitial) {
-        headerInitial.textContent = (vName.replace(/[^a-zA-Z]/g, '') || 'B').charAt(0).toUpperCase();
-      }
-      const headerFlag = document.getElementById('chatHeaderFlag');
-      if (headerFlag) {
-        if (s.flag && s.flag !== '🌐') {
-          headerFlag.textContent = s.flag;
-          headerFlag.style.display = 'inline';
-        } else {
-          headerFlag.style.display = 'none';
-        }
+      const headerAvatar = document.getElementById('chatHeaderAvatar');
+      if (headerAvatar) {
+        const initial = (vName.replace(/[^a-zA-Z]/g, '') || 'B').charAt(0).toUpperCase();
+        headerAvatar.innerHTML = `<span>${initial}</span>${getChannelAvatarBadge(s.channel)}`;
       }
 
       const globeSvgSmall = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-inline-block me-1" style="vertical-align: -1.5px; color: #475569;"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>`;
@@ -1744,10 +2457,11 @@ $csrfToken = getCsrfToken();
 
       const countryEl = document.getElementById('chatHeaderCountry');
       if (countryEl) {
-        if (s.flag && s.flag !== '🌐') {
-          countryEl.innerHTML = `<span class="me-1">${s.flag}</span> <span>${escapeHtml(s.country || 'International')}${s.city ? ` (${escapeHtml(s.city)})` : ''}</span>`;
+        const flagHtml = getCountryFlagHtml(s.country, s.country_code, s.flag);
+        if (s.country && s.country !== 'International') {
+          countryEl.innerHTML = `${flagHtml}<span>${escapeHtml(s.country)}${s.city ? ` (${escapeHtml(s.city)})` : ''}</span>`;
         } else {
-          countryEl.innerHTML = `${globeSvgSmall}<span>International</span>`;
+          countryEl.innerHTML = `${flagHtml}<span>International</span>`;
         }
       }
 
@@ -1755,7 +2469,40 @@ $csrfToken = getCsrfToken();
       if (localTimeEl) localTimeEl.textContent = s.local_time_str || '—';
 
       const pathEl = document.getElementById('chatHeaderSubPath');
-      if (pathEl) pathEl.textContent = s.page || s.current_page || '/';
+      if (pathEl) {
+        if (s.channel === 'whatsapp') {
+          pathEl.textContent = 'WhatsApp Direct';
+        } else if (s.channel === 'instagram') {
+          pathEl.textContent = 'Instagram Direct';
+        } else if (s.channel === 'facebook') {
+          pathEl.textContent = 'Facebook Messenger';
+        } else {
+          pathEl.textContent = s.page || s.current_page || '/';
+        }
+      }
+
+      // Channel Header & Dossier Updates
+      const headerChannelBadge = document.getElementById('chatHeaderChannelBadge');
+      if (headerChannelBadge) {
+        headerChannelBadge.innerHTML = ''; // Keep header title clean and uncluttered as requested
+      }
+      const originLabel = document.getElementById('chatHeaderOriginLabel');
+      if (originLabel) {
+        originLabel.textContent = (s.channel && s.channel !== 'web') ? 'Origin:' : 'Viewing:';
+      }
+      const dosChannelBadge = document.getElementById('dosChannelBadge');
+      if (dosChannelBadge) {
+        dosChannelBadge.outerHTML = s.channel_badge_html ? s.channel_badge_html.replace('badge-channel-item', 'badge-channel-item me-1') : `<span id="dosChannelBadge" class="badge-channel-item badge-channel-web"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1.5px;flex-shrink:0;"><path d="M6 3h12l4 6-10 12L2 9z"></path><path d="M11 3v6l-4 3"></path><path d="M13 3v6l4 3"></path></svg> <span>Chatbot Buddy</span></span>`;
+      }
+      const dosChannelIdText = document.getElementById('dosChannelIdText');
+      if (dosChannelIdText) {
+        if (s.channel_id && s.channel !== 'whatsapp') {
+          dosChannelIdText.textContent = `· @${s.channel_id.replace(/^@/, '')}`;
+          dosChannelIdText.className = 'text-muted fw-semibold small';
+        } else {
+          dosChannelIdText.textContent = '';
+        }
+      }
 
       // Dossier Updates
       const dosTimezone = document.getElementById('dosTimezone');
@@ -1770,10 +2517,11 @@ $csrfToken = getCsrfToken();
 
       const dosCountryView = document.getElementById('dosCountryView');
       if (dosCountryView) {
-        if (s.flag && s.flag !== '🌐') {
-          dosCountryView.innerHTML = `<span class="me-1">${s.flag}</span> <span>${escapeHtml(s.country || 'International')}${s.city ? ` (${escapeHtml(s.city)})` : ''}</span>`;
+        const flagHtml = getCountryFlagHtml(s.country, s.country_code, s.flag);
+        if (s.country && s.country !== 'International') {
+          dosCountryView.innerHTML = `${flagHtml}<span>${escapeHtml(s.country)}${s.city ? ` (${escapeHtml(s.city)})` : ''}</span>`;
         } else {
-          dosCountryView.innerHTML = `${globeSvgMedium}<span>International</span>`;
+          dosCountryView.innerHTML = `${flagHtml}<span>International</span>`;
         }
       }
 
@@ -1802,11 +2550,13 @@ $csrfToken = getCsrfToken();
         if (s.phone) {
           const cleanDigits = s.phone.replace(/[^\d]/g, '');
           const waUrl = `https://wa.me/${cleanDigits}`;
+          const hqWaVector = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><path fill="#25D366" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2z"/><path fill="#FFFFFF" d="M17.5 14.33c-.28-.14-1.65-.81-1.9-.91-.26-.09-.45-.14-.64.14-.19.28-.73.91-.9 1.1-.16.19-.33.21-.61.07-.28-.14-1.18-.44-2.25-1.39-.83-.74-1.4-1.66-1.56-1.94-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.47.09-.19.05-.35-.02-.5-.07-.14-.64-1.54-.87-2.11-.23-.56-.47-.48-.64-.49-.17-.01-.36-.01-.56-.01-.19 0-.5.07-.76.35-.26.28-1 1-1 2.43s1.03 2.82 1.17 3.01c.14.19 2.02 3.1 4.9 4.35 2.87 1.25 2.87.83 3.39.79.52-.05 1.65-.67 1.88-1.33.23-.65.23-1.22.16-1.33-.07-.12-.26-.19-.54-.33z"/></svg>`;
           dosPhoneView.innerHTML = `
-            <div class="d-flex align-items-center justify-content-between gap-1">
-              <span class="font-monospace">${escapeHtml(s.phone)}</span>
-              <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-xs btn-success text-white py-0 px-1.5 d-inline-flex align-items-center gap-1" style="font-size:0.67rem; border-radius:4px;" title="Chat directly with buyer on WhatsApp">
-                <i class="bi bi-whatsapp"></i> Chat
+            <div class="d-flex align-items-center justify-content-between gap-2">
+              <span class="fw-semibold text-dark font-monospace" style="font-size:0.80rem;">${escapeHtml(s.phone)}</span>
+              <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn-dossier-wa-action" title="Open direct WhatsApp conversation with buyer">
+                ${hqWaVector}
+                <span>Direct Chat</span>
               </a>
             </div>
           `;
@@ -1816,12 +2566,71 @@ $csrfToken = getCsrfToken();
       }
       if (!isDossierEditing) document.getElementById('inputDosPhone').value = s.phone || '';
 
-      // Current page link
+      // Current page / channel origin link
       const curPage = s.page || s.current_page || '/';
-      const pageText = document.getElementById('dosPageText');
-      if (pageText) pageText.textContent = curPage;
-      const pageLink = document.getElementById('dosPageLink');
-      if (pageLink) pageLink.href = curPage;
+      const pageView = document.getElementById('dosPageView');
+      const pageRowLabel = document.getElementById('dosPageRowLabel');
+      
+      if (s.channel === 'whatsapp') {
+        if (pageRowLabel) pageRowLabel.textContent = 'Channel Source';
+        if (pageView) {
+          pageView.innerHTML = `
+            <div class="d-flex align-items-center justify-content-between p-1.5 px-2 rounded" style="background:#F0FDF4; border:1px solid #BBF7D0;">
+              <div class="d-flex align-items-center gap-1.5">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path fill="#25D366" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2z"/><path fill="#FFFFFF" d="M17.5 14.33c-.28-.14-1.65-.81-1.9-.91-.26-.09-.45-.14-.64.14-.19.28-.73.91-.9 1.1-.16.19-.33.21-.61.07-.28-.14-1.18-.44-2.25-1.39-.83-.74-1.4-1.66-1.56-1.94-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.47.09-.19.05-.35-.02-.5-.07-.14-.64-1.54-.87-2.11-.23-.56-.47-.48-.64-.49-.17-.01-.36-.01-.56-.01-.19 0-.5.07-.76.35-.26.28-1 1-1 2.43s1.03 2.82 1.17 3.01c.14.19 2.02 3.1 4.9 4.35 2.87 1.25 2.87.83 3.39.79.52-.05 1.65-.67 1.88-1.33.23-.65.23-1.22.16-1.33-.07-.12-.26-.19-.54-.33z"/></svg>
+                <span class="fw-semibold text-dark" style="font-size:0.73rem;">WhatsApp Mobile Linked</span>
+              </div>
+              <button type="button" class="btn btn-xs btn-outline-success py-0.5 px-2 fw-semibold" id="dosWaQuickBtn" style="font-size:0.67rem; border-radius:4px;" title="View QR Login and Meta Hub">
+                Manage
+              </button>
+            </div>
+          `;
+          const waQuick = document.getElementById('dosWaQuickBtn');
+          if (waQuick) {
+            waQuick.addEventListener('click', () => {
+              const metaBtn = document.getElementById('btnMetaHub');
+              if (metaBtn) metaBtn.click();
+            });
+          }
+        }
+      } else if (s.channel === 'instagram' || s.channel === 'facebook') {
+        if (pageRowLabel) pageRowLabel.textContent = 'Channel Source';
+        const isIg = s.channel === 'instagram';
+        const igSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="igSourceGrad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#FFD600"/><stop offset="25%" stop-color="#FF0069"/><stop offset="50%" stop-color="#D300C5"/><stop offset="75%" stop-color="#7638FA"/><stop offset="100%" stop-color="#00B2FE"/></linearGradient></defs><rect width="24" height="24" rx="6" fill="url(#igSourceGrad)"/><rect x="5.5" y="5.5" width="13" height="13" rx="3.5" stroke="#FFFFFF" stroke-width="1.8"/><circle cx="12" cy="12" r="3.2" stroke="#FFFFFF" stroke-width="1.8"/><circle cx="15.8" cy="8.2" r="0.9" fill="#FFFFFF"/></svg>`;
+        const fbSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path fill="#0084FF" d="M12 2C6.48 2 2 6.15 2 11.26c0 2.91 1.45 5.52 3.73 7.18v3.56l3.42-1.88c.9.25 1.86.39 2.85.39 5.52 0 10-4.15 10-9.25C22 6.15 17.52 2 12 2z"/><path fill="#FFFFFF" d="m6.8 13.7 3.3-3.5 2.5 2.5 4.6-4.5-3.3 3.5-2.5-2.5z"/></svg>`;
+        if (pageView) {
+          pageView.innerHTML = `
+            <div class="d-flex align-items-center justify-content-between p-1.5 px-2 rounded" style="background:#F8FAFC; border:1px solid #E2E8F0;">
+              <div class="d-flex align-items-center gap-1.5">
+                ${isIg ? igSvg : fbSvg}
+                <span class="fw-semibold text-dark" style="font-size:0.73rem;">${isIg ? 'Instagram Direct' : 'Facebook Messenger'}</span>
+              </div>
+              <button type="button" class="btn btn-xs btn-outline-primary py-0.5 px-2 fw-semibold" id="dosMetaQuickBtn" style="font-size:0.67rem; border-radius:4px;" title="Manage Meta Account">
+                Settings
+              </button>
+            </div>
+          `;
+          const metaQuick = document.getElementById('dosMetaQuickBtn');
+          if (metaQuick) {
+            metaQuick.addEventListener('click', () => {
+              const metaBtn = document.getElementById('btnMetaHub');
+              if (metaBtn) metaBtn.click();
+            });
+          }
+        }
+      } else {
+        if (pageRowLabel) pageRowLabel.textContent = 'Current Page';
+        const isExternal = curPage.startsWith('http');
+        const cleanHref = isExternal ? curPage : (curPage.startsWith('/') ? `..${curPage}` : `../${curPage}`);
+        if (pageView) {
+          pageView.innerHTML = `
+            <a href="${cleanHref}" target="_blank" id="dosPageLink" class="text-dark text-decoration-none d-inline-flex align-items-center gap-1.5 p-1 px-2 rounded" style="background:#F8FAFC; border:1px solid #CBD5E1; font-size:0.73rem; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-weight:500;">
+              <i class="bi bi-box-arrow-up-right text-primary" style="font-size:0.70rem;"></i>
+              <span id="dosPageText">${escapeHtml(curPage)}</span>
+            </a>
+          `;
+        }
+      }
 
       // Mineral interest
       const mineralText = s.mineral || s.mineral_interest || 'Export Minerals';
@@ -2050,8 +2859,10 @@ $csrfToken = getCsrfToken();
       } catch (err) {}
     }
 
-    document.getElementById('btnConvertToRfq').addEventListener('click', convertSessionToRfq);
-    document.getElementById('dosBtnRfq').addEventListener('click', convertSessionToRfq);
+    const btnConvertToRfq = document.getElementById('btnConvertToRfq');
+    if (btnConvertToRfq) btnConvertToRfq.addEventListener('click', convertSessionToRfq);
+    const dosBtnRfq = document.getElementById('dosBtnRfq');
+    if (dosBtnRfq) dosBtnRfq.addEventListener('click', convertSessionToRfq);
 
     function escapeHtml(str) {
       return String(str || '')
@@ -2062,23 +2873,243 @@ $csrfToken = getCsrfToken();
         .replace(/'/g, '&#39;');
     }
 
-    // Auto-poll loop every 2.5 seconds
-    fetchSessions();
-    pollInterval = setInterval(() => {
-      fetchSessions();
-      if (currentSessionId) {
-        fetchMessages(false, true);
+    // =========================================================================
+    // META ACCOUNTS & CHANNELS HUB CONTROLLER
+    // =========================================================================
+    let metaHubModalInstance = null;
+
+    function getMetaModal() {
+      if (!metaHubModalInstance && window.bootstrap && bootstrap.Modal) {
+        metaHubModalInstance = new bootstrap.Modal(document.getElementById('metaHubModal'));
       }
-    }, 2500);
-
-    function escapeHtml(str) {
-      return String(str || '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
+      return metaHubModalInstance;
     }
+
+    document.getElementById('btnMetaHub').addEventListener('click', async () => {
+      const modal = getMetaModal();
+      if (modal) modal.show();
+      await refreshWhatsAppCompanionStatus();
+      await loadMetaSettings();
+    });
+
+    // 1. WhatsApp Companion Handlers
+    async function refreshWhatsAppCompanionStatus() {
+      const container = document.getElementById('waQrContainer');
+      const badge = document.getElementById('waStatusBadge');
+      const phoneEl = document.getElementById('waConnectedPhone');
+      const matrixWa = document.getElementById('matrixWaStatus');
+
+      try {
+        const res = await fetch('../api/whatsapp-companion.php?action=get_status');
+        const data = await res.json();
+        if (data.success) {
+          if (data.is_connected) {
+            badge.innerHTML = `<span class="badge bg-success d-inline-flex align-items-center gap-1"><i class="bi bi-check-circle-fill"></i> Connected (${escapeHtml(data.phone)})</span>`;
+            if (matrixWa) {
+              matrixWa.innerHTML = `Connected (${escapeHtml(data.phone)})`;
+              matrixWa.className = 'badge bg-success';
+            }
+            container.innerHTML = `
+              <div class="p-4 text-center">
+                <i class="bi bi-phone-fill text-success" style="font-size: 3rem;"></i>
+                <div class="fw-bold mt-2 text-dark">WhatsApp Companion Linked</div>
+                <div class="small text-muted font-monospace">${escapeHtml(data.phone)}</div>
+                <div class="small text-success mt-1"><i class="bi bi-shield-check"></i> Multi-device sync active</div>
+              </div>
+            `;
+          } else {
+            badge.innerHTML = `<span class="badge bg-warning text-dark d-inline-flex align-items-center gap-1"><i class="bi bi-qr-code-scan"></i> Standby (Scan QR)</span>`;
+            if (matrixWa) {
+              matrixWa.innerHTML = 'Standby';
+              matrixWa.className = 'badge bg-secondary';
+            }
+            if (data.qr_svg) {
+              container.innerHTML = data.qr_svg;
+            }
+          }
+          if (phoneEl) phoneEl.textContent = data.phone || '+92 334 8888104';
+        }
+      } catch (e) {
+        if (badge) badge.innerHTML = `<span class="badge bg-danger">Error fetching status</span>`;
+      }
+    }
+
+    // Refresh QR Button
+    document.getElementById('btnRefreshWaQr').addEventListener('click', async () => {
+      const container = document.getElementById('waQrContainer');
+      container.innerHTML = '<div class="spinner-border text-success" role="status"></div>';
+      try {
+        const res = await fetch('../api/whatsapp-companion.php?action=generate_qr');
+        const data = await res.json();
+        if (data.success && data.qr_svg) {
+          container.innerHTML = data.qr_svg;
+          const badge = document.getElementById('waStatusBadge');
+          if (badge) badge.innerHTML = `<span class="badge bg-warning text-dark d-inline-flex align-items-center gap-1"><i class="bi bi-qr-code-scan"></i> Awaiting Phone Scan</span>`;
+        }
+      } catch (e) {}
+    });
+
+    // Disconnect Button
+    document.getElementById('btnDisconnectWa').addEventListener('click', async () => {
+      if (!confirm('Disconnect WhatsApp Companion multi-device session?')) return;
+      try {
+        await fetch('../api/whatsapp-companion.php?action=disconnect');
+        await refreshWhatsAppCompanionStatus();
+      } catch (e) {}
+    });
+
+    // Mark Linked / Quick Confirm
+    document.getElementById('btnQuickConfirmPair').addEventListener('click', async () => {
+      const p = prompt('Confirm phone number authorized for WhatsApp Web Companion:', '+92 334 8888104');
+      if (!p) return;
+      try {
+        await fetch('../api/whatsapp-companion.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'confirm_pairing', phone: p })
+        });
+        await refreshWhatsAppCompanionStatus();
+      } catch (e) {}
+    });
+
+    // Run Simulated WhatsApp Message
+    document.getElementById('btnRunWaSimulation').addEventListener('click', async () => {
+      const phone = document.getElementById('simWaPhone').value.trim();
+      const name = document.getElementById('simWaName').value.trim();
+      const msg = document.getElementById('simWaMsg').value.trim();
+      const resEl = document.getElementById('simWaResult');
+
+      if (!msg) return;
+      resEl.style.display = 'block';
+      resEl.innerHTML = '<span class="text-muted"><i class="bi bi-hourglass-split"></i> Ingesting message...</span>';
+
+      try {
+        const res = await fetch('../api/whatsapp-companion.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'simulate_incoming', phone, name, message: msg })
+        });
+        const data = await res.json();
+        if (data.success) {
+          resEl.innerHTML = `<span class="text-success fw-bold"><i class="bi bi-check-circle-fill"></i> Ingested into Desk! ${escapeHtml(data.flag || '')} Session #${data.session_id} created.</span>`;
+          fetchSessions();
+        } else {
+          resEl.innerHTML = `<span class="text-danger">Error: ${escapeHtml(data.error || 'Failed')}</span>`;
+        }
+      } catch (e) {
+        resEl.innerHTML = `<span class="text-danger">Request failed.</span>`;
+      }
+    });
+
+    // 2. Meta Social Handlers
+    async function loadMetaSettings() {
+      try {
+        const res = await fetch('api-chat-admin.php?action=get_meta_settings');
+        const data = await res.json();
+        if (data.success) {
+          const s = data.settings || {};
+          document.getElementById('metaWebhookUrlDisplay').value = data.webhook_url || '';
+          document.getElementById('metaVerifyTokenDisplay').value = s.meta_verify_token || '';
+          document.getElementById('inputFbPageId').value = s.fb_page_id || '';
+          document.getElementById('inputIgAccountId').value = s.ig_account_id || '';
+          document.getElementById('inputFbPageToken').value = s.fb_page_access_token || '';
+          document.getElementById('inputMetaAppId').value = s.meta_app_id || '';
+          document.getElementById('inputMetaAppSecret').value = s.meta_app_secret || '';
+
+          // Update matrix badges
+          const matrixIg = document.getElementById('matrixIgStatus');
+          if (matrixIg) {
+            matrixIg.textContent = s.fb_page_access_token ? 'Active / Configured' : 'Needs Token';
+            matrixIg.className = s.fb_page_access_token ? 'badge bg-success' : 'badge bg-secondary';
+          }
+          const matrixFb = document.getElementById('matrixFbStatus');
+          if (matrixFb) {
+            matrixFb.textContent = s.fb_page_access_token ? 'Active / Configured' : 'Needs Token';
+            matrixFb.className = s.fb_page_access_token ? 'badge bg-success' : 'badge bg-secondary';
+          }
+        }
+      } catch (e) {}
+    }
+
+    // Copy buttons
+    document.getElementById('btnCopyWebhookUrl').addEventListener('click', () => {
+      const input = document.getElementById('metaWebhookUrlDisplay');
+      input.select();
+      navigator.clipboard.writeText(input.value);
+      alert('Webhook URL copied to clipboard: ' + input.value);
+    });
+    document.getElementById('btnCopyVerifyToken').addEventListener('click', () => {
+      const input = document.getElementById('metaVerifyTokenDisplay');
+      input.select();
+      navigator.clipboard.writeText(input.value);
+      alert('Verify Token copied to clipboard: ' + input.value);
+    });
+
+    // Save Meta Settings
+    document.getElementById('btnSaveMetaSettings').addEventListener('click', async () => {
+      const payload = {
+        action: 'save_meta_settings',
+        fb_page_id: document.getElementById('inputFbPageId').value.trim(),
+        ig_account_id: document.getElementById('inputIgAccountId').value.trim(),
+        fb_page_access_token: document.getElementById('inputFbPageToken').value.trim(),
+        meta_app_id: document.getElementById('inputMetaAppId').value.trim(),
+        meta_app_secret: document.getElementById('inputMetaAppSecret').value.trim(),
+      };
+
+      try {
+        const res = await fetch('api-chat-admin.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          const notice = document.getElementById('metaSettingsSaveNotice');
+          if (notice) {
+            notice.style.display = 'inline-block';
+            setTimeout(() => { notice.style.display = 'none'; }, 2500);
+          }
+          await loadMetaSettings();
+        }
+      } catch (e) {}
+    });
+
+    // Run Simulated Social Message
+    document.getElementById('btnRunSocialSimulation').addEventListener('click', async () => {
+      const channel = document.getElementById('simSocialChannel').value;
+      const name = document.getElementById('simSocialName').value.trim();
+      const country = document.getElementById('simSocialCountry').value.trim();
+      const msg = document.getElementById('simSocialMsg').value.trim();
+      const resEl = document.getElementById('simSocialResult');
+
+      if (!msg) return;
+      resEl.style.display = 'block';
+      resEl.innerHTML = '<span class="text-muted"><i class="bi bi-hourglass-split"></i> Ingesting message...</span>';
+
+      try {
+        const res = await fetch('../api/meta-webhook.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'simulate',
+            channel: channel,
+            sender_id: 'sim_' + channel + '_' + Date.now(),
+            sender_name: name,
+            country: country,
+            message: msg
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          resEl.innerHTML = `<span class="text-success fw-bold"><i class="bi bi-check-circle-fill"></i> Ingested into Desk! ${escapeHtml(channel.toUpperCase())} Session #${data.session_id} created.</span>`;
+          fetchSessions();
+        } else {
+          resEl.innerHTML = `<span class="text-danger">Error: ${escapeHtml(data.error || 'Failed')}</span>`;
+        }
+      } catch (e) {
+        resEl.innerHTML = `<span class="text-danger">Request failed.</span>`;
+      }
+    });
 
     // Auto-poll loop every 2.5 seconds
     fetchSessions();

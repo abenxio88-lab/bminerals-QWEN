@@ -76,6 +76,46 @@ function enrichSessionForAdmin(array $s): array {
     $page = trim((string)($s['current_page'] ?? ''));
     if ($page === '') $page = '/';
 
+    $channel = in_array($s['channel'] ?? 'web', ['web', 'whatsapp', 'instagram', 'facebook'], true) ? $s['channel'] : 'web';
+    $channelId = (string)($s['channel_id'] ?? '');
+
+    $svgWa = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" style="vertical-align:-1.5px;flex-shrink:0;"><path fill="#25D366" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2z"/><path fill="#FFFFFF" d="M17.5 14.33c-.28-.14-1.65-.81-1.9-.91-.26-.09-.45-.14-.64.14-.19.28-.73.91-.9 1.1-.16.19-.33.21-.61.07-.28-.14-1.18-.44-2.25-1.39-.83-.74-1.4-1.66-1.56-1.94-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.47.09-.19.05-.35-.02-.5-.07-.14-.64-1.54-.87-2.11-.23-.56-.47-.48-.64-.49-.17-.01-.36-.01-.56-.01-.19 0-.5.07-.76.35-.26.28-1 1-1 2.43s1.03 2.82 1.17 3.01c.14.19 2.02 3.1 4.9 4.35 2.87 1.25 2.87.83 3.39.79.52-.05 1.65-.67 1.88-1.33.23-.65.23-1.22.16-1.33-.07-.12-.26-.19-.54-.33z"/></svg>';
+
+    $svgIg = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" style="vertical-align:-1.5px;flex-shrink:0;"><defs><linearGradient id="igBadgeGrad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#FFD600"/><stop offset="25%" stop-color="#FF0069"/><stop offset="50%" stop-color="#D300C5"/><stop offset="75%" stop-color="#7638FA"/><stop offset="100%" stop-color="#00B2FE"/></linearGradient></defs><rect width="24" height="24" rx="6" fill="url(#igBadgeGrad)"/><rect x="5.5" y="5.5" width="13" height="13" rx="3.5" stroke="#FFFFFF" stroke-width="1.8"/><circle cx="12" cy="12" r="3.2" stroke="#FFFFFF" stroke-width="1.8"/><circle cx="15.8" cy="8.2" r="0.9" fill="#FFFFFF"/></svg>';
+
+    $svgFb = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" style="vertical-align:-1.5px;flex-shrink:0;"><path fill="#0084FF" d="M12 2C6.48 2 2 6.15 2 11.26c0 2.91 1.45 5.52 3.73 7.18v3.56l3.42-1.88c.9.25 1.86.39 2.85.39 5.52 0 10-4.15 10-9.25C22 6.15 17.52 2 12 2z"/><path fill="#FFFFFF" d="m6.8 13.7 3.3-3.5 2.5 2.5 4.6-4.5-3.3 3.5-2.5-2.5z"/></svg>';
+
+    $svgWeb = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1.5px;flex-shrink:0;"><path d="M6 3h12l4 6-10 12L2 9z"></path><path d="M11 3v6l-4 3"></path><path d="M13 3v6l4 3"></path></svg>';
+
+    $channelBadges = [
+        'whatsapp' => [
+            'name'  => 'WhatsApp',
+            'icon'  => 'bi-whatsapp',
+            'color' => '#25D366',
+            'html'  => '<span class="badge-channel-item badge-channel-whatsapp" title="WhatsApp Official Direct">' . $svgWa . ' <span>WhatsApp</span></span>',
+        ],
+        'instagram' => [
+            'name'  => 'Instagram',
+            'icon'  => 'bi-instagram',
+            'color' => '#E1306C',
+            'html'  => '<span class="badge-channel-item badge-channel-instagram" title="Instagram Direct">' . $svgIg . ' <span>Instagram</span></span>',
+        ],
+        'facebook' => [
+            'name'  => 'Facebook',
+            'icon'  => 'bi-messenger',
+            'color' => '#1877F2',
+            'html'  => '<span class="badge-channel-item badge-channel-facebook" title="Facebook Messenger">' . $svgFb . ' <span>Facebook</span></span>',
+        ],
+        'web' => [
+            'name'  => 'Chatbot Buddy',
+            'icon'  => 'bi-gem',
+            'color' => '#D97706',
+            'html'  => '<span class="badge-channel-item badge-channel-web" title="Website AI Chatbot">' . $svgWeb . ' <span>Web Desk</span></span>',
+        ],
+    ];
+
+    $channelInfo = $channelBadges[$channel] ?? $channelBadges['web'];
+
     return [
         'id'                => $id,
         'token'             => $s['session_token'],
@@ -93,6 +133,12 @@ function enrichSessionForAdmin(array $s): array {
         'local_time_str'    => $localTime,
         'page'              => $page,
         'current_page'      => $page,
+        'channel'           => $channel,
+        'channel_id'        => $channelId,
+        'channel_name'      => $channelInfo['name'],
+        'channel_icon'      => $channelInfo['icon'],
+        'channel_color'     => $channelInfo['color'],
+        'channel_badge_html'=> $channelInfo['html'],
         'mineral'           => $s['mineral_interest'] ?: 'Export Minerals',
         'mineral_interest'  => $s['mineral_interest'] ?: 'Export Minerals',
         'internal_notes'    => $s['internal_notes'] ?? '',
@@ -113,32 +159,57 @@ $action = cleanInput($json['action'] ?? $_POST['action'] ?? $_GET['action'] ?? '
 // 1. POLL / FETCH ACTIVE SESSIONS
 if ($action === 'poll_sessions') {
     $filter = cleanInput($_GET['filter'] ?? 'active');
+    $channelFilter = cleanInput($_GET['channel'] ?? 'all');
 
-    $where = "1=1";
+    $whereClauses = [];
+    $params = [];
+
     if ($filter === 'waiting') {
-        $where = "status = 'waiting_human'";
+        $whereClauses[] = "status = 'waiting_human'";
     } elseif ($filter === 'my_chats') {
-        $where = "assigned_admin_id = " . (int)$uid . " AND status = 'agent_active'";
+        $whereClauses[] = "assigned_admin_id = ? AND status = 'agent_active'";
+        $params[] = $uid;
     } elseif ($filter === 'closed') {
-        $where = "status = 'closed'";
+        $whereClauses[] = "status = 'closed'";
     } else {
         // Active desk queue shows all active visitors (conversing with AI bot, waiting for human, or claimed by agent)
-        $where = "status IN ('bot', 'waiting_human', 'agent_active')";
+        $whereClauses[] = "status IN ('bot', 'waiting_human', 'agent_active')";
     }
 
-    $stmt = $pdo->query("SELECT * FROM `chat_sessions` WHERE {$where} ORDER BY (status = 'waiting_human') DESC, last_message_at DESC LIMIT 50");
+    if ($channelFilter !== 'all' && in_array($channelFilter, ['web', 'whatsapp', 'instagram', 'facebook'], true)) {
+        if ($channelFilter === 'web') {
+            $whereClauses[] = "(channel = 'web' OR channel IS NULL OR channel = '')";
+        } else {
+            $whereClauses[] = "channel = ?";
+            $params[] = $channelFilter;
+        }
+    }
+
+    $where = implode(' AND ', $whereClauses);
+    $stmt = $pdo->prepare("SELECT * FROM `chat_sessions` WHERE {$where} ORDER BY (status = 'waiting_human') DESC, last_message_at DESC LIMIT 50");
+    $stmt->execute($params);
     $sessions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     $waitingCount = (int)$pdo->query("SELECT COUNT(*) FROM `chat_sessions` WHERE status = 'waiting_human'")->fetchColumn();
     $activeCount  = (int)$pdo->query("SELECT COUNT(*) FROM `chat_sessions` WHERE status IN ('bot', 'waiting_human', 'agent_active')")->fetchColumn();
     $myCount      = (int)$pdo->query("SELECT COUNT(*) FROM `chat_sessions` WHERE status = 'agent_active' AND assigned_admin_id = {$uid}")->fetchColumn();
 
+    // Channel-specific active metrics
+    $webCount = (int)$pdo->query("SELECT COUNT(*) FROM `chat_sessions` WHERE status IN ('bot', 'waiting_human', 'agent_active') AND (channel = 'web' OR channel IS NULL OR channel = '')")->fetchColumn();
+    $waCount  = (int)$pdo->query("SELECT COUNT(*) FROM `chat_sessions` WHERE status IN ('bot', 'waiting_human', 'agent_active') AND channel = 'whatsapp'")->fetchColumn();
+    $igCount  = (int)$pdo->query("SELECT COUNT(*) FROM `chat_sessions` WHERE status IN ('bot', 'waiting_human', 'agent_active') AND channel = 'instagram'")->fetchColumn();
+    $fbCount  = (int)$pdo->query("SELECT COUNT(*) FROM `chat_sessions` WHERE status IN ('bot', 'waiting_human', 'agent_active') AND channel = 'facebook'")->fetchColumn();
+
     echo json_encode([
-        'success'       => true,
-        'waiting_count' => $waitingCount,
-        'active_count'  => $activeCount,
-        'my_count'      => $myCount,
-        'sessions'      => array_map('enrichSessionForAdmin', $sessions),
+        'success'         => true,
+        'waiting_count'   => $waitingCount,
+        'active_count'    => $activeCount,
+        'my_count'        => $myCount,
+        'web_count'       => $webCount,
+        'whatsapp_count'  => $waCount,
+        'instagram_count' => $igCount,
+        'facebook_count'  => $fbCount,
+        'sessions'        => array_map('enrichSessionForAdmin', $sessions),
     ]);
     exit;
 }
@@ -232,12 +303,21 @@ if ($action === 'send_agent_message') {
     }
 
     $publicOfficerTitle = getCleanOfficerPublicTitle($agentName, $agentRole);
-    $msgId = logChatMessage($pdo, $sessionId, 'agent', $publicOfficerTitle, $messageText);
+    $channel = $session['channel'] ?? 'web';
+    $msgId = logChatMessage($pdo, $sessionId, 'agent', $publicOfficerTitle, $messageText, $channel);
+
+    // Route outbound reply to external Meta channels (WhatsApp, Facebook Messenger, Instagram Direct)
+    $dispatchResult = ['success' => true];
+    if ($channel !== 'web') {
+        $dispatchResult = dispatchOutboundChannelMessage($pdo, $session, $messageText);
+    }
 
     echo json_encode([
-        'success' => true,
-        'msg_id'  => $msgId,
-        'time'    => date('h:i A'),
+        'success'         => true,
+        'msg_id'          => $msgId,
+        'channel'         => $channel,
+        'dispatch_result' => $dispatchResult,
+        'time'            => date('h:i A'),
     ]);
     exit;
 }
@@ -354,6 +434,48 @@ if ($action === 'update_buyer_dossier') {
         ->execute([$name, $email, $phone, $mineral, $notes, $sessionId]);
 
     echo json_encode(['success' => true]);
+    exit;
+}
+
+// 8. GET META SETTINGS & INTEGRATION STATUS
+if ($action === 'get_meta_settings') {
+    $meta = getAllMetaSettings($pdo);
+    $isHttps = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
+    $proto = $isHttps ? 'https' : 'http';
+    $host = $_SERVER['HTTP_HOST'] ?? 'localhost:8000';
+    $webhookUrl = "{$proto}://{$host}/api/meta-webhook.php";
+
+    echo json_encode([
+        'success'      => true,
+        'settings'     => [
+            'meta_verify_token'         => $meta['meta_verify_token'] ?? '',
+            'meta_app_id'               => $meta['meta_app_id'] ?? '',
+            'meta_app_secret'           => !empty($meta['meta_app_secret']) ? '••••••••' : '',
+            'fb_page_id'                => $meta['fb_page_id'] ?? '',
+            'fb_page_access_token'      => !empty($meta['fb_page_access_token']) ? substr($meta['fb_page_access_token'], 0, 12) . '...' . substr($meta['fb_page_access_token'], -6) : '',
+            'ig_account_id'             => $meta['ig_account_id'] ?? '',
+            'whatsapp_companion_status' => $meta['whatsapp_companion_status'] ?? 'standby',
+            'whatsapp_companion_phone'  => $meta['whatsapp_companion_phone'] ?? '+92 334 8888104',
+            'whatsapp_last_sync'        => $meta['whatsapp_last_sync'] ?? '',
+        ],
+        'webhook_url'  => $webhookUrl,
+    ]);
+    exit;
+}
+
+// 9. SAVE META SETTINGS
+if ($action === 'save_meta_settings') {
+    $allowed = ['meta_verify_token', 'meta_app_id', 'meta_app_secret', 'fb_page_id', 'fb_page_access_token', 'ig_account_id', 'whatsapp_companion_phone'];
+    foreach ($allowed as $k) {
+        if (isset($json[$k])) {
+            $v = trim((string)$json[$k]);
+            // Do not overwrite with masked values
+            if (!str_contains($v, '••••')) {
+                setMetaSetting($pdo, $k, $v);
+            }
+        }
+    }
+    echo json_encode(['success' => true, 'message' => 'Meta settings updated successfully']);
     exit;
 }
 

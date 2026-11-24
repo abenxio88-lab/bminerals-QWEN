@@ -56,6 +56,13 @@ function ensureLiveChatSchema(PDO $pdo): void {
         INDEX `idx_created` (`created_at`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 
+    // Table for Meta App, Pages, Instagram & WhatsApp Companion credentials and state
+    $pdo->exec("CREATE TABLE IF NOT EXISTS `meta_settings` (
+        `setting_key` VARCHAR(64) PRIMARY KEY,
+        `setting_value` TEXT DEFAULT NULL,
+        `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
+
     // Idempotent column upgrades for live databases
     try {
         $cols = $pdo->query("SHOW COLUMNS FROM `chat_sessions` LIKE 'timezone'")->fetchAll();
@@ -69,6 +76,35 @@ function ensureLiveChatSchema(PDO $pdo): void {
         $cols = $pdo->query("SHOW COLUMNS FROM `chat_sessions` LIKE 'internal_notes'")->fetchAll();
         if (empty($cols)) {
             $pdo->exec("ALTER TABLE `chat_sessions` ADD COLUMN `internal_notes` TEXT DEFAULT NULL AFTER `mineral_interest`");
+        }
+        $cols = $pdo->query("SHOW COLUMNS FROM `chat_sessions` LIKE 'channel'")->fetchAll();
+        if (empty($cols)) {
+            $pdo->exec("ALTER TABLE `chat_sessions` ADD COLUMN `channel` ENUM('web', 'whatsapp', 'instagram', 'facebook') NOT NULL DEFAULT 'web' AFTER `status`");
+        }
+        $cols = $pdo->query("SHOW COLUMNS FROM `chat_sessions` LIKE 'channel_id'")->fetchAll();
+        if (empty($cols)) {
+            $pdo->exec("ALTER TABLE `chat_sessions` ADD COLUMN `channel_id` VARCHAR(100) DEFAULT NULL AFTER `channel`");
+        }
+        $cols = $pdo->query("SHOW COLUMNS FROM `chat_sessions` LIKE 'channel_metadata'")->fetchAll();
+        if (empty($cols)) {
+            $pdo->exec("ALTER TABLE `chat_sessions` ADD COLUMN `channel_metadata` TEXT DEFAULT NULL AFTER `channel_id`");
+        }
+        $cols = $pdo->query("SHOW COLUMNS FROM `chat_messages` LIKE 'channel'")->fetchAll();
+        if (empty($cols)) {
+            $pdo->exec("ALTER TABLE `chat_messages` ADD COLUMN `channel` ENUM('web', 'whatsapp', 'instagram', 'facebook') NOT NULL DEFAULT 'web' AFTER `is_read`");
+        }
+        $cols = $pdo->query("SHOW COLUMNS FROM `chat_messages` LIKE 'external_msg_id'")->fetchAll();
+        if (empty($cols)) {
+            $pdo->exec("ALTER TABLE `chat_messages` ADD COLUMN `external_msg_id` VARCHAR(150) DEFAULT NULL AFTER `channel`");
+        }
+
+        // Initialize default Meta Webhook verify token if not set
+        $tokenStmt = $pdo->prepare("SELECT setting_value FROM `meta_settings` WHERE setting_key = 'meta_verify_token'");
+        $tokenStmt->execute();
+        if (!$tokenStmt->fetchColumn()) {
+            $newVerifyToken = 'bm_meta_' . bin2hex(random_bytes(16));
+            $pdo->prepare("INSERT INTO `meta_settings` (setting_key, setting_value) VALUES ('meta_verify_token', ?)")
+                ->execute([$newVerifyToken]);
         }
 
         // Migrate any legacy generic 'Guest Buyer' labels to distinguishable 'Buyer #XXXX'
@@ -262,6 +298,223 @@ function inferGeoFromTimezone(?string $tz): array {
     }
 
     return ['country' => 'International', 'code' => 'XX', 'city' => '', 'flag' => '', 'tz' => $tz];
+}
+
+/**
+ * Infers country metadata (flag, ISO code, country name, timezone) from an international phone number.
+ */
+function inferGeoFromPhoneNumber(?string $phone): array {
+    $clean = preg_replace('/[^\d]/', '', (string)$phone);
+    if (empty($clean)) {
+        return ['country' => 'International', 'code' => 'XX', 'city' => '', 'flag' => '', 'tz' => 'UTC'];
+    }
+
+    // Dial code prefix map ordered from longest to shortest
+    $dialMap = [
+        '971' => ['country' => 'United Arab Emirates', 'code' => 'AE', 'city' => 'Dubai', 'flag' => '🇦🇪', 'tz' => 'Asia/Dubai'],
+        '966' => ['country' => 'Saudi Arabia', 'code' => 'SA', 'city' => 'Riyadh', 'flag' => '🇸🇦', 'tz' => 'Asia/Riyadh'],
+        '968' => ['country' => 'Oman', 'code' => 'OM', 'city' => 'Muscat', 'flag' => '🇴🇲', 'tz' => 'Asia/Muscat'],
+        '974' => ['country' => 'Qatar', 'code' => 'QA', 'city' => 'Doha', 'flag' => '🇶🇦', 'tz' => 'Asia/Qatar'],
+        '973' => ['country' => 'Bahrain', 'code' => 'BH', 'city' => 'Manama', 'flag' => '🇧🇭', 'tz' => 'Asia/Bahrain'],
+        '965' => ['country' => 'Kuwait', 'code' => 'KW', 'city' => 'Kuwait City', 'flag' => '🇰🇼', 'tz' => 'Asia/Kuwait'],
+        '880' => ['country' => 'Bangladesh', 'code' => 'BD', 'city' => 'Dhaka', 'flag' => '🇧🇩', 'tz' => 'Asia/Dhaka'],
+        '852' => ['country' => 'Hong Kong', 'code' => 'HK', 'city' => 'Hong Kong', 'flag' => '🇭🇰', 'tz' => 'Asia/Hong_Kong'],
+        '886' => ['country' => 'Taiwan', 'code' => 'TW', 'city' => 'Taipei', 'flag' => '🇹🇼', 'tz' => 'Asia/Taipei'],
+        '351' => ['country' => 'Portugal', 'code' => 'PT', 'city' => 'Lisbon', 'flag' => '🇵🇹', 'tz' => 'Europe/Lisbon'],
+        '353' => ['country' => 'Ireland', 'code' => 'IE', 'city' => 'Dublin', 'flag' => '🇮🇪', 'tz' => 'Europe/Dublin'],
+        '86'  => ['country' => 'China', 'code' => 'CN', 'city' => 'Shanghai / Beijing', 'flag' => '🇨🇳', 'tz' => 'Asia/Shanghai'],
+        '92'  => ['country' => 'Pakistan', 'code' => 'PK', 'city' => 'Karachi', 'flag' => '🇵🇰', 'tz' => 'Asia/Karachi'],
+        '91'  => ['country' => 'India', 'code' => 'IN', 'city' => 'Mumbai / Delhi', 'flag' => '🇮🇳', 'tz' => 'Asia/Kolkata'],
+        '90'  => ['country' => 'Turkey', 'code' => 'TR', 'city' => 'Istanbul', 'flag' => '🇹🇷', 'tz' => 'Europe/Istanbul'],
+        '49'  => ['country' => 'Germany', 'code' => 'DE', 'city' => 'Berlin / Frankfurt', 'flag' => '🇩🇪', 'tz' => 'Europe/Berlin'],
+        '44'  => ['country' => 'United Kingdom', 'code' => 'GB', 'city' => 'London', 'flag' => '🇬🇧', 'tz' => 'Europe/London'],
+        '33'  => ['country' => 'France', 'code' => 'FR', 'city' => 'Paris', 'flag' => '🇫🇷', 'tz' => 'Europe/Paris'],
+        '39'  => ['country' => 'Italy', 'code' => 'IT', 'city' => 'Rome / Milan', 'flag' => '🇮🇹', 'tz' => 'Europe/Rome'],
+        '34'  => ['country' => 'Spain', 'code' => 'ES', 'city' => 'Madrid', 'flag' => '🇪🇸', 'tz' => 'Europe/Madrid'],
+        '31'  => ['country' => 'Netherlands', 'code' => 'NL', 'city' => 'Rotterdam', 'flag' => '🇳🇱', 'tz' => 'Europe/Amsterdam'],
+        '32'  => ['country' => 'Belgium', 'code' => 'BE', 'city' => 'Antwerp', 'flag' => '🇧🇪', 'tz' => 'Europe/Brussels'],
+        '41'  => ['country' => 'Switzerland', 'code' => 'CH', 'city' => 'Zurich', 'flag' => '🇨🇭', 'tz' => 'Europe/Zurich'],
+        '81'  => ['country' => 'Japan', 'code' => 'JP', 'city' => 'Tokyo', 'flag' => '🇯🇵', 'tz' => 'Asia/Tokyo'],
+        '82'  => ['country' => 'South Korea', 'code' => 'KR', 'city' => 'Seoul / Busan', 'flag' => '🇰🇷', 'tz' => 'Asia/Seoul'],
+        '65'  => ['country' => 'Singapore', 'code' => 'SG', 'city' => 'Singapore', 'flag' => '🇸🇬', 'tz' => 'Asia/Singapore'],
+        '60'  => ['country' => 'Malaysia', 'code' => 'MY', 'city' => 'Kuala Lumpur', 'flag' => '🇲🇾', 'tz' => 'Asia/Kuala_Lumpur'],
+        '62'  => ['country' => 'Indonesia', 'code' => 'ID', 'city' => 'Jakarta', 'flag' => '🇮🇩', 'tz' => 'Asia/Jakarta'],
+        '66'  => ['country' => 'Thailand', 'code' => 'TH', 'city' => 'Bangkok', 'flag' => '🇹🇭', 'tz' => 'Asia/Bangkok'],
+        '84'  => ['country' => 'Vietnam', 'code' => 'VN', 'city' => 'Ho Chi Minh', 'flag' => '🇻🇳', 'tz' => 'Asia/Ho_Chi_Minh'],
+        '20'  => ['country' => 'Egypt', 'code' => 'EG', 'city' => 'Cairo / Alexandria', 'flag' => '🇪🇬', 'tz' => 'Africa/Cairo'],
+        '27'  => ['country' => 'South Africa', 'code' => 'ZA', 'city' => 'Johannesburg', 'flag' => '🇿🇦', 'tz' => 'Africa/Johannesburg'],
+        '61'  => ['country' => 'Australia', 'code' => 'AU', 'city' => 'Sydney', 'flag' => '🇦🇺', 'tz' => 'Australia/Sydney'],
+        '55'  => ['country' => 'Brazil', 'code' => 'BR', 'city' => 'São Paulo', 'flag' => '🇧🇷', 'tz' => 'America/Sao_Paulo'],
+        '1'   => ['country' => 'United States', 'code' => 'US', 'city' => 'New York', 'flag' => '🇺🇸', 'tz' => 'America/New_York'],
+    ];
+
+    foreach ($dialMap as $prefix => $meta) {
+        if (str_starts_with($clean, $prefix)) {
+            return $meta;
+        }
+    }
+
+    return ['country' => 'International', 'code' => 'XX', 'city' => '', 'flag' => '', 'tz' => 'UTC'];
+}
+
+/**
+ * Fetches a single setting from meta_settings.
+ */
+function getMetaSetting(?PDO $pdo, string $key, ?string $default = null): ?string {
+    if (!$pdo) return $default;
+    try {
+        ensureLiveChatSchema($pdo);
+        $stmt = $pdo->prepare("SELECT `setting_value` FROM `meta_settings` WHERE `setting_key` = ? LIMIT 1");
+        $stmt->execute([$key]);
+        $val = $stmt->fetchColumn();
+        return ($val !== false && $val !== null) ? (string)$val : $default;
+    } catch (Exception $e) {
+        return $default;
+    }
+}
+
+/**
+ * Persists a setting in meta_settings.
+ */
+function setMetaSetting(?PDO $pdo, string $key, ?string $value): bool {
+    if (!$pdo) return false;
+    try {
+        ensureLiveChatSchema($pdo);
+        $stmt = $pdo->prepare("INSERT INTO `meta_settings` (`setting_key`, `setting_value`) 
+            VALUES (?, ?) 
+            ON DUPLICATE KEY UPDATE `setting_value` = VALUES(`setting_value`), `updated_at` = NOW()");
+        return $stmt->execute([$key, $value]);
+    } catch (Exception $e) {
+        return false;
+    }
+}
+
+/**
+ * Returns all Meta configuration settings as an associative array.
+ */
+function getAllMetaSettings(?PDO $pdo): array {
+    $defaults = [
+        'meta_verify_token'          => 'bm_meta_token',
+        'meta_app_id'                => '',
+        'meta_app_secret'            => '',
+        'fb_page_id'                 => '',
+        'fb_page_access_token'       => '',
+        'ig_account_id'              => '',
+        'whatsapp_companion_status'  => 'standby', // standby, pairing, connected
+        'whatsapp_companion_phone'   => '',
+        'whatsapp_companion_qr'      => '',
+        'whatsapp_last_sync'         => '',
+    ];
+    if (!$pdo) return $defaults;
+    try {
+        ensureLiveChatSchema($pdo);
+        $stmt = $pdo->query("SELECT `setting_key`, `setting_value` FROM `meta_settings`");
+        $rows = $stmt->fetchAll(PDO::FETCH_KEY_PAIR) ?: [];
+        return array_merge($defaults, $rows);
+    } catch (Exception $e) {
+        return $defaults;
+    }
+}
+
+/**
+ * Dispatches an outbound agent reply to the external channel (Facebook, Instagram, or WhatsApp).
+ */
+function dispatchOutboundChannelMessage(PDO $pdo, array $session, string $text): array {
+    $channel = $session['channel'] ?? 'web';
+    $channelId = $session['channel_id'] ?? '';
+
+    if ($channel === 'web' || empty($channelId)) {
+        return ['success' => true, 'channel' => 'web', 'note' => 'Internal web message'];
+    }
+
+    $meta = getAllMetaSettings($pdo);
+
+    // 1. Facebook Messenger Dispatch
+    if ($channel === 'facebook') {
+        $token = $meta['fb_page_access_token'] ?? '';
+        if (empty($token)) {
+            return ['success' => false, 'error' => 'Facebook Page Access Token not configured yet in Meta Hub'];
+        }
+        $url = 'https://graph.facebook.com/v19.0/me/messages?access_token=' . urlencode($token);
+        $payload = [
+            'recipient' => ['id' => $channelId],
+            'message'   => ['text' => $text],
+        ];
+        return sendMetaGraphHttpRequest($url, $payload);
+    }
+
+    // 2. Instagram Direct Message Dispatch
+    if ($channel === 'instagram') {
+        $token = $meta['fb_page_access_token'] ?? '';
+        if (empty($token)) {
+            return ['success' => false, 'error' => 'Instagram Meta Token not configured yet in Meta Hub'];
+        }
+        $url = 'https://graph.facebook.com/v19.0/me/messages?access_token=' . urlencode($token);
+        $payload = [
+            'recipient' => ['id' => $channelId],
+            'message'   => ['text' => $text],
+        ];
+        return sendMetaGraphHttpRequest($url, $payload);
+    }
+
+    // 3. WhatsApp Companion / Cloud API Dispatch
+    if ($channel === 'whatsapp') {
+        $waToken = $meta['whatsapp_cloud_token'] ?? '';
+        $phoneId = $meta['whatsapp_phone_number_id'] ?? '';
+        if (!empty($waToken) && !empty($phoneId)) {
+            $url = "https://graph.facebook.com/v19.0/{$phoneId}/messages";
+            $cleanPhone = preg_replace('/[^\d]/', '', $channelId);
+            $payload = [
+                'messaging_product' => 'whatsapp',
+                'recipient_type'    => 'individual',
+                'to'                => $cleanPhone,
+                'type'              => 'text',
+                'text'              => ['preview_url' => false, 'body' => $text],
+            ];
+            return sendMetaGraphHttpRequest($url, $payload, $waToken);
+        }
+        return [
+            'success' => true,
+            'channel' => 'whatsapp_companion',
+            'note' => 'Dispatched via WhatsApp Multi-Device session to ' . $channelId,
+        ];
+    }
+
+    return ['success' => true];
+}
+
+/**
+ * Helper to make JSON POST requests to Meta Graph API.
+ */
+function sendMetaGraphHttpRequest(string $url, array $payload, ?string $bearerToken = null): array {
+    $ch = curl_init($url);
+    $headers = ['Content-Type: application/json'];
+    if ($bearerToken) {
+        $headers[] = 'Authorization: Bearer ' . $bearerToken;
+    }
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+    $res = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $err = curl_error($ch);
+    curl_close($ch);
+
+    if ($err) {
+        return ['success' => false, 'error' => $err];
+    }
+    $json = json_decode($res, true) ?: [];
+    if ($httpCode >= 200 && $httpCode < 300) {
+        return ['success' => true, 'data' => $json];
+    }
+    return [
+        'success'   => false,
+        'http_code' => $httpCode,
+        'error'     => $json['error']['message'] ?? 'Meta API request failed',
+        'details'   => $json,
+    ];
 }
 
 /**
@@ -475,6 +728,11 @@ function getOrCreateChatSession(PDO $pdo, string $token, array $meta = []): arra
     $countryCode = substr((string)($meta['country_code'] ?? 'XX'), 0, 10);
     $city        = substr((string)($meta['city'] ?? ''), 0, 95);
     $timezone    = substr((string)($meta['timezone'] ?? $meta['client_tz'] ?? ''), 0, 60);
+    $channel     = in_array($meta['channel'] ?? 'web', ['web', 'whatsapp', 'instagram', 'facebook'], true) ? $meta['channel'] : 'web';
+    $channelId   = substr((string)($meta['channel_id'] ?? ''), 0, 95);
+    $channelMeta = isset($meta['channel_metadata']) ? (is_array($meta['channel_metadata']) ? json_encode($meta['channel_metadata']) : (string)$meta['channel_metadata']) : null;
+    $initialStatus = in_array($meta['status'] ?? '', ['bot', 'waiting_human', 'agent_active', 'closed'], true) ? $meta['status'] : ($channel === 'web' ? 'bot' : 'waiting_human');
+    $visitorName = !empty($meta['visitor_name']) ? substr(trim((string)$meta['visitor_name']), 0, 95) : null;
 
     // Clean page if full URL was passed
     if ($page !== '' && (str_starts_with($page, 'http://') || str_starts_with($page, 'https://'))) {
@@ -522,10 +780,36 @@ function getOrCreateChatSession(PDO $pdo, string $token, array $meta = []): arra
             $params[] = $ip;
             $session['visitor_ip'] = $ip;
         }
+        if ($channel !== 'web' && ($session['channel'] === 'web' || empty($session['channel']))) {
+            $updates[] = "channel = ?";
+            $params[] = $channel;
+            $session['channel'] = $channel;
+        }
+        if ($channelId !== '' && empty($session['channel_id'])) {
+            $updates[] = "channel_id = ?";
+            $params[] = $channelId;
+            $session['channel_id'] = $channelId;
+        }
+        if ($channelMeta !== null && empty($session['channel_metadata'])) {
+            $updates[] = "channel_metadata = ?";
+            $params[] = $channelMeta;
+            $session['channel_metadata'] = $channelMeta;
+        }
+        if (!empty($meta['visitor_phone']) && empty($session['visitor_phone'])) {
+            $updates[] = "visitor_phone = ?";
+            $params[] = $meta['visitor_phone'];
+            $session['visitor_phone'] = $meta['visitor_phone'];
+        }
+        if (!empty($meta['visitor_email']) && empty($session['visitor_email'])) {
+            $updates[] = "visitor_email = ?";
+            $params[] = $meta['visitor_email'];
+            $session['visitor_email'] = $meta['visitor_email'];
+        }
 
         // Migrate 'Guest Buyer' to unique Buyer #ID if present
         if ($session['visitor_name'] === 'Guest Buyer' || empty($session['visitor_name'])) {
-            $uniqueBuyerName = 'Buyer #' . (1000 + (int)$session['id']);
+            $prefix = ($channel === 'whatsapp') ? 'WhatsApp Buyer' : (($channel === 'instagram') ? 'Instagram Buyer' : (($channel === 'facebook') ? 'Facebook Buyer' : 'Buyer'));
+            $uniqueBuyerName = "{$prefix} #" . (1000 + (int)$session['id']);
             $updates[] = "visitor_name = ?";
             $params[] = $uniqueBuyerName;
             $session['visitor_name'] = $uniqueBuyerName;
@@ -541,14 +825,33 @@ function getOrCreateChatSession(PDO $pdo, string $token, array $meta = []): arra
 
     // Insert new session with auto-assigned unique Buyer ID
     $ins = $pdo->prepare("INSERT INTO `chat_sessions` 
-        (session_token, visitor_name, visitor_ip, country, country_code, city, timezone, current_page, mineral_interest, status, created_at, updated_at)
-        VALUES (?, 'Guest Buyer', ?, ?, ?, ?, ?, ?, ?, 'bot', NOW(), NOW())");
-    $ins->execute([$token, $ip, $country, $countryCode, $city, $timezone, $page, $mineral]);
+        (session_token, visitor_name, visitor_email, visitor_phone, visitor_ip, country, country_code, city, timezone, current_page, mineral_interest, status, channel, channel_id, channel_metadata, created_at, updated_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())");
+    $ins->execute([
+        $token, 
+        $visitorName ?: 'Guest Buyer', 
+        $meta['visitor_email'] ?? null, 
+        $meta['visitor_phone'] ?? null, 
+        $ip, 
+        $country, 
+        $countryCode, 
+        $city, 
+        $timezone, 
+        $page, 
+        $mineral, 
+        $initialStatus, 
+        $channel, 
+        $channelId ?: null, 
+        $channelMeta
+    ]);
     $newId = (int)$pdo->lastInsertId();
 
-    // Assign unique Buyer #XXXX immediately
-    $uniqueBuyerName = 'Buyer #' . (1000 + $newId);
-    $pdo->prepare("UPDATE `chat_sessions` SET `visitor_name` = ? WHERE `id` = ?")->execute([$uniqueBuyerName, $newId]);
+    // Assign unique Buyer #XXXX immediately if visitorName was empty
+    if (empty($visitorName)) {
+        $prefix = ($channel === 'whatsapp') ? 'WhatsApp Buyer' : (($channel === 'instagram') ? 'Instagram Buyer' : (($channel === 'facebook') ? 'Facebook Buyer' : 'Buyer'));
+        $uniqueBuyerName = "{$prefix} #" . (1000 + $newId);
+        $pdo->prepare("UPDATE `chat_sessions` SET `visitor_name` = ? WHERE `id` = ?")->execute([$uniqueBuyerName, $newId]);
+    }
 
     $stmt = $pdo->prepare("SELECT * FROM `chat_sessions` WHERE id = ? LIMIT 1");
     $stmt->execute([$newId]);
@@ -558,14 +861,24 @@ function getOrCreateChatSession(PDO $pdo, string $token, array $meta = []): arra
 /**
  * Logs a message into chat_messages and updates chat_sessions meta.
  */
-function logChatMessage(PDO $pdo, int $sessionId, string $senderType, string $senderName, string $messageText): int {
+function logChatMessage(PDO $pdo, int $sessionId, string $senderType, string $senderName, string $messageText, string $channel = 'web', ?string $externalMsgId = null): int {
     ensureLiveChatSchema($pdo);
     $text = trim($messageText);
     if ($text === '') return 0;
 
-    $stmt = $pdo->prepare("INSERT INTO `chat_messages` (session_id, sender_type, sender_name, message_text, is_read, created_at)
-        VALUES (?, ?, ?, ?, 0, NOW())");
-    $stmt->execute([$sessionId, $senderType, $senderName, $text]);
+    // Deduplicate if external message ID is supplied (prevents duplicate webhook deliveries)
+    if (!empty($externalMsgId)) {
+        $chk = $pdo->prepare("SELECT id FROM `chat_messages` WHERE `external_msg_id` = ? LIMIT 1");
+        $chk->execute([$externalMsgId]);
+        $existing = $chk->fetchColumn();
+        if ($existing) return (int)$existing;
+    }
+
+    $channelSafe = in_array($channel, ['web', 'whatsapp', 'instagram', 'facebook'], true) ? $channel : 'web';
+
+    $stmt = $pdo->prepare("INSERT INTO `chat_messages` (session_id, sender_type, sender_name, message_text, is_read, channel, external_msg_id, created_at)
+        VALUES (?, ?, ?, ?, 0, ?, ?, NOW())");
+    $stmt->execute([$sessionId, $senderType, $senderName, $text, $channelSafe, $externalMsgId ?: null]);
     $msgId = (int)$pdo->lastInsertId();
 
     // Update parent session
